@@ -13,17 +13,24 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPOutback extends RTGBiomeBOP {
 
     public RTGBiomeBOPOutback() {
+
         super(BOPBiomes.outback.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight;
             private float mesaWavelength;
             private float hillStrength;
-            private float topBumpinessHeight=4;
+            private float topBumpinessHeight = 4;
             private float topBumpinessWavelength = 25;
             private HeightEffect height;
             private HeightEffect groundEffect;
@@ -37,7 +44,7 @@ public class RTGBiomeBOPOutback extends RTGBiomeBOP {
 
                 // this is variation in what's added to the top. Set to vary with the "standard" ruggedness
                 HeightVariation topVariation = new HeightVariation();
-                topVariation.height = hillStrength/2;
+                topVariation.height = hillStrength / 2;
                 topVariation.octave = 1;
                 topVariation.wavelength = VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH;
 
@@ -50,18 +57,19 @@ public class RTGBiomeBOPOutback extends RTGBiomeBOP {
 
 
                 // now make the top only show up on mesa
-                HeightEffect mesaTops = new VariableRuggednessEffect(new RaiseEffect(0f),topVariation.plus(new RaiseEffect(hillStrength)).plus(topBumpiness)
-                        ,0.3f,0.15f,mesaWavelength);
+                HeightEffect mesaTops = new VariableRuggednessEffect(new RaiseEffect(0f), topVariation.plus(new RaiseEffect(hillStrength)).plus(topBumpiness)
+                    , 0.3f, 0.15f, mesaWavelength);
 
                 // and make the mesa Tops only show up part of the time, but most of the time,
                 // using the standard ruggedness wavelength
-                height = new VariableRuggednessEffect(new RaiseEffect(0f),mesaTops,-0.3f,.06f);
+                height = new VariableRuggednessEffect(new RaiseEffect(0f), mesaTops, -0.3f, .06f);
 
             }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(minHeight+groundEffect.added(rtgWorld.simplex, rtgWorld.cell,x, y),river)+height.added(rtgWorld.simplex,rtgWorld.cell, x, y);
+
+                return riverized(minHeight + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river) + height.added(rtgWorld.simplex, rtgWorld.cell, x, y);
                 //return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
             }
         };
@@ -69,17 +77,14 @@ public class RTGBiomeBOPOutback extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

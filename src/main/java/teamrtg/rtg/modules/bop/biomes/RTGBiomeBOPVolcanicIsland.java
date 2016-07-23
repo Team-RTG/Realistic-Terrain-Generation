@@ -12,13 +12,24 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
     public RTGBiomeBOPVolcanicIsland() {
+
         super(BOPBiomes.volcanic_island.get(), Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
 
     @Override
+    public void initConfig() {
+
+        config.GENERATE_EMERALDS.setDefault(true);
+        config.WATER_POND_CHANCE.set(0);
+        config.LAVA_POND_CHANCE.set(1);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float hHeight;
@@ -60,6 +71,7 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, vWidth, vHeight, hWidth, hHeight, bHeight);
             }
         };
@@ -67,6 +79,7 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -78,12 +91,5 @@ public class RTGBiomeBOPVolcanicIsland extends RTGBiomeBOP {
         decoGrassDoubleTallgrass.loops = 15;
         decoGrassDoubleTallgrass.maxY = 128;
         this.addDeco(decoGrassDoubleTallgrass);
-    }
-
-    @Override
-    public void initConfig() {
-        config.GENERATE_EMERALDS.setDefault(true);
-        config.WATER_POND_CHANCE.set(0);
-        config.LAVA_POND_CHANCE.set(1);
     }
 }

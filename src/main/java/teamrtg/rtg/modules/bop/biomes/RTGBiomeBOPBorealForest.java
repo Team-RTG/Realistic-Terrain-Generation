@@ -13,11 +13,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPBorealForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPBorealForest() {
+
         super(BOPBiomes.boreal_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 64f;
@@ -40,24 +47,21 @@ public class RTGBiomeBOPBorealForest extends RTGBiomeBOP {
 
                 groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
                 float m = hillEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y);
-                return riverized(baseHeight,river) + (groundNoise + m)*river;
+                return riverized(baseHeight, river) + (groundNoise + m) * river;
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

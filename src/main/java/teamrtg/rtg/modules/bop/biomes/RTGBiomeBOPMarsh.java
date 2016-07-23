@@ -13,11 +13,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPMarsh extends RTGBiomeBOP {
 
     public RTGBiomeBOPMarsh() {
+
         super(BOPBiomes.marsh.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 62f;
@@ -38,24 +45,22 @@ public class RTGBiomeBOPMarsh extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return baseHeight + variation.added(rtgWorld.simplex, rtgWorld.cell,x, y)+ smallVariation.added(rtgWorld.simplex, rtgWorld.cell,x, y);
+
+                return baseHeight + variation.added(rtgWorld.simplex, rtgWorld.cell, x, y) + smallVariation.added(rtgWorld.simplex, rtgWorld.cell, x, y);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceSwamp(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

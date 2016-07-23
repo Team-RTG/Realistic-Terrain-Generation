@@ -20,19 +20,27 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPShield extends RTGBiomeBOP {
 
     public RTGBiomeBOPShield() {
+
         super(BOPBiomes.shield.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase(68f) {
 
             private float start = 0f;
-            private float height =100f;
+            private float height = 100f;
             private float width = 170f;
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 200f, 64f);
             }
 
@@ -63,6 +71,7 @@ public class RTGBiomeBOPShield extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -107,10 +116,5 @@ public class RTGBiomeBOPShield extends RTGBiomeBOP {
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
         this.addDeco(decoHelperHelper5050);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

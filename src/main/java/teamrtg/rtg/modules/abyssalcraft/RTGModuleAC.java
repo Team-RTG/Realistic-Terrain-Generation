@@ -13,6 +13,7 @@ public class RTGModuleAC extends RTGModule {
     public final RealisticACBiomes biomes;
 
     public RTGModuleAC() {
+
         super("abyssalcraft", true, true);
         config = new ModConfig("abyssalcraft");
         biomes = new RealisticACBiomes();
@@ -22,16 +23,19 @@ public class RTGModuleAC extends RTGModule {
 
     /**
      * Is the mod present?
+     *
      * @return true if mod is currently installed
      * @see ModPresenceTester
      */
     @Override
     public boolean isPresent() {
+
         return false;
     }
 
     @Override
     public String getID() {
+
         return null;
     }
 }

@@ -22,10 +22,18 @@ public class RTGBiomeVanillaMegaTaigaHills extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainMountainRiver(x, y, rtgWorld.simplex, rtgWorld.cell, river, 300f, 67f);
             }
         };
@@ -33,63 +41,60 @@ public class RTGBiomeVanillaMegaTaigaHills extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceTaiga(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
-		decoBoulder.chance = 16;
-		decoBoulder.maxY = 95;
-		decoBoulder.strengthFactor = 3f;
-		this.addDeco(decoBoulder);
-        
-		this.addDecoCollection(new DecoCollectionMegaTaiga());
-        
-		DecoFallenTree decoFallenTree = new DecoFallenTree();
-		decoFallenTree.distribution.noiseDivisor = 100f;
-		decoFallenTree.distribution.noiseFactor = 6f;
-		decoFallenTree.distribution.noiseAddend = 0.8f;
-		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		decoFallenTree.logConditionNoise = 0f;
-		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
-		decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
-		decoFallenTree.minSize = 3;
-		decoFallenTree.maxSize = 6;
-		this.addDeco(decoFallenTree);        
-        
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
+        decoBoulder.chance = 16;
+        decoBoulder.maxY = 95;
+        decoBoulder.strengthFactor = 3f;
+        this.addDeco(decoBoulder);
+
+        this.addDecoCollection(new DecoCollectionMegaTaiga());
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree);
+
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;
         decoShrub.strengthFactor = 2f;
         decoShrub.chance = 10;
-		this.addDeco(decoShrub);
+        this.addDeco(decoShrub);
 
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		decoBaseBiomeDecorations.equalsZeroChance = 3;
-		this.addDeco(decoBaseBiomeDecorations);
-        
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.equalsZeroChance = 3;
+        this.addDeco(decoBaseBiomeDecorations);
+
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.maxY = 90;
         decoMushrooms.randomType = DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
         decoMushrooms.randomFloat = 3f;
         this.addDeco(decoMushrooms);
-        
-		DecoPumpkin decoPumpkin = new DecoPumpkin();
-		decoPumpkin.maxY = 90;
-		decoPumpkin.randomType = DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
-		decoPumpkin.randomFloat = 20f;
-        this.addDeco(decoPumpkin);
-        
-		DecoGrass decoGrass = new DecoGrass();
-		decoGrass.maxY = 128;
-		decoGrass.strengthFactor = 10f;
-        this.addDeco(decoGrass);
-    }
 
-    @Override
-    public void initConfig() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
+        DecoPumpkin decoPumpkin = new DecoPumpkin();
+        decoPumpkin.maxY = 90;
+        decoPumpkin.randomType = DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
+        decoPumpkin.randomFloat = 20f;
+        this.addDeco(decoPumpkin);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 128;
+        decoGrass.strengthFactor = 10f;
+        this.addDeco(decoGrass);
     }
 }

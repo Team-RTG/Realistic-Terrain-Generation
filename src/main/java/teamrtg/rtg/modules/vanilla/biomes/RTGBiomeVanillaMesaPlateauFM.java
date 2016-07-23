@@ -23,18 +23,25 @@ public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             /**
              * Values come in pairs per layer. First is how high to step up.
              * 	Second is a value between 0 and 1, signifying when to step up.
              */
-            private final float[] height = new float[] {18.5f, 0.4f};
+            private final float[] height = new float[]{18.5f, 0.4f};
             private final float strength = 20f;
             private final int heightLength = height.length;
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainPlateau(x, y, rtgWorld.simplex, river, height, biomeWeight, border, strength, heightLength, 100f, false);
             }
         };
@@ -42,11 +49,13 @@ public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfacePlateau3(this, CanyonColour.MESA);
     }
 
     @Override
     public void initDecos() {
+
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.chance = 10;
         addDeco(decoShrub);
@@ -54,7 +63,7 @@ public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
         decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
-        decoCactus.soilMeta = (byte)1;
+        decoCactus.soilMeta = (byte) 1;
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);
@@ -78,10 +87,5 @@ public class RTGBiomeVanillaMesaPlateauFM extends RTGBiomeVanilla {
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

@@ -19,15 +19,19 @@ public class RTGBiomeVanillaIcePlainsSpikes extends RTGBiomeVanilla {
     }
 
     @Override
-    public SurfacePart initSurface() {
-        return SurfaceBase.surfaceIceMix(this);
+    public void initConfig() {
+
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 200f, 65f);
             }
         };
@@ -35,14 +39,15 @@ public class RTGBiomeVanillaIcePlainsSpikes extends RTGBiomeVanilla {
 
 
     @Override
-    public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+    public SurfacePart initSurface() {
+
+        return SurfaceBase.surfaceIceMix(this);
     }
 
     @Override
-    public void initConfig() {
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

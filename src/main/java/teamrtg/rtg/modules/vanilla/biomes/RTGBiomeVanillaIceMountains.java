@@ -20,15 +20,21 @@ public class RTGBiomeVanillaIceMountains extends RTGBiomeVanilla {
     }
 
     @Override
-    public SurfacePart initSurface() {
-        return SurfaceBase.surfaceIceMix(this);
+    public void initConfig() {
+
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.SNOW.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.SNOW.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
+        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainLonelyMountain(x, y, rtgWorld.simplex, rtgWorld.cell, river, 80f, 230f, 68f);
             }
         };
@@ -36,16 +42,15 @@ public class RTGBiomeVanillaIceMountains extends RTGBiomeVanilla {
 
 
     @Override
-    public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+    public SurfacePart initSurface() {
+
+        return SurfaceBase.surfaceIceMix(this);
     }
 
     @Override
-    public void initConfig() {
-        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.SNOW.getDefaultState());
-        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.SNOW.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_1).setDefault(Blocks.PACKED_ICE.getDefaultState());
-        config.addBlock(config.CLIFF_BLOCK_2).setDefault(Blocks.ICE.getDefaultState());
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

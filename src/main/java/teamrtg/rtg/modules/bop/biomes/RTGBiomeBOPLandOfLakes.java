@@ -22,11 +22,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPLandOfLakes extends RTGBiomeBOP {
 
     public RTGBiomeBOPLandOfLakes() {
+
         super(BOPBiomes.land_of_lakes.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight = 58f;
@@ -41,6 +48,7 @@ public class RTGBiomeBOPLandOfLakes extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
             }
         };
@@ -48,6 +56,7 @@ public class RTGBiomeBOPLandOfLakes extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -122,10 +131,5 @@ public class RTGBiomeBOPLandOfLakes extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

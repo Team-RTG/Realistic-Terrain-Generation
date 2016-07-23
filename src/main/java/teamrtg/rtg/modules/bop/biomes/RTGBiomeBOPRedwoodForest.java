@@ -20,11 +20,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPRedwoodForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPRedwoodForest() {
+
         super(BOPBiomes.redwood_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight = 58f;
@@ -41,6 +48,7 @@ public class RTGBiomeBOPRedwoodForest extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
             }
         };
@@ -48,6 +56,7 @@ public class RTGBiomeBOPRedwoodForest extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -81,10 +90,5 @@ public class RTGBiomeBOPRedwoodForest extends RTGBiomeBOP {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 9;
         this.addDeco(decoFallenTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

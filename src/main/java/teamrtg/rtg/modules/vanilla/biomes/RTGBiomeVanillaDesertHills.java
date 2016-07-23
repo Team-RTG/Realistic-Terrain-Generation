@@ -21,30 +21,35 @@ public class RTGBiomeVanillaDesertHills extends RTGBiomeVanilla {
     }
 
     @Override
-    public SurfacePart initSurface() {
-        return SurfaceBase.surfaceDesertHills(this);
+    public void initConfig() {
+
+        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
+        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.DESERT_TEMPLE.name());
+        this.config.WATER_POND_CHANCE.setDefault(0);
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, 10f, 200f, 120f, 10f);
             }
         };
     }
 
     @Override
-    public void initDecos() {
-		this.addDecoCollection(new DecoCollectionDesertRiver());
-		this.addDecoCollection(new DecoCollectionDesert());
+    public SurfacePart initSurface() {
+
+        return SurfaceBase.surfaceDesertHills(this);
     }
 
     @Override
-    public void initConfig() {
-        config.addBlock(config.BEACH_BLOCK).setDefault(Blocks.SAND.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.DESERT_TEMPLE.name());
-        this.config.WATER_POND_CHANCE.setDefault(0);
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesert());
     }
 }

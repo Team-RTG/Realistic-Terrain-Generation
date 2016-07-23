@@ -19,10 +19,17 @@ public class RTGBiomeVanillaSavannaM extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainGrasslandMountains(x, y, rtgWorld.simplex, rtgWorld.cell, river, 4f, 90f, 67f);
             }
         };
@@ -30,17 +37,14 @@ public class RTGBiomeVanillaSavannaM extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceSavanna(this);
     }
 
     @Override
     public void initDecos() {
+
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionSavanna());
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

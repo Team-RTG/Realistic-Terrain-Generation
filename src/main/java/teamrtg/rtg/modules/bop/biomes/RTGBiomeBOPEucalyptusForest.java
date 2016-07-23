@@ -16,11 +16,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPEucalyptusForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPEucalyptusForest() {
+
         super(BOPBiomes.eucalyptus_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 76f;
@@ -34,13 +41,14 @@ public class RTGBiomeBOPEucalyptusForest extends RTGBiomeBOP {
 
                 groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
                 float h = terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
-                return riverized(groundNoise+h,river) ;
+                return riverized(groundNoise + h, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -75,10 +83,5 @@ public class RTGBiomeBOPEucalyptusForest extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

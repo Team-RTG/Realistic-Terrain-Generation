@@ -13,11 +13,18 @@ import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
 public class RTGBiomeACDarklandsPlains extends RTGBiomeAC {
 
     public RTGBiomeACDarklandsPlains() {
+
         super(ACBiomes.darklands_plains, Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private GroundEffect groundEffect = new GroundEffect(4f);
@@ -25,24 +32,21 @@ public class RTGBiomeACDarklandsPlains extends RTGBiomeAC {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
                 //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
-                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y),river);
+                return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

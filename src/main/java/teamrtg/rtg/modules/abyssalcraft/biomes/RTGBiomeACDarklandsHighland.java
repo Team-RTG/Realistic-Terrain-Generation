@@ -12,13 +12,21 @@ import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
 public class RTGBiomeACDarklandsHighland extends RTGBiomeAC {
 
     public RTGBiomeACDarklandsHighland() {
+
         super(ACBiomes.darklands_hills, Biomes.RIVER);
-        this.noLakes=true;
-        this.noWaterFeatures=true;
+
+        this.noLakes = true;
+        this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float start;
@@ -34,6 +42,7 @@ public class RTGBiomeACDarklandsHighland extends RTGBiomeAC {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, base);
             }
         };
@@ -41,17 +50,14 @@ public class RTGBiomeACDarklandsHighland extends RTGBiomeAC {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

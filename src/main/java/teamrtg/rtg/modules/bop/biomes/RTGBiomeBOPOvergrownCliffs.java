@@ -12,15 +12,24 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPOvergrownCliffs extends RTGBiomeBOP {
 
     public RTGBiomeBOPOvergrownCliffs() {
+
         super(BOPBiomes.overgrown_cliffs.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+        config.GENERATE_EMERALDS.setDefault(true);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainVolcano(x, y, rtgWorld.simplex, rtgWorld.cell, border, 70f);
             }
         };
@@ -28,17 +37,14 @@ public class RTGBiomeBOPOvergrownCliffs extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-        config.GENERATE_EMERALDS.setDefault(true);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

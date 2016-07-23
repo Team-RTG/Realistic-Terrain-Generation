@@ -20,10 +20,19 @@ public class RTGBiomeVanillaDesert extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.DESERT_TEMPLE.name());
+        this.config.WATER_POND_CHANCE.setDefault(0);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainPolar(x, y, rtgWorld.simplex, river);
             }
         };
@@ -31,18 +40,14 @@ public class RTGBiomeVanillaDesert extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceDesert(this);
     }
 
     @Override
     public void initDecos() {
-		this.addDecoCollection(new DecoCollectionDesertRiver());
-		this.addDecoCollection(new DecoCollectionDesert());
-    }
 
-    @Override
-    public void initConfig() {
-        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.DESERT_TEMPLE.name());
-        this.config.WATER_POND_CHANCE.setDefault(0);
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesert());
     }
 }

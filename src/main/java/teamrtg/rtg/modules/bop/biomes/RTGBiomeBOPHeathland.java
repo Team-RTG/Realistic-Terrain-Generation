@@ -15,11 +15,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPHeathland extends RTGBiomeBOP {
 
     public RTGBiomeBOPHeathland() {
+
         super(BOPBiomes.heathland.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 66f;
@@ -35,15 +42,17 @@ public class RTGBiomeBOPHeathland extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 float added = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
-                added += hills.added(rtgWorld.simplex, rtgWorld.cell,x, y);
-                return riverized(baseHeight + added,river);
+                added += hills.added(rtgWorld.simplex, rtgWorld.cell, x, y);
+                return riverized(baseHeight + added, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -65,10 +74,5 @@ public class RTGBiomeBOPHeathland extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

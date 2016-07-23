@@ -20,11 +20,18 @@ import static teamrtg.rtg.modules.abyssalcraft.decos.DecoAbyssalCraftTree.TreeTy
 public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 
     public RTGBiomeACDarklandsForest() {
+
         super(ACBiomes.darklands_forest, Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float hillStrength = 10f;// this needs to be linked to the
@@ -38,13 +45,14 @@ public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 
                 float floNoise = 65f + groundNoise + m;
 
-                return riverized(floNoise,river);
+                return riverized(floNoise, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -87,10 +95,5 @@ public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

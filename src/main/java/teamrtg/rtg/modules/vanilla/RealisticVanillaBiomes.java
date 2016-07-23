@@ -70,6 +70,7 @@ public class RealisticVanillaBiomes extends ModBiomes {
 
     @Override
     public void initBiomes() {
+
         addBiome(BEACH = new RTGBiomeVanillaBeach());
         addBiome(BIRCH_FOREST = new RTGBiomeVanillaBirchForest());
         addBiome(BIRCH_FOREST_HILLS = new RTGBiomeVanillaBirchForestHills());

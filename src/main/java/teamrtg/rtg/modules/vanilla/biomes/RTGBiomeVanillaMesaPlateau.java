@@ -23,14 +23,21 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
-            private final float[] height = new float[] {32.0f, 0.4f};
+            private final float[] height = new float[]{32.0f, 0.4f};
             private final int heightLength = height.length;
             private final float strength = 10f;
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainPlateau(x, y, rtgWorld.simplex, river, height, biomeWeight, border, strength, heightLength, 100f, false);
             }
         };
@@ -38,11 +45,13 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfacePlateau1(this, CanyonColour.MESA);
     }
 
     @Override
     public void initDecos() {
+
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.chance = 10;
         addDeco(decoShrub);
@@ -50,7 +59,7 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
         decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
-        decoCactus.soilMeta = (byte)1;
+        decoCactus.soilMeta = (byte) 1;
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);
@@ -74,10 +83,5 @@ public class RTGBiomeVanillaMesaPlateau extends RTGBiomeVanilla {
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

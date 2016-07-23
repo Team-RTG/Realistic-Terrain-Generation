@@ -21,10 +21,17 @@ public class RTGBiomeVanillaMegaSpruceTaiga extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainFlatLakes(x, y, rtgWorld.simplex, river, 14f, 66f);
             }
         };
@@ -32,31 +39,28 @@ public class RTGBiomeVanillaMegaSpruceTaiga extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceTaiga(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-        
-		DecoFallenTree decoFallenTree = new DecoFallenTree();
-		decoFallenTree.loops = 1;
-		decoFallenTree.distribution.noiseDivisor = 100f;
-		decoFallenTree.distribution.noiseFactor = 6f;
-		decoFallenTree.distribution.noiseAddend = 0.8f;
-		decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		decoFallenTree.logConditionNoise = 0f;
-		decoFallenTree.logConditionChance = 6;
-		decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
-		decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
-		decoFallenTree.minSize = 3;
-		decoFallenTree.maxSize = 6;
-		this.addDeco(decoFallenTree);
-    }
 
-    @Override
-    public void initConfig() {
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
 
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.loops = 1;
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree);
     }
 }

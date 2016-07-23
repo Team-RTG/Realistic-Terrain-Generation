@@ -13,11 +13,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPBambooForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPBambooForest() {
+
         super(BOPBiomes.bamboo_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             /* Basic idea: High hilly terrain mixed with ground-noisy flats
@@ -68,6 +75,7 @@ public class RTGBiomeBOPBambooForest extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 float result = biomeHeight.added(rtgWorld.simplex, rtgWorld.cell, x, y);
                 if (result < 60) throw new RuntimeException();
                 return result;
@@ -78,17 +86,14 @@ public class RTGBiomeBOPBambooForest extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

@@ -12,14 +12,22 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPSnowyForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPSnowyForest() {
+
         super(BOPBiomes.snowy_forest.get(), Biomes.FROZEN_RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex);
                 float m = hills(x, y, 10f, rtgWorld.simplex, river);
                 float floNoise = 65f + groundNoise + m;
@@ -31,17 +39,14 @@ public class RTGBiomeBOPSnowyForest extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

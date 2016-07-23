@@ -13,6 +13,7 @@ public class RTGModuleVanilla extends RTGModule {
     public final RealisticVanillaBiomes biomes;
 
     public RTGModuleVanilla() {
+
         super("Vanilla", true, true);
         config = new ModConfig("Vanilla");
         biomes = new RealisticVanillaBiomes();
@@ -22,16 +23,19 @@ public class RTGModuleVanilla extends RTGModule {
 
     /**
      * Is the mod present?
+     *
      * @return true if mod is currently installed
      * @see ModPresenceTester
      */
     @Override
     public boolean isPresent() {
+
         return false;
     }
 
     @Override
     public String getID() {
+
         return null;
     }
 }

@@ -18,11 +18,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPGrove extends RTGBiomeBOP {
 
     public RTGBiomeBOPGrove() {
+
         super(BOPBiomes.grove.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 64f;
@@ -36,7 +43,7 @@ public class RTGBiomeBOPGrove extends RTGBiomeBOP {
 
                 // no ground noise
 
-                float h = this.terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river,  smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength,baseHeight);
+                float h = this.terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength, baseHeight);
 
                 return h;
             }
@@ -45,6 +52,7 @@ public class RTGBiomeBOPGrove extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -94,7 +102,7 @@ public class RTGBiomeBOPGrove extends RTGBiomeBOP {
         this.addDeco(decoHelperHelper50502);
 
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+        decoFlowersRTG.flowers = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
         decoFlowersRTG.maxY = 128;
         decoFlowersRTG.strengthFactor = 2f;
         this.addDeco(decoFlowersRTG);
@@ -106,10 +114,5 @@ public class RTGBiomeBOPGrove extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

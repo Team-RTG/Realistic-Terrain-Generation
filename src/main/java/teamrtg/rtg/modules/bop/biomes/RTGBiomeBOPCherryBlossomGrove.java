@@ -21,11 +21,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPCherryBlossomGrove extends RTGBiomeBOP {
 
     public RTGBiomeBOPCherryBlossomGrove() {
+
         super(BOPBiomes.cherry_blossom_grove.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight = 58f;
@@ -40,6 +47,7 @@ public class RTGBiomeBOPCherryBlossomGrove extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
             }
         };
@@ -47,6 +55,7 @@ public class RTGBiomeBOPCherryBlossomGrove extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -92,10 +101,5 @@ public class RTGBiomeBOPCherryBlossomGrove extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

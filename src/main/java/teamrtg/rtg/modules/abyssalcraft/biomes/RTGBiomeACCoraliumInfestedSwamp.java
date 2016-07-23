@@ -12,15 +12,23 @@ import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
 public class RTGBiomeACCoraliumInfestedSwamp extends RTGBiomeAC {
 
     public RTGBiomeACCoraliumInfestedSwamp() {
+
         super(ACBiomes.coralium_infested_swamp, Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
             }
         };
@@ -28,17 +36,14 @@ public class RTGBiomeACCoraliumInfestedSwamp extends RTGBiomeAC {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

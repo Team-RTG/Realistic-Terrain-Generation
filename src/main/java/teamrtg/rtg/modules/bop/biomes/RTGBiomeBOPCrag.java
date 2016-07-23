@@ -15,13 +15,22 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPCrag extends RTGBiomeBOP {
 
     public RTGBiomeBOPCrag() {
+
         super(BOPBiomes.crag.get(), Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
 
     @Override
+    public void initConfig() {
+
+        config.GENERATE_EMERALDS.setDefault(true);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase(90f) {
 
             private float pointHeightVariation = 20f;
@@ -34,31 +43,31 @@ public class RTGBiomeBOPCrag extends RTGBiomeBOP {
 
                 // need a little jitter to the points
                 SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
-                rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 20.0, (float)y / 20.0, jitter);
+                rtgWorld.simplex.riverJitter().evaluateNoise((float) x / 20.0, (float) y / 20.0, jitter);
                 double pX = x + jitter.deltax() * 1f;
                 double pY = y + jitter.deltay() * 1f;
 
                 // restrict the points to in the biome.
-                double multiplier = (border-0.5)*10.0;
-                if (multiplier <0) multiplier = 0;
-                if (multiplier >1) multiplier = 1;
-                double [] points = rtgWorld.cell.octave(1).eval((float)pX/pointWavelength, (float)pY/pointWavelength);
-                float raise = (float)((points[1]-points[0])/points[1]);
+                double multiplier = (border - 0.5) * 10.0;
+                if (multiplier < 0) multiplier = 0;
+                if (multiplier > 1) multiplier = 1;
+                double[] points = rtgWorld.cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
+                float raise = (float) ((points[1] - points[0]) / points[1]);
                 raise = raise * 3f;
                 raise -= 0.2f;
-                if (raise<0) raise = 0;
-                if (raise>1) raise = 1;
-                float topHeight = (float)(pointHeight +
-                        pointHeightVariation*rtgWorld.simplex.noise((float)x/pointHeightWavelength, (float)y/pointHeightWavelength));
+                if (raise < 0) raise = 0;
+                if (raise > 1) raise = 1;
+                float topHeight = (float) (pointHeight +
+                    pointHeightVariation * rtgWorld.simplex.noise((float) x / pointHeightWavelength, (float) y / pointHeightWavelength));
 
-                float p = raise*topHeight;
-                if (border >= 1f) return base+p;
+                float p = raise * topHeight;
+                if (border >= 1f) return base + p;
                 if (border > 0.65) {
                     // we need to adjust for the border adjustments to the height to make the base work
                     // it actaully doesn't always help
-                    float missingBase = (1f-border) *(base-70f);  // shortfall at the top
-                    float pStretch = (topHeight+missingBase)/topHeight;
-                    p = p*pStretch;
+                    float missingBase = (1f - border) * (base - 70f);  // shortfall at the top
+                    float pStretch = (topHeight + missingBase) / topHeight;
+                    p = p * pStretch;
                     p = borderAdjusted(p, border, 0.75f, 0.65f);
                     return base + p;
                 }
@@ -70,6 +79,7 @@ public class RTGBiomeBOPCrag extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -78,16 +88,10 @@ public class RTGBiomeBOPCrag extends RTGBiomeBOP {
 
         DecoPond decoPond = new DecoPond();
         decoPond.chunksPerPond = 3;// very high because most are blocked by topography
-        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond,0.8f,0.7f);
+        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
         this.addDeco(borderedPond);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
-        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

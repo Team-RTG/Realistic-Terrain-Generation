@@ -12,11 +12,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
 
     public RTGBiomeBOPCoralReef() {
+
         super(BOPBiomes.coral_reef.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private boolean booRiver;
@@ -49,8 +56,7 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
              * canyon strength
              * canyonStrength = 40f
              *
-             */
-            {
+             */ {
                 booRiver = false;
                 height = new float[]{5.0f, 0.5f, 12.5f, 0.5f};
                 strength = -10f;
@@ -63,6 +69,7 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainOceanCanyon(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, booRiver);
             }
         };
@@ -70,17 +77,14 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -28,7 +28,38 @@ public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanilla {
     }
 
     @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+            private final float[] height = new float[]{24.0f, 0.4f};
+            private final int heightLength = height.length;
+            private final float strength = 10f;
+
+            {
+                /**
+                 * Values come in pairs per layer. First is how high to step up.
+                 * 	Second is a value between 0 and 1, signifying when to step up.
+                 */
+                base = 69f;
+            }
+
+            @Override
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
+                return terrainPlateau(x, y, rtgWorld.simplex, river, height, biomeWeight, border, strength, heightLength, 100f, false);
+            }
+        };
+    }
+
+    @Override
+    public SurfacePart initSurface() {
+
+        return SurfaceBase.surfacePlateau2(this, CanyonColour.MESA);
+    }
+
+    @Override
     public void initDecos() {
+
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.chance = 10;
         addDeco(decoShrub);
@@ -36,7 +67,7 @@ public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanilla {
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
         decoCactus.soilBlock = Blocks.SAND.getStateFromMeta(1);
-        decoCactus.soilMeta = (byte)1;
+        decoCactus.soilMeta = (byte) 1;
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);
@@ -60,32 +91,5 @@ public class RTGBiomeVanillaMesaPlateauF extends RTGBiomeVanilla {
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
-    }
-
-    @Override
-    public SurfacePart initSurface() {
-        return SurfaceBase.surfacePlateau2(this, CanyonColour.MESA);
-    }
-
-    @Override
-    public TerrainBase initTerrain() {
-        return new TerrainBase() {
-            private final float[] height = new float[] {24.0f, 0.4f};
-            private final int heightLength = height.length;
-            private final float strength = 10f;
-
-            {
-                /**
-                 * Values come in pairs per layer. First is how high to step up.
-                 * 	Second is a value between 0 and 1, signifying when to step up.
-                 */
-                base = 69f;
-            }
-
-            @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return terrainPlateau(x, y, rtgWorld.simplex, river, height, biomeWeight, border, strength, heightLength, 100f, false);
-            }
-        };
     }
 }

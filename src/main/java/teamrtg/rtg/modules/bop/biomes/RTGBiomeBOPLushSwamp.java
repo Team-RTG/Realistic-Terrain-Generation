@@ -15,15 +15,23 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
 
     public RTGBiomeBOPLushSwamp() {
+
         super(BOPBiomes.lush_swamp.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
                 //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
             }
@@ -32,6 +40,7 @@ public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceSwamp(this);
     }
 
@@ -59,10 +68,5 @@ public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

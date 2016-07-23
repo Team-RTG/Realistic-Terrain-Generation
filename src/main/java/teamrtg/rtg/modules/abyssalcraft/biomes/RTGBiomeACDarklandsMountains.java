@@ -16,13 +16,21 @@ import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
 public class RTGBiomeACDarklandsMountains extends RTGBiomeAC {
 
     public RTGBiomeACDarklandsMountains() {
+
         super(ACBiomes.darklands_mountains, Biomes.RIVER);
-        this.noLakes=true;
-        this.noWaterFeatures=true;
+
+        this.noLakes = true;
+        this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private HeightEffect height;
@@ -41,8 +49,8 @@ public class RTGBiomeACDarklandsMountains extends RTGBiomeAC {
                 mountainEffect.spikeHeight = this.spikeHeight;
                 mountainEffect.spikeWavelength = this.spikeWidth;
 
-                this.height = new JitterEffect(6f,10f, mountainEffect);
-                height = new JitterEffect(2f,6f,height);
+                this.height = new JitterEffect(6f, 10f, mountainEffect);
+                height = new JitterEffect(2f, 6f, height);
 
                 HeightVariation passHeight = new HeightVariation();
                 passHeight.height = 15;
@@ -55,6 +63,7 @@ public class RTGBiomeACDarklandsMountains extends RTGBiomeAC {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return riverized(65f + height.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };
@@ -62,17 +71,14 @@ public class RTGBiomeACDarklandsMountains extends RTGBiomeAC {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

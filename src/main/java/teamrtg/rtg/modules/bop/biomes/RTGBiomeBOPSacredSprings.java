@@ -12,12 +12,21 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPSacredSprings extends RTGBiomeBOP {
 
     public RTGBiomeBOPSacredSprings() {
+
         super(BOPBiomes.sacred_springs.get(), Biomes.RIVER);
+
         this.noWaterFeatures = true;
     }
 
     @Override
+    public void initConfig() {
+
+        config.WATER_POND_CHANCE.set(2);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float width;
@@ -34,6 +43,7 @@ public class RTGBiomeBOPSacredSprings extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainLonelyMountain(x, y, rtgWorld.simplex, rtgWorld.cell, river, strength, width, terrainHeight);
             }
         };
@@ -41,17 +51,14 @@ public class RTGBiomeBOPSacredSprings extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-        config.WATER_POND_CHANCE.set(2);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

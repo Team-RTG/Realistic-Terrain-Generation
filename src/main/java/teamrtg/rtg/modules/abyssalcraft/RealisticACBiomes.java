@@ -17,6 +17,7 @@ public class RealisticACBiomes extends ModBiomes {
 
     @Override
     public void initBiomes() {
+
         addBiome(CORALIUM_INFESTED_SWAMP = new RTGBiomeACCoraliumInfestedSwamp());
         addBiome(DARKLANDS = new RTGBiomeACDarklands());
         addBiome(DARKLANDS_FOREST = new RTGBiomeACDarklandsForest());

@@ -14,15 +14,23 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPLavenderFields extends RTGBiomeBOP {
 
     public RTGBiomeBOPLavenderFields() {
+
         super(BOPBiomes.lavender_fields.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 66f);
             }
         };
@@ -30,6 +38,7 @@ public class RTGBiomeBOPLavenderFields extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -49,10 +58,5 @@ public class RTGBiomeBOPLavenderFields extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

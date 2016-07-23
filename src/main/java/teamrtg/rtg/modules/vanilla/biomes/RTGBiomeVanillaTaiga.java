@@ -16,10 +16,17 @@ public class RTGBiomeVanillaTaiga extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainFlatLakes(x, y, rtgWorld.simplex, river, 8f, 68f);
             }
         };
@@ -27,16 +34,13 @@ public class RTGBiomeVanillaTaiga extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceTaiga(this);
     }
 
     @Override
     public void initDecos() {
-    	this.addDecoCollection(new DecoCollectionTaiga(10f));
-    }
 
-    @Override
-    public void initConfig() {
-
+        this.addDecoCollection(new DecoCollectionTaiga(10f));
     }
 }

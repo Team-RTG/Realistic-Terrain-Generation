@@ -19,12 +19,20 @@ public class RTGBiomeVanillaSavanna extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRASS.getDefaultState());
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             private final GroundEffect groundEffect = new GroundEffect(4f);
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return riverized(65f + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river);
             }
         };
@@ -32,17 +40,14 @@ public class RTGBiomeVanillaSavanna extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceSavanna(this);
     }
 
     @Override
     public void initDecos() {
+
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionSavanna());
-    }
-
-    @Override
-    public void initConfig() {
-        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRASS.getDefaultState());
     }
 }

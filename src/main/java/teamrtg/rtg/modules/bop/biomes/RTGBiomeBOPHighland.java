@@ -14,12 +14,21 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPHighland extends RTGBiomeBOP {
 
     public RTGBiomeBOPHighland() {
+
         super(BOPBiomes.highland.get(), Biomes.RIVER);
+
         this.noWaterFeatures = true;
     }
 
     @Override
+    public void initConfig() {
+
+        config.GENERATE_EMERALDS.setDefault(true);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 90f;
@@ -33,15 +42,15 @@ public class RTGBiomeBOPHighland extends RTGBiomeBOP {
                 onTop.spikeWavelength = 10;
 
                 withJitter = new JitterEffect();
-                withJitter.amplitude=2;
-                withJitter.wavelength=5;
+                withJitter.amplitude = 2;
+                withJitter.wavelength = 5;
                 withJitter.jittered = onTop;
             }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
 
-                return riverized(baseHeight + withJitter.added(rtgWorld.simplex, rtgWorld.cell,x, y)+ this.groundNoise(x, y, 6, rtgWorld.simplex),river);
+                return riverized(baseHeight + withJitter.added(rtgWorld.simplex, rtgWorld.cell, x, y) + this.groundNoise(x, y, 6, rtgWorld.simplex), river);
                 //return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
             }
         };
@@ -49,17 +58,14 @@ public class RTGBiomeBOPHighland extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-        config.GENERATE_EMERALDS.setDefault(true);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -19,11 +19,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPSnowyConiferousForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPSnowyConiferousForest() {
+
         super(BOPBiomes.snowy_coniferous_forest.get(), Biomes.FROZEN_RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight = 65f;
@@ -40,13 +47,15 @@ public class RTGBiomeBOPSnowyConiferousForest extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills+2f, 4f);
+
+                return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills + 2f, 4f);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceTaiga(this);
     }
 
@@ -76,10 +85,5 @@ public class RTGBiomeBOPSnowyConiferousForest extends RTGBiomeBOP {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 12;
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

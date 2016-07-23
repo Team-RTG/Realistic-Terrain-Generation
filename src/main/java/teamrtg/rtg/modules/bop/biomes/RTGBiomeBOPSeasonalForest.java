@@ -16,11 +16,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPSeasonalForest() {
+
         super(BOPBiomes.seasonal_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase(68f) {
 
             private float start = 15f;
@@ -29,6 +36,7 @@ public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, 0f);
             }
         };
@@ -36,6 +44,7 @@ public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
@@ -62,10 +71,5 @@ public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

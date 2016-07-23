@@ -19,11 +19,18 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPDeadSwamp extends RTGBiomeBOP {
 
     public RTGBiomeBOPDeadSwamp() {
+
         super(BOPBiomes.dead_swamp.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private HeightEffect height;
@@ -32,20 +39,22 @@ public class RTGBiomeBOPDeadSwamp extends RTGBiomeBOP {
                 HeightVariation waterLand = new HeightVariation();
                 waterLand.height = 2f;
                 waterLand.wavelength = 40f;
-                waterLand.octave =0;
+                waterLand.octave = 0;
 
-                height = new JitterEffect(5f,10f,waterLand);
+                height = new JitterEffect(5f, 10f, waterLand);
             }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return 62f+ height.added(rtgWorld.simplex, rtgWorld.cell,x, y);
+
+                return 62f + height.added(rtgWorld.simplex, rtgWorld.cell, x, y);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceSwamp(this);
     }
 
@@ -80,10 +89,5 @@ public class RTGBiomeBOPDeadSwamp extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

@@ -18,26 +18,31 @@ public class RTGBiomeVanillaColdTaiga extends RTGBiomeVanilla {
 
     @Override
     public void initConfig() {
+
         this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.IGLOO.name());
     }
 
     @Override
-    public void initDecos() {
-    	this.addDecoCollection(new DecoCollectionTaiga(8f));
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+            @Override
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
+                return terrainFlatLakes(x, y, rtgWorld.simplex, river, 13f, 66f);
+            }
+        };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceTaiga(this);
     }
 
     @Override
-    public TerrainBase initTerrain() {
-        return new TerrainBase() {
-            @Override
-            public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return terrainFlatLakes(x, y, rtgWorld.simplex, river, 13f, 66f);
-            }
-        };
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionTaiga(8f));
     }
 }

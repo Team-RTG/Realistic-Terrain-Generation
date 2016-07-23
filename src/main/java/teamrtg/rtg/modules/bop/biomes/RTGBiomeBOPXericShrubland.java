@@ -13,17 +13,24 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPXericShrubland extends RTGBiomeBOP {
 
     public RTGBiomeBOPXericShrubland() {
+
         super(BOPBiomes.xeric_shrubland.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight;
             private float mesaWavelength;
             private float hillStrength;
-            private float topBumpinessHeight=3;
+            private float topBumpinessHeight = 3;
             private float topBumpinessWavelength = 10;
             private HeightEffect height;
             private HeightEffect groundEffect;
@@ -52,33 +59,31 @@ public class RTGBiomeBOPXericShrubland extends RTGBiomeBOP {
                 topBumpiness.octave = 3;
 
                 // now make the top only show up on mesa
-                height = new VariableRuggednessEffect(new RaiseEffect(0f),topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength))
-                        ,0.4f,0.3f,mesaWavelength);
+                height = new VariableRuggednessEffect(new RaiseEffect(0f), topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength))
+                    , 0.4f, 0.3f, mesaWavelength);
 
-                height = new JitterEffect(jitterAmplitude,jitterWavelength,height);
+                height = new JitterEffect(jitterAmplitude, jitterWavelength, height);
 
             }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(minHeight+groundEffect.added(rtgWorld.simplex, rtgWorld.cell,x, y),river)+height.added(rtgWorld.simplex,rtgWorld.cell, x, y);
+
+                return riverized(minHeight + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river) + height.added(rtgWorld.simplex, rtgWorld.cell, x, y);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

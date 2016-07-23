@@ -12,12 +12,21 @@ import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 public class RTGBiomeBOPAlps extends RTGBiomeBOP {
 
     public RTGBiomeBOPAlps() {
+
         super(BOPBiomes.alps.get(), Biomes.FROZEN_RIVER);
+
         this.noLakes = true;
     }
 
     @Override
+    public void initConfig() {
+
+        config.GENERATE_EMERALDS.setDefault(true);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase(120f) {
 
             // the BoP version has steep slopes and a flat area on top. The RTG version will
@@ -27,6 +36,7 @@ public class RTGBiomeBOPAlps extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, base - 62f);
             }
         };
@@ -34,17 +44,14 @@ public class RTGBiomeBOPAlps extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceTaiga(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

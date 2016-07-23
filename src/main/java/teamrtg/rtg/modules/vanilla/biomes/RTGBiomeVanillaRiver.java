@@ -16,10 +16,20 @@ public class RTGBiomeVanillaRiver extends RTGBiomeVanilla {
     }
 
     @Override
+    public void initConfig() {
+
+        this.config.WATER_POND_CHANCE.setDefault(0);
+        this.config.LAVA_POND_CHANCE.setDefault(0);
+        this.config.SURFACE_BLEED_OUT.setDefault(false);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainFlatLakes(x, y, rtgWorld.simplex, river, 3f, 60f);
             }
         };
@@ -27,19 +37,14 @@ public class RTGBiomeVanillaRiver extends RTGBiomeVanilla {
 
     @Override
     public SurfacePart initSurface() {
+
         return SurfaceBase.surfaceGeneric(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-        this.config.WATER_POND_CHANCE.setDefault(0);
-        this.config.LAVA_POND_CHANCE.setDefault(0);
-        this.config.SURFACE_BLEED_OUT.setDefault(false);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -20,31 +20,35 @@ public class RTGBiomeVanillaExtremeHillsM extends RTGBiomeVanilla {
     }
 
     @Override
-    public SurfacePart initSurface() {
-        return SurfaceBase.surfaceExtremeHills(this);
+    public void initConfig() {
+
+        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRASS.getDefaultState());
+        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.DIRT.getDefaultState());
+        config.GENERATE_EMERALDS.setDefault(true);
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, 10f, 200f, 140f, 10f);
             }
         };
     }
 
-
     @Override
-    public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+    public SurfacePart initSurface() {
+
+        return SurfaceBase.surfaceExtremeHills(this);
     }
 
     @Override
-    public void initConfig() {
-        config.addBlock(config.MIX_BLOCK_TOP).setDefault(Blocks.GRASS.getDefaultState());
-        config.addBlock(config.MIX_BLOCK_FILL).setDefault(Blocks.DIRT.getDefaultState());
-        config.GENERATE_EMERALDS.setDefault(true);
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

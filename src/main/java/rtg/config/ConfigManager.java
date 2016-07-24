@@ -5,14 +5,14 @@ import java.io.File;
 import rtg.config.abyssalcraft.ConfigAC;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.buildcraft.ConfigBC;
+import rtg.config.flowercraft.ConfigFC;
 import rtg.config.minestrappolation.ConfigMS;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.vanilla.ConfigVanilla;
 
-public class ConfigManager
-{
-    
+public class ConfigManager {
+
     public static File rtgConfigFile;
     public static File vanillaConfigFile;
     public static File bopConfigFile;
@@ -20,15 +20,17 @@ public class ConfigManager
     public static File bcConfigFile;
     public static File acConfigFile;
     public static File msConfigFile;
+    public static File fcConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
+
     public ConfigRTG rtg() {
+
         return configRTG;
     }
-    
-    public static void init(String configpath)
-    {
-    
+
+    public static void init(String configpath) {
+
         rtgConfigFile = new File(configpath + "rtg.cfg");
         vanillaConfigFile = new File(configpath + "biomes/vanilla.cfg");
         bopConfigFile = new File(configpath + "biomes/biomesoplenty.cfg");
@@ -36,7 +38,8 @@ public class ConfigManager
         bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         msConfigFile = new File(configpath + "biomes/minestrappolation.cfg");
-        
+        fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
+
         ConfigRTG.init(rtgConfigFile);
 
         ConfigVanilla.init(vanillaConfigFile);
@@ -46,5 +49,6 @@ public class ConfigManager
         ConfigBC.init(bcConfigFile);
         ConfigAC.init(acConfigFile);
         ConfigMS.init(msConfigFile);
+        ConfigFC.init(fcConfigFile);
     }
 }

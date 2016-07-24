@@ -1,8 +1,8 @@
 generator.RTG=Реалистичный
 
-warning.rtgStartup1=Realistic Terrain Generation uses a custom world type.
-warning.rtgStartup2=If you want realistic terrain, keep clicking the 'World Type' button
-warning.rtgStartup3=under 'More World Options' until it displays 'Realistic'.
-warning.rtgStartup4=The world type can be used on servers by changing the 'level-type' in
-warning.rtgStartup5=server.properties to 'RTG' (without quotes).
-warning.rtgStartup6=This message will only display once.
+warning.rtgStartup1=Реалистичная Рельефный поколение использует пользовательский тип мира.
+warning.rtgStartup2=Если вы хотите реалистичный рельеф местности, продолжайте нажимать кнопку World Type
+warning.rtgStartup3=в разделе Дополнительные параметры мира, пока не появится «Реалистичный».
+warning.rtgStartup4=Мир типа может использоваться на серверах за счет изменения уровня 'типа' в
+warning.rtgStartup5=server.properties к "РТГ" (без кавычек).
+warning.rtgStartup6=Это сообщение будет отображаться только один раз.

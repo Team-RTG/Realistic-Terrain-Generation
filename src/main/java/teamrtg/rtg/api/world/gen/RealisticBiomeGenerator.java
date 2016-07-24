@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.world.gen;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -9,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderSettings;
@@ -17,7 +19,7 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.event.terraingen.*;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.tools.feature.WorldGenPond;
 import teamrtg.rtg.api.util.BiomeUtils;
@@ -177,58 +179,60 @@ public class RealisticBiomeGenerator {
      * This method generates ores in realistically-decorated biomes.
      */
     public void generateOres(RTGWorld rtgWorld, BlockPos blockPos, float strength, float river) {
-        if (true) return;
+        //if (true) return;
         Biome seedBiome = this.realistic.getBiome();
+        final BiomeDecorator biomeDecorator = seedBiome.theBiomeDecorator;
+        ChunkProviderSettings CPSettings = biomeDecorator.chunkProviderSettings;
         Random rand = rtgWorld.rand;
 
-        if (seedBiome.theBiomeDecorator.chunkProviderSettings == null) {
+        if (CPSettings == null) {
 
             String s = rtgWorld.world.getWorldInfo().getGeneratorOptions();
 
-            if (s != null) {
-                seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).build();
+            if (!Objects.equals(s, "")) {
+                CPSettings = ChunkProviderSettings.Factory.jsonToFactory(s).build();
             } else {
-                seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").build();
+                CPSettings = ChunkProviderSettings.Factory.jsonToFactory("").build();
             }
         }
         if (Mods.RTG.config.GENERATE_ORES.get()) {
-            seedBiome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.dirtSize);
-            seedBiome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.gravelSize);
-            seedBiome.theBiomeDecorator.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), seedBiome.theBiomeDecorator.chunkProviderSettings.graniteSize);
-            seedBiome.theBiomeDecorator.dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), seedBiome.theBiomeDecorator.chunkProviderSettings.dioriteSize);
-            seedBiome.theBiomeDecorator.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), seedBiome.theBiomeDecorator.chunkProviderSettings.andesiteSize);
-            seedBiome.theBiomeDecorator.coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.coalSize);
-            seedBiome.theBiomeDecorator.ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.ironSize);
-            seedBiome.theBiomeDecorator.goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.goldSize);
-            seedBiome.theBiomeDecorator.redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneSize);
-            seedBiome.theBiomeDecorator.diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.diamondSize);
-            seedBiome.theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSize);
+            biomeDecorator.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), CPSettings.dirtSize);
+            biomeDecorator.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), CPSettings.gravelSize);
+            biomeDecorator.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), CPSettings.graniteSize);
+            biomeDecorator.dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), CPSettings.dioriteSize);
+            biomeDecorator.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), CPSettings.andesiteSize);
+            biomeDecorator.coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), CPSettings.coalSize);
+            biomeDecorator.ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), CPSettings.ironSize);
+            biomeDecorator.goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), CPSettings.goldSize);
+            biomeDecorator.redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), CPSettings.redstoneSize);
+            biomeDecorator.diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), CPSettings.diamondSize);
+            biomeDecorator.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), CPSettings.lapisSize);
 
-            net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Pre(rtgWorld.world, rand, blockPos));
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.dirtGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.dirtCount, seedBiome.theBiomeDecorator.dirtGen, seedBiome.theBiomeDecorator.chunkProviderSettings.dirtMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.dirtMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.gravelGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRAVEL))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.gravelCount, seedBiome.theBiomeDecorator.gravelGen, seedBiome.theBiomeDecorator.chunkProviderSettings.gravelMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.gravelMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.dioriteGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIORITE))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.dioriteCount, seedBiome.theBiomeDecorator.dioriteGen, seedBiome.theBiomeDecorator.chunkProviderSettings.dioriteMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.dioriteMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.graniteGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRANITE))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.graniteCount, seedBiome.theBiomeDecorator.graniteGen, seedBiome.theBiomeDecorator.chunkProviderSettings.graniteMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.graniteMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.andesiteGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.ANDESITE))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.andesiteCount, seedBiome.theBiomeDecorator.andesiteGen, seedBiome.theBiomeDecorator.chunkProviderSettings.andesiteMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.andesiteMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.coalGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.coalCount, seedBiome.theBiomeDecorator.coalGen, seedBiome.theBiomeDecorator.chunkProviderSettings.coalMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.coalMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.ironGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.IRON))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.ironCount, seedBiome.theBiomeDecorator.ironGen, seedBiome.theBiomeDecorator.chunkProviderSettings.ironMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.ironMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.goldGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.goldCount, seedBiome.theBiomeDecorator.goldGen, seedBiome.theBiomeDecorator.chunkProviderSettings.goldMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.goldMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.redstoneGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneCount, seedBiome.theBiomeDecorator.redstoneGen, seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.redstoneMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.diamondGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND))
-                oreGenHelper1(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.diamondCount, seedBiome.theBiomeDecorator.diamondGen, seedBiome.theBiomeDecorator.chunkProviderSettings.diamondMinHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.diamondMaxHeight);
-            if (net.minecraftforge.event.terraingen.TerrainGen.generateOre(rtgWorld.world, rand, seedBiome.theBiomeDecorator.lapisGen, blockPos, net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS))
-                oreGenHelper2(rtgWorld.world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCount, seedBiome.theBiomeDecorator.lapisGen, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCenterHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSpread);
+            net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(rtgWorld.world, rand, blockPos));
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.dirtGen, blockPos, OreGenEvent.GenerateMinable.EventType.DIRT))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.dirtCount, biomeDecorator.dirtGen, CPSettings.dirtMinHeight, CPSettings.dirtMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.gravelGen, blockPos, OreGenEvent.GenerateMinable.EventType.GRAVEL))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.gravelCount, biomeDecorator.gravelGen, CPSettings.gravelMinHeight, CPSettings.gravelMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.dioriteGen, blockPos, OreGenEvent.GenerateMinable.EventType.DIORITE))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.dioriteCount, biomeDecorator.dioriteGen, CPSettings.dioriteMinHeight, CPSettings.dioriteMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.graniteGen, blockPos, OreGenEvent.GenerateMinable.EventType.GRANITE))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.graniteCount, biomeDecorator.graniteGen, CPSettings.graniteMinHeight, CPSettings.graniteMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.andesiteGen, blockPos, OreGenEvent.GenerateMinable.EventType.ANDESITE))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.andesiteCount, biomeDecorator.andesiteGen, CPSettings.andesiteMinHeight, CPSettings.andesiteMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.coalGen, blockPos, OreGenEvent.GenerateMinable.EventType.COAL))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.coalCount, biomeDecorator.coalGen, CPSettings.coalMinHeight, CPSettings.coalMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.ironGen, blockPos, OreGenEvent.GenerateMinable.EventType.IRON))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.ironCount, biomeDecorator.ironGen, CPSettings.ironMinHeight, CPSettings.ironMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.goldGen, blockPos, OreGenEvent.GenerateMinable.EventType.GOLD))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.goldCount, biomeDecorator.goldGen, CPSettings.goldMinHeight, CPSettings.goldMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.redstoneGen, blockPos, OreGenEvent.GenerateMinable.EventType.REDSTONE))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.redstoneCount, biomeDecorator.redstoneGen, CPSettings.redstoneMinHeight, CPSettings.redstoneMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.diamondGen, blockPos, OreGenEvent.GenerateMinable.EventType.DIAMOND))
+                oreGenHelper1(rtgWorld.world, rand, blockPos, CPSettings.diamondCount, biomeDecorator.diamondGen, CPSettings.diamondMinHeight, CPSettings.diamondMaxHeight);
+            if (TerrainGen.generateOre(rtgWorld.world, rand, biomeDecorator.lapisGen, blockPos, OreGenEvent.GenerateMinable.EventType.LAPIS))
+                oreGenHelper2(rtgWorld.world, rand, blockPos, CPSettings.lapisCount, biomeDecorator.lapisGen, CPSettings.lapisCenterHeight, CPSettings.lapisSpread);
 
-            net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(rtgWorld.world, rand, blockPos));
+            net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(rtgWorld.world, rand, blockPos));
         }
     }
 

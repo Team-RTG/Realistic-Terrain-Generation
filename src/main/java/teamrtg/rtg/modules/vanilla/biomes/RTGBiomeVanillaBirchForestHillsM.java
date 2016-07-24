@@ -86,7 +86,7 @@ public class RTGBiomeVanillaBirchForestHillsM extends RTGBiomeVanilla {
 		
 		DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
 		decoHelperRandomSplit.decos = new DecoBase[]{birchTrees, rtgTrees};
-		decoHelperRandomSplit.chances = new int[]{10, 4, 1};
+		decoHelperRandomSplit.chances = new int[]{10, 4};
 		this.addDeco(decoHelperRandomSplit);
         
         DecoFallenTree decoFallenTree = new DecoFallenTree();

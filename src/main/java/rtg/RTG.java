@@ -1,17 +1,16 @@
 package rtg;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+import java.util.ArrayList;
+
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+
 import net.minecraftforge.common.MinecraftForge;
+
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
 import rtg.event.EventManagerRTG;
+import rtg.event.WorldTypeMessageEventHandler;
 import rtg.reference.ModInfo;
 import rtg.util.Logger;
 import rtg.util.RealisticBiomePresenceTester;
@@ -39,7 +38,12 @@ import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 
-import java.util.ArrayList;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 
 
 //@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")
@@ -68,6 +72,8 @@ public class RTG {
 
         Logger.info("[FMLPreInitializationEvent] Creating RTG's EventManager");
         eventMgr = new EventManagerRTG();
+
+        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
 
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
         

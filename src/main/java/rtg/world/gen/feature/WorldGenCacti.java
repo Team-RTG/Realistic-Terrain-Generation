@@ -9,24 +9,15 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenCacti extends WorldGenerator
 {
-	private boolean sand;
-	private int eHeight;
+	private boolean sandOnly;
+	private int extraHeight;
 	private Block soilBlock;
 	private byte soilMeta;
 	
-	public WorldGenCacti(boolean sandOnly)
-	{
-		this(sandOnly, 0);
-	}
-	
-    public WorldGenCacti(boolean sandOnly, int extraHeight) {
-    	this(sandOnly, extraHeight, Blocks.sand, (byte)0);
-    }
-	
 	public WorldGenCacti(boolean sandOnly, int extraHeight, Block soilBlock, byte soilMeta)
 	{
-		sand = sandOnly;
-		eHeight = extraHeight;
+		this.sandOnly = sandOnly;
+		this.extraHeight = extraHeight;
 		this.soilBlock = soilBlock;
 		this.soilMeta = soilMeta;
 	}
@@ -43,15 +34,15 @@ public class WorldGenCacti extends WorldGenerator
             if (world.isAirBlock(i1, j1, k1))
             {
             	b = world.getBlock(i1, j1 - 1, k1);
-            	if(b == Blocks.sand || (!sand && (b == Blocks.grass || b == Blocks.dirt)))
+            	if(b == Blocks.sand || (!sandOnly && (b == Blocks.grass || b == Blocks.dirt)))
             	{
 	                int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
 	                if(b == Blocks.grass || b == Blocks.dirt)
 	                {
-	                	world.setBlock(i1, j1 - 1, k1, Blocks.sand, 0, 2);
+	                	world.setBlock(i1, j1 - 1, k1, this.soilBlock, this.soilMeta, 2);
 	                }
 	
-	                for (int i2 = 0; i2 < l1 + eHeight; ++i2)
+	                for (int i2 = 0; i2 < l1 + extraHeight; ++i2)
 	                {
 	                    if (Blocks.cactus.canBlockStay(world, i1, j1 + i2, k1))
 	                    {

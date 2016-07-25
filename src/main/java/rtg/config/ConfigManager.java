@@ -1,7 +1,5 @@
 package rtg.config;
 
-import java.io.File;
-
 import rtg.config.abyssalcraft.ConfigAC;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.config.atg.ConfigATG;
@@ -10,6 +8,7 @@ import rtg.config.buildcraft.ConfigBC;
 import rtg.config.chromaticraft.ConfigCC;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.extrabiomes.ConfigEBXL;
+import rtg.config.flowercraft.ConfigFC;
 import rtg.config.forgottennature.ConfigFN;
 import rtg.config.growthcraft.ConfigGC;
 import rtg.config.highlands.ConfigHL;
@@ -21,6 +20,8 @@ import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.tofucraft.ConfigTOFU;
 import rtg.config.vampirism.ConfigVAMP;
 import rtg.config.vanilla.ConfigVanilla;
+
+import java.io.File;
 
 public class ConfigManager
 {
@@ -44,6 +45,7 @@ public class ConfigManager
     public static File fnConfigFile;
     public static File icConfigFile;
     public static File idtConfigFile;
+    public static File fcConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -72,6 +74,7 @@ public class ConfigManager
         fnConfigFile = new File(configpath + "biomes/forgottennature.cfg");
         icConfigFile = new File(configpath + "biomes/icecreammod.cfg");
         idtConfigFile = new File(configpath + "biomes/industrialtechnologies.cfg");
+        fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         
@@ -94,5 +97,6 @@ public class ConfigManager
         ConfigFN.init(fnConfigFile);
         ConfigIC.init(icConfigFile);
         ConfigIDT.init(idtConfigFile);
+        ConfigFC.init(fcConfigFile);
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -31,7 +32,9 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase
             mutationBiome,
             BiomeGenBase.river,
             new TerrainVanillaDesertM(10f, 20f, 68f, 200f),
-            new SurfaceVanillaDesertM(config, Blocks.sand, (byte)0, Blocks.sandstone, (byte)0, 0));
+            new SurfaceVanillaDesertM(config, Blocks.sand, Blocks.sandstone, false, null, 0.95f)
+        );
+
         
         this.waterSurfaceLakeChance = 0;
         this.noLakes=true;

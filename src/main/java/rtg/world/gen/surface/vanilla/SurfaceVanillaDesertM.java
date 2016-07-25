@@ -2,148 +2,150 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-
 public class SurfaceVanillaDesertM extends SurfaceBase
 {
-	private int[] claycolor = new int[100];
-	private int grassRaise = 0;
-	
-	public SurfaceVanillaDesertM(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte, int grassHeight)
+	private boolean beach;
+	private Block beachBlock;
+	private float min;
+
+	private float sCliff = 1.5f;
+	private float sHeight = 60f;
+	private float sStrength = 65f;
+	private float cCliff = 1.5f;
+
+	public SurfaceVanillaDesertM(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff)
 	{
-		super(config, top, topByte, fill, fillByte);
-		grassRaise = grassHeight;
-		
-		int[] c = new int[]{1, 8, 0};
-		OpenSimplexNoise simplex = new OpenSimplexNoise(2L);
-		
-		float n;
-		for(int i = 0; i < 100; i++)
-		{
-			n = simplex.noise1(i / 3f) * 3f + simplex.noise1(i / 1f) * 0.3f + 1.5f;
-			n = n >= 3f ? 2.9f : n < 0f ? 0f : n;
-			claycolor[i] = c[(int)n];
-		}
+		super(config, top, (byte)0, fill, (byte)0);
+		beach = genBeach;
+		beachBlock = genBeachBlock;
+		min = minCliff;
 	}
-	
-	public byte getClayColorForHeight(int k)
+
+	public SurfaceVanillaDesertM(BiomeConfig config, Block top, Block fill, boolean genBeach, Block genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff)
 	{
-		k -= 60;
-		k = k < 0 ? 0 : k > 99 ? 99 : k;
-		return (claycolor[k] == 0) ? (byte)12 : ((claycolor[k] == 1) ? (byte)0 : (byte)claycolor[k]);
+		this(config, top, fill, genBeach, genBeachBlock, minCliff);
+
+		sCliff = stoneCliff;
+		sHeight = stoneHeight;
+		sStrength = stoneStrength;
+		cCliff = clayCliff;
 	}
-	
+
 	@Override
 	public void paintTerrain(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
 	{
 		float c = CliffCalculator.calc(x, y, noise);
-		boolean cliff = c > 1.3f ? true : false;
-		
+		int cliff = 0;
+		boolean gravel = false;
+
+		Block b;
 		for(int k = 255; k > -1; k--)
 		{
-			Block b = blocks[(y * 16 + x) * 256 + k];
-            if(b == Blocks.air)
-            {
-            	depth = -1;
-            }
-            else if(b == Blocks.stone)
-            {
-            	depth++;
+			b = blocks[(y * 16 + x) * 256 + k];
+			if(b == Blocks.air)
+			{
+				depth = -1;
+			}
+			else if(b == Blocks.stone)
+			{
+				depth++;
 
-                if(k > 110)
-                {
-                    blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-                    metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
-                }
-                else if(depth > -1 && depth < 12)
-	        	{
-	            	if(cliff)
-	            	{
-	        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-	        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
-	            	}
-	            	else
-	            	{
-	        			if(depth > 4)
-	        			{
-		        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-		        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
-	        			}
-	        			else if(k > 74 + grassRaise)
-	        			{
+				if(depth == 0)
+				{
+					if(k < 63)
+					{
+						if(beach)
+						{
+							gravel = true;
+						}
+					}
 
-	        				if(depth == 0)
-	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = topBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
-	        				}
-	        				else
-	        				{
-		        				blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-		        				metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
-	        				}
-	        			}
-	        			else if(k < 62)
-	        			{
-                            blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                            metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
-	        			}
-	        			else if(k < 62 + grassRaise)
-	        			{
-                            if(depth == 0)
-                            {
-                                blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
-                            }
-                            else
-                            {
-                                blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                                metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
-                            }
-	        			}
-	        			else if(k < 75 + grassRaise)
-	        			{
-                            if(depth == 0)
-                            {
-                                blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
-                            }
-                            else
-                            {
-                                blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                                metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
-                            }
-	        			}
-	        			else
-	        			{
-                            if(depth == 0)
-                            {
-                                blocks[(y * 16 + x) * 256 + k] = topBlock;
-                                metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
-                            }
-                            else
-                            {
-                                blocks[(y * 16 + x) * 256 + k] = fillerBlock;
-                                metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
-                            }
-	        			}
-	            	}
-        		}
-        		else if(k > 63)
-        		{
-        			blocks[(y * 16 + x) * 256 + k] = Blocks.stained_hardened_clay;
-        			metadata[(y * 16 + x) * 256 + k] = getClayColorForHeight(k);
-        		}
-            }
+					float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+					if(c > min && c > sCliff - ((k - sHeight) / sStrength) + p)
+					{
+						cliff = 1;
+					}
+					if(c > cCliff)
+					{
+						cliff = 2;
+					}
+
+					if(cliff == 1)
+					{
+						if (rand.nextInt(3) == 0) {
+
+							blocks[(y * 16 + x) * 256 + k] = hcCobble(world, i, j, x, y, k);
+							metadata[(y * 16 + x) * 256 + k] = hcCobbleMeta(world, i, j, x, y, k);
+						}
+						else {
+
+							blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+							metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+						}
+					}
+					else if(cliff == 2)
+					{
+						blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k);
+						metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
+					}
+					else if(k < 63)
+					{
+						if(beach)
+						{
+							blocks[(y * 16 + x) * 256 + k] = beachBlock;
+							gravel = true;
+						}
+						else if(k < 62)
+						{
+							blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+							metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+						}
+						else
+						{
+							blocks[(y * 16 + x) * 256 + k] = topBlock;
+							metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+						}
+					}
+					else
+					{
+						blocks[(y * 16 + x) * 256 + k] = topBlock;
+						metadata[(y * 16 + x) * 256 + k] = topBlockMeta;
+					}
+				}
+				else if(depth < 6)
+				{
+					if(cliff == 1)
+					{
+						blocks[(y * 16 + x) * 256 + k] = hcStone(world, i, j, x, y, k);
+						metadata[(y * 16 + x) * 256 + k] = hcStoneMeta(world, i, j, x, y, k);
+					}
+					else if(cliff == 2)
+					{
+						blocks[(y * 16 + x) * 256 + k] = getShadowDesertBlock(world, i, j, x, y, k);
+						metadata[(y * 16 + x) * 256 + k] = getShadowDesertMeta(world, i, j, x, y, k);
+					}
+					else if(gravel)
+					{
+						blocks[(y * 16 + x) * 256 + k] = beachBlock;
+					}
+					else
+					{
+						blocks[(y * 16 + x) * 256 + k] = fillerBlock;
+						metadata[(y * 16 + x) * 256 + k] = fillerBlockMeta;
+					}
+				}
+			}
 		}
 	}
 }

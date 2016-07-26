@@ -26,8 +26,12 @@ public class Mods {
     }
 
     public static void initAllBiomes() {
+
         for (RTGModule mod : mods) {
-            mod.initBiomes();
+
+            if (mod.isPresent()) {
+                mod.initBiomes();
+            }
         }
     }
 

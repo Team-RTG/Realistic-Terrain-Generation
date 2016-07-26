@@ -1,6 +1,7 @@
 package teamrtg.rtg.api.module;
 
 import teamrtg.rtg.api.config.ModConfig;
+import teamrtg.rtg.api.util.ModPresenceTester;
 import teamrtg.rtg.api.world.biome.RTGBiome;
 
 /**
@@ -25,7 +26,13 @@ public class RTGModule {
     }
 
     public boolean isPresent() {
-        return present;
+
+        if (this.getID().equalsIgnoreCase("vanilla")) {
+            return true;
+        }
+
+        ModPresenceTester mpt = new ModPresenceTester(this.getID());
+        return mpt.present();
     }
 
     public String getID() {

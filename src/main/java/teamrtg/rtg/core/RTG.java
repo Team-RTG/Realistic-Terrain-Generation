@@ -1,7 +1,5 @@
 package teamrtg.rtg.core;
 
-import java.util.ArrayList;
-
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -19,10 +17,13 @@ import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.api.world.RealisticBiomeFaker;
 import teamrtg.rtg.client.DebugHandler;
 import teamrtg.rtg.core.event.EventManagerRTG;
+import teamrtg.rtg.core.event.WorldTypeMessageEventHandler;
 import teamrtg.rtg.core.world.WorldTypeRTG;
 import teamrtg.rtg.core.world.gen.structure.MapGenScatteredFeatureRTG;
 import teamrtg.rtg.core.world.gen.structure.MapGenVillageRTG;
 import teamrtg.rtg.core.world.gen.structure.StructureOceanMonumentRTG;
+
+import java.util.ArrayList;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)" + ModInfo.MOD_DEPS, acceptableRemoteVersions = "*")
 public class RTG {
@@ -51,6 +52,8 @@ public class RTG {
 
         Logger.info("[FMLPreInitializationEvent] Creating RTG's EventManager");
         eventMgr = new EventManagerRTG();
+
+        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
 
         worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
     }

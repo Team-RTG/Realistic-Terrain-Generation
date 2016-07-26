@@ -11,26 +11,35 @@ import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoGrass;
 import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.tools.terrain.HeightEffect;
 import teamrtg.rtg.api.tools.terrain.JitterEffect;
 import teamrtg.rtg.api.tools.terrain.MountainsWithPassesEffect;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPMountain extends RTGBiomeBOP {
 
     public RTGBiomeBOPMountain() {
+
         super(BOPBiomes.mountain.get(), Biomes.RIVER);
+
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
 
     @Override
+    public void initConfig() {
+
+        config.GENERATE_EMERALDS.setDefault(true);
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float width = 120f;
@@ -47,24 +56,22 @@ public class RTGBiomeBOPMountain extends RTGBiomeBOP {
                 mountainEffect.spikeHeight = this.spikeHeight;
                 mountainEffect.spikeWavelength = this.spikeWidth;
 
-                heightEffect = new JitterEffect(7f,10f, mountainEffect);
-                heightEffect = new JitterEffect(3f,6f,heightEffect);
+                heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+                heightEffect = new JitterEffect(3f, 6f, heightEffect);
             }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(heightEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y)+terrainHeight,river);
+
+                return riverized(heightEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y) + terrainHeight, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
@@ -103,10 +110,5 @@ public class RTGBiomeBOPMountain extends RTGBiomeBOP {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 3f;
         this.addDeco(decoGrass);
-    }
-
-    @Override
-    public void initConfig() {
-        config.GENERATE_EMERALDS.setDefault(true);
     }
 }

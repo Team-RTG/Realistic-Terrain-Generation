@@ -2,22 +2,29 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.util.noise.SimplexOctave;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPChaparral extends RTGBiomeBOP {
 
     public RTGBiomeBOPChaparral() {
+
         super(BOPBiomes.chaparral.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 76f;
@@ -37,33 +44,26 @@ public class RTGBiomeBOPChaparral extends RTGBiomeBOP {
 
                 //float m = hills(x, y, peakyHillStrength, simplex, river);
 
-                rtgWorld.simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
-                int pX = (int)Math.round(x + jitter.deltax() * amplitude);
-                int pY = (int)Math.round(y + jitter.deltay() * amplitude);
+                rtgWorld.simplex.riverJitter().evaluateNoise((float) x / wavelength, (float) y / wavelength, jitter);
+                int pX = (int) Math.round(x + jitter.deltax() * amplitude);
+                int pY = (int) Math.round(y + jitter.deltay() * amplitude);
                 float h = this.terrainGrasslandHills(pX, pY, rtgWorld.simplex, rtgWorld.cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
-                return groundNoise+ h;
+                return groundNoise + h;
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
+
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

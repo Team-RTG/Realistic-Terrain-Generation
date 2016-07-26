@@ -2,21 +2,28 @@ package teamrtg.rtg.modules.bop.biomes;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
 
     public RTGBiomeBOPCoralReef() {
+
         super(BOPBiomes.coral_reef.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private boolean booRiver;
@@ -49,8 +56,7 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
              * canyon strength
              * canyonStrength = 40f
              *
-             */
-            {
+             */ {
                 booRiver = false;
                 height = new float[]{5.0f, 0.5f, 12.5f, 0.5f};
                 strength = -10f;
@@ -63,6 +69,7 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainOceanCanyon(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, booRiver);
             }
         };
@@ -70,21 +77,14 @@ public class RTGBiomeBOPCoralReef extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-    }
 
-    @Override
-    public void initConfig() {
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

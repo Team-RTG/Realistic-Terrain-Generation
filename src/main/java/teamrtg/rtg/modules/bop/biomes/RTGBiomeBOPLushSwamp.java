@@ -5,25 +5,33 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
 
     public RTGBiomeBOPLushSwamp() {
+
         super(BOPBiomes.lush_swamp.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
                 //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
             }
@@ -32,11 +40,8 @@ public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-                .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceSwamp());
-        return surface;
+
+        return SurfaceBase.surfaceSwamp(this);
     }
 
     @Override
@@ -63,10 +68,5 @@ public class RTGBiomeBOPLushSwamp extends RTGBiomeBOP {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

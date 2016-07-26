@@ -6,21 +6,28 @@ import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.helper.DecoHelper5050;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPEucalyptusForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPEucalyptusForest() {
+
         super(BOPBiomes.eucalyptus_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 76f;
@@ -34,18 +41,15 @@ public class RTGBiomeBOPEucalyptusForest extends RTGBiomeBOP {
 
                 groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
                 float h = terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
-                return riverized(groundNoise+h,river) ;
+                return riverized(groundNoise + h, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
@@ -79,10 +83,5 @@ public class RTGBiomeBOPEucalyptusForest extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

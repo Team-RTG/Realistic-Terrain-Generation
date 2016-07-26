@@ -3,11 +3,14 @@ package teamrtg.rtg.modules.abyssalcraft.biomes;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.init.Biomes;
-import teamrtg.rtg.api.tools.deco.*;
+import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.deco.DecoGrass;
+import teamrtg.rtg.api.tools.deco.DecoShrub;
+import teamrtg.rtg.api.tools.deco.DecoTree;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.abyssalcraft.RTGBiomeAC;
 import teamrtg.rtg.modules.abyssalcraft.decos.DecoAbyssalCraftTree;
@@ -17,11 +20,18 @@ import static teamrtg.rtg.modules.abyssalcraft.decos.DecoAbyssalCraftTree.TreeTy
 public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 
     public RTGBiomeACDarklandsForest() {
+
         super(ACBiomes.darklands_forest, Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float hillStrength = 10f;// this needs to be linked to the
@@ -35,18 +45,15 @@ public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 
                 float floNoise = 65f + groundNoise + m;
 
-                return riverized(floNoise,river);
+                return riverized(floNoise, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-                .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
@@ -88,10 +95,5 @@ public class RTGBiomeACDarklandsForest extends RTGBiomeAC {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

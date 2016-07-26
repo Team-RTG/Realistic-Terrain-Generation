@@ -6,6 +6,7 @@ import teamrtg.rtg.api.config.BiomeConfig;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree.LogCondition;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
@@ -15,22 +16,25 @@ import teamrtg.rtg.modules.vanilla.RTGBiomeVanilla;
 public class RTGBiomeVanillaIcePlains extends RTGBiomeVanilla {
 
     public RTGBiomeVanillaIcePlains() {
-        super(
-                Biomes.ICE_PLAINS,
-            Biomes.FROZEN_RIVER
-        );
+
+        super(Biomes.ICE_PLAINS, Biomes.FROZEN_RIVER);
     }
 
     @Override
-    public SurfacePart initSurface() {
-        return PARTS.surfaceGeneric();
+    public void initConfig() {
+
+        config.TOP_BLOCK.setDefault(Blocks.SNOW.getDefaultState());
+        config.FILL_BLOCK.setDefault(Blocks.DIRT.getDefaultState());
+        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.IGLOO.name());
     }
 
     @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 float base = 62;
                 float b = rtgWorld.simplex.noise2(x / 24f, y / 24f) * 0.25f;
                 b *= river;
@@ -44,33 +48,33 @@ public class RTGBiomeVanillaIcePlains extends RTGBiomeVanilla {
 
 
     @Override
+    public SurfacePart initSurface() {
+
+        return SurfaceBase.surfaceGeneric(this);
+    }
+
+    @Override
     public void initDecos() {
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-        
-		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.checkRiver = true;
-		decoBoulder.minRiver = 0.87f;
-		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-		decoBoulder.chance = 16;
-		decoBoulder.maxY = 95;
-		decoBoulder.strengthFactor = 5f;
-		this.addDeco(decoBoulder);
-        
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.checkRiver = true;
+        decoBoulder.minRiver = 0.87f;
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.chance = 16;
+        decoBoulder.maxY = 95;
+        decoBoulder.strengthFactor = 5f;
+        this.addDeco(decoBoulder);
+
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 24;
         decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
         decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree.minSize = 1;
-        decoFallenTree.maxSize = 5;        
-		this.addDeco(decoFallenTree);
-    }
-
-    @Override
-    public void initConfig() {
-        config.TOP_BLOCK.setDefault(Blocks.SNOW.getDefaultState());
-        config.FILL_BLOCK.setDefault(Blocks.DIRT.getDefaultState());
-        this.config.SCATTERED_FEATURE.setDefault(BiomeConfig.FeatureType.IGLOO.name());
+        decoFallenTree.maxSize = 5;
+        this.addDeco(decoFallenTree);
     }
 }

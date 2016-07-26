@@ -13,6 +13,7 @@ public class RTGModuleBOP extends RTGModule {
     public final RealisticBOPBiomes biomes;
 
     public RTGModuleBOP() {
+
         super("BiomesOPlenty", true, true);
         config = new ModConfig("BOP");
         biomes = new RealisticBOPBiomes();
@@ -22,16 +23,19 @@ public class RTGModuleBOP extends RTGModule {
 
     /**
      * Is the mod present?
+     *
      * @return true if mod is currently installed
      * @see ModPresenceTester
      */
     @Override
     public boolean isPresent() {
+
         return false;
     }
 
     @Override
     public String getID() {
+
         return null;
     }
 }

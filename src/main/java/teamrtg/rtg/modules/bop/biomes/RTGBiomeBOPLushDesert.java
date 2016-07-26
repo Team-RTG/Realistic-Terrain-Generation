@@ -9,28 +9,35 @@ import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
 import teamrtg.rtg.api.tools.deco.DecoJungleCacti;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.tools.terrain.*;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPLushDesert extends RTGBiomeBOP {
 
     public RTGBiomeBOPLushDesert() {
+
         super(BOPBiomes.lush_desert.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float minHeight;
             private float mesaWavelength;
             private float hillStrength;
-            private float topBumpinessHeight=2;
+            private float topBumpinessHeight = 2;
             private float topBumpinessWavelength = 15;
             private HeightEffect height;
             private HeightEffect groundEffect;
@@ -56,13 +63,14 @@ public class RTGBiomeBOPLushDesert extends RTGBiomeBOP {
                 topBumpiness.octave = 3;
 
                 // now make the top only show up on mesa
-                height = new VariableRuggednessEffect(new RaiseEffect(0f), topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength)) , 0.3f, 0.15f, mesaWavelength);
+                height = new VariableRuggednessEffect(new RaiseEffect(0f), topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength)), 0.3f, 0.15f, mesaWavelength);
 
             }
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
-                return riverized(minHeight+groundEffect.added(rtgWorld.simplex, rtgWorld.cell,x, y),river)+height.added(rtgWorld.simplex, rtgWorld.cell, x, y);
+
+                return riverized(minHeight + groundEffect.added(rtgWorld.simplex, rtgWorld.cell, x, y), river) + height.added(rtgWorld.simplex, rtgWorld.cell, x, y);
                 //return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
             }
         };
@@ -70,11 +78,8 @@ public class RTGBiomeBOPLushDesert extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
@@ -106,10 +111,5 @@ public class RTGBiomeBOPLushDesert extends RTGBiomeBOP {
         decoJungleCacti.strengthFactor = 8f;
         decoJungleCacti.maxY = 110;
         this.addDeco(decoJungleCacti);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

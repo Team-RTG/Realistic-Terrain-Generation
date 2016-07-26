@@ -6,21 +6,28 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoBoulder;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
     public RTGBiomeBOPSeasonalForest() {
+
         super(BOPBiomes.seasonal_forest.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase(68f) {
 
             private float start = 15f;
@@ -29,6 +36,7 @@ public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, 0f);
             }
         };
@@ -36,11 +44,8 @@ public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
@@ -66,10 +71,5 @@ public class RTGBiomeBOPSeasonalForest extends RTGBiomeBOP {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

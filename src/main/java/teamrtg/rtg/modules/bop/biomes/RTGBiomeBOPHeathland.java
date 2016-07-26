@@ -4,22 +4,29 @@ import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import teamrtg.rtg.api.tools.deco.DecoFallenTree;
+import teamrtg.rtg.api.tools.surface.SurfaceBase;
 import teamrtg.rtg.api.tools.terrain.HillockEffect;
 import teamrtg.rtg.api.world.RTGWorld;
 import teamrtg.rtg.api.world.biome.TerrainBase;
 import teamrtg.rtg.api.world.biome.deco.DecoBaseBiomeDecorations;
-import teamrtg.rtg.api.world.biome.surface.part.CliffSelector;
 import teamrtg.rtg.api.world.biome.surface.part.SurfacePart;
 import teamrtg.rtg.modules.bop.RTGBiomeBOP;
 
 public class RTGBiomeBOPHeathland extends RTGBiomeBOP {
 
     public RTGBiomeBOPHeathland() {
+
         super(BOPBiomes.heathland.get(), Biomes.RIVER);
     }
 
     @Override
+    public void initConfig() {
+
+    }
+
+    @Override
     public TerrainBase initTerrain() {
+
         return new TerrainBase() {
 
             private float baseHeight = 66f;
@@ -35,20 +42,18 @@ public class RTGBiomeBOPHeathland extends RTGBiomeBOP {
 
             @Override
             public float generateNoise(RTGWorld rtgWorld, int x, int y, float biomeWeight, float border, float river) {
+
                 float added = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
-                added += hills.added(rtgWorld.simplex, rtgWorld.cell,x, y);
-                return riverized(baseHeight + added,river);
+                added += hills.added(rtgWorld.simplex, rtgWorld.cell, x, y);
+                return riverized(baseHeight + added, river);
             }
         };
     }
 
     @Override
     public SurfacePart initSurface() {
-        SurfacePart surface = new SurfacePart();
-        surface.add(new CliffSelector(1.5f)
-            .add(PARTS.STONE_OR_COBBLE));
-        surface.add(PARTS.surfaceGeneric());
-        return surface;
+
+        return SurfaceBase.surfaceGenericCliffs(this);
     }
 
     @Override
@@ -69,10 +74,5 @@ public class RTGBiomeBOPHeathland extends RTGBiomeBOP {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public void initConfig() {
-
     }
 }

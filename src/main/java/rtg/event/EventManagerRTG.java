@@ -1,12 +1,14 @@
 package rtg.event;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.WeakHashMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -14,6 +16,7 @@ import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
+
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
@@ -29,37 +32,31 @@ import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.WeakHashMap;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EventManagerRTG
 {
-    private final LoadChunkRTG LOAD_CHUNK_RTG = new LoadChunkRTG();
-    private final GenerateMinableRTG GENERATE_MINABLE_RTG = new GenerateMinableRTG();
-    private final InitBiomeGensRTG INIT_BIOME_GENS_RTG = new InitBiomeGensRTG();
-    private final InitMapGenRTG INIT_MAP_GEN_RTG = new InitMapGenRTG();
-    private final SaplingGrowTreeRTG SAPLING_GROW_TREE_RTG = new SaplingGrowTreeRTG();
-    
-    public final WorldEventRTG WORLD_EVENT_RTG = new WorldEventRTG();
-    public final RTGEventRegister RTG_EVENT_REGISTER = new RTGEventRegister();
+    // Event handlers.
+    private final WorldEventRTG WORLD_EVENT_HANDLER = new WorldEventRTG();
+    private final LoadChunkRTG LOAD_CHUNK_EVENT_HANDLER = new LoadChunkRTG();
+    private final GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
+    private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
+    private final InitMapGenRTG INIT_MAP_GEN_EVENT_HANDLER = new InitMapGenRTG();
+    private final SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
-    private boolean registered = false;
     private long worldSeed;
-    private final String EVENT_SYSTEM = "RTG Event System: ";
 
     public EventManagerRTG() {
-        // These should be registered once, and stay registered -srs
-        MinecraftForge.TERRAIN_GEN_BUS.register(RTG_EVENT_REGISTER);
-        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_RTG);
-        Logger.info(EVENT_SYSTEM + "Initialising EventManagerRTG");
+
     }
 
     public class LoadChunkRTG
     {
         LoadChunkRTG() {
-            Logger.debug(EVENT_SYSTEM + "Initialising LoadChunkRTG");
+            logEventMessage("Initialising LoadChunkRTG...");
         }
 
         @SubscribeEvent
@@ -74,7 +71,7 @@ public class EventManagerRTG
     public class GenerateMinableRTG
     {
         GenerateMinableRTG() {
-            Logger.debug(EVENT_SYSTEM + "Initialising GenerateMinableRTG");
+            logEventMessage("Initialising GenerateMinableRTG...");
         }
 
         @SubscribeEvent
@@ -107,22 +104,27 @@ public class EventManagerRTG
                     return;
 
                 default:
-                	return;
+                	break;
             }
         }
     }
 
     public class InitBiomeGensRTG
     {
-        InitBiomeGensRTG()
-        {
-            Logger.debug(EVENT_SYSTEM + "Initialising InitBiomeGensRTG");
+        InitBiomeGensRTG() {
+            logEventMessage("Initialising InitBiomeGensRTG...");
         }
 
         @SubscribeEvent
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
-            if (event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) return;
+            if (!(event.worldType instanceof WorldTypeRTG)) {
+                return;
+            }
+
+            if (event.newBiomeGens[0].getClass().getName().contains("GenLayerEB")) {
+                return;
+            }
 
             try {
                 event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
@@ -136,7 +138,7 @@ public class EventManagerRTG
     public class InitMapGenRTG
     {
         InitMapGenRTG() {
-            Logger.debug(EVENT_SYSTEM + "Initialising InitMapGenRTG");
+            logEventMessage("Initialising InitMapGenRTG...");
         }
 
         @SubscribeEvent(priority = EventPriority.LOW)
@@ -179,7 +181,7 @@ public class EventManagerRTG
     public class SaplingGrowTreeRTG
     {
         SaplingGrowTreeRTG() {
-            Logger.debug(EVENT_SYSTEM + "Initialising SaplingGrowTreeRTG");
+            logEventMessage("Initialising SaplingGrowTreeRTG...");
         }
 
         @SubscribeEvent
@@ -260,7 +262,7 @@ public class EventManagerRTG
                         tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
                     }
 
-                    /**
+                    /*
                      * Set the generateFlag to what it needs to be for growing trees from saplings,
                      * generate the tree, and then set it back to what it was before.
                      *
@@ -294,12 +296,12 @@ public class EventManagerRTG
     public class WorldEventRTG
     {
         WorldEventRTG() {
-            Logger.debug(EVENT_SYSTEM + "Initialising WorldEventRTG");
+            logEventMessage("Initialising WorldEventRTG...");
         }
 
         @SubscribeEvent
         public void onWorldLoad(WorldEvent.Load event) {
-        	
+
             // This event fires for each dimension loaded (and then one last time in which it returns 0?),
             // so initialise a field to 0 and set it to the world seed and only display it in the log once.
             if (worldSeed != event.world.getSeed() && event.world.getSeed() != 0) {
@@ -307,61 +309,95 @@ public class EventManagerRTG
                 worldSeed = event.world.getSeed();
                 Logger.info("World Seed: " + worldSeed);
             }
+
+            /*
+             * When loading a non-RTG world, we need to make sure that RTG's event handlers are unregistered.
+             *
+             * If we're loading an RTG world, RTG's event handlers should already be registered at this point,
+             * but it doesn't hurt to call registerEventHandlers() here because Forge only registers event
+             * handlers that aren't already registered, so better to be safe than sorry.
+             */
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+
+                RTG.eventMgr.unRegisterEventHandlers();
+            }
+            else {
+
+                RTG.eventMgr.registerEventHandlers();
+            }
         }
 
         @SubscribeEvent
         public void onWorldUnload(WorldEvent.Unload event) {
         	
-            // Reset WORLD_SEED so that it logs on the next server start if the seed is the same as the last load.
+            // Reset the world seed so that it logs on the next server start if the seed is the same as the last load.
             worldSeed = 0;
-        }
-    }
 
-    public class RTGEventRegister
-    {
-        RTGEventRegister() {
-            Logger.debug(EVENT_SYSTEM + "Initialising RTGEventRegister");
-        }
+            /*
+             * When loading an RTG world, WorldTypeEvent.InitBiomeGens needs to be registered before
+             * FMLServerAboutToStartEvent is fired, so the only way to ensure that it gets registered
+             * between unloading a non-RTG world and loading an RTG world is to register RTG's event handlers
+             * when a non-RTG world unloads.
+             */
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
 
-        @SubscribeEvent
-        public void registerRTGEventHandlers(WorldTypeEvent.InitBiomeGens event) {
-        	
-            if (event.worldType instanceof WorldTypeRTG) {
-                if (!registered) {
-                    Logger.info(EVENT_SYSTEM + "Registering RTG's Terrain Event Handlers...");
-                    RTG.eventMgr.registerEventHandlers();
-                    if (registered) Logger.info(EVENT_SYSTEM + "RTG's Terrain Event Handlers have been registered successfully.");
-                }
-            }
-            else {
-                if (registered) RTG.eventMgr.unRegisterEventHandlers();
+                RTG.eventMgr.registerEventHandlers();
             }
         }
     }
 
+    /*
+     * This method registers most of RTG's event handlers.
+     *
+     * We don't need to check if the event handlers are unregistered before registering them
+     * because Forge already performs those checks. This means that we could execute this method
+     * a million times, and it would stil only be registered once.
+     */
     public void registerEventHandlers() {
-        MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_RTG);
-        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_RTG);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_RTG);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_RTG);
-        MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_RTG);
-        registered = true;
+
+        logEventMessage("Registering RTG's event handlers...");
+
+        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
+        MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_EVENT_HANDLER);
+        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
+
+        logEventMessage("RTG's event handlers have been registered successfully.");
     }
 
+    /*
+     * This method unregisters most of RTG's event handlers.
+     *
+     * We don't need to check if the event handlers are registered before unregistering them
+     * because Forge already performs those checks. If this method gets executed when none
+     * of RTG's event handlers are registered, nothing bad will happen.
+     */
     public void unRegisterEventHandlers() {
-        MinecraftForge.EVENT_BUS.unregister(LOAD_CHUNK_RTG);
-        MinecraftForge.ORE_GEN_BUS.unregister(GENERATE_MINABLE_RTG);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(INIT_BIOME_GENS_RTG);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(INIT_MAP_GEN_RTG);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(SAPLING_GROW_TREE_RTG);
-        registered = false;
+
+        logEventMessage("Unregistering RTG's event handlers...");
+
+        /*
+         * The world event handler must always be registered.
+         *
+         * MinecraftForge.EVENT_BUS.unregister(WORLD_EVENT_HANDLER);
+         */
+
+        MinecraftForge.EVENT_BUS.unregister(LOAD_CHUNK_EVENT_HANDLER);
+        MinecraftForge.ORE_GEN_BUS.unregister(GENERATE_MINABLE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.unregister(INIT_BIOME_GENS_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.unregister(INIT_MAP_GEN_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.unregister(SAPLING_GROW_TREE_EVENT_HANDLER);
+
+        logEventMessage("RTG's event handlers have been unregistered successfully.");
     }
 
     public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
         chunkLoadEvents.put(dimension, action);
     }
 
-    public boolean isRegistered() {
-        return registered;
+    private static void logEventMessage(String message) {
+        Logger.info("RTG Event System: " + message);
     }
 }

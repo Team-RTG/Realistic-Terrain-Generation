@@ -17,6 +17,10 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
@@ -32,9 +36,6 @@ import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class EventManagerRTG
 {
@@ -119,6 +120,14 @@ public class EventManagerRTG
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
             if (!(event.worldType instanceof WorldTypeRTG)) {
+
+                /*
+                 * None of RTG's other event handlers need to be unregistered this early since they'll all
+                 * get unregistered before a non-RTG world loads when WorldEvent.Load is fired, but it's
+                 * better to be safe than sorry, so let's unregister them here to be safe.
+                 */
+                unRegisterEventHandlers();
+
                 return;
             }
 
@@ -350,8 +359,8 @@ public class EventManagerRTG
      * This method registers most of RTG's event handlers.
      *
      * We don't need to check if the event handlers are unregistered before registering them
-     * because Forge already performs those checks. This means that we could execute this method
-     * a million times, and it would stil only be registered once.
+     * because Forge already performs those checks. This means that we could execute this method a
+     * million times, and each event handler would still only be registered once.
      */
     public void registerEventHandlers() {
 

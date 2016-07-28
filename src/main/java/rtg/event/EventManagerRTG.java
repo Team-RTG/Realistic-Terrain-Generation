@@ -171,7 +171,9 @@ public class EventManagerRTG
 
             switch (event.type) {
                 case SCATTERED_FEATURE:
-                    event.newGen = new MapGenScatteredFeatureRTG();
+                    if (ConfigRTG.enableScatteredFeatureModifications) {
+                        event.newGen = new MapGenScatteredFeatureRTG();
+                    }
                     break;
 
                 case VILLAGE:

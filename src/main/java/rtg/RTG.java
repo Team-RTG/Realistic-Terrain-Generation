@@ -6,6 +6,13 @@ import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
 
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
+
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
@@ -36,13 +43,6 @@ import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 
 
 //@Mod(modid = "RTG", name = "Realistic Terrain Generaton", version = "0.8.0d", dependencies = "required-after:Forge@[10.13.4.1448,)", acceptableRemoteVersions = "*")

@@ -361,10 +361,7 @@ public class EventManagerRTG
         public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
         {
             //Are we in an RTG world?
-            if (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) {
-
-                isWorldTypeRTG = true;
-            }
+            isWorldTypeRTG = (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
         }
     }
 

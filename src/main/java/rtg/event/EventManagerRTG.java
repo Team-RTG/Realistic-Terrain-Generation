@@ -157,19 +157,27 @@ public class EventManagerRTG
         public void initMapGenRTG(InitMapGenEvent event) {
 
             // If the Overworld isn't an RTG dimension, then we definitely don't want to get involved here.
-            if (!isWorldTypeRTG || !(MinecraftServer.getServer().worldServerForDimension(0).getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
-                return;
+            // We need to do a try/catch because sometimes this event gets fired before the Overworld has loaded.
+            try {
+                if (!(MinecraftServer.getServer().worldServerForDimension(0).getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+                    return;
+                }
             }
+            catch (Exception e) {
 
-            // Let's do one last sanity check to make sure it's safe to proceed...
-            if (!isWorldTypeRTG) {
-                return;
+                Logger.debug("Overworld not loaded... checking global variable.");
+
+                // Let's do one last sanity check to make sure it's safe to proceed.
+                if (!isWorldTypeRTG) {
+                    return;
+                }
             }
 
             Logger.debug("event type = %s", event.type.toString());
             Logger.debug("event originalGen = %s", event.originalGen.toString());
 
             switch (event.type) {
+
                 case SCATTERED_FEATURE:
                     if (ConfigRTG.enableScatteredFeatureModifications) {
                         event.newGen = new MapGenScatteredFeatureRTG();

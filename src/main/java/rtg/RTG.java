@@ -68,7 +68,9 @@ public class RTG {
     public void preInit(FMLPreInitializationEvent event)
     {
         instance = this;
-        
+
+        worldtype = new WorldTypeRTG("RTG");
+
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
 
@@ -85,8 +87,6 @@ public class RTG {
         
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
-        
-        worldtype = new WorldTypeRTG("RTG");
     }
 
     /*

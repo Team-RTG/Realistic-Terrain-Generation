@@ -6,14 +6,12 @@ import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import net.minecraftforge.event.terraingen.WorldTypeEvent;
+import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
@@ -21,7 +19,6 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-import rtg.RTG;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
 import rtg.util.Logger;
@@ -46,9 +43,11 @@ public class EventManagerRTG
     private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
     private final InitMapGenRTG INIT_MAP_GEN_EVENT_HANDLER = new InitMapGenRTG();
     private final SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
+    private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
+    private boolean isWorldTypeRTG = true;
 
     public EventManagerRTG() {
 
@@ -62,6 +61,12 @@ public class EventManagerRTG
 
         @SubscribeEvent
         public void loadChunkRTG(ChunkEvent.Load event) {
+
+            // Are we in an RTG world?
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+                return;
+            }
+
             Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.world.provider.dimensionId);
             if (acceptor != null) {
                 acceptor.accept(event);
@@ -77,6 +82,11 @@ public class EventManagerRTG
 
         @SubscribeEvent
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
+
+            // Are we in an RTG world?
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+                return;
+            }
 
             switch (event.type) {
 
@@ -119,15 +129,8 @@ public class EventManagerRTG
         @SubscribeEvent
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
+            // Are we in an RTG world?
             if (!(event.worldType instanceof WorldTypeRTG)) {
-
-                /*
-                 * None of RTG's other event handlers need to be unregistered this early since they'll all
-                 * get unregistered before a non-RTG world loads when WorldEvent.Load is fired, but it's
-                 * better to be safe than sorry, so let's unregister them here to be safe.
-                 */
-                unRegisterEventHandlers();
-
                 return;
             }
 
@@ -153,12 +156,32 @@ public class EventManagerRTG
         @SubscribeEvent(priority = EventPriority.LOW)
         public void initMapGenRTG(InitMapGenEvent event) {
 
+            // If the Overworld isn't an RTG dimension, then we definitely don't want to get involved here.
+            // We need to do a try/catch because sometimes this event gets fired before the Overworld has loaded.
+            try {
+                if (!(MinecraftServer.getServer().worldServerForDimension(0).getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+                    return;
+                }
+            }
+            catch (Exception e) {
+
+                Logger.debug("Overworld not loaded... checking global variable.");
+
+                // Let's do one last sanity check to make sure it's safe to proceed.
+                if (!isWorldTypeRTG) {
+                    return;
+                }
+            }
+
             Logger.debug("event type = %s", event.type.toString());
             Logger.debug("event originalGen = %s", event.originalGen.toString());
 
             switch (event.type) {
+
                 case SCATTERED_FEATURE:
-                    event.newGen = new MapGenScatteredFeatureRTG();
+                    if (ConfigRTG.enableScatteredFeatureModifications) {
+                        event.newGen = new MapGenScatteredFeatureRTG();
+                    }
                     break;
 
                 case VILLAGE:
@@ -318,22 +341,6 @@ public class EventManagerRTG
                 worldSeed = event.world.getSeed();
                 Logger.info("World Seed: " + worldSeed);
             }
-
-            /*
-             * When loading a non-RTG world, we need to make sure that RTG's event handlers are unregistered.
-             *
-             * If we're loading an RTG world, RTG's event handlers should already be registered at this point,
-             * but it doesn't hurt to call registerEventHandlers() here because Forge only registers event
-             * handlers that aren't already registered, so better to be safe than sorry.
-             */
-            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
-
-                RTG.eventMgr.unRegisterEventHandlers();
-            }
-            else {
-
-                RTG.eventMgr.registerEventHandlers();
-            }
         }
 
         @SubscribeEvent
@@ -341,17 +348,20 @@ public class EventManagerRTG
         	
             // Reset the world seed so that it logs on the next server start if the seed is the same as the last load.
             worldSeed = 0;
+        }
+    }
 
-            /*
-             * When loading an RTG world, WorldTypeEvent.InitBiomeGens needs to be registered before
-             * FMLServerAboutToStartEvent is fired, so the only way to ensure that it gets registered
-             * between unloading a non-RTG world and loading an RTG world is to register RTG's event handlers
-             * when a non-RTG world unloads.
-             */
-            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+    public class DecorateBiomeEventRTG
+    {
+        DecorateBiomeEventRTG() {
+            logEventMessage("Initialising DecorateBiomeEventRTG...");
+        }
 
-                RTG.eventMgr.registerEventHandlers();
-            }
+        @SubscribeEvent
+        public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
+        {
+            //Are we in an RTG world?
+            isWorldTypeRTG = (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
         }
     }
 
@@ -372,34 +382,9 @@ public class EventManagerRTG
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
 
         logEventMessage("RTG's event handlers have been registered successfully.");
-    }
-
-    /*
-     * This method unregisters most of RTG's event handlers.
-     *
-     * We don't need to check if the event handlers are registered before unregistering them
-     * because Forge already performs those checks. If this method gets executed when none
-     * of RTG's event handlers are registered, nothing bad will happen.
-     */
-    public void unRegisterEventHandlers() {
-
-        logEventMessage("Unregistering RTG's event handlers...");
-
-        /*
-         * The world event handler must always be registered.
-         *
-         * MinecraftForge.EVENT_BUS.unregister(WORLD_EVENT_HANDLER);
-         */
-
-        MinecraftForge.EVENT_BUS.unregister(LOAD_CHUNK_EVENT_HANDLER);
-        MinecraftForge.ORE_GEN_BUS.unregister(GENERATE_MINABLE_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(INIT_BIOME_GENS_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(INIT_MAP_GEN_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.unregister(SAPLING_GROW_TREE_EVENT_HANDLER);
-
-        logEventMessage("RTG's event handlers have been unregistered successfully.");
     }
 
     public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
@@ -407,6 +392,6 @@ public class EventManagerRTG
     }
 
     private static void logEventMessage(String message) {
-        Logger.info("RTG Event System: " + message);
+        Logger.debug("RTG Event System: " + message);
     }
 }

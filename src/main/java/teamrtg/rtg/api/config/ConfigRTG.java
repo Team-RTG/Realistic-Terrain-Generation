@@ -1,18 +1,12 @@
 package teamrtg.rtg.api.config;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.BlockColored;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
-
 import org.apache.commons.lang3.ArrayUtils;
+import teamrtg.rtg.api.config.ConfigProperty.*;
 
-import teamrtg.rtg.api.config.ConfigProperty.PropertyBlock;
-import teamrtg.rtg.api.config.ConfigProperty.PropertyBool;
-import teamrtg.rtg.api.config.ConfigProperty.PropertyFloat;
-import teamrtg.rtg.api.config.ConfigProperty.PropertyInt;
-import teamrtg.rtg.api.config.ConfigProperty.PropertyString;
+import java.util.ArrayList;
 
 public class ConfigRTG extends ModConfig {
 	
@@ -180,6 +174,7 @@ public class ConfigRTG extends ModConfig {
 	// Scattered features
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public final PropertyBool ENABLE_SCATTERED_FEATURE_MODIFICATIONS = addBool("Enable scattered feature modifications", "scattered features");
     public final PropertyBool GENERATE_SCATTERED_FEATURES = addBool("Generate scattered features", "scattered features");
     public final PropertyInt MIN_DISTANCE_SCATTERED_FEATURES = addInt("Minimum distance between scattered features", "scattered features");
     public final PropertyInt MAX_DISTANCE_SCATTERED_FEATURES = addInt("Maximum distance between scattered features", "scattered features");
@@ -518,7 +513,7 @@ public class ConfigRTG extends ModConfig {
     	// Ravines
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        ENABLE_RAVINE_MODIFICATIONS.setDefault(true).setDefault(true).setComment(
+        ENABLE_RAVINE_MODIFICATIONS.setDefault(true).setComment(
         	"Must be set to true for the other ravine settings to have any effect."
             + NEW_LINE +
             "If false, RTG won't interfere with ravine generation at all."
@@ -565,7 +560,13 @@ public class ConfigRTG extends ModConfig {
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     	// Scattered features
     	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
+
+        ENABLE_SCATTERED_FEATURE_MODIFICATIONS.setDefault(true).setComment(
+            "Must be set to true for the other scattered feature settings to have any effect."
+                + NEW_LINE +
+                "If false, RTG won't interfere with scattered feature generation at all."
+        );
+
         GENERATE_SCATTERED_FEATURES.setDefault(true).setComment(
         	"Set to false to disable scattered feature generation."
         	+ NEW_LINE +

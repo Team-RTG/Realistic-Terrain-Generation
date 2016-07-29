@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
 
+import cpw.mods.fml.common.Loader;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.util.Logger;
 import rtg.util.ModPresenceTester;
-import cpw.mods.fml.common.Loader;
 
 public class ConfigRTG
 {
@@ -113,7 +114,8 @@ public class ConfigRTG
 	public static int rtgTreeChance = 2;
     
     /* ==================== Scattered Features ==================== */
-    
+
+    public static boolean enableScatteredFeatureModifications = true;
     public static boolean generateScatteredFeatures = true;
     public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
     public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
@@ -417,7 +419,17 @@ public class ConfigRTG
             );
             
             /* ==================== Scattered Features ==================== */
-            
+
+            enableScatteredFeatureModifications = config.getBoolean(
+                "Enable Scattered Feature Modifications",
+                "Scattered Features",
+                enableScatteredFeatureModifications,
+                "Must be set to TRUE for the other scattered feature settings to have any effect."
+                    + Configuration.NEW_LINE +
+                    "If FALSE, RTG won't interfere with scattered feature generation at all."
+                    + Configuration.NEW_LINE
+            );
+
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
             
             minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 8 = Vanilla" + Configuration.NEW_LINE);

@@ -354,7 +354,7 @@ public class EventManagerRTG
     public class DecorateBiomeEventRTG
     {
         DecorateBiomeEventRTG() {
-
+            logEventMessage("Initialising DecorateBiomeEventRTG...");
         }
 
         @SubscribeEvent
@@ -392,6 +392,6 @@ public class EventManagerRTG
     }
 
     private static void logEventMessage(String message) {
-        Logger.info("RTG Event System: " + message);
+        Logger.debug("RTG Event System: " + message);
     }
 }

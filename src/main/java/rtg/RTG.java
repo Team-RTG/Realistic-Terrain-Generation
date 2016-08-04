@@ -2,6 +2,8 @@ package rtg;
 
 import java.util.ArrayList;
 
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -13,8 +15,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
+import rtg.config.rtg.ConfigRTG;
 import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
+import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
@@ -26,6 +30,9 @@ import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.minestrappolation.RealisticBiomeMSBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
+import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.reference.ModInfo.*;
 
 @Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
@@ -52,22 +59,25 @@ public class RTG {
 
         instance = this;
 
+        worldtype = new WorldTypeRTG("RTG");
+
+        MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
+        if (ConfigRTG.enableVillageModifications) MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+
         eventMgr = new EventManagerRTG();
-        MinecraftForge.EVENT_BUS.register(eventMgr);
-        MinecraftForge.ORE_GEN_BUS.register(eventMgr);
-        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
+        eventMgr.registerEventHandlers();
 
+        // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
+        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
+
+        // Biome configs MUST get initialised before the main config.
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
-
-        // This MUST get called before the config is initialised.
         BiomeConfigManager.initBiomeConfigs();
-
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         ConfigManager.init(configPath);
-
-        worldtype = new WorldTypeRTG("RTG");
     }
 
     @EventHandler
@@ -91,26 +101,6 @@ public class RTG {
         RealisticBiomeFCBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerAboutToStartEvent event) {
-
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerStartingEvent event) {
-
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerStartedEvent event) {
-
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerStoppingEvent event) {
-
     }
 
     public void runOnServerClose(Runnable action) {

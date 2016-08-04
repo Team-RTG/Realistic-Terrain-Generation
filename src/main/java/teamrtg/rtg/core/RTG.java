@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import teamrtg.rtg.api.module.Mods;
 import teamrtg.rtg.api.util.RealisticBiomePresenceTester;
-import teamrtg.rtg.api.util.debug.Logger;
 import teamrtg.rtg.api.world.RealisticBiomeFaker;
 import teamrtg.rtg.client.DebugHandler;
 import teamrtg.rtg.core.event.EventManagerRTG;
@@ -42,7 +41,10 @@ public class RTG {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+
         instance = this;
+
+        worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
 
         configPath = event.getModConfigurationDirectory() + "/RTG/";
         Mods.syncAllConfigs();
@@ -50,12 +52,11 @@ public class RTG {
         // This must come before the event manager is registered.
         this.registerStructures();
 
-        Logger.info("[FMLPreInitializationEvent] Creating RTG's EventManager");
         eventMgr = new EventManagerRTG();
+        eventMgr.registerEventHandlers();
 
+        // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
         MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
-
-        worldtype = new WorldTypeRTG(ModInfo.MOD_ID);
     }
 
     @EventHandler
@@ -72,18 +73,6 @@ public class RTG {
         RealisticBiomePresenceTester.doBiomeCheck();
     }
     
-    @EventHandler
-    public void serverStopped(FMLServerStoppedEvent event)
-    {
-
-        if (eventMgr.isRegistered()) {
-            Logger.info("Unregistering RTG's Terrain Event Handlers...");
-            RTG.eventMgr.unRegisterEventHandlers();
-            if (!eventMgr.isRegistered()) Logger.info("RTG's Terrain Event Handlers have been unregistered successfully.");
-        }
-
-    }
-    
     private void registerStructures()
     {
     	// Scattered features
@@ -96,7 +85,6 @@ public class RTG {
         // Ocean monuments
         MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
     }
-
 
     public void runOnServerClose(Runnable action) {
         serverCloseActions.add(action);
@@ -115,6 +103,5 @@ public class RTG {
             action.run();
         }
         oneShotServerCloseActions.clear();
-
     }
 }

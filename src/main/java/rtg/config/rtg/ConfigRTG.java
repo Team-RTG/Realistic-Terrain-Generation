@@ -1,10 +1,11 @@
 package rtg.config.rtg;
 
+import java.io.File;
+
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
-import rtg.util.Logger;
 
-import java.io.File;
+import rtg.util.Logger;
 
 public class ConfigRTG
 {
@@ -85,7 +86,8 @@ public class ConfigRTG
     public static int ravineFrequency = 50;
 
     /* ==================== Scattered Features ==================== */
-    
+
+    public static boolean enableScatteredFeatureModifications = true;
     public static boolean generateScatteredFeatures = true;
     public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
     public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
@@ -280,8 +282,18 @@ public class ConfigRTG
             
             enableRavines = config.getBoolean("Enable Ravines", "Ravines", enableRavines, "");
             ravineFrequency = config.getInt("Ravine Frequency", "Ravines", ravineFrequency, 1, 100, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE);
-            
+
             /* ==================== Scattered Features ==================== */
+
+            enableScatteredFeatureModifications = config.getBoolean(
+                "Enable Scattered Feature Modifications",
+                "Scattered Features",
+                enableScatteredFeatureModifications,
+                "Must be set to TRUE for the other scattered feature settings to have any effect."
+                    + Configuration.NEW_LINE +
+                    "If FALSE, RTG won't interfere with scattered feature generation at all."
+                    + Configuration.NEW_LINE
+            );
             
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
             

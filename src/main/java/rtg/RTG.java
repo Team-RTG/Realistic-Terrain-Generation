@@ -9,7 +9,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import rtg.api.event.BiomeConfigEvent;
@@ -27,6 +30,7 @@ import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.minestrappolation.RealisticBiomeMSBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
@@ -96,6 +100,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();
+        RealisticBiomeHLBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeMSBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();

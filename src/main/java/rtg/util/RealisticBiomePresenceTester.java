@@ -1,10 +1,9 @@
 
 package rtg.util;
 
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import net.minecraftforge.fml.common.FMLLog;
-
 import net.minecraft.world.biome.BiomeGenBase;
+
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
  *
@@ -24,6 +23,8 @@ public class RealisticBiomePresenceTester {
                 int biomeId = b[i].biomeID;
                 String biomeName = b[i].biomeName;
                 String biomeClass = b[i].getBiomeClass().getName();
+
+                //Logger.info("Biome (" + biomeId + ") " + biomeName + " from " + biomeClass);
                 
                 switch (biomeId) {
                 

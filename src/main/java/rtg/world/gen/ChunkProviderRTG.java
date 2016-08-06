@@ -1,13 +1,5 @@
 package rtg.world.gen;
 
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,17 +23,16 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
-import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.*;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CanyonColour;
@@ -100,9 +91,6 @@ public class ChunkProviderRTG implements IChunkProvider
     private float[] borderNoise;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
-    
-    //private AICWrapper aic;
-    private boolean isAICExtendingBiomeIdsLimit;
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -167,9 +155,6 @@ public class ChunkProviderRTG implements IChunkProvider
     	biomesGeneratedInChunk = new float[256];
     	borderNoise = new float[256];
     	biomePatcher = new RealisticBiomePatcher();
-    	
-    	//aic = new AICWrapper();
-    	//isAICExtendingBiomeIdsLimit = aic.isAICExtendingBiomeIdsLimit();
     }
 
     /**
@@ -281,26 +266,23 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
-        
-        if(isAICExtendingBiomeIdsLimit){
-        	//aic.setBiomeArray(chunk, baseBiomesList, xyinverted);
-        } else {
-        	// doJitter no longer needed as the biome array gets fixed
-        	byte[] abyte1 = chunk.getBiomeArray();
-        	for (k = 0; k < abyte1.length; ++k)
-        	{
-        		// biomes are y-first and terrain x-first
-        		/*
-        		* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
-        		* Which causes game to crash.
-        		* I cannot do much on my part, so i have to do it here.
-        		* - Elix_x
-        		*/
-        		byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
-        		abyte1[k] = b;
-        	}
-        	chunk.setBiomeArray(abyte1);
-        }
+
+		// doJitter no longer needed as the biome array gets fixed
+		byte[] abyte1 = chunk.getBiomeArray();
+		for (k = 0; k < abyte1.length; ++k)
+		{
+			// biomes are y-first and terrain x-first
+			/*
+			* This 2 line separation is needed, because otherwise, AIC's dynamic patching algorith detects vanilla pattern here and patches this part following vanilla logic.
+			* Which causes game to crash.
+			* I cannot do much on my part, so i have to do it here.
+			* - Elix_x
+			*/
+			byte b = (byte)this.baseBiomesList[this.xyinverted[k]].biomeID;
+			abyte1[k] = b;
+		}
+		chunk.setBiomeArray(abyte1);
+
         chunk.generateSkylightMap();
         return chunk;
     }

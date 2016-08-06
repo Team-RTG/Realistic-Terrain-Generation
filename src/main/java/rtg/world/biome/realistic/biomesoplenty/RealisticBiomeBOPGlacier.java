@@ -19,7 +19,7 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.frozenRiver,
-			new TerrainBOPGlacier(230f, 100f, 0f),
+			new TerrainBOPGlacier(230f, 40f, 68f),
 			new SurfaceBOPGlacier(config, topBlock, fillerBlock, topBlock, fillerBlock, Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f)
 		);

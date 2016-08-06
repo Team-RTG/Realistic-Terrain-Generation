@@ -18,7 +18,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPWoodland(0f, 65f, 72f, 120f),
+			new TerrainBOPWoodland(10f, 25f, 72f, 120f),
 			new SurfaceBOPWoodland(config, topBlock, fillerBlock)
 		);
 	}

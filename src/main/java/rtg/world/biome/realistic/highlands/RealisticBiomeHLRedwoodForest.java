@@ -11,7 +11,7 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase {
     public RealisticBiomeHLRedwoodForest(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLRedwoodForest(),
+            new TerrainHLRedwoodForest(40f, 180f, 13f, 100f, 38f, 260f, 71f),
             new SurfaceHLRedwoodForest(config, biome.topBlock, biome.fillerBlock)
         );
     }

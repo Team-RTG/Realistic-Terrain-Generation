@@ -1,5 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -8,7 +10,10 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import net.minecraft.world.gen.feature.WorldGenWaterlily;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
 import net.minecraftforge.event.terraingen.TerrainGen;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.*;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
 import rtg.util.CellNoise;
@@ -19,10 +24,6 @@ import rtg.world.gen.feature.tree.WorldGenTreeRTGMangrove;
 import rtg.world.gen.feature.tree.WorldGenTreeRTGPalmCustom;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
-
-import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.*;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
 {
@@ -36,7 +37,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase
         super(config, 
             BiomeGenBase.jungleHills,
             BiomeGenBase.river,
-            new TerrainVanillaJungleHills(),
+            new TerrainVanillaJungleHills(72f,40f),
             new SurfaceVanillaJungleHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f));
         this.waterSurfaceLakeChance = 3;
         this.noLakes=true;

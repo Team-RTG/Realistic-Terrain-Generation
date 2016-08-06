@@ -11,7 +11,7 @@ public class RealisticBiomeHLTropicalIslands extends RealisticBiomeHLBase {
     public RealisticBiomeHLTropicalIslands(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLTropicalIslands(),
+            new TerrainHLTropicalIslands(90f, 180f, 13f, 100f, 1f, 260f, 59f),
             new SurfaceHLTropicalIslands(config, biome.topBlock, biome.fillerBlock)
         );
     }

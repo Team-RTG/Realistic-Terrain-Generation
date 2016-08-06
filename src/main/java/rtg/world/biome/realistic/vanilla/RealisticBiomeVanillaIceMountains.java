@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
         super(config, 
             BiomeGenBase.iceMountains,
             BiomeGenBase.frozenRiver,
-            new TerrainVanillaIceMountains(230f, 80f, 0f),
+            new TerrainVanillaIceMountains(230f, 60f, 68f),
             new SurfaceVanillaIceMountains(config, topBlock, fillerBlock, Blocks.snow.getDefaultState(), Blocks.snow.getDefaultState(), Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f));
         this.noLakes=true;

@@ -1,8 +1,10 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import biomesoplenty.api.biome.BOPBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSacredSprings;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSacredSprings;
@@ -18,7 +20,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase
 	{
 		super(config, 
 			bopBiome, BiomeGenBase.river,
-			new TerrainBOPSacredSprings(),
+			new TerrainBOPSacredSprings(150f, 30f, 68f),
 			new SurfaceBOPSacredSprings(config, topBlock, fillerBlock)
 		);
 	}

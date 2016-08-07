@@ -1,22 +1,27 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
+import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklandsHighland;
 import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsHighland;
 
-import net.minecraft.world.biome.BiomeGenBase;
+public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
 
-public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase
-{
+    public RealisticBiomeACDarklandsHighland(BiomeGenBase acBiome, BiomeConfig config) {
 
-    public RealisticBiomeACDarklandsHighland(BiomeGenBase acBiome, BiomeConfig config)
-    {
-    
-        super(config, 
+        super(config,
             acBiome,
             BiomeGenBase.river,
             new TerrainACDarklandsHighland(10f, 120f, 10f, 200f),
             new SurfaceACDarklandsHighland(config, acBiome.topBlock, acBiome.fillerBlock, acBiome.topBlock, acBiome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
         );
+
+        this.noLakes = true;
+        this.noWaterFeatures = true;
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -1,12 +1,10 @@
 package rtg.api.biome.abyssalcraft.config;
 
 
+public class BiomeConfigACDarklandsMountains extends BiomeConfigACBase {
 
-public class BiomeConfigACDarklandsMountains extends BiomeConfigACBase
-{
+    public BiomeConfigACDarklandsMountains() {
 
-    public BiomeConfigACDarklandsMountains()
-    {
         super("darklandsmountains");
     }
 }

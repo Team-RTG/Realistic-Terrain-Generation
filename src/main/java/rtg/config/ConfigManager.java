@@ -26,11 +26,6 @@ public class ConfigManager {
 
     private ConfigRTG configRTG = new ConfigRTG();
 
-    public ConfigRTG rtg() {
-
-        return configRTG;
-    }
-
     public static void init(String configpath) {
 
         rtgConfigFile = new File(configpath + "rtg.cfg");
@@ -54,5 +49,10 @@ public class ConfigManager {
         ConfigAC.init(acConfigFile);
         ConfigMS.init(msConfigFile);
         ConfigFC.init(fcConfigFile);
+    }
+
+    public ConfigRTG rtg() {
+
+        return configRTG;
     }
 }

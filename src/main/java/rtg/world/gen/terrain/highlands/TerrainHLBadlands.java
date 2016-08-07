@@ -94,7 +94,7 @@ public class TerrainHLBadlands extends TerrainBase {
         pX += jitter.deltax() * 3f;
         pY += jitter.deltay() * 3f;
             /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+            OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
             double pX = x + simplexResults[0] * 220f;
             double pY = y + simplexResults[1] * 220f;*/
 

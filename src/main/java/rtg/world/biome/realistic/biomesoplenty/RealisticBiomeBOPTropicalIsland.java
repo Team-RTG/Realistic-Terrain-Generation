@@ -1,36 +1,32 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTropicalIsland;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTropicalIsland;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPTropicalIsland;
 
-import java.util.Random;
+public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
-public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPBiomes.tropical_island.get();
-	
-	public static IBlockState topBlock = bopBiome.topBlock;
-	public static IBlockState fillerBlock = bopBiome.fillerBlock;
-	
-	public RealisticBiomeBOPTropicalIsland(BiomeConfig config)
-	{
-		super(config, 
-			bopBiome, BiomeGenBase.river,
-			new TerrainBOPTropicalIsland(),
-			new SurfaceBOPTropicalIsland(config,
+    public static BiomeGenBase bopBiome = BOPBiomes.tropical_island.get();
+
+    public static IBlockState topBlock = bopBiome.topBlock;
+    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+
+    public RealisticBiomeBOPTropicalIsland(BiomeConfig config) {
+
+        super(config,
+            bopBiome, BiomeGenBase.river,
+            new TerrainBOPTropicalIsland(),
+            new SurfaceBOPTropicalIsland(config,
                 topBlock, //Block top
                 fillerBlock, //Block filler,
                 Blocks.sand.getDefaultState(), //IBlockState mixTop,
@@ -40,40 +36,22 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase
                 5f, //float smallWidth, 
                 0.5f //float smallStrength
             )
-		);
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
-    
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
+        );
 
-        if (this.config.getPropertyById(BiomeConfigBOPTropicalIsland.decorationLogsId).valueBoolean) {
-        
-            if (rand.nextInt(12) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
-                
-                Block log;
-                byte logMeta;
-                int intLogLength;
-    
-                log = BOPBlocks.log_2;
-                logMeta = (byte)3;
-                intLogLength = 3 + rand.nextInt(2);
-    
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, new BlockPos(x22, y22, z22));
-            }
-        }
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 12;
+        decoFallenTree.logBlock = BOPBlocks.log_2.getStateFromMeta(3);
+        decoFallenTree.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 4;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPTropicalIsland.decorationLogsId));
     }
 }

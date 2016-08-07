@@ -30,335 +30,321 @@ import java.util.Random;
  * This is a Voronoi noise generator, originally from https://github.com/TJHJava/libnoiseforjava
  * It was modified to work in a similar way to the bukkit noise generators, and to support
  * octaves and 2d noise,
- *
+ * <p>
  * by mncat77 and jtjj222. <----------
  */
-public class VoronoiCellOctave implements CellOctave
-{
-	private static final double SQRT_2 = 1.4142135623730950488;
-	private static final double SQRT_3 = 1.7320508075688772935;
+public class VoronoiCellOctave implements CellOctave {
 
-	private boolean useDistance = false;
+    private static final double SQRT_2 = 1.4142135623730950488;
+    private static final double SQRT_3 = 1.7320508075688772935;
 
-	private long seed;
+    private boolean useDistance = false;
+
+    private long seed;
     private long ySeed;
     private long zSeed;
-	private short distanceMethod;
+    private short distanceMethod;
 
 
-	public VoronoiCellOctave(long seed, short distanceMethod, boolean useDistance){
-		this.seed = seed;
+    public VoronoiCellOctave(long seed, short distanceMethod, boolean useDistance) {
+
+        this.seed = seed;
         ySeed = new Random(seed).nextLong();
         zSeed = new Random(ySeed).nextLong();
-		this.distanceMethod = distanceMethod;
+        this.distanceMethod = distanceMethod;
         this.useDistance = useDistance;
-	}
+    }
 
-	private double distance(double xDist, double zDist)
-	{
-		return Math.sqrt(xDist * xDist + zDist * zDist);
-	}
+    /**
+     * To avoid having to store the feature points, we use a hash function
+     * of the coordinates and the seed instead. Those big scary numbers are
+     * arbitrary primes.
+     */
+    public static double valueNoise2D(int x, int z, long seed) {
 
-	private double getDistance2D(double xDist, double zDist)
-	{
-		switch(distanceMethod)
-		{
-		case 0:
-			return Math.sqrt(xDist * xDist + zDist * zDist) / SQRT_2;
-		case 1:
-			return xDist + zDist;
-		default:
-			return Double.NaN;
-		}
-	}
+        long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
+        n = (n >> 13) ^ n;
+        return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
+    }
 
-	private double getDistance(double xDist, double yDist, double zDist)
-	{
-		switch(distanceMethod)
-		{
-		case 0:
-			return Math.sqrt(xDist * xDist + yDist * yDist + zDist * zDist) / SQRT_3; //Approximation (for speed) of elucidean (regular) distance
-		case 1:
-			return xDist + yDist + zDist;
-		default:
-			return Double.NaN;
-		}
-	}
+    public static double valueNoise3D(int x, int y, int z, long seed) {
 
-	public boolean isUseDistance()
-	{
-		return useDistance;
-	}
+        long n = (1619 * x + 31337 * y + 6971 * z + 1013 * seed) & 0x7fffffff;
+        n = (n >> 13) ^ n;
+        return 1.0 - ((double) ((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
+    }
 
-	public void setUseDistance(boolean useDistance)
-	{
-		this.useDistance = useDistance;
-	}
+    private double distance(double xDist, double zDist) {
 
-	public short getDistanceMethod()
-	{
-		return distanceMethod;
-	}
+        return Math.sqrt(xDist * xDist + zDist * zDist);
+    }
 
-	public long getSeed()
-	{
-		return seed;
-	}
+    private double getDistance2D(double xDist, double zDist) {
 
-	public void setDistanceMethod(short distanceMethod)
-	{
-		this.distanceMethod = distanceMethod;
-	}
+        switch (distanceMethod) {
+            case 0:
+                return Math.sqrt(xDist * xDist + zDist * zDist) / SQRT_2;
+            case 1:
+                return xDist + zDist;
+            default:
+                return Double.NaN;
+        }
+    }
 
-	public void setSeed(long seed)
-	{
-		this.seed = seed;
+    private double getDistance(double xDist, double yDist, double zDist) {
+
+        switch (distanceMethod) {
+            case 0:
+                return Math.sqrt(xDist * xDist + yDist * yDist + zDist * zDist) / SQRT_3; //Approximation (for speed) of elucidean (regular) distance
+            case 1:
+                return xDist + yDist + zDist;
+            default:
+                return Double.NaN;
+        }
+    }
+
+    public boolean isUseDistance() {
+
+        return useDistance;
+    }
+
+    public void setUseDistance(boolean useDistance) {
+
+        this.useDistance = useDistance;
+    }
+
+    public short getDistanceMethod() {
+
+        return distanceMethod;
+    }
+
+    public void setDistanceMethod(short distanceMethod) {
+
+        this.distanceMethod = distanceMethod;
+    }
+
+    public long getSeed() {
+
+        return seed;
+    }
+
+    public void setSeed(long seed) {
+
+        this.seed = seed;
         ySeed = new Random(seed).nextLong();
         zSeed = new Random(ySeed).nextLong();
-	}
+    }
 
-	public float noise(double x, double z, double frequency)
-	{
-		x *= frequency;
-		z *= frequency;
+    public float noise(double x, double z, double frequency) {
 
-		int xInt = (x > .0? (int)x: (int)x - 1);
-		int zInt = (z > .0? (int)z: (int)z - 1);
+        x *= frequency;
+        z *= frequency;
 
-		double minDist = 32000000.0;
+        int xInt = (x > .0 ? (int) x : (int) x - 1);
+        int zInt = (z > .0 ? (int) z : (int) z - 1);
 
-		double xCandidate = 0;
-		double zCandidate = 0;
+        double minDist = 32000000.0;
 
-		for(int zCur = zInt - 2; zCur <= zInt + 2; zCur++)
-		{
-			for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++)
-			{
+        double xCandidate = 0;
+        double zCandidate = 0;
 
-				double xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				double zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
-				double xDist = xPos - x;
-				double zDist = zPos - z;
-				double dist = xDist * xDist + zDist * zDist;
+        for (int zCur = zInt - 2; zCur <= zInt + 2; zCur++) {
+            for (int xCur = xInt - 2; xCur <= xInt + 2; xCur++) {
 
-				if(dist < minDist)
-				{
-					minDist = dist;
-					xCandidate = xPos;
-					zCandidate = zPos;
-				}
-			}
-		}
+                double xPos = xCur + valueNoise2D(xCur, zCur, seed);
+                double zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
+                double xDist = xPos - x;
+                double zDist = zPos - z;
+                double dist = xDist * xDist + zDist * zDist;
 
-		if (useDistance)
-		{
-			double xDist = xCandidate - x;
-			double zDist = zCandidate - z;
-			return (float)getDistance2D(xDist, zDist);
-		}
+                if (dist < minDist) {
+                    minDist = dist;
+                    xCandidate = xPos;
+                    zCandidate = zPos;
+                }
+            }
+        }
 
-		else return ((float)valueNoise2D (
-		       (int)(Math.floor (xCandidate)),
-		       (int)(Math.floor (zCandidate)), seed));
-	}
+        if (useDistance) {
+            double xDist = xCandidate - x;
+            double zDist = zCandidate - z;
+            return (float) getDistance2D(xDist, zDist);
+        }
 
-	public float border2(double x, double z, double width, float depth)
-	{
-		x *= 1D;
-		z *= 1D;
+        else {
+            return ((float) valueNoise2D(
+                (int) (Math.floor(xCandidate)),
+                (int) (Math.floor(zCandidate)), seed));
+        }
+    }
 
-		int xInt = (x > .0? (int)x: (int)x - 1);
-		int zInt = (z > .0? (int)z: (int)z - 1);
+    public float border2(double x, double z, double width, float depth) {
 
-		double dCandidate = 32000000.0;
-		double xCandidate = 0;
-		double zCandidate = 0;
+        x *= 1D;
+        z *= 1D;
 
-		double dNeighbour = 32000000.0;
-		double xNeighbour = 0;
-		double zNeighbour = 0;
+        int xInt = (x > .0 ? (int) x : (int) x - 1);
+        int zInt = (z > .0 ? (int) z : (int) z - 1);
 
-		double xPos, zPos, xDist, zDist, dist;
-		for(int zCur = zInt - 2; zCur <= zInt + 2; zCur++)
-		{
-			for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++)
-			{
-				xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
-				xDist = xPos - x;
-				zDist = zPos - z;
-				dist = distance(xPos - x, zPos - z);
+        double dCandidate = 32000000.0;
+        double xCandidate = 0;
+        double zCandidate = 0;
 
-				if(dist < dCandidate)
-				{
-					dNeighbour = dCandidate;
-					xNeighbour = xCandidate;
-					zNeighbour = zCandidate;
+        double dNeighbour = 32000000.0;
+        double xNeighbour = 0;
+        double zNeighbour = 0;
 
-					dCandidate = dist;
-					xCandidate = xPos;
-					zCandidate = zPos;
-				}
-				else if(dist > dCandidate && dist < dNeighbour)
-				{
-					dNeighbour = dist;
-					xNeighbour = xPos;
-					zNeighbour = zPos;
-				}
-			}
-		}
+        double xPos, zPos, xDist, zDist, dist;
+        for (int zCur = zInt - 2; zCur <= zInt + 2; zCur++) {
+            for (int xCur = xInt - 2; xCur <= xInt + 2; xCur++) {
+                xPos = xCur + valueNoise2D(xCur, zCur, seed);
+                zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
+                xDist = xPos - x;
+                zDist = zPos - z;
+                dist = distance(xPos - x, zPos - z);
 
-		//double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
-		//double total = (dCandidate + dNeighbour) / diff;
+                if (dist < dCandidate) {
+                    dNeighbour = dCandidate;
+                    xNeighbour = xCandidate;
+                    zNeighbour = zCandidate;
 
-		//dCandidate = dCandidate / total;
-		//dNeighbour = dNeighbour / total;
+                    dCandidate = dist;
+                    xCandidate = xPos;
+                    zCandidate = zPos;
+                }
+                else if (dist > dCandidate && dist < dNeighbour) {
+                    dNeighbour = dist;
+                    xNeighbour = xPos;
+                    zNeighbour = zPos;
+                }
+            }
+        }
 
-		//double c = (diff / 2D) - dCandidate;
-        double c = (dNeighbour - dCandidate)/dNeighbour;
-		if(c < width)
-		{
-			return (((float)(c / width)) - 1f) * depth;
-		}
-		else
-		{
-			return 0f;
-		}
-	}
+        //double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
+        //double total = (dCandidate + dNeighbour) / diff;
 
-	public double[] eval (double x, double z)
-	{
+        //dCandidate = dCandidate / total;
+        //dNeighbour = dNeighbour / total;
 
-		int xInt = (x > .0? (int)x: (int)x - 1);
-		int zInt = (z > .0? (int)z: (int)z - 1);
+        //double c = (diff / 2D) - dCandidate;
+        double c = (dNeighbour - dCandidate) / dNeighbour;
+        if (c < width) {
+            return (((float) (c / width)) - 1f) * depth;
+        }
+        else {
+            return 0f;
+        }
+    }
 
-		double dCandidate = 32000000.0;
-		double xCandidate = 0;
-		double zCandidate = 0;
+    public double[] eval(double x, double z) {
 
-		double dNeighbour = 32000000.0;
-		double xNeighbour = 0;
-		double zNeighbour = 0;
+        int xInt = (x > .0 ? (int) x : (int) x - 1);
+        int zInt = (z > .0 ? (int) z : (int) z - 1);
 
-		for(int zCur = zInt - 2; zCur <= zInt + 2; zCur++)
-		{
-			for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++)
-			{
+        double dCandidate = 32000000.0;
+        double xCandidate = 0;
+        double zCandidate = 0;
 
-				double xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				double zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
-				double xDist = xPos - x;
-				double zDist = zPos - z;
-				double dist = xDist * xDist + zDist * zDist;
-				//double dist = getDistance2D(xPos - x, zPos - z);
+        double dNeighbour = 32000000.0;
+        double xNeighbour = 0;
+        double zNeighbour = 0;
 
-				if(dist < dCandidate)
-				{
-					dNeighbour = dCandidate;
-					dCandidate = dist;
+        for (int zCur = zInt - 2; zCur <= zInt + 2; zCur++) {
+            for (int xCur = xInt - 2; xCur <= xInt + 2; xCur++) {
+
+                double xPos = xCur + valueNoise2D(xCur, zCur, seed);
+                double zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
+                double xDist = xPos - x;
+                double zDist = zPos - z;
+                double dist = xDist * xDist + zDist * zDist;
+                //double dist = getDistance2D(xPos - x, zPos - z);
+
+                if (dist < dCandidate) {
+                    dNeighbour = dCandidate;
+                    dCandidate = dist;
 
 					/*dNeighbour = dCandidate;
-					xNeighbour = xCandidate;
+                    xNeighbour = xCandidate;
 					zNeighbour = zCandidate;
 
 					dCandidate = dist;
 					xCandidate = xPos;
 					zCandidate = zPos;*/
-				}
-				else if(dist < dNeighbour)
-				{
-					dNeighbour = dist;
-				}
-			}
-		}
+                }
+                else if (dist < dNeighbour) {
+                    dNeighbour = dist;
+                }
+            }
+        }
 
-		//double c = getDistance2D(xNeighbour - x, zNeighbour - z) - getDistance2D(xCandidate - x, zCandidate - z);
-		double [] result= new double [2];
-        result [0] = dCandidate ;
-        result [1] = dNeighbour;
+        //double c = getDistance2D(xNeighbour - x, zNeighbour - z) - getDistance2D(xCandidate - x, zCandidate - z);
+        double[] result = new double[2];
+        result[0] = dCandidate;
+        result[1] = dNeighbour;
         return result;
-	}
+    }
 
-	public double noise(double x, double y, double z, double frequency)
-	{
-		// Inside each unit cube, there is a seed point at a random position.  Go
-		// through each of the nearby cubes until we find a cube with a seed point
-		// that is closest to the specified position.
-		x *= frequency;
-		y *= frequency;
-		z *= frequency;
+    public double noise(double x, double y, double z, double frequency) {
+        // Inside each unit cube, there is a seed point at a random position.  Go
+        // through each of the nearby cubes until we find a cube with a seed point
+        // that is closest to the specified position.
+        x *= frequency;
+        y *= frequency;
+        z *= frequency;
 
-		int xInt = (x > .0? (int)x: (int)x - 1);
-		int yInt = (y > .0? (int)y: (int)y - 1);
-		int zInt = (z > .0? (int)z: (int)z - 1);
+        int xInt = (x > .0 ? (int) x : (int) x - 1);
+        int yInt = (y > .0 ? (int) y : (int) y - 1);
+        int zInt = (z > .0 ? (int) z : (int) z - 1);
 
-		double minDist = 32000000.0;
+        double minDist = 32000000.0;
 
-		double xCandidate = 0;
-		double yCandidate = 0;
-		double zCandidate = 0;
+        double xCandidate = 0;
+        double yCandidate = 0;
+        double zCandidate = 0;
 
-		Random rand = new Random(seed);
+        Random rand = new Random(seed);
 
-		for(int zCur = zInt - 2; zCur <= zInt + 2; zCur++) {
-			for(int yCur = yInt - 2; yCur <= yInt + 2; yCur++) {
-				for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++) {
-					// Calculate the position and distance to the seed point inside of
-					// this unit cube.
+        for (int zCur = zInt - 2; zCur <= zInt + 2; zCur++) {
+            for (int yCur = yInt - 2; yCur <= yInt + 2; yCur++) {
+                for (int xCur = xInt - 2; xCur <= xInt + 2; xCur++) {
+                    // Calculate the position and distance to the seed point inside of
+                    // this unit cube.
 
-					double xPos = xCur + valueNoise3D (xCur, yCur, zCur, seed);
-					double yPos = yCur + valueNoise3D (xCur, yCur, zCur, ySeed);
-					double zPos = zCur + valueNoise3D (xCur, yCur, zCur, zSeed);
-					double xDist = xPos - x;
-					double yDist = yPos - y;
-					double zDist = zPos - z;
-					double dist = xDist * xDist + yDist * yDist + zDist * zDist;
+                    double xPos = xCur + valueNoise3D(xCur, yCur, zCur, seed);
+                    double yPos = yCur + valueNoise3D(xCur, yCur, zCur, ySeed);
+                    double zPos = zCur + valueNoise3D(xCur, yCur, zCur, zSeed);
+                    double xDist = xPos - x;
+                    double yDist = yPos - y;
+                    double zDist = zPos - z;
+                    double dist = xDist * xDist + yDist * yDist + zDist * zDist;
 
-					if(dist < minDist) {
-						// This seed point is closer to any others found so far, so record
-						// this seed point.
-						minDist = dist;
-						xCandidate = xPos;
-						yCandidate = yPos;
-						zCandidate = zPos;
-					}
-				}
-			}
-		}
+                    if (dist < minDist) {
+                        // This seed point is closer to any others found so far, so record
+                        // this seed point.
+                        minDist = dist;
+                        xCandidate = xPos;
+                        yCandidate = yPos;
+                        zCandidate = zPos;
+                    }
+                }
+            }
+        }
 
-		if (useDistance)
-		{
-			double xDist = xCandidate - x;
-			double yDist = yCandidate - y;
-			double zDist = zCandidate - z;
+        if (useDistance) {
+            double xDist = xCandidate - x;
+            double yDist = yCandidate - y;
+            double zDist = zCandidate - z;
 
-			return getDistance(xDist, yDist, zDist);
-		}
+            return getDistance(xDist, yDist, zDist);
+        }
 
-		else return ((double)valueNoise3D (
-		       (int)(Math.floor (xCandidate)),
-		       (int)(Math.floor (yCandidate)),
-		       (int)(Math.floor (zCandidate)), seed));
+        else {
+            return ((double) valueNoise3D(
+                (int) (Math.floor(xCandidate)),
+                (int) (Math.floor(yCandidate)),
+                (int) (Math.floor(zCandidate)), seed));
+        }
 
-	}
-
-	/**
-	 * To avoid having to store the feature points, we use a hash function
-	 * of the coordinates and the seed instead. Those big scary numbers are
-	 * arbitrary primes.
-	 */
-	public static double valueNoise2D (int x, int z, long seed)
-	{
-		long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
-		n = (n >> 13) ^ n;
-		return 1.0 - ((double)((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
-	}
-
-	public static double valueNoise3D (int x, int y, int z, long seed)
-	{
-		long n = (1619 * x + 31337 * y + 6971 * z + 1013 * seed) & 0x7fffffff;
-		n = (n >> 13) ^ n;
-		return 1.0 - ((double)((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
-	}
+    }
 
 }

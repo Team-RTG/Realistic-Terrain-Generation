@@ -4,18 +4,18 @@ import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.BiomeConfigProperty.Type;
 
 
-public class BiomeConfigVanillaJungleHills extends BiomeConfigVanillaBase
-{
+public class BiomeConfigVanillaJungleHills extends BiomeConfigVanillaBase {
+
     public static final String decorationLogsId = "decorationLogs";
     public static final String decorationLogsName = "RTG Decoration: Logs";
-    
+
     public static final String decorationCactusId = "decorationCactus";
     public static final String decorationCactusName = "RTG Decoration: Cactus";
-    
-    public BiomeConfigVanillaJungleHills()
-    {
+
+    public BiomeConfigVanillaJungleHills() {
+
         super("junglehills");
-        
+
         this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
         this.addProperty(new BiomeConfigProperty(decorationCactusId, Type.BOOLEAN, decorationCactusName, "", true));
     }

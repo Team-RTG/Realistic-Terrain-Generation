@@ -23,8 +23,8 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
-public class EventManagerRTG
-{
+public class EventManagerRTG {
+
     // Event handlers.
     private final WorldEventRTG WORLD_EVENT_HANDLER = new WorldEventRTG();
     private final GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
@@ -39,9 +39,35 @@ public class EventManagerRTG
 
     }
 
-    public class GenerateMinableRTG
-    {
+    private static void logEventMessage(String message) {
+
+        Logger.debug("RTG Event System: " + message);
+    }
+
+    /*
+     * This method registers most of RTG's event handlers.
+     *
+     * We don't need to check if the event handlers are unregistered before registering them
+     * because Forge already performs those checks. This means that we could execute this method a
+     * million times, and each event handler would still only be registered once.
+     */
+    public void registerEventHandlers() {
+
+        logEventMessage("Registering RTG's event handlers...");
+
+        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
+        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
+
+        logEventMessage("RTG's event handlers have been registered successfully.");
+    }
+
+    public class GenerateMinableRTG {
+
         GenerateMinableRTG() {
+
             logEventMessage("Initialising GenerateMinableRTG...");
         }
 
@@ -56,27 +82,39 @@ public class EventManagerRTG
             switch (event.type) {
 
                 case COAL:
-                    if (!ConfigRTG.generateOreCoal) { event.setResult(Event.Result.DENY); }
+                    if (!ConfigRTG.generateOreCoal) {
+                        event.setResult(Event.Result.DENY);
+                    }
                     return;
 
                 case IRON:
-                    if (!ConfigRTG.generateOreIron) { event.setResult(Event.Result.DENY); }
+                    if (!ConfigRTG.generateOreIron) {
+                        event.setResult(Event.Result.DENY);
+                    }
                     return;
 
                 case REDSTONE:
-                    if (!ConfigRTG.generateOreRedstone) { event.setResult(Event.Result.DENY); }
+                    if (!ConfigRTG.generateOreRedstone) {
+                        event.setResult(Event.Result.DENY);
+                    }
                     return;
 
                 case GOLD:
-                    if (!ConfigRTG.generateOreGold) { event.setResult(Event.Result.DENY); }
+                    if (!ConfigRTG.generateOreGold) {
+                        event.setResult(Event.Result.DENY);
+                    }
                     return;
 
                 case LAPIS:
-                    if (!ConfigRTG.generateOreLapis) { event.setResult(Event.Result.DENY); }
+                    if (!ConfigRTG.generateOreLapis) {
+                        event.setResult(Event.Result.DENY);
+                    }
                     return;
 
                 case DIAMOND:
-                    if (!ConfigRTG.generateOreDiamond) { event.setResult(Event.Result.DENY); }
+                    if (!ConfigRTG.generateOreDiamond) {
+                        event.setResult(Event.Result.DENY);
+                    }
                     return;
 
                 default:
@@ -85,9 +123,10 @@ public class EventManagerRTG
         }
     }
 
-    public class InitBiomeGensRTG
-    {
+    public class InitBiomeGensRTG {
+
         InitBiomeGensRTG() {
+
             logEventMessage("Initialising InitBiomeGensRTG...");
         }
 
@@ -101,16 +140,18 @@ public class EventManagerRTG
 
             try {
                 event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
-            } catch (ClassCastException ex) {
+            }
+            catch (ClassCastException ex) {
                 //throw ex;
                 // failed attempt because the GenLayers don't end with GenLayerRiverMix
             }
         }
     }
 
-    public class InitMapGenRTG
-    {
+    public class InitMapGenRTG {
+
         InitMapGenRTG() {
+
             logEventMessage("Initialising InitMapGenRTG...");
         }
 
@@ -175,9 +216,10 @@ public class EventManagerRTG
         }
     }
 
-    public class WorldEventRTG
-    {
+    public class WorldEventRTG {
+
         WorldEventRTG() {
+
             logEventMessage("Initialising WorldEventRTG...");
         }
 
@@ -201,41 +243,17 @@ public class EventManagerRTG
         }
     }
 
-    public class DecorateBiomeEventRTG
-    {
+    public class DecorateBiomeEventRTG {
+
         DecorateBiomeEventRTG() {
+
             logEventMessage("Initialising DecorateBiomeEventRTG...");
         }
 
         @SubscribeEvent
-        public void preBiomeDecorate(DecorateBiomeEvent.Pre event)
-        {
+        public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
             //Are we in an RTG world?
             isWorldTypeRTG = (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
         }
-    }
-
-    /*
-     * This method registers most of RTG's event handlers.
-     *
-     * We don't need to check if the event handlers are unregistered before registering them
-     * because Forge already performs those checks. This means that we could execute this method a
-     * million times, and each event handler would still only be registered once.
-     */
-    public void registerEventHandlers() {
-
-        logEventMessage("Registering RTG's event handlers...");
-
-        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
-        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
-
-        logEventMessage("RTG's event handlers have been registered successfully.");
-    }
-
-    private static void logEventMessage(String message) {
-        Logger.debug("RTG Event System: " + message);
     }
 }

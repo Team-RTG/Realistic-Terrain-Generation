@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPDeadSwamp extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPDeadSwamp extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPDeadSwamp()
-    {
+    public BiomeConfigBOPDeadSwamp() {
+
         super("deadswamp");
     }
 }

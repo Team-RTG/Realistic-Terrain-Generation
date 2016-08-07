@@ -52,6 +52,7 @@ public class RTG {
     public static CommonProxy proxy;
 
     private ConfigManager configManager = new ConfigManager();
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
 
     public ConfigManager configManager(int dimension) {
 
@@ -66,7 +67,9 @@ public class RTG {
         worldtype = new WorldTypeRTG("RTG");
 
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
-        if (ConfigRTG.enableVillageModifications) MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        if (ConfigRTG.enableVillageModifications) {
+            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        }
         MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
 
         eventMgr = new EventManagerRTG();
@@ -112,8 +115,6 @@ public class RTG {
 
         serverCloseActions.add(action);
     }
-
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
 
     @EventHandler
     public void fmlLifeCycle(FMLServerStoppedEvent event) {

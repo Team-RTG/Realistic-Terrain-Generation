@@ -1,91 +1,73 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPShield;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield;
 
-import java.util.Random;
+public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
-public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPBiomes.shield.get();
-	
-	public static IBlockState topBlock = bopBiome.topBlock;
-	public static IBlockState fillerBlock = bopBiome.fillerBlock;
-	
-	public RealisticBiomeBOPShield(BiomeConfig config)
-	{
-		super(config, 
-			bopBiome, BiomeGenBase.river,
-			new TerrainBOPShield(0f, 100f, 68f, 170f),
-			new SurfaceBOPShield(config, topBlock, fillerBlock)
-		);
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
-    
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
-        
-        float l = simplex.noise2(chunkX / 80f, chunkY / 80f) * 60f - 15f;
-        
-        for (int i23 = 0; i23 < 1; i23++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
-            
-            if (rand.nextInt(16) == 0) {
-                (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
-            }
-        }
+    public static BiomeGenBase bopBiome = BOPBiomes.shield.get();
 
-        if (this.config.getPropertyById(BiomeConfigBOPShield.decorationLogsId).valueBoolean) {
-        
-            if (rand.nextInt(6) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
-                
-                Block log;
-                byte logMeta;
-                int intLogLength;
-                
-                if (rand.nextBoolean()) {
-                    
-                    log = BOPBlocks.log_4;
-                    logMeta = (byte)0;
-                    intLogLength = 3 + rand.nextInt(2);
-                }
-                else {
-                    
-                    log = Blocks.log;
-                    logMeta = (byte)1;
-                    intLogLength = 3 + rand.nextInt(2);
-                }
-    
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, intLogLength)).generate(world, rand, new BlockPos(x22, y22, z22));
-            }
-        }
+    public static IBlockState topBlock = bopBiome.topBlock;
+    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+
+    public RealisticBiomeBOPShield(BiomeConfig config) {
+
+        super(config,
+            bopBiome, BiomeGenBase.river,
+            new TerrainBOPShield(0f, 100f, 68f, 170f),
+            new SurfaceBOPShield(config, topBlock, fillerBlock)
+        );
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.maxY = 80;
+        decoBoulder.chance = 16;
+        decoBoulder.strengthFactor = 1f;
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree1 = new DecoFallenTree();
+        decoFallenTree1.distribution.noiseDivisor = 80f;
+        decoFallenTree1.distribution.noiseFactor = 60f;
+        decoFallenTree1.distribution.noiseAddend = -15f;
+        decoFallenTree1.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree1.logConditionNoise = 0f;
+        decoFallenTree1.logConditionChance = 6;
+        decoFallenTree1.maxY = 100;
+        decoFallenTree1.logBlock = BOPBlocks.log_4.getDefaultState();
+        decoFallenTree1.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree1.minSize = 3;
+        decoFallenTree1.maxSize = 4;
+
+        DecoFallenTree decoFallenTree2 = new DecoFallenTree();
+        decoFallenTree2.distribution.noiseDivisor = 80f;
+        decoFallenTree2.distribution.noiseFactor = 60f;
+        decoFallenTree2.distribution.noiseAddend = -15f;
+        decoFallenTree2.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree2.logConditionNoise = 0f;
+        decoFallenTree2.logConditionChance = 6;
+        decoFallenTree2.maxY = 100;
+        decoFallenTree2.logBlock = Blocks.log.getStateFromMeta(1);
+        decoFallenTree2.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenTree2.minSize = 3;
+        decoFallenTree2.maxSize = 4;
+
+        DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
+        this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPShield.decorationLogsId));
     }
 }

@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPVolcanicIsland extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPVolcanicIsland extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPVolcanicIsland()
-    {
+    public BiomeConfigBOPVolcanicIsland() {
+
         super("volcanicisland");
     }
 }

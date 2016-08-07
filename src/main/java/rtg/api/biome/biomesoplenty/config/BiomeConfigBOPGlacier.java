@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPGlacier extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPGlacier extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPGlacier()
-    {
+    public BiomeConfigBOPGlacier() {
+
         super("glacier");
     }
 }

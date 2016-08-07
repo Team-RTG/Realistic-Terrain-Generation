@@ -1,5 +1,6 @@
 package rtg.world.gen.terrain.highlands;
 
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
@@ -8,11 +9,22 @@ public class TerrainHLMojave extends TerrainBase {
 
     public TerrainHLMojave() {
 
+        super(64);
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        //return terrainPolar(x, y, simplex, river);
+        float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
 
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+        duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+
+        float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
+        float stFactor = duneHeight;
+        float hPitch = 70;    // Dune scale
+        float hDivisor = 40;
+
+        return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
+            groundNoise(x, y, 1f, simplex);
     }
 }

@@ -12,7 +12,7 @@ public class RealisticBiomeHLGreyMountains extends RealisticBiomeHLBase {
     public RealisticBiomeHLGreyMountains(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLGreyMountains(),
+            new TerrainHLGreyMountains(230f, 100f, 68f),
             new SurfaceHLGreyMountains(config, biome.topBlock, biome.fillerBlock)
         );
 

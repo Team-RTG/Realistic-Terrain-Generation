@@ -12,7 +12,7 @@ public class RealisticBiomeHLBadlandsFoothills extends RealisticBiomeHLBase {
     public RealisticBiomeHLBadlandsFoothills(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLBadlandsFoothills(),
+            new TerrainHLBadlandsFoothills(40f, 140f, 13f, 70f, 67f),
             new SurfaceHLBadlandsFoothills(config, biome.topBlock, biome.fillerBlock)
         );
 

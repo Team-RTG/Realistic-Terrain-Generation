@@ -12,7 +12,7 @@ public class RealisticBiomeHLPoplarHills extends RealisticBiomeHLBase {
     public RealisticBiomeHLPoplarHills(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLPoplarHills(),
+            new TerrainHLPoplarHills(230f, 60f, 68f),
             new SurfaceHLPoplarHills(config, biome.topBlock, biome.fillerBlock)
         );
 

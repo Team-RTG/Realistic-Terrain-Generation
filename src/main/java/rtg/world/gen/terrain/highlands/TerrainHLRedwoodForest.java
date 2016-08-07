@@ -4,8 +4,8 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainHLRedwoodForest extends TerrainBase {
-
+public class TerrainHLRedwoodForest extends TerrainBase
+{
     private float hHeight;
     private float hWidth;
     private float vHeight;
@@ -28,8 +28,8 @@ public class TerrainHLRedwoodForest extends TerrainBase {
      *
      * 70f, 180f, 7f, 100f, 38f, 260f, 68f
      */
-    public TerrainHLRedwoodForest(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight) {
-
+    public TerrainHLRedwoodForest(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+    {
         hHeight = hillHeight;
         hWidth = hillWidth;
 
@@ -43,8 +43,8 @@ public class TerrainHLRedwoodForest extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
         return terrainGrasslandHills(x, y, simplex, cell, river, vWidth, vHeight, hWidth, hHeight, bHeight);
     }
 }

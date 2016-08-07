@@ -4,8 +4,8 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainHLBaldHill extends TerrainBase {
-
+public class TerrainHLBaldHill extends TerrainBase
+{
     private float hHeight;
     private float hWidth;
     private float vHeight;
@@ -28,8 +28,8 @@ public class TerrainHLBaldHill extends TerrainBase {
      *
      * 70f, 180f, 7f, 100f, 38f, 260f, 68f
      */
-    public TerrainHLBaldHill(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight) {
-
+    public TerrainHLBaldHill(float hillHeight, float hillWidth, float varHeight, float varWidth, float lakeHeight, float lakeWidth, float baseHeight)
+    {
         hHeight = hillHeight;
         hWidth = hillWidth;
 
@@ -44,7 +44,8 @@ public class TerrainHLBaldHill extends TerrainBase {
 
     // this is just a subbiome that sticks out of forests.
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+    {
 
         float h = simplex.noise2(x / 80f, y / 80f) * 15f;
         h += simplex.noise2(x / 5f, y / 5f) * 1.5f;

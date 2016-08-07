@@ -12,7 +12,7 @@ public class RealisticBiomeHLBambooForest extends RealisticBiomeHLBase {
     public RealisticBiomeHLBambooForest(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLBambooForest(),
+            new TerrainHLBambooForest(0f, 50f, 68f, 200f),
             new SurfaceHLBambooForest(config, biome.topBlock, biome.fillerBlock)
         );
 

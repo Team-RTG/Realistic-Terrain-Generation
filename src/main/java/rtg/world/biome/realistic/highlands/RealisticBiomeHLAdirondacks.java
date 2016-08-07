@@ -12,7 +12,7 @@ public class RealisticBiomeHLAdirondacks extends RealisticBiomeHLBase {
     public RealisticBiomeHLAdirondacks(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLAdirondacks(),
+            new TerrainHLAdirondacks(230f, 60f, 88f),
             new SurfaceHLAdirondacks(config, biome.topBlock, biome.fillerBlock)
         );
 

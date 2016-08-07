@@ -15,7 +15,7 @@ public class RealisticBiomeHLTropicalHills extends RealisticBiomeHLBase {
     public RealisticBiomeHLTropicalHills(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLTropicalHills(),
+            new TerrainHLTropicalHills(230f, 15f, 0f),
             new SurfaceHLTropicalHills(config, biome.topBlock, biome.fillerBlock)
         );
 

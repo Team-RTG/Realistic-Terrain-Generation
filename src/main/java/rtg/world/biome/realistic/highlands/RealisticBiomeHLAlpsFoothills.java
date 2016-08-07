@@ -11,7 +11,7 @@ public class RealisticBiomeHLAlpsFoothills extends RealisticBiomeHLBase {
 
     public RealisticBiomeHLAlpsFoothills(BiomeGenBase biome, BiomeConfig config) {
 
-        super(config, biome, BiomeGenBase.river,
+        super(config, biome, BiomeGenBase.frozenRiver,
             new TerrainHLAlpsFoothills(),
             new SurfaceHLAlpsFoothills(config, biome.topBlock, biome.fillerBlock)
         );

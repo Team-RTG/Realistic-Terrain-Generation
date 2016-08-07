@@ -579,10 +579,10 @@ public class ChunkProviderRTG implements IChunkProvider {
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ this.worldObj.getSeed());
-        boolean flag = false;
+        boolean hasPlacedVillageBlocks = false;
         boolean gen = false;
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));
 
         if (mapFeaturesEnabled) {
 
@@ -599,15 +599,15 @@ public class ChunkProviderRTG implements IChunkProvider {
                 if (ConfigRTG.villageCrashFix) {
 
                     try {
-                        flag = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                        hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
                     }
                     catch (Exception e) {
-                        flag = false;
+                        hasPlacedVillageBlocks = false;
                     }
                 }
                 else {
 
-                    flag = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                    hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
                 }
             }
 
@@ -620,7 +620,7 @@ public class ChunkProviderRTG implements IChunkProvider {
             }
         }
 
-        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
@@ -677,11 +677,10 @@ public class ChunkProviderRTG implements IChunkProvider {
                  * If the biome configs don't allow it, then we try to let the base biome decorate itself.
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
-                 * TODO: Is there a more efficient way to do this? - Pink
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                    realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
+                    realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
 
@@ -691,7 +690,7 @@ public class ChunkProviderRTG implements IChunkProvider {
                     }
                     catch (Exception e) {
 
-                        realisticBiome.rDecorate(this.worldObj, this.rand, new BlockPos(worldX, 0, worldZ), simplex, cell, borderNoise[bn], river);
+                        realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
 
@@ -713,7 +712,7 @@ public class ChunkProviderRTG implements IChunkProvider {
          * ########################################################################
          */
 
-        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag);
+        biome.rPopulatePostDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
 
         //Flowing water.
         if (rand.nextInt(100) == 0) {
@@ -738,11 +737,11 @@ public class ChunkProviderRTG implements IChunkProvider {
             }
         }
 
-        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
+        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
             SpawnerAnimals.performWorldGenSpawning(this.worldObj, worldObj.getBiomeGenForCoords(new BlockPos(worldX + 16, 0, worldZ + 16)), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
 
-        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
 
             int k1, l1, i2;
 
@@ -763,7 +762,7 @@ public class ChunkProviderRTG implements IChunkProvider {
             }
         }
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));
 
         BlockFalling.fallInstantly = false;
     }

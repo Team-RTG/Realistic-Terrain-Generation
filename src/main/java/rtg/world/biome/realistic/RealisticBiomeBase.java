@@ -24,10 +24,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.util.SimplexOctave;
+import rtg.util.*;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -261,18 +258,14 @@ public class RealisticBiomeBase {
         }
     }
 
-    public void rDecorate(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public void decorateInAnOrderlyFashion(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
+    {
+        for (int i = 0; i < this.decos.size(); i++) {
 
-        this.rDecorate(world, rand, blockPos.getX(), blockPos.getZ(), simplex, cell, strength, river);
-    }
+            if (this.decos.get(i).preGenerate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
 
-    public void rDecorate(World world, Random rand, int x, int z, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
-
-        if (strength > 0.3f) {
-            baseBiome.decorate(world, rand, new BlockPos(x, 0, z));
-        }
-        else {
-            rOreGenSeedBiome(world, rand, new BlockPos(x, 0, z), simplex, cell, strength, river, baseBiome);
+                this.decos.get(i).generate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+            }
         }
     }
 
@@ -287,8 +280,8 @@ public class RealisticBiomeBase {
     }
 
     /**
-     * When manually decorating biomes by overriding rDecorate(), sometimes you want the biome
-     * to partially decorate itself. That's what this method does... it calls the biome's decorate() method.
+     * When manually decorating biomes, sometimes you want the biome to partially decorate itself.
+     * That's what this method does... it calls the biome's decorate() method.
      */
     public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 

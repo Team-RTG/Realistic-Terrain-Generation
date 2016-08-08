@@ -239,12 +239,14 @@ public class ChunkProviderRTG implements IChunkProvider
             if (available != null) {
                 ClassInheritanceMultiMap<Entity>[] entityLists = available.getEntityLists();
                 for (int i = 0; i< entityLists.length; i++) {
+                    /*
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
 
                         iterator.next();
                         iterator.remove();
                     }
+                    */
                     worldObj.unloadEntities(entityLists[i]);
                 }
                 toCheck.add(chunkLocation);

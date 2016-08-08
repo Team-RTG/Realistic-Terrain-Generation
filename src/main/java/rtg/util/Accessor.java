@@ -11,34 +11,28 @@ import java.util.Arrays;
  *         Updated and ported to 1.7.10 by srs_bsns
  */
 public class Accessor<ObjectType, FieldType> {
-
     private final String[] fieldNames;
     private Field field;
 
     public Accessor(String... _fieldName) {
-
         fieldNames = _fieldName;
     }
 
     @SuppressWarnings("unchecked")
     public FieldType get(ObjectType object) {
-
         try {
             return (FieldType) (field(object).get(object));
-        }
-        catch (IllegalArgumentException | IllegalAccessException ex) {
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     private Field field(ObjectType example) {
-
         Class classObject = example.getClass();
         if (field == null) {
             try {
                 setField(classObject);
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -60,17 +54,14 @@ public class Accessor<ObjectType, FieldType> {
                 }
             }
             classObject = classObject.getSuperclass();
-        }
-        while (classObject != Object.class);
+        } while (classObject != Object.class);
         throw new RuntimeException("None of " + Arrays.toString(fieldNames) + " found in class " + classObject.getName());
     }
 
     public void setField(ObjectType object, FieldType fieldValue) {
-
         try {
             field(object).set(object, fieldValue);
-        }
-        catch (IllegalArgumentException | IllegalAccessException ex) {
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
     }

@@ -5,21 +5,25 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public class Dumper {
-
     private static Dumper instance = new Dumper();
 
     protected static Dumper getInstance() {
-
         return instance;
     }
 
-    public static String dump(Object o) {
+    class DumpContext {
+        int maxDepth = 0;
+        int maxArrayElements = 0;
+        int callCount = 0;
+        HashMap<String, String> ignoreList = new HashMap<String, String>();
+        HashMap<Object, Integer> visited = new HashMap<Object, Integer>();
+    }
 
+    public static String dump(Object o) {
         return dump(o, 0, 0, null);
     }
 
     public static String dump(Object o, int maxDepth, int maxArrayElements, String[] ignoreList) {
-
         DumpContext ctx = Dumper.getInstance().new DumpContext();
         ctx.maxDepth = maxDepth;
         ctx.maxArrayElements = maxArrayElements;
@@ -27,9 +31,8 @@ public class Dumper {
         if (ignoreList != null) {
             for (int i = 0; i < Array.getLength(ignoreList); i++) {
                 int colonIdx = ignoreList[i].indexOf(':');
-                if (colonIdx == -1) {
+                if (colonIdx == -1)
                     ignoreList[i] = ignoreList[i] + ":";
-                }
                 ctx.ignoreList.put(ignoreList[i], ignoreList[i]);
             }
         }
@@ -38,7 +41,6 @@ public class Dumper {
     }
 
     protected static String dump(Object o, DumpContext ctx) {
-
         if (o == null) {
             return "<null>";
         }
@@ -53,9 +55,8 @@ public class Dumper {
 
         String oSimpleName = getSimpleNameWithoutArrayQualifier(oClass);
 
-        if (ctx.ignoreList.get(oSimpleName + ":") != null) {
+        if (ctx.ignoreList.get(oSimpleName + ":") != null)
             return "<Ignored>";
-        }
 
         if (oClass.isArray()) {
             buffer.append("\n");
@@ -67,13 +68,11 @@ public class Dumper {
                 try {
                     Object value = Array.get(o, i);
                     buffer.append(dumpValue(value, ctx));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     buffer.append(e.getMessage());
                 }
-                if (i < Array.getLength(o) - 1) {
+                if (i < Array.getLength(o) - 1)
                     buffer.append(",");
-                }
                 buffer.append("\n");
             }
             if (rowCount < Array.getLength(o)) {
@@ -83,8 +82,7 @@ public class Dumper {
             }
             buffer.append(tabs.toString().substring(1));
             buffer.append("]");
-        }
-        else {
+        } else {
             buffer.append("\n");
             buffer.append(tabs.toString().substring(1));
             buffer.append("{\n");
@@ -117,8 +115,7 @@ public class Dumper {
                             try {
                                 Object value = fields[i].get(o);
                                 buffer.append(dumpValue(value, ctx));
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 buffer.append(e.getMessage());
                             }
                             buffer.append("\n");
@@ -144,7 +141,6 @@ public class Dumper {
     }
 
     protected static String dumpValue(Object value, DumpContext ctx) {
-
         if (value == null) {
             return "<null>";
         }
@@ -163,8 +159,7 @@ public class Dumper {
 
             return value.toString();
 
-        }
-        else {
+        } else {
 
             Integer visitedIndex = ctx.visited.get(value);
             if (visitedIndex == null) {
@@ -182,22 +177,12 @@ public class Dumper {
         }
     }
 
+
     private static String getSimpleNameWithoutArrayQualifier(Class clazz) {
-
         String simpleName = clazz.getSimpleName();
-        int indexOfBracket = simpleName.indexOf('[');
-        if (indexOfBracket != -1) {
+        int indexOfBracket = simpleName.indexOf('['); 
+        if (indexOfBracket != -1)
             return simpleName.substring(0, indexOfBracket);
-        }
         return simpleName;
-    }
-
-    class DumpContext {
-
-        int maxDepth = 0;
-        int maxArrayElements = 0;
-        int callCount = 0;
-        HashMap<String, String> ignoreList = new HashMap<String, String>();
-        HashMap<Object, Integer> visited = new HashMap<Object, Integer>();
     }
 }

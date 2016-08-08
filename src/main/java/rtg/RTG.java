@@ -52,7 +52,9 @@ public class RTG {
     public static CommonProxy proxy;
 
     private ConfigManager configManager = new ConfigManager();
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
+
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
     public ConfigManager configManager(int dimension) {
 
@@ -112,16 +114,22 @@ public class RTG {
     }
 
     public void runOnServerClose(Runnable action) {
+        serverCloseActions.add(action);
+    }
 
+    public void runOnNextServerCloseOnly(Runnable action) {
         serverCloseActions.add(action);
     }
 
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppedEvent event) {
-
-        for (Runnable action : serverCloseActions) {
+    public void serverStopped(FMLServerStoppedEvent event)
+    {
+        for (Runnable action: serverCloseActions) {
             action.run();
         }
-
+        for (Runnable action: oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
     }
 }

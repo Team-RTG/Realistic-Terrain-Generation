@@ -1,5 +1,7 @@
 package rtg.event;
 
+import java.util.WeakHashMap;
+
 import net.minecraft.server.MinecraftServer;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -7,12 +9,14 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.Acceptor;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.gen.MapGenCavesRTG;
@@ -27,11 +31,13 @@ public class EventManagerRTG {
 
     // Event handlers.
     private final WorldEventRTG WORLD_EVENT_HANDLER = new WorldEventRTG();
+    private final LoadChunkRTG LOAD_CHUNK_EVENT_HANDLER = new LoadChunkRTG();
     private final GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
     private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
     private final InitMapGenRTG INIT_MAP_GEN_EVENT_HANDLER = new InitMapGenRTG();
     private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
 
+    private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
     private boolean isWorldTypeRTG = true;
 
@@ -39,29 +45,25 @@ public class EventManagerRTG {
 
     }
 
-    private static void logEventMessage(String message) {
+    public class LoadChunkRTG
+    {
+        LoadChunkRTG() {
+            logEventMessage("Initialising LoadChunkRTG...");
+        }
 
-        Logger.debug("RTG Event System: " + message);
-    }
+        @SubscribeEvent
+        public void loadChunkRTG(ChunkEvent.Load event) {
 
-    /*
-     * This method registers most of RTG's event handlers.
-     *
-     * We don't need to check if the event handlers are unregistered before registering them
-     * because Forge already performs those checks. This means that we could execute this method a
-     * million times, and each event handler would still only be registered once.
-     */
-    public void registerEventHandlers() {
+            // Are we in an RTG world?
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+                return;
+            }
 
-        logEventMessage("Registering RTG's event handlers...");
-
-        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
-        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
-
-        logEventMessage("RTG's event handlers have been registered successfully.");
+            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.world.provider.getDimensionId());
+            if (acceptor != null) {
+                acceptor.accept(event);
+            }
+        }
     }
 
     public class GenerateMinableRTG {
@@ -255,5 +257,34 @@ public class EventManagerRTG {
             //Are we in an RTG world?
             isWorldTypeRTG = (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
         }
+    }
+
+    /*
+     * This method registers most of RTG's event handlers.
+     *
+     * We don't need to check if the event handlers are unregistered before registering them
+     * because Forge already performs those checks. This means that we could execute this method a
+     * million times, and each event handler would still only be registered once.
+     */
+    public void registerEventHandlers() {
+
+        logEventMessage("Registering RTG's event handlers...");
+
+        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
+        MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_EVENT_HANDLER);
+        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
+
+        logEventMessage("RTG's event handlers have been registered successfully.");
+    }
+
+    private static void logEventMessage(String message) {
+        Logger.debug("RTG Event System: " + message);
+    }
+
+    public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
+        chunkLoadEvents.put(dimension, action);
     }
 }

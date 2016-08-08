@@ -26,6 +26,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.biome.RTGBiomeProvider;
+import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
@@ -68,13 +69,21 @@ public class RealisticBiomeBase {
     public ArrayList<DecoBase> decos;
     public ArrayList<TreeRTG> rtgTrees;
 
-    public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
-    public boolean disallowAllBeaches = false;
+    // lake calculations
+
+    private float lakeInterval = 989.0f;
+    private float lakeShoreLevel = 0.15f;
+    private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
+    private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
     public boolean noLakes = false;
     public boolean noWaterFeatures = false;
-    private float lakeInterval = 1470.0f;
-    private double lakeWaterLevel = 0.04;// the lakeStrenght below which things should be below ater
-    private double lakeDepressionLevel = 0.15;// the lakeStrength below which land should start to be lowered
+
+    private float largeBendSize = 100;
+    private float mediumBendSize = 40;
+    private float smallBendSize = 15;
+
+    public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
+    public boolean disallowAllBeaches = false;
 
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
 
@@ -128,6 +137,20 @@ public class RealisticBiomeBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.addDeco(decoBaseBiomeDecorations);
+        // set the water feature constants with the config changes
+        lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
+        this.lakeWaterLevel *= ConfigRTG.lakeSizeMultiplier();
+        this.lakeShoreLevel *= ConfigRTG.lakeSizeMultiplier();
+        this.lakeDepressionLevel *= ConfigRTG.lakeSizeMultiplier();
+
+        this.largeBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+        this.mediumBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+        this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+    }
+
+    public static RealisticBiomeBase getBiome(int id) {
+
+        return arrRealisticBiomeIds[id];
     }
 
     public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
@@ -147,38 +170,22 @@ public class RealisticBiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
-    public static RealisticBiomeBase getBiome(int id) {
-
-        return arrRealisticBiomeIds[id];
-    }
-
-    private static double cellBorder(double[] results, double width, double depth) {
-
-        double c = results[1] - results[0];
-        if (c < width) {
-            return ((c / width) - 1) * depth;
-        }
-        else {
-            return 0;
-        }
-    }
-
-    public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
+    public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean villageBuilding) {
 
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
         boolean gen = true;
 
-        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAKE);
+        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAKE);
 
         // Underground water lakes.
         if (ConfigRTG.enableWaterUndergroundLakes) {
 
             if (gen && (waterUndergroundLakeChance > 0)) {
 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
 
                 if (rand.nextInt(waterUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.waterUndergroundLakeChance) == 1)) {
 
@@ -188,12 +195,12 @@ public class RealisticBiomeBase {
         }
 
         // Surface water lakes.
-        if (ConfigRTG.enableWaterSurfaceLakes) {
+        if (ConfigRTG.enableWaterSurfaceLakes && !villageBuilding) {
 
             if (gen && (waterSurfaceLakeChance > 0)) {
 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
@@ -207,16 +214,16 @@ public class RealisticBiomeBase {
             }
         }
 
-        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.LAVA);
+        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAVA);
 
         // Underground lava lakes.
         if (ConfigRTG.enableLavaUndergroundLakes) {
 
             if (gen && (lavaUndergroundLakeChance > 0)) {
 
-                int i2 = worldX + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
 
                 if (rand.nextInt(lavaUndergroundLakeChance) == 0 && (RandomUtil.getRandomInt(rand, 1, ConfigRTG.lavaUndergroundLakeChance) == 1)) {
 
@@ -226,12 +233,12 @@ public class RealisticBiomeBase {
         }
 
         // Surface lava lakes.
-        if (ConfigRTG.enableLavaSurfaceLakes) {
+        if (ConfigRTG.enableLavaSurfaceLakes && !villageBuilding) {
 
             if (gen && (lavaSurfaceLakeChance > 0)) {
 
-                int i2 = worldX + rand.nextInt(16) + 8;
-                int i8 = worldZ + rand.nextInt(16) + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
@@ -246,25 +253,19 @@ public class RealisticBiomeBase {
         }
 
         if (ConfigRTG.generateDungeons) {
-
-            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
-            for (int k1 = 0; k1 < 8 && gen; k1++) {
-                int j5 = worldX + rand.nextInt(16) + 8;
-                int k8 = rand.nextInt(128);
-                int j11 = worldZ + rand.nextInt(16) + 8;
-
-                (new WorldGenDungeons()).generate(worldObj, rand, new BlockPos(j5, k8, j11));
-            }
-        }
-    }
-
-    public void decorateInAnOrderlyFashion(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
-    {
-        for (int i = 0; i < this.decos.size(); i++) {
-
-            if (this.decos.get(i).preGenerate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
-
-                this.decos.get(i).generate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+            
+            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.DUNGEON);
+            
+            if (gen) {
+            	
+	            for(int k1 = 0; k1 < ConfigRTG.dungeonFrequency; k1++) {
+	            	
+	                int j5 = worldX + rand.nextInt(16);// + 8;
+	                int k8 = rand.nextInt(128);
+	                int j11 = worldZ + rand.nextInt(16);// + 8;
+	                
+	                (new WorldGenDungeons()).generate(worldObj, rand, new BlockPos(j5, k8, j11));
+	            }
             }
         }
     }
@@ -292,8 +293,6 @@ public class RealisticBiomeBase {
             rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, seedBiome);
         }
     }
-
-    // lake calculations
 
     /**
      * This method should be called if both of the following conditions are true:
@@ -370,16 +369,55 @@ public class RealisticBiomeBase {
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(world, rand, blockPos));
     }
 
+    public void rMapVolcanoes(ChunkPrimer primer, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    	
+    	RealisticBiomeBase neighbourBiome = getBiome((((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16).biomeID));
+    	
+    	boolean allowed = ConfigRTG.enableVolcanoes;
+    	if (!allowed) {
+    		return;
+    	}
+    	
+    	int chance = ConfigRTG.volcanoChance;
+    	if (chance < 1) {
+    		return;
+    	}
+    	
+        if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(chance) == 0) {
+
+            float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
+            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16)) {
+                long i1 = mapRand.nextLong() / 2L * 2L + 1L;
+                long j1 = mapRand.nextLong() / 2L * 2L + 1L;
+                mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
+
+                //WorldGenVolcano.build(primer, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+            }
+        }
+    }
+
     public void generateMapGen(ChunkPrimer primer, Long seed, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
-        int k = 5;
+        final int mapGenRadius = 5;
+        final int volcanoGenRadius = 15;
+
         mapRand.setSeed(seed);
         long l = (mapRand.nextLong() / 2L) * 2L + 1L;
         long l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
-        for (int baseX = chunkX - k; baseX <= chunkX + k; baseX++) {
-            for (int baseY = chunkY - k; baseY <= chunkY + k; baseY++) {
+
+        // Structures generation
+        for (int baseX = chunkX - mapGenRadius; baseX <= chunkX + mapGenRadius; baseX++) {
+            for (int baseY = chunkY - mapGenRadius; baseY <= chunkY + mapGenRadius; baseY++) {
                 mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
                 rMapGen(primer, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+            }
+        }
+
+        // Volcanoes generation
+        for (int baseX = chunkX - volcanoGenRadius; baseX <= chunkX + volcanoGenRadius; baseX++) {
+            for (int baseY = chunkY - volcanoGenRadius; baseY <= chunkY + volcanoGenRadius; baseY++) {
+                mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
+                rMapVolcanoes(primer, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
     }
@@ -390,87 +428,110 @@ public class RealisticBiomeBase {
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-
         if (noWaterFeatures) {
-            return terrain.generateNoise(simplex, cell, x, y, border, 1f);
+            float borderForRiver = border*2;
+            if (borderForRiver >1f) borderForRiver = 1;
+            river = 1f - (1f-borderForRiver)*(1f-river);
+            return terrain.generateNoise(simplex, cell, x, y, border, river);
         }
-        double lakeStrength = lakePressure(simplex, cell, x, y);
-        double lakeFlattening = this.lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
-        if (lakeFlattening < river) {
-            river = (float) lakeFlattening;
+        float lakeStrength = lakePressure(simplex,cell,x,y,border);
+        float lakeFlattening = (float)lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
+        // we add some flattening to the rivers. The lakes are pre-flattened.
+        float riverFlattening = river*1.25f-0.25f;
+        if (riverFlattening <0) riverFlattening = 0;
+        if ((river<1)&&(lakeFlattening<1)) {
+            riverFlattening = (float)((1f-riverFlattening)/riverFlattening+(1f-lakeFlattening)/lakeFlattening);
+            riverFlattening = (1f/(riverFlattening+1f));
+        } else {
+            if (lakeFlattening < riverFlattening) riverFlattening = (float)lakeFlattening;
         }
+        // the lakes have to have a little less flattening to avoid the rocky edges
+        lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
 
-        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, river);
-        return this.erodedNoise(simplex, cell, x, y, river - 1f, terrainNoise, lakeFlattening - 1.0);
+        if ((river<1)&&(lakeFlattening<1)) {
+            river = (float)((1f-river)/river+(1f-lakeFlattening)/lakeFlattening);
+            river = (1f/(river+1f));
+        } else {
+            if (lakeFlattening < river) river = (float)lakeFlattening;
+        }
+        // flatten terrain to set up for the water features
+        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
+        // place water features
+        return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
     }
 
-    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float river, float biomeHeight, double lakeFlattening) {
+    public static final float actualRiverProportion = 300f/1600f;
+    public float erodedNoise(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float river, float border, float biomeHeight, double lakeFlattening)
+    {
 
-        if ((river < 0f && biomeHeight > 57f)) {
-            //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-            double pX = x + jitter.deltax() * 220f;
-            double pY = y + jitter.deltay() * 220f;
+        float r = 1f;
 
-            //New cellular noise.
-            //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-            double[] results = simplexCell.river().eval(pX / 1875.0, pY / 1875.0);
-            float r = (float) cellBorder(results, 30.0 / 1300.0, 1.0);
-            if (lakeFlattening < r) {
-                r = (float) lakeFlattening;
-            }
+        // put a flat spot in the middle of the river
+        float riverFlattening = river; // moved the flattening to terrain stage
+        if (riverFlattening <0) riverFlattening = 0;
 
-            return (biomeHeight * (r + 1f))
-                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (-r));
+        // check if rivers need lowering
+        //if (riverFlattening < actualRiverProportion) {
+            r = riverFlattening/actualRiverProportion;
+        //}
+
+        //if (1>0) return 62f+r*10f;
+        if ((r < 1f && biomeHeight > 57f))
+        {
+            return (biomeHeight * (r))
+                + ((57f + simplex.noise2(x / 12f, y / 12f) * 2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
         }
-        else {
+        else
+        {
             return biomeHeight;
         }
     }
 
-    public double lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y) {
+    public float lakeFlattening(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+        return lakeFlattening(lakePressure(simplex, simplexCell, x, y, border), lakeWaterLevel, lakeDepressionLevel);
+    }
 
-        if (noLakes) {
-            return 1.0;
-        }
-        SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
-        simplex.riverJitter().evaluateNoise(x / 240.0, y / 240.0, jitter);
-        double pX = x + jitter.deltax() * 110f;
-        double pY = y + jitter.deltay() * 110f;
-        simplex.mountain().evaluateNoise(x / 80.0, y / 80.0, jitter);
-        pX += jitter.deltax() * 30f;
-        pY += jitter.deltay() * 30f;
-        simplex.mountain().evaluateNoise(x / 30.0, y / 30.0, jitter);
-        pX += jitter.deltax() * 10f;
-        pY += jitter.deltay() * 10f;
-        double results = simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval, 1.0);
+    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+        if (noLakes) return 1f;
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
+        double pX = x + jitter.deltax() * largeBendSize;
+        double pY = y + jitter.deltay() * largeBendSize;
+        simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+        pX += jitter.deltax() * mediumBendSize;
+        pY += jitter.deltay() * mediumBendSize;
+        simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
+        pX += jitter.deltax() * smallBendSize;
+        pY += jitter.deltay() * smallBendSize;
+        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
+        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
         return results;
     }
 
-    public double lakeFlattening(double pressure, double bottomLevel, double topLevel) {
+    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
         // this number indicates a multiplier to height
-        if (pressure > topLevel) {
-            return 1;
-        }
-        if (pressure < bottomLevel) {
-            return 0;
-        }
-        return Math.pow((pressure - bottomLevel) / (topLevel - bottomLevel), 0.333);
+        if (pressure > topLevel) return 1;
+        if (pressure<bottomLevel) return 0;
+        return (float)Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),1.0);
     }
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
+        float riverRegion = this.noWaterFeatures ? 0: river;
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
 
             for (int s = 0; s < surfacesLength; s++) {
 
-                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
             }
         }
         else {
 
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
         }
     }
 
@@ -593,6 +654,37 @@ public class RealisticBiomeBase {
     public SurfaceBase[] getSurfaces() {
 
         return this.surfaces;
+    }
+
+    private class ChunkDecoration {
+        PlaneLocation chunkLocation;
+        DecoBase decoration;
+        ChunkDecoration(PlaneLocation chunkLocation,DecoBase decoration) {
+            this.chunkLocation = chunkLocation;
+            this.decoration = decoration;
+        }
+    }
+
+    public static ArrayList<ChunkDecoration> decoStack = new ArrayList<ChunkDecoration>();
+
+    public void decorateInAnOrderlyFashion(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
+    {
+
+    	for (int i = 0; i < this.decos.size(); i++) {
+    	    decoStack.add(new ChunkDecoration(new PlaneLocation.Invariant(worldX,worldY),decos.get(i)));
+            if (decoStack.size()>20) {
+                String problem = "" ;
+                for (ChunkDecoration inStack: decoStack) {
+                    problem += "" + inStack.chunkLocation.toString() + " " + inStack.decoration.getClass().getSimpleName();
+                }
+                throw new RuntimeException(problem);
+            }
+    		if (this.decos.get(i).preGenerate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
+
+    			this.decos.get(i).generate(this, world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+    		}
+            decoStack.remove(decoStack.size()-1);
+    	}
     }
 
     /**

@@ -10,10 +10,6 @@ public class RealisticBiomePatcher {
     private RealisticBiomeBase realisticBiome;
     private BiomeGenBase baseBiome;
 
-    private int singleBiomeId;
-    private RealisticBiomeBase singleRealisticBiome;
-    private BiomeGenBase singleBaseBiome;
-
     public RealisticBiomePatcher() {
 
         this.patchBiomeId = ConfigRTG.patchBiomeId;
@@ -33,14 +29,6 @@ public class RealisticBiomePatcher {
             catch (Exception e) {
                 throw new RuntimeException("Base patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
             }
-        }
-
-        this.singleBiomeId = (int) ConfigRTG.singleBiomeId;
-
-        if (this.isSingleBiomeWorld()) {
-
-            this.singleRealisticBiome = RealisticBiomeBase.getBiome(this.singleBiomeId);
-            this.singleBaseBiome = singleRealisticBiome.baseBiome;
         }
     }
 
@@ -72,20 +60,5 @@ public class RealisticBiomePatcher {
 
             return this.baseBiome;
         }
-    }
-
-    public RealisticBiomeBase getSingleRealisticBiome() {
-
-        return this.singleRealisticBiome;
-    }
-
-    public BiomeGenBase getSingleBaseBiome() {
-
-        return this.singleBaseBiome;
-    }
-
-    public boolean isSingleBiomeWorld() {
-
-        return (this.singleBiomeId >= 0) ? true : false;
     }
 }

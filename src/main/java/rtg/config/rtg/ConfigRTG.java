@@ -23,8 +23,7 @@ public class ConfigRTG {
     public static boolean enableRTGBiomeDecorations = true;
     public static boolean enableRTGBiomeSurfaces = true;
     public static int patchBiomeId = 1;
-    public static int singleBiomeId = -1;
-    
+
     /* ==================== Boulders ==================== */
 
     public static boolean enableCobblestoneBoulders = true;
@@ -49,7 +48,13 @@ public class ConfigRTG {
     /* ==================== Dungeons ==================== */
 
     public static boolean generateDungeons = true;
+    public static int dungeonFrequency = 8;
 
+    /* ==================== Flowing Liquids ==================== */
+
+    public static int flowingWaterChance = 200;
+    public static int flowingLavaChance = 200;
+    
     /* ==================== Lakes (Surface) ==================== */
 
     public static boolean enableWaterSurfaceLakes = true;
@@ -144,6 +149,28 @@ public class ConfigRTG {
     public static boolean enableVolcanoEruptions = true;
     public static int volcanoChance = 36;
 
+    /* =================== Water System ===================== */
+    private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
+    public static float riverFrequencyMultiplier = 1f;
+    public static float riverSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return riverSizeMultiplier*riverFrequencyMultiplier;
+    }
+    public static float riverBendinessMultiplier = 1f;
+    public static float riverCutOffScale = 350f;
+    public static float riverCutOffAmplitude = 0.5f;
+    private static float lakeSizeMultiplier = 1f; // same deal with lakes
+    public static float lakeFrequencyMultiplier = 1f;
+    public static float lakeSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return lakeSizeMultiplier*lakeFrequencyMultiplier;
+    }
+    public static float lakeShoreBendinessMultiplier = 1f;
+    public static int scenicLakeBiome = 7;
+    public static int scenicFrozenLakeBiome = 11;
+    private static String riversAndLakes = "Rivers and Scenic Lakes";
 
     public static void init(File configFile) {
 
@@ -199,19 +226,6 @@ public class ConfigRTG {
                     "Default = Vanilla Plains"
                     + Configuration.NEW_LINE
             );
-
-            singleBiomeId = config.getInt(
-                "Generate only this biome ID",
-                "Biomes",
-                singleBiomeId,
-                -1, 255,
-                "If you enter a biome ID here, the whole world will consist of only that biome (and rivers). Set to -1 to generate the world normally." +
-                    Configuration.NEW_LINE +
-                    "Vanilla biome IDs can be found here: http://goo.gl/WqlAfV" +
-                    Configuration.NEW_LINE +
-                    "For modded biome IDs, use NEI and go [Options] > [Tools] > [Data Dumps] > Biomes > [Dump], and then refer to the 'biome.csv' file which can be found in your '/.minecraft/dumps' folder." +
-                    Configuration.NEW_LINE
-            );
             
             /* ==================== Boulders ==================== */
 
@@ -246,6 +260,29 @@ public class ConfigRTG {
             /* ==================== Dungeons ==================== */
 
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
+            dungeonFrequency = config.getInt("Dungeon Frequency", "Dungeons", dungeonFrequency, 1, 200, "This setting controls the number of dungeons that generate." + Configuration.NEW_LINE + "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)" + Configuration.NEW_LINE);
+            
+            /* ==================== Flowing Liquids ==================== */
+
+            flowingLavaChance = config.getInt(
+                "Flowing Lava Chance",
+                "Flowing Liquids",
+                flowingLavaChance, 0, Integer.MAX_VALUE,
+                "1/x chance that a lava stream will generate on the side of a hill or mountain."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
+            
+            flowingWaterChance = config.getInt(
+                "Flowing Water Chance",
+                "Flowing Liquids",
+                flowingWaterChance, 0, Integer.MAX_VALUE,
+                "1/x chance that a water stream will generate on the side of a hill or mountain."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE
+            );
             
             /* ==================== Lakes (Surface) ==================== */
 
@@ -482,6 +519,54 @@ public class ConfigRTG {
                     + Configuration.NEW_LINE
             );
 
+            /* ====================== Water System ===================== */
+            riverSizeMultiplier = config.getFloat(
+                    "River Width Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
+            riverFrequencyMultiplier = config.getFloat(
+                    "River Frequency Multiplier",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
+            riverBendinessMultiplier = config.getFloat(
+                    "Multiplier to River Bending",
+                    riversAndLakes,
+                    1, 0, 2,
+                    "Higher numbers make rivers bend more. Defaults to 1" + Configuration.NEW_LINE);
+            riverCutOffScale = config.getFloat(
+                    "Scale of Large-Scale River Cut Off",
+                    riversAndLakes,
+                    350, 50, 5000,
+                    "Higher numbers make grassy areas near rivers bigger, but also more rare. Defaults to 350" + Configuration.NEW_LINE);
+            riverCutOffAmplitude = config.getFloat(
+                    "Amplitude of Large-Scale River Cut Off",
+                    riversAndLakes,
+                    0.5f, 0, 2,
+                    "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
+            lakeSizeMultiplier = config.getFloat(
+                    "Lake Size Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
+            lakeFrequencyMultiplier = config.getFloat(
+                    "Lake Frequency Multipler",
+                    riversAndLakes,
+                    1, 0, 10,
+                    "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
+            lakeShoreBendinessMultiplier = config.getFloat(
+                    "Lake Shore Irregularity",
+                    riversAndLakes,
+                    1, 0, 2,
+                    "Makes scenic lake shores bend and curve more. Defaults to 1" + Configuration.NEW_LINE);
+
+            scenicLakeBiome = config.getInt("Biome for scenic lakes", riversAndLakes,
+                    7, 0, 254, "Biome ID for scenic lakes when not frozen (default 7 = River)" + Configuration.NEW_LINE);
+
+            scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", riversAndLakes,
+                    11, 0, 254, "Biome ID for scenic lakes when frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
+            
         }
         catch (Exception e) {
             Logger.error("RTG has had a problem loading RTG configuration.");

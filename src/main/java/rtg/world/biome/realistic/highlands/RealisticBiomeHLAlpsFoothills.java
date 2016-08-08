@@ -13,7 +13,7 @@ public class RealisticBiomeHLAlpsFoothills extends RealisticBiomeHLBase {
 
         super(config, biome, BiomeGenBase.frozenRiver,
             new TerrainHLAlpsFoothills(),
-            new SurfaceHLAlpsFoothills(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLAlpsFoothills(config, biome.topBlock, biome.fillerBlock, false, null, 0.45f)
         );
 
         this.noWaterFeatures = true;

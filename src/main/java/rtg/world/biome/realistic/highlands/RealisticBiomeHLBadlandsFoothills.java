@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.api.biome.BiomeConfig;
@@ -13,7 +14,14 @@ public class RealisticBiomeHLBadlandsFoothills extends RealisticBiomeHLBase {
 
         super(config, biome, BiomeGenBase.river,
             new TerrainHLBadlandsFoothills(40f, 140f, 13f, 70f, 67f),
-            new SurfaceHLBadlandsFoothills(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLBadlandsFoothills(
+                config,
+                Blocks.grass.getDefaultState(),
+                Blocks.dirt.getDefaultState(),
+                Blocks.stained_hardened_clay.getStateFromMeta(8),
+                Blocks.hardened_clay.getDefaultState(),
+                60f, -0.14f, 14f, 0.25f
+            )
         );
 
         this.noLakes = true;

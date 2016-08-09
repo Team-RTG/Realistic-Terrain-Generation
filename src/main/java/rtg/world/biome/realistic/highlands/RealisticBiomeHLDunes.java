@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.api.biome.BiomeConfig;
@@ -13,7 +14,7 @@ public class RealisticBiomeHLDunes extends RealisticBiomeHLBase {
 
         super(config, biome, BiomeGenBase.river,
             new TerrainHLDunes(),
-            new SurfaceHLDunes(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLDunes(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState())
         );
 
         this.noLakes = true;

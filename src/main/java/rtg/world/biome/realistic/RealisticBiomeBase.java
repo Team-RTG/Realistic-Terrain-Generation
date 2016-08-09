@@ -295,10 +295,7 @@ public class RealisticBiomeBase {
     }
 
     /**
-     * This method should be called if both of the following conditions are true:
-     * <p>
-     * 1) You are manually decorating a biome by overrding rDecorate().
-     * 2) You are NOT calling rDecorateSeedBiome() within rDecorate().
+     * This method should only be called by DecoBaseBiomeDecorations.
      */
     public void rOreGenSeedBiome(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
 

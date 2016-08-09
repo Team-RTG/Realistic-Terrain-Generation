@@ -126,9 +126,6 @@ public class SurfaceVanillaRoofedForest extends SurfaceBase {
                     else if (gravel) {
                         primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
                     }
-                    else if (m) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
-                    }
                     else {
                         primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                     }

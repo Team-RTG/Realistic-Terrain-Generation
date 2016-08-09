@@ -13,7 +13,7 @@ public class RealisticBiomeHLHighlands extends RealisticBiomeHLBase {
 
         super(config, biome, BiomeGenBase.river,
             new TerrainHLHighlands(),
-            new SurfaceHLHighlands(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLHighlands(config, biome.topBlock, biome.fillerBlock, false, null, 1f, 1.5f, 85f, 20f, 4f)
         );
 
         this.noLakes = true;

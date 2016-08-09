@@ -23,6 +23,8 @@ public class RealisticBiomePresenceTester {
                 int biomeId = b[i].biomeID;
                 String biomeName = b[i].biomeName;
                 String biomeClass = b[i].getBiomeClass().getName();
+
+                Logger.debug("Biome (" + biomeId + ") " + biomeName + " from " + biomeClass);
                 
                 switch (biomeId) {
                 

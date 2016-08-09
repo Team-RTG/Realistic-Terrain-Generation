@@ -12,7 +12,7 @@ public class RealisticBiomeHLDryForest extends RealisticBiomeHLBase {
     public RealisticBiomeHLDryForest(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLDryForest(),
+            new TerrainHLDryForest(0f, 50f, 68f, 200f),
             new SurfaceHLDryForest(config, biome.topBlock, biome.fillerBlock)
         );
 

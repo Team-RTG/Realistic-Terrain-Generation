@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPChaparral extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPChaparral extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPChaparral()
-    {
+    public BiomeConfigBOPChaparral() {
+
         super("chaparral");
     }
 }

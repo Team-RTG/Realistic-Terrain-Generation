@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPMarsh extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPMarsh extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPMarsh()
-    {
+    public BiomeConfigBOPMarsh() {
+
         super("marsh");
     }
 }

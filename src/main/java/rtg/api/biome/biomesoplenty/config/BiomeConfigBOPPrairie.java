@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPPrairie extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPPrairie extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPPrairie()
-    {
+    public BiomeConfigBOPPrairie() {
+
         super("prairie");
     }
 }

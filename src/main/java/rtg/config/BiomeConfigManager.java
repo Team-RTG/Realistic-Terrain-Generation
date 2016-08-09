@@ -13,6 +13,7 @@ import rtg.api.biome.buildcraft.config.BiomeConfigBCDesertOilField;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCOceanOilField;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
+import rtg.api.biome.highlands.config.*;
 import rtg.api.biome.minestrappolation.config.BiomeConfigMS;
 import rtg.api.biome.minestrappolation.config.BiomeConfigMSRedwoodForest;
 import rtg.api.biome.minestrappolation.config.BiomeConfigMSTheFrost;
@@ -29,6 +30,7 @@ public class BiomeConfigManager {
         initBiomeConfigsAC();
         initBiomeConfigsBOP();
         initBiomeConfigsBC();
+        initBiomeConfigsHL();
         initBiomeConfigsMS();
         initBiomeConfigsTC();
         initBiomeConfigsFC();
@@ -115,6 +117,32 @@ public class BiomeConfigManager {
 
         BiomeConfigBC.biomeConfigBCDesertOilField = new BiomeConfigBCDesertOilField();
         BiomeConfigBC.biomeConfigBCOceanOilField = new BiomeConfigBCOceanOilField();
+    }
+
+    public static void initBiomeConfigsHL() {
+
+        BiomeConfigHL.biomeConfigHLAdirondacks = new BiomeConfigHLAdirondacks();
+        BiomeConfigHL.biomeConfigHLAdirondacksFoothills = new BiomeConfigHLAdirondacksFoothills();
+        BiomeConfigHL.biomeConfigHLAlps = new BiomeConfigHLAlps();
+        BiomeConfigHL.biomeConfigHLAlpsFoothills = new BiomeConfigHLAlpsFoothills();
+        BiomeConfigHL.biomeConfigHLBadlands = new BiomeConfigHLBadlands();
+        BiomeConfigHL.biomeConfigHLBadlandsFoothills = new BiomeConfigHLBadlandsFoothills();
+        BiomeConfigHL.biomeConfigHLBaldHill = new BiomeConfigHLBaldHill();
+        BiomeConfigHL.biomeConfigHLBambooForest = new BiomeConfigHLBambooForest();
+        BiomeConfigHL.biomeConfigHLDryForest = new BiomeConfigHLDryForest();
+        BiomeConfigHL.biomeConfigHLDunes = new BiomeConfigHLDunes();
+        BiomeConfigHL.biomeConfigHLGreyMountains = new BiomeConfigHLGreyMountains();
+        BiomeConfigHL.biomeConfigHLGreyMountainsFoothills = new BiomeConfigHLGreyMountainsFoothills();
+        BiomeConfigHL.biomeConfigHLHighlands = new BiomeConfigHLHighlands();
+        BiomeConfigHL.biomeConfigHLLake = new BiomeConfigHLLake();
+        BiomeConfigHL.biomeConfigHLLowlands = new BiomeConfigHLLowlands();
+        BiomeConfigHL.biomeConfigHLMeadow = new BiomeConfigHLMeadow();
+        BiomeConfigHL.biomeConfigHLMojave = new BiomeConfigHLMojave();
+        BiomeConfigHL.biomeConfigHLPinelands = new BiomeConfigHLPinelands();
+        BiomeConfigHL.biomeConfigHLPoplarHills = new BiomeConfigHLPoplarHills();
+        BiomeConfigHL.biomeConfigHLRedwoodForest = new BiomeConfigHLRedwoodForest();
+        BiomeConfigHL.biomeConfigHLTropicalHills = new BiomeConfigHLTropicalHills();
+        BiomeConfigHL.biomeConfigHLTropicalIslands = new BiomeConfigHLTropicalIslands();
     }
 
     public static void initBiomeConfigsMS() {

@@ -52,16 +52,65 @@ public class SimplexCellularOctave implements CellOctave {
 	 */
 
 	//2D Simplex-Cellular noise (Multi-eval)
+    private double[] extantX = new double[9];
+    private double[] extantY = new double[9];
+    private int extant = 0;
+    private int[] pointIndex = new int[2];
+
+    private boolean tooClose(double thisX, double thisY) {
+
+            boolean tooClose = false;
+            for (int j = 0; j < extant; j++) {
+                double fromX = thisX - extantX[j];
+                double fromY = thisY - extantY[j];
+                if (fromX*fromX+fromY*fromY<.002) {
+                    return true;
+                }
+            }
+            // not tooClose; add
+            extantX[extant] = thisX;
+            extantY[extant++] = thisY;
+            return tooClose;
+    }
+    
+    private int pointTooClose(double thisX, double thisY) {        
+        // returns the index for the point too close
+            for (int j = 0; j < extant; j++) {
+                double fromX = thisX - extantX[j];
+                double fromY = thisY - extantY[j];
+                if (fromX*fromX+fromY*fromY<.002) {
+                    return j;
+                }
+                if (fromX*fromX+fromY*fromY<.004) {
+                    throw new RuntimeException();
+                }
+            }
+            // not tooClose; add
+            extantX[extant] = thisX;
+            extantY[extant] = thisY;
+            extant ++;
+            return -1;
+    }
+
+    private static String otherSide = null;
+    public static boolean crashing = false;
+    public static String chunkManagerProblems = "";
+
 	public double [] eval(double x, double y) {
 
+        extant = 0;// clear the point record
         double [] results = new double[2];
         results[0] = Double.POSITIVE_INFINITY;
         results[1] = Double.POSITIVE_INFINITY;
+        // set the found points to not found
+        pointIndex[0] = -2;
+        pointIndex[1] = -2;
 
 		//Get points for A2* lattice
 		double s = 0.366025403784439 * (x + y);
 		double xs = x + s, ys = y + s;
 
+        String complaint = null;
 
 		//Get base points and offsets
 		int xsb = fastFloor(xs), ysb = fastFloor(ys);
@@ -77,31 +126,82 @@ public class SimplexCellularOctave implements CellOctave {
 		double ssi = (xsi + ysi) * -0.211324865405187;
 		double xi = xsi + ssi, yi = ysi + ssi;
 
+        if (crashing) {
+            complaint = "" + x;
+            complaint += " " + y;
+            complaint += " " + (int)(x*1875.0);
+            complaint += " " + (int)(y*1875.0);
+        }
+
 		//Point contributions
 		for (int i = 0; i < 9; i++) {
-        LatticePoint2D c = LOOKUP_2D[index + i];
-
-        int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
+            LatticePoint2D c = LOOKUP_2D[index + i];
+            int pxm = (xsb + c.xsv) & 1023, pym = (ysb + c.ysv) & 1023;
             int ji = perm2D[perm[pxm] ^ pym];
             double jx = JITTER_2D[ji + 0], jy = JITTER_2D[ji + 1];
+            // suppress points to close to existing ones
+            //if (tooClose(jx -c.dx,jy - c.dy)) continue;
             double djx = jx - (c.dx + xi),
                     djy = jy - (c.dy + yi);
             double distance = Math.sqrt(djx * djx + djy * djy);
 
-            if (f2Index >= 0) {
-                if (distance < results[f2Index]) {
-                    results[f2Index] = distance;
+            if (crashing) {
+                complaint += "" + i + " " + (jx -c.dx) + " " + (jy - c.dy) + " " + distance+" ";
+            }
+            int closeTo = pointTooClose(jx -c.dx,jy - c.dy);
+            if (closeTo != -1) {
+                // just replace existing points if appropriate
+                if (pointIndex[f1Index] == i) {
                     if (distance < results[f1Index]) {
-                        results[f2Index] = results[f1Index];
                         results[f1Index] = distance;
+                        pointIndex[f1Index] = i;
                     }
                 }
-            } else if (f1Index >= 0) {
-                if (distance < results[f1Index]) {
-                    results[f1Index] = distance;
+                if (pointIndex[f2Index] == i) {
+                    if (distance < results[f1Index]) {
+                        // complicated; the old point was #2 and the new is #1
+                        results[f2Index] = results[f1Index];
+                        pointIndex[f2Index] = pointIndex[f1Index];
+                        results[f1Index] = distance;
+                        pointIndex[f1Index] = i;
+                    }
+                    else if (distance < results[f2Index]) {
+                        results[f2Index] = distance;
+                        pointIndex[f2Index] = i;
+                    }
+                }
+            } else {
+                if (f2Index >= 0) {
+                    if (distance < results[f2Index]) {
+                            results[f2Index] = distance;
+                            pointIndex[f2Index]=i;
+                            if (distance < results[f1Index]) {
+                                results[f2Index] = results[f1Index];
+                                pointIndex[f2Index] = pointIndex[f1Index];
+                                results[f1Index] = distance;
+                                pointIndex[f1Index]=i;
+                            }
+                        }
+                } else if (f1Index >= 0) {
+                    if (distance < results[f1Index]) {
+                        results[f1Index] = distance;
+                        pointIndex[f1Index] = i;
+                    }
                 }
             }
 		}
+
+        if (crashing) {
+            complaint += pointIndex[f1Index] + " " + results[f1Index]+ " " ;
+            complaint += pointIndex[f2Index] + " " + results[f2Index]+ " " ;
+            if (otherSide == null) {
+                otherSide = complaint;
+            } else {
+                throw new RuntimeException(otherSide + "        " +complaint+ " " + chunkManagerProblems);
+            }
+            crashing = false;
+        }
+        if (results[0]>results[1]) throw new RuntimeException();
         return results;
 	}
 

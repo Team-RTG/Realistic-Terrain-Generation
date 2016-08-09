@@ -5,7 +5,8 @@ package rtg.util;
  *
  * @author Zeno410
  */
-public class VoronoiCellNoise {
+public class VoronoiCellNoise implements CellNoise 
+{
 
     private VoronoiCellOctave [] octaves = new VoronoiCellOctave [5];
     public final int OCTAVE_COUNT = 5;

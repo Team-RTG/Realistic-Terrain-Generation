@@ -4,30 +4,25 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainACDarklands extends TerrainBase
-{
-    private float baseHeight = 76f;
-    private float hillStrength = 30f;
+public class TerrainACDarklands extends TerrainBase {
 
-    public TerrainACDarklands()
-    {
+    private float hillStrength = 40f;
 
+    public TerrainACDarklands() {
+
+        this(72f, 40f);
     }
 
-    public TerrainACDarklands(float bh, float hs)
-    {
-        baseHeight = bh;
+    public TerrainACDarklands(float bh, float hs) {
+
+        base = bh;
         hillStrength = hs;
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
 
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+        return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
 
-        float m = hills(x, y, hillStrength, simplex, river);
-
-        return baseHeight + groundNoise + m;
     }
 }

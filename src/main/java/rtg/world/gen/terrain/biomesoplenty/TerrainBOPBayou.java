@@ -4,17 +4,15 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainBOPBayou extends TerrainBase
-{
-	public TerrainBOPBayou()
-	{
-	}
+public class TerrainBOPBayou extends TerrainBase {
 
-	@Override
-	public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-	{
-        return this.terrainMarsh(x, y, simplex, 61f);
+    public TerrainBOPBayou() {
 
-        //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
-	}
+    }
+
+    @Override
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+        return terrainPlains(x, y, simplex, river, 80f, 1f, 40f, 20f, 62f);
+    }
 }

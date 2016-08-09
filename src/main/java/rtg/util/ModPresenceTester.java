@@ -1,4 +1,3 @@
-
 package rtg.util;
 
 import net.minecraftforge.fml.common.Loader;

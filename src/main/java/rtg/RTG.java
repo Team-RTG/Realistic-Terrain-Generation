@@ -9,7 +9,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import rtg.api.event.BiomeConfigEvent;
@@ -27,6 +30,7 @@ import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.minestrappolation.RealisticBiomeMSBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
@@ -49,6 +53,9 @@ public class RTG {
 
     private ConfigManager configManager = new ConfigManager();
 
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
+
     public ConfigManager configManager(int dimension) {
 
         return configManager;
@@ -62,7 +69,9 @@ public class RTG {
         worldtype = new WorldTypeRTG("RTG");
 
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
-        if (ConfigRTG.enableVillageModifications) MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        if (ConfigRTG.enableVillageModifications) {
+            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        }
         MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
 
         eventMgr = new EventManagerRTG();
@@ -96,6 +105,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();
+        RealisticBiomeHLBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeMSBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
@@ -104,18 +114,22 @@ public class RTG {
     }
 
     public void runOnServerClose(Runnable action) {
-
         serverCloseActions.add(action);
     }
 
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
 
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppedEvent event) {
-
-        for (Runnable action : serverCloseActions) {
+    public void serverStopped(FMLServerStoppedEvent event)
+    {
+        for (Runnable action: serverCloseActions) {
             action.run();
         }
-
+        for (Runnable action: oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
     }
 }

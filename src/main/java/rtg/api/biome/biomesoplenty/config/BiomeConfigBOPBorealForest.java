@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPBorealForest extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPBorealForest extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPBorealForest()
-    {
+    public BiomeConfigBOPBorealForest() {
+
         super("borealforest");
     }
 }

@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPWetland extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPWetland extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPWetland()
-    {
+    public BiomeConfigBOPWetland() {
+
         super("wetland");
     }
 }

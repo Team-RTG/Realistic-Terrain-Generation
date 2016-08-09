@@ -4,15 +4,15 @@ import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.BiomeConfigProperty.Type;
 
 
-public class BiomeConfigVanillaIcePlains extends BiomeConfigVanillaBase
-{
+public class BiomeConfigVanillaIcePlains extends BiomeConfigVanillaBase {
+
     public static final String decorationLogsId = "decorationLogs";
     public static final String decorationLogsName = "RTG Decoration: Logs";
-    
-    public BiomeConfigVanillaIcePlains()
-    {
+
+    public BiomeConfigVanillaIcePlains() {
+
         super("iceplains");
-        
+
         this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
     }
 }

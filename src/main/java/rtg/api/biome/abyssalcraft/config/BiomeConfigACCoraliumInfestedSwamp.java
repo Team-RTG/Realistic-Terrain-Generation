@@ -1,11 +1,10 @@
 package rtg.api.biome.abyssalcraft.config;
 
 
-public class BiomeConfigACCoraliumInfestedSwamp extends BiomeConfigACBase
-{
+public class BiomeConfigACCoraliumInfestedSwamp extends BiomeConfigACBase {
 
-    public BiomeConfigACCoraliumInfestedSwamp()
-    {
+    public BiomeConfigACCoraliumInfestedSwamp() {
+
         super("coraliuminfestedswamp");
     }
 }

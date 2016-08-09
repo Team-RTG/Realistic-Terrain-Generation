@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPLavenderFields extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPLavenderFields extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPLavenderFields()
-    {
+    public BiomeConfigBOPLavenderFields() {
+
         super("lavenderfields");
     }
 }

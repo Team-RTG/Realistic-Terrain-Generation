@@ -33,7 +33,7 @@ import java.util.Random;
  *
  * by mncat77 and jtjj222. <----------
  */
-public class VoronoiCellOctave 
+public class VoronoiCellOctave implements CellOctave
 {
 	private static final double SQRT_2 = 1.4142135623730950488;
 	private static final double SQRT_3 = 1.7320508075688772935;
@@ -41,11 +41,15 @@ public class VoronoiCellOctave
 	private boolean useDistance = false;
 
 	private long seed;
+    private long ySeed;
+    private long zSeed;
 	private short distanceMethod;
 
 
 	public VoronoiCellOctave(long seed, short distanceMethod, boolean useDistance){
 		this.seed = seed;
+        ySeed = new Random(seed).nextLong();
+        zSeed = new Random(ySeed).nextLong();
 		this.distanceMethod = distanceMethod;
         this.useDistance = useDistance;
 	}
@@ -109,6 +113,8 @@ public class VoronoiCellOctave
 	public void setSeed(long seed)
 	{
 		this.seed = seed;
+        ySeed = new Random(seed).nextLong();
+        zSeed = new Random(ySeed).nextLong();
 	}
 
 	public float noise(double x, double z, double frequency)
@@ -130,7 +136,7 @@ public class VoronoiCellOctave
 			{
 
 				double xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				double zPos = zCur + valueNoise2D(xCur, zCur, new Random(seed).nextLong());
+				double zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
 				double xDist = xPos - x;
 				double zDist = zPos - z;
 				double dist = xDist * xDist + zDist * zDist;
@@ -178,7 +184,7 @@ public class VoronoiCellOctave
 			for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++)
 			{
 				xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				zPos = zCur + valueNoise2D(xCur, zCur, new Random(seed).nextLong());
+				zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
 				xDist = xPos - x;
 				zDist = zPos - z;
 				dist = distance(xPos - x, zPos - z);
@@ -202,13 +208,14 @@ public class VoronoiCellOctave
 			}
 		}
 
-		double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
-		double total = (dCandidate + dNeighbour) / diff;
+		//double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
+		//double total = (dCandidate + dNeighbour) / diff;
 
-		dCandidate = dCandidate / total;
-		dNeighbour = dNeighbour / total;
+		//dCandidate = dCandidate / total;
+		//dNeighbour = dNeighbour / total;
 
-		double c = (diff / 2D) - dCandidate;
+		//double c = (diff / 2D) - dCandidate;
+        double c = (dNeighbour - dCandidate)/dNeighbour;
 		if(c < width)
 		{
 			return (((float)(c / width)) - 1f) * depth;
@@ -219,10 +226,8 @@ public class VoronoiCellOctave
 		}
 	}
 
-	public float border(double x, double z, double width, float depth)
+	public double[] eval (double x, double z)
 	{
-		x *= 1D;
-		z *= 1D;
 
 		int xInt = (x > .0? (int)x: (int)x - 1);
 		int zInt = (z > .0? (int)z: (int)z - 1);
@@ -241,11 +246,11 @@ public class VoronoiCellOctave
 			{
 
 				double xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				double zPos = zCur + valueNoise2D(xCur, zCur, new Random(seed).nextLong());
+				double zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
 				double xDist = xPos - x;
 				double zDist = zPos - z;
-				//double dist = xDist * xDist + zDist * zDist;
-				double dist = getDistance2D(xPos - x, zPos - z);
+				double dist = xDist * xDist + zDist * zDist;
+				//double dist = getDistance2D(xPos - x, zPos - z);
 
 				if(dist < dCandidate)
 				{
@@ -268,15 +273,10 @@ public class VoronoiCellOctave
 		}
 
 		//double c = getDistance2D(xNeighbour - x, zNeighbour - z) - getDistance2D(xCandidate - x, zCandidate - z);
-		double c = dNeighbour - dCandidate;
-		if(c < width)
-		{
-			return (((float)(c / width)) - 1f) * depth;
-		}
-		else
-		{
-			return 0f;
-		}
+		double [] result= new double [2];
+        result [0] = dCandidate ;
+        result [1] = dNeighbour;
+        return result;
 	}
 
 	public double noise(double x, double y, double z, double frequency)
@@ -307,8 +307,8 @@ public class VoronoiCellOctave
 					// this unit cube.
 
 					double xPos = xCur + valueNoise3D (xCur, yCur, zCur, seed);
-					double yPos = yCur + valueNoise3D (xCur, yCur, zCur, rand.nextLong());
-					double zPos = zCur + valueNoise3D (xCur, yCur, zCur, rand.nextLong());
+					double yPos = yCur + valueNoise3D (xCur, yCur, zCur, ySeed);
+					double zPos = zCur + valueNoise3D (xCur, yCur, zCur, zSeed);
 					double xDist = xPos - x;
 					double yDist = yPos - y;
 					double zDist = zPos - z;
@@ -360,4 +360,5 @@ public class VoronoiCellOctave
 		n = (n >> 13) ^ n;
 		return 1.0 - ((double)((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
 	}
+
 }

@@ -13,13 +13,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
 import rtg.config.rtg.ConfigRTG;
-import rtg.debug.DebugHandler;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.CommonProxy;
@@ -90,12 +88,7 @@ public class RTG {
     }
 
     @EventHandler
-    public void fmlLifeCycleEvent(FMLInitializationEvent event) {
-
-        if (event.getSide() == Side.CLIENT) {
-            MinecraftForge.EVENT_BUS.register(new DebugHandler());
-        }
-    }
+    public void fmlLifeCycleEvent(FMLInitializationEvent event) {}
 
     @EventHandler
     public void fmlLifeCycle(FMLPostInitializationEvent event) {

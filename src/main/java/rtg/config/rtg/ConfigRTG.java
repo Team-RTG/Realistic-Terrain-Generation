@@ -42,7 +42,6 @@ public class ConfigRTG {
 
     /* ==================== Debugging ==================== */
 
-    public static boolean showDebugInfo = false;
     public static boolean enableDebugging = false;
 
     /* ==================== Dungeons ==================== */
@@ -254,7 +253,6 @@ public class ConfigRTG {
             
             /* ==================== Debugging ==================== */
 
-            showDebugInfo = config.getBoolean("Show Debug Info in F3 Screen", "Debugging", showDebugInfo, "");
             enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing." + Configuration.NEW_LINE);
             
             /* ==================== Dungeons ==================== */

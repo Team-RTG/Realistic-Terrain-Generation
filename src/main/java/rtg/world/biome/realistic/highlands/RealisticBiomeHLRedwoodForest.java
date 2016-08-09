@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.highlands;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.api.biome.BiomeConfig;
@@ -13,7 +14,16 @@ public class RealisticBiomeHLRedwoodForest extends RealisticBiomeHLBase {
 
         super(config, biome, BiomeGenBase.river,
             new TerrainHLRedwoodForest(40f, 180f, 13f, 100f, 38f, 260f, 71f),
-            new SurfaceHLRedwoodForest(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLRedwoodForest(
+                config,
+                Blocks.grass.getDefaultState(),
+                Blocks.dirt.getDefaultState(),
+                false,
+                null,
+                0f, 1.5f, 60f, 65f, 1.5f,
+                Blocks.dirt.getStateFromMeta(2),
+                0.10f
+            )
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

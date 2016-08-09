@@ -10,33 +10,76 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.highlands.config.BiomeConfigHLRedwoodForest;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 
 public class SurfaceHLRedwoodForest extends SurfaceHLBase {
 
-    public SurfaceHLRedwoodForest(BiomeConfig config, IBlockState top, IBlockState filler) {
+    private boolean beach;
+    private IBlockState beachBlock;
+    private float min;
 
-        super(config, top, filler);
+    private float sCliff = 1.5f;
+    private float sHeight = 60f;
+    private float sStrength = 65f;
+    private float cCliff = 1.5f;
+
+    private IBlockState mixBlock;
+    private float mixHeight;
+
+    public SurfaceHLRedwoodForest(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
+                                 float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+
+        super(config, top, fill);
+        beach = genBeach;
+        beachBlock = genBeachBlock;
+        min = minCliff;
+
+        sCliff = stoneCliff;
+        sHeight = stoneHeight;
+        sStrength = stoneStrength;
+        cCliff = clayCliff;
+
+        mixBlock = this.getConfigBlock(config, BiomeConfigHLRedwoodForest.surfaceMixBlockId, BiomeConfigHLRedwoodForest.surfaceMixBlockMetaId, mix);
+        mixHeight = mixSize;
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
 
         float c = CliffCalculator.calc(x, y, noise);
-        boolean cliff = c > 1.4f ? true : false;
+        int cliff = 0;
+        boolean gravel = false;
+        boolean m = false;
 
+        Block b;
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
             if (b == Blocks.air) {
                 depth = -1;
             }
             else if (b == Blocks.stone) {
                 depth++;
 
-                if (cliff) {
-                    if (depth > -1 && depth < 2) {
+                if (depth == 0) {
+                    if (k < 63) {
+                        if (beach) {
+                            gravel = true;
+                        }
+                    }
+
+                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
+                        cliff = 1;
+                    }
+                    if (c > cCliff) {
+                        cliff = 2;
+                    }
+
+                    if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
                             primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
@@ -46,15 +89,40 @@ public class SurfaceHLRedwoodForest extends SurfaceHLBase {
                             primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
                         }
                     }
-                    else if (depth < 10) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                    else if (cliff == 2) {
+                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
                     }
-                }
-                else {
-                    if (depth == 0 && k > 61) {
+                    else if (k < 63) {
+                        if (beach) {
+                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
+                            gravel = true;
+                        }
+                        else if (k < 62) {
+                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                        }
+                        else {
+                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                        }
+                    }
+                    else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
+                        m = true;
+                    }
+                    else {
                         primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                     }
-                    else if (depth < 4) {
+                }
+                else if (depth < 6) {
+                    if (cliff == 1) {
+                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                    }
+                    else if (cliff == 2) {
+                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
+                    }
+                    else if (gravel) {
+                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
+                    }
+                    else {
                         primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                     }
                 }

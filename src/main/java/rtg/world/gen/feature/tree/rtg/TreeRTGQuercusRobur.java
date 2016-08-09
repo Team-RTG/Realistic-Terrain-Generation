@@ -433,7 +433,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
             for (int h = this.basePos[1] + 1; h < (this.basePos[1] + this.heightLimit); h++) {
                 checkBlock = this.world.getBlockState(new BlockPos(this.basePos[0], h, this.basePos[2]));
 
-                if (checkBlock != Blocks.air && checkBlock != this.leavesBlock) {
+                if (checkBlock != Blocks.air.getDefaultState() && checkBlock != this.leavesBlock) {
                     Logger.debug("Invalid location (%d/%d/%d). Check block (%s) is not air or %s.", this.basePos[0], h, this.basePos[2], checkBlock.getBlock().getLocalizedName(), this.leavesBlock.getBlock().getLocalizedName());
                     return false;
                 }

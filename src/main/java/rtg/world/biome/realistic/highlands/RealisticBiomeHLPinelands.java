@@ -13,7 +13,7 @@ public class RealisticBiomeHLPinelands extends RealisticBiomeHLBase {
 
         super(config, biome, BiomeGenBase.river,
             new TerrainHLPinelands(),
-            new SurfaceHLPinelands(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLPinelands(config, biome.topBlock, biome.fillerBlock, false, null, 1.2f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

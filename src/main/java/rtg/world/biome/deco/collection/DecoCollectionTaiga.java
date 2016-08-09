@@ -172,7 +172,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoFallenTree.distribution.noiseAddend = 0.8f;
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 12;
+        decoFallenTree.logConditionChance = 32;
         decoFallenTree.logBlock = Blocks.log.getStateFromMeta(1);
         decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
         decoFallenTree.minSize = 3;

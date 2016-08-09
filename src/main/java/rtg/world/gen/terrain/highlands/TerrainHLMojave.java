@@ -1,30 +1,48 @@
 package rtg.world.gen.terrain.highlands;
 
-import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainHLMojave extends TerrainBase {
 
-    public TerrainHLMojave() {
+    private float start;
+    private float height;
+    private float width;
+    private float wavelength = 15;
+    private float amplitude = 2;
+    private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
 
-        super(64);
+    public TerrainHLMojave(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+        start = hillStart;
+        height = landHeight;
+        base = baseHeight;
+        width = hillWidth;
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-        //return terrainPolar(x, y, simplex, river);
-        float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border,
+                               float river) {
 
-        duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+        float pX = (float)((float)x + jitter.deltax() * amplitude);
+        float pY = (float)((float)y + jitter.deltay() * amplitude);
 
-        float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
-        float stFactor = duneHeight;
-        float hPitch = 70;    // Dune scale
-        float hDivisor = 40;
+        // base hills everywhere but with some spacing.
+        float h = blendedHillHeight(Math.abs(simplex.noise2(pX / width, pY / width)),0.3f) * height * river;
+        h = h < start ? start + ((h - start) / 4.5f) : h;
 
-        return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
-            groundNoise(x, y, 1f, simplex);
+        if (h > 0f) {
+            float st = h * 1.5f > 15f ? 15f : h * 1.5f;
+            h += blendedHillHeight((float)simplex.noise(pX / 70D, pY / 70D, 1D)) * st;
+        }
+
+        h = above(h,10f);
+
+        h += this.groundNoise(pX, pY, 4f, simplex);
+
+        return riverized(base + h,river);
     }
 }

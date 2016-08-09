@@ -12,8 +12,8 @@ public class RealisticBiomeHLMojave extends RealisticBiomeHLBase {
     public RealisticBiomeHLMojave(BiomeGenBase biome, BiomeConfig config) {
 
         super(config, biome, BiomeGenBase.river,
-            new TerrainHLMojave(),
-            new SurfaceHLMojave(config, biome.topBlock, biome.fillerBlock)
+            new TerrainHLMojave(0f, 50f, 67f, 210f),
+            new SurfaceHLMojave(config, biome.topBlock, biome.fillerBlock, (byte)1, 1)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

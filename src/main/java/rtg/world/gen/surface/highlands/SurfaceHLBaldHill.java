@@ -26,17 +26,23 @@ public class SurfaceHLBaldHill extends SurfaceHLBase {
 
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
+        Block b;
 
-        for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+        for(int k = 255; k > -1; k--)
+        {
+            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            if(b == Blocks.air)
+            {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if(b == Blocks.stone)
+            {
                 depth++;
 
-                if (cliff) {
-                    if (depth > -1 && depth < 2) {
+                if(cliff)
+                {
+                    if(depth > -1 && depth < 2)
+                    {
                         if (rand.nextInt(3) == 0) {
 
                             primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
@@ -46,15 +52,23 @@ public class SurfaceHLBaldHill extends SurfaceHLBase {
                             primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
                         }
                     }
-                    else if (depth < 10) {
+                    else if (depth < 10)
+                    {
                         primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
                     }
                 }
-                else {
-                    if (depth == 0 && k > 61) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                else
+                {
+                    if(depth == 0 && k > 61)
+                    {
+                        if (rand.nextInt(5) == 0) {
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
+                        } else {
+                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                        }
                     }
-                    else if (depth < 4) {
+                    else if(depth < 4)
+                    {
                         primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                     }
                 }

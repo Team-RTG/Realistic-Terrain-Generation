@@ -13,7 +13,7 @@ public class RealisticBiomeHLGreyMountainsFoothills extends RealisticBiomeHLBase
 
         super(config, biome, BiomeGenBase.river,
             new TerrainHLGreyMountainsFoothills(200f, 90f, 68f),
-            new SurfaceHLGreyMountainsFoothills(config, biome.topBlock, biome.fillerBlock)
+            new SurfaceHLGreyMountainsFoothills(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
         this.noLakes = true;

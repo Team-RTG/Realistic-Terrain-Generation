@@ -2,41 +2,62 @@ package rtg.world.gen.terrain.highlands;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.SimplexOctave;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainHLPoplarHills extends TerrainBase
 {
     private float width;
     private float strength;
+    private float terrainHeight;
+
+
+    private int wavelength = 39;
+    private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+    private double amplitude = 12;
 
     public TerrainHLPoplarHills(float mountainWidth, float mountainStrength, float height)
     {
-
         width = mountainWidth;
         strength = mountainStrength;
-        base = height;
+        terrainHeight = height;
+
+        // experimentation
+        terrainHeight = 30;
+        width = 120;
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
     {
-        float h = simplex.noise2(x / 20f, y / 20f) * 2;
-        h += simplex.noise2(x / 7f, y / 7f) * 0.8f;
+        simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+        float pX = (float)((float)x + jitter.deltax() * amplitude);
+        float pY = (float)((float)y + jitter.deltay() * amplitude);
 
-        float m = (simplex.noise2(x / width, y / width)+1) * strength/2 * river;
-        //m *= m / 35f;
-        //m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
+        float h = simplex.noise2(pX / 19f, pY / 19f);
+        h = h*h*2f;
+        float h2 = simplex.noise2(pX / 13f, pY / 13f);
+        h2 = h2 * h2 * 1.3f;
+        h = Math.max(h, h2);
+        h += h2;
+        float h3 = simplex.noise2( pX / 53f, pY /53f);
+        h3= h3*h3*5f;
+        h+= h3;
 
-        //float st = m * 0.7f;
-        //st = st > 20f ? 20f : st;
-        //float c = cell.noise(x / 30f, y / 30f, 1D) * (5f + st);
+        float m = unsignedPower(simplex.noise2(pX / width, pY / width),1.4f) * strength * river;
+        // invert y and x for complexity
+        float m2 = unsignedPower(simplex.noise2(pY / (width*1.5f), pX / (width*1.5f)),1.4f) * strength * river;
 
-        float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
-        //sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
-        m += sm;
+        m = Math.max(m, m2);
 
-        //m += c;
+        // intensify ruggedness at height
+        h = m>10? h * m/10: h;
 
-        return riverized(base + h + m,river) ;
+        m = above(m,-50f);
+
+
+        return terrainHeight + h + m;
+
+
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
@@ -26,7 +27,7 @@ public class WorldGenVolcano {
     protected static IBlockState volcanoPatchBlock3 = Block.getBlockFromName(ConfigRTG.volcanoMix3BlockId).getStateFromMeta(ConfigRTG.volcanoMix3BlockMeta);
     protected static IBlockState lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava.getDefaultState() : Blocks.lava.getDefaultState();
 
-    public static void build(IBlockState[] blocks, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
+    public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
 
         int i, j;
         float distanceEll, height, terrainHeight, obsidian;
@@ -58,25 +59,25 @@ public class WorldGenVolcano {
                     for (int y = 255; y > -1; y--) {
                         // Above lava
                         if (y > lavaHeight) {
-                            if (blocks[cta(x, y, z)] != Blocks.air.getDefaultState()) {
-                                blocks[cta(x, y, z)] = Blocks.air.getDefaultState();
+                            if (primer.getBlockState(cta(x, y, z)) == Blocks.air.getDefaultState()) {
+                                primer.setBlockState(cta(x, y, z), Blocks.air.getDefaultState());
                             }
                         }
                         // Below lava and above obsidian
                         else if (y > obsidian && y < (lavaHeight - 9) + height) {
-                            blocks[cta(x, y, z)] = volcanoBlock;
+                            primer.setBlockState(cta(x, y, z), volcanoBlock);
                         }
                         // In lava
                         else if (y < lavaHeight + 1) {
                             if (distanceEll + y < lavaHeight + 3) // + 3 to cut the tip of the lava
                             {
-                                blocks[cta(x, y, z)] = lavaBlock;
+                                primer.setBlockState(cta(x, y, z), lavaBlock);
                             }
                         }
                         // Below obsidian
                         else if (y < obsidian + 1) {
-                            if (blocks[cta(x, y, z)] == Blocks.air.getDefaultState()) {
-                                blocks[cta(x, y, z)] = Blocks.stone.getDefaultState();
+                            if (primer.getBlockState(cta(x, y, z)) == Blocks.air.getDefaultState()) {
+                                primer.setBlockState(cta(x, y, z), Blocks.stone.getDefaultState());
                             }
                             else {
                                 break;
@@ -97,7 +98,7 @@ public class WorldGenVolcano {
 
                     for (int y = 255; y > -1; y--) {
                         if (y <= terrainHeight) {
-                            b = blocks[cta(x, y, z)];
+                            b = primer.getBlockState(cta(x, y, z));
 
                             if (b == Blocks.air.getDefaultState() || b == Blocks.water.getDefaultState()) {
                                 /*************************************
@@ -108,31 +109,31 @@ public class WorldGenVolcano {
                                     if (distanceEll > 10) {
 
                                         // Patches
-                                        if (distanceEll < 50 && isOnSurface(x, y, z, blocks)) {
+                                        if (distanceEll < 50 && isOnSurface(primer, x, y, z)) {
                                             float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.3f;
                                             patchNoise += simplex.octave(2).noise2(i / 30f, j / 30f) * .9;
                                             patchNoise += simplex.octave(3).noise2(i / 5f, j / 5f) * .6;
                                             if (patchNoise > .85) {
-                                                blocks[cta(x, y, z)] = volcanoPatchBlock;   // Cobble
+                                                primer.setBlockState(cta(x, y, z), volcanoPatchBlock); // Cobble
                                                 continue;
                                             }
                                         }
 
-                                        if (distanceEll < 75 && isOnSurface(x, y, z, blocks)) {
+                                        if (distanceEll < 75 && isOnSurface(primer, x, y, z)) {
                                             float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.3f;
                                             patchNoise += simplex.octave(4).noise2(i / 30f, j / 30f) * .9;
                                             patchNoise += simplex.octave(5).noise2(i / 5f, j / 5f) * .5;
                                             if (patchNoise > .92) {
-                                                blocks[cta(x, y, z)] = volcanoPatchBlock2;  // Gravel
+                                                primer.setBlockState(cta(x, y, z), volcanoPatchBlock2); // Gravel
                                                 continue;
                                             }
                                         }
-                                        if (distanceEll < 75 && isOnSurface(x, y, z, blocks)) {
+                                        if (distanceEll < 75 && isOnSurface(primer, x, y, z)) {
                                             float patchNoise = simplex.noise2(i / 10f, j / 10f) * 1.3f;
                                             patchNoise += simplex.octave(6).noise2(i / 30f, j / 30f) * .7;
                                             patchNoise += simplex.octave(7).noise2(i / 5f, j / 5f) * .7;
                                             if (patchNoise > .93) {
-                                                blocks[cta(x, y, z)] = volcanoPatchBlock3;  // Coal block
+                                                primer.setBlockState(cta(x, y, z), volcanoPatchBlock3); // Coal block
                                                 continue;
                                             }
                                         }
@@ -178,7 +179,7 @@ public class WorldGenVolcano {
                                 break;
                             }
 
-                            blocks[cta(x, y, z)] = b;
+                            primer.setBlockState(cta(x, y, z), b);
                         }
                     }
                 }
@@ -186,9 +187,9 @@ public class WorldGenVolcano {
         }
     }
 
-    private static boolean isOnSurface(int x, int y, int z, IBlockState[] blocks) {
+    private static boolean isOnSurface(ChunkPrimer primer, int x, int y, int z) {
 
-        return (blocks[cta(x, y + 1, z)] == Blocks.air.getDefaultState());
+        return primer.getBlockState(cta(x, y + 1, z)) == Blocks.air.getDefaultState();
     }
 
     public static int cta(int x, int y, int z) {

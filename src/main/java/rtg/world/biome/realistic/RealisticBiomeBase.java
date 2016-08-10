@@ -31,6 +31,7 @@ import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenClayRTG;
+import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
@@ -388,7 +389,7 @@ public class RealisticBiomeBase {
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;
                 mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
 
-                //WorldGenVolcano.build(primer, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                WorldGenVolcano.build(primer, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
             }
         }
     }

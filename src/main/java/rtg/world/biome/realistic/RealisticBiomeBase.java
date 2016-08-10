@@ -368,19 +368,26 @@ public class RealisticBiomeBase {
     }
 
     public void rMapVolcanoes(ChunkPrimer primer, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
-    	
+
+        // Have volcanoes been disabled in the global config?
+        if (!ConfigRTG.enableVolcanoes) {
+            return;
+        }
+
+        // Have volcanoes been disabled in the biome config?
     	RealisticBiomeBase neighbourBiome = getBiome((((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16).biomeID));
-    	
-    	boolean allowed = ConfigRTG.enableVolcanoes;
-    	if (!allowed) {
-    		return;
-    	}
-    	
-    	int chance = ConfigRTG.volcanoChance;
-    	if (chance < 1) {
-    		return;
-    	}
-    	
+        if (!neighbourBiome.config._boolean(BiomeConfig.allowVolcanoesId)) {
+            return;
+        }
+
+        // Have volcanoes been disabled via frequency?
+        // Use the global frequency unless the biome frequency has been explicitly set.
+        int chance = neighbourBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : neighbourBiome.config._int(BiomeConfig.volcanoChanceId);
+        if (chance < 1) {
+            return;
+        }
+
+        // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
         if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(chance) == 0) {
 
             float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;

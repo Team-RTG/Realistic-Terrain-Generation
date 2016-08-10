@@ -1,9 +1,12 @@
 package rtg.config.rtg;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.util.Logger;
 import rtg.util.ModPresenceTester;
@@ -84,6 +87,19 @@ public class ConfigRTG {
     public static boolean generateOreDiamond = true;
     public static boolean generateOreEmerald = true;
 
+    /* ==================== Plateaus ==================== */
+    
+    public static String mesaClayColourString = "0,1,8,14,1,8";
+    public static String mesaBryceClayColourString = "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8";
+    public static String savannaClayColourString = "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
+    
+    public static byte[] mesaClayColours = getClayColourMetasFromConfigString(mesaClayColourString);
+    public static byte[] mesaBryceClayColours = getClayColourMetasFromConfigString(mesaBryceClayColourString);
+    public static byte[] savannaClayColours = getClayColourMetasFromConfigString(savannaClayColourString);
+
+    public static boolean stoneSavannas = true;
+    
+    
     /* ==================== Ravines ==================== */
 
     public static boolean enableRavineModifications = true;
@@ -317,6 +333,39 @@ public class ConfigRTG {
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
             
+            /* ==================== Plateaus ==================== */
+
+			mesaClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Mesa Clay Colours",
+				"Plateaus", 
+				mesaClayColourString,
+				getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)")
+			));
+			
+			mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Mesa Bryce Clay Colours",
+				"Plateaus",
+				mesaBryceClayColourString,
+				getPlateauClayColourComment("Mesa Bryce biome")
+			));
+			
+			savannaClayColours = getClayColourMetasFromConfigString(config.getString(
+				"Savanna Clay Colours",
+				"Plateaus",
+				savannaClayColourString,
+				getPlateauClayColourComment("Savanna biome variants")
+			));
+            
+            stoneSavannas = config.getBoolean(
+                "Use stone instead of clay for most Savanna biome variants",
+                "Plateaus",
+                stoneSavannas,
+                "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
+                + Configuration.NEW_LINE +
+                "Savanna Plateau M will always use stained hardened clay."
+                + Configuration.NEW_LINE
+            );
+
             /* ==================== Ravines ==================== */
 
             enableRavineModifications = config.getBoolean(
@@ -615,6 +664,37 @@ public class ConfigRTG {
 
         return enableVillageModifications;
     }
+
+	private static byte[] getClayColourMetasFromConfigString(String configString)
+	{
+		String[] strings = configString.split(",");
+		ArrayList<Byte> byteList = new ArrayList<Byte>(){};
+
+		for (int i = 0; i < strings.length; i++) {
+			strings[i] = strings[i].trim();
+			if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
+				byteList.add(Byte.valueOf(strings[i]));
+			}
+		}
+		
+		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
+		return ArrayUtils.toPrimitive(bytes);
+	}
+
+	private static String getPlateauClayColourComment(String biomeName)
+	{
+		String comment =
+			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
+			+ Configuration.NEW_LINE +
+			"-1 = Hardened Clay; 0-15 = Stained Clay"
+			+ Configuration.NEW_LINE +
+			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+			+ Configuration.NEW_LINE +
+			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
+			+ Configuration.NEW_LINE;
+		
+		return comment;
+	}
 
     private static void setVolcanoBlockDefaults() {
 

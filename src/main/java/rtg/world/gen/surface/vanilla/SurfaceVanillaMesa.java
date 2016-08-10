@@ -23,6 +23,7 @@ public class SurfaceVanillaMesa extends SurfaceBase
     public SurfaceVanillaMesa(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight)
     {
         super(config, top, fill);
+
         grassRaise = grassHeight;
     }
 

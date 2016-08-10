@@ -38,6 +38,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             )
         );
 
+        this.waterSurfaceLakeChance = 20;
+
         this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoBoulder decoBoulder = new DecoBoulder();

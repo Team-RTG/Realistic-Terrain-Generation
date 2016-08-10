@@ -1,12 +1,22 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateauF;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauF;
 
@@ -21,10 +31,18 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
             BiomeGenBase.mesaPlateau_F,
             BiomeGenBase.river,
             new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaPlateauF(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
+            new SurfaceVanillaMesaPlateauF(
+                config,
+                Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
+                Blocks.stained_hardened_clay.getStateFromMeta(1),
+                0
+            )
         );
 
         this.noLakes = true;
+        this.waterSurfaceLakeChance = 30;
+
+        this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.chance = 10;
@@ -57,5 +75,15 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
+    }
+
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+
+        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
+        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

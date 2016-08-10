@@ -10,5 +10,5 @@
   "credits": "${credits}",
   "logoFile": "${logoFile}",
   "screenshots": [],
-  "dependencies": [${dependencies}]
+  "dependencies": []
 }]

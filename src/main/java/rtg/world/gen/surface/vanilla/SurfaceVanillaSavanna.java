@@ -50,7 +50,7 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
 
                 if (cliff) {
                     if (depth > -1 && depth < 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getForHeight(i, k, j));
+                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
                     }
                     else if (depth < 10) {
                         primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));

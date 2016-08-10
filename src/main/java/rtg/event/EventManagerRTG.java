@@ -1,14 +1,17 @@
 package rtg.event;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.WeakHashMap;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
-import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.WorldTypeEvent;
+import net.minecraftforge.event.terraingen.*;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -18,9 +21,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
 import rtg.util.Logger;
+import rtg.util.RandomUtil;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
@@ -35,6 +42,7 @@ public class EventManagerRTG {
     private final GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
     private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
     private final InitMapGenRTG INIT_MAP_GEN_EVENT_HANDLER = new InitMapGenRTG();
+    private final SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
     private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
@@ -218,6 +226,118 @@ public class EventManagerRTG {
         }
     }
 
+    public class SaplingGrowTreeRTG
+    {
+        SaplingGrowTreeRTG() {
+            logEventMessage("Initialising SaplingGrowTreeRTG...");
+        }
+
+        @SubscribeEvent
+        public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
+
+            // Are RTG saplings enabled?
+            if (!ConfigRTG.enableRTGSaplings) {
+                return;
+            }
+
+            // Are we in an RTG world? Do we have RTG's chunk manager?
+            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+                return;
+            }
+
+            Random rand = event.rand;
+
+            // Should we generate a vanilla tree instead?
+            if (rand.nextInt(ConfigRTG.rtgTreeChance) != 0) {
+
+                Logger.debug("Skipping RTG tree generation.");
+                return;
+            }
+
+            World world = event.world;
+
+            IBlockState saplingBlock = world.getBlockState(event.pos);
+            int saplingMeta = saplingBlock.getBlock().getMetaFromState(saplingBlock);
+
+            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
+            //BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
+            BiomeGenBase bgg = world.getBiomeGenForCoords(event.pos);
+            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
+            ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
+
+            Logger.debug("Biome = %s", rb.baseBiome.biomeName);
+            Logger.debug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
+            Logger.debug("Ground Sapling Meta = %d", saplingMeta);
+
+            if (biomeTrees.size() > 0) {
+
+                // First, let's get all of the trees in this biome that match the sapling on the ground.
+                ArrayList<TreeRTG> validTrees = new ArrayList<>();
+
+                for (int i = 0; i < biomeTrees.size(); i++) {
+
+                    Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
+                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getClass().getName());
+                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, biomeTrees.get(i).saplingBlock.getBlock().getMetaFromState(biomeTrees.get(i).saplingBlock));
+
+                    if (saplingBlock == biomeTrees.get(i).saplingBlock) {
+
+                        validTrees.add(biomeTrees.get(i));
+                        Logger.debug("Valid tree found!");
+                    }
+                }
+
+                // If there are valid trees, then proceed; otherwise, let's get out here.
+                if (validTrees.size() > 0) {
+
+                    // Get a random tree from the list of valid trees.
+                    TreeRTG tree = validTrees.get(rand.nextInt(validTrees.size()));
+
+                    Logger.debug("Tree = %s", tree.getClass().getName());
+
+                    // Set the trunk size if min/max values have been set.
+                    if (tree.minTrunkSize > 0 && tree.maxTrunkSize > tree.minTrunkSize) {
+
+                        tree.trunkSize = RandomUtil.getRandomInt(rand, tree.minTrunkSize, tree.maxTrunkSize);
+                    }
+
+                    // Set the crown size if min/max values have been set.
+                    if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
+
+                        tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
+                    }
+
+                    /*
+                     * Set the generateFlag to what it needs to be for growing trees from saplings,
+                     * generate the tree, and then set it back to what it was before.
+                     *
+                     * TODO: Does this affect the generation of normal RTG trees? - Pink
+                     */
+                    int oldFlag = tree.generateFlag;
+                    tree.generateFlag = 3;
+                    boolean generated = tree.generate(world, rand, event.pos);
+                    tree.generateFlag = oldFlag;
+
+                    if (generated) {
+
+                        // Prevent the original tree from generating.
+                        event.setResult(Event.Result.DENY);
+
+                        // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
+                        if (world.getBlockState(event.pos) == saplingBlock) {
+                            world.setBlockState(event.pos, Blocks.air.getDefaultState(), 2);
+                        }
+                    }
+                }
+                else {
+
+                    Logger.debug("There are no RTG trees associated with the sapling on the ground." +
+                        " Generating a vanilla tree instead.");
+                }
+            }
+        }
+    }
+
     public class WorldEventRTG {
 
         WorldEventRTG() {
@@ -275,6 +395,7 @@ public class EventManagerRTG {
         MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
 
         logEventMessage("RTG's event handlers have been registered successfully.");

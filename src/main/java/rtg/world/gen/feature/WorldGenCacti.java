@@ -46,10 +46,10 @@ public class WorldGenCacti extends WorldGenerator {
 
             if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1));
-                if (b == Blocks.sand.getDefaultState() || (!sand && (b == Blocks.grass.getDefaultState() || b == Blocks.dirt.getDefaultState()))) {
+                if (b == this.soilBlock || (!sand && (b == Blocks.grass.getDefaultState() || b == Blocks.dirt.getDefaultState()))) {
                     int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
                     if (b == Blocks.grass.getDefaultState() || b == Blocks.dirt.getDefaultState()) {
-                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), Blocks.sand.getDefaultState(), 2);
+                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), this.soilBlock, 2);
                     }
 
                     for (int i2 = 0; i2 < l1 + eHeight; ++i2) {

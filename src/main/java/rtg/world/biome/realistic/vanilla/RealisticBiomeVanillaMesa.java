@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.BlockSand;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -24,16 +23,19 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = BiomeGenBase.mesa.topBlock;
-    public static IBlockState fillerBlock = BiomeGenBase.mesa.fillerBlock;
+    private static final BiomeGenBase biome = BiomeGenBase.mesa;
+    private static final BiomeGenBase river = BiomeGenBase.river;
 
     public RealisticBiomeVanillaMesa(BiomeConfig config) {
 
-        super(config,
-            BiomeGenBase.mesa,
-            BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainVanillaMesa(),
-            new SurfaceVanillaMesa(config, Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()), Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()))
+            new SurfaceVanillaMesa(
+                config,
+                Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
+                Blocks.stained_hardened_clay.getStateFromMeta(1),
+                0
+            )
         );
 
         this.addDecoCollection(new DecoCollectionDesertRiver());

@@ -11,7 +11,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
 
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenRavineRTG extends MapGenRavine {
 
@@ -172,19 +174,38 @@ public class MapGenRavineRTG extends MapGenRavine {
     }
 
     @Override
-    protected void recursiveGenerate(World p_151538_1_, int p_151538_2_, int p_151538_3_, int p_151538_4_, int p_151538_5_, ChunkPrimer primer) {
+    protected void recursiveGenerate(World world, int chunkX, int chunkZ, int p_151538_4_, int p_151538_5_, ChunkPrimer primer) {
 
-        enableRavines = ConfigRTG.enableRavines;
+        // Return early if ravines are disabled.
+        if (!ConfigRTG.enableRavines) {
+            return;
+        }
+
+        // Use the global settings by default.
         ravineFrequency = ConfigRTG.ravineFrequency;
 
-        if (!enableRavines) {
+        // If the user has set biome-specific settings, let's use those instead.
+        BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+
+        if (biome != null) {
+
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+
+            if (realisticBiome != null) {
+                ravineFrequency = (realisticBiome.config._int(BiomeConfig.ravineFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.ravineFrequencyId) : ravineFrequency;
+            }
+        }
+
+        // Return early if ravines are disabled.
+        if (ravineFrequency < 1) {
             return;
         }
 
         if (this.rand.nextInt(ravineFrequency) == 0) {
-            double d0 = (double) (p_151538_2_ * 16 + this.rand.nextInt(16));
+
+            double d0 = (double) (chunkX * 16 + this.rand.nextInt(16));
             double d1 = (double) (this.rand.nextInt(this.rand.nextInt(40) + 8) + 20);
-            double d2 = (double) (p_151538_3_ * 16 + this.rand.nextInt(16));
+            double d2 = (double) (chunkZ * 16 + this.rand.nextInt(16));
             byte b0 = 1;
 
             for (int i1 = 0; i1 < b0; ++i1) {

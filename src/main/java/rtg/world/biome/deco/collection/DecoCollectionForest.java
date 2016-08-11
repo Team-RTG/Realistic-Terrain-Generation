@@ -94,12 +94,12 @@ public class DecoCollectionForest extends DecoCollectionBase {
         vanillaTrees.treeConditionChance = 4;
         vanillaTrees.maxY = 120;
 
-        WorldGenerator vanillaForestDefinition = new WorldGenForest(false, true);
+        WorldGenerator vanillaForestDefinition = new WorldGenForest(false, false);
         DecoTree vanillaForest = new DecoTree(vanillaForestDefinition);
-        vanillaForest.strengthFactorForLoops = 3f;
+        vanillaForest.strengthFactorForLoops = 2f;
         vanillaForest.treeType = TreeType.WORLDGEN;
         vanillaForest.treeCondition = TreeCondition.RANDOM_CHANCE;
-        vanillaForest.treeConditionChance = 4;
+        vanillaForest.treeConditionChance = 16;
         vanillaForest.maxY = 120;
 
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();

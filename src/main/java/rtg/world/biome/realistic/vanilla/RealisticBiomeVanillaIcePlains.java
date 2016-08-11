@@ -5,10 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
 
@@ -29,22 +26,22 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.checkRiver = true;
-        decoBoulder.minRiver = 0.87f;
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 5f;
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        decoFallenTree.minSize = 1;
-        decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));
+//        DecoBoulder decoBoulder = new DecoBoulder();
+//        decoBoulder.checkRiver = true;
+//        decoBoulder.minRiver = 0.87f;
+//        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+//        decoBoulder.chance = 16;
+//        decoBoulder.maxY = 95;
+//        decoBoulder.strengthFactor = 5f;
+//        this.addDeco(decoBoulder);
+//
+//        DecoFallenTree decoFallenTree = new DecoFallenTree();
+//        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+//        decoFallenTree.logConditionChance = 24;
+//        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(1);
+//        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+//        decoFallenTree.minSize = 1;
+//        decoFallenTree.maxSize = 5;
+//        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));
     }
 }

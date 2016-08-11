@@ -167,7 +167,7 @@ public class ConfigRTG {
 
     public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
-    public static int volcanoChance = 36;
+    public static int volcanoChance = 48;
 
     /* =================== Water System ===================== */
     private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version

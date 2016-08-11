@@ -1,35 +1,41 @@
 package rtg.world.gen.feature.tree.rtg;
 
+import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import rtg.util.Logger;
+import com.google.common.collect.Lists;
 
+import rtg.util.Logger;
 
 /**
  * Quercus Robur (Pedunculate Oak)
  */
 public class TreeRTGQuercusRobur extends TreeRTG {
 
-    static final byte[] otherCoordPairs = new byte[]{(byte) 2, (byte) 0, (byte) 0, (byte) 1, (byte) 2, (byte) 1};
-
-    World world;
-    Random rand;
-    int[] basePos = new int[]{0, 0, 0};
     int heightLimit;
     int height;
     double heightAttenuation = 0.618D;
-    double branchDensity = 1.0D;
     double branchSlope = 0.381D;
     double scaleWidth = 1.0D;
     double leafDensity = 1.0D;
+    int trunkSize = 1;
+    int heightLimitLimit = 12;
+    /**
+     * Sets the distance limit for how far away the generator will populate leaves from the base leaf node.
+     */
     int leafDistanceLimit = 4;
-    int[][] leafNodes;
+    List<TreeRTGQuercusRobur.FoliageCoordinates> field_175948_j;
+    private Random rand;
+    private World world;
+    private BlockPos basePos = BlockPos.ORIGIN;
 
     /**
      * <b>Quercus Robur (Pedunculate Oak)</b><br><br>
@@ -61,33 +67,12 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         this.crownSize = 8;
     }
 
-    @Override
-    public boolean generate(World world, Random rand, BlockPos pos) {
-
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-        this.world = world;
-        this.rand = rand;
-        this.basePos[0] = x;
-        this.basePos[1] = y;
-        this.basePos[2] = z;
-        this.heightLimit = this.trunkSize + this.crownSize;
-
-        if (!this.validTreeLocation()) {
-            return false;
-        }
-        else {
-            this.generateLeafNodeList();
-            this.generateLeaves();
-            this.generateTrunk();
-            this.generateLeafNodeBases();
-
-            return true;
-        }
-    }
-
+    /**
+     * Generates a list of leaf nodes for the tree, to be populated by generateLeaves.
+     */
     void generateLeafNodeList() {
+
+        this.heightLimit = this.trunkSize + this.crownSize;
 
         this.height = (int) ((double) this.heightLimit * this.heightAttenuation);
 
@@ -95,104 +80,57 @@ public class TreeRTGQuercusRobur extends TreeRTG {
             this.height = this.heightLimit - 1;
         }
 
-        int var1 = (int) (1.382D + Math.pow(this.leafDensity * (double) this.heightLimit / 13.0D, 2.0D));
+        int i = (int) (1.382D + Math.pow(this.leafDensity * (double) this.heightLimit / 13.0D, 2.0D));
 
-        if (var1 < 1) {
-            var1 = 1;
+        if (i < 1) {
+            i = 1;
         }
 
-        int[][] var2 = new int[var1 * this.heightLimit][4];
-        int var3 = this.basePos[1] + this.heightLimit - this.leafDistanceLimit;
-        int var4 = 1;
-        int var5 = this.basePos[1] + this.height;
-        int var6 = var3 - this.basePos[1];
-        var2[0][0] = this.basePos[0];
-        var2[0][1] = var3;
-        var2[0][2] = this.basePos[2];
-        var2[0][3] = var5;
-        --var3;
+        int j = this.basePos.getY() + this.height;
+        int k = this.heightLimit - this.leafDistanceLimit;
+        this.field_175948_j = Lists.<TreeRTGQuercusRobur.FoliageCoordinates>newArrayList();
+        this.field_175948_j.add(new TreeRTGQuercusRobur.FoliageCoordinates(this.basePos.up(k), j));
 
-        while (var6 >= 0) {
-            int var7 = 0;
-            float var8 = this.layerSize(var6);
+        for (; k >= 0; --k) {
+            float f = this.layerSize(k);
 
-            if (var8 < 0.0F) {
-                --var3;
-                --var6;
-            }
-            else {
-                for (double var9 = 0.5D; var7 < var1; ++var7) {
-                    double var11 = this.scaleWidth * (double) var8 * ((double) this.rand.nextFloat() + 0.328D);
-                    double var13 = (double) this.rand.nextFloat() * 2.0D * Math.PI;
-                    int var15 = MathHelper.floor_double(var11 * Math.sin(var13) + (double) this.basePos[0] + var9);
-                    int var16 = MathHelper.floor_double(var11 * Math.cos(var13) + (double) this.basePos[2] + var9);
-                    int[] var17 = new int[]{var15, var3, var16};
-                    int[] var18 = new int[]{var15, var3 + this.leafDistanceLimit, var16};
+            if (f >= 0.0F) {
+                for (int l = 0; l < i; ++l) {
+                    double d0 = this.scaleWidth * (double) f * ((double) this.rand.nextFloat() + 0.328D);
+                    double d1 = (double) (this.rand.nextFloat() * 2.0F) * Math.PI;
+                    double d2 = d0 * Math.sin(d1) + 0.5D;
+                    double d3 = d0 * Math.cos(d1) + 0.5D;
+                    BlockPos blockpos = this.basePos.add(d2, (double) (k - 1), d3);
+                    BlockPos blockpos1 = blockpos.up(this.leafDistanceLimit);
 
-                    if (this.checkBlockLine(var17, var18) == -1) {
-                        int[] var19 = new int[]{this.basePos[0], this.basePos[1], this.basePos[2]};
-                        double var20 = Math.sqrt(Math.pow((double) Math.abs(this.basePos[0] - var17[0]), 2.0D) + Math.pow((double) Math.abs(this.basePos[2] - var17[2]), 2.0D));
-                        double var22 = var20 * this.branchSlope;
+                    if (this.checkBlockLine(blockpos, blockpos1) == -1) {
+                        int i1 = this.basePos.getX() - blockpos.getX();
+                        int j1 = this.basePos.getZ() - blockpos.getZ();
+                        double d4 = (double) blockpos.getY() - Math.sqrt((double) (i1 * i1 + j1 * j1)) * this.branchSlope;
+                        int k1 = d4 > (double) j ? j : (int) d4;
+                        BlockPos blockpos2 = new BlockPos(this.basePos.getX(), k1, this.basePos.getZ());
 
-                        if ((double) var17[1] - var22 > (double) var5) {
-                            var19[1] = var5;
-                        }
-                        else {
-                            var19[1] = (int) ((double) var17[1] - var22);
-                        }
-
-                        if (this.checkBlockLine(var19, var17) == -1) {
-                            var2[var4][0] = var15;
-                            var2[var4][1] = var3;
-                            var2[var4][2] = var16;
-                            var2[var4][3] = var19[1];
-                            ++var4;
+                        if (this.checkBlockLine(blockpos2, blockpos) == -1) {
+                            this.field_175948_j.add(new TreeRTGQuercusRobur.FoliageCoordinates(blockpos, blockpos2.getY()));
                         }
                     }
                 }
-
-                --var3;
-                --var6;
             }
         }
-
-        this.leafNodes = new int[var4][4];
-        System.arraycopy(var2, 0, this.leafNodes, 0, var4);
     }
 
-    void genTreeLayer(int par1, int par2, int par3, float par4, byte par5, IBlockState par6) {
+    void func_181631_a(BlockPos p_181631_1_, float p_181631_2_, IBlockState p_181631_3_) {
 
-        int var7 = (int) ((double) par4 + 0.618D);
-        byte var8 = otherCoordPairs[par5];
-        byte var9 = otherCoordPairs[par5 + 3];
-        int[] var10 = new int[]{par1, par2, par3};
-        int[] var11 = new int[]{0, 0, 0};
-        int var12 = -var7;
-        int var13 = -var7;
+        int i = (int) ((double) p_181631_2_ + 0.618D);
 
-        for (var11[par5] = var10[par5]; var12 <= var7; ++var12) {
-            var11[var8] = var10[var8] + var12;
-            var13 = -var7;
+        for (int j = -i; j <= i; ++j) {
+            for (int k = -i; k <= i; ++k) {
+                if (Math.pow((double) Math.abs(j) + 0.5D, 2.0D) + Math.pow((double) Math.abs(k) + 0.5D, 2.0D) <= (double) (p_181631_2_ * p_181631_2_)) {
+                    BlockPos blockpos = p_181631_1_.add(j, 0, k);
+                    net.minecraft.block.state.IBlockState state = this.world.getBlockState(blockpos);
 
-            while (var13 <= var7) {
-                double var15 = Math.pow((double) Math.abs(var12) + 0.5D, 2.0D) + Math.pow((double) Math.abs(var13) + 0.5D, 2.0D);
-
-                if (var15 > (double) (par4 * par4)) {
-                    ++var13;
-                }
-                else {
-                    var11[var9] = var10[var9] + var13;
-                    IBlockState var14 = this.world.getBlockState(new BlockPos(var11[0], var11[1], var11[2]));
-
-                    if (var14 != Blocks.air.getDefaultState() && var14 != this.leavesBlock) {
-                        ++var13;
-                    }
-                    else {
-                        if (!this.noLeaves) {
-                            this.world.setBlockState(new BlockPos(var11[0], var11[1], var11[2]), par6, this.generateFlag);
-                        }
-
-                        ++var13;
+                    if (state.getBlock().isAir(this.world, blockpos) || state.getBlock().isLeaves(this.world, blockpos)) {
+                        this.setBlockAndNotifyAdequately(this.world, blockpos, p_181631_3_);
                     }
                 }
             }
@@ -202,104 +140,85 @@ public class TreeRTGQuercusRobur extends TreeRTG {
     /**
      * Gets the rough size of a layer of the tree.
      */
-    float layerSize(int par1) {
+    float layerSize(int p_76490_1_) {
 
-        if ((double) par1 < (double) ((float) this.heightLimit) * 0.3D) {
-            return -1.618F;
+        if ((float) p_76490_1_ < (float) this.heightLimit * 0.3F) {
+            return -1.0F;
         }
         else {
-            float var2 = (float) this.heightLimit / 2.0F;
-            float var3 = (float) this.heightLimit / 2.0F - (float) par1;
-            float var4;
+            float f = (float) this.heightLimit / 2.0F;
+            float f1 = f - (float) p_76490_1_;
+            float f2 = MathHelper.sqrt_float(f * f - f1 * f1);
 
-            if (var3 == 0.0F) {
-                var4 = var2;
+            if (f1 == 0.0F) {
+                f2 = f;
             }
-            else if (Math.abs(var3) >= var2) {
-                var4 = 0.0F;
-            }
-            else {
-                var4 = (float) Math.sqrt(Math.pow((double) Math.abs(var2), 2.0D) - Math.pow((double) Math.abs(var3), 2.0D));
+            else if (Math.abs(f1) >= f) {
+                return 0.0F;
             }
 
-            var4 *= 0.5F;
-            return var4;
+            return f2 * 0.5F;
         }
     }
 
-    float leafSize(int par1) {
+    float leafSize(int p_76495_1_) {
 
-        return par1 >= 0 && par1 < this.leafDistanceLimit ? (par1 != 0 && par1 != this.leafDistanceLimit - 1 ? 3.0F : 2.0F) : -1.0F;
+        return p_76495_1_ >= 0 && p_76495_1_ < this.leafDistanceLimit ? (p_76495_1_ != 0 && p_76495_1_ != this.leafDistanceLimit - 1 ? 3.0F : 2.0F) : -1.0F;
     }
 
     /**
      * Generates the leaves surrounding an individual entry in the leafNodes list.
      */
-    void generateLeafNode(int par1, int par2, int par3) {
+    void generateLeafNode(BlockPos pos) {
 
-        int var4 = par2;
+        for (int i = 0; i < this.leafDistanceLimit; ++i) {
+            this.func_181631_a(pos.up(i), this.leafSize(i), this.leavesBlock.withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false)));
+        }
+    }
 
-        for (int var5 = par2 + this.leafDistanceLimit; var4 < var5; ++var4) { ///bwg4 made by ted80
-            float var6 = this.leafSize(var4 - par2);
-            this.genTreeLayer(par1, var4, par3, var6, (byte) 1, this.leavesBlock);
+    void func_175937_a(BlockPos p_175937_1_, BlockPos p_175937_2_, IBlockState p_175937_3_) {
+
+        BlockPos blockpos = p_175937_2_.add(-p_175937_1_.getX(), -p_175937_1_.getY(), -p_175937_1_.getZ());
+        int i = this.getGreatestDistance(blockpos);
+        float f = (float) blockpos.getX() / (float) i;
+        float f1 = (float) blockpos.getY() / (float) i;
+        float f2 = (float) blockpos.getZ() / (float) i;
+
+        for (int j = 0; j <= i; ++j) {
+            BlockPos blockpos1 = p_175937_1_.add((double) (0.5F + (float) j * f), (double) (0.5F + (float) j * f1), (double) (0.5F + (float) j * f2));
+            BlockLog.EnumAxis blocklog$enumaxis = this.func_175938_b(p_175937_1_, blockpos1);
+            this.setBlockAndNotifyAdequately(this.world, blockpos1, p_175937_3_.withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
         }
     }
 
     /**
-     * Places a line of the specified block ID into the world from the first coordinate triplet to the second.
+     * Returns the absolute greatest distance in the BlockPos object.
      */
-    void placeBlockLine(int[] par1ArrayOfInteger, int[] par2ArrayOfInteger, IBlockState par3) {
+    private int getGreatestDistance(BlockPos posIn) {
 
-        int[] var4 = new int[]{0, 0, 0};
-        byte var5 = 0;
-        byte var6;
+        int i = MathHelper.abs_int(posIn.getX());
+        int j = MathHelper.abs_int(posIn.getY());
+        int k = MathHelper.abs_int(posIn.getZ());
+        return k > i && k > j ? k : (j > i ? j : i);
+    }
 
-        for (var6 = 0; var5 < 3; ++var5) {
-            var4[var5] = par2ArrayOfInteger[var5] - par1ArrayOfInteger[var5];
+    private BlockLog.EnumAxis func_175938_b(BlockPos p_175938_1_, BlockPos p_175938_2_) {
 
-            if (Math.abs(var4[var5]) > Math.abs(var4[var6])) {
-                var6 = var5;
+        BlockLog.EnumAxis blocklog$enumaxis = BlockLog.EnumAxis.Y;
+        int i = Math.abs(p_175938_2_.getX() - p_175938_1_.getX());
+        int j = Math.abs(p_175938_2_.getZ() - p_175938_1_.getZ());
+        int k = Math.max(i, j);
+
+        if (k > 0) {
+            if (i == k) {
+                blocklog$enumaxis = BlockLog.EnumAxis.X;
+            }
+            else if (j == k) {
+                blocklog$enumaxis = BlockLog.EnumAxis.Z;
             }
         }
 
-        if (var4[var6] != 0) {
-            byte var7 = otherCoordPairs[var6];
-            byte var8 = otherCoordPairs[var6 + 3];
-            byte var9;
-
-            if (var4[var6] > 0) {
-                var9 = 1;
-            }
-            else {
-                var9 = -1;
-            }
-
-            double var10 = (double) var4[var7] / (double) var4[var6];
-            double var12 = (double) var4[var8] / (double) var4[var6];
-            int[] var14 = new int[]{0, 0, 0};
-            int var15 = 0;
-
-            for (int var16 = var4[var6] + var9; var15 != var16; var15 += var9) {
-                var14[var6] = MathHelper.floor_double((double) (par1ArrayOfInteger[var6] + var15) + 0.5D);
-                var14[var7] = MathHelper.floor_double((double) par1ArrayOfInteger[var7] + (double) var15 * var10 + 0.5D);
-                var14[var8] = MathHelper.floor_double((double) par1ArrayOfInteger[var8] + (double) var15 * var12 + 0.5D);
-                int var17 = 0;
-                int var18 = Math.abs(var14[0] - par1ArrayOfInteger[0]);
-                int var19 = Math.abs(var14[2] - par1ArrayOfInteger[2]);
-                int var20 = Math.max(var18, var19);
-
-                if (var20 > 0) {
-                    if (var18 == var20) {
-                        var17 = 4;
-                    }
-                    else if (var19 == var20) {
-                        var17 = 8;
-                    }
-                }
-
-                this.world.setBlockState(new BlockPos(var14[0], var14[1], var14[2]), par3, this.generateFlag);
-            }
-        }
+        return blocklog$enumaxis;
     }
 
     /**
@@ -307,22 +226,17 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      */
     void generateLeaves() {
 
-        int var1 = 0;
-
-        for (int var2 = this.leafNodes.length; var1 < var2; ++var1) {
-            int var3 = this.leafNodes[var1][0];
-            int var4 = this.leafNodes[var1][1];
-            int var5 = this.leafNodes[var1][2];
-            this.generateLeafNode(var3, var4, var5);
+        for (TreeRTGQuercusRobur.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j) {
+            this.generateLeafNode(worldgenbigtree$foliagecoordinates);
         }
     }
 
     /**
      * Indicates whether or not a leaf node requires additional wood to be added to preserve integrity.
      */
-    boolean leafNodeNeedsBase(int par1) {
+    boolean leafNodeNeedsBase(int p_76493_1_) {
 
-        return (double) par1 >= (double) this.heightLimit * 0.2D;
+        return (double) p_76493_1_ >= (double) this.heightLimit * 0.2D;
     }
 
     /**
@@ -331,13 +245,16 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      */
     void generateTrunk() {
 
-        int var1 = this.basePos[0];
-        int var2 = this.basePos[1];
-        int var3 = this.basePos[1] + this.height;
-        int var4 = this.basePos[2];
-        int[] var5 = new int[]{var1, var2, var4};
-        int[] var6 = new int[]{var1, var3, var4};
-        this.placeBlockLine(var5, var6, this.logBlock);
+        BlockPos blockpos = this.basePos;
+        BlockPos blockpos1 = this.basePos.up(this.height);
+        IBlockState block = this.logBlock;
+        this.func_175937_a(blockpos, blockpos1, block);
+
+        if (this.trunkSize == 2) {
+            this.func_175937_a(blockpos.east(), blockpos1.east(), block);
+            this.func_175937_a(blockpos.east().south(), blockpos1.east().south(), block);
+            this.func_175937_a(blockpos.south(), blockpos1.south(), block);
+        }
     }
 
     /**
@@ -345,17 +262,12 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      */
     void generateLeafNodeBases() {
 
-        int var1 = 0;
-        int var2 = this.leafNodes.length;
+        for (TreeRTGQuercusRobur.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j) {
+            int i = worldgenbigtree$foliagecoordinates.func_177999_q();
+            BlockPos blockpos = new BlockPos(this.basePos.getX(), i, this.basePos.getZ());
 
-        for (int[] var3 = new int[]{this.basePos[0], this.basePos[1], this.basePos[2]}; var1 < var2; ++var1) {
-            int[] var4 = this.leafNodes[var1];
-            int[] var5 = new int[]{var4[0], var4[1], var4[2]};
-            var3[1] = var4[3];
-            int var6 = var3[1] - this.basePos[1];
-
-            if (this.leafNodeNeedsBase(var6)) {
-                this.placeBlockLine(var3, var5, this.logBlock);
+            if (!blockpos.equals(worldgenbigtree$foliagecoordinates) && this.leafNodeNeedsBase(i - this.basePos.getY())) {
+                this.func_175937_a(blockpos, worldgenbigtree$foliagecoordinates, this.logBlock);
             }
         }
     }
@@ -364,53 +276,62 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      * Checks a line of blocks in the world from the first coordinate to triplet to the second, returning the distance
      * (in blocks) before a non-air, non-leaf block is encountered and/or the end is encountered.
      */
-    int checkBlockLine(int[] par1ArrayOfInteger, int[] par2ArrayOfInteger) {
+    int checkBlockLine(BlockPos posOne, BlockPos posTwo) {
 
-        int[] var3 = new int[]{0, 0, 0};
-        byte var4 = 0;
-        byte var5;
+        BlockPos blockpos = posTwo.add(-posOne.getX(), -posOne.getY(), -posOne.getZ());
+        int i = this.getGreatestDistance(blockpos);
+        float f = (float) blockpos.getX() / (float) i;
+        float f1 = (float) blockpos.getY() / (float) i;
+        float f2 = (float) blockpos.getZ() / (float) i;
 
-        for (var5 = 0; var4 < 3; ++var4) {
-            var3[var4] = par2ArrayOfInteger[var4] - par1ArrayOfInteger[var4];
-
-            if (Math.abs(var3[var4]) > Math.abs(var3[var5])) {
-                var5 = var4;
-            }
-        }
-
-        if (var3[var5] == 0) {
+        if (i == 0) {
             return -1;
         }
         else {
-            byte var6 = otherCoordPairs[var5];
-            byte var7 = otherCoordPairs[var5 + 3];
-            byte var8;
+            for (int j = 0; j <= i; ++j) {
+                BlockPos blockpos1 = posOne.add((double) (0.5F + (float) j * f), (double) (0.5F + (float) j * f1), (double) (0.5F + (float) j * f2));
 
-            if (var3[var5] > 0) {
-                var8 = 1;
-            }
-            else {
-                var8 = -1;
-            }
+                if (!this.isReplaceable(blockpos1)) {
 
-            double var9 = (double) var3[var6] / (double) var3[var5];
-            double var11 = (double) var3[var7] / (double) var3[var5];
-            int[] var13 = new int[]{0, 0, 0};
-            int var14 = 0;
-            int var15;
+                    String replaceBlock = world.getBlockState(blockpos1).getBlock().getLocalizedName();
 
-            for (var15 = var3[var5] + var8; var14 != var15; var14 += var8) {
-                var13[var5] = par1ArrayOfInteger[var5] + var14;
-                var13[var6] = MathHelper.floor_double((double) par1ArrayOfInteger[var6] + (double) var14 * var9);
-                var13[var7] = MathHelper.floor_double((double) par1ArrayOfInteger[var7] + (double) var14 * var11);
-                IBlockState var16 = this.world.getBlockState(new BlockPos(var13[0], var13[1], var13[2]));
+                    Logger.debug("Block at %d %d %d (%s) is not replaceable.",
+                        blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), replaceBlock);
 
-                if (var16 != Blocks.air && var16 != this.leavesBlock) {
-                    break;
+                    return j;
                 }
             }
 
-            return var14 == var15 ? -1 : Math.abs(var14);
+            return -1;
+        }
+    }
+
+    public void func_175904_e() {
+
+        this.leafDistanceLimit = 5;
+    }
+
+    public boolean generate(World worldIn, Random rand, BlockPos position) {
+
+        this.world = worldIn;
+        this.basePos = position;
+        this.rand = new Random(rand.nextLong());
+
+        if (this.heightLimit == 0) {
+            this.heightLimit = 5 + this.rand.nextInt(this.heightLimitLimit);
+        }
+
+        if (!this.validTreeLocation()) {
+            this.world = null; //Fix vanilla Mem leak, holds latest world
+            return false;
+        }
+        else {
+            this.generateLeafNodeList();
+            this.generateLeaves();
+            this.generateTrunk();
+            this.generateLeafNodeBases();
+            this.world = null; //Fix vanilla Mem leak, holds latest world
+            return true;
         }
     }
 
@@ -418,63 +339,55 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      * Returns a boolean indicating whether or not the current location for the tree, spanning basePos to to the height
      * limit, is valid.
      */
-    boolean validTreeLocation() {
+    private boolean validTreeLocation() {
 
-        int[] var1 = new int[]{this.basePos[0], this.basePos[1], this.basePos[2]};
-        int[] var2 = new int[]{this.basePos[0], this.basePos[1] + this.heightLimit - 1, this.basePos[2]};
-        IBlockState groundBlock = this.world.getBlockState(new BlockPos(this.basePos[0], this.basePos[1] - 1, this.basePos[2]));
+        BlockPos down = this.basePos.down();
+        net.minecraft.block.state.IBlockState state = this.world.getBlockState(down);
+        boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.sapling));
 
-        if (groundBlock != Blocks.grass.getDefaultState() && groundBlock != Blocks.dirt.getDefaultState()) {
-            Logger.debug("Invalid location. Ground block (%s) is not grass or dirt.", groundBlock.getBlock().getLocalizedName());
+        if (!isSoil) {
+            Logger.debug("Invalid tree location! Ground block is not soil.");
             return false;
         }
         else {
-            IBlockState checkBlock;
-            for (int h = this.basePos[1] + 1; h < (this.basePos[1] + this.heightLimit); h++) {
-                checkBlock = this.world.getBlockState(new BlockPos(this.basePos[0], h, this.basePos[2]));
+            int i = this.checkBlockLine(this.basePos, this.basePos.up(this.heightLimit - 1));
 
-                if (checkBlock != Blocks.air.getDefaultState() && checkBlock != this.leavesBlock) {
-                    Logger.debug("Invalid location (%d/%d/%d). Check block (%s) is not air or %s.", this.basePos[0], h, this.basePos[2], checkBlock.getBlock().getLocalizedName(), this.leavesBlock.getBlock().getLocalizedName());
-                    return false;
-                }
+            if (i == -1) {
+                return true;
             }
-
-            return true;
-
-//            int blockLine = this.checkBlockLine(var1, var2);
-//
-//            if (blockLine == -1)
-//            {
-//            	Logger.debug("Valid location! Block line = -1.");
-//                return true;
-//            }
-//            else if (blockLine < 6)
-//            {
-//            	Logger.debug("Invalid location. Block line (%d) is less than 6.", blockLine);
-//                return false;
-//            }
-//            else
-//            {
-//                Logger.debug("Valid location! Height limit has been changed from %d to %d.", this.heightLimit, blockLine);
-//                this.heightLimit = blockLine;
-//                
-//                return true;
-//            }
+            else if (i < 6) {
+                Logger.debug("Invalid tree location! checkBlockLine() == false");
+                return false;
+            }
+            else {
+                this.heightLimit = i;
+                return true;
+            }
         }
     }
 
-    /**
-     * Rescales the generator settings, only used in WorldGenBigTree
-     */
-    public void setScale(double par1, double par3, double par5) {
+    private boolean isReplaceable(BlockPos pos) {
 
-        this.crownSize = (int) (par1 * 12.0D);
+        IBlockState state = world.getBlockState(pos);
+        return state.getBlock().isAir(world, pos)
+            || state.getBlock().isLeaves(world, pos)
+            || state.getBlock() == Blocks.sapling
+            || state.getBlock().isWood(world, pos);
+    }
 
-        if (par1 > 0.5D) {
-            this.leafDistanceLimit = 5;
+    static class FoliageCoordinates extends BlockPos {
+
+        private final int field_178000_b;
+
+        public FoliageCoordinates(BlockPos p_i45635_1_, int p_i45635_2_) {
+
+            super(p_i45635_1_.getX(), p_i45635_1_.getY(), p_i45635_1_.getZ());
+            this.field_178000_b = p_i45635_2_;
         }
 
-        this.scaleWidth = par3;
-        this.leafDensity = par5;
+        public int func_177999_q() {
+
+            return this.field_178000_b;
+        }
     }
 }

@@ -22,6 +22,7 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
 import rtg.util.Logger;
 import rtg.util.RandomUtil;
+import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -257,7 +258,7 @@ public class EventManagerRTG {
             World world = event.world;
 
             IBlockState saplingBlock = world.getBlockState(event.pos);
-            int saplingMeta = saplingBlock.getBlock().getMetaFromState(saplingBlock);
+            int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
             //BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
@@ -277,13 +278,16 @@ public class EventManagerRTG {
                 for (int i = 0; i < biomeTrees.size(); i++) {
 
                     Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
-                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getClass().getName());
-                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, biomeTrees.get(i).saplingBlock.getBlock().getMetaFromState(biomeTrees.get(i).saplingBlock));
+                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getBlock().getLocalizedName());
+                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).saplingBlock));
 
-                    if (saplingBlock == biomeTrees.get(i).saplingBlock) {
+                    if (saplingBlock.getBlock() == biomeTrees.get(i).saplingBlock.getBlock()) {
 
-                        validTrees.add(biomeTrees.get(i));
-                        Logger.debug("Valid tree found!");
+                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).saplingBlock)) {
+
+                            validTrees.add(biomeTrees.get(i));
+                            Logger.debug("Valid tree found!");
+                        }
                     }
                 }
 

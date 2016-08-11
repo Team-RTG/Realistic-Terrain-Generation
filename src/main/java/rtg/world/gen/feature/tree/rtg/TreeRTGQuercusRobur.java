@@ -13,6 +13,8 @@ import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
 
+import rtg.util.Logger;
+
 /**
  * Quercus Robur (Pedunculate Oak)
  */
@@ -290,6 +292,12 @@ public class TreeRTGQuercusRobur extends TreeRTG {
                 BlockPos blockpos1 = posOne.add((double) (0.5F + (float) j * f), (double) (0.5F + (float) j * f1), (double) (0.5F + (float) j * f2));
 
                 if (!this.isReplaceable(blockpos1)) {
+
+                    String replaceBlock = world.getBlockState(blockpos1).getBlock().getLocalizedName();
+
+                    Logger.debug("Block at %d %d %d (%s) is not replaceable.",
+                        blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), replaceBlock);
+
                     return j;
                 }
             }
@@ -338,6 +346,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.sapling));
 
         if (!isSoil) {
+            Logger.debug("Invalid tree location! Ground block is not soil.");
             return false;
         }
         else {
@@ -347,6 +356,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
                 return true;
             }
             else if (i < 6) {
+                Logger.debug("Invalid tree location! checkBlockLine() == false");
                 return false;
             }
             else {
@@ -359,7 +369,10 @@ public class TreeRTGQuercusRobur extends TreeRTG {
     private boolean isReplaceable(BlockPos pos) {
 
         IBlockState state = world.getBlockState(pos);
-        return state.getBlock().isAir(world, pos) || state.getBlock().isLeaves(world, pos) || state.getBlock().isWood(world, pos);
+        return state.getBlock().isAir(world, pos)
+            || state.getBlock().isLeaves(world, pos)
+            || state.getBlock() == Blocks.sapling
+            || state.getBlock().isWood(world, pos);
     }
 
     static class FoliageCoordinates extends BlockPos {

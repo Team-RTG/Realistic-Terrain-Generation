@@ -761,6 +761,9 @@ public class RealisticBiomeBase {
 
         if (allowed) {
 
+            // Set the sapling data for this tree before we add it to the list.
+            tree.saplingBlock = SaplingUtil.getSaplingFromLeaves(tree.leavesBlock);
+
             this.rtgTrees.add(tree);
         }
     }
@@ -771,15 +774,6 @@ public class RealisticBiomeBase {
      * @param tree
      */
     public void addTree(TreeRTG tree) {
-        // Set the sapling data for this tree before we add it to the list.
-        if (tree.leavesBlock.getBlock() == Blocks.leaves) {
-
-            tree.saplingBlock = Blocks.sapling.getStateFromMeta(tree.leavesBlock.getBlock().getMetaFromState(tree.leavesBlock));
-        }
-        else if (tree.leavesBlock.getBlock() == Blocks.leaves2) {
-
-            tree.saplingBlock = Blocks.sapling.getStateFromMeta(tree.leavesBlock.getBlock().getMetaFromState(tree.leavesBlock) + 4);
-        }
 
         this.addTree(tree, true);
     }

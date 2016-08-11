@@ -35,11 +35,11 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         this.addTree(nuciferaTree);
 
         DecoTree palmTrees = new DecoTree(nuciferaTree);
-        palmTrees.loops = 1;
         palmTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        palmTrees.treeCondition = DecoTree.TreeCondition.X_DIVIDED_BY_STRENGTH;
-        palmTrees.treeConditionFloat = 4f;
-        palmTrees.maxY = 80;
+        palmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        palmTrees.treeConditionNoise = -0.2f;
+        palmTrees.treeConditionChance = 12;
+        palmTrees.maxY = 68;
         this.addDeco(palmTrees, this.config._boolean(BiomeConfigVanillaBeach.decorationPalmTreesId));
     }
 }

@@ -681,19 +681,19 @@ public class ChunkProviderRTG implements IChunkProvider
 
         if (mapFeaturesEnabled) {
 
-        TimeTracker.manager.start("Mineshafts");
+            TimeTracker.manager.start("Mineshafts");
             if (ConfigRTG.generateMineshafts) {
                 mineshaftGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
+            TimeTracker.manager.stop("Mineshafts");
 
-        TimeTracker.manager.stop("Mineshafts");
-        TimeTracker.manager.start("Strongholds");
+            TimeTracker.manager.start("Strongholds");
             if (ConfigRTG.generateStrongholds) {
                 strongholdGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
+            TimeTracker.manager.stop("Strongholds");
 
-        TimeTracker.manager.stop("Strongholds");
-                TimeTracker.manager.start("Villages");
+            TimeTracker.manager.start("Villages");
             if (ConfigRTG.generateVillages) {
 
                 if (ConfigRTG.villageCrashFix) {
@@ -707,21 +707,27 @@ public class ChunkProviderRTG implements IChunkProvider
                 }
                 else {
 
-                    hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
                 }
             }
+            TimeTracker.manager.stop("Villages");
 
-                TimeTracker.manager.stop("Villages");
-                TimeTracker.manager.start("Scattered");
+            TimeTracker.manager.start("Scattered");
             if (ConfigRTG.generateScatteredFeatures) {
                 scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
             }
-                TimeTracker.manager.stop("Scattered");
+            TimeTracker.manager.stop("Scattered");
+
+            TimeTracker.manager.start("Monuments");
+            if (ConfigRTG.generateOceanMonuments) {
+                oceanMonumentGenerator.generateStructure(this.worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+            }
+            TimeTracker.manager.stop("Monuments");
         }
 
-                TimeTracker.manager.start("Pools");
+        TimeTracker.manager.start("Pools");
         biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
-                TimeTracker.manager.stop("Pools");
+        TimeTracker.manager.stop("Pools");
 
         /**
          * What is this doing? And why does it need to be done here? - Pink

@@ -1,6 +1,7 @@
 package rtg.world.gen.structure;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -25,29 +26,23 @@ import com.google.common.collect.Sets;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
+import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-
 /**
  * Created by topisani on 2/20/16.
  */
-public class StructureOceanMonumentRTG extends StructureOceanMonument {
-
-    public static final List<BiomeGenBase> biomes = Arrays.<BiomeGenBase>asList(new BiomeGenBase[]{
-        RealisticBiomeVanillaBase.vanillaOcean.baseBiome,
-        RealisticBiomeVanillaBase.vanillaDeepOcean.baseBiome,
-        RealisticBiomeVanillaBase.vanillaRiver.baseBiome,
-        RealisticBiomeVanillaBase.vanillaFrozenOcean.baseBiome,
-        RealisticBiomeVanillaBase.vanillaFrozenRiver.baseBiome
-    });
-    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
-
-    static {
-        field_175803_h.add(new BiomeGenBase.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
-    }
-
+public class StructureOceanMonumentRTG extends StructureOceanMonument
+{
     private int field_175800_f;
     private int field_175801_g;
+    public static final List<BiomeGenBase> field_175802_d = Arrays.<BiomeGenBase>asList(new BiomeGenBase[] {
+        BiomeGenBase.ocean,
+        BiomeGenBase.deepOcean,
+        BiomeGenBase.river,
+        BiomeGenBase.frozenOcean,
+        BiomeGenBase.frozenRiver
+    });
+    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
 
     public StructureOceanMonumentRTG() {
 
@@ -59,12 +54,12 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
         this();
 
-        for (Map.Entry<String, String> entry : p_i45608_1_.entrySet()) {
-            if (((String) entry.getKey()).equals("spacing")) {
-                this.field_175800_f = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175800_f, 1);
+        for (Entry<String, String> entry : p_i45608_1_.entrySet()) {
+            if (((String)entry.getKey()).equals("spacing")) {
+                this.field_175800_f = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.field_175800_f, 1);
             }
-            else if (((String) entry.getKey()).equals("separation")) {
-                this.field_175801_g = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_175801_g, 1);
+            else if (((String)entry.getKey()).equals("separation")) {
+                this.field_175801_g = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.field_175801_g, 1);
             }
         }
     }
@@ -96,17 +91,16 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         l = l + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
 
         if (i == k && j == l) {
-            BiomeGenBase bg = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase) null);
+            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase)null) != BiomeGenBase.deepOcean) {
+                return false;
+            }
 
-            if (bg.biomeID == RealisticBiomeVanillaBase.vanillaDeepOcean.baseBiome.biomeID) {
+            boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, field_175802_d);
 
-                boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
+            if (flag) {
 
-                if (flag) {
-
-                    Logger.debug("Generated Ocean Monument at %d %d", chunkX * 16 + 8, i * 16 + 8, j * 16 + 8);
-                    return true;
-                }
+                Logger.debug("Generated ocean monument at %d %d", i * 16 + 8, j * 16 + 8);
+                return true;
             }
         }
 
@@ -116,7 +110,19 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     /**
      * checks given Chunk's Biomes against List of allowed ones
      */
-    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<BiomeGenBase> p_76940_4_) {
+    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<BiomeGenBase> p_76940_4_)
+    {
+        // Are we in an RTG world?
+        if (!(this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            Logger.debug("Could not generate ocean monument. This is not an RTG world.");
+            return false;
+        }
+
+        // Do we have RTG's chunk manager?
+        if (!(this.worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+            Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
+            return false;
+        }
 
         IntCache.resetIntCache();
         int i = p_76940_1_ - p_76940_3_ >> 2;
@@ -125,30 +131,30 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
         int l = p_76940_2_ + p_76940_3_ >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
-        WorldChunkManagerRTG wcm;
-        try {
-            wcm = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
-        }
-        catch (ClassCastException e) {
-            Logger.info("This is not an RTG world, y u want 2 generate rtg Ocean Monuments?");
-            return false;
-        }
-        int[] aint = wcm.getBiomesGens(i, j, i1, j1);
 
-        try {
-            for (int k1 = 0; k1 < i1 * j1; ++k1) {
+        WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) this.worldObj.getWorldChunkManager();
+        int[] aint = cmr.getBiomesGens(i, j, i1, j1);
+
+        try
+        {
+            for (int k1 = 0; k1 < i1 * j1; ++k1)
+            {
                 BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k1]);
 
-                if (!p_76940_4_.contains(biomegenbase)) {
+                if (!p_76940_4_.contains(biomegenbase))
+                {
+                    Logger.debug("Could not generate ocean monument. Biome (%d) nearby.", biomegenbase.biomeID);
                     return false;
                 }
             }
 
             return true;
         }
-        catch (Throwable throwable) {
+        catch (Throwable throwable)
+        {
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
+            crashreportcategory.addCrashSection("Layer", aint.toString());
             crashreportcategory.addCrashSection("x", Integer.valueOf(p_76940_1_));
             crashreportcategory.addCrashSection("z", Integer.valueOf(p_76940_2_));
             crashreportcategory.addCrashSection("radius", Integer.valueOf(p_76940_3_));
@@ -158,13 +164,16 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
     }
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
-
         return new StructureOceanMonumentRTG.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     public List<BiomeGenBase.SpawnListEntry> func_175799_b() {
-
         return field_175803_h;
+    }
+
+    static
+    {
+        field_175803_h.add(new BiomeGenBase.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }
 
     public static class StartMonument extends StructureStart {
@@ -187,8 +196,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
             p_175789_2_.setSeed(worldIn.getSeed());
             long i = p_175789_2_.nextLong();
             long j = p_175789_2_.nextLong();
-            long k = (long) p_175789_3_ * i;
-            long l = (long) p_175789_4_ * j;
+            long k = (long)p_175789_3_ * i;
+            long l = (long)p_175789_4_ * j;
             p_175789_2_.setSeed(k ^ l ^ worldIn.getSeed());
             int i1 = p_175789_3_ * 16 + 8 - 29;
             int j1 = p_175789_4_ * 16 + 8 - 29;

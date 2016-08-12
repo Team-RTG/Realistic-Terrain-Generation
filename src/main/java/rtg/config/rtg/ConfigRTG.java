@@ -15,69 +15,112 @@ public class ConfigRTG {
 
     public static Configuration config;
 
-    /* ==================== Bedrock ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Bedrock
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static int flatBedrockLayers = 0;
     public static String bedrockBlockId = "minecraft:bedrock";
     public static int bedrockBlockByte = 0;
-    
-    /* ==================== Biomes ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Biomes
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableRTGBiomeDecorations = true;
     public static boolean enableRTGBiomeSurfaces = true;
     public static int patchBiomeId = 1;
 
-    /* ==================== Boulders ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Boulders
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableCobblestoneBoulders = true;
     public static int cobblestoneBoulderChance = 1;
-    
-    /* ==================== Caves ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Caves
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableCaveModifications = true;
     public static boolean enableCaves = true;
     public static int caveDensity = 8;
     public static int caveFrequency = 16;
 
-    /* ==================== Dunes ==================== */
-
-    public static int duneHeight = 4;
-
-    /* ==================== Debugging ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Debugging
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableDebugging = false;
 
-    /* ==================== Dungeons ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Dunes
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public static int duneHeight = 4;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Dungeons
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean generateDungeons = true;
     public static int dungeonFrequency = 8;
 
-    /* ==================== Flowing Liquids ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Flowing liquids
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static int flowingWaterChance = 200;
     public static int flowingLavaChance = 200;
-    
-    /* ==================== Lakes (Surface) ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Lakes (Scenic)
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    private static float lakeSizeMultiplier = 1f; // same deal with lakes
+    public static float lakeFrequencyMultiplier = 1f;
+    public static float lakeShoreBendinessMultiplier = 1f;
+    public static int scenicLakeBiome = 7;
+    public static int scenicFrozenLakeBiome = 11;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Lakes (Surface)
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableWaterSurfaceLakes = true;
     public static int waterSurfaceLakeChance = 10;
 
     public static boolean enableLavaSurfaceLakes = true;
     public static int lavaSurfaceLakeChance = 10;
-    
-    /* ==================== Lakes (Underground) ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Lakes (Underground)
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableWaterUndergroundLakes = true;
     public static int waterUndergroundLakeChance = 10;
 
     public static boolean enableLavaUndergroundLakes = true;
     public static int lavaUndergroundLakeChance = 10;
-    
-    /* ==================== Mineshafts ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Mineshafts
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean generateMineshafts = true;
-    
-    /* ==================== Ore Gen ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Ocean monuments
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public static boolean enableOceanMonumentModifications = true;
+    public static boolean generateOceanMonuments = true;
+    public static int oceanMonumentSpacing = 32; // Vanilla = 32 (Minimum = 1; must be greater than separation)
+    public static int oceanMonumentSeparation = 5; // Vanilla = 5 (Minimum = 1)
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Ore gen
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean generateOreCoal = true;
     public static boolean generateOreIron = true;
@@ -87,47 +130,73 @@ public class ConfigRTG {
     public static boolean generateOreDiamond = true;
     public static boolean generateOreEmerald = true;
 
-    /* ==================== Plateaus ==================== */
-    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Plateaus
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     public static String mesaClayColourString = "0,1,8,14,1,8";
     public static String mesaBryceClayColourString = "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8";
     public static String savannaClayColourString = "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
-    
+
     public static byte[] mesaClayColours = getClayColourMetasFromConfigString(mesaClayColourString);
     public static byte[] mesaBryceClayColours = getClayColourMetasFromConfigString(mesaBryceClayColourString);
     public static byte[] savannaClayColours = getClayColourMetasFromConfigString(savannaClayColourString);
 
     public static boolean stoneSavannas = true;
-    
-    
-    /* ==================== Ravines ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Ravines
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableRavineModifications = true;
     public static boolean enableRavines = false;
     public static int ravineFrequency = 50;
 
-    /* ======================= Saplings ======================= */
-    
-	public static boolean enableRTGSaplings = true;
-	public static int rtgTreeChance = 2;
-    
-    /* ==================== Scattered Features ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Rivers
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
+    public static float riverFrequencyMultiplier = 1f;
+    public static float riverBendinessMultiplier = 1f;
+    public static float riverCutOffScale = 350f;
+    public static float riverCutOffAmplitude = 0.5f;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Saplings
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public static boolean enableRTGSaplings = true;
+    public static int rtgTreeChance = 2;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Scattered features
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableScatteredFeatureModifications = true;
     public static boolean generateScatteredFeatures = true;
     public static int minDistanceScatteredFeatures = 12; // Vanilla = 8
     public static int maxDistanceScatteredFeatures = 48; // Vanilla = 32
-    public static boolean generateOceanMonuments = true;
 
-    /* ==================== Snow ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Snow
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean enableSnowLayers = true;
 
-    /* ==================== Strongholds ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Strongholds
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public static boolean enableStrongholdModifications = true;
     public static boolean generateStrongholds = true;
+    public static int strongholdCount = 3; // Vanilla = 3 (Minimum = 1)
+    public static int strongholdDistance = 32; // Vanilla = 32 (Minimum = 1)
+    public static int strongholdSpread = 3; // Vanilla = 3 (Minimum = 1)
 
-    /* ==================== Terrain Shadowing ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Terrain shadowing
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
     public static int shadowStoneBlockByte = 9;
@@ -138,12 +207,16 @@ public class ConfigRTG {
     public static boolean enableUBCStoneShadowing = true;
     public static boolean enableUBCDesertShadowing = true;
 
-    /* ==================== Trees ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Trees
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean allowTreesToGenerateOnSand = true;
     public static boolean allowShrubsToGenerateBelowSurface = true;
 
-    /* ==================== Villages ==================== */
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Villages
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static boolean generateVillages = true;
 
@@ -153,8 +226,10 @@ public class ConfigRTG {
     public static int maxDistanceVillages = 48; // Vanilla = 32
 
     public static boolean villageCrashFix = (Loader.isModLoaded("enviromine"));
-    
-    /* ==================== Volcanoes ==================== */
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Volcanoes
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static String volcanoBlockId;
     public static int volcanoBlockMeta;
@@ -169,37 +244,20 @@ public class ConfigRTG {
     public static boolean enableVolcanoEruptions = true;
     public static int volcanoChance = 48;
 
-    /* =================== Water System ===================== */
-    private static float riverSizeMultiplier = 1f; // this is private because we want a transformed version
-    public static float riverFrequencyMultiplier = 1f;
-    public static float riverSizeMultiplier() {
-        // with the river system changing frequency also shinks size and that will
-        // confuse the heck out of users.
-        return riverSizeMultiplier*riverFrequencyMultiplier;
-    }
-    public static float riverBendinessMultiplier = 1f;
-    public static float riverCutOffScale = 350f;
-    public static float riverCutOffAmplitude = 0.5f;
-    private static float lakeSizeMultiplier = 1f; // same deal with lakes
-    public static float lakeFrequencyMultiplier = 1f;
-    public static float lakeSizeMultiplier() {
-        // with the river system changing frequency also shinks size and that will
-        // confuse the heck out of users.
-        return lakeSizeMultiplier*lakeFrequencyMultiplier;
-    }
-    public static float lakeShoreBendinessMultiplier = 1f;
-    public static int scenicLakeBiome = 7;
-    public static int scenicFrozenLakeBiome = 11;
-    private static String riversAndLakes = "Rivers and Scenic Lakes";
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public static void init(File configFile) {
 
         config = new Configuration(configFile);
 
         try {
+
             config.load();
-			
-			/* ==================== Bedrock ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Bedrock
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             flatBedrockLayers = config.getInt("Number of flat bedrock layers", "Bedrock", flatBedrockLayers, 0, 5, "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate" + Configuration.NEW_LINE);
 
@@ -212,8 +270,10 @@ public class ConfigRTG {
             );
 
             bedrockBlockByte = config.getInt("Bedrock block meta value", "Bedrock", bedrockBlockByte, 0, 15, "The meta value of the bedrock block." + Configuration.NEW_LINE);
-            
-            /* ==================== Biomes ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Biomes
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableRTGBiomeDecorations = config.getBoolean(
                 "Enable RTG Biome Decorations",
@@ -246,13 +306,17 @@ public class ConfigRTG {
                     "Default = Vanilla Plains"
                     + Configuration.NEW_LINE
             );
-            
-            /* ==================== Boulders ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Boulders
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableCobblestoneBoulders = config.getBoolean("Enable Cobblestone Boulders", "Boulders", enableCobblestoneBoulders, "");
             cobblestoneBoulderChance = config.getInt("1/x chance that Cobblestone Boulders will generate if given the opportunity to do so during world gen", "Boulders", cobblestoneBoulderChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
-            
-            /* ==================== Caves ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Caves
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableCaveModifications = config.getBoolean(
                 "Enable Cave Modifications",
@@ -267,63 +331,151 @@ public class ConfigRTG {
             enableCaves = config.getBoolean("Enable Caves", "Caves", enableCaves, "");
             caveDensity = config.getInt("Cave Density", "Caves", caveDensity, 1, 40, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE);
             caveFrequency = config.getInt("Cave Frequency", "Caves", caveFrequency, 1, 40, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE);
-            
-            /* ==================== Dunes ==================== */
 
-            duneHeight = config.getInt("Height of Dunes", "Dunes", duneHeight, 1, 12, "This setting controls the height of both sand dunes and snow dunes." + Configuration.NEW_LINE + "Higher values = taller dunes." + Configuration.NEW_LINE);
-            
-            /* ==================== Debugging ==================== */
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Debugging
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing." + Configuration.NEW_LINE);
-            
-            /* ==================== Dungeons ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Dunes
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            duneHeight = config.getInt("Height of Dunes", "Dunes", duneHeight, 1, 12, "This setting controls the height of both sand dunes and snow dunes." + Configuration.NEW_LINE + "Higher values = taller dunes." + Configuration.NEW_LINE);
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Dungeons
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             generateDungeons = config.getBoolean("Generate Dungeons", "Dungeons", generateDungeons, "");
             dungeonFrequency = config.getInt("Dungeon Frequency", "Dungeons", dungeonFrequency, 1, 200, "This setting controls the number of dungeons that generate." + Configuration.NEW_LINE + "HIGHER values = MORE dungeons & MORE lag. (8 = vanilla dungeon frequency)" + Configuration.NEW_LINE);
-            
-            /* ==================== Flowing Liquids ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Flowing liquids
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             flowingLavaChance = config.getInt(
                 "Flowing Lava Chance",
                 "Flowing Liquids",
                 flowingLavaChance, 0, Integer.MAX_VALUE,
                 "1/x chance that a lava stream will generate on the side of a hill or mountain."
-                + Configuration.NEW_LINE +
-                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
-                + Configuration.NEW_LINE
+                    + Configuration.NEW_LINE +
+                    "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                    + Configuration.NEW_LINE
             );
-            
+
             flowingWaterChance = config.getInt(
                 "Flowing Water Chance",
                 "Flowing Liquids",
                 flowingWaterChance, 0, Integer.MAX_VALUE,
                 "1/x chance that a water stream will generate on the side of a hill or mountain."
-                + Configuration.NEW_LINE +
-                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
-                + Configuration.NEW_LINE
+                    + Configuration.NEW_LINE +
+                    "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                    + Configuration.NEW_LINE
             );
-            
-            /* ==================== Lakes (Surface) ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Lakes (Scenic)
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            lakeSizeMultiplier = config.getFloat(
+                "Lake Size Multipler",
+                "Lakes (Scenic)",
+                1, 0, 10,
+                "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
+
+            lakeFrequencyMultiplier = config.getFloat(
+                "Lake Frequency Multipler",
+                "Lakes (Scenic)",
+                1, 0, 10,
+                "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
+
+            lakeShoreBendinessMultiplier = config.getFloat(
+                "Lake Shore Irregularity",
+                "Lakes (Scenic)",
+                1, 0, 2,
+                "Makes scenic lake shores bend and curve more. Defaults to 1" + Configuration.NEW_LINE);
+
+            scenicLakeBiome = config.getInt("Biome for scenic lakes", "Lakes (Scenic)",
+                7, 0, 254, "Biome ID for scenic lakes when not frozen (default 7 = River)" + Configuration.NEW_LINE);
+
+            scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", "Lakes (Scenic)",
+                11, 0, 254, "Biome ID for scenic lakes when frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Lakes (Surface)
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableWaterSurfaceLakes = config.getBoolean("Enable Water Surface Lakes", "Lakes (Surface)", enableWaterSurfaceLakes, "");
             waterSurfaceLakeChance = config.getInt("1/x chance that Water Surface Lakes will generate if given the opportunity to do so during world gen", "Lakes (Surface)", waterSurfaceLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
 
             enableLavaSurfaceLakes = config.getBoolean("Enable Lava Surface Lakes", "Lakes (Surface)", enableLavaSurfaceLakes, "");
             lavaSurfaceLakeChance = config.getInt("1/x chance that Lava Surface Lakes will generate if given the opportunity to do so during world gen", "Lakes (Surface)", lavaSurfaceLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
-            
-            /* ==================== Lakes (Underground) ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Lakes (Underground)
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableWaterUndergroundLakes = config.getBoolean("Enable Water Underground Lakes", "Lakes (Underground)", enableWaterUndergroundLakes, "");
             waterUndergroundLakeChance = config.getInt("1/x chance that Water Underground Lakes will generate if given the opportunity to do so during world gen", "Lakes (Underground)", waterUndergroundLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
 
             enableLavaUndergroundLakes = config.getBoolean("Enable Lava Underground Lakes", "Lakes (Underground)", enableLavaUndergroundLakes, "");
             lavaUndergroundLakeChance = config.getInt("1/x chance that Lava Underground Lakes will generate if given the opportunity to do so during world gen", "Lakes (Underground)", lavaUndergroundLakeChance, 1, 100, "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE);
-            
-            /* ==================== Mineshafts ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Mineshafts
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             generateMineshafts = config.getBoolean("Generate Mineshafts", "Mineshafts", generateMineshafts, "");
-            
-            /* ==================== Ore Gen ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Ocean monuments
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            enableOceanMonumentModifications = config.getBoolean(
+                "Enable Ocean Monument Modifications",
+                "Ocean Monuments",
+                enableOceanMonumentModifications,
+                "Must be set to TRUE for the other ocean monument settings to have any effect."
+                    + Configuration.NEW_LINE +
+                    "If FALSE, RTG won't interfere with ocean monument generation at all."
+                    + Configuration.NEW_LINE
+            );
+
+            generateOceanMonuments = config.getBoolean("Generate Ocean Monuments", "Ocean Monuments", generateOceanMonuments, "");
+
+            oceanMonumentSpacing = config.getInt(
+                "Ocean Monument Spacing",
+                "Ocean Monuments",
+                oceanMonumentSpacing,
+                1,
+                1024,
+                "This setting determines the size of the grid, in chunks, on which ocean monuments are generated."
+                    + Configuration.NEW_LINE +
+                    "LOWER values = MORE monuments & MORE lag. (32 = Vanilla spacing)"
+                    + Configuration.NEW_LINE +
+                    "This value MUST be greater than the 'separation' value."
+                    + Configuration.NEW_LINE
+            );
+
+            oceanMonumentSeparation = config.getInt(
+                "Ocean Monument Separation",
+                "Ocean Monuments",
+                oceanMonumentSeparation,
+                1,
+                Integer.MAX_VALUE,
+                "This setting determines the minimum distance, in chunks, between ocean monuments."
+                    + Configuration.NEW_LINE +
+                    "LOWER values = MORE monuments & MORE lag. (5 = Vanilla separation)"
+                    + Configuration.NEW_LINE +
+                    "This value MUST be less than the 'spacing' value."
+                    + Configuration.NEW_LINE
+            );
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Ore gen
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
             generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
@@ -332,41 +484,45 @@ public class ConfigRTG {
             generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
-            
-            /* ==================== Plateaus ==================== */
 
-			mesaClayColours = getClayColourMetasFromConfigString(config.getString(
-				"Mesa Clay Colours",
-				"Plateaus", 
-				mesaClayColourString,
-				getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)")
-			));
-			
-			mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
-				"Mesa Bryce Clay Colours",
-				"Plateaus",
-				mesaBryceClayColourString,
-				getPlateauClayColourComment("Mesa Bryce biome")
-			));
-			
-			savannaClayColours = getClayColourMetasFromConfigString(config.getString(
-				"Savanna Clay Colours",
-				"Plateaus",
-				savannaClayColourString,
-				getPlateauClayColourComment("Savanna biome variants")
-			));
-            
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Plateaus
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            mesaClayColours = getClayColourMetasFromConfigString(config.getString(
+                "Mesa Clay Colours",
+                "Plateaus",
+                mesaClayColourString,
+                getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)")
+            ));
+
+            mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
+                "Mesa Bryce Clay Colours",
+                "Plateaus",
+                mesaBryceClayColourString,
+                getPlateauClayColourComment("Mesa Bryce biome")
+            ));
+
+            savannaClayColours = getClayColourMetasFromConfigString(config.getString(
+                "Savanna Clay Colours",
+                "Plateaus",
+                savannaClayColourString,
+                getPlateauClayColourComment("Savanna biome variants")
+            ));
+
             stoneSavannas = config.getBoolean(
                 "Use stone instead of clay for most Savanna biome variants",
                 "Plateaus",
                 stoneSavannas,
                 "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
-                + Configuration.NEW_LINE +
-                "Savanna Plateau M will always use stained hardened clay."
-                + Configuration.NEW_LINE
+                    + Configuration.NEW_LINE +
+                    "Savanna Plateau M will always use stained hardened clay."
+                    + Configuration.NEW_LINE
             );
 
-            /* ==================== Ravines ==================== */
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Ravines
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableRavineModifications = config.getBoolean(
                 "Enable Ravine Modifications",
@@ -381,31 +537,65 @@ public class ConfigRTG {
             enableRavines = config.getBoolean("Enable Ravines", "Ravines", enableRavines, "");
             ravineFrequency = config.getInt("Ravine Frequency", "Ravines", ravineFrequency, 1, 100, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE);
 
-            /* ======================= Saplings ======================= */
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Rivers
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        	enableRTGSaplings = config.getBoolean(
+            riverSizeMultiplier = config.getFloat(
+                "River Width Multipler",
+                "Rivers",
+                1, 0, 10,
+                "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
+            riverFrequencyMultiplier = config.getFloat(
+                "River Frequency Multiplier",
+                "Rivers",
+                1, 0, 10,
+                "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
+            riverBendinessMultiplier = config.getFloat(
+                "Multiplier to River Bending",
+                "Rivers",
+                1, 0, 2,
+                "Higher numbers make rivers bend more. Defaults to 1" + Configuration.NEW_LINE);
+            riverCutOffScale = config.getFloat(
+                "Scale of Large-Scale River Cut Off",
+                "Rivers",
+                350, 50, 5000,
+                "Higher numbers make grassy areas near rivers bigger, but also more rare. Defaults to 350" + Configuration.NEW_LINE);
+            riverCutOffAmplitude = config.getFloat(
+                "Amplitude of Large-Scale River Cut Off",
+                "Rivers",
+                0.5f, 0, 2,
+                "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Saplings
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            enableRTGSaplings = config.getBoolean(
                 "Enable RTG Saplings",
                 "Saplings",
                 enableRTGSaplings,
                 "Set this to TRUE to allow RTG's custom trees to grow from vanilla saplings."
-                + Configuration.NEW_LINE +
-                "RTG's custom trees can be grown only from the saplings that their leaves would drop naturally, and only in the biomes where they naturally generate."
-                + Configuration.NEW_LINE +
-                "For example, you can only grow a Swamp Willow in a Swamp biome, and only with an Oak sapling (because Swamp Willows have Oak leaves)."
-                + Configuration.NEW_LINE
+                    + Configuration.NEW_LINE +
+                    "RTG's custom trees can be grown only from the saplings that their leaves would drop naturally, and only in the biomes where they naturally generate."
+                    + Configuration.NEW_LINE +
+                    "For example, you can only grow a Swamp Willow in a Swamp biome, and only with an Oak sapling (because Swamp Willows have Oak leaves)."
+                    + Configuration.NEW_LINE
             );
-        	
-        	rtgTreeChance = config.getInt(
+
+            rtgTreeChance = config.getInt(
                 "RTG Tree from Vanilla Sapling Chance",
                 "Saplings",
                 rtgTreeChance, 1, Integer.MAX_VALUE,
                 "1/x chance that a vanilla sapling will grow one of RTG's custom trees."
-                + Configuration.NEW_LINE +
-                "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
-                + Configuration.NEW_LINE
+                    + Configuration.NEW_LINE +
+                    "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                    + Configuration.NEW_LINE
             );
-            
-            /* ==================== Scattered Features ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Scattered features
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableScatteredFeatureModifications = config.getBoolean(
                 "Enable Scattered Feature Modifications",
@@ -421,20 +611,68 @@ public class ConfigRTG {
 
             minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 8 = Vanilla" + Configuration.NEW_LINE);
             maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 32 = Vanilla" + Configuration.NEW_LINE);
-            
-            /* ==================== Snow ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Snow
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableSnowLayers = config.getBoolean("Enable Snow Layers", "Snow", enableSnowLayers, "This applies to newly-generated chunks only. Snow layers will still appear in cold/snowy biomes after it snows." + Configuration.NEW_LINE);
-            
-            /* ==================== Strongholds ==================== */
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Strongholds
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            enableStrongholdModifications = config.getBoolean(
+                "Enable Stronghold Modifications",
+                "Strongholds",
+                enableStrongholdModifications,
+                "Must be set to TRUE for the other stronghold settings to have any effect."
+                    + Configuration.NEW_LINE +
+                    "If FALSE, RTG won't interfere with stronghold generation at all."
+                    + Configuration.NEW_LINE
+            );
 
             generateStrongholds = config.getBoolean("Generate Strongholds", "Strongholds", generateStrongholds, "");
 
-            /* ==================== Ocean Monuments ==================== */
+            strongholdCount = config.getInt(
+                "Stronghold Count",
+                "Strongholds",
+                strongholdCount,
+                1,
+                Integer.MAX_VALUE,
+                "This setting is the number of strongholds that exist per world."
+                    + Configuration.NEW_LINE +
+                    "HIGHER values = MORE strongholds & MORE lag. (3 = Vanilla)"
+                    + Configuration.NEW_LINE
+            );
 
-            generateOceanMonuments = config.getBoolean("Generate Ocean Monuments", "Ocean Monuments", generateOceanMonuments, "");
+            strongholdDistance = config.getInt(
+                "Stronghold Distance",
+                "Strongholds",
+                strongholdDistance,
+                1,
+                Integer.MAX_VALUE,
+                "This setting determines how far strongholds are from the spawn and other strongholds."
+                    + Configuration.NEW_LINE +
+                    "LOWER values = MORE strongholds & MORE lag. (32 = Vanilla)"
+                    + Configuration.NEW_LINE
+            );
 
-            /* ==================== Terrain Shadowing ==================== */
+            strongholdSpread = config.getInt(
+                "Stronghold Spread",
+                "Strongholds",
+                strongholdSpread,
+                1,
+                Integer.MAX_VALUE,
+                "This setting determines how concentrated strongholds are around the spawn (minimum is 1, default is 3). Lower number, lower concentration."
+                    + Configuration.NEW_LINE +
+                    "LOWER values = LOWER concentration around spawn. (3 = Vanilla)"
+                    + Configuration.NEW_LINE
+            );
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Terrain shadowing
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             shadowStoneBlockId = config.getString(
                 "Stone shadow block ID",
@@ -476,7 +714,9 @@ public class ConfigRTG {
                     + Configuration.NEW_LINE
             );
 
-            /* ==================== Trees ==================== */
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Trees
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             allowTreesToGenerateOnSand = config.getBoolean(
                 "Allow Trees to Generate on Sand",
@@ -498,7 +738,9 @@ public class ConfigRTG {
                     + Configuration.NEW_LINE
             );
 
-            /* ==================== Villages ==================== */
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Villages
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             enableVillageModifications = config.getBoolean(
                 "Enable village modifications",
@@ -525,7 +767,9 @@ public class ConfigRTG {
                     + Configuration.NEW_LINE
             );
 
-            /* ==================== Volcanoes ==================== */
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            // Volcanoes
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             setVolcanoBlockDefaults();
 
@@ -595,59 +839,15 @@ public class ConfigRTG {
                     + Configuration.NEW_LINE
             );
 
-            /* ====================== Water System ===================== */
-            riverSizeMultiplier = config.getFloat(
-                    "River Width Multipler",
-                    riversAndLakes,
-                    1, 0, 10,
-                    "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
-            riverFrequencyMultiplier = config.getFloat(
-                    "River Frequency Multiplier",
-                    riversAndLakes,
-                    1, 0, 10,
-                    "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
-            riverBendinessMultiplier = config.getFloat(
-                    "Multiplier to River Bending",
-                    riversAndLakes,
-                    1, 0, 2,
-                    "Higher numbers make rivers bend more. Defaults to 1" + Configuration.NEW_LINE);
-            riverCutOffScale = config.getFloat(
-                    "Scale of Large-Scale River Cut Off",
-                    riversAndLakes,
-                    350, 50, 5000,
-                    "Higher numbers make grassy areas near rivers bigger, but also more rare. Defaults to 350" + Configuration.NEW_LINE);
-            riverCutOffAmplitude = config.getFloat(
-                    "Amplitude of Large-Scale River Cut Off",
-                    riversAndLakes,
-                    0.5f, 0, 2,
-                    "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
-            lakeSizeMultiplier = config.getFloat(
-                    "Lake Size Multipler",
-                    riversAndLakes,
-                    1, 0, 10,
-                    "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
-            lakeFrequencyMultiplier = config.getFloat(
-                    "Lake Frequency Multipler",
-                    riversAndLakes,
-                    1, 0, 10,
-                    "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
-            lakeShoreBendinessMultiplier = config.getFloat(
-                    "Lake Shore Irregularity",
-                    riversAndLakes,
-                    1, 0, 2,
-                    "Makes scenic lake shores bend and curve more. Defaults to 1" + Configuration.NEW_LINE);
-
-            scenicLakeBiome = config.getInt("Biome for scenic lakes", riversAndLakes,
-                    7, 0, 254, "Biome ID for scenic lakes when not frozen (default 7 = River)" + Configuration.NEW_LINE);
-
-            scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", riversAndLakes,
-                    11, 0, 254, "Biome ID for scenic lakes when frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
-            
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
         catch (Exception e) {
+
             Logger.error("RTG has had a problem loading RTG configuration.");
         }
         finally {
+
             if (config.hasChanged()) {
                 config.save();
             }
@@ -665,36 +865,36 @@ public class ConfigRTG {
         return enableVillageModifications;
     }
 
-	private static byte[] getClayColourMetasFromConfigString(String configString)
-	{
-		String[] strings = configString.split(",");
-		ArrayList<Byte> byteList = new ArrayList<Byte>(){};
+    private static byte[] getClayColourMetasFromConfigString(String configString)
+    {
+        String[] strings = configString.split(",");
+        ArrayList<Byte> byteList = new ArrayList<Byte>(){};
 
-		for (int i = 0; i < strings.length; i++) {
-			strings[i] = strings[i].trim();
-			if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
-				byteList.add(Byte.valueOf(strings[i]));
-			}
-		}
-		
-		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
-		return ArrayUtils.toPrimitive(bytes);
-	}
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = strings[i].trim();
+            if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
+                byteList.add(Byte.valueOf(strings[i]));
+            }
+        }
 
-	private static String getPlateauClayColourComment(String biomeName)
-	{
-		String comment =
-			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
-			+ Configuration.NEW_LINE +
-			"-1 = Hardened Clay; 0-15 = Stained Clay"
-			+ Configuration.NEW_LINE +
-			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
-			+ Configuration.NEW_LINE +
-			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
-			+ Configuration.NEW_LINE;
-		
-		return comment;
-	}
+        Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
+        return ArrayUtils.toPrimitive(bytes);
+    }
+
+    private static String getPlateauClayColourComment(String biomeName)
+    {
+        String comment =
+            "Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
+                + Configuration.NEW_LINE +
+                "-1 = Hardened Clay; 0-15 = Stained Clay"
+                + Configuration.NEW_LINE +
+                "0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+                + Configuration.NEW_LINE +
+                "8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
+                + Configuration.NEW_LINE;
+
+        return comment;
+    }
 
     private static void setVolcanoBlockDefaults() {
 
@@ -724,5 +924,17 @@ public class ConfigRTG {
             volcanoMix2BlockId = "UndergroundBiomes:igneousStone";
             volcanoMix2BlockMeta = 5;
         }
+    }
+
+    public static float lakeSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return lakeSizeMultiplier*lakeFrequencyMultiplier;
+    }
+
+    public static float riverSizeMultiplier() {
+        // with the river system changing frequency also shinks size and that will
+        // confuse the heck out of users.
+        return riverSizeMultiplier*riverFrequencyMultiplier;
     }
 }

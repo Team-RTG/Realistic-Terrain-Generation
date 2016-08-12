@@ -20,11 +20,8 @@ import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraft.world.gen.structure.StructureOceanMonumentPieces;
 import net.minecraft.world.gen.structure.StructureStart;
 
-import net.minecraftforge.fml.common.FMLLog;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.apache.logging.log4j.Level;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
@@ -54,8 +51,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
     public StructureOceanMonumentRTG() {
 
-        this.field_175800_f = 32;
-        this.field_175801_g = 5;
+        this.field_175800_f = ConfigRTG.oceanMonumentSpacing;
+        this.field_175801_g = ConfigRTG.oceanMonumentSeparation;
     }
 
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_) {
@@ -106,9 +103,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
                 boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, biomes);
 
                 if (flag) {
-                    if (ConfigRTG.enableDebugging) {
-                        FMLLog.log(Level.INFO, "Generated Ocean Monument at %s %s", i * 16 + 8, j * 16 + 8);
-                    }
+
+                    Logger.debug("Generated Ocean Monument at %d %d", chunkX * 16 + 8, i * 16 + 8, j * 16 + 8);
                     return true;
                 }
             }
@@ -163,7 +159,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument {
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
 
-        return new StructureOceanMonument.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
+        return new StructureOceanMonumentRTG.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     public List<BiomeGenBase.SpawnListEntry> func_175799_b() {

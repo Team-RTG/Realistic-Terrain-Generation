@@ -31,6 +31,7 @@ import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
@@ -216,7 +217,15 @@ public class EventManagerRTG {
                     break;
 
                 case OCEAN_MONUMENT:
-                    event.newGen = new StructureOceanMonumentRTG();
+                    if (ConfigRTG.enableOceanMonumentModifications) {
+                        event.newGen = new StructureOceanMonumentRTG();
+                    }
+                    break;
+
+                case STRONGHOLD:
+                    if (ConfigRTG.enableStrongholdModifications) {
+                        event.newGen = new MapGenStrongholdRTG();
+                    }
                     break;
 
                 default:

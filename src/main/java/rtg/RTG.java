@@ -33,6 +33,7 @@ import rtg.world.biome.realistic.minestrappolation.RealisticBiomeMSBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.reference.ModInfo.*;
@@ -66,11 +67,7 @@ public class RTG {
 
         worldtype = new WorldTypeRTG("RTG");
 
-        MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
-        if (ConfigRTG.enableVillageModifications) {
-            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
-        }
-        MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+        this.registerStructures();
 
         eventMgr = new EventManagerRTG();
         eventMgr.registerEventHandlers();
@@ -124,5 +121,24 @@ public class RTG {
             action.run();
         }
         oneShotServerCloseActions.clear();
+    }
+
+    private void registerStructures() {
+
+        if (ConfigRTG.enableScatteredFeatureModifications) {
+            MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
+        }
+
+        if (ConfigRTG.enableVillageModifications) {
+            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        }
+
+        if (ConfigRTG.enableOceanMonumentModifications) {
+            MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+        }
+
+        if (ConfigRTG.enableStrongholdModifications) {
+            MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
+        }
     }
 }

@@ -26,9 +26,9 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)0;<br>
      * decoTree.minTrunkSize = 11;<br>
      * decoTree.maxTrunkSize = 21;<br>
@@ -43,7 +43,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
 
         super();
 
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState()));
+        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()));
     }
 
     @Override

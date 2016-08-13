@@ -91,7 +91,7 @@ public class WorldGenLog extends WorldGenerator {
              * Also, to ensure that we don't have 'broken' logs, if one log block fails the check,
              * then no logs actually get placed.
              */
-            if (!worldUtil.isBlockAbove(Blocks.air.getDefaultState(), 1, world, x, y, z, true)) {
+            if (!worldUtil.isBlockAbove(Blocks.AIR.getDefaultState(), 1, world, x, y, z, true)) {
                 //Logger.debug("Found non-air block above log at %d %d %d", x, y, z);
                 return false;
             }

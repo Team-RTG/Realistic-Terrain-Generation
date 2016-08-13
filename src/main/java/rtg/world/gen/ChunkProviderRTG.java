@@ -395,16 +395,16 @@ public class ChunkProviderRTG implements IChunkProvider
                     {
                         if(k < 63)
                         {
-                            primer.setBlockState(p, Blocks.water.getDefaultState());
+                            primer.setBlockState(p, Blocks.WATER.getDefaultState());
                         }
                         else
                         {
-                            primer.setBlockState(p, Blocks.air.getDefaultState());
+                            primer.setBlockState(p, Blocks.AIR.getDefaultState());
                         }
                     }
                     else
                     {
-                        primer.setBlockState(p, Blocks.stone.getDefaultState());
+                        primer.setBlockState(p, Blocks.STONE.getDefaultState());
                     }
                 }
             }
@@ -835,7 +835,7 @@ public class ChunkProviderRTG implements IChunkProvider
 	    			int l21 = worldX + rand.nextInt(16);// + 8;
                 int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
 	    			int l24 = worldZ + rand.nextInt(16);// + 8;
-	    			(new WorldGenLiquids(Blocks.flowing_water)).generate(worldObj, rand, new BlockPos(l21, k23, l24));
+	    			(new WorldGenLiquids(Blocks.FLOWING_WATER)).generate(worldObj, rand, new BlockPos(l21, k23, l24));
 	    		}
             }
         }
@@ -848,7 +848,7 @@ public class ChunkProviderRTG implements IChunkProvider
 	    			int i22 = worldX + rand.nextInt(16);// + 8;
                 int l23 = rand.nextInt(worldHeight / 2);
 	    			int i25 = worldZ + rand.nextInt(16);// + 8;
-	    			(new WorldGenLiquids(Blocks.flowing_lava)).generate(worldObj, rand, new BlockPos(i22, l23, i25));
+	    			(new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(worldObj, rand, new BlockPos(i22, l23, i25));
 	    		}
             }
         }
@@ -880,11 +880,11 @@ public class ChunkProviderRTG implements IChunkProvider
                     i2 = this.worldObj.getPrecipitationHeight(new BlockPos(worldX + k1, 0, worldZ + l1)).getY();
 
                     if (this.worldObj.canBlockFreezeNoWater(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ))) {
-                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ice.getDefaultState(), 2);
+                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ICE.getDefaultState(), 2);
                     }
 
                     if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(new BlockPos(k1 + worldX, i2, l1 + worldZ), true)) {
-                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2, l1 + worldZ), Blocks.snow_layer.getDefaultState(), 2);
+                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2, l1 + worldZ), Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }
             }

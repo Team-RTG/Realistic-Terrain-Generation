@@ -19,7 +19,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
             Biome.ocean,
             Biome.river,
             new TerrainVanillaOcean(),
-            new SurfaceVanillaOcean(config, Blocks.sand.getDefaultState(), Blocks.sand.getDefaultState(), Blocks.gravel.getDefaultState(), 20f, 0.2f)
+            new SurfaceVanillaOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f)
         );
 
         this.waterSurfaceLakeChance = 0;

@@ -338,7 +338,7 @@ public class EventManagerRTG {
 
                         // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
                         if (world.getBlockState(event.getPos()) == saplingBlock) {
-                            world.setBlockState(event.getPos(), Blocks.air.getDefaultState(), 2);
+                            world.setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
                         }
                     }
                 }

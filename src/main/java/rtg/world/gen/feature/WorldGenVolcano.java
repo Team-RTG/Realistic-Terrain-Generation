@@ -25,7 +25,7 @@ public class WorldGenVolcano {
     protected static IBlockState volcanoPatchBlock = Block.getBlockFromName(ConfigRTG.volcanoMix1BlockId).getStateFromMeta(ConfigRTG.volcanoMix1BlockMeta);
     protected static IBlockState volcanoPatchBlock2 = Block.getBlockFromName(ConfigRTG.volcanoMix2BlockId).getStateFromMeta(ConfigRTG.volcanoMix2BlockMeta);
     protected static IBlockState volcanoPatchBlock3 = Block.getBlockFromName(ConfigRTG.volcanoMix3BlockId).getStateFromMeta(ConfigRTG.volcanoMix3BlockMeta);
-    protected static IBlockState lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava.getDefaultState() : Blocks.lava.getDefaultState();
+    protected static IBlockState lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
 
     public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
 
@@ -59,8 +59,8 @@ public class WorldGenVolcano {
                     for (int y = 255; y > -1; y--) {
                         // Above lava
                         if (y > lavaHeight) {
-                            if (primer.getBlockState(cta(x, y, z)) == Blocks.air.getDefaultState()) {
-                                primer.setBlockState(cta(x, y, z), Blocks.air.getDefaultState());
+                            if (primer.getBlockState(cta(x, y, z)) == Blocks.AIR.getDefaultState()) {
+                                primer.setBlockState(cta(x, y, z), Blocks.AIR.getDefaultState());
                             }
                         }
                         // Below lava and above obsidian
@@ -76,8 +76,8 @@ public class WorldGenVolcano {
                         }
                         // Below obsidian
                         else if (y < obsidian + 1) {
-                            if (primer.getBlockState(cta(x, y, z)) == Blocks.air.getDefaultState()) {
-                                primer.setBlockState(cta(x, y, z), Blocks.stone.getDefaultState());
+                            if (primer.getBlockState(cta(x, y, z)) == Blocks.AIR.getDefaultState()) {
+                                primer.setBlockState(cta(x, y, z), Blocks.STONE.getDefaultState());
                             }
                             else {
                                 break;
@@ -100,7 +100,7 @@ public class WorldGenVolcano {
                         if (y <= terrainHeight) {
                             b = primer.getBlockState(cta(x, y, z));
 
-                            if (b == Blocks.air.getDefaultState() || b == Blocks.water.getDefaultState()) {
+                            if (b == Blocks.AIR.getDefaultState() || b == Blocks.WATER.getDefaultState()) {
                                 /*************************************
                                  * WARNING: Spaghetti surfacing code *
                                  *************************************/
@@ -160,7 +160,7 @@ public class WorldGenVolcano {
                                             }
                                             else {
 
-                                                b = Blocks.stone.getDefaultState(); // Stone so that surfacing will run (so this usually becomes grass)
+                                                b = Blocks.STONE.getDefaultState(); // Stone so that surfacing will run (so this usually becomes grass)
                                             }
                                         }
                                         else {
@@ -168,11 +168,11 @@ public class WorldGenVolcano {
                                         }
                                     }
                                     else {
-                                        b = Blocks.stone.getDefaultState(); // Stone so that surfacing will run (so this usually becomes grass)
+                                        b = Blocks.STONE.getDefaultState(); // Stone so that surfacing will run (so this usually becomes grass)
                                     }
                                 }
                                 else {
-                                    b = Blocks.stone.getDefaultState();
+                                    b = Blocks.STONE.getDefaultState();
                                 }
                             }
                             else {
@@ -189,7 +189,7 @@ public class WorldGenVolcano {
 
     private static boolean isOnSurface(ChunkPrimer primer, int x, int y, int z) {
 
-        return primer.getBlockState(cta(x, y + 1, z)) == Blocks.air.getDefaultState();
+        return primer.getBlockState(cta(x, y + 1, z)) == Blocks.AIR.getDefaultState();
     }
 
     public static int cta(int x, int y, int z) {

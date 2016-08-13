@@ -37,13 +37,13 @@ public class TreeRTG extends WorldGenerator {
 
     public TreeRTG() {
 
-        this.logBlock = Blocks.log.getDefaultState();
-        this.leavesBlock = Blocks.leaves.getDefaultState();
+        this.logBlock = Blocks.LOG.getDefaultState();
+        this.leavesBlock = Blocks.LEAVES.getDefaultState();
         this.trunkSize = 2;
         this.crownSize = 4;
         this.noLeaves = false;
 
-        this.saplingBlock = Blocks.sapling.getDefaultState();
+        this.saplingBlock = Blocks.SAPLING.getDefaultState();
 
         this.generateFlag = 2;
 
@@ -55,9 +55,9 @@ public class TreeRTG extends WorldGenerator {
 
         // Each tree sub-class is responsible for using (or not using) this list as part of its generation logic.
         this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(
-            Blocks.grass.getDefaultState(),
-            Blocks.dirt.getDefaultState(),
-            Blocks.sand.getDefaultState()
+            Blocks.GRASS.getDefaultState(),
+            Blocks.DIRT.getDefaultState(),
+            Blocks.SAND.getDefaultState()
         ));
     }
 

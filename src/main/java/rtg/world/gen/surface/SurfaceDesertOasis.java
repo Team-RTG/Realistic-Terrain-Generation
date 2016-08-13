@@ -39,10 +39,10 @@ public class SurfaceDesertOasis extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {
@@ -67,7 +67,7 @@ public class SurfaceDesertOasis extends SurfaceBase {
                             primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getStateFromMeta(sandMetadata));
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
                         }
                     }
                     else if (depth < 4) {
@@ -75,11 +75,11 @@ public class SurfaceDesertOasis extends SurfaceBase {
                             primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getStateFromMeta(sandMetadata));
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
                         }
                     }
                     else if (!dirt) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getDefaultState());
                     }
                 }
             }

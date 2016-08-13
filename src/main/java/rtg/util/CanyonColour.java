@@ -39,7 +39,7 @@ public enum CanyonColour {
             for (int i = 0; i < 256; i++) {
 
                 byte b = colour.bytes[i % colour.bytes.length];
-                c[i] = (b == -1) ? Blocks.hardened_clay.getDefaultState() : Blocks.stained_hardened_clay.getStateFromMeta(b);
+                c[i] = (b == -1) ? Blocks.HARDENED_CLAY.getDefaultState() : Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(b);
             }
 
             colourBlocks.put(colour, c);

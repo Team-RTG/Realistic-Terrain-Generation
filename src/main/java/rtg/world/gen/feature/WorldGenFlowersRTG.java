@@ -53,8 +53,8 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 254) && Blocks.double_plant.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.double_plant.getStateFromMeta(randomFlower - 10), 0);
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 254) && Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.DOUBLE_PLANT.getStateFromMeta(randomFlower - 10), 0);
                 }
             }
         }
@@ -66,8 +66,8 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
                 if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 255)
-                    && Blocks.yellow_flower.canBlockStay(world, new BlockPos(i1, j1, k1), Blocks.yellow_flower.getDefaultState())) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.yellow_flower.getDefaultState(), 0);
+                    && Blocks.YELLOW_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), Blocks.YELLOW_FLOWER.getDefaultState())) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.YELLOW_FLOWER.getDefaultState(), 0);
                 }
             }
         }
@@ -79,8 +79,8 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
                 if (world.isAirBlock(new BlockPos(i1, j1, k1)) && (!world.provider.getHasNoSky() || j1 < 255)
-                    && Blocks.red_flower.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.red_flower.getStateFromMeta(randomFlower), 0);
+                    && Blocks.RED_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.RED_FLOWER.getStateFromMeta(randomFlower), 0);
                 }
             }
         }

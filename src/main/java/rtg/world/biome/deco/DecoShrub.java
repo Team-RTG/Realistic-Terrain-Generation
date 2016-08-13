@@ -45,8 +45,8 @@ public class DecoShrub extends DecoBase {
          */
         this.size = -1;
         this.useDefaultRandom = false;
-        this.randomLogBlocks = new IBlockState[]{Blocks.log.getDefaultState(), Blocks.log.getStateFromMeta(1)};
-        this.randomLeavesBlocks = new IBlockState[]{Blocks.leaves.getDefaultState(), Blocks.leaves.getStateFromMeta(1)};
+        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getStateFromMeta(1)};
+        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), Blocks.LEAVES.getStateFromMeta(1)};
         this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.minY = 1; // No height limit by default.
         this.maxY = 255; // No height limit by default.
@@ -55,8 +55,8 @@ public class DecoShrub extends DecoBase {
         this.loops = 1;
         this.minSize = 3;
         this.maxSize = 4;
-        this.logBlock = Blocks.log.getDefaultState();
-        this.leavesBlock = Blocks.leaves.getDefaultState();
+        this.logBlock = Blocks.LOG.getDefaultState();
+        this.leavesBlock = Blocks.LEAVES.getDefaultState();
 
         this.addDecoTypes(DecoType.SHRUB);
     }
@@ -117,7 +117,7 @@ public class DecoShrub extends DecoBase {
     private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
         // If we're in a village, check to make sure the shrub has extra room to grow to avoid corrupting the village.
         if (hasPlacedVillageBlocks) {
-            if (!worldUtil.isSurroundedByBlock(Blocks.air.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, x, y, z)) {
+            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, x, y, z)) {
                 return false;
             }
         }

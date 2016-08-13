@@ -55,33 +55,33 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
 
                     if (rand.nextInt(this.doubleGrassChance) == 0) {
 
-                        worldGenerator = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(2), 2);
+                        worldGenerator = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(2), 2);
                     }
                     else {
 
-                        worldGenerator = new WorldGenGrass(Blocks.tallgrass.getStateFromMeta(1), 1);
+                        worldGenerator = new WorldGenGrass(Blocks.TALLGRASS.getStateFromMeta(1), 1);
                     }
                 }
                 else if (this.grassChance > 0) {
 
                     if (rand.nextInt(this.grassChance) == 0) {
 
-                        worldGenerator = new WorldGenGrass(Blocks.tallgrass.getStateFromMeta(1), 1);
+                        worldGenerator = new WorldGenGrass(Blocks.TALLGRASS.getStateFromMeta(1), 1);
                     }
                     else {
 
-                        worldGenerator = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(2), 2);
+                        worldGenerator = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(2), 2);
                     }
                 }
                 else {
 
                     if (rand.nextBoolean()) {
 
-                        worldGenerator = new WorldGenGrass(Blocks.tallgrass.getStateFromMeta(1), 1);
+                        worldGenerator = new WorldGenGrass(Blocks.TALLGRASS.getStateFromMeta(1), 1);
                     }
                     else {
 
-                        worldGenerator = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(2), 2);
+                        worldGenerator = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(2), 2);
                     }
                 }
 

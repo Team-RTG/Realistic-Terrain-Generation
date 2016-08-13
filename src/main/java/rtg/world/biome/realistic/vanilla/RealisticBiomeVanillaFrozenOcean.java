@@ -19,7 +19,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
             Biome.frozenOcean,
             Biome.river,
             new TerrainVanillaFrozenOcean(),
-            new SurfaceVanillaFrozenOcean(config, Blocks.sand.getDefaultState(), Blocks.sand.getDefaultState(), Blocks.gravel.getDefaultState(), 20f, 0.2f)
+            new SurfaceVanillaFrozenOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f)
         );
 
         this.waterSurfaceLakeChance = 0;

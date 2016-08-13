@@ -20,7 +20,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
             Biome.forest,
             Biome.river,
             new TerrainVanillaForest(),
-            new SurfaceVanillaForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f)
+            new SurfaceVanillaForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
         );
 
         this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfigVanillaForest.decorationLogsId)));

@@ -26,8 +26,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         // Trees first.
 
         TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
-        ponderosaOakTree.logBlock = Blocks.log.getDefaultState();
-        ponderosaOakTree.leavesBlock = Blocks.leaves.getDefaultState();
+        ponderosaOakTree.logBlock = Blocks.LOG.getDefaultState();
+        ponderosaOakTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         ponderosaOakTree.minTrunkSize = 11;
         ponderosaOakTree.maxTrunkSize = 21;
         ponderosaOakTree.minCrownSize = 15;
@@ -46,8 +46,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         oakPines.maxY = 85;
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = Blocks.log.getStateFromMeta(1);
-        ponderosaSpruceTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        ponderosaSpruceTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        ponderosaSpruceTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         ponderosaSpruceTree.minTrunkSize = 11;
         ponderosaSpruceTree.maxTrunkSize = 21;
         ponderosaSpruceTree.minCrownSize = 15;
@@ -71,8 +71,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         // More trees.
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getDefaultState();
-        sitchensisTree.leavesBlock = Blocks.leaves.getDefaultState();
+        sitchensisTree.logBlock = Blocks.LOG.getDefaultState();
+        sitchensisTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         sitchensisTree.minTrunkSize = 4;
         sitchensisTree.maxTrunkSize = 10;
         sitchensisTree.minCrownSize = 6;
@@ -112,8 +112,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         decoFallenOak.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenOak.logConditionChance = 16;
         decoFallenOak.maxY = 80;
-        decoFallenOak.logBlock = Blocks.log.getDefaultState();
-        decoFallenOak.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenOak.logBlock = Blocks.LOG.getDefaultState();
+        decoFallenOak.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
 
@@ -121,8 +121,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 24;
         decoFallenSpruce.maxY = 80;
-        decoFallenSpruce.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenSpruce.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
 
@@ -137,8 +137,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         this.addDeco(decoShrubOak);
 
         DecoShrub decoShrubSpruce = new DecoShrub();
-        decoShrubSpruce.logBlock = Blocks.log.getStateFromMeta(1);
-        decoShrubSpruce.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoShrubSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoShrubSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoShrubSpruce.maxY = 140;
         decoShrubSpruce.strengthFactor = 4f;
         decoShrubSpruce.chance = 9;

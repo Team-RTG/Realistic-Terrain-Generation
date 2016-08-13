@@ -22,7 +22,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
             mutationBiome,
             Biome.river,
             new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f),
-            new SurfaceVanillaExtremeHillsM(config, topBlock, fillerBlock, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), 60f,
+            new SurfaceVanillaExtremeHillsM(config, topBlock, fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f)
         );
 

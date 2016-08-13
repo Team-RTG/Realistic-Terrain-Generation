@@ -47,8 +47,8 @@ public class DecoFallenTree extends DecoBase {
         this.logConditionNoise = 0f;
         this.logConditionChance = 1;
         this.maxY = 80;
-        this.logBlock = Blocks.log.getDefaultState();
-        this.leavesBlock = Blocks.leaves.getDefaultState();
+        this.logBlock = Blocks.LOG.getDefaultState();
+        this.leavesBlock = Blocks.LEAVES.getDefaultState();
         this.minSize = 2;
         this.maxSize = 4;
         this.randomLogBlocks = new IBlockState[]{};
@@ -112,7 +112,7 @@ public class DecoFallenTree extends DecoBase {
 
                         // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
-                            if (!worldUtil.isSurroundedByBlock(Blocks.air.getDefaultState(), finalSize, SurroundCheckType.CARDINAL, rand, x22, y22, z22)) {
+                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), finalSize, SurroundCheckType.CARDINAL, rand, x22, y22, z22)) {
                                 return;
                             }
                         }

@@ -25,14 +25,14 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
             mutationBiome,
             Biome.river,
             new TerrainVanillaBirchForestM(),
-            new SurfaceVanillaBirchForestM(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getDefaultState(), 0.15f)
+            new SurfaceVanillaBirchForestM(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState(), 0.15f)
         );
 
         this.noLakes = true;
 
         TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
-        tallBirch.logBlock = Blocks.log.getStateFromMeta(2);
-        tallBirch.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        tallBirch.logBlock = Blocks.LOG.getStateFromMeta(2);
+        tallBirch.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         tallBirch.minTrunkSize = 16;
         tallBirch.maxTrunkSize = 23;
         tallBirch.minCrownSize = 4;
@@ -63,8 +63,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 20;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(2);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestM.decorationLogsId));

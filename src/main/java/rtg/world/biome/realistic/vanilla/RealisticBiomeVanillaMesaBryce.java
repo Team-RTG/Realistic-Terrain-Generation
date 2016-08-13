@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -34,13 +35,13 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
             mutationBiome,
             Biome.river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
+            new SurfaceVanillaMesaBryce(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1), 0)
         );
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.maxY = 83;
         this.addDeco(decoBoulder);
 
@@ -55,7 +56,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = Blocks.sand;
+        decoCactus.soilBlock = Blocks.SAND;
         decoCactus.soilMeta = (byte) 1;
         decoCactus.loops = 18;
         decoCactus.maxY = 100;

@@ -25,13 +25,13 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
             mutationBiome,
             Biome.river,
             new TerrainVanillaRedwoodTaigaHills(),
-            new SurfaceVanillaRedwoodTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f)
+            new SurfaceVanillaRedwoodTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), true, Blocks.SAND.getDefaultState(), 0.2f)
         );
 
         this.noLakes = true;
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -46,8 +46,8 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRedwoodTaigaHills.decorationLogsId));

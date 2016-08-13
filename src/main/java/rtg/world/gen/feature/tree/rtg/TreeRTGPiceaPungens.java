@@ -24,9 +24,9 @@ public class TreeRTGPiceaPungens extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)1;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)1;<br>
      * decoTree.minTrunkSize = 2;<br>
      * decoTree.maxTrunkSize = 7;<br>
@@ -49,7 +49,7 @@ public class TreeRTGPiceaPungens extends TreeRTG {
         int y = pos.getY();
         int z = pos.getZ();
         IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (g != Blocks.grass.getDefaultState() && g != Blocks.dirt.getDefaultState()) {
+        if (g != Blocks.GRASS.getDefaultState() && g != Blocks.DIRT.getDefaultState()) {
             return false;
         }
 

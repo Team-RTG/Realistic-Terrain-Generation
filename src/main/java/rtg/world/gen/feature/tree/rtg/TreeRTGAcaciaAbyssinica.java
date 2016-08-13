@@ -26,9 +26,9 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log2;<br>
+     * decoTree.logBlock = Blocks.LOG2;<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves2;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES2;<br>
      * decoTree.leavesMeta = (byte)0;<br>
      * decoTree.minTrunkSize = 6;<br>
      * decoTree.maxTrunkSize = 16;<br>
@@ -41,8 +41,8 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.log2.getStateFromMeta(0);
-        this.leavesBlock = Blocks.leaves2.getStateFromMeta(0);
+        this.logBlock = Blocks.LOG2.getStateFromMeta(0);
+        this.leavesBlock = Blocks.LEAVES2.getStateFromMeta(0);
         this.trunkSize = 12;
     }
 
@@ -54,11 +54,11 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
         int z = pos.getZ();
         IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
 
-        if (b == Blocks.sand.getDefaultState() && !ConfigRTG.allowTreesToGenerateOnSand) {
+        if (b == Blocks.SAND.getDefaultState() && !ConfigRTG.allowTreesToGenerateOnSand) {
             return false;
         }
 
-        if (b != Blocks.grass.getDefaultState() && b != Blocks.dirt.getDefaultState()) {
+        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState()) {
             return false;
         }
 

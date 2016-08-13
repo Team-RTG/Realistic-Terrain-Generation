@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
 import rtg.api.biome.BiomeConfig;
@@ -25,7 +26,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
             Biome.jungle,
             Biome.river,
             new TerrainVanillaJungle(),
-            new SurfaceVanillaJungle(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.09f)
+            new SurfaceVanillaJungle(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.09f)
         );
 
         this.waterSurfaceLakeChance = 3;
@@ -33,8 +34,8 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f);
-        mucronataTree.logBlock = Blocks.log.getStateFromMeta(3);
-        mucronataTree.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        mucronataTree.logBlock = Blocks.LOG.getStateFromMeta(3);
+        mucronataTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
         mucronataTree.minTrunkSize = 3;
         mucronataTree.maxTrunkSize = 4;
         mucronataTree.minCrownSize = 10;
@@ -48,9 +49,9 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         mangroves.treeConditionChance = 2;
         mangroves.maxY = 160;
 
-        DecoTree megaJungle = new DecoTree(new WorldGenMegaJungle(false, 10, 27, Blocks.log.getStateFromMeta(3), Blocks.leaves.getStateFromMeta(3)));
-        megaJungle.logBlock = Blocks.log.getStateFromMeta(3);
-        megaJungle.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        DecoTree megaJungle = new DecoTree(new WorldGenMegaJungle(false, 10, 27, Blocks.LOG.getStateFromMeta(3), Blocks.LEAVES.getStateFromMeta(3)));
+        megaJungle.logBlock = Blocks.LOG.getStateFromMeta(3);
+        megaJungle.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
         megaJungle.minTrunkSize = 3;
         megaJungle.maxTrunkSize = 4;
         megaJungle.minCrownSize = 10;
@@ -93,8 +94,8 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 3;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(3);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungle.decorationLogsId));
@@ -132,7 +133,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 2f;

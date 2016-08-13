@@ -220,7 +220,7 @@ public class MapGenRavineRTG extends MapGenRavine {
     @Override
     protected boolean isOceanBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
 
-        return primer.getBlockState(x, y, z) == Blocks.water || primer.getBlockState(x, y, z) == Blocks.flowing_water;
+        return primer.getBlockState(x, y, z) == Blocks.WATER || primer.getBlockState(x, y, z) == Blocks.FLOWING_WATER;
     }
 
     //Exception biomes to make sure we generate like vanilla
@@ -240,7 +240,7 @@ public class MapGenRavineRTG extends MapGenRavine {
     private boolean isTopBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
 
         Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.grass : primer.getBlockState(x, y, z) == biome.topBlock);
+        return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.GRASS : primer.getBlockState(x, y, z) == biome.topBlock);
     }
 
     /**
@@ -262,16 +262,16 @@ public class MapGenRavineRTG extends MapGenRavine {
     protected void digBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
 
         Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
-        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.fillerBlock.getBlock();
+        Block top = isExceptionBiome(biome) ? Blocks.GRASS : biome.topBlock.getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.DIRT : biome.fillerBlock.getBlock();
         Block block = primer.getBlockState(x, y, z).getBlock();
 
-        if (block == Blocks.stone || block == filler || block == top) {
+        if (block == Blocks.STONE || block == filler || block == top) {
             if (y < 10) {
-                primer.setBlockState(x, y, z, Blocks.lava.getDefaultState());
+                primer.setBlockState(x, y, z, Blocks.LAVA.getDefaultState());
             }
             else {
-                primer.setBlockState(x, y, z, Blocks.air.getDefaultState());
+                primer.setBlockState(x, y, z, Blocks.AIR.getDefaultState());
 
                 if (foundTop && primer.getBlockState(x, y - 1, z) == filler) {
                     primer.setBlockState(x, y - 1, z, top.getDefaultState());

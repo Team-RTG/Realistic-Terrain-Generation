@@ -19,7 +19,7 @@ class WorldGenWildWheat extends WorldGenerator {
      */
     public WorldGenWildWheat(int type) {
 
-        farmtype = type == 0 ? Blocks.potatoes : type == 1 ? Blocks.carrots : Blocks.wheat;
+        farmtype = type == 0 ? Blocks.POTATOES : type == 1 ? Blocks.CARROTS : Blocks.WHEAT;
     }
 
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -39,7 +39,7 @@ class WorldGenWildWheat extends WorldGenerator {
         }
 
         b = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-        if (b != Blocks.grass && b != Blocks.dirt) {
+        if (b != Blocks.GRASS && b != Blocks.DIRT) {
             return false;
         }
 
@@ -57,13 +57,13 @@ class WorldGenWildWheat extends WorldGenerator {
             rz = rand.nextInt(5) - 2;
             b = world.getBlockState(new BlockPos(x + rx, y + ry, z + rz)).getBlock();
 
-            if ((b == Blocks.grass || b == Blocks.dirt) && world.isAirBlock(new BlockPos(x + rx, y + ry + 1, z + rz))) {
-                world.setBlockState(new BlockPos(x + rx, y + ry, z + rz), Blocks.farmland.getStateFromMeta(rand.nextInt(4) + 4), 0);
+            if ((b == Blocks.GRASS || b == Blocks.DIRT) && world.isAirBlock(new BlockPos(x + rx, y + ry + 1, z + rz))) {
+                world.setBlockState(new BlockPos(x + rx, y + ry, z + rz), Blocks.FARMLAND.getStateFromMeta(rand.nextInt(4) + 4), 0);
                 world.setBlockState(new BlockPos(x + rx, y + ry + 1, z + rz), farmtype.getStateFromMeta(rand.nextInt(4) + 4), 0);
             }
         }
 
-        world.setBlockState(new BlockPos(x, y, z), Blocks.water.getDefaultState());
+        world.setBlockState(new BlockPos(x, y, z), Blocks.WATER.getDefaultState());
         return true;
     }
 }

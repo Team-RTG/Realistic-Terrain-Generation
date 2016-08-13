@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
@@ -59,7 +60,7 @@ public class SurfaceBase {
 
         if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCStoneShadowing) {
 
-            return Blocks.stone.getDefaultState();
+            return Blocks.STONE.getDefaultState();
         }
         else {
 
@@ -71,7 +72,7 @@ public class SurfaceBase {
 
         if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
 
-            return Blocks.stone.getDefaultState();
+            return Blocks.STONE.getDefaultState();
         }
         else {
 
@@ -86,7 +87,7 @@ public class SurfaceBase {
         }
         else {
 
-            return Blocks.stone.getDefaultState();
+            return Blocks.STONE.getDefaultState();
         }
     }
 
@@ -97,7 +98,7 @@ public class SurfaceBase {
             return ACBlocks.darkstone_cobblestone.getDefaultState();
         }
         else {
-            return Blocks.cobblestone.getDefaultState();
+            return Blocks.COBBLESTONE.getDefaultState();
         }
     }
 

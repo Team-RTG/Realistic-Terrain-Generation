@@ -31,7 +31,7 @@ public class WorldGenBlob extends WorldGenerator {
         this.water = true;
         this.boulderUtil = new BoulderUtil();
 
-        if (blobBlock == Blocks.mossy_cobblestone.getDefaultState() || blobBlock == Blocks.cobblestone.getDefaultState()) {
+        if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
             if (!ConfigRTG.enableCobblestoneBoulders) {
                 booShouldGenerate = false;
             }
@@ -133,7 +133,7 @@ public class WorldGenBlob extends WorldGenerator {
                             }
                         }
 
-                        if (block == Blocks.grass.getDefaultState() || block == Blocks.dirt.getDefaultState() || block == Blocks.stone.getDefaultState() || block == Blocks.gravel.getDefaultState() || block == Blocks.sand.getDefaultState()) {
+                        if (block == Blocks.GRASS.getDefaultState() || block == Blocks.DIRT.getDefaultState() || block == Blocks.STONE.getDefaultState() || block == Blocks.GRAVEL.getDefaultState() || block == Blocks.SAND.getDefaultState()) {
                             break label63;
                         }
                     }

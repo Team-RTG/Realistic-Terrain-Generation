@@ -10,8 +10,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Blocks.snow.getDefaultState();
-    public static IBlockState fillerBlock = Blocks.snow.getDefaultState();
+    public static IBlockState topBlock = Blocks.SNOW.getDefaultState();
+    public static IBlockState fillerBlock = Blocks.SNOW.getDefaultState();
 
     public RealisticBiomeVanillaIcePlains(BiomeConfig config) {
 
@@ -28,7 +28,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 //        DecoBoulder decoBoulder = new DecoBoulder();
 //        decoBoulder.checkRiver = true;
 //        decoBoulder.minRiver = 0.87f;
-//        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+//        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
 //        decoBoulder.chance = 16;
 //        decoBoulder.maxY = 95;
 //        decoBoulder.strengthFactor = 5f;
@@ -37,8 +37,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 //        DecoFallenTree decoFallenTree = new DecoFallenTree();
 //        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 //        decoFallenTree.logConditionChance = 24;
-//        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(1);
-//        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+//        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+//        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
 //        decoFallenTree.minSize = 1;
 //        decoFallenTree.maxSize = 5;
 //        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));

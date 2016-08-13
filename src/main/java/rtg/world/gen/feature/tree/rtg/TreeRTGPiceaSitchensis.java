@@ -26,9 +26,9 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)1;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)1;<br>
      * decoTree.minTrunkSize = 4;<br>
      * decoTree.maxTrunkSize = 9;<br>
@@ -43,13 +43,13 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(1);
-        this.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        this.logBlock = Blocks.LOG.getStateFromMeta(1);
+        this.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         this.trunkSize = 8;
         this.crownSize = 10;
         this.noLeaves = false;
 
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState()));
+        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()));
     }
 
     @Override

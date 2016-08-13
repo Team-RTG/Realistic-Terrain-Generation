@@ -11,7 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenClayRTG extends WorldGenerator {
 
-    private Block field_150546_a = Blocks.clay;
+    private Block field_150546_a = Blocks.CLAY;
     /**
      * The number of blocks to generate.
      */
@@ -42,7 +42,7 @@ public class WorldGenClayRTG extends WorldGenerator {
                             BlockPos blockpos = new BlockPos(k, k1, l);
                             Block block = world.getBlockState(blockpos).getBlock();
 
-                            if (block == Blocks.grass || block == Blocks.dirt || block == Blocks.sand || block == Blocks.gravel || block == Blocks.clay) {
+                            if (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.SAND || block == Blocks.GRAVEL || block == Blocks.CLAY) {
                                 world.setBlockState(blockpos, this.field_150546_a.getDefaultState(), 2);
                             }
                         }

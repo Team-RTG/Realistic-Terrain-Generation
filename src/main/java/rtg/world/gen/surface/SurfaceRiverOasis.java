@@ -16,7 +16,7 @@ public class SurfaceRiverOasis extends SurfaceBase {
 
     public SurfaceRiverOasis(BiomeConfig config) {
 
-        super(config, Blocks.grass, (byte) 0, Blocks.dirt, (byte) 0);
+        super(config, Blocks.GRASS, (byte) 0, Blocks.DIRT, (byte) 0);
     }
 
     @Override
@@ -26,17 +26,17 @@ public class SurfaceRiverOasis extends SurfaceBase {
             Block b;
             for (int k = 255; k > -1; k--) {
                 b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-                if (b == Blocks.air) {
+                if (b == Blocks.AIR) {
                     depth = -1;
                 }
-                else if (b != Blocks.water) {
+                else if (b != Blocks.WATER) {
                     depth++;
 
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
                     }
                     else if (depth < 4) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
                     }
                     else if (depth > 4) {
                         return;

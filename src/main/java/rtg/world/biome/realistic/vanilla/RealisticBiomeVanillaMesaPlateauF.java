@@ -6,6 +6,7 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
@@ -32,8 +33,8 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateauF(
                 config,
-                Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
-                Blocks.stained_hardened_clay.getStateFromMeta(1),
+                Blocks.SAND.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
+                Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1),
                 0
             )
         );
@@ -49,7 +50,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
-        decoCactus.soilBlock = Blocks.sand;
+        decoCactus.soilBlock = Blocks.SAND;
         decoCactus.soilMeta = (byte) 1;
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;

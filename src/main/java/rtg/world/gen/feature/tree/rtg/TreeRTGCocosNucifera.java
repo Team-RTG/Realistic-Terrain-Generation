@@ -80,9 +80,9 @@ public class TreeRTGCocosNucifera extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)3;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)3;<br>
      * decoTree.minTrunkSize = 7;<br>
      * decoTree.maxTrunkSize = 8;<br>
@@ -97,8 +97,8 @@ public class TreeRTGCocosNucifera extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(3);
-        this.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        this.logBlock = Blocks.LOG.getStateFromMeta(3);
+        this.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
         this.trunkSize = 8;
         this.crownSize = 7;
     }
@@ -177,7 +177,7 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         for (int k = 0; k < cocoasLength; k += 4) {
             if (rand.nextInt(20) == 0) {
                 //TODO: cocoas[k + 0] + 8 (meta)
-                world.setBlockState(new BlockPos(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3]), Blocks.cocoa.getDefaultState(), this.generateFlag);
+                world.setBlockState(new BlockPos(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3]), Blocks.COCOA.getDefaultState(), this.generateFlag);
             }
         }
 

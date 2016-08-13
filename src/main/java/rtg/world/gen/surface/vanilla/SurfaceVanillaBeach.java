@@ -24,10 +24,10 @@ public class SurfaceVanillaBeach extends SurfaceBase {
 
     public SurfaceVanillaBeach(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2, byte metadata, int cliff) {
 
-        super(config, Blocks.dirt, Blocks.dirt);
+        super(config, Blocks.DIRT, Blocks.DIRT);
 
-        cliffBlock1 = Blocks.dirt.getDefaultState();
-        cliffBlock2 = Blocks.stone.getDefaultState();
+        cliffBlock1 = Blocks.DIRT.getDefaultState();
+        cliffBlock2 = Blocks.STONE.getDefaultState();
         sandMetadata = metadata;
         cliffType = cliff;
     }
@@ -42,10 +42,10 @@ public class SurfaceVanillaBeach extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {
@@ -71,7 +71,7 @@ public class SurfaceVanillaBeach extends SurfaceBase {
                             primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getStateFromMeta(sandMetadata));
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
                         }
                     }
                     else if (depth < 4) {
@@ -80,16 +80,16 @@ public class SurfaceVanillaBeach extends SurfaceBase {
                         }
                         else {
                             if (k > 61 && k < 69) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getStateFromMeta(sandMetadata));
+                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
                             }
                         }
                     }
                     else if (!dirt) {
                         if (k > 56 && k < 68) { // one lower for under sand and 4 deeper
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getDefaultState());
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getDefaultState());
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.stone.getDefaultState());
+                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.STONE.getDefaultState());
                         }
                     }
                 }

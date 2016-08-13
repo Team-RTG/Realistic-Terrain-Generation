@@ -21,7 +21,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
             Biome.savanna,
             Biome.river,
             new TerrainVanillaSavanna(),
-            new SurfaceVanillaSavanna(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), Blocks.grass.getDefaultState(), 13f, 0.27f)
+            new SurfaceVanillaSavanna(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.GRASS.getDefaultState(), 13f, 0.27f)
         );
 
         this.addDecoCollection(new DecoCollectionDesertRiver());

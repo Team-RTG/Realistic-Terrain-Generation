@@ -38,8 +38,8 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(3);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleEdgeM.decorationLogsId));

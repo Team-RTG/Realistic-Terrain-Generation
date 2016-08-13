@@ -164,7 +164,7 @@ public class MapGenCavesRTG extends MapGenCaves {
 
                                         if (d12 > -0.7D && d13 * d13 + d12 * d12 + d14 * d14 < 1.0D) {
                                             IBlockState iblockstate1 = primer.getBlockState(k2, l3, j3);
-                                            IBlockState iblockstate2 = (IBlockState) Objects.firstNonNull(primer.getBlockState(k2, l3 + 1, j3), Blocks.air.getDefaultState());
+                                            IBlockState iblockstate2 = (IBlockState) Objects.firstNonNull(primer.getBlockState(k2, l3 + 1, j3), Blocks.AIR.getDefaultState());
 
                                             if (isTopBlock(primer, k2, l3, j3, chunkX, chunkZ)) {
                                                 flag1 = true;
@@ -257,7 +257,7 @@ public class MapGenCavesRTG extends MapGenCaves {
     @Override
     protected boolean isOceanBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
 
-        return primer.getBlockState(x, y, z) == Blocks.flowing_water || primer.getBlockState(x, y, z) == Blocks.water;
+        return primer.getBlockState(x, y, z) == Blocks.FLOWING_WATER || primer.getBlockState(x, y, z) == Blocks.WATER;
     }
 
     //Exception biomes to make sure we generate like vanilla
@@ -284,7 +284,7 @@ public class MapGenCavesRTG extends MapGenCaves {
     private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
 
         Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.grass : data.getBlockState(x, y, z) == biome.topBlock);
+        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.GRASS : data.getBlockState(x, y, z) == biome.topBlock);
     }
 
     /**
@@ -306,19 +306,19 @@ public class MapGenCavesRTG extends MapGenCaves {
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up) {
 
         Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
-        Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.fillerBlock.getBlock();
+        Block top = isExceptionBiome(biome) ? Blocks.GRASS : biome.topBlock.getBlock();
+        Block filler = isExceptionBiome(biome) ? Blocks.DIRT : biome.fillerBlock.getBlock();
         Block block = data.getBlockState(x, y, z).getBlock();
 
-        if (block == Blocks.stone || block == Blocks.cobblestone || block == filler || block == top) {
+        if (block == Blocks.STONE || block == Blocks.COBBLESTONE || block == filler || block == top) {
             if (y < 10) {
-                data.setBlockState(x, y, z, Blocks.lava.getDefaultState());
+                data.setBlockState(x, y, z, Blocks.LAVA.getDefaultState());
             }
             else {
-                data.setBlockState(x, y, z, Blocks.air.getDefaultState());
+                data.setBlockState(x, y, z, Blocks.AIR.getDefaultState());
 
-                if (up.getBlock() == Blocks.sand) {
-                    data.setBlockState(x, y + 1, z, up.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.red_sandstone.getDefaultState() : Blocks.sandstone.getDefaultState());
+                if (up.getBlock() == Blocks.SAND) {
+                    data.setBlockState(x, y + 1, z, up.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.RED_SANDSTONE.getDefaultState() : Blocks.SANDSTONE.getDefaultState());
                 }
 
                 else if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler) {

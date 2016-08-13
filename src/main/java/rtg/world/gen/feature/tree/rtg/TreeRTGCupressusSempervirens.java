@@ -25,9 +25,9 @@ public class TreeRTGCupressusSempervirens extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)1;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)1;<br>
      * decoTree.minTrunkSize = 3;<br>
      * decoTree.maxTrunkSize = 6;<br>
@@ -42,7 +42,7 @@ public class TreeRTGCupressusSempervirens extends TreeRTG {
 
         super();
 
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState()));
+        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()));
     }
 
     @Override

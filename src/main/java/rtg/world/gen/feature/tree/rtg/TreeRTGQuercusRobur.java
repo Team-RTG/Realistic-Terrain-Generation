@@ -48,9 +48,9 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)0;<br>
      * decoTree.noLeaves = false;<br>
      * this.addDeco(decoTree);
@@ -61,8 +61,8 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(0);
-        this.leavesBlock = Blocks.leaves.getStateFromMeta(0);
+        this.logBlock = Blocks.LOG.getStateFromMeta(0);
+        this.leavesBlock = Blocks.LEAVES.getStateFromMeta(0);
         this.trunkSize = 4;
         this.crownSize = 8;
     }
@@ -343,7 +343,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
         BlockPos down = this.basePos.down();
         net.minecraft.block.state.IBlockState state = this.world.getBlockState(down);
-        boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.sapling));
+        boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.SAPLING));
 
         if (!isSoil) {
             Logger.debug("Invalid tree location! Ground block is not soil.");
@@ -371,7 +371,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         IBlockState state = world.getBlockState(pos);
         return state.getBlock().isAir(world, pos)
             || state.getBlock().isLeaves(world, pos)
-            || state.getBlock() == Blocks.sapling
+            || state.getBlock() == Blocks.SAPLING
             || state.getBlock().isWood(world, pos);
     }
 

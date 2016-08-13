@@ -69,8 +69,8 @@ public class DecoMushrooms extends DecoBase {
                         break;
                 }
 
-                WorldGenerator worldGeneratorBrownShrooms = new GeneratorBushFeature(Blocks.brown_mushroom);
-                WorldGenerator worldGeneratorRedShrooms = new GeneratorBushFeature(Blocks.red_mushroom);
+                WorldGenerator worldGeneratorBrownShrooms = new GeneratorBushFeature(Blocks.BROWN_MUSHROOM);
+                WorldGenerator worldGeneratorRedShrooms = new GeneratorBushFeature(Blocks.RED_MUSHROOM);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
                 for (int i = 0; i < this.loops; i++) {

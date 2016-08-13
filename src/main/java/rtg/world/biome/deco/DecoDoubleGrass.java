@@ -46,7 +46,7 @@ public class DecoDoubleGrass extends DecoBase {
 
             if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {
 
-                WorldGenerator worldGenerator = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(2), 2);
+                WorldGenerator worldGenerator = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(2), 2);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
                 for (int i = 0; i < this.loops; i++) {

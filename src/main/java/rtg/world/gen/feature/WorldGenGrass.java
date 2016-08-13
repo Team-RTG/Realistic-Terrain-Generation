@@ -47,26 +47,26 @@ public class WorldGenGrass extends WorldGenerator {
         }
 
         setBlock(rand);
-        if (block() == Blocks.double_plant.getStateFromMeta(metadata)) {
+        if (block() == Blocks.DOUBLE_PLANT.getStateFromMeta(metadata)) {
             //for (int l = 0; l < 64; ++l)
             {
                 int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && Blocks.double_plant.canBlockStay(world, new BlockPos(i1, j1, k1), Blocks.double_plant.getDefaultState())) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.double_plant.getStateFromMeta(metadata));
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && Blocks.DOUBLE_PLANT.canBlockStay(world, new BlockPos(i1, j1, k1), Blocks.DOUBLE_PLANT.getDefaultState())) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.DOUBLE_PLANT.getStateFromMeta(metadata));
                 }
             }
         }
-        else if (block() == Blocks.leaves) {
+        else if (block() == Blocks.LEAVES) {
             //for (int l = 0; l < 64; ++l)
             {
                 int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == Blocks.grass) {
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == Blocks.GRASS) {
                     world.setBlockState(new BlockPos(i1, j1, k1), block.getBlock().getStateFromMeta(metadata), 0);
                 }
             }

@@ -21,12 +21,12 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
             Biome.birchForest,
             Biome.river,
             new TerrainVanillaBirchForest(),
-            new SurfaceVanillaBirchForest(config, Biome.birchForest.topBlock, Biome.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)
+            new SurfaceVanillaBirchForest(config, Biome.birchForest.topBlock, Biome.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.15f)
         );
 
         TreeRTG birchSmall = new TreeRTGBetulaPapyrifera();
-        birchSmall.logBlock = Blocks.log.getStateFromMeta(2);
-        birchSmall.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        birchSmall.logBlock = Blocks.LOG.getStateFromMeta(2);
+        birchSmall.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         birchSmall.minTrunkSize = 4;
         birchSmall.maxTrunkSize = 10;
         birchSmall.minCrownSize = 8;
@@ -44,8 +44,8 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         this.addDeco(smallBirch);
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.logBlock = Blocks.log.getStateFromMeta(2);
-        birchTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        birchTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        birchTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         birchTree.minTrunkSize = 4;
         birchTree.maxTrunkSize = 10;
         birchTree.minCrownSize = 8;
@@ -78,8 +78,8 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(2);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForest.decorationLogsId));

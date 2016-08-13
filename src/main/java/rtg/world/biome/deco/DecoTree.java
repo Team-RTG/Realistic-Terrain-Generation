@@ -70,8 +70,8 @@ public class DecoTree extends DecoBase {
         this.treeConditionChance = 1;
         this.minY = 62; // No underwater trees by default.
         this.maxY = 230; // Sensible upper height limit by default.
-        this.logBlock = Blocks.log.getDefaultState();
-        this.leavesBlock = Blocks.leaves.getDefaultState();
+        this.logBlock = Blocks.LOG.getDefaultState();
+        this.leavesBlock = Blocks.LEAVES.getDefaultState();
         this.minSize = 2;
         this.maxSize = 4;
         this.minTrunkSize = 2;
@@ -161,7 +161,7 @@ public class DecoTree extends DecoBase {
 
                         // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
-                            if (!worldUtil.isSurroundedByBlock(Blocks.air.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
+                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
                                 return;
                             }
                         }

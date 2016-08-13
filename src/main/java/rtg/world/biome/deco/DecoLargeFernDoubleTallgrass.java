@@ -53,8 +53,8 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
 
             if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {
 
-                WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(GRASS_META), GRASS_META);
-                WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(FERN_META), FERN_META);
+                WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(GRASS_META), GRASS_META);
+                WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(FERN_META), FERN_META);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
                 for (int i = 0; i < this.loops; i++) {

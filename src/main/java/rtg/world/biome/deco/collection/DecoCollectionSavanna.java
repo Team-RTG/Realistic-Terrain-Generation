@@ -18,8 +18,8 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
     public DecoCollectionSavanna(boolean fallenTrees) {
 
         DecoShrub acaciaShrub = new DecoShrub();
-        acaciaShrub.logBlock = Blocks.log2.getDefaultState();
-        acaciaShrub.leavesBlock = Blocks.leaves2.getDefaultState();
+        acaciaShrub.logBlock = Blocks.LOG2.getDefaultState();
+        acaciaShrub.leavesBlock = Blocks.LEAVES2.getDefaultState();
         acaciaShrub.maxY = 160;
         acaciaShrub.strengthFactor = 2f;
         acaciaShrub.chance = 12;
@@ -33,15 +33,15 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 36;
-        decoFallenTree.logBlock = Blocks.log2.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.leaves2.getDefaultState();
+        decoFallenTree.logBlock = Blocks.LOG2.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES2.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, fallenTrees);
 
         TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
-        bucheriTree.logBlock = Blocks.log2.getDefaultState();
-        bucheriTree.leavesBlock = Blocks.leaves2.getDefaultState();
+        bucheriTree.logBlock = Blocks.LOG2.getDefaultState();
+        bucheriTree.leavesBlock = Blocks.LEAVES2.getDefaultState();
         bucheriTree.minTrunkSize = 4;
         bucheriTree.maxTrunkSize = 9;
         this.addTree(bucheriTree);
@@ -58,7 +58,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         this.addDeco(bucheriTrees);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.chance = 32;
         decoBoulder.maxY = 95;
         this.addDeco(decoBoulder);

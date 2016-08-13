@@ -22,10 +22,10 @@ public class SurfaceRedDesert extends SurfaceBase {
 
     public SurfaceRedDesert(BiomeConfig config) {
 
-        super(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1));
+        super(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1));
 
-        bottomBlock = Blocks.sandstone.getDefaultState();
-        cliffBlock1 = Blocks.stained_hardened_clay.getDefaultState();
+        bottomBlock = Blocks.SANDSTONE.getDefaultState();
+        cliffBlock1 = Blocks.STAINED_HARDENED_CLAY.getDefaultState();
     }
 
     @Override
@@ -36,10 +36,10 @@ public class SurfaceRedDesert extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {

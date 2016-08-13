@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaigaHills;
@@ -21,13 +22,13 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
             Biome.megaTaigaHills,
             Biome.river,
             new TerrainVanillaMegaTaigaHills(),
-            new SurfaceVanillaMegaTaigaHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), true, Blocks.sand.getDefaultState(), 0.2f)
+            new SurfaceVanillaMegaTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), true, Blocks.SAND.getDefaultState(), 0.2f)
         );
 
         this.noLakes = true;
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
@@ -42,8 +43,8 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaMegaTaigaHills.decorationLogsId));

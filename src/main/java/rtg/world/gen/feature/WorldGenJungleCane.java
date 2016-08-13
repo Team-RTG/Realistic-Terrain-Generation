@@ -34,7 +34,7 @@ public class WorldGenJungleCane extends WorldGenerator {
         }
 
         b = world.getBlockState(new BlockPos(x, y, z));
-        if (b != Blocks.grass.getDefaultState() && b != Blocks.dirt.getDefaultState()) {
+        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState()) {
             return false;
         }
 
@@ -56,7 +56,7 @@ public class WorldGenJungleCane extends WorldGenerator {
                 for (int k = 0; k < ra; k++) {
                     b = world.getBlockState(new BlockPos(sx, y + 1 + k, sz));
                     if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine) {
-                        world.setBlockState(new BlockPos(sx, y + 1 + k, sz), Blocks.reeds.getDefaultState(), 2);
+                        world.setBlockState(new BlockPos(sx, y + 1 + k, sz), Blocks.REEDS.getDefaultState(), 2);
                     }
                     else {
                         break;
@@ -65,7 +65,7 @@ public class WorldGenJungleCane extends WorldGenerator {
             }
         }
 
-        world.setBlockState(new BlockPos(x, y, z), Blocks.water.getDefaultState());
+        world.setBlockState(new BlockPos(x, y, z), Blocks.WATER.getDefaultState());
 
         return true;
     }

@@ -38,7 +38,7 @@ public class DecoCobwebs extends DecoBase {
         this.minY = 1; // No lower height limit by default.
         this.maxY = 255; // No upper height limit by default.
         this.chance = 10;
-        this.adjacentBlock = Blocks.air.getDefaultState();
+        this.adjacentBlock = Blocks.AIR.getDefaultState();
         this.minAdjacents = 1;
 
         this.addDecoTypes(DecoType.COBWEB);
@@ -49,7 +49,7 @@ public class DecoCobwebs extends DecoBase {
 
         if (this.allowed) {
 
-            WorldGenerator worldGenerator = new WorldGenBlock(Blocks.web.getDefaultState(), Blocks.air.getDefaultState(), this.adjacentBlock, this.minAdjacents);
+            WorldGenerator worldGenerator = new WorldGenBlock(Blocks.WEB.getDefaultState(), Blocks.AIR.getDefaultState(), this.adjacentBlock, this.minAdjacents);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
                 int i1 = chunkX + rand.nextInt(16);// + 8;

@@ -31,10 +31,10 @@ public class DecoJungleGrassVines extends DecoBase {
 
         super();
 
-        this.worldgeneratorGrass = new WorldGenGrass(Blocks.tallgrass.getStateFromMeta(1), 1);
-        this.worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(2), 2);
-        this.worldgeneratorFern = new WorldGenGrass(Blocks.tallgrass.getStateFromMeta(2), 2);
-        this.worldgeneratorLargeFern = new WorldGenGrass(Blocks.double_plant.getStateFromMeta(3), 3);
+        this.worldgeneratorGrass = new WorldGenGrass(Blocks.TALLGRASS.getStateFromMeta(1), 1);
+        this.worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(2), 2);
+        this.worldgeneratorFern = new WorldGenGrass(Blocks.TALLGRASS.getStateFromMeta(2), 2);
+        this.worldgeneratorLargeFern = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(3), 3);
         this.worldgeneratorVines = new WorldGenVinesRTG();
 
         this.addDecoTypes(DecoType.GRASS, DecoType.VINE);

@@ -35,7 +35,7 @@ public class DecoBoulder extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.boulderBlock = Blocks.cobblestone.getDefaultState();
+        this.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         this.strengthFactor = 2f;
         this.minY = 60; // Sensible lower height limit by default.
         this.maxY = 255; // No upper height limit by default.
@@ -62,7 +62,7 @@ public class DecoBoulder extends DecoBase {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
                     if (hasPlacedVillageBlocks) {
-                        if (!worldUtil.isSurroundedByBlock(Blocks.air.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, i1, k1, j1)) {
+                        if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, i1, k1, j1)) {
                             return;
                         }
                     }

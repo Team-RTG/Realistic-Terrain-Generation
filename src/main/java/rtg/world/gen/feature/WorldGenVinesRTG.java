@@ -17,8 +17,8 @@ public class WorldGenVinesRTG extends WorldGenerator {
         for (; position.getY() < 128; position = position.up()) {
             if (worldIn.isAirBlock(position)) {
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings()) {
-                    if (Blocks.vine.canPlaceBlockOnSide(worldIn, position, enumfacing)) {
-                        IBlockState iblockstate = Blocks.vine.getDefaultState()
+                    if (Blocks.VINE.canPlaceBlockOnSide(worldIn, position, enumfacing)) {
+                        IBlockState iblockstate = Blocks.VINE.getDefaultState()
                             .withProperty(BlockVine.NORTH, enumfacing == EnumFacing.SOUTH)
                             .withProperty(BlockVine.EAST, enumfacing == EnumFacing.WEST)
                             .withProperty(BlockVine.SOUTH, enumfacing == EnumFacing.NORTH)

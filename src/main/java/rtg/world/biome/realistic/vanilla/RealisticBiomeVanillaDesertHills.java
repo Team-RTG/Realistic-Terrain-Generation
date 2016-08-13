@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -28,7 +29,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
             Biome.desertHills,
             Biome.river,
             new TerrainVanillaDesertHills(10f, 90f, 30f, 180f),
-            new SurfaceVanillaDesertHills(config, Blocks.sand.getDefaultState(), Blocks.sandstone.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
+            new SurfaceVanillaDesertHills(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
         this.waterSurfaceLakeChance = 0;

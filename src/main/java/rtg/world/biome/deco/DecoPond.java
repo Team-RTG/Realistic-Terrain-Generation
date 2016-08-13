@@ -19,7 +19,7 @@ import rtg.world.gen.feature.WorldGenPond;
 public class DecoPond extends DecoBase {
 
     public int chunksPerPond;
-    private WorldGenerator pondGenerator = new WorldGenPond(Blocks.water.getDefaultState());
+    private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
 
     @Override
     public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {

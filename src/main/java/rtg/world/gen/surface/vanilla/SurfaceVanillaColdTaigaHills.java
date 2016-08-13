@@ -62,10 +62,10 @@ public class SurfaceVanillaColdTaigaHills extends SurfaceBase {
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {
@@ -100,7 +100,7 @@ public class SurfaceVanillaColdTaigaHills extends SurfaceBase {
                         primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.snow.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SNOW.getDefaultState());
                     }
                     else if (k < 63) {
                         if (beach) {
@@ -115,7 +115,7 @@ public class SurfaceVanillaColdTaigaHills extends SurfaceBase {
                         }
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
                     }
                 }
                 else if (depth < 6) {
@@ -126,13 +126,13 @@ public class SurfaceVanillaColdTaigaHills extends SurfaceBase {
                         primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.snow.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SNOW.getDefaultState());
                     }
                     else if (gravel) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.gravel.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRAVEL.getDefaultState());
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
                     }
                 }
             }

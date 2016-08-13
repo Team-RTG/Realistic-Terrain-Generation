@@ -27,7 +27,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             mutationBiome,
             Biome.river,
             new TerrainVanillaFlowerForest(),
-            new SurfaceVanillaFlowerForest(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.grass.getDefaultState(), 0.05f)
+            new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f)
         );
 
         // First, let's get a few shrubs in to break things up a bit.
@@ -54,8 +54,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         // Trees first.
 
         TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
-        ponderosaOakTree.logBlock = Blocks.log.getDefaultState();
-        ponderosaOakTree.leavesBlock = Blocks.leaves.getDefaultState();
+        ponderosaOakTree.logBlock = Blocks.LOG.getDefaultState();
+        ponderosaOakTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         ponderosaOakTree.minTrunkSize = 11;
         ponderosaOakTree.maxTrunkSize = 21;
         ponderosaOakTree.minCrownSize = 15;
@@ -74,8 +74,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.maxY = 140;
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = Blocks.log.getStateFromMeta(1);
-        ponderosaSpruceTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        ponderosaSpruceTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        ponderosaSpruceTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         ponderosaSpruceTree.minTrunkSize = 11;
         ponderosaSpruceTree.maxTrunkSize = 21;
         ponderosaSpruceTree.minCrownSize = 15;
@@ -109,16 +109,16 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenOak.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenOak.logConditionChance = 8;
         decoFallenOak.maxY = 100;
-        decoFallenOak.logBlock = Blocks.log.getDefaultState();
-        decoFallenOak.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenOak.logBlock = Blocks.LOG.getDefaultState();
+        decoFallenOak.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 8;
         decoFallenSpruce.maxY = 100;
-        decoFallenSpruce.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenSpruce.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);

@@ -49,7 +49,7 @@ public class DecoGrass extends DecoBase {
         this.loops = 1;
         this.chance = 1;
         this.notEqualsZerochance = 1;
-        this.block = Blocks.tallgrass.getStateFromMeta(1);
+        this.block = Blocks.TALLGRASS.getStateFromMeta(1);
         this.meta = 1;
         this.randomGrassBlocks = new IBlockState[]{};
         this.randomGrassMetas = new byte[]{};

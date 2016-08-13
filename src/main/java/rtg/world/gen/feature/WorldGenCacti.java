@@ -21,7 +21,7 @@ public class WorldGenCacti extends WorldGenerator {
 
     public WorldGenCacti(boolean sandOnly, int extraHeight) {
 
-        this(sandOnly, extraHeight, Blocks.sand.getDefaultState());
+        this(sandOnly, extraHeight, Blocks.SAND.getDefaultState());
     }
 
     public WorldGenCacti(boolean sandOnly, int extraHeight, IBlockState soilBlock) {
@@ -46,15 +46,15 @@ public class WorldGenCacti extends WorldGenerator {
 
             if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1));
-                if (b == this.soilBlock || (!sand && (b == Blocks.grass.getDefaultState() || b == Blocks.dirt.getDefaultState()))) {
+                if (b == this.soilBlock || (!sand && (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()))) {
                     int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
-                    if (b == Blocks.grass.getDefaultState() || b == Blocks.dirt.getDefaultState()) {
+                    if (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()) {
                         world.setBlockState(new BlockPos(i1, j1 - 1, k1), this.soilBlock, 2);
                     }
 
                     for (int i2 = 0; i2 < l1 + eHeight; ++i2) {
-                        if (Blocks.cactus.canBlockStay(world, new BlockPos(i1, j1 + i2, k1))) {
-                            world.setBlockState(new BlockPos(i1, j1 + i2, k1), Blocks.cactus.getDefaultState(), 2);
+                        if (Blocks.CACTUS.canBlockStay(world, new BlockPos(i1, j1 + i2, k1))) {
+                            world.setBlockState(new BlockPos(i1, j1 + i2, k1), Blocks.CACTUS.getDefaultState(), 2);
                         }
                     }
                 }

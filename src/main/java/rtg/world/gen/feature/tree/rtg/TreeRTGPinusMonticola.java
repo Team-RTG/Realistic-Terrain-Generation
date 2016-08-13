@@ -30,9 +30,9 @@ public class TreeRTGPinusMonticola extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)0;<br>
      * decoTree.minTrunkSize = 2;<br>
      * decoTree.maxTrunkSize = 3;<br>
@@ -84,7 +84,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
 
                             if (!block.getBlock().isAir(world, pos2)
                                 && !block.getBlock().isLeaves(world, pos2)
-                                && block != Blocks.snow_layer.getDefaultState()) {
+                                && block != Blocks.SNOW_LAYER.getDefaultState()) {
                                 flag = false;
                             }
                         }
@@ -152,7 +152,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
 
                         if (block2.getBlock().isAir(world, pos4)
                             || block2.getBlock().isLeaves(world, pos4)
-                            || block2 == Blocks.snow_layer.getDefaultState()) {
+                            || block2 == Blocks.SNOW_LAYER.getDefaultState()) {
                             world.setBlockState(new BlockPos(x, y + k2, z), this.logBlock, this.generateFlag);
                         }
                     }
@@ -182,7 +182,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
         for (int t = 0; t < (pos.length / 2); t++) {
             sh = rand.nextInt(4) + y - 2;
             while (sh > y - 1) {
-                if (world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])) == Blocks.grass.getDefaultState()) {
+                if (world.getBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1])) == Blocks.GRASS.getDefaultState()) {
                     break;
                 }
 

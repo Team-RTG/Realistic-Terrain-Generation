@@ -21,8 +21,8 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
     public DecoCollectionSmallPineTreesForest() {
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getDefaultState();
-        sitchensisTree.leavesBlock = Blocks.leaves.getDefaultState();
+        sitchensisTree.logBlock = Blocks.LOG.getDefaultState();
+        sitchensisTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         sitchensisTree.minTrunkSize = 4;
         sitchensisTree.maxTrunkSize = 10;
         sitchensisTree.minCrownSize = 6;

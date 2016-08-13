@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForestM;
@@ -31,15 +32,15 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.noLakes = true;
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.mossy_cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
         decoBoulder.chance = 20;
         decoBoulder.maxY = 80;
         decoBoulder.strengthFactor = 2f;
         this.addDeco(decoBoulder);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
-        mucronataTree.logBlock = Blocks.log2.getStateFromMeta(1);
-        mucronataTree.leavesBlock = Blocks.leaves2.getStateFromMeta(1);
+        mucronataTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
+        mucronataTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
         mucronataTree.minTrunkSize = 3;
         mucronataTree.maxTrunkSize = 4;
         mucronataTree.minCrownSize = 7;
@@ -62,8 +63,8 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.ALWAYS_GENERATE;
         decoFallenTree.logConditionChance = 1;
         decoFallenTree.loops = 4;
-        decoFallenTree.logBlock = Blocks.log2.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.leaves2.getStateFromMeta(1);
+        decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRoofedForestM.decorationLogsId));

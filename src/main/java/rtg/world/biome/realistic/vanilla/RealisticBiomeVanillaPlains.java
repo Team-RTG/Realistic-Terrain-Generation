@@ -30,8 +30,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.logBlock = Blocks.log.getDefaultState();
-        decoShrubOak.leavesBlock = Blocks.leaves.getDefaultState();
+        decoShrubOak.logBlock = Blocks.LOG.getDefaultState();
+        decoShrubOak.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoShrubOak.maxY = 110;
         decoShrubOak.loops = 1;
         decoShrubOak.chance = 36;
@@ -54,8 +54,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // Very rare fat oak/birch trees.
 
         TreeRTG roburTree1 = new TreeRTGQuercusRobur();
-        roburTree1.logBlock = Blocks.log.getDefaultState();
-        roburTree1.leavesBlock = Blocks.leaves.getDefaultState();
+        roburTree1.logBlock = Blocks.LOG.getDefaultState();
+        roburTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
         roburTree1.minTrunkSize = 3;
         roburTree1.maxTrunkSize = 5;
         roburTree1.minCrownSize = 7;
@@ -70,8 +70,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         oakTrees.treeConditionChance = 48;
 
         TreeRTG roburTree2 = new TreeRTGQuercusRobur();
-        roburTree2.logBlock = Blocks.log.getStateFromMeta(2);
-        roburTree2.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        roburTree2.logBlock = Blocks.LOG.getStateFromMeta(2);
+        roburTree2.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         roburTree2.minTrunkSize = 3;
         roburTree2.maxTrunkSize = 5;
         roburTree2.minCrownSize = 7;

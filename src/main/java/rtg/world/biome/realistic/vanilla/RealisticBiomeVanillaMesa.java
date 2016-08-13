@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.BlockSand;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -31,8 +32,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             new TerrainVanillaMesa(),
             new SurfaceVanillaMesa(
                 config,
-                Blocks.sand.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
-                Blocks.stained_hardened_clay.getStateFromMeta(1),
+                Blocks.SAND.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
+                Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1),
                 0
             )
         );
@@ -42,7 +43,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.maxY = 83;
         this.addDeco(decoBoulder);
 
@@ -57,7 +58,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = Blocks.sand;
+        decoCactus.soilBlock = Blocks.SAND;
         decoCactus.soilMeta = (byte) 1;
         decoCactus.loops = 18;
         decoCactus.maxY = 100;

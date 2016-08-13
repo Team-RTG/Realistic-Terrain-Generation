@@ -54,10 +54,10 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
         Block b;
         for (int k = 255; k > -1; k--) {
             b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {
@@ -76,10 +76,10 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
                     }
 
                     if (cliff == 1) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(0));
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getStateFromMeta(0));
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(0));
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getStateFromMeta(0));
                     }
                     else if (k < 63) {
                         if (beach) {
@@ -99,10 +99,10 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(0));
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getStateFromMeta(0));
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getStateFromMeta(0));
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getStateFromMeta(0));
                     }
                     else if (gravel) {
                         primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);

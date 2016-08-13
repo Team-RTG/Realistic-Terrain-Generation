@@ -42,10 +42,10 @@ public class SurfaceVanillaColdBeach extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {
@@ -71,7 +71,7 @@ public class SurfaceVanillaColdBeach extends SurfaceBase {
                         }
                         else {
                             if (k < 69) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getStateFromMeta(sandMetadata));
+                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
                             } // else probably steep shore so leave stone
 
                         }
@@ -82,12 +82,12 @@ public class SurfaceVanillaColdBeach extends SurfaceBase {
                         }
                         else {
                             if (k < 69) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sand.getStateFromMeta(sandMetadata));
+                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
                             }
                         }
                     }
                     else if (!dirt) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.sandstone.getDefaultState());
+                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getDefaultState());
                     }
                 }
             }

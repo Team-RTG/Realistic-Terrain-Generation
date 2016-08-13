@@ -24,9 +24,9 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
      * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
      * decoTree.treeConditionNoise = 0f;<br>
      * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.logBlock = Blocks.LOG;<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.leavesBlock = Blocks.LEAVES;<br>
      * decoTree.leavesMeta = (byte)0;<br>
      * decoTree.noLeaves = false;<br>
      * this.addDeco(decoTree);
@@ -37,7 +37,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
 
         super();
 
-        this.setLogBlock(Blocks.log.getStateFromMeta(0)).setLeavesBlock(Blocks.leaves.getStateFromMeta(0));
+        this.setLogBlock(Blocks.LOG.getStateFromMeta(0)).setLeavesBlock(Blocks.LEAVES.getStateFromMeta(0));
     }
 
     @Override
@@ -53,10 +53,10 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
             for (int c3 = -2; c3 <= 2; c3++) {
                 for (int c2 = -1; c2 <= 1; c2++) {
                     cb = world.getBlockState(new BlockPos(x + c1, y + c2, z + c3));
-                    if (cb == Blocks.grass.getDefaultState()) {
+                    if (cb == Blocks.GRASS.getDefaultState()) {
                         earth = true;
                     }
-                    else if (cb == Blocks.water.getDefaultState()) {
+                    else if (cb == Blocks.WATER.getDefaultState()) {
                         water = true;
                     }
                 }

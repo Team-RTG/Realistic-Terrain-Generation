@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
@@ -26,14 +27,14 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
             Biome.birchForestHills,
             Biome.river,
             new TerrainVanillaBirchForestHills(),
-            new SurfaceVanillaBirchForestHills(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.10f)
+            new SurfaceVanillaBirchForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
         );
 
         this.noLakes = true;
 
         TreeRTG birchSmall = new TreeRTGBetulaPapyrifera();
-        birchSmall.logBlock = Blocks.log.getStateFromMeta(2);
-        birchSmall.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        birchSmall.logBlock = Blocks.LOG.getStateFromMeta(2);
+        birchSmall.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         birchSmall.minTrunkSize = 4;
         birchSmall.maxTrunkSize = 10;
         birchSmall.minCrownSize = 8;
@@ -51,8 +52,8 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         this.addDeco(smallBirch);
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.logBlock = Blocks.log.getStateFromMeta(2);
-        birchTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        birchTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        birchTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         birchTree.minTrunkSize = 4;
         birchTree.maxTrunkSize = 10;
         birchTree.minCrownSize = 8;
@@ -85,8 +86,8 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 8;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(2);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestHills.decorationLogsId));

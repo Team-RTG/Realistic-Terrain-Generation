@@ -137,7 +137,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
         if (!this.noLeaves) {
 
             IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-            if (b.getBlock().getMaterial() == Material.air) {
+            if (b.getMaterial() == Material.AIR) {
                 world.setBlockState(new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
             }
         }

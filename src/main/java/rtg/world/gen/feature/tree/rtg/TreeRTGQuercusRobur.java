@@ -7,8 +7,8 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
@@ -129,7 +129,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
                     BlockPos blockpos = p_181631_1_.add(j, 0, k);
                     net.minecraft.block.state.IBlockState state = this.world.getBlockState(blockpos);
 
-                    if (state.getBlock().isAir(this.world, blockpos) || state.getBlock().isLeaves(this.world, blockpos)) {
+                    if (state.getBlock().isAir(state, this.world, blockpos) || state.getBlock().isLeaves(state, this.world, blockpos)) {
                         this.setBlockAndNotifyAdequately(this.world, blockpos, p_181631_3_);
                     }
                 }
@@ -343,7 +343,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
         BlockPos down = this.basePos.down();
         net.minecraft.block.state.IBlockState state = this.world.getBlockState(down);
-        boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.SAPLING));
+        boolean isSoil = state.getBlock().canSustainPlant(state, this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.SAPLING));
 
         if (!isSoil) {
             Logger.debug("Invalid tree location! Ground block is not soil.");
@@ -369,8 +369,8 @@ public class TreeRTGQuercusRobur extends TreeRTG {
     private boolean isReplaceable(BlockPos pos) {
 
         IBlockState state = world.getBlockState(pos);
-        return state.getBlock().isAir(world, pos)
-            || state.getBlock().isLeaves(world, pos)
+        return state.getBlock().isAir(state, world, pos)
+            || state.getBlock().isLeaves(state, world, pos)
             || state.getBlock() == Blocks.SAPLING
             || state.getBlock().isWood(world, pos);
     }

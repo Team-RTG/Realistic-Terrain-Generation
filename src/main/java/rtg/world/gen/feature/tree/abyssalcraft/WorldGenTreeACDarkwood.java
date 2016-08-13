@@ -149,7 +149,7 @@ public class WorldGenTreeACDarkwood extends WorldGenerator {
     public void buildLeaves(World world, int x, int y, int z) {
 
         IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-        if (b.getBlock().getMaterial() == Material.AIR) {
+        if (b.getMaterial() == Material.AIR) {
             world.setBlockState(new BlockPos(x, y, z), ACBlocks.darklands_oak_leaves.getStateFromMeta(metadataLeaves), 2);
         }
     }

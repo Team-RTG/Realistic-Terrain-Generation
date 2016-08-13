@@ -104,31 +104,31 @@ public class WorldGenBlob extends WorldGenerator {
                         // Water check.
                         if (!this.water) {
 
-                            if (block.getBlock().getMaterial() == Material.water) {
+                            if (block.getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x, y - 1, z - 1)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x, y - 1, z - 1)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x, y - 1, z + 1)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x, y - 1, z + 1)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z - 1)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z - 1)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z + 1)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z + 1)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z - 1)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z - 1)).getMaterial() == Material.WATER) {
                                 return false;
                             }
-                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z + 1)).getBlock().getMaterial() == Material.water) {
+                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z + 1)).getMaterial() == Material.WATER) {
                                 return false;
                             }
                         }

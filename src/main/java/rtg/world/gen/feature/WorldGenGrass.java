@@ -40,7 +40,7 @@ public class WorldGenGrass extends WorldGenerator {
         int y = pos.getY();
         int z = pos.getZ();
         while (y > 0) {
-            if (!world.isAirBlock(new BlockPos(x, y, z)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world, new BlockPos(x, y, z))) {
+            if (!world.isAirBlock(new BlockPos(x, y, z)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
                 break;
             }
             y--;

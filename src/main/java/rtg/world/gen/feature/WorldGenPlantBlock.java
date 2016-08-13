@@ -35,7 +35,7 @@ public class WorldGenPlantBlock extends WorldGenerator {
             int j1 = y + rand.nextInt(4) - rand.nextInt(4);
             int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-            if (world.isAirBlock(new BlockPos(i1, j1, k1)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world, new BlockPos(x, y, z))) {
+            if (world.isAirBlock(new BlockPos(i1, j1, k1)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1));
                 if (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()) {
                     if (plantBlock.getBlock().canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {

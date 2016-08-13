@@ -25,7 +25,7 @@ public class WorldGenClayRTG extends WorldGenerator {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
-        if (world.getBlockState(pos).getBlock().getMaterial() != Material.water) {
+        if (world.getBlockState(pos).getMaterial() != Material.WATER) {
             return false;
         }
         else {

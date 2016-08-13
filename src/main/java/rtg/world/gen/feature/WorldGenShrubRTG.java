@@ -69,13 +69,13 @@ public class WorldGenShrubRTG extends WorldGenerator {
             return;
         }
 
-        if (b.getBlock().getMaterial() == Material.grass || b.getBlock().getMaterial() == Material.ground || (sand && b.getBlock().getMaterial() == Material.sand)) {
+        if (b.getMaterial() == Material.GRASS || b.getMaterial() == Material.GROUND || (sand && b.getMaterial() == Material.SAND)) {
             if (b1 != Blocks.WATER.getDefaultState()) {
                 if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
 
-                    if (b1.getBlock().getMaterial() != Material.AIR &&
-                        b1.getBlock().getMaterial() != Material.vine &&
-                        b1.getBlock().getMaterial() != Material.plants &&
+                    if (b1.getMaterial() != Material.AIR &&
+                        b1.getMaterial() != Material.VINE &&
+                        b1.getMaterial() != Material.PLANTS &&
                         b1 != Blocks.SNOW_LAYER.getDefaultState()) {
                         return;
                     }
@@ -98,7 +98,7 @@ public class WorldGenShrubRTG extends WorldGenerator {
     public void buildBlock(World world, int x, int y, int z, IBlockState block) {
 
         IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-        if (b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.VINE || b.getBlock().getMaterial() == Material.PLANTS || b == Blocks.SNOW_LAYER) {
+        if (b.getMaterial() == Material.AIR || b.getMaterial() == Material.VINE || b.getMaterial() == Material.PLANTS || b == Blocks.SNOW_LAYER) {
             world.setBlockState(new BlockPos(x, y, z), block, 0);
         }
     }

@@ -60,7 +60,7 @@ public class WorldGenLog extends WorldGenerator {
         ArrayList<IBlockState> aBlock = new ArrayList<IBlockState>();
         for (i = 0; i < logLength; i++) {
             b = world.getBlockState(new BlockPos(x - (dir == 0 ? 1 : 0), y, z - (dir == 1 ? 1 : 0)));
-            if (b.getBlock().getMaterial() != Material.air && b.getBlock().getMaterial() != Material.vine && b.getBlock().getMaterial() != Material.plants) {
+            if (b.getBlock().getMaterial() != Material.AIR && b.getBlock().getMaterial() != Material.vine && b.getBlock().getMaterial() != Material.plants) {
                 break;
             }
 
@@ -74,7 +74,7 @@ public class WorldGenLog extends WorldGenerator {
 
         for (i = 0; i < logLength * 2; i++) {
             b = world.getBlockState(new BlockPos(x + (dir == 0 ? 1 : 0), y, z + (dir == 1 ? 1 : 0)));
-            if (b.getBlock().getMaterial() != Material.air && b.getBlock().getMaterial() != Material.vine && b.getBlock().getMaterial() != Material.plants) {
+            if (b.getBlock().getMaterial() != Material.AIR && b.getBlock().getMaterial() != Material.vine && b.getBlock().getMaterial() != Material.plants) {
                 break;
             }
 
@@ -120,9 +120,9 @@ public class WorldGenLog extends WorldGenerator {
     private int airCheck(World world, Random rand, int x, int y, int z) {
 
         IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.water || b.getBlock().getMaterial() == Material.plants) {
+        if (b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.water || b.getBlock().getMaterial() == Material.plants) {
             b = world.getBlockState(new BlockPos(x, y - 2, z));
-            if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.water || b.getBlock().getMaterial() == Material.plants) {
+            if (b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.water || b.getBlock().getMaterial() == Material.plants) {
                 return 99;
             }
             return 1;
@@ -136,27 +136,27 @@ public class WorldGenLog extends WorldGenerator {
         IBlockState b;
         if (dir == 0) {
             b = world.getBlockState(new BlockPos(x, y, z - 1));
-            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+            if ((b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
                 world.setBlockState(new BlockPos(x, y, z - 1), leavesBlock, 2);
             }
             b = world.getBlockState(new BlockPos(x, y, z + 1));
-            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+            if ((b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
                 world.setBlockState(new BlockPos(x, y, z + 1), leavesBlock, 2);
             }
         }
         else {
             b = world.getBlockState(new BlockPos(x - 1, y, z));
-            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+            if ((b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
                 world.setBlockState(new BlockPos(x - 1, y, z), leavesBlock, 2);
             }
             b = world.getBlockState(new BlockPos(x + 1, y, z));
-            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+            if ((b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
                 world.setBlockState(new BlockPos(x + 1, y, z), leavesBlock, 2);
             }
         }
 
         b = world.getBlockState(new BlockPos(x, y + 1, z));
-        if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+        if ((b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
             world.setBlockState(new BlockPos(x, y + 1, z), leavesBlock, 2);
         }
     }

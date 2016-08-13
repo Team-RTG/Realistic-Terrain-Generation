@@ -73,7 +73,7 @@ public class WorldGenShrubRTG extends WorldGenerator {
             if (b1 != Blocks.WATER.getDefaultState()) {
                 if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
 
-                    if (b1.getBlock().getMaterial() != Material.air &&
+                    if (b1.getBlock().getMaterial() != Material.AIR &&
                         b1.getBlock().getMaterial() != Material.vine &&
                         b1.getBlock().getMaterial() != Material.plants &&
                         b1 != Blocks.SNOW_LAYER.getDefaultState()) {

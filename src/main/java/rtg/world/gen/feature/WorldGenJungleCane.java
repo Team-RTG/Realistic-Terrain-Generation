@@ -52,10 +52,10 @@ public class WorldGenJungleCane extends WorldGenerator {
             ra = rand.nextInt(height * 2 + 1) + height;
 
             b = world.getBlockState(new BlockPos(sx, y + 1, sz));
-            if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine) {
+            if (b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine) {
                 for (int k = 0; k < ra; k++) {
                     b = world.getBlockState(new BlockPos(sx, y + 1 + k, sz));
-                    if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine) {
+                    if (b.getBlock().getMaterial() == Material.AIR || b.getBlock().getMaterial() == Material.vine) {
                         world.setBlockState(new BlockPos(sx, y + 1 + k, sz), Blocks.REEDS.getDefaultState(), 2);
                     }
                     else {

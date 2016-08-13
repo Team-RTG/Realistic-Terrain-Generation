@@ -6,7 +6,6 @@ import java.util.WeakHashMap;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -236,7 +235,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
                 return;
             }
 
@@ -254,7 +253,7 @@ public class EventManagerRTG {
             IBlockState saplingBlock = world.getBlockState(event.getPos());
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
-            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
+            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getBiomeProvider();
             //Biome bgg = cmr.getBiomeGenAt(x, z);
             Biome bgg = world.getBiome(event.getPos());
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(BiomeUtils.getId(bgg));

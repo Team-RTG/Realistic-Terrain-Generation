@@ -19,10 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.Acceptor;
-import rtg.util.Logger;
-import rtg.util.RandomUtil;
-import rtg.util.SaplingUtil;
+import rtg.util.*;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -69,7 +66,7 @@ public class EventManagerRTG {
                 return;
             }
 
-            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimensionId());
+            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
             if (acceptor != null) {
                 acceptor.accept(event);
             }
@@ -170,21 +167,9 @@ public class EventManagerRTG {
         @SubscribeEvent(priority = EventPriority.LOW)
         public void initMapGenRTG(InitMapGenEvent event) {
 
-            // If the Overworld isn't an RTG dimension, then we definitely don't want to get involved here.
-            // We need to do a try/catch because sometimes this event gets fired before the Overworld has loaded.
-            try {
-                if (!(MinecraftServer.getServer().worldServerForDimension(0).getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
-                    return;
-                }
-            }
-            catch (Exception e) {
-
-                Logger.debug("Overworld not loaded... checking global variable.");
-
-                // Let's do one last sanity check to make sure it's safe to proceed.
-                if (!isWorldTypeRTG) {
-                    return;
-                }
+            // Are we in an RTG world?
+            if (!isWorldTypeRTG) {
+                return;
             }
 
             Logger.debug("event type = %s", event.getType().toString());
@@ -271,11 +256,11 @@ public class EventManagerRTG {
 
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
             //Biome bgg = cmr.getBiomeGenAt(x, z);
-            Biome bgg = world.getBiomeGenForCoords(event.pos);
-            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
+            Biome bgg = world.getBiome(event.getPos());
+            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(BiomeUtils.getId(bgg));
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
 
-            Logger.debug("Biome = %s", rb.baseBiome.biomeName);
+            Logger.debug("Biome = %s", BiomeUtils.getName(rb.baseBiome));
             Logger.debug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
             Logger.debug("Ground Sapling Meta = %d", saplingMeta);
 

@@ -25,12 +25,6 @@ import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
-import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
-import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
-import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
-import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
-import rtg.world.biome.realistic.minestrappolation.RealisticBiomeMSBase;
-import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
@@ -92,13 +86,7 @@ public class RTG {
 
         RealisticBiomeVanillaBase.addBiomes();
 
-        RealisticBiomeBOPBase.addBiomes();
-        RealisticBiomeTCBase.addBiomes();
-        RealisticBiomeBCBase.addBiomes();
-        RealisticBiomeHLBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
-        RealisticBiomeMSBase.addBiomes();
-        RealisticBiomeFCBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

@@ -190,7 +190,7 @@ public class ConfigRTG {
 
     public static boolean enableStrongholdModifications = true;
     public static boolean generateStrongholds = true;
-    public static int strongholdCount = 3; // Vanilla = 3 (Minimum = 1)
+    public static int strongholdCount = 128; // Vanilla = 128 (Minimum = 1)
     public static int strongholdDistance = 32; // Vanilla = 32 (Minimum = 1)
     public static int strongholdSpread = 3; // Vanilla = 3 (Minimum = 1)
 
@@ -664,7 +664,7 @@ public class ConfigRTG {
                 strongholdSpread,
                 1,
                 Integer.MAX_VALUE,
-                "This setting determines how concentrated strongholds are around the spawn (minimum is 1, default is 3). Lower number, lower concentration."
+                "This setting determines how concentrated strongholds are around the spawn."
                     + Configuration.NEW_LINE +
                     "LOWER values = LOWER concentration around spawn. (3 = Vanilla)"
                     + Configuration.NEW_LINE

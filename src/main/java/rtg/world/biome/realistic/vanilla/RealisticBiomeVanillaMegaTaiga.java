@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaiga;
@@ -13,14 +13,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaiga;
 
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biome.megaTaiga.topBlock;
-    public static IBlockState fillerBlock = Biome.megaTaiga.fillerBlock;
+    public static IBlockState topBlock = Biomes.REDWOOD_TAIGA.topBlock;
+    public static IBlockState fillerBlock = Biomes.REDWOOD_TAIGA.fillerBlock;
 
     public RealisticBiomeVanillaMegaTaiga(BiomeConfig config) {
 
         super(config,
-            Biome.megaTaiga,
-            Biome.river,
+            Biomes.REDWOOD_TAIGA,
+            Biomes.RIVER,
             new TerrainVanillaMegaTaiga(),
             new SurfaceVanillaMegaTaiga(config, topBlock, fillerBlock)
         );

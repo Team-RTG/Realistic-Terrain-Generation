@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -23,7 +24,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.mesa;
+    public static Biome standardBiome = Biomes.MESA;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -33,7 +34,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
             new SurfaceVanillaMesaBryce(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1), 0)
         );

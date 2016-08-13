@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
@@ -13,7 +14,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaRedwoodTaigaHills;
 
 public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.megaTaigaHills;
+    public static Biome standardBiome = Biomes.REDWOOD_TAIGA_HILLS;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -23,7 +24,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaRedwoodTaigaHills(),
             new SurfaceVanillaRedwoodTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), true, Blocks.SAND.getDefaultState(), 0.2f)
         );

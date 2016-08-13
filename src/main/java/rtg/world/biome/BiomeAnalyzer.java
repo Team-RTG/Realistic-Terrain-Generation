@@ -1,6 +1,9 @@
 
 package rtg.world.biome;
 
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
+
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -71,7 +74,7 @@ public class BiomeAnalyzer {
                 oceanBiome[index] = true;
             }
         }
-        oceanBiome[Biome.deepOcean.biomeID]=true;// not getting set?
+        oceanBiome[Biomes.DEEP_OCEAN.biomeID]=true;// not getting set?
     }
 
     private void determineSwampBiomes() {
@@ -127,7 +130,7 @@ public class BiomeAnalyzer {
             if (Biome.getBiome(index).biomeName.toLowerCase().equals("shield")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeID==Biome.frozenRiver.biomeID) {
+            if (Biome.getBiome(index).biomeID==Biomes.FROZEN_RIVER.biomeID) {
                 swampBiome[index] = true;
             }
         }
@@ -174,23 +177,23 @@ public class BiomeAnalyzer {
                 if (realisticVersion.disallowAllBeaches) preferredBeach[index] = index;
             }
             if (Biome.getBiome(index).temperature <= 0.05f) {
-                preferredBeach[index]= Biome.coldBeach.biomeID;
+                preferredBeach[index]= Biomes.COLD_BEACH.biomeID;
                 continue;
             } // implied else;
 
             // sand beach if set to no stone beach
             if (realisticVersion != null) {
                 if (realisticVersion.disallowStoneBeaches) {
-                    preferredBeach[index] = Biome.beach.biomeID;
+                    preferredBeach[index] = Biomes.BEACH.biomeID;
                     continue;
                 }
             }// implied else;
             // this code from Climate Control and is still crude
             float height = Biome.getBiome(index).minHeight + Biome.getBiome(index).maxHeight*2;
             if ((height>(1.0f+0.5))) {
-                preferredBeach[index] = Biome.stoneBeach.biomeID;
+                preferredBeach[index] = Biomes.STONE_BEACH.biomeID;
             } else {
-                preferredBeach[index] = Biome.beach.biomeID;
+                preferredBeach[index] = Biomes.BEACH.biomeID;
             }
 
         }
@@ -290,7 +293,7 @@ public class BiomeAnalyzer {
                 if (!oceanBiome[jitteredBiomes[i].baseBiome.biomeID]&&!swampBiome[jitteredBiomes[i].baseBiome.biomeID]&&!beachBiome[jitteredBiomes[i].baseBiome.biomeID]) {
                     // make river
                     int riverReplacement = jitteredBiomes[i].riverBiome.biomeID;
-                    if (riverReplacement == Biome.frozenRiver.biomeID) {
+                    if (riverReplacement == Biomes.FROZEN_RIVER.biomeID) {
                         jitteredBiomes[i] = scenicFrozenLakeBiome;
                     } else {
                         jitteredBiomes[i] = scenicLakeBiome;

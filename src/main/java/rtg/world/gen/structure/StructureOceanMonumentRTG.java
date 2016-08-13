@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.monster.EntityGuardian;
+import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -36,11 +37,11 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     private int field_175800_f;
     private int field_175801_g;
     public static final List<Biome> field_175802_d = Arrays.<Biome>asList(new Biome[] {
-        Biome.ocean,
-        Biome.deepOcean,
-        Biome.river,
-        Biome.frozenOcean,
-        Biome.frozenRiver
+        Biomes.OCEAN,
+        Biomes.DEEP_OCEAN,
+        Biomes.RIVER,
+        Biomes.FROZEN_OCEAN,
+        Biomes.FROZEN_RIVER
     });
     private static final List<Biome.SpawnListEntry> field_175803_h = Lists.<Biome.SpawnListEntry>newArrayList();
 
@@ -91,7 +92,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         l = l + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
 
         if (i == k && j == l) {
-            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (Biome)null) != Biome.deepOcean) {
+            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (Biome)null) != Biomes.DEEP_OCEAN) {
                 return false;
             }
 

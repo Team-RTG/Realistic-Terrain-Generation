@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
@@ -10,7 +11,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.icePlains;
+    public static Biome standardBiome = Biomes.ICE_PLAINS;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -20,7 +21,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 
         super(config,
             mutationBiome,
-            Biome.frozenRiver,
+            Biomes.FROZEN_RIVER,
             new TerrainVanillaIcePlainsSpikes(),
             new SurfaceVanillaIcePlainsSpikes(config, topBlock, fillerBlock, topBlock, topBlock)
         );

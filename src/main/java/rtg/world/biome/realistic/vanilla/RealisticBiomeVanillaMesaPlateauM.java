@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -22,7 +23,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauM;
 
 public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.mesaPlateau;
+    public static Biome standardBiome = Biomes.MESA_CLEAR_ROCK;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -32,7 +33,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f),
             new SurfaceVanillaMesaPlateauM(
                 config,

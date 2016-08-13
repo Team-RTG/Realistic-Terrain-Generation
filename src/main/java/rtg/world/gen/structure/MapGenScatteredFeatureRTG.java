@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import net.minecraft.entity.monster.EntityWitch;
+import net.minecraft.init.Biomes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -37,7 +38,7 @@ import rtg.util.Logger;
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
-    private static List biomelist = Arrays.asList(Biome.desert, Biome.desertHills, Biome.jungle, Biome.jungleHills, Biome.swampland);
+    private static List biomelist = Arrays.asList(Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND);
 
     /**
      * contains possible spawns for scattered features

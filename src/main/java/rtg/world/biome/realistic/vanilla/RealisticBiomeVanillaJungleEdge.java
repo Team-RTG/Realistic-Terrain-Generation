@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 
 import rtg.api.biome.BiomeConfig;
@@ -12,14 +13,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdge;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biome.jungleEdge.topBlock;
-    public static IBlockState fillerBlock = Biome.jungleEdge.fillerBlock;
+    public static IBlockState topBlock = Biomes.JUNGLE_EDGE.topBlock;
+    public static IBlockState fillerBlock = Biomes.JUNGLE_EDGE.fillerBlock;
 
     public RealisticBiomeVanillaJungleEdge(BiomeConfig config) {
 
         super(config,
-            Biome.jungleEdge,
-            Biome.river,
+            Biomes.JUNGLE_EDGE,
+            Biomes.RIVER,
             new TerrainVanillaJungleEdge(),
             new SurfaceVanillaJungleEdge(config, topBlock, fillerBlock)
         );

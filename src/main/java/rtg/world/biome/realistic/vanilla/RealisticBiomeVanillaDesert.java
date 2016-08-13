@@ -2,7 +2,9 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -20,10 +22,10 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert(BiomeConfig config) {
 
         super(config,
-            Biome.desert,
-            Biome.river,
+            Biomes.DESERT,
+            Biomes.RIVER,
             new TerrainVanillaDesert(),
-            new SurfaceVanillaDesert(config, Biome.desert.topBlock, Biome.desert.fillerBlock)
+            new SurfaceVanillaDesert(config, Biomes.DESERT.topBlock, Biomes.DESERT.fillerBlock)
         );
 
         this.waterSurfaceLakeChance = 0;

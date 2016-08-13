@@ -1,7 +1,9 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestM;
@@ -13,7 +15,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestM;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.birchForest;
+    public static Biome standardBiome = Biomes.BIRCH_FOREST;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -23,7 +25,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaBirchForestM(),
             new SurfaceVanillaBirchForestM(config, topBlock, fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState(), 0.15f)
         );

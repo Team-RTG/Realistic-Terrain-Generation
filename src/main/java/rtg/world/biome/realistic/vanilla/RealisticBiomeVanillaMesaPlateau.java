@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -20,8 +21,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
-    private static final Biome biome = Biome.mesaPlateau;
-    private static final Biome river = Biome.river;
+    private static final Biome biome = Biomes.MESA_CLEAR_ROCK;
+    private static final Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
 

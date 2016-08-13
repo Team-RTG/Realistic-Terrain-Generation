@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -88,7 +89,7 @@ public class RealisticBiomeBase {
 
     public RealisticBiomeBase(BiomeConfig config, Biome biome) {
 
-        this(config, biome, Biome.river);
+        this(config, biome, Biomes.RIVER);
     }
 
     public RealisticBiomeBase(BiomeConfig config, Biome biome, Biome river) {

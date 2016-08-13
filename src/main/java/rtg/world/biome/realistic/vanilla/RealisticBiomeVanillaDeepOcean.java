@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -13,8 +13,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDeepOcean(BiomeConfig config) {
 
         super(config,
-            Biome.deepOcean,
-            Biome.river,
+            Biomes.DEEP_OCEAN,
+            Biomes.RIVER,
             new TerrainVanillaDeepOcean(),
             new SurfaceVanillaDeepOcean(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f)
         );

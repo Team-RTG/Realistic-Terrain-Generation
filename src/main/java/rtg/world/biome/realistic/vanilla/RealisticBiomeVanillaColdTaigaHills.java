@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 
 import rtg.api.biome.BiomeConfig;
@@ -13,8 +14,8 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaColdTaigaHills(BiomeConfig config) {
 
         super(config,
-            Biome.coldTaigaHills,
-            Biome.frozenRiver,
+            Biomes.COLD_TAIGA_HILLS,
+            Biomes.FROZEN_RIVER,
             new TerrainVanillaColdTaigaHills(),
             new SurfaceVanillaColdTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), true, Blocks.SAND.getDefaultState(), 0.2f)
         );

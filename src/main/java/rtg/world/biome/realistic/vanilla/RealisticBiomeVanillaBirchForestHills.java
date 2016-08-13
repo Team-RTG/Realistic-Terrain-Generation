@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
@@ -18,14 +18,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biome.birchForestHills.topBlock;
-    public static IBlockState fillerBlock = Biome.birchForestHills.fillerBlock;
+    public static IBlockState topBlock = Biomes.BIRCH_FOREST_HILLS.topBlock;
+    public static IBlockState fillerBlock = Biomes.BIRCH_FOREST_HILLS.fillerBlock;
 
     public RealisticBiomeVanillaBirchForestHills(BiomeConfig config) {
 
         super(config,
-            Biome.birchForestHills,
-            Biome.river,
+            Biomes.BIRCH_FOREST_HILLS,
+            Biomes.RIVER,
             new TerrainVanillaBirchForestHills(),
             new SurfaceVanillaBirchForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
         );

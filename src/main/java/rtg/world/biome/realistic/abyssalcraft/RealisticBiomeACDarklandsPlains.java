@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
@@ -13,7 +14,7 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
 
         super(config,
             acBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainACDarklandsPlains(),
             new SurfaceACDarklandsPlains(config, acBiome.topBlock, acBiome.fillerBlock)
         );

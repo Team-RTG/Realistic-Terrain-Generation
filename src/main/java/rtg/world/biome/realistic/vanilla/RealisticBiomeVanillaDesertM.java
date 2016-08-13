@@ -3,8 +3,10 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -19,7 +21,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.desert;
+    public static Biome standardBiome = Biomes.DESERT;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -29,7 +31,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaDesertM(10f, 20f, 68f, 200f),
             new SurfaceVanillaDesertM(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );

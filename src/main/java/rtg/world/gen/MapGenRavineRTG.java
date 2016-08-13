@@ -3,6 +3,7 @@ package rtg.world.gen;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.math.BlockPos;
@@ -226,13 +227,13 @@ public class MapGenRavineRTG extends MapGenRavine {
     //Exception biomes to make sure we generate like vanilla
     private boolean isExceptionBiome(Biome biome) {
 
-        if (biome == Biome.mushroomIsland) {
+        if (biome == Biomes.MUSHROOM_ISLAND) {
             return true;
         }
-        if (biome == Biome.beach) {
+        if (biome == Biomes.BEACH) {
             return true;
         }
-        return biome == Biome.desert;
+        return biome == Biomes.DESERT;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account

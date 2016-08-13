@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
@@ -17,14 +17,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biome.roofedForest.topBlock;
-    public static IBlockState fillerBlock = Biome.roofedForest.fillerBlock;
+    public static IBlockState topBlock = Biomes.ROOFED_FOREST.topBlock;
+    public static IBlockState fillerBlock = Biomes.ROOFED_FOREST.fillerBlock;
 
     public RealisticBiomeVanillaRoofedForest(BiomeConfig config) {
 
         super(config,
-            Biome.roofedForest,
-            Biome.river,
+            Biomes.ROOFED_FOREST,
+            Biomes.RIVER,
             new TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.08f)
         );

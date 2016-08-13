@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 
 import rtg.api.biome.BiomeConfig;
@@ -16,8 +17,8 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaIcePlains(BiomeConfig config) {
 
         super(config,
-            Biome.icePlains,
-            Biome.frozenRiver,
+            Biomes.ICE_PLAINS,
+            Biomes.FROZEN_RIVER,
             new TerrainVanillaIcePlains(),
             new SurfaceVanillaIcePlains(config, topBlock, fillerBlock, topBlock, topBlock)
         );

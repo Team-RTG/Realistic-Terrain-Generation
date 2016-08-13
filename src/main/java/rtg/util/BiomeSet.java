@@ -1,6 +1,6 @@
 package rtg.util;
 
-import net.minecraft.world.biome.Biome;
+import net.minecraft.init.Biomes;
 
 /**
  *
@@ -13,11 +13,11 @@ public class BiomeSet {
 
     public class Water {
         public Water() {
-            biomes[Biome.deepOcean.biomeID] = true;
-            biomes[Biome.frozenOcean.biomeID] = true;
-            biomes[Biome.frozenRiver.biomeID] = true;
-            biomes[Biome.ocean.biomeID] = true;
-            biomes[Biome.river.biomeID] = true;
+            biomes[Biomes.DEEP_OCEAN.biomeID] = true;
+            biomes[Biomes.FROZEN_OCEAN.biomeID] = true;
+            biomes[Biomes.FROZEN_RIVER.biomeID] = true;
+            biomes[Biomes.OCEAN.biomeID] = true;
+            biomes[Biomes.RIVER.biomeID] = true;
         }
     }
 

@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.BlockSand;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -23,8 +24,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
-    private static final Biome biome = Biome.mesa;
-    private static final Biome river = Biome.river;
+    private static final Biome biome = Biomes.MESA;
+    private static final Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesa(BiomeConfig config) {
 

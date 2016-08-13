@@ -1,6 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -9,7 +11,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains;
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.plains;
+    public static Biome standardBiome = Biomes.PLAINS;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -19,7 +21,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(config, topBlock, fillerBlock)
         );

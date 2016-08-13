@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -9,14 +10,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenRiver;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biome.frozenRiver.topBlock;
-    public static IBlockState fillerBlock = Biome.frozenRiver.fillerBlock;
+    public static IBlockState topBlock = Biomes.FROZEN_RIVER.topBlock;
+    public static IBlockState fillerBlock = Biomes.FROZEN_RIVER.fillerBlock;
 
     public RealisticBiomeVanillaFrozenRiver(BiomeConfig config) {
 
         super(config,
-            Biome.frozenRiver,
-            Biome.frozenRiver,
+            Biomes.FROZEN_RIVER,
+            Biomes.FROZEN_RIVER,
             new TerrainVanillaFrozenRiver(),
             new SurfaceVanillaFrozenRiver(config)
         );

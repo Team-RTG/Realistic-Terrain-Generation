@@ -1,6 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -9,7 +11,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaRiver;
 
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
-    public static Biome vanillaBiome = Biome.river;
+    public static Biome vanillaBiome = Biomes.RIVER;
     public static IBlockState topBlock = vanillaBiome.topBlock;
     public static IBlockState fillerBlock = vanillaBiome.fillerBlock;
 
@@ -17,7 +19,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
         super(config,
             vanillaBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaRiver(),
             new SurfaceVanillaRiver(config)
         );

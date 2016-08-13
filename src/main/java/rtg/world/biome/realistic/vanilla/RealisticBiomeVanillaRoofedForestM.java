@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
@@ -14,7 +15,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biome.roofedForest;
+    public static Biome standardBiome = Biomes.ROOFED_FOREST;
     public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
@@ -24,7 +25,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         super(config,
             mutationBiome,
-            Biome.river,
+            Biomes.RIVER,
             new TerrainVanillaRoofedForestM(),
             new SurfaceVanillaRoofedForestM(config, topBlock, fillerBlock)
         );

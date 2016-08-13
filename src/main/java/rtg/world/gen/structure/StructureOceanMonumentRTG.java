@@ -10,10 +10,9 @@ import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.IntCache;
@@ -26,81 +25,81 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
-/**
- * Created by topisani on 2/20/16.
- */
+
 public class StructureOceanMonumentRTG extends StructureOceanMonument
 {
-    private int field_175800_f;
-    private int field_175801_g;
-    public static final List<Biome> field_175802_d = Arrays.<Biome>asList(new Biome[] {
-        Biomes.OCEAN,
-        Biomes.DEEP_OCEAN,
-        Biomes.RIVER,
-        Biomes.FROZEN_OCEAN,
-        Biomes.FROZEN_RIVER
-    });
-    private static final List<Biome.SpawnListEntry> field_175803_h = Lists.<Biome.SpawnListEntry>newArrayList();
+    private int spacing;
+    private int separation;
+    public static final List<Biome> WATER_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER});
+    public static final List<Biome> SPAWN_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.DEEP_OCEAN});
+    private static final List<Biome.SpawnListEntry> MONUMENT_ENEMIES = Lists.<Biome.SpawnListEntry>newArrayList();
 
-    public StructureOceanMonumentRTG() {
-
-        this.field_175800_f = ConfigRTG.oceanMonumentSpacing;
-        this.field_175801_g = ConfigRTG.oceanMonumentSeparation;
+    public StructureOceanMonumentRTG()
+    {
+        this.spacing = ConfigRTG.oceanMonumentSpacing; // Vanilla = 32
+        this.separation = ConfigRTG.oceanMonumentSeparation; // Vanilla = 5
     }
 
-    public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_) {
-
+    public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_)
+    {
         this();
 
-        for (Entry<String, String> entry : p_i45608_1_.entrySet()) {
-            if (((String)entry.getKey()).equals("spacing")) {
-                this.field_175800_f = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.field_175800_f, 1);
+        for (Entry<String, String> entry : p_i45608_1_.entrySet())
+        {
+            if (((String)entry.getKey()).equals("spacing"))
+            {
+                this.spacing = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.spacing, 1);
             }
-            else if (((String)entry.getKey()).equals("separation")) {
-                this.field_175801_g = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.field_175801_g, 1);
+            else if (((String)entry.getKey()).equals("separation"))
+            {
+                this.separation = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.separation, 1);
             }
         }
     }
 
-    public String getStructureName() {
-
+    public String getStructureName()
+    {
         return "Monument";
     }
 
-    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
-
+    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
+    {
         int i = chunkX;
         int j = chunkZ;
 
-        if (chunkX < 0) {
-            chunkX -= this.field_175800_f - 1;
+        if (chunkX < 0)
+        {
+            chunkX -= this.spacing - 1;
         }
 
-        if (chunkZ < 0) {
-            chunkZ -= this.field_175800_f - 1;
+        if (chunkZ < 0)
+        {
+            chunkZ -= this.spacing - 1;
         }
 
-        int k = chunkX / this.field_175800_f;
-        int l = chunkZ / this.field_175800_f;
+        int k = chunkX / this.spacing;
+        int l = chunkZ / this.spacing;
         Random random = this.worldObj.setRandomSeed(k, l, 10387313);
-        k = k * this.field_175800_f;
-        l = l * this.field_175800_f;
-        k = k + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
-        l = l + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
+        k = k * this.spacing;
+        l = l * this.spacing;
+        k = k + (random.nextInt(this.spacing - this.separation) + random.nextInt(this.spacing - this.separation)) / 2;
+        l = l + (random.nextInt(this.spacing - this.separation) + random.nextInt(this.spacing - this.separation)) / 2;
 
-        if (i == k && j == l) {
-            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (Biome)null) != Biomes.DEEP_OCEAN) {
+        if (i == k && j == l)
+        {
+            if (!this.areBiomesViable(i * 16 + 8, j * 16 + 8, 16, SPAWN_BIOMES))
+            {
                 return false;
             }
 
-            boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, field_175802_d);
+            boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
 
-            if (flag) {
-
-                Logger.debug("Generated ocean monument at %d %d", i * 16 + 8, j * 16 + 8);
+            if (flag)
+            {
                 return true;
             }
         }
@@ -108,10 +107,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         return false;
     }
 
-    /**
-     * checks given Chunk's Biomes against List of allowed ones
-     */
-    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<Biome> p_76940_4_)
+    public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
         // Are we in an RTG world?
         if (!(this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
@@ -120,31 +116,31 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         }
 
         // Do we have RTG's chunk manager?
-        if (!(this.worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+        if (!(this.worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG)) {
             Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
             return false;
         }
 
         IntCache.resetIntCache();
-        int i = p_76940_1_ - p_76940_3_ >> 2;
-        int j = p_76940_2_ - p_76940_3_ >> 2;
-        int k = p_76940_1_ + p_76940_3_ >> 2;
-        int l = p_76940_2_ + p_76940_3_ >> 2;
+        int i = x - radius >> 2;
+        int j = z - radius >> 2;
+        int k = x + radius >> 2;
+        int l = z + radius >> 2;
         int i1 = k - i + 1;
         int j1 = l - j + 1;
 
-        WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) this.worldObj.getWorldChunkManager();
+        WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) this.worldObj.getBiomeProvider();
         int[] aint = cmr.getBiomesGens(i, j, i1, j1);
 
         try
         {
             for (int k1 = 0; k1 < i1 * j1; ++k1)
             {
-                Biome biomegenbase = Biome.getBiome(aint[k1]);
+                Biome biome = Biome.getBiome(aint[k1]);
 
-                if (!p_76940_4_.contains(biomegenbase))
+                if (!allowed.contains(biome))
                 {
-                    Logger.debug("Could not generate ocean monument. Biome (%d) nearby.", biomegenbase.biomeID);
+                    Logger.debug("Could not generate ocean monument. Biome (%d) nearby.", BiomeUtils.getId(biome));
                     return false;
                 }
             }
@@ -156,107 +152,110 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
             crashreportcategory.addCrashSection("Layer", aint.toString());
-            crashreportcategory.addCrashSection("x", Integer.valueOf(p_76940_1_));
-            crashreportcategory.addCrashSection("z", Integer.valueOf(p_76940_2_));
-            crashreportcategory.addCrashSection("radius", Integer.valueOf(p_76940_3_));
-            crashreportcategory.addCrashSection("allowed", p_76940_4_);
+            crashreportcategory.addCrashSection("x", Integer.valueOf(x));
+            crashreportcategory.addCrashSection("z", Integer.valueOf(z));
+            crashreportcategory.addCrashSection("radius", Integer.valueOf(radius));
+            crashreportcategory.addCrashSection("allowed", allowed);
             throw new ReportedException(crashreport);
         }
     }
 
-    protected StructureStart getStructureStart(int chunkX, int chunkZ) {
+    protected StructureStart getStructureStart(int chunkX, int chunkZ)
+    {
         return new StructureOceanMonumentRTG.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
-    public List<Biome.SpawnListEntry> func_175799_b() {
-        return field_175803_h;
+    public List<Biome.SpawnListEntry> getScatteredFeatureSpawnList()
+    {
+        return MONUMENT_ENEMIES;
     }
 
     static
     {
-        field_175803_h.add(new Biome.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
+        MONUMENT_ENEMIES.add(new Biome.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }
 
-    public static class StartMonument extends StructureStart {
+    public static class StartMonument extends StructureStart
+    {
+        private final Set<ChunkPos> processed = Sets.<ChunkPos>newHashSet();
+        private boolean wasCreated;
 
-        private Set<ChunkCoordIntPair> field_175791_c = Sets.<ChunkCoordIntPair>newHashSet();
-        private boolean field_175790_d;
-
-        public StartMonument() {
-
+        public StartMonument()
+        {
         }
 
-        public StartMonument(World worldIn, Random p_i45607_2_, int p_i45607_3_, int p_i45607_4_) {
-
-            super(p_i45607_3_, p_i45607_4_);
-            this.func_175789_b(worldIn, p_i45607_2_, p_i45607_3_, p_i45607_4_);
+        public StartMonument(World worldIn, Random random, int chunkX, int chunkZ)
+        {
+            super(chunkX, chunkZ);
+            this.create(worldIn, random, chunkX, chunkZ);
         }
 
-        private void func_175789_b(World worldIn, Random p_175789_2_, int p_175789_3_, int p_175789_4_) {
-
-            p_175789_2_.setSeed(worldIn.getSeed());
-            long i = p_175789_2_.nextLong();
-            long j = p_175789_2_.nextLong();
-            long k = (long)p_175789_3_ * i;
-            long l = (long)p_175789_4_ * j;
-            p_175789_2_.setSeed(k ^ l ^ worldIn.getSeed());
-            int i1 = p_175789_3_ * 16 + 8 - 29;
-            int j1 = p_175789_4_ * 16 + 8 - 29;
-            EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(p_175789_2_);
-            this.components.add(new StructureOceanMonumentPieces.MonumentBuilding(p_175789_2_, i1, j1, enumfacing));
+        private void create(World worldIn, Random random, int chunkX, int chunkZ)
+        {
+            random.setSeed(worldIn.getSeed());
+            long i = random.nextLong();
+            long j = random.nextLong();
+            long k = (long)chunkX * i;
+            long l = (long)chunkZ * j;
+            random.setSeed(k ^ l ^ worldIn.getSeed());
+            int i1 = chunkX * 16 + 8 - 29;
+            int j1 = chunkZ * 16 + 8 - 29;
+            EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(random);
+            this.components.add(new StructureOceanMonumentPieces.MonumentBuilding(random, i1, j1, enumfacing));
             this.updateBoundingBox();
-            this.field_175790_d = true;
+            this.wasCreated = true;
         }
 
-        /**
-         * Keeps iterating Structure Pieces and spawning them until the checks tell it to stop
-         */
-        public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb) {
-
-            if (!this.field_175790_d) {
+        public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb)
+        {
+            if (!this.wasCreated)
+            {
                 this.components.clear();
-                this.func_175789_b(worldIn, rand, this.getChunkPosX(), this.getChunkPosZ());
+                this.create(worldIn, rand, this.getChunkPosX(), this.getChunkPosZ());
             }
 
             super.generateStructure(worldIn, rand, structurebb);
         }
 
-        public boolean func_175788_a(ChunkCoordIntPair pair) {
-
-            return this.field_175791_c.contains(pair) ? false : super.func_175788_a(pair);
+        public boolean isValidForPostProcess(ChunkPos pair)
+        {
+            return this.processed.contains(pair) ? false : super.isValidForPostProcess(pair);
         }
 
-        public void func_175787_b(ChunkCoordIntPair pair) {
-
-            super.func_175787_b(pair);
-            this.field_175791_c.add(pair);
+        public void notifyPostProcessAt(ChunkPos pair)
+        {
+            super.notifyPostProcessAt(pair);
+            this.processed.add(pair);
         }
 
-        public void writeToNBT(NBTTagCompound tagCompound) {
-
+        public void writeToNBT(NBTTagCompound tagCompound)
+        {
             super.writeToNBT(tagCompound);
             NBTTagList nbttaglist = new NBTTagList();
 
-            for (ChunkCoordIntPair chunkcoordintpair : this.field_175791_c) {
+            for (ChunkPos chunkpos : this.processed)
+            {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
-                nbttagcompound.setInteger("X", chunkcoordintpair.chunkXPos);
-                nbttagcompound.setInteger("Z", chunkcoordintpair.chunkZPos);
+                nbttagcompound.setInteger("X", chunkpos.chunkXPos);
+                nbttagcompound.setInteger("Z", chunkpos.chunkZPos);
                 nbttaglist.appendTag(nbttagcompound);
             }
 
             tagCompound.setTag("Processed", nbttaglist);
         }
 
-        public void readFromNBT(NBTTagCompound tagCompound) {
-
+        public void readFromNBT(NBTTagCompound tagCompound)
+        {
             super.readFromNBT(tagCompound);
 
-            if (tagCompound.hasKey("Processed", 9)) {
+            if (tagCompound.hasKey("Processed", 9))
+            {
                 NBTTagList nbttaglist = tagCompound.getTagList("Processed", 10);
 
-                for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+                for (int i = 0; i < nbttaglist.tagCount(); ++i)
+                {
                     NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                    this.field_175791_c.add(new ChunkCoordIntPair(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
+                    this.processed.add(new ChunkPos(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Z")));
                 }
             }
         }

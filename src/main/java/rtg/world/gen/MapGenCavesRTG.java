@@ -2,13 +2,11 @@ package rtg.world.gen;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -18,168 +16,195 @@ import com.google.common.base.Objects;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.BiomeUtils;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class MapGenCavesRTG extends MapGenCaves {
-
-    private static final String __OBFID = "CL_00000393";
+public class MapGenCavesRTG extends MapGenCaves
+{
+    protected static final IBlockState BLK_LAVA = Blocks.LAVA.getDefaultState();
+    protected static final IBlockState BLK_AIR = Blocks.AIR.getDefaultState();
+    protected static final IBlockState BLK_SANDSTONE = Blocks.SANDSTONE.getDefaultState();
+    protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
 
     private boolean enableCaves;
     private int caveDensity;
     private int caveFrequency;
 
-    @Override
-    protected void func_180703_a(long rtgSeed, int p_151542_3_, int p_151542_4_, ChunkPrimer p_151542_5_, double p_151542_6_, double p_151542_8_, double p_151542_10_) {
-
-        this.func_180702_a(rtgSeed, p_151542_3_, p_151542_4_, p_151542_5_, p_151542_6_, p_151542_8_, p_151542_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+    protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_)
+    {
+        this.addTunnel(p_180703_1_, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
     }
 
-    @Override
-    protected void func_180702_a(long rtgSeed, int chunkX, int chunkZ, ChunkPrimer primer, double p_151541_6_, double p_151541_8_, double p_151541_10_, float p_151541_12_, float p_151541_13_, float p_151541_14_, int p_151541_15_, int p_151541_16_, double p_151541_17_) {
+    protected void addTunnel(long p_180702_1_, int p_180702_3_, int p_180702_4_, ChunkPrimer p_180702_5_, double p_180702_6_, double p_180702_8_, double p_180702_10_, float p_180702_12_, float p_180702_13_, float p_180702_14_, int p_180702_15_, int p_180702_16_, double p_180702_17_)
+    {
+        double d0 = (double)(p_180702_3_ * 16 + 8);
+        double d1 = (double)(p_180702_4_ * 16 + 8);
+        float f = 0.0F;
+        float f1 = 0.0F;
+        Random random = new Random(p_180702_1_);
 
-        double d4 = (double) (chunkX * 16 + 8);
-        double d5 = (double) (chunkZ * 16 + 8);
-        float f3 = 0.0F;
-        float f4 = 0.0F;
-        Random random = new Random(rtgSeed);
-
-        if (p_151541_16_ <= 0) {
-            int j1 = this.range * 16 - 16;
-            p_151541_16_ = j1 - random.nextInt(j1 / 4);
+        if (p_180702_16_ <= 0)
+        {
+            int i = this.range * 16 - 16;
+            p_180702_16_ = i - random.nextInt(i / 4);
         }
 
         boolean flag2 = false;
 
-        if (p_151541_15_ == -1) {
-            p_151541_15_ = p_151541_16_ / 2;
+        if (p_180702_15_ == -1)
+        {
+            p_180702_15_ = p_180702_16_ / 2;
             flag2 = true;
         }
 
-        int k1 = random.nextInt(p_151541_16_ / 2) + p_151541_16_ / 4;
+        int j = random.nextInt(p_180702_16_ / 2) + p_180702_16_ / 4;
 
-        for (boolean flag = random.nextInt(6) == 0; p_151541_15_ < p_151541_16_; ++p_151541_15_) {
-            double d6 = 1.5D + (double) (MathHelper.sin((float) p_151541_15_ * (float) Math.PI / (float) p_151541_16_) * p_151541_12_ * 1.0F);
-            double d7 = d6 * p_151541_17_;
-            float f5 = MathHelper.cos(p_151541_14_);
-            float f6 = MathHelper.sin(p_151541_14_);
-            p_151541_6_ += (double) (MathHelper.cos(p_151541_13_) * f5);
-            p_151541_8_ += (double) f6;
-            p_151541_10_ += (double) (MathHelper.sin(p_151541_13_) * f5);
+        for (boolean flag = random.nextInt(6) == 0; p_180702_15_ < p_180702_16_; ++p_180702_15_)
+        {
+            double d2 = 1.5D + (double)(MathHelper.sin((float)p_180702_15_ * (float)Math.PI / (float)p_180702_16_) * p_180702_12_);
+            double d3 = d2 * p_180702_17_;
+            float f2 = MathHelper.cos(p_180702_14_);
+            float f3 = MathHelper.sin(p_180702_14_);
+            p_180702_6_ += (double)(MathHelper.cos(p_180702_13_) * f2);
+            p_180702_8_ += (double)f3;
+            p_180702_10_ += (double)(MathHelper.sin(p_180702_13_) * f2);
 
-            if (flag) {
-                p_151541_14_ *= 0.92F;
+            if (flag)
+            {
+                p_180702_14_ = p_180702_14_ * 0.92F;
             }
-            else {
-                p_151541_14_ *= 0.7F;
+            else
+            {
+                p_180702_14_ = p_180702_14_ * 0.7F;
             }
 
-            p_151541_14_ += f4 * 0.1F;
-            p_151541_13_ += f3 * 0.1F;
-            f4 *= 0.9F;
-            f3 *= 0.75F;
-            f4 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
-            f3 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
+            p_180702_14_ = p_180702_14_ + f1 * 0.1F;
+            p_180702_13_ += f * 0.1F;
+            f1 = f1 * 0.9F;
+            f = f * 0.75F;
+            f1 = f1 + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
+            f = f + (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
 
-            if (!flag2 && p_151541_15_ == k1 && p_151541_12_ > 1.0F && p_151541_16_ > 0) {
-                this.func_180702_a(random.nextLong(), chunkX, chunkZ, primer, p_151541_6_, p_151541_8_, p_151541_10_, random.nextFloat() * 0.5F + 0.5F, p_151541_13_ - ((float) Math.PI / 2F), p_151541_14_ / 3.0F, p_151541_15_, p_151541_16_, 1.0D);
-                this.func_180702_a(random.nextLong(), chunkX, chunkZ, primer, p_151541_6_, p_151541_8_, p_151541_10_, random.nextFloat() * 0.5F + 0.5F, p_151541_13_ + ((float) Math.PI / 2F), p_151541_14_ / 3.0F, p_151541_15_, p_151541_16_, 1.0D);
+            if (!flag2 && p_180702_15_ == j && p_180702_12_ > 1.0F && p_180702_16_ > 0)
+            {
+                this.addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ - ((float)Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
+                this.addTunnel(random.nextLong(), p_180702_3_, p_180702_4_, p_180702_5_, p_180702_6_, p_180702_8_, p_180702_10_, random.nextFloat() * 0.5F + 0.5F, p_180702_13_ + ((float)Math.PI / 2F), p_180702_14_ / 3.0F, p_180702_15_, p_180702_16_, 1.0D);
                 return;
             }
 
-            if (flag2 || random.nextInt(4) != 0) {
-                double d8 = p_151541_6_ - d4;
-                double d9 = p_151541_10_ - d5;
-                double d10 = (double) (p_151541_16_ - p_151541_15_);
-                double d11 = (double) (p_151541_12_ + 2.0F + 16.0F);
+            if (flag2 || random.nextInt(4) != 0)
+            {
+                double d4 = p_180702_6_ - d0;
+                double d5 = p_180702_10_ - d1;
+                double d6 = (double)(p_180702_16_ - p_180702_15_);
+                double d7 = (double)(p_180702_12_ + 2.0F + 16.0F);
 
-                if (d8 * d8 + d9 * d9 - d10 * d10 > d11 * d11) {
+                if (d4 * d4 + d5 * d5 - d6 * d6 > d7 * d7)
+                {
                     return;
                 }
 
-                if (p_151541_6_ >= d4 - 16.0D - d6 * 2.0D && p_151541_10_ >= d5 - 16.0D - d6 * 2.0D && p_151541_6_ <= d4 + 16.0D + d6 * 2.0D && p_151541_10_ <= d5 + 16.0D + d6 * 2.0D) {
-                    int i4 = MathHelper.floor_double(p_151541_6_ - d6) - chunkX * 16 - 1;
-                    int l1 = MathHelper.floor_double(p_151541_6_ + d6) - chunkX * 16 + 1;
-                    int j4 = MathHelper.floor_double(p_151541_8_ - d7) - 1;
-                    int i2 = MathHelper.floor_double(p_151541_8_ + d7) + 1;
-                    int k4 = MathHelper.floor_double(p_151541_10_ - d6) - chunkZ * 16 - 1;
-                    int j2 = MathHelper.floor_double(p_151541_10_ + d6) - chunkZ * 16 + 1;
+                if (p_180702_6_ >= d0 - 16.0D - d2 * 2.0D && p_180702_10_ >= d1 - 16.0D - d2 * 2.0D && p_180702_6_ <= d0 + 16.0D + d2 * 2.0D && p_180702_10_ <= d1 + 16.0D + d2 * 2.0D)
+                {
+                    int k2 = MathHelper.floor_double(p_180702_6_ - d2) - p_180702_3_ * 16 - 1;
+                    int k = MathHelper.floor_double(p_180702_6_ + d2) - p_180702_3_ * 16 + 1;
+                    int l2 = MathHelper.floor_double(p_180702_8_ - d3) - 1;
+                    int l = MathHelper.floor_double(p_180702_8_ + d3) + 1;
+                    int i3 = MathHelper.floor_double(p_180702_10_ - d2) - p_180702_4_ * 16 - 1;
+                    int i1 = MathHelper.floor_double(p_180702_10_ + d2) - p_180702_4_ * 16 + 1;
 
-                    if (i4 < 0) {
-                        i4 = 0;
+                    if (k2 < 0)
+                    {
+                        k2 = 0;
                     }
 
-                    if (l1 > 16) {
-                        l1 = 16;
+                    if (k > 16)
+                    {
+                        k = 16;
                     }
 
-                    if (j4 < 1) {
-                        j4 = 1;
+                    if (l2 < 1)
+                    {
+                        l2 = 1;
                     }
 
-                    if (i2 > 248) {
-                        i2 = 248;
+                    if (l > 248)
+                    {
+                        l = 248;
                     }
 
-                    if (k4 < 0) {
-                        k4 = 0;
+                    if (i3 < 0)
+                    {
+                        i3 = 0;
                     }
 
-                    if (j2 > 16) {
-                        j2 = 16;
+                    if (i1 > 16)
+                    {
+                        i1 = 16;
                     }
 
                     boolean flag3 = false;
-                    int k2;
-                    int j3;
 
-                    for (k2 = i4; !flag3 && k2 < l1; ++k2) {
-                        for (int l2 = k4; !flag3 && l2 < j2; ++l2) {
-                            for (int i3 = i2 + 1; !flag3 && i3 >= j4 - 1; --i3) {
-                                j3 = (k2 * 16 + l2) * 256 + i3;
-
-                                if (i3 >= 0 && i3 < 256) {
-                                    if (isOceanBlock(primer, k2, i3, l2, chunkX, chunkZ)) {
+                    for (int j1 = k2; !flag3 && j1 < k; ++j1)
+                    {
+                        for (int k1 = i3; !flag3 && k1 < i1; ++k1)
+                        {
+                            for (int l1 = l + 1; !flag3 && l1 >= l2 - 1; --l1)
+                            {
+                                if (l1 >= 0 && l1 < 256)
+                                {
+                                    if (isOceanBlock(p_180702_5_, j1, l1, k1, p_180702_3_, p_180702_4_))
+                                    {
                                         flag3 = true;
                                     }
 
-                                    if (i3 != j4 - 1 && k2 != i4 && k2 != l1 - 1 && l2 != k4 && l2 != j2 - 1) {
-                                        i3 = j4;
+                                    if (l1 != l2 - 1 && j1 != k2 && j1 != k - 1 && k1 != i3 && k1 != i1 - 1)
+                                    {
+                                        l1 = l2;
                                     }
                                 }
                             }
                         }
                     }
 
-                    if (!flag3) {
-                        for (k2 = i4; k2 < l1; ++k2) {
-                            double d13 = ((double) (k2 + chunkX * 16) + 0.5D - p_151541_6_) / d6;
+                    if (!flag3)
+                    {
+                        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-                            for (j3 = k4; j3 < j2; ++j3) {
-                                double d14 = ((double) (j3 + chunkZ * 16) + 0.5D - p_151541_10_) / d6;
-                                int k3 = (k2 * 16 + j3) * 256 + i2;
+                        for (int j3 = k2; j3 < k; ++j3)
+                        {
+                            double d10 = ((double)(j3 + p_180702_3_ * 16) + 0.5D - p_180702_6_) / d2;
+
+                            for (int i2 = i3; i2 < i1; ++i2)
+                            {
+                                double d8 = ((double)(i2 + p_180702_4_ * 16) + 0.5D - p_180702_10_) / d2;
                                 boolean flag1 = false;
 
-                                if (d13 * d13 + d14 * d14 < 1.0D) {
-                                    for (int l3 = i2 - 1; l3 >= j4; --l3) {
-                                        double d12 = ((double) l3 + 0.5D - p_151541_8_) / d7;
+                                if (d10 * d10 + d8 * d8 < 1.0D)
+                                {
+                                    for (int j2 = l; j2 > l2; --j2)
+                                    {
+                                        double d9 = ((double)(j2 - 1) + 0.5D - p_180702_8_) / d3;
 
-                                        if (d12 > -0.7D && d13 * d13 + d12 * d12 + d14 * d14 < 1.0D) {
-                                            IBlockState iblockstate1 = primer.getBlockState(k2, l3, j3);
-                                            IBlockState iblockstate2 = (IBlockState) Objects.firstNonNull(primer.getBlockState(k2, l3 + 1, j3), Blocks.AIR.getDefaultState());
+                                        if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D)
+                                        {
+                                            IBlockState iblockstate1 = p_180702_5_.getBlockState(j3, j2, i2);
+                                            IBlockState iblockstate2 = (IBlockState)Objects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), BLK_AIR);
 
-                                            if (isTopBlock(primer, k2, l3, j3, chunkX, chunkZ)) {
+                                            if (isTopBlock(p_180702_5_, j3, j2, i2, p_180702_3_, p_180702_4_))
+                                            {
                                                 flag1 = true;
                                             }
-                                            digBlock(primer, k2, l3, j3, chunkX, chunkZ, flag1, iblockstate1, iblockstate2);
-                                        }
 
-                                        --k3;
+                                            digBlock(p_180702_5_, j3, j2, i2, p_180702_3_, p_180702_4_, flag1, iblockstate1, iblockstate2);
+                                        }
                                     }
                                 }
                             }
                         }
 
-                        if (flag2) {
+                        if (flag2)
+                        {
                             break;
                         }
                     }
@@ -188,9 +213,13 @@ public class MapGenCavesRTG extends MapGenCaves {
         }
     }
 
-    @Override
-    protected void recursiveGenerate(World world, int chunkX, int chunkZ, int p_151538_4_, int p_151538_5_, ChunkPrimer p_151538_6_) {
+    protected boolean canReplaceBlock(IBlockState p_175793_1_, IBlockState p_175793_2_)
+    {
+        return p_175793_1_.getBlock() == Blocks.STONE ? true : (p_175793_1_.getBlock() == Blocks.DIRT ? true : (p_175793_1_.getBlock() == Blocks.GRASS ? true : (p_175793_1_.getBlock() == Blocks.HARDENED_CLAY ? true : (p_175793_1_.getBlock() == Blocks.STAINED_HARDENED_CLAY ? true : (p_175793_1_.getBlock() == Blocks.SANDSTONE ? true : (p_175793_1_.getBlock() == Blocks.RED_SANDSTONE ? true : (p_175793_1_.getBlock() == Blocks.MYCELIUM ? true : (p_175793_1_.getBlock() == Blocks.SNOW_LAYER ? true : (p_175793_1_.getBlock() == Blocks.SAND || p_175793_1_.getBlock() == Blocks.GRAVEL) && p_175793_2_.getMaterial() != Material.WATER))))))));
+    }
 
+    protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn)
+    {
         // Return early if caves are disabled.
         if (!ConfigRTG.enableCaves) {
             return;
@@ -201,11 +230,11 @@ public class MapGenCavesRTG extends MapGenCaves {
         caveFrequency = ConfigRTG.caveFrequency;
 
         // If the user has set biome-specific settings, let's use those instead.
-        Biome biome = world.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+        Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
 
         if (biome != null) {
 
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(biome.biomeID);
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getId(biome));
 
             if (realisticBiome != null) {
                 caveDensity = (realisticBiome.config._int(BiomeConfig.caveDensityId) > -1) ? realisticBiome.config._int(BiomeConfig.caveDensityId) : caveDensity;
@@ -221,71 +250,65 @@ public class MapGenCavesRTG extends MapGenCaves {
         caveDensity = (caveDensity < 1) ? 1 : ((caveDensity > 39) ? 39 : caveDensity);
         caveDensity += 1;
 
-        int i1 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(caveDensity) + 1) + 1);
+        int i = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(caveDensity) + 1) + 1);
 
         caveFrequency = (caveFrequency < 1) ? 1 : ((caveFrequency > 39) ? 39 : caveFrequency);
         caveFrequency += 1;
 
         if (this.rand.nextInt(caveFrequency) != 0) {
-            i1 = 0;
+            i = 0;
         }
 
-        for (int j1 = 0; j1 < i1; ++j1) {
-            double d0 = (double) (chunkX * 16 + this.rand.nextInt(16));
-            double d1 = (double) this.rand.nextInt(this.rand.nextInt(120) + 8);
-            double d2 = (double) (chunkZ * 16 + this.rand.nextInt(16));
-            int k1 = 1;
+        for (int j = 0; j < i; ++j)
+        {
+            double d0 = (double)(chunkX * 16 + this.rand.nextInt(16));
+            double d1 = (double)this.rand.nextInt(this.rand.nextInt(120) + 8);
+            double d2 = (double)(chunkZ * 16 + this.rand.nextInt(16));
+            int k = 1;
 
-            if (this.rand.nextInt(4) == 0) {
-                this.func_180703_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2);
-                k1 += this.rand.nextInt(4);
+            if (this.rand.nextInt(4) == 0)
+            {
+                this.addRoom(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2);
+                k += this.rand.nextInt(4);
             }
 
-            for (int l1 = 0; l1 < k1; ++l1) {
-                float f = this.rand.nextFloat() * (float) Math.PI * 2.0F;
+            for (int l = 0; l < k; ++l)
+            {
+                float f = this.rand.nextFloat() * ((float)Math.PI * 2F);
                 float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float f2 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
 
-                if (this.rand.nextInt(10) == 0) {
+                if (this.rand.nextInt(10) == 0)
+                {
                     f2 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0F + 1.0F;
                 }
 
-                this.func_180702_a(this.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
+                this.addTunnel(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }
 
-    @Override
-    protected boolean isOceanBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
-
-        return primer.getBlockState(x, y, z) == Blocks.FLOWING_WATER || primer.getBlockState(x, y, z) == Blocks.WATER;
+    protected boolean isOceanBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
+    {
+        net.minecraft.block.Block block = data.getBlockState(x, y, z).getBlock();
+        return block== Blocks.FLOWING_WATER || block == Blocks.WATER;
     }
 
     //Exception biomes to make sure we generate like vanilla
-
-    private boolean isExceptionBiome(Biome biome) {
-
-        boolean booException = false;
-
-        if (biome == Biomes.MUSHROOM_ISLAND) {
-            booException = true;
-        }
-        if (biome == Biomes.BEACH) {
-            booException = true;
-        }
-        if (biome == Biomes.DESERT) {
-            booException = true;
-        }
-
-        return booException;
+    private boolean isExceptionBiome(net.minecraft.world.biome.Biome biome)
+    {
+        if (biome == net.minecraft.init.Biomes.BEACH) return true;
+        if (biome == net.minecraft.init.Biomes.DESERT) return true;
+        return false;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
-    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
-
-        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.GRASS : data.getBlockState(x, y, z) == biome.topBlock);
+    private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
+    {
+        net.minecraft.world.biome.Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        IBlockState state = data.getBlockState(x, y, z);
+        return (isExceptionBiome(biome) ? state.getBlock() == Blocks.GRASS : state.getBlock() == biome.topBlock);
     }
 
     /**
@@ -294,36 +317,33 @@ public class MapGenCavesRTG extends MapGenCaves {
      * If setting to air, it also checks to see if we've broken the surface and if so
      * tries to make the floor the biome's top block
      *
-     * @param data     Block data array
-     * @param x        local X position
-     * @param y        local Y position
-     * @param z        local Z position
-     * @param chunkX   Chunk X position
-     * @param chunkZ   Chunk Y position
+     * @param data Block data array
+     * @param x local X position
+     * @param y local Y position
+     * @param z local Z position
+     * @param chunkX Chunk X position
+     * @param chunkZ Chunk Y position
      * @param foundTop True if we've encountered the biome's top block. Ideally if we've broken the surface.
      */
+    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up)
+    {
+        net.minecraft.world.biome.Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        IBlockState top = biome.topBlock;
+        IBlockState filler = biome.fillerBlock;
 
-    @Override
-    protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up) {
-
-        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
-        Block top = isExceptionBiome(biome) ? Blocks.GRASS : biome.topBlock.getBlock();
-        Block filler = isExceptionBiome(biome) ? Blocks.DIRT : biome.fillerBlock.getBlock();
-        Block block = data.getBlockState(x, y, z).getBlock();
-
-        if (block == Blocks.STONE || block == Blocks.COBBLESTONE || block == filler || block == top) {
-            if (y < 10) {
-                data.setBlockState(x, y, z, Blocks.LAVA.getDefaultState());
+        if (this.canReplaceBlock(state, up) || state.getBlock() == top.getBlock() || state.getBlock() == filler.getBlock())
+        {
+            if (y - 1 < 10)
+            {
+                data.setBlockState(x, y, z, BLK_LAVA);
             }
-            else {
-                data.setBlockState(x, y, z, Blocks.AIR.getDefaultState());
+            else
+            {
+                data.setBlockState(x, y, z, BLK_AIR);
 
-                if (up.getBlock() == Blocks.SAND) {
-                    data.setBlockState(x, y + 1, z, up.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.RED_SANDSTONE.getDefaultState() : Blocks.SANDSTONE.getDefaultState());
-                }
-
-                else if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler) {
-                    data.setBlockState(x, y - 1, z, top.getDefaultState());
+                if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())
+                {
+                    data.setBlockState(x, y - 1, z, top.getBlock().getDefaultState());
                 }
             }
         }

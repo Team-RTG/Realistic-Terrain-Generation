@@ -1,19 +1,20 @@
 package rtg.world.gen.structure;
 
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
-import net.minecraft.world.gen.structure.StructureVillagePieces.Road;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
@@ -21,76 +22,74 @@ import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class MapGenVillageRTG extends MapGenVillage {
+public class MapGenVillageRTG extends MapGenVillage
+{
+    public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.TAIGA});
+    private int size;
+    private int distance;
+    private final int minTownSeparation;
 
-    private int terrainType = ConfigRTG.villageSize;
-    private int field_82665_g;
-    private int field_82666_h;
-
-    public MapGenVillageRTG() {
-
-        int minDistanceVillages = ConfigRTG.minDistanceVillages;
-        int maxDistanceVillages = ConfigRTG.maxDistanceVillages;
-
-        minDistanceVillages = (minDistanceVillages > maxDistanceVillages) ? maxDistanceVillages : minDistanceVillages;
-
-        this.field_82665_g = maxDistanceVillages;
-        this.field_82666_h = minDistanceVillages;
+    public MapGenVillageRTG()
+    {
+        this.size = ConfigRTG.villageSize; // Vanilla = 0
+        this.distance = ConfigRTG.maxDistanceVillages; // Vanille = 32
+        this.minTownSeparation = ConfigRTG.minDistanceVillages; // Vanilla = 8
     }
 
-    public MapGenVillageRTG(Map par1Map) {
-
+    public MapGenVillageRTG(Map<String, String> map)
+    {
         this();
-        Iterator iterator = par1Map.entrySet().iterator();
 
-        while (iterator.hasNext()) {
-            Entry entry = (Entry) iterator.next();
-
-            if (entry.getKey().equals("size")) {
-                this.terrainType = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.terrainType, 0);
+        for (Entry<String, String> entry : map.entrySet())
+        {
+            if (((String)entry.getKey()).equals("size"))
+            {
+                this.size = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.size, 0);
             }
-            else if (entry.getKey().equals("distance")) {
-                this.field_82665_g = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.field_82665_g, this.field_82666_h + 1);
+            else if (((String)entry.getKey()).equals("distance"))
+            {
+                this.distance = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.distance, 9);
             }
         }
     }
 
-    @Override
-    public String getStructureName() {
-
+    public String getStructureName()
+    {
         return "Village";
     }
 
-    @Override
-    protected boolean canSpawnStructureAtCoords(int par1, int par2) {
-
-        boolean booRTGWorld = (worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ? true : false;
-        boolean booRTGChunkManager = (worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG) ? true : false;
+    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
+    {
+        boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
+        boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG;
         boolean canSpawnVillage = false;
 
-        int k = par1;
-        int l = par2;
+        int i = chunkX;
+        int j = chunkZ;
 
-        if (par1 < 0) {
-            par1 -= this.field_82665_g - 1;
+        if (chunkX < 0)
+        {
+            chunkX -= this.distance - 1;
         }
 
-        if (par2 < 0) {
-            par2 -= this.field_82665_g - 1;
+        if (chunkZ < 0)
+        {
+            chunkZ -= this.distance - 1;
         }
 
-        int i1 = par1 / this.field_82665_g;
-        int j1 = par2 / this.field_82665_g;
-        Random random = this.worldObj.setRandomSeed(i1, j1, 10387312);
-        i1 *= this.field_82665_g;
-        j1 *= this.field_82665_g;
-        i1 += random.nextInt(this.field_82665_g - this.field_82666_h);
-        j1 += random.nextInt(this.field_82665_g - this.field_82666_h);
+        int k = chunkX / this.distance;
+        int l = chunkZ / this.distance;
+        Random random = this.worldObj.setRandomSeed(k, l, 10387312);
+        k = k * this.distance;
+        l = l * this.distance;
+        k = k + random.nextInt(this.distance - 8);
+        l = l + random.nextInt(this.distance - 8);
 
-        if (k == i1 && l == j1) {
+        if (i == k && j == l) {
+
             if (booRTGWorld && booRTGChunkManager) {
 
-                WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
+                WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getBiomeProvider();
                 int worldX = k * 16 + 8;
                 int worldZ = l * 16 + 8;
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
@@ -101,89 +100,81 @@ public class MapGenVillageRTG extends MapGenVillage {
             }
             else {
 
-                canSpawnVillage = this.worldObj.getWorldChunkManager().areBiomesViable(k * 16 + 8, l * 16 + 8, 0, villageSpawnBiomes);
+                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
             }
         }
 
         return canSpawnVillage;
     }
 
-    @Override
-    protected StructureStart getStructureStart(int par1, int par2) {
-
-        return new MapGenVillageRTG.Start(this.worldObj, this.rand, par1, par2, this.terrainType);
+    protected StructureStart getStructureStart(int chunkX, int chunkZ)
+    {
+        return new MapGenVillage.Start(this.worldObj, this.rand, chunkX, chunkZ, this.size);
     }
 
-    public static class Start extends StructureStart {
-
-        /**
-         * well ... thats what it does
-         */
+    public static class Start extends StructureStart
+    {
         private boolean hasMoreThanTwoComponents;
 
-        public Start() {
-
+        public Start()
+        {
         }
 
-        public Start(World p_i2092_1_, Random p_i2092_2_, int p_i2092_3_, int p_i2092_4_, int p_i2092_5_) {
+        public Start(World worldIn, Random rand, int x, int z, int size)
+        {
+            super(x, z);
+            List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, size);
+            StructureVillagePieces.Start structurevillagepieces$start = new StructureVillagePieces.Start(worldIn.getBiomeProvider(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, size);
+            this.components.add(structurevillagepieces$start);
+            structurevillagepieces$start.buildComponent(structurevillagepieces$start, this.components, rand);
+            List<StructureComponent> list1 = structurevillagepieces$start.pendingRoads;
+            List<StructureComponent> list2 = structurevillagepieces$start.pendingHouses;
 
-            super(p_i2092_3_, p_i2092_4_);
-            List list = StructureVillagePieces.getStructureVillageWeightedPieceList(p_i2092_2_, p_i2092_5_);
-            StructureVillagePieces.Start start = new StructureVillagePieces.Start(p_i2092_1_.getWorldChunkManager(), 0, p_i2092_2_, (p_i2092_3_ << 4) + 2, (p_i2092_4_ << 4) + 2, list, p_i2092_5_);
-            this.components.add(start);
-            start.buildComponent(start, this.components, p_i2092_2_);
-            List list1 = start.field_74930_j;
-            List list2 = start.field_74932_i;
-            int l;
-
-            while (!list1.isEmpty() || !list2.isEmpty()) {
-                StructureComponent structurecomponent;
-
-                if (list1.isEmpty()) {
-                    l = p_i2092_2_.nextInt(list2.size());
-                    structurecomponent = (StructureComponent) list2.remove(l);
-                    structurecomponent.buildComponent(start, this.components, p_i2092_2_);
+            while (!list1.isEmpty() || !list2.isEmpty())
+            {
+                if (list1.isEmpty())
+                {
+                    int i = rand.nextInt(list2.size());
+                    StructureComponent structurecomponent = (StructureComponent)list2.remove(i);
+                    structurecomponent.buildComponent(structurevillagepieces$start, this.components, rand);
                 }
-                else {
-                    l = p_i2092_2_.nextInt(list1.size());
-                    structurecomponent = (StructureComponent) list1.remove(l);
-                    structurecomponent.buildComponent(start, this.components, p_i2092_2_);
+                else
+                {
+                    int j = rand.nextInt(list1.size());
+                    StructureComponent structurecomponent2 = (StructureComponent)list1.remove(j);
+                    structurecomponent2.buildComponent(structurevillagepieces$start, this.components, rand);
                 }
             }
 
             this.updateBoundingBox();
-            l = 0;
-            Iterator iterator = this.components.iterator();
+            int k = 0;
 
-            while (iterator.hasNext()) {
-                StructureComponent structurecomponent1 = (StructureComponent) iterator.next();
-
-                if (!(structurecomponent1 instanceof Road)) {
-                    ++l;
+            for (StructureComponent structurecomponent1 : this.components)
+            {
+                if (!(structurecomponent1 instanceof StructureVillagePieces.Road))
+                {
+                    ++k;
                 }
             }
 
-            this.hasMoreThanTwoComponents = l > 2;
+            this.hasMoreThanTwoComponents = k > 2;
         }
 
-        /**
-         * currently only defined for Villages, returns true if Village has more than 2 non-road components
-         */
-        public boolean isSizeableStructure() {
-
+        public boolean isSizeableStructure()
+        {
             return this.hasMoreThanTwoComponents;
         }
 
-        public void writeToNBT(NBTTagCompound p_143022_1_) {
-
-            super.writeToNBT(p_143022_1_);
-            p_143022_1_.setBoolean("Valid", this.hasMoreThanTwoComponents);
+        public void writeToNBT(NBTTagCompound tagCompound)
+        {
+            super.writeToNBT(tagCompound);
+            tagCompound.setBoolean("Valid", this.hasMoreThanTwoComponents);
         }
 
-        public void readFromNBT(NBTTagCompound p_143017_1_) {
-
-            super.readFromNBT(p_143017_1_);
-            this.hasMoreThanTwoComponents = p_143017_1_.getBoolean("Valid");
+        public void readFromNBT(NBTTagCompound tagCompound)
+        {
+            super.readFromNBT(tagCompound);
+            this.hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
         }
     }
 }

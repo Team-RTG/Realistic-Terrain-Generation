@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Biomes;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
@@ -15,6 +15,8 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 
 import net.minecraftforge.common.BiomeDictionary;
+
+import com.google.common.collect.Lists;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
@@ -36,27 +38,15 @@ import rtg.util.Logger;
  * This class has also been modified to resolve a very specific use case involving Thaumcraft world gen:
  * https://github.com/Team-RTG/Realistic-Terrain-Generation/issues/249
  */
-public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
-
-    private static List biomelist = Arrays.asList(Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND);
-
-    /**
-     * contains possible spawns for scattered features
-     */
-    private List scatteredFeatureSpawnList;
-
-    /**
-     * the maximum distance between scattered features
-     */
+public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
+{
+    private static final List<Biome> BIOMELIST = Arrays.<Biome>asList(new Biome[] {Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND, Biomes.ICE_PLAINS, Biomes.COLD_TAIGA});
+    private final List<Biome.SpawnListEntry> scatteredFeatureSpawnList;
     private int maxDistanceBetweenScatteredFeatures;
+    private final int minDistanceBetweenScatteredFeatures;
 
-    /**
-     * the minimum distance between scattered features
-     */
-    private int minDistanceBetweenScatteredFeatures;
-
-    public MapGenScatteredFeatureRTG() {
-
+    public MapGenScatteredFeatureRTG()
+    {
         int minDistance = ConfigRTG.minDistanceScatteredFeatures;
         int maxDistance = ConfigRTG.maxDistanceScatteredFeatures;
 
@@ -65,22 +55,21 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
             maxDistance = 32;
         }
 
-        this.scatteredFeatureSpawnList = new ArrayList();
+        this.scatteredFeatureSpawnList = Lists.<Biome.SpawnListEntry>newArrayList();
         this.maxDistanceBetweenScatteredFeatures = maxDistance;
         this.minDistanceBetweenScatteredFeatures = minDistance;
         this.scatteredFeatureSpawnList.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
     }
 
-    public MapGenScatteredFeatureRTG(Map p_i2061_1_) {
-
+    public MapGenScatteredFeatureRTG(Map<String, String> p_i2061_1_)
+    {
         this();
-        Iterator iterator = p_i2061_1_.entrySet().iterator();
 
-        while (iterator.hasNext()) {
-            Entry entry = (Entry) iterator.next();
-
-            if (entry.getKey().equals("distance")) {
-                this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String) entry.getValue(), this.maxDistanceBetweenScatteredFeatures, this.minDistanceBetweenScatteredFeatures + 1);
+        for (Entry<String, String> entry : p_i2061_1_.entrySet())
+        {
+            if (((String)entry.getKey()).equals("distance"))
+            {
+                this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.maxDistanceBetweenScatteredFeatures, 9);
             }
         }
     }
@@ -118,53 +107,68 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         return canSpawn;
     }
 
-    @Override
-    public String getStructureName() {
+    private static boolean canSpawnIgloo(Biome b) {
 
+        boolean canSpawn = false;
+
+        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY)) {
+            canSpawn = true;
+        }
+
+        return canSpawn;
+    }
+
+    @Override
+    public String getStructureName()
+    {
         return "Temple";
     }
 
     @Override
-    protected boolean canSpawnStructureAtCoords(int p_75047_1_, int p_75047_2_) {
+    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
+    {
+        int i = chunkX;
+        int j = chunkZ;
 
-        int k = p_75047_1_;
-        int l = p_75047_2_;
-
-        if (p_75047_1_ < 0) {
-            p_75047_1_ -= this.maxDistanceBetweenScatteredFeatures - 1;
+        if (chunkX < 0)
+        {
+            chunkX -= this.maxDistanceBetweenScatteredFeatures - 1;
         }
 
-        if (p_75047_2_ < 0) {
-            p_75047_2_ -= this.maxDistanceBetweenScatteredFeatures - 1;
+        if (chunkZ < 0)
+        {
+            chunkZ -= this.maxDistanceBetweenScatteredFeatures - 1;
         }
 
-        int i1 = p_75047_1_ / this.maxDistanceBetweenScatteredFeatures;
-        int j1 = p_75047_2_ / this.maxDistanceBetweenScatteredFeatures;
-        Random random = this.worldObj.setRandomSeed(i1, j1, 14357617);
-        i1 *= this.maxDistanceBetweenScatteredFeatures;
-        j1 *= this.maxDistanceBetweenScatteredFeatures;
-        i1 += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
-        j1 += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
+        int k = chunkX / this.maxDistanceBetweenScatteredFeatures;
+        int l = chunkZ / this.maxDistanceBetweenScatteredFeatures;
+        Random random = this.worldObj.setRandomSeed(k, l, 14357617);
+        k = k * this.maxDistanceBetweenScatteredFeatures;
+        l = l * this.maxDistanceBetweenScatteredFeatures;
+        k = k + random.nextInt(this.maxDistanceBetweenScatteredFeatures - 8);
+        l = l + random.nextInt(this.maxDistanceBetweenScatteredFeatures - 8);
 
-        if (k == i1 && l == j1) {
-            Biome biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
+        if (i == k && j == l)
+        {
+            Biome biome = this.worldObj.getBiomeProvider().getBiome(new BlockPos(i * 16 + 8, 0, j * 16 + 8));
 
-            if (biomegenbase != null) {
+            if (biome == null) {
+                return false;
+            }
 
-                //Desert temple.
-                if (canSpawnDesertTemple(biomegenbase)) {
-                    return true;
-                }
+            //Desert temple.
+            if (canSpawnDesertTemple(biome)) {
+                return true;
+            }
 
-                //Jungle temple.
-                if (canSpawnJungleTemple(biomegenbase)) {
-                    return true;
-                }
+            //Jungle temple.
+            if (canSpawnJungleTemple(biome)) {
+                return true;
+            }
 
-                //Witch hut.
-                if (canSpawnWitchHut(biomegenbase)) {
-                    return true;
-                }
+            //Witch hut.
+            if (canSpawnWitchHut(biome)) {
+                return true;
             }
         }
 
@@ -172,60 +176,68 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
     }
 
     @Override
-    protected StructureStart getStructureStart(int p_75049_1_, int p_75049_2_) {
-
-        return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, p_75049_1_, p_75049_2_);
+    protected StructureStart getStructureStart(int chunkX, int chunkZ)
+    {
+        return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     @Override
-    public boolean func_175795_b(BlockPos pos) {
+    public boolean isSwampHut(BlockPos p_175798_1_)
+    {
+        StructureStart structurestart = this.getStructureAt(p_175798_1_);
 
-        StructureStart structurestart = this.func_175797_c(pos);
-        if (structurestart != null && structurestart instanceof MapGenScatteredFeatureRTG.Start && !structurestart.getComponents().isEmpty()) {
-            StructureComponent structurecomponent = structurestart.getComponents().getFirst();
+        if (structurestart != null && structurestart instanceof MapGenScatteredFeatureRTG.Start && !structurestart.getComponents().isEmpty())
+        {
+            StructureComponent structurecomponent = (StructureComponent)structurestart.getComponents().get(0);
             return structurecomponent instanceof ComponentScatteredFeaturePieces.SwampHut;
         }
-        else {
+        else
+        {
             return false;
         }
     }
 
-    /**
-     * returns possible spawns for scattered features
-     */
     @Override
-    public List getScatteredFeatureSpawnList() {
-
+    public List<Biome.SpawnListEntry> getScatteredFeatureSpawnList()
+    {
         return this.scatteredFeatureSpawnList;
     }
 
-    public static class Start extends MapGenScatteredFeature.Start {
-
-        public Start() {
-
+    public static class Start extends StructureStart
+    {
+        public Start()
+        {
         }
 
-        public Start(World worldIn, Random random, int chunkX, int chunkZ) {
+        public Start(World worldIn, Random random, int chunkX, int chunkZ)
+        {
+            this(worldIn, random, chunkX, chunkZ, worldIn.getBiome(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8)));
+        }
 
-            super(worldIn, random, chunkX, chunkZ);
+        public Start(World worldIn, Random random, int chunkX, int chunkZ, Biome biomeIn)
+        {
+            super(chunkX, chunkZ);
 
             LinkedList arrComponents = new LinkedList();
 
-            Biome biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
-
-            if (canSpawnDesertTemple(biomegenbase)) {
+            if (canSpawnDesertTemple(biomeIn)) {
                 ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);
                 arrComponents.add(desertpyramid);
             }
 
-            if (canSpawnJungleTemple(biomegenbase)) {
+            if (canSpawnJungleTemple(biomeIn)) {
                 ComponentScatteredFeaturePieces.JunglePyramid junglepyramid = new ComponentScatteredFeaturePieces.JunglePyramid(random, chunkX * 16, chunkZ * 16);
                 arrComponents.add(junglepyramid);
             }
 
-            if (canSpawnWitchHut(biomegenbase)) {
+            if (canSpawnWitchHut(biomeIn)) {
                 ComponentScatteredFeaturePieces.SwampHut swamphut = new ComponentScatteredFeaturePieces.SwampHut(random, chunkX * 16, chunkZ * 16);
                 arrComponents.add(swamphut);
+            }
+
+            if (canSpawnIgloo(biomeIn)) {
+                ComponentScatteredFeaturePieces.Igloo igloo = new ComponentScatteredFeaturePieces.Igloo(random, chunkX * 16, chunkZ * 16);
+                arrComponents.add(igloo);
             }
 
             this.components.clear();

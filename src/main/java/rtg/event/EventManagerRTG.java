@@ -65,11 +65,11 @@ public class EventManagerRTG {
         public void loadChunkRTG(ChunkEvent.Load event) {
 
             // Are we in an RTG world?
-            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
                 return;
             }
 
-            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.world.provider.getDimensionId());
+            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimensionId());
             if (acceptor != null) {
                 acceptor.accept(event);
             }
@@ -87,11 +87,11 @@ public class EventManagerRTG {
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
-            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
                 return;
             }
 
-            switch (event.type) {
+            switch (event.getType()) {
 
                 case COAL:
                     if (!ConfigRTG.generateOreCoal) {
@@ -146,12 +146,12 @@ public class EventManagerRTG {
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
             // Are we in an RTG world?
-            if (!(event.worldType instanceof WorldTypeRTG)) {
+            if (!(event.getWorldType() instanceof WorldTypeRTG)) {
                 return;
             }
 
             try {
-                event.newBiomeGens = new RiverRemover().riverLess(event.originalBiomeGens);
+                event.setNewBiomeGens(new RiverRemover().riverLess(event.getOriginalBiomeGens()));
             }
             catch (ClassCastException ex) {
                 //throw ex;
@@ -187,44 +187,44 @@ public class EventManagerRTG {
                 }
             }
 
-            Logger.debug("event type = %s", event.type.toString());
-            Logger.debug("event originalGen = %s", event.originalGen.toString());
+            Logger.debug("event type = %s", event.getType().toString());
+            Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
 
-            switch (event.type) {
+            switch (event.getType()) {
 
                 case SCATTERED_FEATURE:
                     if (ConfigRTG.enableScatteredFeatureModifications) {
-                        event.newGen = new MapGenScatteredFeatureRTG();
+                        event.setNewGen(new MapGenScatteredFeatureRTG());
                     }
                     break;
 
                 case VILLAGE:
                     if (ConfigRTG.enableVillageModifications) {
-                        event.newGen = new MapGenVillageRTG();
+                        event.setNewGen(new MapGenVillageRTG());
                     }
                     break;
 
                 case CAVE:
                     if (ConfigRTG.enableCaveModifications) {
-                        event.newGen = new MapGenCavesRTG();
+                        event.setNewGen(new MapGenCavesRTG());
                     }
                     break;
 
                 case RAVINE:
                     if (ConfigRTG.enableRavineModifications) {
-                        event.newGen = new MapGenRavineRTG();
+                        event.setNewGen(new MapGenRavineRTG());
                     }
                     break;
 
                 case OCEAN_MONUMENT:
                     if (ConfigRTG.enableOceanMonumentModifications) {
-                        event.newGen = new StructureOceanMonumentRTG();
+                        event.setNewGen(new StructureOceanMonumentRTG());
                     }
                     break;
 
                 case STRONGHOLD:
                     if (ConfigRTG.enableStrongholdModifications) {
-                        event.newGen = new MapGenStrongholdRTG();
+                        event.setNewGen(new MapGenStrongholdRTG());
                     }
                     break;
 
@@ -232,7 +232,7 @@ public class EventManagerRTG {
                     break;
             }
 
-            Logger.debug("event newGen = %s", event.newGen.toString());
+            Logger.debug("event newGen = %s", event.getNewGen().toString());
         }
     }
 
@@ -251,11 +251,11 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
                 return;
             }
 
-            Random rand = event.rand;
+            Random rand = event.getRand();
 
             // Should we generate a vanilla tree instead?
             if (rand.nextInt(ConfigRTG.rtgTreeChance) != 0) {
@@ -264,9 +264,9 @@ public class EventManagerRTG {
                 return;
             }
 
-            World world = event.world;
+            World world = event.getWorld();
 
-            IBlockState saplingBlock = world.getBlockState(event.pos);
+            IBlockState saplingBlock = world.getBlockState(event.getPos());
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
@@ -328,7 +328,7 @@ public class EventManagerRTG {
                      */
                     int oldFlag = tree.generateFlag;
                     tree.generateFlag = 3;
-                    boolean generated = tree.generate(world, rand, event.pos);
+                    boolean generated = tree.generate(world, rand, event.getPos());
                     tree.generateFlag = oldFlag;
 
                     if (generated) {
@@ -337,8 +337,8 @@ public class EventManagerRTG {
                         event.setResult(Event.Result.DENY);
 
                         // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
-                        if (world.getBlockState(event.pos) == saplingBlock) {
-                            world.setBlockState(event.pos, Blocks.air.getDefaultState(), 2);
+                        if (world.getBlockState(event.getPos()) == saplingBlock) {
+                            world.setBlockState(event.getPos(), Blocks.air.getDefaultState(), 2);
                         }
                     }
                 }
@@ -363,9 +363,9 @@ public class EventManagerRTG {
 
             // This event fires for each dimension loaded (and then one last time in which it returns 0?),
             // so initialise a field to 0 and set it to the world seed and only display it in the log once.
-            if (worldSeed != event.world.getSeed() && event.world.getSeed() != 0) {
+            if (worldSeed != event.getWorld().getSeed() && event.getWorld().getSeed() != 0) {
 
-                worldSeed = event.world.getSeed();
+                worldSeed = event.getWorld().getSeed();
                 Logger.info("World Seed: " + worldSeed);
             }
         }
@@ -388,7 +388,7 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
             //Are we in an RTG world?
-            isWorldTypeRTG = (event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
+            isWorldTypeRTG = (event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
         }
     }
 

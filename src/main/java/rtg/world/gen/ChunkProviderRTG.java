@@ -428,7 +428,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public String description(float [] biomeArray) {
         String result = "";
-        for (int i = 0 ; i < Biome.getBiomeGenArray().length; i ++) {
+        for (int i = 0 ; i < BiomeUtils.getRegisteredBiomes().length; i ++) {
             if (biomeArray[i]>0) {
                 result += " " + i + " " + biomeArray[i];
                 }

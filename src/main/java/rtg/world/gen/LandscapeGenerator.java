@@ -17,7 +17,7 @@ public class LandscapeGenerator {
     private float[] [] weightings;
     private final OpenSimplexNoise simplex;
     private final CellNoise cell;
-    private float [] weightedBiomes = new float [Biome.getBiomeGenArray().length];
+    private float [] weightedBiomes = new float [BiomeUtils.getRegisteredBiomes().length];
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<PlaneLocation,ChunkLandscape> storage = new TimedHashMap<PlaneLocation,ChunkLandscape>(60*1000);
     

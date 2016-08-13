@@ -40,7 +40,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         this.field_82672_i = strongholdSpread; // Spread (Vanilla = 3)
         this.field_151546_e = Lists.<Biome>newArrayList();
 
-        for (Biome biomegenbase : Biome.getBiomeGenArray())
+        for (Biome biomegenbase : BiomeUtils.getRegisteredBiomes())
         {
             if (biomegenbase != null && biomegenbase.minHeight > 0.0F && !net.minecraftforge.common.BiomeManager.strongHoldBiomesBlackList.contains(biomegenbase))
             {

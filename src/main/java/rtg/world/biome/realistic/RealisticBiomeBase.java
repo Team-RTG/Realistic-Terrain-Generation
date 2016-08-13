@@ -40,7 +40,7 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBase {
 
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[Biome.getBiomeGenArray().length];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[BiomeUtils.getRegisteredBiomes().length];
 
     public final Biome baseBiome;
     public final Biome riverBiome;

@@ -31,7 +31,7 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
     public static void addBiomes() {
 
         if (Loader.isModLoaded("abyssalcraft")) {
-            Biome[] b = Biome.getBiomeGenArray();
+            Biome[] b = BiomeUtils.getRegisteredBiomes();
 
             for (int i = 0; i < 256; i++) {
                 if (b[i] != null) {

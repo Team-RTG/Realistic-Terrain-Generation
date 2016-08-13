@@ -7,29 +7,29 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import static net.minecraft.util.EnumChatFormatting.DARK_RED;
-import static net.minecraft.util.EnumChatFormatting.WHITE;
+import net.minecraft.util.text.TextComponentTranslation;
+import static net.minecraft.util.text.TextFormatting.DARK_RED;
+import static net.minecraft.util.text.TextFormatting.WHITE;
 
 import org.apache.commons.io.FileUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-
 /**
  * Displays a notification screen when creating a new world.
  *
  * @author @Adubbz (https://github.com/Adubbz)
- *         <p>
- *         Source: https://github.com/Glitchfiend/BiomesOPlenty/blob/BOP-1.7.10-2.1.x/src/main/java/biomesoplenty/client/gui/WorldTypeMessageGUI.java
- *         Modified by: WhichOnesPink (https://github.com/whichonespink44)
+ *
+ * Source: https://github.com/Glitchfiend/BiomesOPlenty/blob/BOP-1.7.10-2.1.x/src/main/java/biomesoplenty/client/gui/WorldTypeMessageGUI.java
+ * Modified by: WhichOnesPink (https://github.com/whichonespink44)
  */
 public class WorldTypeMessageGUI extends GuiScreen {
-
-    private static final ResourceLocation rtgLogoTexture = new ResourceLocation("rtg:textures/gui/rtg-logo-worldtype.png");
     private GuiScreen parentGuiScreen;
+
     private File nameHashFile;
     private String nameHash;
+
+    private static final ResourceLocation rtgLogoTexture = new ResourceLocation("rtg:textures/gui/rtg-logo-worldtype.png");
 
     public WorldTypeMessageGUI(GuiScreen parentGuiScreen, File nameHashFile, String nameHash) {
 
@@ -56,13 +56,17 @@ public class WorldTypeMessageGUI extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
 
-        if (button.enabled) {
-            if (button.id == 0) {
-                try {
+        if (button.enabled)
+        {
+            if (button.id == 0)
+            {
+                try
+                {
                     nameHashFile.createNewFile();
                     FileUtils.write(nameHashFile, nameHash + "StartupWarning".hashCode());
                 }
-                catch (IOException e) {
+                catch (IOException e)
+                {
                     e.printStackTrace();
                 }
 
@@ -74,16 +78,23 @@ public class WorldTypeMessageGUI extends GuiScreen {
     @Override
     public void drawScreen(int x, int y, float renderPartialTicks) {
 
+        TextComponentTranslation rtgStartup1 = new TextComponentTranslation("warning.rtgStartup1");
+        TextComponentTranslation rtgStartup2 = new TextComponentTranslation("warning.rtgStartup2");
+        TextComponentTranslation rtgStartup3 = new TextComponentTranslation("warning.rtgStartup3");
+        TextComponentTranslation rtgStartup4 = new TextComponentTranslation("warning.rtgStartup4");
+        TextComponentTranslation rtgStartup5 = new TextComponentTranslation("warning.rtgStartup5");
+        TextComponentTranslation rtgStartup6 = new TextComponentTranslation("warning.rtgStartup6");
+
         this.drawDefaultBackground();
 
-        this.drawCenteredString(this.fontRendererObj, "" + WHITE + StatCollector.translateToLocal("warning.rtgStartup1"), this.width / 2, 82, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, "" + WHITE + StatCollector.translateToLocal("warning.rtgStartup2"), this.width / 2, 94, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, "" + WHITE + StatCollector.translateToLocal("warning.rtgStartup3"), this.width / 2, 106, 0xFFFFFF);
+        this.drawCenteredString(this.fontRendererObj, "" + WHITE + rtgStartup1.getFormattedText(), this.width / 2, 82, 0xFFFFFF);
+        this.drawCenteredString(this.fontRendererObj, "" + WHITE + rtgStartup2.getFormattedText(), this.width / 2, 94, 0xFFFFFF);
+        this.drawCenteredString(this.fontRendererObj, "" + WHITE + rtgStartup3.getFormattedText(), this.width / 2, 106, 0xFFFFFF);
 
-        this.drawCenteredString(this.fontRendererObj, "" + WHITE + StatCollector.translateToLocal("warning.rtgStartup4"), this.width / 2, 132, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, "" + WHITE + StatCollector.translateToLocal("warning.rtgStartup5"), this.width / 2, 144, 0xFFFFFF);
+        this.drawCenteredString(this.fontRendererObj, "" + WHITE + rtgStartup4.getFormattedText(), this.width / 2, 132, 0xFFFFFF);
+        this.drawCenteredString(this.fontRendererObj, "" + WHITE + rtgStartup5.getFormattedText(), this.width / 2, 144, 0xFFFFFF);
 
-        this.drawCenteredString(this.fontRendererObj, "" + DARK_RED + StatCollector.translateToLocal("warning.rtgStartup6"), this.width / 2, 168, 0xFFFFFF);
+        this.drawCenteredString(this.fontRendererObj, "" + DARK_RED + rtgStartup6.getFormattedText(), this.width / 2, 168, 0xFFFFFF);
 
         GL11.glEnable(GL11.GL_BLEND);
         this.mc.getTextureManager().bindTexture(rtgLogoTexture);

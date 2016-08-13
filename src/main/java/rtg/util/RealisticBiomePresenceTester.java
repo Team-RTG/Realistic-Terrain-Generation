@@ -13,15 +13,15 @@ public class RealisticBiomePresenceTester {
 
     public static void doBiomeCheck()
     {
-        Biome[] b = Biome.getBiomeGenArray();
+        Biome[] b = BiomeUtils.getRegisteredBiomes();
         
         for (int i = 0; i < 256; i++)
         {
             if (b[i] != null)
             {
                 Biome biome = b[i];
-                int biomeId = b[i].biomeID;
-                String biomeName = b[i].biomeName;
+                int biomeId = BiomeUtils.getId(b[i]);
+                String biomeName = BiomeUtils.getName(b[i]);
                 String biomeClass = b[i].getBiomeClass().getName();
 
                 Logger.debug("Biome (" + biomeId + ") " + biomeName + " from " + biomeClass);

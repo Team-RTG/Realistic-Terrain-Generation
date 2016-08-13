@@ -92,7 +92,7 @@ public class WorldUtil {
      */
     public boolean isBlockAbove(IBlockState checkBlock, int checkDistance, World world, int x, int y, int z, boolean materialCheck) {
 
-        Material checkBlockMaterial = checkBlock.getBlock().getMaterial();
+        Material checkBlockMaterial = checkBlock.getMaterial();
         IBlockState blockAbove;
         Material m;
 
@@ -101,7 +101,7 @@ public class WorldUtil {
             blockAbove = world.getBlockState(new BlockPos(x, y + checkDistance, z));
 
             if (materialCheck) {
-                m = blockAbove.getBlock().getMaterial();
+                m = blockAbove.getMaterial();
                 if (m != checkBlockMaterial) {
                     return false;
                 }

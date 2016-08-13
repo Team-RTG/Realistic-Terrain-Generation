@@ -13,11 +13,11 @@ public class BiomeSet {
 
     public class Water {
         public Water() {
-            biomes[Biomes.DEEP_OCEAN.biomeID] = true;
-            biomes[Biomes.FROZEN_OCEAN.biomeID] = true;
-            biomes[Biomes.FROZEN_RIVER.biomeID] = true;
-            biomes[Biomes.OCEAN.biomeID] = true;
-            biomes[Biomes.RIVER.biomeID] = true;
+            biomes[BiomeUtils.getId(Biomes.DEEP_OCEAN)] = true;
+            biomes[BiomeUtils.getId(Biomes.FROZEN_OCEAN)] = true;
+            biomes[BiomeUtils.getId(Biomes.FROZEN_RIVER)] = true;
+            biomes[BiomeUtils.getId(Biomes.OCEAN)] = true;
+            biomes[BiomeUtils.getId(Biomes.RIVER)] = true;
         }
     }
 

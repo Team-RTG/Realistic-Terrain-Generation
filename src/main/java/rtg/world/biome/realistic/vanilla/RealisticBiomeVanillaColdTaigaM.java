@@ -11,16 +11,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaM;
 
 public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biomes.COLD_TAIGA;
-    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static Biome biome = Biomes.MUTATED_TAIGA_COLD;
+    public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeVanillaColdTaigaM(BiomeConfig config) {
 
-        super(config,
-            mutationBiome,
-            Biomes.FROZEN_RIVER,
+        super(config, biome, river,
             new TerrainVanillaColdTaigaM(),
-            new SurfaceVanillaColdTaigaM(config, mutationBiome.topBlock, mutationBiome.fillerBlock)
+            new SurfaceVanillaColdTaigaM(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.noLakes = true;

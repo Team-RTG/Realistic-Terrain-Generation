@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -18,19 +17,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleM;
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biomes.JUNGLE;
-    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
-
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
+    public static Biome biome = Biomes.MUTATED_JUNGLE;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaJungleM(BiomeConfig config) {
 
-        super(config,
-            mutationBiome,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaJungleM(),
-            new SurfaceVanillaJungleM(config, topBlock, fillerBlock)
+            new SurfaceVanillaJungleM(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.waterSurfaceLakeChance = 3;

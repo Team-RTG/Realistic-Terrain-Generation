@@ -10,8 +10,6 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBase extends RealisticBiomeBase {
 
-    public static final int MUTATION_ADDEND = 128;
-
     public static RealisticBiomeBase vanillaBeach;
     public static RealisticBiomeBase vanillaBirchForest;
     public static RealisticBiomeBase vanillaBirchForestHills;

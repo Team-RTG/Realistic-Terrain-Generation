@@ -21,8 +21,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
-    private static final Biome biome = Biomes.MESA_CLEAR_ROCK;
-    private static final Biome river = Biomes.RIVER;
+    public static Biome biome = Biomes.MESA_ROCK;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
 

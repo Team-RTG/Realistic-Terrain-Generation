@@ -19,13 +19,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
+    public static Biome biome = Biomes.DESERT;
+    public static Biome river = Biomes.RIVER;
+
     public RealisticBiomeVanillaDesert(BiomeConfig config) {
 
-        super(config,
-            Biomes.DESERT,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaDesert(),
-            new SurfaceVanillaDesert(config, Biomes.DESERT.topBlock, Biomes.DESERT.fillerBlock)
+            new SurfaceVanillaDesert(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.waterSurfaceLakeChance = 0;

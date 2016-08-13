@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
 import rtg.api.biome.BiomeConfig;
@@ -17,14 +17,12 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.JUNGLE_HILLS.topBlock;
-    public static IBlockState fillerBlock = Biomes.JUNGLE_HILLS.fillerBlock;
+    public static Biome biome = Biomes.JUNGLE_HILLS;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaJungleHills(BiomeConfig config) {
 
-        super(config,
-            Biomes.JUNGLE_HILLS,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaJungleHills(72f, 40f),
             new SurfaceVanillaJungleHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f)
         );

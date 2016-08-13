@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
@@ -15,16 +15,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
 
 public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.SWAMPLAND.topBlock;
-    public static IBlockState fillerBlock = Biomes.SWAMPLAND.fillerBlock;
+    public static Biome biome = Biomes.SWAMPLAND;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaSwampland(BiomeConfig config) {
 
-        super(config,
-            Biomes.SWAMPLAND,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaSwampland(),
-            new SurfaceVanillaSwampland(config, topBlock, fillerBlock)
+            new SurfaceVanillaSwampland(config, biome.topBlock, biome.fillerBlock)
         );
 
         TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();

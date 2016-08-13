@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaiga;
@@ -10,13 +11,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaiga;
 
 public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
+    public static Biome biome = Biomes.COLD_TAIGA;
+    public static Biome river = Biomes.FROZEN_RIVER;
+
     public RealisticBiomeVanillaColdTaiga(BiomeConfig config) {
 
-        super(config,
-            Biomes.COLD_TAIGA,
-            Biomes.FROZEN_RIVER,
+        super(config, biome, river,
             new TerrainVanillaColdTaiga(),
-            new SurfaceVanillaColdTaiga(config, Biomes.COLD_TAIGA.topBlock, Biomes.COLD_TAIGA.fillerBlock)
+            new SurfaceVanillaColdTaiga(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaColdTaiga.decorationLogsId), 8f));

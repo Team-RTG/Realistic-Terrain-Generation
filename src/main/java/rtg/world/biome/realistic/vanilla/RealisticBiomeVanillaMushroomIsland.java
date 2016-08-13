@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -10,16 +10,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.MUSHROOM_ISLAND.topBlock;
-    public static IBlockState fillerBlock = Biomes.MUSHROOM_ISLAND.fillerBlock;
+    public static Biome biome = Biomes.MUSHROOM_ISLAND;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMushroomIsland(BiomeConfig config) {
 
-        super(config,
-            Biomes.MUSHROOM_ISLAND,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaMushroomIsland(),
-            new SurfaceVanillaMushroomIsland(config, topBlock, fillerBlock, 67, topBlock, 0f)
+            new SurfaceVanillaMushroomIsland(config, biome.topBlock, biome.fillerBlock, 67, biome.topBlock, 0f)
         );
 
         this.noLakes = true;

@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.BlockSand;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -23,14 +22,12 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauF;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.MESA_ROCK.topBlock;
-    public static IBlockState fillerBlock = Biomes.MESA_ROCK.fillerBlock;
+    public static Biome biome = Biomes.MESA_CLEAR_ROCK;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesaPlateauF(BiomeConfig config) {
 
-        super(config,
-            Biomes.MESA_ROCK,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateauF(
                 config,

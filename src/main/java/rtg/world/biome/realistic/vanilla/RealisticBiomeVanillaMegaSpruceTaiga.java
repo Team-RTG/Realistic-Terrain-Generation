@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -14,19 +13,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaSpruceTaiga;
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biomes.REDWOOD_TAIGA;
-    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
-
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
+    public static Biome biome = Biomes.MUTATED_REDWOOD_TAIGA;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config) {
 
-        super(config,
-            mutationBiome,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaMegaSpruceTaiga(),
-            new SurfaceVanillaMegaSpruceTaiga(config, topBlock, fillerBlock)
+            new SurfaceVanillaMegaSpruceTaiga(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.noLakes = true;

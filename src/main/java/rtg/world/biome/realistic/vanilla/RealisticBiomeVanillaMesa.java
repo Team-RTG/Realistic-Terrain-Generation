@@ -24,8 +24,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
-    private static final Biome biome = Biomes.MESA;
-    private static final Biome river = Biomes.RIVER;
+    public static Biome biome = Biomes.MESA;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesa(BiomeConfig config) {
 

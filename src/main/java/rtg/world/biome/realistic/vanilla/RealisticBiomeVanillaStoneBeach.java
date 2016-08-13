@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -11,16 +11,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaStoneBeach;
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.STONE_BEACH.topBlock;
-    public static IBlockState fillerBlock = Biomes.STONE_BEACH.fillerBlock;
+    public static Biome biome = Biomes.STONE_BEACH;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaStoneBeach(BiomeConfig config) {
 
-        super(config,
-            Biomes.STONE_BEACH,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaStoneBeach(),
-            new SurfaceVanillaStoneBeach(config, topBlock, fillerBlock, true, Blocks.GRAVEL.getDefaultState(), 1f, 1.5f, 85f, 20f, 4f)
+            new SurfaceVanillaStoneBeach(config, biome.topBlock, biome.fillerBlock, true, Blocks.GRAVEL.getDefaultState(), 1f, 1.5f, 85f, 20f, 4f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

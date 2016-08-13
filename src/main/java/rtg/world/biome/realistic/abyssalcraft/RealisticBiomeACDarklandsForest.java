@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.abyssalcraft;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
+import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.api.biome.BiomeConfig;
@@ -13,13 +14,14 @@ import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsForest;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
-    public RealisticBiomeACDarklandsForest(Biome acBiome, BiomeConfig config) {
+    public static Biome biome = ACBiomes.darklands_forest;
+    public static Biome river = Biomes.RIVER;
 
-        super(config,
-            acBiome,
-            Biomes.RIVER,
+    public RealisticBiomeACDarklandsForest(BiomeConfig config) {
+
+        super(config, biome, river,
             new TerrainACDarklandsForest(),
-            new SurfaceACDarklandsForest(config, acBiome.topBlock, acBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, acBiome.topBlock, 0.10f)
+            new SurfaceACDarklandsForest(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
         );
 
         DecoAbyssalCraftTree decoTrees = new DecoAbyssalCraftTree();

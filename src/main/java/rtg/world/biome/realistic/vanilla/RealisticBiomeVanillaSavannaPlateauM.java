@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -15,19 +14,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateauM;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biomes.SAVANNA_PLATEAU;
-    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
-
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
+    public static Biome biome = Biomes.MUTATED_SAVANNA_ROCK;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaSavannaPlateauM(BiomeConfig config) {
 
-        super(config,
-            mutationBiome,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaSavannaPlateauM(config, topBlock, fillerBlock, 0)
+            new SurfaceVanillaSavannaPlateauM(config, biome.topBlock, biome.fillerBlock, 0)
         );
 
         this.noLakes = true;

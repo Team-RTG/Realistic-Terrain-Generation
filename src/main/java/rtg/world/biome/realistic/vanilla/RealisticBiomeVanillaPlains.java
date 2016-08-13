@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoFlowersRTG;
@@ -17,16 +17,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.PLAINS.topBlock;
-    public static IBlockState fillerBlock = Biomes.PLAINS.fillerBlock;
+    public static Biome biome = Biomes.PLAINS;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaPlains(BiomeConfig config) {
 
-        super(config,
-            Biomes.PLAINS,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaPlains(),
-            new SurfaceVanillaPlains(config, topBlock, fillerBlock)
+            new SurfaceVanillaPlains(config, biome.topBlock, biome.fillerBlock)
         );
 
         // Very sparse shrubs.

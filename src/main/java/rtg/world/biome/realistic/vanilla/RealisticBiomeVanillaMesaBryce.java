@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -24,17 +23,12 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biomes.MESA;
-    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
-
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
+    public static Biome biome = Biomes.MUTATED_MESA;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesaBryce(BiomeConfig config) {
 
-        super(config,
-            mutationBiome,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
             new SurfaceVanillaMesaBryce(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1), 0)
         );

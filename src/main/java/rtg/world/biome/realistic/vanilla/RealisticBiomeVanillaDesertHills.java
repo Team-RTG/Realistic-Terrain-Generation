@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -21,14 +20,12 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertHills;
 
 public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.DESERT_HILLS.topBlock;
-    public static IBlockState fillerBlock = Biomes.DESERT_HILLS.fillerBlock;
+    public static Biome biome = Biomes.DESERT_HILLS;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaDesertHills(BiomeConfig config) {
 
-        super(config,
-            Biomes.DESERT_HILLS,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaDesertHills(10f, 90f, 30f, 180f),
             new SurfaceVanillaDesertHills(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );

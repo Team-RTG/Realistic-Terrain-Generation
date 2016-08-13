@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsPlus;
@@ -14,14 +14,12 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
-    public static IBlockState topBlock = Biomes.EXTREME_HILLS_WITH_TREES.topBlock;
-    public static IBlockState fillerBlock = Biomes.EXTREME_HILLS_WITH_TREES.fillerBlock;
+    public static Biome biome = Biomes.EXTREME_HILLS_WITH_TREES;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaExtremeHillsPlus(BiomeConfig config) {
 
-        super(config,
-            Biomes.EXTREME_HILLS_WITH_TREES,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaExtremeHillsPlus(150f, 80f, 90f),
             new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f)
         );

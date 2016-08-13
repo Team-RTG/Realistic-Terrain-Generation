@@ -1,10 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.biome.BiomeConfig;
@@ -18,19 +16,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM;
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanillaBase {
 
-    public static Biome standardBiome = Biomes.BIRCH_FOREST_HILLS;
-    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
-
-    public static IBlockState topBlock = mutationBiome.topBlock;
-    public static IBlockState fillerBlock = mutationBiome.fillerBlock;
+    public static Biome biome = Biomes.MUTATED_BIRCH_FOREST_HILLS;
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config) {
 
-        super(config,
-            mutationBiome,
-            Biomes.RIVER,
+        super(config, biome, river,
             new TerrainVanillaBirchForestHillsM(),
-            new SurfaceVanillaBirchForestHillsM(config, topBlock, fillerBlock)
+            new SurfaceVanillaBirchForestHillsM(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.noLakes = true;
@@ -75,15 +68,9 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
         rtgTrees.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
         rtgTrees.maxY = 100;
 
-        DecoTree vanillaTrees = new DecoTree(new WorldGenForest(false, false));
-        vanillaTrees.treeType = DecoTree.TreeType.WORLDGEN;
-        vanillaTrees.strengthFactorForLoops = 3f;
-        vanillaTrees.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
-        vanillaTrees.maxY = 100;
-
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{birchTrees, rtgTrees, vanillaTrees};
-        decoHelperRandomSplit.chances = new int[]{10, 4, 1};
+        decoHelperRandomSplit.decos = new DecoBase[]{birchTrees, rtgTrees};
+        decoHelperRandomSplit.chances = new int[]{10, 4};
         this.addDeco(decoHelperRandomSplit);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();

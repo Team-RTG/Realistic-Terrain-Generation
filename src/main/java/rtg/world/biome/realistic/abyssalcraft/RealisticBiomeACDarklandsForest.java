@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
@@ -12,11 +12,11 @@ import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsForest;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
-    public RealisticBiomeACDarklandsForest(BiomeGenBase acBiome, BiomeConfig config) {
+    public RealisticBiomeACDarklandsForest(Biome acBiome, BiomeConfig config) {
 
         super(config,
             acBiome,
-            BiomeGenBase.river,
+            Biome.river,
             new TerrainACDarklandsForest(),
             new SurfaceACDarklandsForest(config, acBiome.topBlock, acBiome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, acBiome.topBlock, 0.10f)
         );

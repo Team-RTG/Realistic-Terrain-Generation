@@ -1,12 +1,7 @@
 
 package rtg.world.gen;
 
-import net.minecraft.world.biome.BiomeGenBase;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.PlaneLocation;
-import rtg.util.TimeTracker;
-import rtg.util.TimedHashMap;
+import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -22,7 +17,7 @@ public class LandscapeGenerator {
     private float[] [] weightings;
     private final OpenSimplexNoise simplex;
     private final CellNoise cell;
-    private float [] weightedBiomes = new float [BiomeGenBase.getBiomeGenArray().length];
+    private float [] weightedBiomes = new float [Biome.getBiomeGenArray().length];
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<PlaneLocation,ChunkLandscape> storage = new TimedHashMap<PlaneLocation,ChunkLandscape>(60*1000);
     

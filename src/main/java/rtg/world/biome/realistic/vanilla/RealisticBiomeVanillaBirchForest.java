@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
@@ -19,10 +18,10 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaBirchForest(BiomeConfig config) {
 
         super(config,
-            BiomeGenBase.birchForest,
-            BiomeGenBase.river,
+            Biome.birchForest,
+            Biome.river,
             new TerrainVanillaBirchForest(),
-            new SurfaceVanillaBirchForest(config, BiomeGenBase.birchForest.topBlock, BiomeGenBase.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)
+            new SurfaceVanillaBirchForest(config, Biome.birchForest.topBlock, Biome.birchForest.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.dirt.getStateFromMeta(2), 0.15f)
         );
 
         TreeRTG birchSmall = new TreeRTGBetulaPapyrifera();

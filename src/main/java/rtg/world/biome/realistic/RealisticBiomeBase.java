@@ -9,7 +9,7 @@ import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderSettings;
@@ -39,10 +39,10 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBase {
 
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[BiomeGenBase.getBiomeGenArray().length];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[Biome.getBiomeGenArray().length];
 
-    public final BiomeGenBase baseBiome;
-    public final BiomeGenBase riverBiome;
+    public final Biome baseBiome;
+    public final Biome riverBiome;
     public BiomeConfig config;
 
     public TerrainBase terrain;
@@ -86,12 +86,12 @@ public class RealisticBiomeBase {
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome) {
+    public RealisticBiomeBase(BiomeConfig config, Biome biome) {
 
-        this(config, biome, BiomeGenBase.river);
+        this(config, biome, Biome.river);
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase biome, BiomeGenBase river) {
+    public RealisticBiomeBase(BiomeConfig config, Biome biome, Biome river) {
 
         if (config == null) {
             throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
@@ -154,7 +154,7 @@ public class RealisticBiomeBase {
         return arrRealisticBiomeIds[id];
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase[] s) {
 
         this(config, b, riverbiome);
 
@@ -164,7 +164,7 @@ public class RealisticBiomeBase {
         surfacesLength = s.length;
     }
 
-    public RealisticBiomeBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
 
         this(config, b, riverbiome, t, new SurfaceBase[]{s});
 
@@ -285,7 +285,7 @@ public class RealisticBiomeBase {
      * When manually decorating biomes, sometimes you want the biome to partially decorate itself.
      * That's what this method does... it calls the biome's decorate() method.
      */
-    public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+    public void rDecorateSeedBiome(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, Biome seedBiome) {
 
         if (strength > 0.3f) {
             seedBiome.decorate(world, rand, new BlockPos(chunkX, 0, chunkY));
@@ -298,7 +298,7 @@ public class RealisticBiomeBase {
     /**
      * This method should only be called by DecoBaseBiomeDecorations.
      */
-    public void rOreGenSeedBiome(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, BiomeGenBase seedBiome) {
+    public void rOreGenSeedBiome(World world, Random rand, BlockPos blockPos, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, Biome seedBiome) {
 
         if (seedBiome.theBiomeDecorator.chunkProviderSettings == null) {
 
@@ -524,7 +524,7 @@ public class RealisticBiomeBase {
         return (float)Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),1.0);
     }
 
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         float riverRegion = this.noWaterFeatures ? 0: river;
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {

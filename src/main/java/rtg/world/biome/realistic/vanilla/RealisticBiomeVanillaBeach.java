@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
@@ -13,8 +13,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase biome = BiomeGenBase.beach;
-    public static BiomeGenBase river = BiomeGenBase.river;
+    public static Biome biome = Biome.beach;
+    public static Biome river = Biome.river;
 
     public RealisticBiomeVanillaBeach(BiomeConfig config) {
 

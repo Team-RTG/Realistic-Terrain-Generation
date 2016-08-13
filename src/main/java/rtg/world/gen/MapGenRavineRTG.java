@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
 
@@ -185,7 +185,7 @@ public class MapGenRavineRTG extends MapGenRavine {
         ravineFrequency = ConfigRTG.ravineFrequency;
 
         // If the user has set biome-specific settings, let's use those instead.
-        BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+        Biome biome = world.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
 
         if (biome != null) {
 
@@ -224,22 +224,22 @@ public class MapGenRavineRTG extends MapGenRavine {
     }
 
     //Exception biomes to make sure we generate like vanilla
-    private boolean isExceptionBiome(BiomeGenBase biome) {
+    private boolean isExceptionBiome(Biome biome) {
 
-        if (biome == BiomeGenBase.mushroomIsland) {
+        if (biome == Biome.mushroomIsland) {
             return true;
         }
-        if (biome == BiomeGenBase.beach) {
+        if (biome == Biome.beach) {
             return true;
         }
-        return biome == BiomeGenBase.desert;
+        return biome == Biome.desert;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
     private boolean isTopBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ) {
 
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         return (isExceptionBiome(biome) ? primer.getBlockState(x, y, z) == Blocks.grass : primer.getBlockState(x, y, z) == biome.topBlock);
     }
 
@@ -261,7 +261,7 @@ public class MapGenRavineRTG extends MapGenRavine {
     @Override
     protected void digBlock(ChunkPrimer primer, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
 
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
         Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.fillerBlock.getBlock();
         Block block = primer.getBlockState(x, y, z).getBlock();

@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.world.biome.BiomeGenBase;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -72,7 +70,7 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public static RealisticBiomeBase vanillaTaigaHills;
     public static RealisticBiomeBase vanillaTaigaM;
 
-    public RealisticBiomeVanillaBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeVanillaBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
 
         super(config, b, riverbiome, t, s);
 

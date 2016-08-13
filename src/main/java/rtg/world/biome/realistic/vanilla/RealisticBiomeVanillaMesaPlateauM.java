@@ -6,7 +6,6 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
@@ -22,8 +21,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauM;
 
 public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = BiomeGenBase.mesaPlateau;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static Biome standardBiome = Biome.mesaPlateau;
+    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
@@ -32,7 +31,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
         super(config,
             mutationBiome,
-            BiomeGenBase.river,
+            Biome.river,
             new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f),
             new SurfaceVanillaMesaPlateauM(
                 config,
@@ -82,7 +81,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 

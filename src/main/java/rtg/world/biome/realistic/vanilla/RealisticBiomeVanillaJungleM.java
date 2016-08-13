@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
 import rtg.api.biome.BiomeConfig;
@@ -17,8 +16,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleM;
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = BiomeGenBase.jungle;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static Biome standardBiome = Biome.jungle;
+    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
@@ -27,7 +26,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
         super(config,
             mutationBiome,
-            BiomeGenBase.river,
+            Biome.river,
             new TerrainVanillaJungleM(),
             new SurfaceVanillaJungleM(config, topBlock, fillerBlock)
         );

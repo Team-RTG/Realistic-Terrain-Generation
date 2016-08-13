@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
@@ -11,8 +10,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaTaigaM;
 
 public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = BiomeGenBase.taiga;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static Biome standardBiome = Biome.taiga;
+    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
@@ -21,7 +20,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
 
         super(config,
             mutationBiome,
-            BiomeGenBase.river,
+            Biome.river,
             new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
             new SurfaceVanillaTaigaM(config, topBlock, fillerBlock)
         );

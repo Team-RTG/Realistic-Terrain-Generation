@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.*;
@@ -270,8 +270,8 @@ public class EventManagerRTG {
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
-            //BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
-            BiomeGenBase bgg = world.getBiomeGenForCoords(event.pos);
+            //Biome bgg = cmr.getBiomeGenAt(x, z);
+            Biome bgg = world.getBiomeGenForCoords(event.pos);
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
 

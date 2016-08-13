@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -9,11 +9,11 @@ import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsHighland;
 
 public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
 
-    public RealisticBiomeACDarklandsHighland(BiomeGenBase acBiome, BiomeConfig config) {
+    public RealisticBiomeACDarklandsHighland(Biome acBiome, BiomeConfig config) {
 
         super(config,
             acBiome,
-            BiomeGenBase.river,
+            Biome.river,
             new TerrainACDarklandsHighland(10f, 120f, 10f, 200f),
             new SurfaceACDarklandsHighland(config, acBiome.topBlock, acBiome.fillerBlock, acBiome.topBlock, acBiome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
         );

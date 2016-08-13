@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
@@ -20,7 +20,7 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
     public static RealisticBiomeBase acDarklandsMountains;
     public static RealisticBiomeBase acDarklandsPlains;
 
-    public RealisticBiomeACBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeACBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
 
         super(config, b, riverbiome, t, s);
 
@@ -31,7 +31,7 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
     public static void addBiomes() {
 
         if (Loader.isModLoaded("abyssalcraft")) {
-            BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
+            Biome[] b = Biome.getBiomeGenArray();
 
             for (int i = 0; i < 256; i++) {
                 if (b[i] != null) {
@@ -40,7 +40,7 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
                         continue;
                     }
 
-                    BiomeGenBase acBiome = b[i];
+                    Biome acBiome = b[i];
                     String biomeName = b[i].biomeName;
                     String biomeClass = b[i].getBiomeClass().getName();
 

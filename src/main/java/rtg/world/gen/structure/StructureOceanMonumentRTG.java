@@ -14,7 +14,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.IntCache;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
@@ -35,14 +35,14 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 {
     private int field_175800_f;
     private int field_175801_g;
-    public static final List<BiomeGenBase> field_175802_d = Arrays.<BiomeGenBase>asList(new BiomeGenBase[] {
-        BiomeGenBase.ocean,
-        BiomeGenBase.deepOcean,
-        BiomeGenBase.river,
-        BiomeGenBase.frozenOcean,
-        BiomeGenBase.frozenRiver
+    public static final List<Biome> field_175802_d = Arrays.<Biome>asList(new Biome[] {
+        Biome.ocean,
+        Biome.deepOcean,
+        Biome.river,
+        Biome.frozenOcean,
+        Biome.frozenRiver
     });
-    private static final List<BiomeGenBase.SpawnListEntry> field_175803_h = Lists.<BiomeGenBase.SpawnListEntry>newArrayList();
+    private static final List<Biome.SpawnListEntry> field_175803_h = Lists.<Biome.SpawnListEntry>newArrayList();
 
     public StructureOceanMonumentRTG() {
 
@@ -91,7 +91,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         l = l + (random.nextInt(this.field_175800_f - this.field_175801_g) + random.nextInt(this.field_175800_f - this.field_175801_g)) / 2;
 
         if (i == k && j == l) {
-            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase)null) != BiomeGenBase.deepOcean) {
+            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (Biome)null) != Biome.deepOcean) {
                 return false;
             }
 
@@ -110,7 +110,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     /**
      * checks given Chunk's Biomes against List of allowed ones
      */
-    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<BiomeGenBase> p_76940_4_)
+    public boolean areBiomesViable(int p_76940_1_, int p_76940_2_, int p_76940_3_, List<Biome> p_76940_4_)
     {
         // Are we in an RTG world?
         if (!(this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
@@ -139,7 +139,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         {
             for (int k1 = 0; k1 < i1 * j1; ++k1)
             {
-                BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k1]);
+                Biome biomegenbase = Biome.getBiome(aint[k1]);
 
                 if (!p_76940_4_.contains(biomegenbase))
                 {
@@ -167,13 +167,13 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         return new StructureOceanMonumentRTG.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
-    public List<BiomeGenBase.SpawnListEntry> func_175799_b() {
+    public List<Biome.SpawnListEntry> func_175799_b() {
         return field_175803_h;
     }
 
     static
     {
-        field_175803_h.add(new BiomeGenBase.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
+        field_175803_h.add(new Biome.SpawnListEntry(EntityGuardian.class, 1, 2, 4));
     }
 
     public static class StartMonument extends StructureStart {

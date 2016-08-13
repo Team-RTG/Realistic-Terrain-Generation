@@ -5,7 +5,6 @@ import java.util.Random;
 import net.minecraft.block.BlockSand;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -23,8 +22,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
-    private static final BiomeGenBase biome = BiomeGenBase.mesa;
-    private static final BiomeGenBase river = BiomeGenBase.river;
+    private static final Biome biome = Biome.mesa;
+    private static final Biome river = Biome.river;
 
     public RealisticBiomeVanillaMesa(BiomeConfig config) {
 
@@ -67,7 +66,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 

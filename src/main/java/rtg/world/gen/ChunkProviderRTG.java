@@ -13,7 +13,7 @@ import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -77,7 +77,7 @@ public class ChunkProviderRTG implements IChunkProvider
     private OpenSimplexNoise simplex;
     private CellNoise cell;
 	//private RealisticBiomeBase[] biomesForGeneration;
-    private BiomeGenBase[] baseBiomesList;
+    private Biome[] baseBiomesList;
     private int[] biomeData;
     private float[] testHeight;
     private boolean[] biomesGeneratedInChunk;
@@ -161,7 +161,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
         sampleArraySize = sampleSize * 2 + 5;
 
-        baseBiomesList = new BiomeGenBase[256];
+        baseBiomesList = new Biome[256];
         biomeData = new int[sampleArraySize * sampleArraySize];
         testHeight = new float[256];
     	biomesGeneratedInChunk = new boolean[256];
@@ -428,7 +428,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
     public String description(float [] biomeArray) {
         String result = "";
-        for (int i = 0 ; i < BiomeGenBase.getBiomeGenArray().length; i ++) {
+        for (int i = 0 ; i < Biome.getBiomeGenArray().length; i ++) {
             if (biomeArray[i]>0) {
                 result += " " + i + " " + biomeArray[i];
                 }
@@ -439,7 +439,7 @@ public class ChunkProviderRTG implements IChunkProvider
     public static String firstBlock;
     public static String biomeLayoutActivity = "Biome Layout";
 
-    public void replaceBlocksForBiome(int cx, int cy, ChunkPrimer primer, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
+    public void replaceBlocksForBiome(int cx, int cy, ChunkPrimer primer, RealisticBiomeBase[] biomes, Biome[] base, float[] n)
                         {
         ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cy, primer, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
@@ -967,7 +967,7 @@ public class ChunkProviderRTG implements IChunkProvider
      */
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, BlockPos blockPos) {
 
-        BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(blockPos);
+        Biome var5 = this.worldObj.getBiomeGenForCoords(blockPos);
         if (this.mapFeaturesEnabled) {
             if (par1EnumCreatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.func_175798_a(blockPos)) {
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();

@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -21,10 +20,10 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert(BiomeConfig config) {
 
         super(config,
-            BiomeGenBase.desert,
-            BiomeGenBase.river,
+            Biome.desert,
+            Biome.river,
             new TerrainVanillaDesert(),
-            new SurfaceVanillaDesert(config, BiomeGenBase.desert.topBlock, BiomeGenBase.desert.fillerBlock)
+            new SurfaceVanillaDesert(config, Biome.desert.topBlock, Biome.desert.fillerBlock)
         );
 
         this.waterSurfaceLakeChance = 0;
@@ -36,7 +35,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 

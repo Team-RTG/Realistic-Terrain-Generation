@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
 
@@ -200,7 +200,7 @@ public class MapGenCavesRTG extends MapGenCaves {
         caveFrequency = ConfigRTG.caveFrequency;
 
         // If the user has set biome-specific settings, let's use those instead.
-        BiomeGenBase biome = world.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+        Biome biome = world.getBiomeGenForCoords(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
 
         if (biome != null) {
 
@@ -262,17 +262,17 @@ public class MapGenCavesRTG extends MapGenCaves {
 
     //Exception biomes to make sure we generate like vanilla
 
-    private boolean isExceptionBiome(BiomeGenBase biome) {
+    private boolean isExceptionBiome(Biome biome) {
 
         boolean booException = false;
 
-        if (biome == BiomeGenBase.mushroomIsland) {
+        if (biome == Biome.mushroomIsland) {
             booException = true;
         }
-        if (biome == BiomeGenBase.beach) {
+        if (biome == Biome.beach) {
             booException = true;
         }
-        if (biome == BiomeGenBase.desert) {
+        if (biome == Biome.desert) {
             booException = true;
         }
 
@@ -283,7 +283,7 @@ public class MapGenCavesRTG extends MapGenCaves {
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
     private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
 
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         return (isExceptionBiome(biome) ? data.getBlockState(x, y, z) == Blocks.grass : data.getBlockState(x, y, z) == biome.topBlock);
     }
 
@@ -305,7 +305,7 @@ public class MapGenCavesRTG extends MapGenCaves {
     @Override
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up) {
 
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        Biome biome = worldObj.getBiomeGenForCoords(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         Block top = isExceptionBiome(biome) ? Blocks.grass : biome.topBlock.getBlock();
         Block filler = isExceptionBiome(biome) ? Blocks.dirt : biome.fillerBlock.getBlock();
         Block block = data.getBlockState(x, y, z).getBlock();

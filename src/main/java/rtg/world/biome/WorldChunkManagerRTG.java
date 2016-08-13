@@ -7,8 +7,8 @@ import java.util.Random;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeCache;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
@@ -22,7 +22,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeProvider
 {
-    /** A GenLayer containing the indices into BiomeGenBase.biomeList[] */
+    /** A GenLayer containing the indices into Biome.biomeList[] */
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private List biomesToSpawnIn;
@@ -127,15 +127,15 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
     }
 
     @Override
-    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
+    public Biome[] loadBlockGeneratorData(Biome[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
     {
 
         return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
     }
 
     @Override
-    public BiomeGenBase getBiomeGenAt(int par1, int par2) {
-        BiomeGenBase result;
+    public Biome getBiomeGenAt(int par1, int par2) {
+        Biome result;
 
         result = this.biomeCache.getBiomeCacheBlock(par1, par2).getBiomeGenAt(par1, par2);
 
@@ -146,13 +146,13 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         return result;
     }
 
-    public BiomeGenBase[] getBiomesForGeneration(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
+    public Biome[] getBiomesForGeneration(Biome[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
     {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
+        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiome.length < par4 * par5)
         {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+            par1ArrayOfBiomeGenBase = new Biome[par4 * par5];
         }
 
         int[] aint = this.genBiomes.getInts(par2, par3, par4, par5);
@@ -300,18 +300,18 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         return par1;
     }
 
-    public BiomeGenBase[] getBiomeGenAt(BiomeGenBase[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
+    public Biome[] getBiomeGenAt(Biome[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
     {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
+        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiome.length < par4 * par5)
         {
-            par1ArrayOfBiomeGenBase = new BiomeGenBase[par4 * par5];
+            par1ArrayOfBiomeGenBase = new Biome[par4 * par5];
         }
 
         if (par6 && par4 == 16 && par5 == 16 && (par2 & 15) == 0 && (par3 & 15) == 0)
         {
-            BiomeGenBase[] abiomegenbase1 = this.biomeCache.getCachedBiomes(par2, par3);
+            Biome[] abiomegenbase1 = this.biomeCache.getCachedBiomes(par2, par3);
             System.arraycopy(abiomegenbase1, 0, par1ArrayOfBiomeGenBase, 0, par4 * par5);
             return par1ArrayOfBiomeGenBase;
         }
@@ -389,7 +389,7 @@ public class WorldChunkManagerRTG extends WorldChunkManager implements RTGBiomeP
         {
             int l2 = l + k2 % l1 << 2;
             int i3 = i1 + k2 / l1 << 2;
-            BiomeGenBase biomegenbase = BiomeGenBase.getBiome(aint[k2]);
+            Biome biomegenbase = Biome.getBiome(aint[k2]);
 
             if (p_150795_4_.contains(biomegenbase) && (chunkposition == null || p_150795_5_.nextInt(j2 + 1) == 0))
             {

@@ -9,7 +9,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
@@ -22,7 +22,7 @@ import rtg.util.Logger;
 
 public class MapGenStrongholdRTG extends MapGenStronghold
 {
-    public final List<BiomeGenBase> field_151546_e;
+    public final List<Biome> field_151546_e;
     /** is spawned false and set true once the defined BiomeGenBases were compared with the present ones */
     private boolean ranBiomeCheck;
     private ChunkCoordIntPair[] structureCoords;
@@ -38,16 +38,16 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         this.structureCoords = new ChunkCoordIntPair[strongholdCount]; // Count (Vanilla = 3)
         this.field_82671_h = strongholdDistance; // Distance (Vanilla = 32.0D)
         this.field_82672_i = strongholdSpread; // Spread (Vanilla = 3)
-        this.field_151546_e = Lists.<BiomeGenBase>newArrayList();
+        this.field_151546_e = Lists.<Biome>newArrayList();
 
-        for (BiomeGenBase biomegenbase : BiomeGenBase.getBiomeGenArray())
+        for (Biome biomegenbase : Biome.getBiomeGenArray())
         {
             if (biomegenbase != null && biomegenbase.minHeight > 0.0F && !net.minecraftforge.common.BiomeManager.strongHoldBiomesBlackList.contains(biomegenbase))
             {
                 this.field_151546_e.add(biomegenbase);
             }
         }
-        for (BiomeGenBase biome : net.minecraftforge.common.BiomeManager.strongHoldBiomes)
+        for (Biome biome : net.minecraftforge.common.BiomeManager.strongHoldBiomes)
         {
             if (!this.field_151546_e.contains(biome))
             {

@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 /**
@@ -192,7 +192,7 @@ public class WorldGenPond extends WorldGenerator {
                     if (willBeShore[(i1 * 16 + j2)]) {
                         int shoreHeight = world.getTopSolidOrLiquidBlock(new BlockPos(x + i1, 0, z + j2)).getY();
                         if (shoreHeight < lakeLevel) {
-                            BiomeGenBase biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
+                            Biome biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
                             for (int height = shoreHeight; height < lakeLevel; height++) {
 
 
@@ -252,7 +252,7 @@ public class WorldGenPond extends WorldGenerator {
                 for (j2 = 0; j2 < 16; ++j2) {
                     for (j1 = 4; j1 < 8; ++j1) {
                         if (aboolean[(i1 * 16 + j2) * 8 + j1] && world.getBlockState(new BlockPos(x + i1, y + j1 - 1, z + j2)) == Blocks.dirt.getDefaultState() && world.getLightFor(EnumSkyBlock.SKY, new BlockPos(x + i1, y + j1, z + j2)) > 0) {
-                            BiomeGenBase biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
+                            Biome biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
 
                             if (biomegenbase.topBlock == Blocks.mycelium.getDefaultState()) {
                                 world.setBlockState(new BlockPos(x + i1, y + j1 - 1, z + j2), Blocks.mycelium.getDefaultState(), 2);
@@ -298,7 +298,7 @@ public class WorldGenPond extends WorldGenerator {
                         int shoreHeight = world.getTopSolidOrLiquidBlock(new BlockPos(x + i1, 0, z + j2)).getY();
                         if (shoreHeight > lakeLevel) {
                             shoreHeight--;
-                            BiomeGenBase biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
+                            Biome biomegenbase = world.getBiomeGenForCoords(new BlockPos(x + i1, 0, z + j2));
                             world.setBlockState(new BlockPos(x + i1, shoreHeight, z + j2), Blocks.air.getDefaultState(), 2);
                             shoreHeight--;
 

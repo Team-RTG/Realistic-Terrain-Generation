@@ -7,7 +7,7 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
@@ -37,7 +37,7 @@ import rtg.util.Logger;
  */
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
-    private static List biomelist = Arrays.asList(BiomeGenBase.desert, BiomeGenBase.desertHills, BiomeGenBase.jungle, BiomeGenBase.jungleHills, BiomeGenBase.swampland);
+    private static List biomelist = Arrays.asList(Biome.desert, Biome.desertHills, Biome.jungle, Biome.jungleHills, Biome.swampland);
 
     /**
      * contains possible spawns for scattered features
@@ -67,7 +67,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         this.scatteredFeatureSpawnList = new ArrayList();
         this.maxDistanceBetweenScatteredFeatures = maxDistance;
         this.minDistanceBetweenScatteredFeatures = minDistance;
-        this.scatteredFeatureSpawnList.add(new BiomeGenBase.SpawnListEntry(EntityWitch.class, 1, 1, 1));
+        this.scatteredFeatureSpawnList.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
     }
 
     public MapGenScatteredFeatureRTG(Map p_i2061_1_) {
@@ -84,7 +84,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         }
     }
 
-    private static boolean canSpawnDesertTemple(BiomeGenBase b) {
+    private static boolean canSpawnDesertTemple(Biome b) {
 
         boolean canSpawn = false;
 
@@ -95,7 +95,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         return canSpawn;
     }
 
-    private static boolean canSpawnJungleTemple(BiomeGenBase b) {
+    private static boolean canSpawnJungleTemple(Biome b) {
 
         boolean canSpawn = false;
 
@@ -106,7 +106,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         return canSpawn;
     }
 
-    private static boolean canSpawnWitchHut(BiomeGenBase b) {
+    private static boolean canSpawnWitchHut(Biome b) {
 
         boolean canSpawn = false;
 
@@ -146,7 +146,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
         j1 += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
 
         if (k == i1 && l == j1) {
-            BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
+            Biome biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(k * 16 + 8, 0, l * 16 + 8));
 
             if (biomegenbase != null) {
 
@@ -210,7 +210,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature {
 
             LinkedList arrComponents = new LinkedList();
 
-            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
+            Biome biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
 
             if (canSpawnDesertTemple(biomegenbase)) {
                 ComponentScatteredFeaturePieces.DesertPyramid desertpyramid = new ComponentScatteredFeaturePieces.DesertPyramid(random, chunkX * 16, chunkZ * 16);

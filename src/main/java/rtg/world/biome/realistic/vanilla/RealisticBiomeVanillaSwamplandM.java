@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwamplandM;
@@ -15,8 +14,8 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaSwamplandM;
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 
-    public static BiomeGenBase standardBiome = BiomeGenBase.swampland;
-    public static BiomeGenBase mutationBiome = BiomeGenBase.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
+    public static Biome standardBiome = Biome.swampland;
+    public static Biome mutationBiome = Biome.getBiome(standardBiome.biomeID + MUTATION_ADDEND);
 
     public static IBlockState topBlock = mutationBiome.topBlock;
     public static IBlockState fillerBlock = mutationBiome.fillerBlock;
@@ -25,7 +24,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
 
         super(config,
             mutationBiome,
-            BiomeGenBase.river,
+            Biome.river,
             new TerrainVanillaSwamplandM(50f, 25f, 60f),
             new SurfaceVanillaSwamplandM(config, topBlock, fillerBlock)
         );

@@ -28,8 +28,10 @@ public class RealisticBiomePresenceTester {
                 
                 switch (biomeId) {
                 
-                    case 8:
-                    case 9:
+                    case 8:     // The Nether
+                    case 9:     // The End
+                    case 127:   // The Void
+
                         // Do nothing.
                         break;
                     

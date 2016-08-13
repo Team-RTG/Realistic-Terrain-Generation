@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;

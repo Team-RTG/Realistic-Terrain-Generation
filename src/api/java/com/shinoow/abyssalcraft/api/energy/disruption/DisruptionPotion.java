@@ -11,19 +11,18 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy.disruption;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.shinoow.abyssalcraft.api.AbyssalCraftAPI.ACPotions;
 import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
+import com.shinoow.abyssalcraft.api.entity.EntityUtil;
 
 /**
  * A Potion Disruption Entry
@@ -46,31 +45,15 @@ public class DisruptionPotion extends DisruptionEntry {
 		this.potion = potion;
 	}
 
-	private boolean isEntityImmune(Potion potion, Entity entity){
-		boolean result = false;
-		try {
-			Class utilClass = Class.forName("com.shinoow.abyssalcraft.common.util.EntityUtil");
-
-			result = potion == ACPotions.Coralium_plague && (Boolean)utilClass.getDeclaredMethod("isEntityCoralium", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity) ||
-					potion == ACPotions.Dread_plague && (Boolean)utilClass.getDeclaredMethod("isEntityDread", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity) ||
-					potion == ACPotions.Antimatter && (Boolean)utilClass.getDeclaredMethod("isEntityAnti", EntityLivingBase.class).invoke(null, (EntityLivingBase)entity);
-
-		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 	@Override
 	public void disrupt(World world, BlockPos pos, List<EntityPlayer> players) {
 
-		if(!world.isRemote)
-			if(world.getBlockState(pos).getBlock().getCollisionBoundingBox(world, pos, world.getBlockState(pos)) != null){
-				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, world.getBlockState(pos).getBlock().getCollisionBoundingBox(world, pos, world.getBlockState(pos)).expand(16, 16, 16));
+		if(!world.isRemote){
+			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(16, 16, 16));
 
-				for(EntityLivingBase entity : entities)
-					if(!isEntityImmune(potion, entity))
-						entity.addPotionEffect(new PotionEffect(potion.id, 600));
-			}
+			for(EntityLivingBase entity : entities)
+				if(!EntityUtil.isEntityImmune(entity, potion))
+					entity.addPotionEffect(new PotionEffect(potion, 600));
+		}
 	}
 }

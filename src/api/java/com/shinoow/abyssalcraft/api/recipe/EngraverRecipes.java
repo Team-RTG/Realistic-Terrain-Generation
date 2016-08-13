@@ -83,7 +83,7 @@ public class EngraverRecipes {
 
 	private boolean areStacksEqual(ItemStack par1ItemStack, ItemStack par2ItemStack)
 	{
-		return par2ItemStack.getItem() == par1ItemStack.getItem() && (par2ItemStack.getItemDamage() == OreDictionary.WILDCARD_VALUE || par2ItemStack.getItemDamage() == par1ItemStack.getItemDamage());
+		return (par2ItemStack.getItem() == par1ItemStack.getItem() || par1ItemStack.getItem() == ACItems.coin) && (par2ItemStack.getItemDamage() == OreDictionary.WILDCARD_VALUE || par2ItemStack.getItemDamage() == par1ItemStack.getItemDamage());
 	}
 
 	/**
@@ -112,18 +112,10 @@ public class EngraverRecipes {
 		float ret = par1ItemStack.getItem().getSmeltingExperience(par1ItemStack);
 		if (ret != -1) return ret;
 
-		Iterator<?> iterator = experienceList.entrySet().iterator();
-		Entry<?, ?> entry;
+		for (Entry<ItemStack, Float> entry : experienceList.entrySet())
+			if (areStacksEqual(par1ItemStack, entry.getKey()))
+				return entry.getValue().floatValue();
 
-		do
-		{
-			if (!iterator.hasNext())
-				return 0.0F;
-
-			entry = (Entry<?, ?>)iterator.next();
-		}
-		while (!areStacksEqual(par1ItemStack, (ItemStack)entry.getKey()));
-
-		return ((Float)entry.getValue()).floatValue();
+		return 0.0F;
 	}
 }

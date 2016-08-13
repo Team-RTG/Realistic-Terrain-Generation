@@ -20,9 +20,9 @@ import net.minecraft.item.ItemStack;
  * 
  * @author shinoow
  *
- * @since 1.4.5
+ * @since 1.7.5
  */
-public interface IEnergyTransporter {
+public interface IEnergyContainerItem {
 
 	/**
 	 * Gets the Potential Energy contained within the item
@@ -49,4 +49,14 @@ public interface IEnergyTransporter {
 	 * @param energy Energy quanta to consume
 	 */
 	public void consumeEnergy(ItemStack stack, float energy);
+
+	/**
+	 * Returns Whether or not this item can accept Potential Energy
+	 */
+	public boolean canAcceptPE(ItemStack stack);
+
+	/**
+	 * Returns Whether or not this item can transfer Potential Energy
+	 */
+	public boolean canTransferPE(ItemStack stack);
 }

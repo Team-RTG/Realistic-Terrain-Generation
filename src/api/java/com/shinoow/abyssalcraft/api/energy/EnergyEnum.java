@@ -11,7 +11,7 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy;
 
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.EnumHelper;
 
 /**
@@ -52,7 +52,7 @@ public class EnergyEnum {
 		 * Getter for the Amplifier's localized name
 		 */
 		public String getLocalizedName(){
-			return StatCollector.translateToLocal(getUnlocalizedName());
+			return I18n.translateToLocal(getUnlocalizedName());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class EnergyEnum {
 	 * @since 1.5
 	 */
 	public static String getAmplifierName(AmplifierType type){
-		if(type == null) return StatCollector.translateToLocal("ac.text.none");
+		if(type == null) return I18n.translateToLocal("ac.text.none");
 		return type.getLocalizedName();
 	}
 
@@ -102,7 +102,7 @@ public class EnergyEnum {
 	 * @since 1.5
 	 */
 	public static String getDeityName(DeityType type){
-		if(type == null) return StatCollector.translateToLocal("ac.text.none");
+		if(type == null) return I18n.translateToLocal("ac.text.none");
 		return type.getName();
 	}
 
@@ -115,7 +115,7 @@ public class EnergyEnum {
 	 * @since 1.5
 	 */
 	public AmplifierType addAmplifierType(String enumName, String name){
-		return EnumHelper.addEnum(AmplifierType.class, enumName, name);
+		return EnumHelper.addEnum(AmplifierType.class, enumName, new Class[]{String.class}, name);
 	}
 
 	/**
@@ -127,6 +127,6 @@ public class EnergyEnum {
 	 * @since 1.5
 	 */
 	public DeityType addDeityType(String enumName, String name){
-		return EnumHelper.addEnum(DeityType.class, enumName, name);
+		return EnumHelper.addEnum(DeityType.class, enumName, new Class[]{String.class}, name);
 	}
 }

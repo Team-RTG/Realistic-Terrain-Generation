@@ -11,15 +11,16 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.*;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -27,13 +28,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
-import com.shinoow.abyssalcraft.api.integration.IACPlugin;
+import com.shinoow.abyssalcraft.api.entity.EntityUtil;
 import com.shinoow.abyssalcraft.api.internal.DummyNecroDataHandler;
 import com.shinoow.abyssalcraft.api.internal.IInternalNecroDataHandler;
 import com.shinoow.abyssalcraft.api.item.ACItems;
@@ -43,6 +45,8 @@ import com.shinoow.abyssalcraft.api.recipe.*;
 
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -57,18 +61,11 @@ public class AbyssalCraftAPI {
 	/**
 	 * String used to specify the API version in the "package-info.java" classes
 	 */
-	public static final String API_VERSION = "1.6";
+	public static final String API_VERSION = "1.8.1";
 
-	/**
-	 * Enchantment IDs, first one is the Coralium enchantment, second Dread enchantment,
-	 * third the Light Pierce enchantment, and the fourth is the Iron Wall enchantment.
-	 */
-	public static int enchId1, enchId2, enchId3, enchId4;
+	public static Enchantment coralium_enchantment, dread_enchantment, light_pierce, iron_wall;
 
-	/**
-	 * Potion IDs, first one is the Coralium Plague, second Dread Plague, and third Antimatter
-	 */
-	public static int potionId1, potionId2, potionId3;
+	public static Potion coralium_plague, dread_plague, antimatter_potion;
 
 	private static List<IFuelHandler> crystallizerFuelHandlers = Lists.newArrayList();
 	private static List<IFuelHandler> transmutatorFuelHandlers = Lists.newArrayList();
@@ -77,43 +74,58 @@ public class AbyssalCraftAPI {
 	public static DamageSource dread = new DamageSource("dread").setDamageBypassesArmor().setMagicDamage();
 	public static DamageSource antimatter = new DamageSource("antimatter").setDamageBypassesArmor().setMagicDamage();
 
-	private static List<Class<? extends EntityLivingBase>> shoggothFood = Lists.newArrayList();
-
 	private static List<Block> shoggothBlockBlacklist = Lists.newArrayList();
 
 	private static List<ItemStack> crystals = Lists.newArrayList();
 
-	private static List<IACPlugin> integrations = Lists.newArrayList();
+	private static Map<NecroData, Integer> necroData = Maps.newHashMap();
 
-	private static HashMap<NecroData, Integer> necroData = Maps.newHashMap();
+	private static Map<Item, ResourceLocation> ghoul_helmet = Maps.newHashMap();
+	private static Map<Item, ResourceLocation> ghoul_chestplate = Maps.newHashMap();
+	private static Map<Item, ResourceLocation> ghoul_leggings = Maps.newHashMap();
+	private static Map<Item, ResourceLocation> ghoul_boots = Maps.newHashMap();
 
 	/**
 	 *  {@link EnumCreatureAttribute} used for the Shadow mobs
 	 */
 	public static EnumCreatureAttribute SHADOW = EnumHelper.addCreatureAttribute("SHADOW");
 
-	public static ArmorMaterial abyssalniteArmor = EnumHelper.addArmorMaterial("Abyssalnite", "abyssalcraft:abyssalnite", 35, new int[]{3, 8, 6, 3}, 13);
-	public static ArmorMaterial dreadedAbyssalniteArmor = EnumHelper.addArmorMaterial("Dread", "abyssalcraft:dread", 36, new int[]{3, 8, 6, 3}, 15);
-	public static ArmorMaterial refinedCoraliumArmor = EnumHelper.addArmorMaterial("Coralium", "abyssalcraft:coralium", 37, new int[]{3, 8, 6, 3}, 14);
-	public static ArmorMaterial platedCoraliumArmor = EnumHelper.addArmorMaterial("CoraliumP", "abyssalcraft:coraliump", 55, new int[]{4, 9, 7, 4}, 14);
-	public static ArmorMaterial depthsArmor = EnumHelper.addArmorMaterial("Depths", "abyssalcraft:depths", 33, new int[]{3, 8, 6, 3}, 25);
-	public static ArmorMaterial dreadiumArmor = EnumHelper.addArmorMaterial("Dreadium", "abyssalcraft:dreadium", 40, new int[]{3, 8, 6, 3}, 15);
-	public static ArmorMaterial dreadiumSamuraiArmor = EnumHelper.addArmorMaterial("DreadiumS", "abyssalcraft:dreadiums", 45, new int[]{3, 8, 6, 3}, 20);
-	public static ArmorMaterial ethaxiumArmor = EnumHelper.addArmorMaterial("Ethaxium", "abyssalcraft:ethaxium", 50, new int[]{3, 8, 6, 3}, 25);
+	public static ArmorMaterial abyssalniteArmor = EnumHelper.addArmorMaterial("Abyssalnite", "abyssalcraft:abyssalnite", 35, new int[]{3, 6, 8, 3}, 13, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
+	public static ArmorMaterial dreadedAbyssalniteArmor = EnumHelper.addArmorMaterial("Dread", "abyssalcraft:dread", 36, new int[]{3, 6, 8, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
+	public static ArmorMaterial refinedCoraliumArmor = EnumHelper.addArmorMaterial("Coralium", "abyssalcraft:coralium", 37, new int[]{3, 6, 8, 3}, 14, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
+	public static ArmorMaterial platedCoraliumArmor = EnumHelper.addArmorMaterial("CoraliumP", "abyssalcraft:coraliump", 55, new int[]{4, 7, 9, 4}, 14, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 3.0F);
+	public static ArmorMaterial depthsArmor = EnumHelper.addArmorMaterial("Depths", "abyssalcraft:depths", 33, new int[]{3, 6, 8, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.5F);
+	public static ArmorMaterial dreadiumArmor = EnumHelper.addArmorMaterial("Dreadium", "abyssalcraft:dreadium", 40, new int[]{3, 6, 8, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0F);
+	public static ArmorMaterial dreadiumSamuraiArmor = EnumHelper.addArmorMaterial("DreadiumS", "abyssalcraft:dreadiums", 45, new int[]{3, 6, 8, 3}, 20, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.5F);
+	public static ArmorMaterial ethaxiumArmor = EnumHelper.addArmorMaterial("Ethaxium", "abyssalcraft:ethaxium", 50, new int[]{3, 6, 8, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F);
 
 	public static ToolMaterial darkstoneTool = EnumHelper.addToolMaterial("DARKSTONE", 1, 180, 5.0F, 1, 5);
-	public static ToolMaterial abyssalniteTool = EnumHelper.addToolMaterial("ABYSSALNITE", 4, 1261, 13.0F, 4, 13);
-	public static ToolMaterial refinedCoraliumTool = EnumHelper.addToolMaterial("CORALIUM", 5, 2000, 14.0F, 5, 14);
-	public static ToolMaterial dreadiumTool = EnumHelper.addToolMaterial("DREADIUM", 6, 3000, 15.0F, 6, 15);
-	public static ToolMaterial ethaxiumTool = EnumHelper.addToolMaterial("ETHAXIUM", 8, 4000, 16.0F, 8, 20);
+	public static ToolMaterial abyssalniteTool = EnumHelper.addToolMaterial("ABYSSALNITE", 4, 1261, 10.0F, 4, 12);
+	public static ToolMaterial refinedCoraliumTool = EnumHelper.addToolMaterial("CORALIUM", 5, 1800, 12.0F, 5, 13);
+	public static ToolMaterial dreadiumTool = EnumHelper.addToolMaterial("DREADIUM", 6, 2300, 14.0F, 6, 14);
+	public static ToolMaterial ethaxiumTool = EnumHelper.addToolMaterial("ETHAXIUM", 8, 2800, 16.0F, 8, 20);
+
+	private static IInternalNecroDataHandler internalNDHandler = new DummyNecroDataHandler();
+
+	/**
+	 * Used by AbyssalCraft to set the Internal NecroData Handler.<br>
+	 * If any other mod tries to use this method, nothing will happen.
+	 * @param handler Handler instance
+	 */
+	public static void setInternalNDHandler(IInternalNecroDataHandler handler){
+		if(internalNDHandler.getClass().getName().equals(DummyNecroDataHandler.class.getName())
+				&& Loader.instance().getLoaderState() == LoaderState.PREINITIALIZATION
+				&& Loader.instance().activeModContainer().getModId().equals("abyssalcraft"))
+			internalNDHandler = handler;
+	}
 
 	/**
 	 * Internal NecroData handler.<br>
-	 * Use this to alter the Internal NecroData instances.<br>
-	 * Do NOT overwrite this, as internal things won't run!<br>
-	 * Truth be told, the game will stop if this class is overridden.
+	 * Use this to alter the internal NecroData instances.
 	 */
-	public static IInternalNecroDataHandler internalNDHandler = new DummyNecroDataHandler();
+	public static IInternalNecroDataHandler getInternalNDHandler(){
+		return internalNDHandler;
+	}
 
 	/**
 	 * Sets the repair items for each armor/tool material
@@ -256,10 +268,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addOreSmelting(String input, String output, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				FurnaceRecipes.instance().addSmeltingRecipe(inputIter.next(), OreDictionary.getOres(output).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				FurnaceRecipes.instance().addSmeltingRecipe(stack, OreDictionary.getOres(output).get(0), xp);
 	}
 
 	/**
@@ -272,10 +283,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addCrystallization(String input, String output1, String output2, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty())
-			while(inputIter.hasNext())
-				addCrystallization(inputIter.next(), OreDictionary.getOres(output1).iterator().next(), OreDictionary.getOres(output2).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addCrystallization(stack, OreDictionary.getOres(output1).get(0), OreDictionary.getOres(output2).get(0), xp);
 	}
 
 	/**
@@ -290,30 +300,14 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addCrystallization(String input, String output1, int out1, String output2, int out2, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty())
-			while(inputIter.hasNext())
-				addCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output1).iterator().next().getItem(), out1), new ItemStack(OreDictionary.getOres(output2).iterator().next().getItem(), out2), xp);
-	}
-
-	/**
-	 * OreDictionary specific Crystallization
-	 * @param input The ore input
-	 * @param output1 The first ore output
-	 * @param out1 Quantity of the first output
-	 * @param meta1 Metadata for the first output
-	 * @param output2 The second ore output
-	 * @param out2 Quantity of the second output
-	 * @param meta2 Metadata for the second output
-	 * @param xp Amount of exp given
-	 * 
-	 * @since 1.0
-	 */
-	public static void addCrystallization(String input, String output1, int out1, int meta1, String output2, int out2, int meta2, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty())
-			while(inputIter.hasNext())
-				addCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output1).iterator().next().getItem(), out1, meta1), new ItemStack(OreDictionary.getOres(output2).iterator().next().getItem(), out2, meta2), xp);
+		if(!OreDictionary.getOres(output1).isEmpty() && !OreDictionary.getOres(output2).isEmpty()){
+			ItemStack o1 = OreDictionary.getOres(output1).get(0).copy();
+			o1.stackSize = out1;
+			ItemStack o2 = OreDictionary.getOres(output2).get(0).copy();
+			o2.stackSize = out2;
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addCrystallization(stack, o1, o2, xp);
+		}
 	}
 
 	/**
@@ -325,10 +319,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addSingleCrystallization(String input, String output, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addSingleCrystallization(inputIter.next(), OreDictionary.getOres(output).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addSingleCrystallization(stack, OreDictionary.getOres(output).get(0), xp);
 	}
 
 	/**
@@ -341,27 +334,12 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addSingleCrystallization(String input, String output, int out, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addSingleCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out), xp);
-	}
-
-	/**
-	 * OreDictionary specific single-output Crystallization
-	 * @param input The ore input
-	 * @param output The ore output
-	 * @param out The output quantity
-	 * @param meta The output metadata
-	 * @param xp Amount of exp given
-	 * 
-	 * @since 1.0
-	 */
-	public static void addSingleCrystallization(String input, String output, int out, int meta, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addSingleCrystallization(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out, meta), xp);
+		if(!OreDictionary.getOres(output).isEmpty()){
+			ItemStack o = OreDictionary.getOres(output).get(0).copy();
+			o.stackSize = out;
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addSingleCrystallization(stack, o, xp);
+		}
 	}
 
 	/**
@@ -373,10 +351,9 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addTransmutation(String input, String output, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
 		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addTransmutation(inputIter.next(), OreDictionary.getOres(output).iterator().next(), xp);
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addTransmutation(stack, OreDictionary.getOres(output).get(0), xp);
 	}
 
 	/**
@@ -389,27 +366,12 @@ public class AbyssalCraftAPI {
 	 * @since 1.0
 	 */
 	public static void addTransmutation(String input, String output, int out, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addTransmutation(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out), xp);
-	}
-
-	/**
-	 * OreDictionary specific Transmutation
-	 * @param input The ore input
-	 * @param output The ore output
-	 * @param out The output quantity
-	 * @param meta The output metadata
-	 * @param xp Amount of exp given
-	 * 
-	 * @since 1.0
-	 */
-	public static void addTransmutation(String input, String output, int out, int meta, float xp){
-		Iterator<ItemStack> inputIter = OreDictionary.getOres(input).iterator();
-		if(!OreDictionary.getOres(output).isEmpty())
-			while(inputIter.hasNext())
-				addTransmutation(inputIter.next(), new ItemStack(OreDictionary.getOres(output).iterator().next().getItem(), out, meta), xp);
+		if(!OreDictionary.getOres(output).isEmpty()){
+			ItemStack o = OreDictionary.getOres(output).get(0).copy();
+			o.stackSize = out;
+			for(ItemStack stack : OreDictionary.getOres(input))
+				addTransmutation(stack, o, xp);
+		}
 	}
 
 	/**
@@ -482,7 +444,7 @@ public class AbyssalCraftAPI {
 	public static void addMaterialization(ItemStack[] input, ItemStack output){
 		for(ItemStack item : input)
 			if(!APIUtils.isCrystal(item)) throw new ClassCastException("All of the input items has to be Crystals!");
-		if(input.length > 0 || input == null)
+		if(input.length > 0 && input != null)
 			if(input.length <= 5)
 				MaterializerRecipes.instance().materialize(input, output);
 			else FMLLog.log("AbyssalCraftAPI", Level.ERROR, "This Materializer recipe has more than 5 inputs! (%d)", input.length);
@@ -560,9 +522,12 @@ public class AbyssalCraftAPI {
 	 * @param clazz The potential "food" for the Lesser Shoggoth
 	 * 
 	 * @since 1.2
+	 * 
+	 * @deprecated use {@link EntityUtil#addShoggothFood(Class)} instead
 	 */
+	@Deprecated
 	public static void addShoggothFood(Class<? extends EntityLivingBase> clazz){
-		shoggothFood.add(clazz);
+		EntityUtil.addShoggothFood(clazz);
 	}
 
 	/**
@@ -570,9 +535,12 @@ public class AbyssalCraftAPI {
 	 * @return An ArrayList containing Entity classes
 	 * 
 	 * @since 1.2
+	 * 
+	 * @deprecated use {@link EntityUtil#getShoggothFood()} instead
 	 */
+	@Deprecated
 	public static List<Class<? extends EntityLivingBase>> getShoggothFood(){
-		return shoggothFood;
+		return EntityUtil.getShoggothFood();
 	}
 
 	/**
@@ -619,30 +587,6 @@ public class AbyssalCraftAPI {
 	}
 
 	/**
-	 * Method used to register AbyssalCraft integrations by other mods.
-	 * This can be useful if you want to have a weak dependency (you could do all the
-	 * integration stuff in a class that's only called when AC is loaded)
-	 * NOTE: Should be registered in either Pre-init or Init
-	 * @param plugin A class that implements the {@link IACPlugin} interface
-	 * 
-	 * @since 1.3
-	 */
-	public static void registerACIntegration(IACPlugin plugin){
-		integrations.add(plugin);
-	}
-
-	/**
-	 * Used by the IntegrationHandler to fetch a list of integrations made
-	 * by other mods
-	 * @return An ArrayList of IACPlugins
-	 * 
-	 * @since 1.3
-	 */
-	public static List<IACPlugin> getIntegrations(){
-		return integrations;
-	}
-
-	/**
 	 * Method used to register pages to the Necronomicon
 	 * @param data The NecroData instance, with page data
 	 * @param bookType The Necronomicon "level" required in order to read this.
@@ -668,8 +612,187 @@ public class AbyssalCraftAPI {
 	 * 
 	 * @since 1.3.5
 	 */
-	public static HashMap<NecroData,Integer> getNecronomiconData(){
+	public static Map<NecroData,Integer> getNecronomiconData(){
 		return necroData;
+	}
+
+	/**
+	 * Registers a texture for a Helmet (when worn by a Ghoul Entity)
+	 * @param helmet Helmet Item
+	 * @param res Texture ResourceLocation
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulHelmetTexture(Item helmet, ResourceLocation res){
+		if(helmet == null || res == null) return;
+		if(ghoul_helmet.containsKey(helmet))
+			FMLLog.log("AbyssalCraftAPI", Level.INFO, "Mod %s is overwriting the texture for Helmet %s", Loader.instance().activeModContainer().getModId(), helmet.getItemStackDisplayName(new ItemStack(helmet)));
+		ghoul_helmet.put(helmet, res);
+	}
+
+	/**
+	 * Registers a texture for a Chestplate (when worn by a Ghoul Entity)
+	 * @param chestplate Chestplate Item
+	 * @param res Texture ResourceLocation
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulChestplateTexture(Item chestplate, ResourceLocation res){
+		if(chestplate == null || res == null) return;
+		if(ghoul_chestplate.containsKey(chestplate))
+			FMLLog.log("AbyssalCraftAPI", Level.INFO, "Mod %s is overwriting the texture for Chestplate %s", Loader.instance().activeModContainer().getModId(), chestplate.getItemStackDisplayName(new ItemStack(chestplate)));
+		ghoul_chestplate.put(chestplate, res);
+	}
+
+	/**
+	 * Registers a texture for a pair of Leggings (when worn by a Ghoul Entity)
+	 * @param leggings Leggings Item
+	 * @param res Texture ResourceLocation
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulLeggingsTexture(Item leggings, ResourceLocation res){
+		if(leggings == null || res == null) return;
+		if(ghoul_leggings.containsKey(leggings))
+			FMLLog.log("AbyssalCraftAPI", Level.INFO, "Mod %s is overwriting the texture for Leggings %s", Loader.instance().activeModContainer().getModId(), leggings.getItemStackDisplayName(new ItemStack(leggings)));
+		ghoul_leggings.put(leggings, res);
+	}
+
+	/**
+	 * Registers a texture for a pair of Boots (when worn by a Ghoul Entity)
+	 * @param boots Boots Item
+	 * @param res Texture ResourceLocation
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulBootsTexture(Item boots, ResourceLocation res){
+		if(boots == null || res == null) return;
+		if(ghoul_boots.containsKey(boots))
+			FMLLog.log("AbyssalCraftAPI", Level.INFO, "Mod %s is overwriting the texture for Boots %s", Loader.instance().activeModContainer().getModId(), boots.getItemStackDisplayName(new ItemStack(boots)));
+		ghoul_boots.put(boots, res);
+	}
+
+	/**
+	 * Registers a texture for a Helmet (when worn by a Ghoul Entity)
+	 * @param helmet Helmet Item
+	 * @param res Texture String (should be formatted as "modid:path/to/texture.png")
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulHelmetTexture(Item helmet, String res){
+		addGhoulHelmetTexture(helmet, new ResourceLocation(res));
+	}
+
+	/**
+	 * Registers a texture for a Chestplate (when worn by a Ghoul Entity)
+	 * @param chestplate Chestplate Item
+	 * @param res Texture String (should be formatted as "modid:path/to/texture.png")
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulChestplateTexture(Item chestplate, String res){
+		addGhoulChestplateTexture(chestplate, new ResourceLocation(res));
+	}
+
+	/**
+	 * Registers a texture for a pair of Leggings (when worn by a Ghoul Entity)
+	 * @param leggings Leggings Item
+	 * @param res Texture String (should be formatted as "modid:path/to/texture.png")
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulLeggingsTexture(Item leggings, String res){
+		addGhoulLeggingsTexture(leggings, new ResourceLocation(res));
+	}
+
+	/**
+	 * Registers a texture for a pair of Boots (when worn by a Ghoul Entity)
+	 * @param boots Boots Item
+	 * @param res Texture String (should be formatted as "modid:path/to/texture.png")
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulBootsTexture(Item boots, String res){
+		addGhoulBootsTexture(boots, new ResourceLocation(res));
+	}
+
+	/**
+	 * Registers textures for a set of Armor (when worn by a Ghoul Entity)<br>
+	 * If you use different textures for each piece, register them separately.
+	 * @param helmet Helmet Item
+	 * @param chestplate Chestplate Item
+	 * @param leggings Leggings Item
+	 * @param boots Boots Item
+	 * @param res1 Texture ResourceLocation for Helmet, Chestplate and Boots
+	 * @param res2 Texture ResourceLocation for Leggings
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulArmorTextures(Item helmet, Item chestplate, Item leggings, Item boots, ResourceLocation res1, ResourceLocation res2){
+		addGhoulHelmetTexture(helmet, res1);
+		addGhoulChestplateTexture(chestplate, res1);
+		addGhoulLeggingsTexture(leggings, res2);
+		addGhoulBootsTexture(boots, res1);
+	}
+
+	/**
+	 * Registers textures for a set of Armor (when worn by a Ghoul Entity)<br>
+	 * If you use different textures for each piece, register them separately.
+	 * @param helmet Helmet Item
+	 * @param chestplate Chestplate Item
+	 * @param leggings Leggings Item
+	 * @param boots Boots Item
+	 * @param res1 Texture String for Helmet, Chestplate and Boots (should be formatted as "modid:path/to/texture.png")
+	 * @param res2 Texture String for Leggings (should be formatted as "modid:path/to/texture.png")
+	 * 
+	 * @since 1.8
+	 */
+	public static void addGhoulArmorTextures(Item helmet, Item chestplate, Item leggings, Item boots, String res1, String res2){
+		addGhoulArmorTextures(helmet, chestplate, leggings, boots, new ResourceLocation(res1), new ResourceLocation(res2));
+	}
+
+	/**
+	 * Fetches a ResourceLocation for the armor texture of a Helmet, if any
+	 * @param helmet Helmet Item
+	 * @return A ResourceLocation for the Helmet texture, if any
+	 * 
+	 * @since 1.8
+	 */
+	public static ResourceLocation getGhoulHelmetTexture(Item helmet){
+		return ghoul_helmet.get(helmet);
+	}
+
+	/**
+	 * Fetches a ResourceLocation for the armor texture of a Chestplate, if any
+	 * @param chestplate Chestplate Item
+	 * @return A ResourceLocation for the Chestplate texture, if any
+	 * 
+	 * @since 1.8
+	 */
+	public static ResourceLocation getGhoulChestplateTexture(Item chestplate){
+		return ghoul_chestplate.get(chestplate);
+	}
+
+	/**
+	 * Fetches a ResourceLocation for the armor texture of a pair of Leggings, if any
+	 * @param leggings Leggings Item
+	 * @return A ResourceLocation for the Leggings texture, if any
+	 * 
+	 * @since 1.8
+	 */
+	public static ResourceLocation getGhoulLeggingsTexture(Item leggings){
+		return ghoul_leggings.get(leggings);
+	}
+
+	/**
+	 * Fetches a ResourceLocation for the armor texture of a pair of Boots, if any
+	 * @param boots Boots Item
+	 * @return A ResourceLocation for the Boots texture, if any
+	 * 
+	 * @since 1.8
+	 */
+	public static ResourceLocation getGhoulBootsTexture(Item boots){
+		return ghoul_boots.get(boots);
 	}
 
 	/**
@@ -731,19 +854,5 @@ public class AbyssalCraftAPI {
 		public static String evil_chicken = mobNames[40];
 		public static String demon_cow = mobNames[41];
 		public static String demon_chicken = mobNames[42];
-	}
-
-	/**
-	 * Contains all potion effects added in AbyssalCraft.
-	 * You can reference them from here, or use the ID directly
-	 * 
-	 * @author shinoow
-	 *
-	 */
-	public static class ACPotions {
-
-		public static Potion Coralium_plague = Potion.potionTypes[potionId1];
-		public static Potion Dread_plague = Potion.potionTypes[potionId2];
-		public static Potion Antimatter = Potion.potionTypes[potionId3];
 	}
 }

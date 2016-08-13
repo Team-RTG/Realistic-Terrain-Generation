@@ -12,7 +12,6 @@
 package com.shinoow.abyssalcraft.api.recipe;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -59,19 +58,11 @@ public class CrystallizerRecipes {
 	 */
 	public ItemStack[] getCrystallizationResult(ItemStack par1ItemStack)
 	{
-		Iterator<?> iterator = crystallizationList.entrySet().iterator();
-		Entry<?, ?> entry;
+		for(Entry<ItemStack, ItemStack[]> entry : crystallizationList.entrySet())
+			if(areStacksEqual(par1ItemStack, entry.getKey()))
+				return entry.getValue();
 
-		do
-		{
-			if (!iterator.hasNext())
-				return null;
-
-			entry = (Entry<?, ?>)iterator.next();
-		}
-		while (!areStacksEqual(par1ItemStack, (ItemStack)entry.getKey()));
-
-		return (ItemStack[])entry.getValue();
+		return null;
 	}
 
 	private boolean areStacksEqual(ItemStack par1ItemStack, ItemStack par2ItemStack)
@@ -89,18 +80,10 @@ public class CrystallizerRecipes {
 		float ret = par1ItemStack.getItem().getSmeltingExperience(par1ItemStack);
 		if (ret != -1) return ret;
 
-		Iterator<?> iterator = experienceList.entrySet().iterator();
-		Entry<?, ?> entry;
+		for (Entry<ItemStack, Float> entry : experienceList.entrySet())
+			if (areStacksEqual(par1ItemStack, entry.getKey()))
+				return entry.getValue().floatValue();
 
-		do
-		{
-			if (!iterator.hasNext())
-				return 0.0F;
-
-			entry = (Entry<?, ?>)iterator.next();
-		}
-		while (!areStacksEqual(par1ItemStack, (ItemStack)entry.getKey()));
-
-		return ((Float)entry.getValue()).floatValue();
+		return 0.0F;
 	}
 }

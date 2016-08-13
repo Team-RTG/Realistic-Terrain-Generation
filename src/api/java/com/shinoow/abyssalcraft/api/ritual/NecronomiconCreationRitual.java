@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -33,14 +33,14 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 	 * A Necronomicon Creation Ritual
 	 * @param unlocalizedName A string representing the ritual name
 	 * @param bookType Necronomicon book type required
-	 * @param dimension Dimension where the ritual can be peformed
+	 * @param dimension Dimension where the ritual can be performed
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param remnantHelp If Remnants can aid you when performing the ritual
+	 * @param requiresSacrifice If the ritual requires a living sacrifice
 	 * @param item The Item given from the ritual
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
-	public NecronomiconCreationRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean remnantHelp, ItemStack item, Object...offerings) {
-		super(unlocalizedName, bookType, dimension, requiredEnergy, remnantHelp, offerings);
+	public NecronomiconCreationRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean requiresSacrifice, ItemStack item, Object...offerings) {
+		super(unlocalizedName, bookType, dimension, requiredEnergy, requiresSacrifice, offerings);
 		this.item = item;
 		if(item.stackSize > 1)
 			item.stackSize = 1;
@@ -88,7 +88,7 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 	@Override
 	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
 
-		world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY() + 1, pos.getZ()));
+		world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY() + 1, pos.getZ(), false));
 
 		TileEntity altar = world.getTileEntity(pos);
 

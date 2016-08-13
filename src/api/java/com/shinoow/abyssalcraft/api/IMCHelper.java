@@ -56,7 +56,7 @@ public class IMCHelper {
 	 * You can use the IMC message "addCrystal"
 	 * 
 	 * Example of how it would look like if I added my Abyssalnite Ingot as a crystal:
-	 * FMLInterModComms.sendMessage("abyssalcraft", "addCrystal", new ItemStack(AbyssalCraft.abyingot));
+	 * FMLInterModComms.sendMessage("abyssalcraft", "addCrystal", new ItemStack(ACItems.abyssalnite_ingot));
 	 */
 
 	//CRYSTALLIZATION //////////////////////////////////////////////////////////////////////////
@@ -126,28 +126,41 @@ public class IMCHelper {
 	 * FMLInterModComms.sendMessage("abyssalcraft", "addMaterialization", <a NBTTagCompound with the aforementioned tags>);
 	 */
 
-	//INTEGRATIONS /////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * This is a IMC version of AbyssalCraftAPI#registerACIntegration
-	 * You can use the IMC message "registerACIntegration" to add your AbyssalCraft
-	 * integration into the internal handler.
-	 * The format for the message should be the string path to the integration class
-	 * 
-	 * Note: it is recommended to either send this in Pre-init or Init, as the handler will
-	 * run two checks there (where a plugin registered in Init can't do anything in Pre-init)
-	 * 
-	 * The message is sent this way:
-	 * FMLInterModComms.sendMessage("abyssalcraft", "registerACIntegration", "path.to.your.integration.plugin");
-	 */
-
 	//SHOGGOTH BLOCK BLACKLIST /////////////////////////////////////////////////////////////////
+
 	/**
 	 * This is a IMC version of AbyssalCraftAPI#addShoggothBlacklist
 	 * You can use the IMC message "shoggothBlacklist" to add a Block to the Shoggoth Block Blacklist
 	 * The format for the message should be a ItemStack containing a Block
 	 * 
 	 * Example of how it would look like if I added Darkstone Bricks to the food list:
-	 * FMLInterModComms.sendMessage("abyssalcraft", "shoggothBlacklist", new ItemStack(AbyssalCraft.Darkstone_brick));
+	 * FMLInterModComms.sendMessage("abyssalcraft", "shoggothBlacklist", new ItemStack(ACBlocks.darkstone_brick));
+	 */
+
+	//GHOUL ARMOR REGISTRATION /////////////////////////////////////////////////////////////////
+
+	/**
+	 * These are IMC versions of AbyssalCraftAPI#addGhoulArmorTextures (and the one for separate pieces)
+	 * You can use the IMC message "addGhoulArmor" respective "addGhoulHelmet", "addGhoulChestplate",
+	 * "addGhoulLeggings" and "addGhoulBoots" to register armor textures for various armor pieces
+	 * 
+	 * For registration of a full armor set, the IMC message should contain a NBTTagCompound with the following tags:
+	 * "helmet" - a ItemStack containing the Helmet
+	 * "chestplate" - a ItemStack containing the Chestplate
+	 * "leggings" - a ItemStack containing the Leggings
+	 * "boots" - a ItemStack containing the Boots
+	 * "res1" - a ResourceLocation pointing to the texture used for the Helmet, Chestplate and Boots
+	 * "res2"- a ResourceLocation pointing to the texture used for the Leggings
+	 * 
+	 * The message is sent this way:
+	 * FMLInterModComms.sendMessage("abyssalcraft", "addGhoulArmor", <a NBTTagCompound with the aforementioned tags>);
+	 * 
+	 * If your armor set doesn't used the standard texture coordination (one texture for helmet, chestplate, boots,
+	 * then another for the leggings), you can registed each piece separately with the following tags instead of the above:
+	 * "helmet" / "chestplate" / "leggings" / "boots" - a ItemStack with the desired piece of armor (only use one of them per message)
+	 * "res" - a ResourceLocation pointing to the texture used for the piece
+	 * 
+	 * The message is sent this way (where <name of armor piece> is replaced with the name of the armor piece you want to register):
+	 * FMLInterModComms.sendMessage("abyssalcraft", "addGhoul<name of armor piece>", <a NBTTagCompound with the aforementioned tags>);
 	 */
 }

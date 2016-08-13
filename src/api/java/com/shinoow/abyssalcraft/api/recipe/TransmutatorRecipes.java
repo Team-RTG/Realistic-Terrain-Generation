@@ -12,7 +12,6 @@
 package com.shinoow.abyssalcraft.api.recipe;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -37,15 +36,15 @@ public class TransmutatorRecipes {
 
 	private TransmutatorRecipes()
 	{
-		transmute(Items.diamond, new ItemStack(Items.coal, 64), 0.2F);
-		transmute(Items.water_bucket, new ItemStack(Blocks.ice, 8), 0.0F);
-		transmute(Blocks.wool, new ItemStack(Items.string, 4), 0.0F);
-		transmute(Blocks.gravel, new ItemStack(Items.flint, 2), 0.0F);
-		transmute(Blocks.quartz_block, new ItemStack(Items.quartz, 4), 0.0F);
-		transmute(Blocks.nether_brick, new ItemStack(Items.netherbrick, 4), 0.0F);
-		transmute(Items.netherbrick, new ItemStack(Blocks.netherrack), 0.0F);
-		transmute(Items.wheat, new ItemStack(Items.wheat_seeds), 0.0F);
-		transmute(Items.wheat_seeds, new ItemStack(Items.wheat), 0.0F);
+		transmute(Items.DIAMOND, new ItemStack(Items.COAL, 64), 0.2F);
+		transmute(Items.WATER_BUCKET, new ItemStack(Blocks.ICE, 8), 0.0F);
+		transmute(Blocks.WOOL, new ItemStack(Items.STRING, 4), 0.0F);
+		transmute(Blocks.GRAVEL, new ItemStack(Items.FLINT, 2), 0.0F);
+		transmute(Blocks.QUARTZ_BLOCK, new ItemStack(Items.QUARTZ, 4), 0.0F);
+		transmute(Blocks.NETHER_BRICK, new ItemStack(Items.NETHERBRICK, 4), 0.0F);
+		transmute(Items.NETHERBRICK, new ItemStack(Blocks.NETHERRACK), 0.0F);
+		transmute(Items.WHEAT, new ItemStack(Items.WHEAT_SEEDS), 0.0F);
+		transmute(Items.WHEAT_SEEDS, new ItemStack(Items.WHEAT), 0.0F);
 	}
 
 	public void transmute(Block input, ItemStack output, float xp)
@@ -69,19 +68,11 @@ public class TransmutatorRecipes {
 	 */
 	public ItemStack getTransmutationResult(ItemStack par1ItemStack)
 	{
-		Iterator<?> iterator = transmutationList.entrySet().iterator();
-		Entry<?, ?> entry;
+		for(Entry<ItemStack, ItemStack> entry : transmutationList.entrySet())
+			if(areStacksEqual(par1ItemStack, entry.getKey()))
+				return entry.getValue();
 
-		do
-		{
-			if (!iterator.hasNext())
-				return null;
-
-			entry = (Entry<?, ?>)iterator.next();
-		}
-		while (!areStacksEqual(par1ItemStack, (ItemStack)entry.getKey()));
-
-		return (ItemStack)entry.getValue();
+		return null;
 	}
 
 	private boolean areStacksEqual(ItemStack par1ItemStack, ItemStack par2ItemStack)
@@ -99,18 +90,10 @@ public class TransmutatorRecipes {
 		float ret = par1ItemStack.getItem().getSmeltingExperience(par1ItemStack);
 		if (ret != -1) return ret;
 
-		Iterator<?> iterator = experienceList.entrySet().iterator();
-		Entry<?, ?> entry;
+		for (Entry<ItemStack, Float> entry : experienceList.entrySet())
+			if (areStacksEqual(par1ItemStack, entry.getKey()))
+				return entry.getValue().floatValue();
 
-		do
-		{
-			if (!iterator.hasNext())
-				return 0.0F;
-
-			entry = (Entry<?, ?>)iterator.next();
-		}
-		while (!areStacksEqual(par1ItemStack, (ItemStack)entry.getKey()));
-
-		return ((Float)entry.getValue()).floatValue();
+		return 0.0F;
 	}
 }

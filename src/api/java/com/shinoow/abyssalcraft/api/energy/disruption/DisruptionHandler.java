@@ -11,18 +11,19 @@
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy.disruption;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.logging.log4j.Level;
 
 import com.google.common.collect.Lists;
 import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
+import com.shinoow.abyssalcraft.api.event.ACEvents.DisruptionEvent;
 
 /**
  * Handler for disruptions (when something bad happens during Potential Energy manipulation)
@@ -47,19 +48,12 @@ public class DisruptionHandler {
 	 * @since 1.5
 	 */
 	public void registerDisruption(DisruptionEntry disruption){
-		Iterator<DisruptionEntry> iter = disruptions.iterator();
-		DisruptionEntry compare;
-		do {
-			if(!iter.hasNext()){
-				disruptions.add(disruption);
-				return;
-			}
-			compare = iter.next();
-			if(disruption.getUnlocalizedName().equals(compare.getUnlocalizedName())){
+		for(DisruptionEntry entry : disruptions)
+			if(disruption.getUnlocalizedName().equals(entry.getUnlocalizedName())){
 				FMLLog.log("DisruptionHandler", Level.ERROR, "Disruption Entry already registered: %s", disruption.getUnlocalizedName());
 				return;
 			}
-		} while (!disruption.getUnlocalizedName().equals(compare.getUnlocalizedName()));
+		disruptions.add(disruption);
 	}
 
 	/**
@@ -76,9 +70,7 @@ public class DisruptionHandler {
 	 * Generates a Disruption
 	 * @param deity Deity tied to the manipulator
 	 * @param world Current World
-	 * @param x X-Coordinate of location
-	 * @param y Y-Coordinate of location
-	 * @param z Z-Coordinate of location
+	 * @param pos Current BlockPos
 	 * @param players Nearby players (16 block radius or larger)
 	 * 
 	 * @since 1.5
@@ -95,6 +87,9 @@ public class DisruptionHandler {
 				if(entry.getDeity() == deity || entry.getDeity() == null)
 					dis.add(entry);
 
-		dis.get(world.rand.nextInt(dis.size())).disrupt(world, pos, players);
+		DisruptionEntry disruption = dis.get(world.rand.nextInt(dis.size()));
+
+		if(!MinecraftForge.EVENT_BUS.post(new DisruptionEvent(deity, world, pos, players, disruption)))
+			disruption.disrupt(world, pos, players);
 	}
 }

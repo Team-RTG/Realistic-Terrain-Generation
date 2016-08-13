@@ -17,8 +17,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 /**
@@ -37,12 +37,12 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 	 * @param bookType Necronomicon book type required
 	 * @param dimension Dimension where the ritual can be peformed
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param remnantHelp If Remnants can aid you when performing the ritual
+	 * @param requiresSacrifice If the ritual requires a living sacrifice
 	 * @param entity Class representing the entity this ritual summons
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
-	public NecronomiconSummonRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean remnantHelp, Class<? extends EntityLivingBase> entity, Object...offerings) {
-		super(unlocalizedName, bookType, dimension, requiredEnergy, remnantHelp, offerings);
+	public NecronomiconSummonRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean requiresSacrifice, Class<? extends EntityLivingBase> entity, Object...offerings) {
+		super(unlocalizedName, bookType, dimension, requiredEnergy, requiresSacrifice, offerings);
 		this.entity = entity;
 	}
 
@@ -113,7 +113,7 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
-		if(entityliving == null) player.addChatMessage(new ChatComponentText("The Entity could not be summoned."));
+		if(entityliving == null) player.addChatMessage(new TextComponentString("The Entity could not be summoned."));
 
 	}
 }

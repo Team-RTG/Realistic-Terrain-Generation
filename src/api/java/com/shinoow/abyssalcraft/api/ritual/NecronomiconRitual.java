@@ -12,8 +12,8 @@
 package com.shinoow.abyssalcraft.api.ritual;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 /**
@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 public abstract class NecronomiconRitual {
 
 	private Object[] offerings = new Object[8];
-	private boolean remnantHelp;
+	private boolean requiresSacrifice;
 	private int bookType;
 	private int dimension;
 	private String unlocalizedName;
@@ -37,17 +37,17 @@ public abstract class NecronomiconRitual {
 	 * A Necronomicon Ritual
 	 * @param unlocalizedName A string representing the ritual name
 	 * @param bookType Necronomicon book type required
-	 * @param dimension Dimension where the ritual can be peformed
+	 * @param dimension Dimension where the ritual can be performed
 	 * @param requiredEnergy Amount of Potential Energy required to perform
-	 * @param remnantHelp If Remnants can aid you when performing the ritual
+	 * @param requiresSacrifice If the ritual requires a living sacrifice
 	 * @param offerings Components used to perform the ritual, are consumed afterwards
 	 */
-	public NecronomiconRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean remnantHelp, Object...offerings){
+	public NecronomiconRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean requiresSacrifice, Object...offerings){
 		this.unlocalizedName = unlocalizedName;
 		this.bookType = bookType;
 		this.dimension = dimension;
 		this.requiredEnergy = requiredEnergy;
-		this.remnantHelp = remnantHelp;
+		this.requiresSacrifice = requiresSacrifice;
 		if(offerings.length < 8){
 			this.offerings = new Object[offerings.length];
 			for(int i = 0; i < offerings.length; i++)
@@ -88,11 +88,11 @@ public abstract class NecronomiconRitual {
 	}
 
 	/**
-	 * Used to see if Remnants can aid in the ritual
-	 * @return True if Remnants can aid you, false if they can't
+	 * Used to see if this ritual requires a living sacrifice
+	 * @return True if the ritual requires a living sacrifice to be present
 	 */
-	public boolean canRemnantAid(){
-		return remnantHelp;
+	public boolean requiresSacrifice(){
+		return requiresSacrifice;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public abstract class NecronomiconRitual {
 	 * @return A localized string representing a name
 	 */
 	public String getLocalizedName(){
-		return StatCollector.translateToLocal(getUnlocalizedName());
+		return I18n.translateToLocal(getUnlocalizedName());
 	}
 
 	/**
@@ -140,7 +140,18 @@ public abstract class NecronomiconRitual {
 	 * @return A localized string representing a description
 	 */
 	public String getDescription(){
-		return StatCollector.translateToLocal(getUnlocalizedName() + ".desc");
+		return I18n.translateToLocal(getUnlocalizedName() + ".desc");
+	}
+
+	/**
+	 * Used for Ritual types that don't require a specific Item sacrifice, but needs<br>
+	 * something to be placed on the Ritual Altar.
+	 * @return Whether or not the Ritual requires there to be something placed<br>
+	 * on the Ritual Altar (used in the Enchantment ritual to ensure<br>
+	 * there's an item there to enchant)
+	 */
+	public boolean requiresItemSacrifice(){
+		return false;
 	}
 
 	/**

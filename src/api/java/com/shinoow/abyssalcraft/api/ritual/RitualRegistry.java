@@ -12,7 +12,6 @@
 package com.shinoow.abyssalcraft.api.ritual;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -122,19 +121,12 @@ public class RitualRegistry {
 	 */
 	public void registerRitual(NecronomiconRitual ritual){
 		if(ritual.getBookType() <= 4 && ritual.getBookType() >= 0){
-			Iterator<NecronomiconRitual> iter = rituals.iterator();
-			NecronomiconRitual compare;
-			do {
-				if(!iter.hasNext()){
-					rituals.add(ritual);
-					return;
-				}
-				compare = iter.next();
-				if(ritual.getUnlocalizedName().equals(compare.getUnlocalizedName())){
+			for(NecronomiconRitual entry : rituals)
+				if(ritual.getUnlocalizedName().equals(entry.getUnlocalizedName())){
 					FMLLog.log("RitualRegistry", Level.ERROR, "Necronomicon Ritual already registered: %s", ritual.getUnlocalizedName());
 					return;
 				}
-			} while (!ritual.getUnlocalizedName().equals(compare.getUnlocalizedName()));
+			rituals.add(ritual);
 		} else FMLLog.log("RitualRegistry", Level.ERROR, "Necronomicon book type does not exist: %d", ritual.getBookType());
 	}
 
@@ -190,7 +182,7 @@ public class RitualRegistry {
 			if(ritual.getBookType() <= bookType)
 				if(ritual.getOfferings() != null && offerings != null)
 					if(areItemStackArraysEqual(ritual.getOfferings(), offerings))
-						if(ritual.getSacrifice() == null && sacrifice == null ||
+						if(ritual.requiresItemSacrifice() || ritual.getSacrifice() == null && sacrifice == null ||
 						areObjectsEqual(sacrifice, ritual.getSacrifice()))
 							return true;
 		return false;

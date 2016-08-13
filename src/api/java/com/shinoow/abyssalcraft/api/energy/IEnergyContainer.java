@@ -34,13 +34,13 @@ public interface IEnergyContainer {
 
 	/**
 	 * Adds Potential Energy to the tile entity
-	 * @param energy Energy quanta to add
+	 * @param energy Energy quota to add
 	 */
 	public void addEnergy(float energy);
 
 	/**
 	 * Consumes (removes) Potential Energy from the tile entity
-	 * @param energy Energy quanta to consume
+	 * @param energy Energy quota to consume
 	 */
 	public void consumeEnergy(float energy);
 
@@ -48,4 +48,9 @@ public interface IEnergyContainer {
 	 * Returns Whether or not this container can accept Potential Energy
 	 */
 	public boolean canAcceptPE();
+
+	/**
+	 * Returns whether or not this container can transfer Potential Energy
+	 */
+	public boolean canTransferPE();
 }

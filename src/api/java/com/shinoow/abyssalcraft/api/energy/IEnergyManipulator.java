@@ -28,7 +28,7 @@ public interface IEnergyManipulator {
 	/**
 	 * Gets the quanta of Potential Energy that the tile entity can drain
 	 */
-	public float energyQuanta();
+	public float getEnergyQuanta();
 
 	/**
 	 * Activates the Amplifier boost
@@ -55,15 +55,30 @@ public interface IEnergyManipulator {
 	public float getAmplifier(AmplifierType type);
 
 	/**
+	 * Returns the Active Deity (assigned in {@link #setActive(AmplifierType, DeityType)})
+	 */
+	public DeityType getActiveDeity();
+
+	/**
+	 * Returns the active Deity (assigned in {@link #setActive(AmplifierType, DeityType)})
+	 */
+	public AmplifierType getActiveAmplifier();
+
+	/**
+	 * Sets the Active Deity
+	 * @param deity Deity Type
+	 */
+	public void setActiveDeity(DeityType deity);
+
+	/**
+	 * Sets the Active Amplifier
+	 * @param amplifier Amplifier Type
+	 */
+	public void setActiveAmplifier(AmplifierType amplifier);
+
+	/**
 	 * Something bad that has the potential of happening
 	 * @param factor A random occasion (could be 5% trigger chance if activated etc)
 	 */
 	public void disrupt(boolean factor);
-
-	/**
-	 * Should be run at the end of updateEntity() and clear the<br>
-	 * stored NBT data and variables for the AmplifierType and<br>
-	 * DeityType if isActive() is false.
-	 */
-	public void clearData();
 }

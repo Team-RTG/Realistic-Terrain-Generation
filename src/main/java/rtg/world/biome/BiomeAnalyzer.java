@@ -5,6 +5,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.BiomeUtils;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -49,101 +50,101 @@ public class BiomeAnalyzer {
     }
 
     private void determineRiverBiomes() {
-        riverBiome = new boolean[Biome.getBiomeGenArray().length];
-        for (int index = 0; index < Biome.getBiomeGenArray().length; index++) {
+        riverBiome = new boolean[BiomeUtils.getRegisteredBiomes().length];
+        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().length; index++) {
             if (Biome.getBiome(index) == null) continue;
-            if (Biome.getBiome(index).biomeName == null) continue;
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("river")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)) == null) continue;
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("river")) {
                 riverBiome[index] = true;
             }
         }
     }
 
     private void determineOceanBiomes() {
-        oceanBiome = new boolean[Biome.getBiomeGenArray().length];
-        for (int index = 0; index < Biome.getBiomeGenArray().length; index++) {
+        oceanBiome = new boolean[BiomeUtils.getRegisteredBiomes().length];
+        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().length; index++) {
             if (Biome.getBiome(index) == null) continue;
-            if (Biome.getBiome(index).biomeName == null) continue;
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("ocean")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)) == null) continue;
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("ocean")) {
                 oceanBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("kelp")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("kelp")) {
                 oceanBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("coral")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("coral")) {
                 oceanBiome[index] = true;
             }
         }
-        oceanBiome[Biomes.DEEP_OCEAN.biomeID]=true;// not getting set?
+        oceanBiome[BiomeUtils.getId(Biomes.DEEP_OCEAN)]=true;// not getting set?
     }
 
     private void determineSwampBiomes() {
-        swampBiome = new boolean[Biome.getBiomeGenArray().length];
-        for (int index = 0; index < Biome.getBiomeGenArray().length; index++) {
+        swampBiome = new boolean[BiomeUtils.getRegisteredBiomes().length];
+        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().length; index++) {
             if (Biome.getBiome(index) == null) continue;
-            if (Biome.getBiome(index).biomeName == null) continue;
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("swamp")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)) == null) continue;
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("swamp")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("bayou")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("bayou")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("bog")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("bog")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("wetland")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("wetland")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("sludge")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("sludge")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("marsh")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("marsh")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("fen")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("fen")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("moor")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("moor")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("quagmire")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("quagmire")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("ephemeral lake")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("ephemeral lake")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("rainforest valley")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("rainforest valley")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("riparian zone")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("riparian zone")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("ice sheet")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("ice sheet")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("woodland lake")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("woodland lake")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("archipelago")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("archipelago")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().equals("shield")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().equals("shield")) {
                 swampBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeID==Biomes.FROZEN_RIVER.biomeID) {
+            if (BiomeUtils.getId(Biome.getBiome(index)) == BiomeUtils.getId(Biomes.FROZEN_RIVER)) {
                 swampBiome[index] = true;
             }
         }
     }
     private void determineLandBiomes() {
-        landBiome = new boolean[Biome.getBiomeGenArray().length];
-        for (int index = 0; index < Biome.getBiomeGenArray().length; index++) {
+        landBiome = new boolean[BiomeUtils.getRegisteredBiomes().length];
+        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().length; index++) {
             if (!oceanBiome[index]) {
                 if (!riverBiome[index]) {
                     if (Biome.getBiome(index) == null) continue;
-                    if (Biome.getBiome(index).biomeName == null) continue;
+                    if (BiomeUtils.getName(Biome.getBiome(index)) == null) continue;
                     if (beachBiome[index]) continue;
-                    if (!Biome.getBiome(index).biomeName.toLowerCase().equals("lake")) {
+                    if (!BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().equals("lake")) {
                         landBiome[index] = true;
                     }
 
@@ -153,47 +154,47 @@ public class BiomeAnalyzer {
     }
 
     private void determineBeachBiomes() {
-        beachBiome = new boolean[Biome.getBiomeGenArray().length];
-        for (int index = 0; index < Biome.getBiomeGenArray().length; index++) {
+        beachBiome = new boolean[BiomeUtils.getRegisteredBiomes().length];
+        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().length; index++) {
             if (Biome.getBiome(index) == null) continue;
-            if (Biome.getBiome(index).biomeName == null) continue;
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("beach")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)) == null) continue;
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("beach")) {
                 beachBiome[index] = true;
             }
-            if (Biome.getBiome(index).biomeName.toLowerCase().contains("mangrove")) {
+            if (BiomeUtils.getName(Biome.getBiome(index)).toLowerCase().contains("mangrove")) {
                 beachBiome[index] = true;
             }
         }
     }
 
     private void determinePreferredBeaches() {
-        preferredBeach = new int[Biome.getBiomeGenArray().length];
-        for (int index = 0; index < Biome.getBiomeGenArray().length; index++){
+        preferredBeach = new int[BiomeUtils.getRegisteredBiomes().length];
+        for (int index = 0; index < BiomeUtils.getRegisteredBiomes().length; index++){
             if (Biome.getBiome(index) == null) continue;
-            if (Biome.getBiome(index).biomeName == null) continue;
+            if (BiomeUtils.getName(Biome.getBiome(index)) == null) continue;
             RealisticBiomeBase realisticVersion = RealisticBiomeBase.getBiome(index);
             // no beach if set to no beach
             if (realisticVersion != null) {
                 if (realisticVersion.disallowAllBeaches) preferredBeach[index] = index;
             }
-            if (Biome.getBiome(index).temperature <= 0.05f) {
-                preferredBeach[index]= Biomes.COLD_BEACH.biomeID;
+            if (Biome.getBiome(index).getTemperature() <= 0.05f) {
+                preferredBeach[index]= BiomeUtils.getId(Biomes.COLD_BEACH);
                 continue;
             } // implied else;
 
             // sand beach if set to no stone beach
             if (realisticVersion != null) {
                 if (realisticVersion.disallowStoneBeaches) {
-                    preferredBeach[index] = Biomes.BEACH.biomeID;
+                    preferredBeach[index] = BiomeUtils.getId(Biomes.BEACH);
                     continue;
                 }
             }// implied else;
             // this code from Climate Control and is still crude
-            float height = Biome.getBiome(index).minHeight + Biome.getBiome(index).maxHeight*2;
+            float height = Biome.getBiome(index).getBaseHeight() + Biome.getBiome(index).getHeightVariation()*2;
             if ((height>(1.0f+0.5))) {
-                preferredBeach[index] = Biomes.STONE_BEACH.biomeID;
+                preferredBeach[index] = BiomeUtils.getId(Biomes.STONE_BEACH);
             } else {
-                preferredBeach[index] = Biomes.BEACH.biomeID;
+                preferredBeach[index] = BiomeUtils.getId(Biomes.BEACH);
             }
 
         }
@@ -218,7 +219,7 @@ public class BiomeAnalyzer {
                 // check for river
                 if (canBeRiver&&!oceanBiome[genLayerBiomes[xyinverted[i]]]&&!swampBiome[genLayerBiomes[xyinverted[i]]]) {
                     // make river
-                    int riverBiomeID = RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome.biomeID;
+                    int riverBiomeID = BiomeUtils.getId(RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome);
                     jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
                     // replace
@@ -234,7 +235,7 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (beachSearch.absent) break; //no point
             if (noise[i]<beachBottom||noise[i]>riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't beach level
-            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable at beach level
+            if (swampBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
                 landSearch.hunt(biomeNeighborhood);
@@ -255,9 +256,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (landSearch.absent) break; //no point
             if (noise[i]<riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't above beach level
-            int biomeID = jitteredBiomes[i].baseBiome.biomeID;
+            int biomeID = BiomeUtils.getId(jitteredBiomes[i].baseBiome);
             if (landBiome[biomeID]) continue;// already land
-            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable above water
+            if (swampBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) continue;// swamps are acceptable above water
             if (landSearch.notHunted) {
                 landSearch.hunt(biomeNeighborhood);
             }
@@ -274,9 +275,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
             if (oceanSearch.absent) break; //no point
             if (noise[i]>oceanTop) continue;// too hight
-            if (oceanBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// obviously ocean is OK
-            if (swampBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// swamps are acceptable
-            if (riverBiome[jitteredBiomes[i].baseBiome.biomeID]) continue;// rivers stay rivers
+            if (oceanBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) continue;// obviously ocean is OK
+            if (swampBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) continue;// swamps are acceptable
+            if (riverBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) continue;// rivers stay rivers
             if (oceanSearch.notHunted) {
                 oceanSearch.hunt(biomeNeighborhood);
             }
@@ -288,12 +289,12 @@ public class BiomeAnalyzer {
         }
         // convert remainder below sea level to lake biome
         for (int i = 0; i < 256; i++) {
-            if (noise[i]<=61.5&&!riverBiome[jitteredBiomes[i].baseBiome.biomeID]) {
+            if (noise[i]<=61.5&&!riverBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) {
                 // check for river
-                if (!oceanBiome[jitteredBiomes[i].baseBiome.biomeID]&&!swampBiome[jitteredBiomes[i].baseBiome.biomeID]&&!beachBiome[jitteredBiomes[i].baseBiome.biomeID]) {
+                if (!oceanBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]&&!swampBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]&&!beachBiome[BiomeUtils.getId(jitteredBiomes[i].baseBiome)]) {
                     // make river
-                    int riverReplacement = jitteredBiomes[i].riverBiome.biomeID;
-                    if (riverReplacement == Biomes.FROZEN_RIVER.biomeID) {
+                    int riverReplacement = BiomeUtils.getId(jitteredBiomes[i].riverBiome);
+                    if (riverReplacement == BiomeUtils.getId(Biomes.FROZEN_RIVER)) {
                         jitteredBiomes[i] = scenicFrozenLakeBiome;
                     } else {
                         jitteredBiomes[i] = scenicLakeBiome;

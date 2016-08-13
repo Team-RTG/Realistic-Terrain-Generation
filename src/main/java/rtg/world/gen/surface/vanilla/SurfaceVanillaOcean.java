@@ -38,7 +38,7 @@ public class SurfaceVanillaOcean extends SurfaceBase {
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -50,18 +50,18 @@ public class SurfaceVanillaOcean extends SurfaceBase {
 
                     if (mixCheck > height) // > 0.27f, i / 12f
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
+                        primer.setBlockState(x, k, y, mixBlock);
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 }
                 else if (depth < 4 && k < 63) {
-                    primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                    primer.setBlockState(x, k, y, fillerBlock);
                 }
 
                 else if (depth == 0 && k < 69) {
-                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getStateFromMeta(sandMetadata));
+                    primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
 
                 }
             }

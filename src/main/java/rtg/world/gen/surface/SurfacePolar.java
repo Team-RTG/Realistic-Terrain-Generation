@@ -38,7 +38,7 @@ public class SurfacePolar extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -47,28 +47,28 @@ public class SurfacePolar extends SurfaceBase {
 
                 if (riverPaint) {
                     if (grass && depth < 4) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     }
                     else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {
 
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                         }
                         else {
 
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
                         }
                     }
                 }
                 else if (depth > -1 && depth < 9) {
-                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SNOW.getDefaultState());
+                    primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     if (depth == 0 && k > 61 && k < 254) {
                         SnowHeightCalculator.calc(x, y, k, primer, noise);
                     }
                 }
             }
             else if (!water && b == Blocks.WATER) {
-                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.ICE.getDefaultState());
+                primer.setBlockState(x, k, y, Blocks.ICE.getDefaultState());
                 water = true;
             }
         }

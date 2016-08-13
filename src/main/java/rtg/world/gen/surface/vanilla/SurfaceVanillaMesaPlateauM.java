@@ -34,7 +34,7 @@ public class SurfaceVanillaMesaPlateauM extends SurfaceBase {
 
         for (int k = 255; k > -1; k--) {
 
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
 
             if (b == Blocks.AIR) {
                 depth = -1;
@@ -44,31 +44,31 @@ public class SurfaceVanillaMesaPlateauM extends SurfaceBase {
                 depth++;
 
                 if (cliff) {
-                    primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                    primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
                 }
                 else {
 
                     if (k > 74 + grassRaise)
                     {
-                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else if (depth == 0 && k > 61) {
                         int r = (int)((k - (62 + grassRaise)) / 2f);
                         if(rand.nextInt(r + 1) == 0)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                         }
                         else if(rand.nextInt((int)(r / 2f) + 1) == 0)
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getStateFromMeta(1));
+                            primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
                         }
                         else
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                            primer.setBlockState(x, k, y, topBlock);
                         }
                     }
                     else if (depth < 4) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

@@ -32,7 +32,7 @@ public class SurfaceCanyon extends SurfaceBase {
         boolean cliff = c > 1.3f;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -41,65 +41,65 @@ public class SurfaceCanyon extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
                         if (depth > 4) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                            primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
                         }
                         else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                                primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                             }
                             else {
                                 if (depth == 0) {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                                    primer.setBlockState(x, k, y, topBlock);
                                 }
                                 else {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                                    primer.setBlockState(x, k, y, fillerBlock);
                                 }
                             }
                         }
                         else if (k < 62) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                         }
                         else if (k < 62 + grassRaise) {
                             if (depth == 0) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
+                                primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                             }
                             else {
-                                primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                                primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                             }
                         }
                         else if (k < 75 + grassRaise) {
                             if (depth == 0) {
                                 int r = (int) ((k - (62 + grassRaise)) / 2f);
                                 if (rand.nextInt(r + 1) == 0) {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
+                                    primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                                 }
                                 else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                                    primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                                 }
                                 else {
-                                    primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                                    primer.setBlockState(x, k, y, topBlock);
                                 }
                             }
                             else {
-                                primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                                primer.setBlockState(x, k, y, fillerBlock);
                             }
                         }
                         else {
                             if (depth == 0) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                                primer.setBlockState(x, k, y, topBlock);
                             }
                             else {
-                                primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                                primer.setBlockState(x, k, y, fillerBlock);
                             }
                         }
                     }
                 }
                 else if (k > 63) {
-                    primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                    primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
                 }
             }
         }

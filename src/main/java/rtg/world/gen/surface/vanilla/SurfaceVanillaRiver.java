@@ -26,7 +26,7 @@ public class SurfaceVanillaRiver extends SurfaceBase {
         if (river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.15f) > 0.8f) {
             Block b;
             for (int k = 255; k > -1; k--) {
-                b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+                b = primer.getBlockState(x, k, y).getBlock();
                 if (b == Blocks.AIR) {
                     depth = -1;
                 }
@@ -34,10 +34,10 @@ public class SurfaceVanillaRiver extends SurfaceBase {
                     depth++;
 
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                     }
                     else if (depth < 4) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     }
                     else if (depth > 4) {
                         return;

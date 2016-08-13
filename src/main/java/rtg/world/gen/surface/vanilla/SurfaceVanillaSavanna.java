@@ -41,7 +41,7 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
         boolean cliff = c > 1.4f;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -50,24 +50,24 @@ public class SurfaceVanillaSavanna extends SurfaceBase {
 
                 if (cliff) {
                     if (depth > -1 && depth < 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, y, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
                     }
                     else if (depth < 10) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
                     }
                 }
                 else {
                     if (depth == 0 && k > 61) {
                         if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
                         {
-                            primer.setBlockState((y * 16 + x) * 256 + k, mixBlock);
+                            primer.setBlockState(x, k, y, mixBlock);
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                            primer.setBlockState(x, k, y, topBlock);
                         }
                     }
                     else if (depth < 4) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

@@ -33,7 +33,7 @@ public class SurfaceVanillaMegaTaiga extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -58,45 +58,45 @@ public class SurfaceVanillaMegaTaiga extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
                         }
                         else {
 
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                         }
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SNOW.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     }
                     else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getStateFromMeta(2));
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(2));
                     }
                     else if (k < 63) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRAVEL.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRAVEL.getDefaultState());
                         gravel = true;
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRASS.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                     }
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SNOW.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     }
                     else if (gravel) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.GRAVEL.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRAVEL.getDefaultState());
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     }
                 }
             }

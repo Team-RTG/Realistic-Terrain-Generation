@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -37,7 +38,7 @@ public class SurfaceDuneValley extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -46,28 +47,28 @@ public class SurfaceDuneValley extends SurfaceBase {
 
                 if (depth == 0) {
                     if (k > 90f + simplex.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix)) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                         //base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaDesert;
                         sand = true;
                     }
                     else if (dirt && m < 0.22f || k < 62) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.DIRT.getStateFromMeta(1));
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 }
                 else if (depth < 6) {
                     if (sand) {
                         if (depth < 4) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SANDSTONE.getDefaultState());
+                            primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                         }
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

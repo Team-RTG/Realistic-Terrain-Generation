@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -30,7 +31,7 @@ public class SurfaceGrassCanyon extends SurfaceBase {
         boolean cliff = c > 1.3f ? true : false;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            Block b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -39,24 +40,24 @@ public class SurfaceGrassCanyon extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
+                        primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
                     }
                     else {
                         if (depth > 4) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
+                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
                         }
                         else {
                             if (depth == 0) {
-                                primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                                primer.setBlockState(x, k, y, topBlock);
                             }
                             else {
-                                primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                                primer.setBlockState(x, k, y, fillerBlock);
                             }
                         }
                     }
                 }
                 else if (k > 63) {
-                    primer.setBlockState((y * 16 + x) * 256 + k, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
+                    primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
                 }
             }
         }

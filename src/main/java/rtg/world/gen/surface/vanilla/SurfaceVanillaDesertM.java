@@ -53,7 +53,7 @@ public class SurfaceVanillaDesertM extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
+            b = primer.getBlockState(x, k, y).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -76,39 +76,39 @@ public class SurfaceVanillaDesertM extends SurfaceBase {
                     }
 
                     if (cliff == 1) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
+                        primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowDesertBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowDesertBlock(world, i, j, x, y, k));
                     }
                     else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
+                            primer.setBlockState(x, k, y, beachBlock);
                             gravel = true;
                         }
                         else if (k < 62) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                            primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                            primer.setBlockState(x, k, y, topBlock);
                         }
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.SAND.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowDesertBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowDesertBlock(world, i, j, x, y, k));
                     }
                     else if (gravel) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
+                        primer.setBlockState(x, k, y, beachBlock);
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

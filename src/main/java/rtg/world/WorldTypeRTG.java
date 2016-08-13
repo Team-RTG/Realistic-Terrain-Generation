@@ -39,9 +39,6 @@ public class WorldTypeRTG extends WorldType
     public WorldTypeRTG(String name)
     {
         super(name);
-
-//        DimensionManager.unregisterProviderType(0);
-//        DimensionManager.registerProviderType(0, WorldProviderSurfaceRTG.class, true);
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.GeneratorBushFeature;
+import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -69,8 +69,8 @@ public class DecoMushrooms extends DecoBase {
                         break;
                 }
 
-                WorldGenerator worldGeneratorBrownShrooms = new GeneratorBushFeature(Blocks.BROWN_MUSHROOM);
-                WorldGenerator worldGeneratorRedShrooms = new GeneratorBushFeature(Blocks.RED_MUSHROOM);
+                WorldGenerator worldGeneratorBrownShrooms = new WorldGenBush(Blocks.BROWN_MUSHROOM);
+                WorldGenerator worldGeneratorRedShrooms = new WorldGenBush(Blocks.RED_MUSHROOM);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
                 for (int i = 0; i < this.loops; i++) {

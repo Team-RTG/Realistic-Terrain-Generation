@@ -1,7 +1,6 @@
 package rtg.world.biome.deco.collection;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.world.biome.deco.DecoBase;
@@ -43,16 +42,9 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
         vanillaTrees.treeConditionChance = 4;
         vanillaTrees.maxY = 110;
 
-        DecoTree vanillaForest = new DecoTree(new WorldGenForest(false, true));
-        vanillaForest.strengthFactorForLoops = 3f;
-        vanillaForest.treeType = TreeType.WORLDGEN;
-        vanillaForest.treeCondition = TreeCondition.RANDOM_CHANCE;
-        vanillaForest.treeConditionChance = 4;
-        vanillaForest.maxY = 110;
-
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees, vanillaForest};
-        decoHelperRandomSplit.chances = new int[]{8, 4, 1};
+        decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees};
+        decoHelperRandomSplit.chances = new int[]{8, 4};
         this.addDeco(decoHelperRandomSplit);
     }
 }

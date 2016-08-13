@@ -1,7 +1,6 @@
 package rtg.world.biome.deco.collection;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -94,17 +93,9 @@ public class DecoCollectionForest extends DecoCollectionBase {
         vanillaTrees.treeConditionChance = 4;
         vanillaTrees.maxY = 120;
 
-        WorldGenerator vanillaForestDefinition = new WorldGenForest(false, false);
-        DecoTree vanillaForest = new DecoTree(vanillaForestDefinition);
-        vanillaForest.strengthFactorForLoops = 2f;
-        vanillaForest.treeType = TreeType.WORLDGEN;
-        vanillaForest.treeCondition = TreeCondition.RANDOM_CHANCE;
-        vanillaForest.treeConditionChance = 16;
-        vanillaForest.maxY = 120;
-
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees, vanillaForest};
-        decoHelperRandomSplit.chances = new int[]{8, 4, 1};
+        decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees};
+        decoHelperRandomSplit.chances = new int[]{8, 4};
         this.addDeco(decoHelperRandomSplit);
 
         // Add some fallen trees of the oak and spruce variety (50/50 distribution).

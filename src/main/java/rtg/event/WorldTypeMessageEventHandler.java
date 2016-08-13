@@ -32,13 +32,13 @@ public class WorldTypeMessageEventHandler {
     @SideOnly(Side.CLIENT)
     public void openCreateWorld(GuiOpenEvent event) {
 
-        if (event.gui instanceof GuiCreateWorld) {
+        if (event.getGui() instanceof GuiCreateWorld) {
             File nameHashFile = new File(Minecraft.getMinecraft().mcDataDir.getPath() + File.separator + "settings.rtg");
             String nameHash = "" + Minecraft.getMinecraft().getSession().getUsername().hashCode();
 
             try {
                 if (!nameHashFile.exists() || !FileUtils.readFileToString(nameHashFile).contains(nameHash + "StartupWarning".hashCode())) {
-                    event.gui = new WorldTypeMessageGUI(event.gui, nameHashFile, nameHash);
+                    event.setGui(new WorldTypeMessageGUI(event.getGui(), nameHashFile, nameHash));
                 }
             }
             catch (IOException e) {

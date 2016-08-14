@@ -5,14 +5,13 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
-import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
@@ -100,14 +99,14 @@ public class RealisticBiomeBase {
 
         this.config = config;
 
-        if (biome.biomeID == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
+        if (BiomeUtils.getId(biome) == 160 && this instanceof rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills) {
 
             arrRealisticBiomeIds[161] = this;
 
         }
         else {
 
-            arrRealisticBiomeIds[biome.biomeID] = this;
+            arrRealisticBiomeIds[BiomeUtils.getId(biome)] = this;
         }
 
         baseBiome = biome;
@@ -172,13 +171,13 @@ public class RealisticBiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
-    public void rPopulatePreDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean villageBuilding) {
+    public void rPopulatePreDecorate(IChunkGenerator ichunkgenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean villageBuilding) {
 
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
         boolean gen = true;
 
-        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAKE);
+        gen = TerrainGen.populate(ichunkgenerator, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAKE);
 
         // Underground water lakes.
         if (ConfigRTG.enableWaterUndergroundLakes) {
@@ -216,7 +215,7 @@ public class RealisticBiomeBase {
             }
         }
 
-        gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAVA);
+        gen = TerrainGen.populate(ichunkgenerator, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAVA);
 
         // Underground lava lakes.
         if (ConfigRTG.enableLavaUndergroundLakes) {
@@ -256,7 +255,7 @@ public class RealisticBiomeBase {
 
         if (ConfigRTG.generateDungeons) {
             
-            gen = TerrainGen.populate(ichunkprovider, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.DUNGEON);
+            gen = TerrainGen.populate(ichunkgenerator, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.DUNGEON);
             
             if (gen) {
             	
@@ -272,14 +271,8 @@ public class RealisticBiomeBase {
         }
     }
 
-    public void rPopulatePostDecorate(IChunkProvider ichunkprovider, World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
-        /**
-         * Has emerald gen been disabled in the configs?
-         * If so, check to see if this biome generated emeralds & remove them if necessary.
-         */
-        if (!ConfigRTG.generateOreEmerald && generatesEmeralds) {
-            rRemoveEmeralds(worldObj, rand, chunkX, chunkZ);
-        }
+    public void rPopulatePostDecorate(World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
+
     }
 
     /**
@@ -306,10 +299,10 @@ public class RealisticBiomeBase {
             String s = world.getWorldInfo().getGeneratorOptions();
 
             if (s != null) {
-                seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).func_177864_b();
+                seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).build();
             }
             else {
-                seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").func_177864_b();
+                seedBiome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").build();
             }
         }
 
@@ -360,11 +353,6 @@ public class RealisticBiomeBase {
             genStandardOre2(world, rand, blockPos, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCount, seedBiome.theBiomeDecorator.lapisGen, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisCenterHeight, seedBiome.theBiomeDecorator.chunkProviderSettings.lapisSpread);
         }
 
-        // Emeralds.
-        if (ConfigRTG.generateOreEmerald && generatesEmeralds) {
-            rGenerateEmeralds(world, rand, blockPos);
-        }
-
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(world, rand, blockPos));
     }
 
@@ -376,7 +364,7 @@ public class RealisticBiomeBase {
         }
 
         // Have volcanoes been disabled in the biome config?
-    	RealisticBiomeBase neighbourBiome = getBiome((((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16).biomeID));
+    	RealisticBiomeBase neighbourBiome = getBiome(BiomeUtils.getId(((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16)));
         if (!neighbourBiome.config._boolean(BiomeConfig.allowVolcanoesId)) {
             return;
         }
@@ -604,42 +592,6 @@ public class RealisticBiomeBase {
         }
     }
 
-    public void rGenerateEmeralds(World world, Random rand, BlockPos blockPos) {
-
-        int k = 3 + rand.nextInt(6);
-        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
-
-        for (int l = 0; l < k; ++l) {
-            mbp.set(blockPos.getX() + rand.nextInt(16),
-                rand.nextInt(28) + 4,
-                blockPos.getZ() + rand.nextInt(16));
-
-            if (world.getBlockState(mbp).getBlock().isReplaceableOreGen(world, mbp, BlockHelper.forBlock(emeraldStoneBlock))) {
-                world.setBlockState(mbp, emeraldEmeraldBlock.getStateFromMeta(emeraldEmeraldMeta), 2);
-            }
-        }
-    }
-
-    public void rRemoveEmeralds(World world, Random rand, int chunkX, int chunkZ) {
-
-        int endX = (chunkX * 16) + 16;
-        int endZ = (chunkZ * 16) + 16;
-
-        // Get the highest possible existing block location.
-        int maxY = world.getHeight(new BlockPos(chunkX, 0, chunkZ)).getY();
-        BlockPos.MutableBlockPos mbp = new BlockPos.MutableBlockPos();
-        for (int x = chunkX * 16; x < endX; ++x) {
-            for (int z = chunkZ * 16; z < endZ; ++z) {
-                for (int y = 0; y < maxY; ++y) {
-                    if (world.getBlockState(mbp.set(x, y, z)).getBlock().isReplaceableOreGen(world, mbp, BlockHelper.forBlock(emeraldEmeraldBlock))) {
-
-                        world.setBlockState(mbp, emeraldStoneBlock.getStateFromMeta(emeraldStoneMeta), 2);
-                    }
-                }
-            }
-        }
-    }
-
     public TerrainBase getTerrain() {
 
         return this.terrain;
@@ -650,7 +602,7 @@ public class RealisticBiomeBase {
         if (this.surfacesLength == 0) {
 
             throw new RuntimeException(
-                "No realistic surfaces found for " + this.baseBiome.biomeName + " (" + this.baseBiome.biomeID + ")."
+                "No realistic surfaces found for " + BiomeUtils.getName(this.baseBiome) + " (" + BiomeUtils.getId(this.baseBiome) + ")."
             );
         }
 

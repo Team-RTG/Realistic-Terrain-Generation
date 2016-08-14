@@ -25,7 +25,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
@@ -140,7 +139,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
                 if (!allowed.contains(biome))
                 {
-                    Logger.debug("Could not generate ocean monument. Biome (%d) nearby.", BiomeUtils.getId(biome));
+                    //Logger.debug("Could not generate ocean monument. Biome (%d) nearby.", BiomeUtils.getId(biome));
                     return false;
                 }
             }

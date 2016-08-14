@@ -14,6 +14,7 @@ import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
 import gnu.trove.map.hash.TLongObjectHashMap;
+import mcp.MethodsReturnNonnullByDefault;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
@@ -126,11 +127,29 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
 
     }
 
-//    @Override
-//    public Biome[] loadBlockGeneratorData(Biome[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
-//    {
-//        return this.getBiomeGenAt(par1ArrayOfBiomeGenBase, par2, par3, par4, par5, true);
-//    }
+    @Override
+    @MethodsReturnNonnullByDefault
+    public Biome[] getBiomes(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
+        IntCache.resetIntCache();
+
+        if (listToReuse == null || listToReuse.length < width * length) {
+            listToReuse = new Biome[width * length];
+        }
+
+        if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
+            Biome[] abiomegenbase1 = this.biomeCache.getCachedBiomes(x, z);
+            System.arraycopy(abiomegenbase1, 0, listToReuse, 0, width * length);
+            return listToReuse;
+        } else {
+            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
+
+            for (int i1 = 0; i1 < width * length; ++i1) {
+                listToReuse[i1] = Biome.getBiomeForId(aint[i1]);
+            }
+
+            return listToReuse;
+        }
+    }
 
     @Override
     public Biome getBiomeGenAt(int par1, int par2) {

@@ -3,6 +3,7 @@ package rtg.world.biome;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.annotation.Nullable;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -13,8 +14,10 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
+
 import gnu.trove.map.hash.TLongObjectHashMap;
-import mcp.MethodsReturnNonnullByDefault;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
@@ -67,6 +70,10 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         testCellBorder();
     }
 
+    /**
+     * @see RTGBiomeProvider
+     */
+    @Override
     public int[] getBiomesGens(int par1, int par2, int par3, int par4)
     {
 
@@ -127,30 +134,9 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
 
     }
 
-    @Override
-    @MethodsReturnNonnullByDefault
-    public Biome[] getBiomes(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
-        IntCache.resetIntCache();
-
-        if (listToReuse == null || listToReuse.length < width * length) {
-            listToReuse = new Biome[width * length];
-        }
-
-        if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
-            Biome[] abiomegenbase1 = this.biomeCache.getCachedBiomes(x, z);
-            System.arraycopy(abiomegenbase1, 0, listToReuse, 0, width * length);
-            return listToReuse;
-        } else {
-            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
-
-            for (int i1 = 0; i1 < width * length; ++i1) {
-                listToReuse[i1] = Biome.getBiomeForId(aint[i1]);
-            }
-
-            return listToReuse;
-        }
-    }
-
+    /**
+     * @see RTGBiomeProvider
+     */
     @Override
     public Biome getBiomeGenAt(int par1, int par2) {
         Biome result;
@@ -164,25 +150,10 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         return result;
     }
 
-    public Biome[] getBiomesForGeneration(Biome[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5)
-    {
-        IntCache.resetIntCache();
-
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
-        {
-            par1ArrayOfBiomeGenBase = new Biome[par4 * par5];
-        }
-
-        int[] aint = this.genBiomes.getInts(par2, par3, par4, par5);
-
-        for (int i1 = 0; i1 < par4 * par5; ++i1)
-        {
-            par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
-        }
-
-        return par1ArrayOfBiomeGenBase;
-    }
-
+    /**
+     * @see RTGBiomeProvider
+     */
+    @Override
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
     {
         /*long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
@@ -201,12 +172,6 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         biomeDataMap.put(coords, output);*/
 
         return output;
-    }
-
-    @Override
-    public void cleanupCache()
-    {
-        this.biomeCache.cleanupCache();
     }
 
     public float getNoiseAt(int x, int y)
@@ -256,6 +221,10 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     private float largeBendSize = 140;
     private float smallBendSize = 30;
 
+    /**
+     * @see RTGBiomeProvider
+     */
+    @Override
     public float getRiverStrength(int x, int y)
     {
         //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
@@ -280,6 +249,10 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         return river.octave(0).border2(xRiver, yRiver, riverValleyLevel, 1f);
     }
 
+    /**
+     * @see RTGBiomeProvider
+     */
+    @Override
     public boolean isBorderlessAt(int x, int y)
     {
 
@@ -306,57 +279,115 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         return by == 1 ? true : false;
     }
 
-    public List getBiomesToSpawnIn()
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public List<Biome> getBiomesToSpawnIn()
     {
-
         return this.biomesToSpawnIn;
     }
 
-    public float getTemperatureAtHeight(float par1, int par2)
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public Biome getBiome(BlockPos pos)
     {
-
-        return par1;
+        return this.getBiome(pos, (Biome)null);
     }
 
-    public Biome[] getBiomeGenAt(Biome[] par1ArrayOfBiomeGenBase, int par2, int par3, int par4, int par5, boolean par6)
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public Biome getBiome(BlockPos pos, Biome defaultBiome)
+    {
+        return this.biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
+    }
+
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public float getTemperatureAtHeight(float p_76939_1_, int p_76939_2_)
+    {
+        return p_76939_1_;
+    }
+
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height)
     {
         IntCache.resetIntCache();
 
-        if (par1ArrayOfBiomeGenBase == null || par1ArrayOfBiomeGenBase.length < par4 * par5)
-        {
-            par1ArrayOfBiomeGenBase = new Biome[par4 * par5];
+        if (biomes == null || biomes.length < width * height) {
+            biomes = new Biome[width * height];
         }
 
-        if (par6 && par4 == 16 && par5 == 16 && (par2 & 15) == 0 && (par3 & 15) == 0)
-        {
-            Biome[] abiomegenbase1 = this.biomeCache.getCachedBiomes(par2, par3);
-            System.arraycopy(abiomegenbase1, 0, par1ArrayOfBiomeGenBase, 0, par4 * par5);
-            return par1ArrayOfBiomeGenBase;
-        }
-        else
-        {
-            int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
+        int[] aint = this.genBiomes.getInts(x, z, width, height);
 
-            for (int i1 = 0; i1 < par4 * par5; ++i1)
-            {
-                try {
-                    par1ArrayOfBiomeGenBase[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
-                } catch (Exception e) {
-                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedBaseBiome(genBiomes.toString()+ " " + this.biomeIndexLayer.toString());
-                }
-                if (par1ArrayOfBiomeGenBase[i1] == null) {
-                    par1ArrayOfBiomeGenBase[i1] = biomePatcher.getPatchedBaseBiome("Missing biome "+aint[i1]);
+        for (int i1 = 0; i1 < width * height; ++i1) {
+            biomes[i1] = Biome.getBiomeForId(aint[i1]);
+
+            if (biomes[i1] == null) {
+                biomes[i1] = biomePatcher.getPatchedBaseBiome("WCMRTG.getBiomesForGeneration() could not find biome " + aint[i1]);
+            }
+        }
+
+        return biomes;
+    }
+
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public Biome[] getBiomes(@Nullable Biome[] oldBiomeList, int x, int z, int width, int depth)
+    {
+        return this.getBiomes(oldBiomeList, x, z, width, depth, true);
+    }
+
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public Biome[] getBiomes(@Nullable Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag)
+    {
+        IntCache.resetIntCache();
+
+        if (listToReuse == null || listToReuse.length < width * length) {
+            listToReuse = new Biome[width * length];
+        }
+
+        if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
+            Biome[] abiomegenbase1 = this.biomeCache.getCachedBiomes(x, z);
+            System.arraycopy(abiomegenbase1, 0, listToReuse, 0, width * length);
+            return listToReuse;
+        }
+        else {
+            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
+
+            for (int i1 = 0; i1 < width * length; ++i1) {
+                listToReuse[i1] = Biome.getBiomeForId(aint[i1]);
+
+                if (listToReuse[i1] == null) {
+                    listToReuse[i1] = biomePatcher.getPatchedBaseBiome("WCMRTG.getBiomes() could not find biome " + aint[i1]);
                 }
             }
 
-            return par1ArrayOfBiomeGenBase;
+            return listToReuse;
         }
     }
 
-    public boolean areBiomesViable(int x, int y, int par3, List par4List)
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
-
-        float centerNoise = getNoiseAt(x, y);
+        float centerNoise = getNoiseAt(x, z);
         if (centerNoise < 62)
         {
             return false;
@@ -370,7 +401,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
             {
                 if (i != 0 && j != 0)
                 {
-                    float n = getNoiseAt(x + i * 16, y + j * 16);
+                    float n = getNoiseAt(x + i * 16, z + j * 16);
                     if (n < lowestNoise) {
                         lowestNoise = n;
                     }
@@ -389,33 +420,57 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         return false;
     }
 
+    /**
+     * @see BiomeProvider
+     */
+    @Nullable
     @Override
-    public BlockPos findBiomePosition(int p_150795_1_, int p_150795_2_, int p_150795_3_, List p_150795_4_, Random p_150795_5_)
+    public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random)
     {
         IntCache.resetIntCache();
-        int l = p_150795_1_ - p_150795_3_ >> 2;
-        int i1 = p_150795_2_ - p_150795_3_ >> 2;
-        int j1 = p_150795_1_ + p_150795_3_ >> 2;
-        int k1 = p_150795_2_ + p_150795_3_ >> 2;
-        int l1 = j1 - l + 1;
-        int i2 = k1 - i1 + 1;
-        int[] aint = this.genBiomes.getInts(l, i1, l1, i2);
-        BlockPos chunkposition = null;
-        int j2 = 0;
+        int i = x - range >> 2;
+        int j = z - range >> 2;
+        int k = x + range >> 2;
+        int l = z + range >> 2;
+        int i1 = k - i + 1;
+        int j1 = l - j + 1;
+        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
+        BlockPos blockpos = null;
+        int k1 = 0;
 
-        for (int k2 = 0; k2 < l1 * i2; ++k2)
+        for (int l1 = 0; l1 < i1 * j1; ++l1)
         {
-            int l2 = l + k2 % l1 << 2;
-            int i3 = i1 + k2 / l1 << 2;
-            Biome biomegenbase = Biome.getBiome(aint[k2]);
+            int i2 = i + l1 % i1 << 2;
+            int j2 = j + l1 / i1 << 2;
+            Biome biome = Biome.getBiome(aint[l1]);
 
-            if (p_150795_4_.contains(biomegenbase) && (chunkposition == null || p_150795_5_.nextInt(j2 + 1) == 0))
+            if (biomes.contains(biome) && (blockpos == null || random.nextInt(k1 + 1) == 0))
             {
-                chunkposition = new BlockPos(l2, 0, i3);
-                ++j2;
+                blockpos = new BlockPos(i2, 0, j2);
+                ++k1;
             }
         }
 
-        return chunkposition;
+        return blockpos;
+    }
+
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public void cleanupCache()
+    {
+        this.biomeCache.cleanupCache();
+    }
+
+    /**
+     * @see BiomeProvider
+     */
+    @Override
+    public GenLayer[] getModdedBiomeGenerators(WorldType worldType, long seed, GenLayer[] original)
+    {
+        WorldTypeEvent.InitBiomeGens event = new WorldTypeEvent.InitBiomeGens(worldType, seed, original);
+        MinecraftForge.TERRAIN_GEN_BUS.post(event);
+        return event.getNewBiomeGens();
     }
 }

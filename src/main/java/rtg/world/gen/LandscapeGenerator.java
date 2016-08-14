@@ -70,14 +70,18 @@ public class LandscapeGenerator {
         ChunkLandscape target = this.landscape(cmr, worldX-chunkX, worldY-chunkY);
         return BiomeUtils.getId(target.biome[chunkX*16+chunkY].baseBiome);
     }
-    
+
+    /*
+     * All of the 'worldX' and 'worldY' parameters have been flipped when passing them.
+     * Prior to flipping, the terrain was being XZ-chunk-flipped. - WhichOnesPink
+     */
     public synchronized ChunkLandscape landscape(RTGBiomeProvider cmr, int worldX, int worldY) {
-        PlaneLocation location = new PlaneLocation.Invariant(worldX,worldY);
+        PlaneLocation location = new PlaneLocation.Invariant(worldY,worldX);
         ChunkLandscape preExisting = this.storage.get(location);
         if (preExisting != null) return preExisting;
         ChunkLandscape result = new ChunkLandscape();
-        getNewerNoise(cmr, worldX, worldY, result);
-        int [] biomeIndices= cmr.getBiomesGens(worldX, worldY,16,16);
+        getNewerNoise(cmr, worldY, worldX, result);
+        int [] biomeIndices= cmr.getBiomesGens(worldY, worldX,16,16);
         analyzer.newRepair(biomeIndices, result.biome, this.biomeData, this.sampleSize, result.noise,result.river);//-cmr.getRiverStrength(cx * 16 + 7, cy * 16 + 7));
         storage.put(location, result);
         return result;

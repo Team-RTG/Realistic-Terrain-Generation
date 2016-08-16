@@ -495,7 +495,7 @@ public class ConfigRTG {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             plateauGradientBlockId = config.getString(
-                "Plateau Gradient Block ID",
+                "Gradient Plateau Block ID",
                 "Plateaus",
                 plateauGradientBlockId,
                 "The block to use for Mesa & Savanna plateau gradients. Defaults to stained hardened clay." +
@@ -505,6 +505,27 @@ public class ConfigRTG {
                     "The various 'meta' options in this section will use this block to configure the plateau gradients." +
                     Configuration.NEW_LINE
             );
+
+            mesaBrycePlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
+                "Gradient Plateau Block Meta Values (Mesa Bryce)",
+                "Plateaus",
+                mesaBryceGradientString,
+                getPlateauGradientBlockMetasComment("Mesa Bryce biome")
+            ));
+
+            mesaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
+                "Gradient Plateau Block Meta Values (Mesa)",
+                "Plateaus",
+                mesaGradientString,
+                getPlateauGradientBlockMetasComment("Mesa biome variants (doesn't include Mesa Bryce)")
+            ));
+
+            savannaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
+                "Gradient Plateau Block Meta Values (Savanna)",
+                "Plateaus",
+                savannaGradientString,
+                getPlateauGradientBlockMetasComment("Savanna biome variants")
+            ));
 
             plateauBlockId = config.getString(
                 "Plateau Block ID",
@@ -517,27 +538,6 @@ public class ConfigRTG {
             );
 
             plateauBlockByte = config.getInt("Plateau Block Meta Value", "Plateaus", plateauBlockByte, 0, 15, "The meta value of the plateau block." + Configuration.NEW_LINE);
-
-            mesaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
-                "Mesa Plateau Block Metas",
-                "Plateaus",
-                mesaGradientString,
-                getPlateauGradientBlockMetasComment("Mesa biome variants (doesn't include Mesa Bryce)")
-            ));
-
-            mesaBrycePlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
-                "Mesa Bryce Plateau Block Metas",
-                "Plateaus",
-                mesaBryceGradientString,
-                getPlateauGradientBlockMetasComment("Mesa Bryce biome")
-            ));
-
-            savannaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
-                "Savanna Plateau Block Metas",
-                "Plateaus",
-                savannaGradientString,
-                getPlateauGradientBlockMetasComment("Savanna biome variants")
-            ));
 
             stoneSavannas = config.getBoolean(
                 "Use stone for most Savanna biome variants",
@@ -913,7 +913,7 @@ public class ConfigRTG {
     private static String getPlateauGradientBlockMetasComment(String biomeName)
     {
         String comment =
-            "Comma-separated list of meta values for the plateau gradient blocks used in the " + biomeName + "."
+            "Comma-separated list of meta values for the gradient plateau blocks used in the " + biomeName + "."
                 + Configuration.NEW_LINE +
                 "-1 = Plateau block; 0-15 = Plateau gradient block"
                 + Configuration.NEW_LINE +

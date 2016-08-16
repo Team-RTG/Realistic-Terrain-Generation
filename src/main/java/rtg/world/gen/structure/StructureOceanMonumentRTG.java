@@ -120,7 +120,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
         // Do we have RTG's chunk manager?
         if (!(this.worldObj.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
-            Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
+            //Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
             return false;
         }
 

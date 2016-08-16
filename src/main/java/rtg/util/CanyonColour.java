@@ -3,8 +3,8 @@ package rtg.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 
 import rtg.config.rtg.ConfigRTG;
 
@@ -15,13 +15,16 @@ import rtg.config.rtg.ConfigRTG;
  */
 public enum CanyonColour {
 
-    MESA(ConfigRTG.mesaClayColours),
-    MESA_BRYCE(ConfigRTG.mesaBryceClayColours),
-    SAVANNA(ConfigRTG.savannaClayColours);
+    MESA(ConfigRTG.mesaPlateauBlockMetas),
+    MESA_BRYCE(ConfigRTG.mesaBrycePlateauBlockMetas),
+    SAVANNA(ConfigRTG.savannaPlateauBlockMetas);
 
     private static Map<CanyonColour, IBlockState[]> colourBlocks = new HashMap<CanyonColour, IBlockState[]>();
     private static OpenSimplexNoise simplex;
     private byte[] bytes;
+
+    private static IBlockState plateauBlock = Block.getBlockFromName(ConfigRTG.plateauBlockId).getStateFromMeta(ConfigRTG.plateauBlockByte);
+    private static Block plateauGradientBlock = Block.getBlockFromName(ConfigRTG.plateauGradientBlockId);
 
     CanyonColour(byte[] bytes) {
         this.bytes = bytes;
@@ -39,7 +42,7 @@ public enum CanyonColour {
             for (int i = 0; i < 256; i++) {
 
                 byte b = colour.bytes[i % colour.bytes.length];
-                c[i] = (b == -1) ? Blocks.hardened_clay.getDefaultState() : Blocks.stained_hardened_clay.getStateFromMeta(b);
+                c[i] = (b == -1) ? plateauBlock : plateauGradientBlock.getStateFromMeta(b);
             }
 
             colourBlocks.put(colour, c);

@@ -38,6 +38,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
             new SurfaceVanillaMesaBryce(config, Blocks.sand.getStateFromMeta(1), Blocks.sand.getStateFromMeta(1), 0)
         );
 
+        this.waterSurfaceLakeChance = 0;
+        this.lavaSurfaceLakeChance = 0;
+
         this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoBoulder decoBoulder = new DecoBoulder();

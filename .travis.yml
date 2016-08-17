@@ -1,8 +1,6 @@
 language: java
-jdk:
-  - oraclejdk8
 install: "./gradlew setupCIWorkspace"
-script: "./gradlew build"
+script: "./gradlew jar"
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
@@ -13,13 +11,13 @@ deploy:
   provider: s3
   access_key_id: AKIAIZ4H7ETBDX4MY3TA
   secret_access_key:
-    secure: tbwEvUFbJAZmWt8clRcaZ4HJcqauMLvD+gP1hKYn3/gXyLdsyaKoAX5qfSyMLCw9QMxIaXLr9Pqn1xzl2qSz/VHm3o0P2nyQu1pccZi96o3shGaIqPuLMfMpksfMCAICvG4fiTcIoFR7Iqkb61TFu/mpB0BK92CL+uTwK3B32oTGBE4BKu3qOeeNjiCUwgtwY/ZiOqjK93mzlMFkzJZ0fHXltK5gT2wnhyXlVvv//82ByLe1NMG+l8Aedn2SY6yH/wcILl2biPOLZiGOx2TA9mib5jG7+W/JBcTdwj8lKr3cnniWy1vA38s5ZCowtd9YGbouHYENz42MDUkOMm0PWSVRGZvPm8bhTg1OeHZ9ebuyXf4Qt1j06pCCiuOq+8RhRHZifCzR2kAiIFUg2hmhdkFCNMtJquNFuYn9obY8Fe9HPsYymi7P6F5SKTHr9PyFhwjw2yNNtoerrthY+lP12qNfLnVPzJdhQVYIChDVXph+Y1vcKT5NIcDFoH2UXvGpapQvSWuxFFMEJFLw/fxtcf5eiL+isuVZv+r76QESvDLOPZi9UiCFzKOkNESzzZgo92a0uKTBJJQEDMND3s0RB9blxqc1tG9xixopuJroAyUmnfOGLOp37zunWojs1B6YGnRv4aDct8dBPWUhH6FrceCDr+Xp6n36XBRz+dxSvmU=
+    secure: s8o8GoJSk1kETEG3sbljZqYo3Pyw/cWI8ToOdmbodKWVdF4lHeY5dfGafXTuzwf0dm1RDMaEaqQ2FldEXAkz5xoWui5VIvQOJaZYBpoUD3Sdz80ICN3Iy3Iq4adpynK+1Nsm9HD1JyjW0gb7U1MJtxdjc/yB7RWXZiv1qRHHCVBP9/u4AavzkQkoGTFjSF3Of/HtmbrIxcjQDiqacOaxVpsU9IpCEzUjNanXeEkpVDiAeqMjGNBWyg+cWUdSj7rkFV/627ry3Y47PBGM2NDFhjkpddTTR84iLKiqNe947sqfEYhmkYHq3gRY9MiM2W1C1KXfU8xtWmBlDcZGei1BTCJ7OAxbAJAdB4bYxoycNKNteurj/GnKl4hnvTRku+VxiOAAMjSC6E7do9MvP3ZW+8LpL9C0buS77GGLhxA+7qDWcHa7jDzdaHHmA0HRVuHnGGvOLFQAUIrg6IvtoTDzXiw5sca8aIWSW/sCUbwSOAsQEL7Pf/rlOzUo4vow5e7e+gsQNILowyKHw1fjoowSco9dj00uSfz8d8jymMKCoZ+Q9jujNEOjDk3qgI3iN1qCouzru3v8pteaz/DnKp0qN6YcyzqAgCHZ2aMXUfFAqR2hkdjaZk8YiLGiE6RnbFNpmGvg3y/GKYNxjJigRPNZSd7EVRZvC5tqJ3CGtAqPxbU=
   bucket: travis.teamrtg.org
   local-dir: build/libs/
-  upload-dir: RTG-1.9
+  upload-dir: RTG-1.8.9
   skip_cleanup: true
   acl: public_read
   region: ap-southeast-2
   on:
-    repo: Team-RTG/1.9-Realistic-Terrain-Generation
+    repo: Team-RTG/1.8.9-Realistic-Terrain-Generation
     all_branches: true

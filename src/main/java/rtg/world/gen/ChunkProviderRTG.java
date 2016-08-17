@@ -440,24 +440,29 @@ public class ChunkProviderRTG implements IChunkGenerator
     public static String firstBlock;
     public static String biomeLayoutActivity = "Biome Layout";
 
-    public void replaceBlocksForBiome(int cx, int cy, ChunkPrimer primer, RealisticBiomeBase[] biomes, Biome[] base, float[] n)
+    public void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[] biomes, Biome[] base, float[] n)
     {
-        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cy, primer, this.worldObj);
+        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, this.worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Event.Result.DENY) return;
 
         int i, j, depth;
         float river;
+        RealisticBiomeBase biome;
+
     	for(i = 0; i < 16; i++)
     	{
     		for(j = 0; j < 16; j++)
     		{
-                RealisticBiomeBase biome = biomes[j * 16 + i];
-
-                river = -cmr.getRiverStrength(cx * 16 + j, cy * 16 + i);
+                /*
+                 * Some of the 'i' and 'j' parameters have been flipped when passing them.
+                 * Prior to flipping, the surface was being XZ-chunk-flipped. - WhichOnesPink
+                 */
+                biome = biomes[i * 16 + j];
+                river = -cmr.getRiverStrength(cx * 16 + i, cz * 16 + j);
                 depth = -1;
 
-    			biome.rReplace(primer, cx * 16 + j, cy * 16 + i, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+                biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
                 int rough;
     			int flatBedrockLayers = (int) ConfigRTG.flatBedrockLayers;

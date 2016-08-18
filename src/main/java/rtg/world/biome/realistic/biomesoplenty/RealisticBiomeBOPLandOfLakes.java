@@ -1,8 +1,9 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -18,22 +19,19 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.land_of_lakes.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.land_of_lakes.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPLandOfLakes(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPLandOfLakes(58f, 76f, 36f),
-            new SurfaceBOPLandOfLakes(config, Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.stone.getDefaultState(), 0.10f)
+            new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f)
         );
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.logBlock = Blocks.log.getStateFromMeta(2);
-        birchTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
+        birchTree.logBlock = Blocks.LOG.getStateFromMeta(2);
+        birchTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
         birchTree.minTrunkSize = 4;
         birchTree.maxTrunkSize = 10;
         birchTree.minCrownSize = 8;
@@ -52,8 +50,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         birchTrees.maxY = 120;
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getStateFromMeta(1);
-        sitchensisTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        sitchensisTree.logBlock = Blocks.LOG.getStateFromMeta(1);
+        sitchensisTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         sitchensisTree.minTrunkSize = 4;
         sitchensisTree.maxTrunkSize = 9;
         sitchensisTree.minCrownSize = 5;
@@ -80,7 +78,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 12;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.log.getDefaultState(), Blocks.log.getStateFromMeta(1), Blocks.log.getStateFromMeta(2)};
+        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getStateFromMeta(1), Blocks.LOG.getStateFromMeta(2)};
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 12;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLandOfLakes.decorationLogsId));
@@ -91,7 +89,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.maxY = 80;
         decoBoulder.chance = 12;
         decoBoulder.strengthFactor = 1f;

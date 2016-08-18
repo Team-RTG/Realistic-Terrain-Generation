@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -15,17 +15,14 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPHeathland;
 
 public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.heathland.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.heathland.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPHeathland(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPHeathland(),
-            new SurfaceBOPHeathland(config, topBlock, fillerBlock)
+            new SurfaceBOPHeathland(config, biome.topBlock, biome.fillerBlock)
         );
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -35,8 +32,8 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 8f;
         decoFallenTree.logConditionChance = 1;
-        decoFallenTree.logBlock = Blocks.log.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPHeathland.decorationLogsId));

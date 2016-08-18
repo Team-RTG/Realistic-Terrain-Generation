@@ -33,11 +33,12 @@ public class BiomeConfigBOP {
     public static BiomeConfig biomeConfigBOPLavenderFields;
     public static BiomeConfig biomeConfigBOPLushDesert;
     public static BiomeConfig biomeConfigBOPLushSwamp;
+    public static BiomeConfig biomeConfigBOPMangrove;
     public static BiomeConfig biomeConfigBOPMapleWoods;
     public static BiomeConfig biomeConfigBOPMarsh;
     public static BiomeConfig biomeConfigBOPMeadow;
     public static BiomeConfig biomeConfigBOPMoor;
-    public static BiomeConfig biomeConfigBOPMountain;
+    public static BiomeConfig biomeConfigBOPMountainPeaks;
     public static BiomeConfig biomeConfigBOPMountainFoothills;
     public static BiomeConfig biomeConfigBOPMysticGrove;
     public static BiomeConfig biomeConfigBOPOasis;
@@ -99,11 +100,12 @@ public class BiomeConfigBOP {
             biomeConfigBOPLavenderFields,
             biomeConfigBOPLushDesert,
             biomeConfigBOPLushSwamp,
+            biomeConfigBOPMangrove,
             biomeConfigBOPMapleWoods,
             biomeConfigBOPMarsh,
             biomeConfigBOPMeadow,
             biomeConfigBOPMoor,
-            biomeConfigBOPMountain,
+            biomeConfigBOPMountainPeaks,
             biomeConfigBOPMountainFoothills,
             biomeConfigBOPMysticGrove,
             biomeConfigBOPOasis,

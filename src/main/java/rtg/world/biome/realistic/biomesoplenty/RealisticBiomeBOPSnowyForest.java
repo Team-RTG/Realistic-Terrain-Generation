@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -12,21 +12,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSnowyForest;
 
 public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.snowy_forest.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.snowy_forest.get();
+    public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeBOPSnowyForest(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.frozenRiver,
+        super(config, biome, river,
             new TerrainBOPSnowyForest(58f, 69f, 28f),
             new SurfaceBOPSnowyForest(config,
-                topBlock, //Block top
-                fillerBlock, //Block filler,
-                topBlock, //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                biome.topBlock, //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

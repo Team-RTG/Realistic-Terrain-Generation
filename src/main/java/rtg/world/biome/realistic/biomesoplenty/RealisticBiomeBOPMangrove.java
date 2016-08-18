@@ -1,26 +1,25 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
+
+import biomesoplenty.api.biome.BOPBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMangrove;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMangrove;
-import biomesoplenty.api.content.BOPCBiomes;
 
-public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPCBiomes.mangrove;
-	
-	public static Block topBlock = bopBiome.topBlock;
-	public static Block fillerBlock = bopBiome.fillerBlock;
+public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
+
+	public static Biome biome = BOPBiomes.mangrove.get();
+	public static Biome river = Biomes.RIVER;
 	
 	public RealisticBiomeBOPMangrove(BiomeConfig config)
 	{
-		super(config, 
-			bopBiome, BiomeGenBase.river,
+		super(config, biome, river,
 			new TerrainBOPMangrove(),
-			new SurfaceBOPMangrove(config, topBlock, fillerBlock)
+			new SurfaceBOPMangrove(config, biome.topBlock, biome.fillerBlock)
 		);
 		
 		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

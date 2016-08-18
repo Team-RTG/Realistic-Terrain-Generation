@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -14,21 +14,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainFoothills;
 public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
 
     //TODO: Decidious
-    public static BiomeGenBase bopBiome = BOPBiomes.mountain_foothills.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.mountain_foothills.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPMountainFoothills(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPMountainFoothills(),
             new SurfaceBOPMountainFoothills(config,
-                topBlock, //Block top
-                fillerBlock, //Block filler,
-                Blocks.dirt.getDefaultState(), //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                Blocks.DIRT.getDefaultState(), //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth,
                 -0.15f, //float mixHeight,
                 10f, //float smallWidth,

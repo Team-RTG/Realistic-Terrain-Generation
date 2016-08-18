@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -13,17 +13,14 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadSwamp;
 
 public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.dead_swamp.get();
-
-    public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
-    public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
+    public static Biome biome = BOPBiomes.dead_swamp.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPDeadSwamp(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPDeadSwamp(),
-            new SurfaceBOPDeadSwamp(config, topBlock, fillerBlock)
+            new SurfaceBOPDeadSwamp(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState())
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

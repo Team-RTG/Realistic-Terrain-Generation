@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -12,17 +12,14 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOvergrownCliffs;
 
 public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.overgrown_cliffs.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.overgrown_cliffs.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPOvergrownCliffs(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPOvergrownCliffs(300f, 100f, 0f),
-            new SurfaceBOPOvergrownCliffs(config, topBlock, fillerBlock, false, null, 0.95f)
+            new SurfaceBOPOvergrownCliffs(config, biome.topBlock, biome.fillerBlock, false, null, 0.95f)
         );
 
         this.generatesEmeralds = true;

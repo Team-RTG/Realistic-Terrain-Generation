@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -12,17 +12,14 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPWasteland;
 
 public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.wasteland.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.wasteland.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPWasteland(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPWasteland(),
-            new SurfaceBOPWasteland(config, topBlock, fillerBlock)
+            new SurfaceBOPWasteland(config, biome.topBlock, biome.fillerBlock)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

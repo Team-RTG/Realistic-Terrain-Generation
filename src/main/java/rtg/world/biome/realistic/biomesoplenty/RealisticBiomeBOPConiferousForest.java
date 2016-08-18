@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -17,21 +17,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPConiferousForest;
 
 public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.coniferous_forest.get();
-
-    public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
-    public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
+    public static Biome biome = BOPBiomes.coniferous_forest.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPConiferousForest(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPConiferousForest(58f, 84f, 24f),
             new SurfaceBOPConiferousForest(config,
-                topBlock, //Block top
-                fillerBlock, //Block filler,
-                topBlock, //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                biome.topBlock, //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -40,7 +37,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         );
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 1f;
@@ -55,7 +52,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 16;
         decoFallenTree.logBlock = BOPBlocks.log_1.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPConiferousForest.decorationLogsId));

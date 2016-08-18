@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -17,21 +17,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPEucalyptusForest;
 
 public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.eucalyptus_forest.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.eucalyptus_forest.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPEucalyptusForest(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPEucalyptusForest(),//(58f, 80f, 36f),
             new SurfaceBOPEucalyptusForest(config,
-                topBlock, //Block top
-                fillerBlock, //Block filler,
-                topBlock, //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                biome.topBlock, //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -40,12 +37,12 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         );
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder1.maxY = 80;
         decoBoulder1.chance = 12;
         decoBoulder1.strengthFactor = 1f;
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder2.maxY = 80;
         decoBoulder2.chance = 12;
         decoBoulder2.strengthFactor = 1f;
@@ -59,8 +56,8 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 16;
-        decoFallenTree.logBlock = Blocks.log.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(3);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 14;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPEucalyptusForest.decorationLogsId));

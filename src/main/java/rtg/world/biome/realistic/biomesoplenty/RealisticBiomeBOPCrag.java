@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -14,17 +14,14 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.crag.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.crag.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPCrag(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPCrag(90f),
-            new SurfaceBOPCrag(config, topBlock, fillerBlock, topBlock)
+            new SurfaceBOPCrag(config, biome.topBlock, biome.fillerBlock, biome.topBlock)
         );
 
         this.generatesEmeralds = true;

@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -19,21 +19,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadForest;
 
 public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.dead_forest.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.dead_forest.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPDeadForest(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPDeadForest(58f, 80f, 30f),
             new SurfaceBOPDeadForest(config,
-                topBlock, //Block top
-                fillerBlock, //Block filler,
-                topBlock, //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                biome.topBlock, //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -42,7 +39,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         );
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.chance = 16;
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 1f;
@@ -58,7 +55,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         decoFallenTree1.logConditionChance = 10;
         decoFallenTree1.maxY = 100;
         decoFallenTree1.logBlock = BOPBlocks.log_3.getStateFromMeta(2);
-        decoFallenTree1.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree1.minSize = 3;
         decoFallenTree1.maxSize = 5;
 
@@ -71,8 +68,8 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionNoise = 0f;
         decoFallenTree2.logConditionChance = 10;
         decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenTree2.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenTree2.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree2.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 5;
 

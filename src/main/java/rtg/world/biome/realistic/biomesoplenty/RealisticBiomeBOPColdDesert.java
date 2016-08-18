@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -13,21 +13,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPColdDesert;
 
 public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.cold_desert.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.cold_desert.get();
+    public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeBOPColdDesert(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.frozenRiver,
+        super(config, biome, river,
             new TerrainBOPColdDesert(),
             new SurfaceBOPColdDesert(config,
-                Blocks.snow.getDefaultState(), //Block top
-                fillerBlock, //Block filler,
-                Blocks.snow.getDefaultState(), //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+                Blocks.SNOW.getDefaultState(), //Block top
+                biome.fillerBlock, //Block filler,
+                Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 

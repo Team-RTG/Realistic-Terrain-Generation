@@ -1,7 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -15,17 +16,14 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOminousWoods;
 
 public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.ominous_woods.get();
-
-    public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
-    public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
+    public static Biome biome = BOPBiomes.ominous_woods.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPOminousWoods(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPOminousWoods(65f, 80f, 48f),
-            new SurfaceBOPOminousWoods(config, topBlock, fillerBlock)
+            new SurfaceBOPOminousWoods(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState())
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

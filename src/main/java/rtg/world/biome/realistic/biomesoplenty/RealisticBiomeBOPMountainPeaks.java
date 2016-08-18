@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -10,26 +10,23 @@ import biomesoplenty.api.block.BOPBlocks;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountainPeaks;
 import rtg.world.biome.deco.*;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountain;
+import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountainPeaks;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainPeaks;
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.mountain.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.mountain.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPMountainPeaks(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPMountainPeaks(120f, 100f),
-            new SurfaceBOPMountain(config,
-                topBlock, //Block top
-                fillerBlock, //Block filler,
-                topBlock, //IBlockState mixTop,
-                fillerBlock, //IBlockState mixFill,
+            new SurfaceBOPMountainPeaks(config,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                biome.topBlock, //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth, 
                 -0.15f, //float mixHeight, 
                 10f, //float smallWidth, 
@@ -45,7 +42,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.maxY = 90;
         decoBoulder.chance = 16;
         decoBoulder.strengthFactor = 3f;
@@ -59,7 +56,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
         decoFallenTree.logBlock = BOPBlocks.log_4.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMountainPeaks.decorationLogsId));

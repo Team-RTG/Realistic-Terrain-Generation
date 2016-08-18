@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -18,29 +18,26 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPRedwoodForest;
 
 public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.redwood_forest.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.redwood_forest.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPRedwoodForest(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPRedwoodForest(58f, 80f, 30f),
-            new SurfaceBOPRedwoodForest(config, topBlock, fillerBlock, false, null, 0.4f)
+            new SurfaceBOPRedwoodForest(config, biome.topBlock, biome.fillerBlock, false, null, 0.4f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder1.maxY = 80;
         decoBoulder1.chance = 16;
         decoBoulder1.strengthFactor = 1f;
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder2.maxY = 80;
         decoBoulder2.chance = 16;
         decoBoulder2.strengthFactor = 1f;
@@ -54,7 +51,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 12;
         decoFallenTree.logBlock = BOPBlocks.log_3.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 9;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPRedwoodForest.decorationLogsId));

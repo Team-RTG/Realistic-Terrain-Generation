@@ -1,7 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -12,22 +12,19 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGravelBeach;
 
 public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.gravel_beach.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.gravel_beach.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPGravelBeach(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPGravelBeach(),
             new SurfaceBOPGravelBeach(
                 config,
-                bopBiome.topBlock,
-                bopBiome.fillerBlock,
-                bopBiome.topBlock,
-                bopBiome.fillerBlock,
+                biome.topBlock,
+                biome.fillerBlock,
+                biome.topBlock,
+                biome.fillerBlock,
                 (byte) 0,
                 1
             )

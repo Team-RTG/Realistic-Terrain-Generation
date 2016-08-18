@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
@@ -11,18 +12,18 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPVolcanicIsland;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.volcanic_island.get();
+    public static Biome biome = BOPBiomes.volcanic_island.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPVolcanicIsland(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPVolcanicIsland(),
             new SurfaceBOPVolcanicIsland(config,
-                bopBiome.topBlock, //Block top
-                bopBiome.fillerBlock, //Block filler,
-                bopBiome.topBlock, //IBlockState mixTop,
-                bopBiome.fillerBlock, //IBlockState mixFill,
+                biome.topBlock, //Block top
+                biome.fillerBlock, //Block filler,
+                biome.topBlock, //IBlockState mixTop,
+                biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth,
                 -0.15f, //float mixHeight,
                 10f, //float smallWidth,

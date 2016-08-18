@@ -1,8 +1,8 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
@@ -18,24 +18,21 @@ import rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield;
 
 public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
-    public static BiomeGenBase bopBiome = BOPBiomes.shield.get();
-
-    public static IBlockState topBlock = bopBiome.topBlock;
-    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+    public static Biome biome = BOPBiomes.shield.get();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPShield(BiomeConfig config) {
 
-        super(config,
-            bopBiome, BiomeGenBase.river,
+        super(config, biome, river,
             new TerrainBOPShield(0f, 100f, 68f, 170f),
-            new SurfaceBOPShield(config, topBlock, fillerBlock)
+            new SurfaceBOPShield(config, biome.topBlock, biome.fillerBlock)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
         decoBoulder.maxY = 80;
         decoBoulder.chance = 16;
         decoBoulder.strengthFactor = 1f;
@@ -50,7 +47,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree1.logConditionChance = 6;
         decoFallenTree1.maxY = 100;
         decoFallenTree1.logBlock = BOPBlocks.log_4.getDefaultState();
-        decoFallenTree1.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree1.minSize = 3;
         decoFallenTree1.maxSize = 4;
 
@@ -62,8 +59,8 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionNoise = 0f;
         decoFallenTree2.logConditionChance = 6;
         decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = Blocks.log.getStateFromMeta(1);
-        decoFallenTree2.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenTree2.logBlock = Blocks.LOG.getStateFromMeta(1);
+        decoFallenTree2.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 4;
 

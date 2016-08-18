@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
@@ -43,6 +43,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase {
     public static RealisticBiomeBase bopLavenderFields;
     public static RealisticBiomeBase bopLushDesert;
     public static RealisticBiomeBase bopLushSwamp;
+    public static RealisticBiomeBase bopMangrove;
     public static RealisticBiomeBase bopMapleWoods;
     public static RealisticBiomeBase bopMarsh;
     public static RealisticBiomeBase bopMeadow;
@@ -78,7 +79,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase {
     public static RealisticBiomeBase bopXericShrubland;
 
 
-    public RealisticBiomeBOPBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBOPBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
 
         super(config, b, riverbiome, t, s);
 
@@ -176,6 +177,9 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase {
             if (BOPBiomes.lush_swamp.isPresent()) {
                 bopLushSwamp = new RealisticBiomeBOPLushSwamp(BiomeConfigBOP.biomeConfigBOPLushSwamp);
             }
+            if (BOPBiomes.mangrove.isPresent()) {
+                bopMangrove = new RealisticBiomeBOPMangrove(BiomeConfigBOP.biomeConfigBOPMangrove);
+            }
             if (BOPBiomes.maple_woods.isPresent()) {
                 bopMapleWoods = new RealisticBiomeBOPMapleWoods(BiomeConfigBOP.biomeConfigBOPMapleWoods);
             }
@@ -189,7 +193,7 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase {
                 bopMoor = new RealisticBiomeBOPMoor(BiomeConfigBOP.biomeConfigBOPMoor);
             }
             if (BOPBiomes.mountain.isPresent()) {
-                bopMountain = new RealisticBiomeBOPMountain(BiomeConfigBOP.biomeConfigBOPMountain);
+                bopMountain = new RealisticBiomeBOPMountainPeaks(BiomeConfigBOP.biomeConfigBOPMountainPeaks);
             }
             if (BOPBiomes.mountain_foothills.isPresent()) {
                 bopMountainFoothills = new RealisticBiomeBOPMountainFoothills(BiomeConfigBOP.biomeConfigBOPMountainFoothills);

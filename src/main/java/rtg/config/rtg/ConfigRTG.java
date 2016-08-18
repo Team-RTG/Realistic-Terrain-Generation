@@ -844,7 +844,7 @@ public class ConfigRTG {
         }
         catch (Exception e) {
 
-            Logger.error("RTG has had a problem loading RTG configuration.");
+            Logger.error("RTG had a problem loading RTG configuration.");
         }
         finally {
 

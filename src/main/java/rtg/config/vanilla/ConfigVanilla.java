@@ -22,7 +22,7 @@ public class ConfigVanilla {
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigVanilla.getBiomeConfigs(), config);
         }
         catch (Exception e) {
-            Logger.error("RTG has had a problem loading Vanilla configuration.");
+            Logger.error("RTG had a problem loading Vanilla configuration.");
         }
         finally {
             if (config.hasChanged()) {

@@ -23,7 +23,7 @@ public class ConfigAC {
 
         }
         catch (Exception e) {
-            Logger.error("RTG has had a problem loading AC configuration.");
+            Logger.error("RTG had a problem loading AC configuration.");
         }
         finally {
             if (config.hasChanged()) {

@@ -22,7 +22,7 @@ public class ConfigBOP {
             BiomeConfigManager.setBiomeConfigsFromUserConfigs(BiomeConfigBOP.getBiomeConfigs(), config);
         }
         catch (Exception e) {
-            Logger.error("RTG has had a problem loading BOP configuration.");
+            Logger.error("RTG had a problem loading BOP configuration.");
         }
         finally {
             if (config.hasChanged()) {

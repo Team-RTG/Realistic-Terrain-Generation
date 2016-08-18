@@ -11,7 +11,7 @@ public class BiomeConfigBOPMountainPeaks extends BiomeConfigBOPBase {
 
     public BiomeConfigBOPMountainPeaks() {
 
-        super("mountain");
+        super("mountainpeaks");
 
         this.addProperty(new BiomeConfigProperty(decorationLogsId, Type.BOOLEAN, decorationLogsName, "", true));
     }

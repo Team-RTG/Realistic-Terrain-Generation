@@ -25,6 +25,7 @@ import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
@@ -87,6 +88,7 @@ public class RTG {
         RealisticBiomeVanillaBase.addBiomes();
 
         RealisticBiomeACBase.addBiomes();
+        RealisticBiomeBOPBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

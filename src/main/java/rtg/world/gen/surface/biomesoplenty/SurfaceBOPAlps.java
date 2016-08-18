@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
@@ -51,7 +51,8 @@ public class SurfaceBOPAlps extends SurfaceBase {
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         float c = CliffCalculator.calc(x, y, noise);
         int cliff = 0;
@@ -59,11 +60,11 @@ public class SurfaceBOPAlps extends SurfaceBase {
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState((y * 16 + x) * 256 + k).getBlock();
-            if (b == Blocks.air) {
+            b = primer.getBlockState(x, k, y).getBlock();
+            if (b == Blocks.AIR) {
                 depth = -1;
             }
-            else if (b == Blocks.stone) {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (depth == 0) {
@@ -87,50 +88,50 @@ public class SurfaceBOPAlps extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
                         }
                         else {
 
-                            primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                         }
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.snow.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     }
                     else if (k < 63) {
                         if (beach) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, beachBlock);
+                            primer.setBlockState(x, k, y, beachBlock);
                             gravel = true;
                         }
                         else if (k < 62) {
-                            primer.setBlockState((y * 16 + x) * 256 + k, fillerBlock);
+                            primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else {
-                            primer.setBlockState((y * 16 + x) * 256 + k, topBlock);
+                            primer.setBlockState(x, k, y, topBlock);
                         }
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.grass.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                     }
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.snow.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     }
                     else if (gravel) {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.gravel.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.GRAVEL.getDefaultState());
                     }
                     else {
-                        primer.setBlockState((y * 16 + x) * 256 + k, Blocks.dirt.getDefaultState());
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
                     }
                 }
             }

@@ -55,7 +55,7 @@ public class SurfaceVanillaIcePlains extends SurfaceBase {
                     primer.setBlockState(x, k, y, topBlock);
 
                     if (depth == 0 && k > 61 && k < 254) {
-                        SnowHeightCalculator.calc(x, y, k, primer, noise);
+                        SnowHeightCalculator.calc(x, k, y, primer, noise);
                     }
                 }
             }

@@ -63,7 +63,7 @@ public class SurfacePolar extends SurfaceBase {
                 else if (depth > -1 && depth < 9) {
                     primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     if (depth == 0 && k > 61 && k < 254) {
-                        SnowHeightCalculator.calc(x, y, k, primer, noise);
+                        SnowHeightCalculator.calc(x, k, y, primer, noise);
                     }
                 }
             }

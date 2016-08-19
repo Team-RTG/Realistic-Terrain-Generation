@@ -26,7 +26,7 @@ ext.ref = parseprops(file('build.properties'))
 ext.ref.mod_deps = parseprops(file('mod_deps.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
-archivesBaseName = ref.mod_id
+archivesBaseName = ref.mod_abbr
 // remove travis stuff from version for now because we aren't using it and it was a mess. -srs
 version = ref.mc_version + '-' + ref.mod_version
 

@@ -1,5 +1,6 @@
 package rtg;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -61,7 +62,7 @@ public class RTG {
 
         instance = this;
 
-        worldtype = new WorldTypeRTG("RTG");
+        worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
 
         this.registerStructures();
 
@@ -76,7 +77,7 @@ public class RTG {
         BiomeConfigManager.initBiomeConfigs();
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
 
-        configPath = event.getModConfigurationDirectory() + "/RTG/";
+        configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         ConfigManager.init(configPath);
     }
 

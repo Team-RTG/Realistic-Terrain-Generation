@@ -8,6 +8,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
 import rtg.api.biome.biomesoplenty.config.*;
+import rtg.api.biome.flowercraft.config.BiomeConfigFC;
+import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
 import rtg.api.biome.vanilla.config.*;
 
 public class BiomeConfigManager {
@@ -16,6 +18,7 @@ public class BiomeConfigManager {
 
         initBiomeConfigsAC();
         initBiomeConfigsBOP();
+        initBiomeConfigsFC();
         initBiomeConfigsVanilla();
     }
 
@@ -94,6 +97,11 @@ public class BiomeConfigManager {
         BiomeConfigBOP.biomeConfigBOPWetland = new BiomeConfigBOPWetland();
         BiomeConfigBOP.biomeConfigBOPWoodland = new BiomeConfigBOPWoodland();
         BiomeConfigBOP.biomeConfigBOPXericShrubland = new BiomeConfigBOPXericShrubland();
+    }
+
+    public static void initBiomeConfigsFC() {
+
+        BiomeConfigFC.biomeConfigFCPhantasia = new BiomeConfigFCPhantasia();
     }
 
     public static void initBiomeConfigsVanilla() {

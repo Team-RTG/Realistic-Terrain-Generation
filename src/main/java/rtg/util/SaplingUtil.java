@@ -1,6 +1,5 @@
 package rtg.util;
 
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -9,7 +8,20 @@ public class SaplingUtil {
 
     public static int getMetaFromState(IBlockState state) {
 
-        return ((BlockPlanks.EnumType)state.getValue(BlockSapling.TYPE)).getMetadata();
+        try {
+
+            if (!(state.getBlock() instanceof BlockSapling)) {
+                Logger.warn("Could not get sapling meta from non-sapling BlockState (%s).", state.getBlock().getLocalizedName());
+                return 0;
+            }
+
+            return state.getValue(BlockSapling.TYPE).getMetadata();
+        }
+        catch (Exception e) {
+
+            Logger.warn("Could not get sapling meta from state. Reason: " + e.getMessage());
+            return 0;
+        }
     }
 
     public static IBlockState getSaplingFromLeaves(IBlockState leavesBlock) {

@@ -1,12 +1,11 @@
 package rtg.event;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.WeakHashMap;
 
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -239,25 +238,27 @@ public class EventManagerRTG {
                 return;
             }
 
-            Random rand = event.getRand();
-
             // Should we generate a vanilla tree instead?
-            if (rand.nextInt(ConfigRTG.rtgTreeChance) != 0) {
+            if (event.getRand().nextInt(ConfigRTG.rtgTreeChance) != 0) {
 
                 Logger.debug("Skipping RTG tree generation.");
                 return;
             }
 
-            World world = event.getWorld();
+            IBlockState saplingBlock = event.getWorld().getBlockState(event.getPos());
 
-            IBlockState saplingBlock = world.getBlockState(event.getPos());
-            int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
+            // Are we dealing with a sapling? Sounds like a silly question, but apparently it's one that needs to be asked.
+            if (!(saplingBlock.getBlock() instanceof BlockSapling)) {
+                Logger.warn("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
+                return;
+            }
 
-            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getBiomeProvider();
+            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.getWorld().getBiomeProvider();
             //Biome bgg = cmr.getBiomeGenAt(x, z);
-            Biome bgg = world.getBiome(event.getPos());
+            Biome bgg = event.getWorld().getBiome(event.getPos());
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(BiomeUtils.getId(bgg));
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
+            int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             Logger.debug("Biome = %s", BiomeUtils.getName(rb.baseBiome));
             Logger.debug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
@@ -288,20 +289,20 @@ public class EventManagerRTG {
                 if (validTrees.size() > 0) {
 
                     // Get a random tree from the list of valid trees.
-                    TreeRTG tree = validTrees.get(rand.nextInt(validTrees.size()));
+                    TreeRTG tree = validTrees.get(event.getRand().nextInt(validTrees.size()));
 
                     Logger.debug("Tree = %s", tree.getClass().getName());
 
                     // Set the trunk size if min/max values have been set.
                     if (tree.minTrunkSize > 0 && tree.maxTrunkSize > tree.minTrunkSize) {
 
-                        tree.trunkSize = RandomUtil.getRandomInt(rand, tree.minTrunkSize, tree.maxTrunkSize);
+                        tree.trunkSize = RandomUtil.getRandomInt(event.getRand(), tree.minTrunkSize, tree.maxTrunkSize);
                     }
 
                     // Set the crown size if min/max values have been set.
                     if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
 
-                        tree.crownSize = RandomUtil.getRandomInt(rand, tree.minCrownSize, tree.maxCrownSize);
+                        tree.crownSize = RandomUtil.getRandomInt(event.getRand(), tree.minCrownSize, tree.maxCrownSize);
                     }
 
                     /*
@@ -312,7 +313,7 @@ public class EventManagerRTG {
                      */
                     int oldFlag = tree.generateFlag;
                     tree.generateFlag = 3;
-                    boolean generated = tree.generate(world, rand, event.getPos());
+                    boolean generated = tree.generate(event.getWorld(), event.getRand(), event.getPos());
                     tree.generateFlag = oldFlag;
 
                     if (generated) {
@@ -321,8 +322,8 @@ public class EventManagerRTG {
                         event.setResult(Event.Result.DENY);
 
                         // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
-                        if (world.getBlockState(event.getPos()) == saplingBlock) {
-                            world.setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
+                        if (event.getWorld().getBlockState(event.getPos()) == saplingBlock) {
+                            event.getWorld().setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
                         }
                     }
                 }

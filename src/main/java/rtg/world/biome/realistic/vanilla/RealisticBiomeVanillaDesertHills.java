@@ -26,7 +26,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaDesertHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaDesertHills(10f, 90f, 30f, 180f),
+            new TerrainVanillaDesertHills(10f, 80f, 68f, 200f),
             new SurfaceVanillaDesertHills(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
@@ -37,7 +37,9 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
         this.addDecoCollection(new DecoCollectionDesert());
     }
 
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
 

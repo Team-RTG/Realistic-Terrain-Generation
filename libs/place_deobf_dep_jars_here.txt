@@ -1,2 +1,0 @@
-This directory should contain deobfuscated dev jars for dependencies
-that can not be imported from a Maven repo, or from GitHub.

@@ -25,7 +25,7 @@ ext.ref = parseprops(file('build.properties'))
 ext.ref.mod_deps = parseprops(file('mod_deps.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
-archivesBaseName = ref.mod_id
+archivesBaseName = ref.mod_abbr
 // remove travis stuff from version for now because we aren't using it and it was a mess. -srs
 version = ref.mc_version + '-' + ref.mod_version
 
@@ -42,15 +42,8 @@ minecraft {
     replaceIn 'ModInfo.java'
 }
 
-repositories {
-    maven {url "http://files.minecraftforge.net/maven"} //BiomesOPlenty
-    maven {url 'https://dl.bintray.com/shinoow/maven/'} //AbyssalCraft
-}
-
 dependencies {
     provided fileTree(dir: 'libs', include: '*.jar')
-    deobfProvided 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:' + ref.mod_deps.bopver + ':deobf'
-    deobfProvided 'com.shinoow.abyssalcraft:AbyssalCraft:' + ref.mod_deps.acver + ':dev'
 }
 
 processResources {
@@ -72,21 +65,6 @@ processResources {
 }
 
 sourceJar {classifier = 'src'}
-
-task apiJar(type: Jar, dependsOn: classes) {
-    from sourceSets.main.java
-    from sourceSets.main.output
-    include "teamrtg/rtg/api/**"
-    classifier = 'api'
-}
-
-task devJar(type: Jar, dependsOn: classes) {
-    from sourceSets.main.output
-    include "teamrtg/rtg/**"
-    classifier = 'dev'
-}
-
-artifacts {archives apiJar, devJar}
 
 // For a debugging session used 'gradle -DEBUG [runClient|runServer]'
 allprojects {

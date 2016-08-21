@@ -23,6 +23,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         );
 
         this.generatesEmeralds = true;
+        this.generatesSilverfish = true;
         this.noWaterFeatures = true;
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

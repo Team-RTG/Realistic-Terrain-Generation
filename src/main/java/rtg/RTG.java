@@ -52,11 +52,6 @@ public class RTG {
     private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
-    public ConfigManager configManager(int dimension) {
-
-        return configManager;
-    }
-
     @EventHandler
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) {
 

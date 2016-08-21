@@ -27,6 +27,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         );
 
         this.generatesEmeralds = true;
+        this.generatesSilverfish = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
 

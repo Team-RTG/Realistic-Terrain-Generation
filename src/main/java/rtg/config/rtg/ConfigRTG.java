@@ -124,13 +124,19 @@ public class ConfigRTG {
     // Ore gen
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public static boolean generateOreAndesite = true;
     public static boolean generateOreCoal = true;
-    public static boolean generateOreIron = true;
-    public static boolean generateOreGold = true;
-    public static boolean generateOreRedstone = true;
-    public static boolean generateOreLapis = true;
     public static boolean generateOreDiamond = true;
+    public static boolean generateOreDiorite = true;
+    public static boolean generateOreDirt = true;
     public static boolean generateOreEmerald = true;
+    public static boolean generateOreGold = true;
+    public static boolean generateOreGranite = true;
+    public static boolean generateOreGravel = true;
+    public static boolean generateOreIron = true;
+    public static boolean generateOreLapis = true;
+    public static boolean generateOreRedstone = true;
+    public static boolean generateOreSilverfish = true;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Plateaus
@@ -490,13 +496,19 @@ public class ConfigRTG {
             // Ore gen
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+            generateOreAndesite = config.getBoolean("Generate Andesite Ore", "Ore Gen", generateOreAndesite, "");
             generateOreCoal = config.getBoolean("Generate Coal Ore", "Ore Gen", generateOreCoal, "");
-            generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
-            generateOreGold = config.getBoolean("Generate Gold Ore", "Ore Gen", generateOreGold, "");
-            generateOreRedstone = config.getBoolean("Generate Redstone Ore", "Ore Gen", generateOreRedstone, "");
-            generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
+            generateOreDiorite = config.getBoolean("Generate Diorite Ore", "Ore Gen", generateOreDiorite, "");
+            generateOreDirt = config.getBoolean("Generate Dirt Ore", "Ore Gen", generateOreDirt, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
+            generateOreGold = config.getBoolean("Generate Gold Ore", "Ore Gen", generateOreGold, "");
+            generateOreGranite = config.getBoolean("Generate Granite Ore", "Ore Gen", generateOreGranite, "");
+            generateOreGravel = config.getBoolean("Generate Gravel Ore", "Ore Gen", generateOreGravel, "");
+            generateOreIron = config.getBoolean("Generate Iron Ore", "Ore Gen", generateOreIron, "");
+            generateOreLapis = config.getBoolean("Generate Lapis Ore", "Ore Gen", generateOreLapis, "");
+            generateOreRedstone = config.getBoolean("Generate Redstone Ore", "Ore Gen", generateOreRedstone, "");
+            generateOreSilverfish = config.getBoolean("Generate Silverfish Ore", "Ore Gen", generateOreSilverfish, "");
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             // Plateaus

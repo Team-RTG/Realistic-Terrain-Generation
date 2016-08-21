@@ -3,13 +3,15 @@ package rtg.config.rtg;
 import java.io.File;
 import java.util.ArrayList;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 
 import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.util.Logger;
-import rtg.util.ModPresenceTester;
 
 public class ConfigRTG {
 
@@ -236,14 +238,20 @@ public class ConfigRTG {
     // Volcanoes
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public static String volcanoBlockId;
-    public static int volcanoBlockMeta;
-    public static String volcanoMix1BlockId;
-    public static int volcanoMix1BlockMeta;
-    public static String volcanoMix2BlockId;
-    public static int volcanoMix2BlockMeta;
-    public static String volcanoMix3BlockId;
-    public static int volcanoMix3BlockMeta;
+    // These constants are used as fallbacks when generating volcanoes, in case the user enters an invalid block ID.
+    public static final IBlockState volcanoBlock = Blocks.OBSIDIAN.getDefaultState();
+    public static final IBlockState volcanoMix1Block = Blocks.COBBLESTONE.getDefaultState();
+    public static final IBlockState volcanoMix2Block = Blocks.GRAVEL.getDefaultState();
+    public static final IBlockState volcanoMix3Block = Blocks.COAL_BLOCK.getDefaultState();
+
+    public static String volcanoBlockId = "minecraft:obsidian";
+    public static int volcanoBlockMeta = 0;
+    public static String volcanoMix1BlockId = "minecraft:cobblestone";
+    public static int volcanoMix1BlockMeta = 0;
+    public static String volcanoMix2BlockId = "minecraft:gravel";
+    public static int volcanoMix2BlockMeta = 0;
+    public static String volcanoMix3BlockId = "minecraft:coal_block";
+    public static int volcanoMix3BlockMeta = 0;
 
     public static boolean enableVolcanoes = true;
     public static boolean enableVolcanoEruptions = true;
@@ -800,8 +808,6 @@ public class ConfigRTG {
             // Volcanoes
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-            setVolcanoBlockDefaults();
-
             volcanoBlockId = config.getString(
                 "Volcano block ID",
                 "Volcanoes",
@@ -923,36 +929,6 @@ public class ConfigRTG {
                 + Configuration.NEW_LINE;
 
         return comment;
-    }
-
-    private static void setVolcanoBlockDefaults() {
-
-        ModPresenceTester bopMod = new ModPresenceTester("BiomesOPlenty");
-        ModPresenceTester ubcMod = new ModPresenceTester("UndergroundBiomes");
-
-        volcanoBlockId = "minecraft:obsidian";
-        volcanoBlockMeta = 0;
-        volcanoMix1BlockId = "minecraft:cobblestone";
-        volcanoMix1BlockMeta = 0;
-        volcanoMix2BlockId = "minecraft:gravel";
-        volcanoMix2BlockMeta = 0;
-        volcanoMix3BlockId = "minecraft:coal_block";
-        volcanoMix3BlockMeta = 0;
-
-        if (bopMod.present()) {
-
-            volcanoMix1BlockId = "BiomesOPlenty:ashStone";
-            volcanoMix1BlockMeta = 0;
-            volcanoMix2BlockId = "BiomesOPlenty:ash";
-            volcanoMix2BlockMeta = 0;
-        }
-        else if (ubcMod.present()) {
-
-            volcanoMix1BlockId = "UndergroundBiomes:igneousCobblestone";
-            volcanoMix1BlockMeta = 5;
-            volcanoMix2BlockId = "UndergroundBiomes:igneousStone";
-            volcanoMix2BlockMeta = 5;
-        }
     }
 
     public static float lakeSizeMultiplier() {

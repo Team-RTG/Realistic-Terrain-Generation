@@ -10,6 +10,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
+import rtg.util.Logger;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.TerrainMath;
 
@@ -21,11 +22,11 @@ public class WorldGenVolcano {
     private static final float ventRadius = 7f;
     private static final int lavaHeight = 138 + 3 + (ConfigRTG.enableVolcanoEruptions ? 5 : 0);    // + 3 to account for lava cone tip
     private static final int baseVolcanoHeight = 142 + 8;
-    protected static IBlockState volcanoBlock = Block.getBlockFromName(ConfigRTG.volcanoBlockId).getStateFromMeta(ConfigRTG.volcanoBlockMeta);
-    protected static IBlockState volcanoPatchBlock = Block.getBlockFromName(ConfigRTG.volcanoMix1BlockId).getStateFromMeta(ConfigRTG.volcanoMix1BlockMeta);
-    protected static IBlockState volcanoPatchBlock2 = Block.getBlockFromName(ConfigRTG.volcanoMix2BlockId).getStateFromMeta(ConfigRTG.volcanoMix2BlockMeta);
-    protected static IBlockState volcanoPatchBlock3 = Block.getBlockFromName(ConfigRTG.volcanoMix3BlockId).getStateFromMeta(ConfigRTG.volcanoMix3BlockMeta);
-    protected static IBlockState lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
+    private static IBlockState volcanoBlock = getVolcanoBlock(ConfigRTG.volcanoBlockId, ConfigRTG.volcanoBlockMeta, ConfigRTG.volcanoBlock);
+    private static IBlockState volcanoPatchBlock = getVolcanoBlock(ConfigRTG.volcanoMix1BlockId, ConfigRTG.volcanoMix1BlockMeta, ConfigRTG.volcanoMix1Block);
+    private static IBlockState volcanoPatchBlock2 = getVolcanoBlock(ConfigRTG.volcanoMix2BlockId, ConfigRTG.volcanoMix2BlockMeta, ConfigRTG.volcanoMix2Block);
+    private static IBlockState volcanoPatchBlock3 = getVolcanoBlock(ConfigRTG.volcanoMix3BlockId, ConfigRTG.volcanoMix3BlockMeta, ConfigRTG.volcanoMix3Block);
+    private static IBlockState lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
 
     public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
 
@@ -195,5 +196,22 @@ public class WorldGenVolcano {
     public static int cta(int x, int y, int z) {
 
         return (x * 16 + z) * 256 + y;
+    }
+
+    private static IBlockState getVolcanoBlock(String blockID, int blockMeta, IBlockState defaultBlock) {
+
+        IBlockState volcanoBlock;
+
+        try {
+
+            volcanoBlock = Block.getBlockFromName(blockID).getStateFromMeta(blockMeta);
+        }
+        catch (Exception e) {
+
+            Logger.warn("Invalid volcano block ID or meta value. Using default block instead.");
+            volcanoBlock = defaultBlock;
+        }
+
+        return volcanoBlock;
     }
 }

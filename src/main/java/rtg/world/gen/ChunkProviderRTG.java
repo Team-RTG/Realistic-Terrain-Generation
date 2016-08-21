@@ -888,9 +888,10 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-        } else {
-            throw new RuntimeException();
         }
+//        else {
+//            throw new RuntimeException();
+//        }
         TimeTracker.manager.stop("Ice");
 
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));

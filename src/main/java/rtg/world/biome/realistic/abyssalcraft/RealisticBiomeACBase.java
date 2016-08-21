@@ -36,19 +36,19 @@ public class RealisticBiomeACBase extends RealisticBiomeBase {
             if (null != ACBiomes.coralium_infested_swamp) {
                 acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp(BiomeConfigAC.biomeConfigACCoraliumInfestedSwamp);
             }
-            else if (null != ACBiomes.darklands) {
+            if (null != ACBiomes.darklands) {
                 acDarklands = new RealisticBiomeACDarklands(BiomeConfigAC.biomeConfigACDarklands);
             }
-            else if (null != ACBiomes.darklands_forest) {
+            if (null != ACBiomes.darklands_forest) {
                 acDarklandsForest = new RealisticBiomeACDarklandsForest(BiomeConfigAC.biomeConfigACDarklandsForest);
             }
-            else if (null != ACBiomes.darklands_hills) {
+            if (null != ACBiomes.darklands_hills) {
                 acDarklandsHighland = new RealisticBiomeACDarklandsHighland(BiomeConfigAC.biomeConfigACDarklandsHighland);
             }
-            else if (null != ACBiomes.darklands_mountains) {
+            if (null != ACBiomes.darklands_mountains) {
                 acDarklandsMountains = new RealisticBiomeACDarklandsMountains(BiomeConfigAC.biomeConfigACDarklandsMountains);
             }
-            else if (null != ACBiomes.darklands_plains) {
+            if (null != ACBiomes.darklands_plains) {
                 acDarklandsPlains = new RealisticBiomeACDarklandsPlains(BiomeConfigAC.biomeConfigACDarklandsPlains);
             }
         }

@@ -362,6 +362,9 @@ public class RealisticBiomeBase {
         if (this.generatesSilverfish) {
             this.genSilverfishOre(world, rand, blockPos);
         }
+        if (this.getExtraGoldGenCount() > 0) {
+            this.genStandardOre1(world, rand, blockPos, this.getExtraGoldGenCount(), seedBiome.theBiomeDecorator.goldGen, this.getExtraGoldGenMinHeight(), this.getExtraGoldGenMaxHeight());
+        }
         net.minecraftforge.common.MinecraftForge.ORE_GEN_BUS.post(new net.minecraftforge.event.terraingen.OreGenEvent.Post(world, rand, blockPos));
     }
 
@@ -795,5 +798,35 @@ public class RealisticBiomeBase {
     public void addTree(TreeRTG tree) {
 
         this.addTree(tree, true);
+    }
+
+    /**
+     * Returns the number of extra blocks of gold ore to generate in this biome.
+     * Defaults to 0, but can be overridden by sub-classed biomes.
+     * Currently only used by vanilla Mesa biome variants.
+     */
+    protected int getExtraGoldGenCount() {
+        return 0;
+    }
+
+    /**
+     * Returns the minimum Y value at which extra gold ore can generate.
+     * Defaults to 32 (BiomeMesa), but can be overridden by sub-classed biomes.
+     * Currently only used by vanilla Mesa biome variants.
+     *
+     * @see net.minecraft.world.biome.BiomeMesa
+     */
+    protected int getExtraGoldGenMinHeight() {
+        return 32;
+    }
+
+    /**
+     * Returns the maximum Y value at which extra gold ore can generate.
+     * Defaults to 80 (BiomeMesa), but can be overridden by sub-classed biomes.
+     *
+     * @see net.minecraft.world.biome.BiomeMesa
+     */
+    protected int getExtraGoldGenMaxHeight() {
+        return 80;
     }
 }

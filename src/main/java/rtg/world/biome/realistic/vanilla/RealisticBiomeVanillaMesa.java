@@ -75,4 +75,9 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
+
+    @Override
+    protected int getExtraGoldGenCount() {
+        return 20;
+    }
 }

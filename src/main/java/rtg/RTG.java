@@ -52,6 +52,14 @@ public class RTG {
     private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
+    /*
+     * This method is currently unused, but we're leaving it here for when we start
+     * supporting multiple dimensions.
+     */
+    public ConfigManager configManager(int dimension) {
+        return configManager;
+    }
+
     @EventHandler
     public void fmlLifeCycleEvent(FMLPreInitializationEvent event) {
 

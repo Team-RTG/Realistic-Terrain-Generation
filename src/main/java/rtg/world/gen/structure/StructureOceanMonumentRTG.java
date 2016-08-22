@@ -90,15 +90,19 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
         if (i == k && j == l)
         {
-            if (!this.areBiomesViable(i * 16 + 8, j * 16 + 8, 16, SPAWN_BIOMES))
+            int x = i * 16 + 8;
+            int z = j * 16 + 8;
+
+            if (!this.areBiomesViable(x, z, 16, SPAWN_BIOMES))
             {
                 return false;
             }
 
-            boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
+            boolean flag = this.areBiomesViable(x, z, 29, WATER_BIOMES);
 
             if (flag)
             {
+                Logger.debug("Ocean monument candidate at %d, %d", x, z);
                 return true;
             }
         }

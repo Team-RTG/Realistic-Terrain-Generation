@@ -83,12 +83,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
-        /*
-         * 'i' and 'j' have been flipped.
-         * Prior to flipping, this.worldObj.getBiomeProvider().getBiome(pos) below was returning the wrong biome. - WhichOnesPink
-         */
-        int j = chunkX;
-        int i = chunkZ;
+        int i = chunkX;
+        int j = chunkZ;
 
         if (chunkX < 0)
         {

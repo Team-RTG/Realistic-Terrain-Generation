@@ -67,14 +67,6 @@ public class RTG {
 
         worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
 
-        this.registerStructures();
-
-        eventMgr = new EventManagerRTG();
-        eventMgr.registerEventHandlers();
-
-        // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
-        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
-
         // Biome configs MUST get initialised before the main config.
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
         BiomeConfigManager.initBiomeConfigs();
@@ -82,6 +74,14 @@ public class RTG {
 
         configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         ConfigManager.init(configPath);
+
+        this.registerStructures();
+
+        eventMgr = new EventManagerRTG();
+        eventMgr.registerEventHandlers();
+
+        // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
+        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
     }
 
     @EventHandler

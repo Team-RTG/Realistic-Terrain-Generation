@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ReportedException;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -33,7 +34,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 {
     private int spacing;
     private int separation;
-    public static final List<Biome> WATER_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER});
+    public static final List<Biome> WATER_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.OCEAN, Biomes.DEEP_OCEAN});
     public static final List<Biome> SPAWN_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.DEEP_OCEAN});
     private static final List<Biome.SpawnListEntry> MONUMENT_ENEMIES = Lists.<Biome.SpawnListEntry>newArrayList();
 
@@ -90,15 +91,23 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
         if (i == k && j == l)
         {
-            if (!this.areBiomesViable(i * 16 + 8, j * 16 + 8, 16, SPAWN_BIOMES))
+            int x = i * 16 + 8;
+            int z = j * 16 + 8;
+
+            if (this.worldObj.getBiomeProvider().getBiome(new BlockPos(x, 64, z), (Biome)null) != Biomes.DEEP_OCEAN) {
+                return false;
+            }
+
+            if (!this.areBiomesViable(x, z, 16, SPAWN_BIOMES))
             {
                 return false;
             }
 
-            boolean flag = this.areBiomesViable(i * 16 + 8, j * 16 + 8, 29, WATER_BIOMES);
+            boolean flag = this.areBiomesViable(x, z, 29, WATER_BIOMES);
 
             if (flag)
             {
+                Logger.debug("Ocean monument candidate at %d, %d", x, z);
                 return true;
             }
         }

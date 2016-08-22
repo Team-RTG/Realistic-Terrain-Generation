@@ -74,50 +74,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         }
     }
 
-    private static boolean canSpawnDesertTemple(Biome b) {
-
-        boolean canSpawn = false;
-
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY)) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnJungleTemple(Biome b) {
-
-        boolean canSpawn = false;
-
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE)) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnWitchHut(Biome b) {
-
-        boolean canSpawn = false;
-
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP)) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
-    private static boolean canSpawnIgloo(Biome b) {
-
-        boolean canSpawn = false;
-
-        if (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY)) {
-            canSpawn = true;
-        }
-
-        return canSpawn;
-    }
-
     @Override
     public String getStructureName()
     {
@@ -143,14 +99,15 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         int k = chunkX / this.maxDistanceBetweenScatteredFeatures;
         int l = chunkZ / this.maxDistanceBetweenScatteredFeatures;
         Random random = this.worldObj.setRandomSeed(k, l, 14357617);
-        k = k * this.maxDistanceBetweenScatteredFeatures;
-        l = l * this.maxDistanceBetweenScatteredFeatures;
-        k = k + random.nextInt(this.maxDistanceBetweenScatteredFeatures - 8);
-        l = l + random.nextInt(this.maxDistanceBetweenScatteredFeatures - 8);
+        k *= this.maxDistanceBetweenScatteredFeatures;
+        l *= this.maxDistanceBetweenScatteredFeatures;
+        k += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
+        l += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
 
         if (i == k && j == l)
         {
-            Biome biome = this.worldObj.getBiomeProvider().getBiome(new BlockPos(i * 16 + 8, 0, j * 16 + 8));
+            BlockPos pos = new BlockPos(i * 16 + 8, 0, j * 16 + 8);
+            Biome biome = this.worldObj.getBiomeProvider().getBiome(pos);
 
             if (biome == null) {
                 return false;
@@ -168,6 +125,11 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
             //Witch hut.
             if (canSpawnWitchHut(biome)) {
+                return true;
+            }
+
+            //Igloo.
+            if (canSpawnIgloo(biome)) {
                 return true;
             }
         }
@@ -250,5 +212,21 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
             this.updateBoundingBox();
         }
+    }
+
+    private static boolean canSpawnDesertTemple(Biome b) {
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY));
+    }
+
+    private static boolean canSpawnJungleTemple(Biome b) {
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE));
+    }
+
+    private static boolean canSpawnWitchHut(Biome b) {
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP));
+    }
+
+    private static boolean canSpawnIgloo(Biome b) {
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY));
     }
 }

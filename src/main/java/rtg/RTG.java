@@ -28,6 +28,7 @@ import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
+import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
@@ -97,6 +98,7 @@ public class RTG {
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeSFBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

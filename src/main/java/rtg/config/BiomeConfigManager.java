@@ -10,6 +10,8 @@ import rtg.api.biome.abyssalcraft.config.*;
 import rtg.api.biome.biomesoplenty.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
+import rtg.api.biome.sugiforest.config.BiomeConfigSF;
+import rtg.api.biome.sugiforest.config.BiomeConfigSFSugiForest;
 import rtg.api.biome.vanilla.config.*;
 
 public class BiomeConfigManager {
@@ -19,6 +21,7 @@ public class BiomeConfigManager {
         initBiomeConfigsAC();
         initBiomeConfigsBOP();
         initBiomeConfigsFC();
+        initBiomeConfigsSF();
         initBiomeConfigsVanilla();
     }
 
@@ -102,6 +105,11 @@ public class BiomeConfigManager {
     public static void initBiomeConfigsFC() {
 
         BiomeConfigFC.biomeConfigFCPhantasia = new BiomeConfigFCPhantasia();
+    }
+
+    public static void initBiomeConfigsSF() {
+
+        BiomeConfigSF.biomeConfigSFSugiForest = new BiomeConfigSFSugiForest();
     }
 
     public static void initBiomeConfigsVanilla() {

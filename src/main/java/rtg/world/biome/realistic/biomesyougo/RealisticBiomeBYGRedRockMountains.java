@@ -69,10 +69,10 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
         decoBoulder.strengthFactor = 2f;
         this.addDeco(decoBoulder);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorationsLow = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorationsLow.maxY = 105;
-        decoBaseBiomeDecorationsLow.notEqualsZeroChance = 8;
-        this.addDeco(decoBaseBiomeDecorationsLow);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.maxY = 105;
+        decoBaseBiomeDecorations.notEqualsZeroChance = 8;
+        this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();

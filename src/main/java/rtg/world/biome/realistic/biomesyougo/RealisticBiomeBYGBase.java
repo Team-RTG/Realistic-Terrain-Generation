@@ -26,6 +26,7 @@ public class RealisticBiomeBYGBase extends RealisticBiomeBase {
 
         super(config, b, riverbiome, t, s);
 
+        this.waterSurfaceLakeChance = 30;
         this.lavaSurfaceLakeChance = 0;
     }
 

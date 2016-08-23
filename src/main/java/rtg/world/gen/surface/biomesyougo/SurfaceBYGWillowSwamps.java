@@ -17,35 +17,16 @@ import rtg.world.gen.surface.SurfaceBase;
 
 public class SurfaceBYGWillowSwamps extends SurfaceBase {
 
-
-    private IBlockState blockMixTop;
-    private IBlockState blockMixFiller;
-    private float floMixWidth;
-    private float floMixHeight;
-    private float floSmallWidth;
-    private float floSmallStrength;
-
-    public SurfaceBYGWillowSwamps(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
-                                  float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+    public SurfaceBYGWillowSwamps(BiomeConfig config, IBlockState top, IBlockState filler) {
 
         super(config, top, filler);
-
-        blockMixTop = mixTop;
-        blockMixFiller = mixFiller;
-
-        floMixWidth = mixWidth;
-        floMixHeight = mixHeight;
-        floSmallWidth = smallWidth;
-        floSmallStrength = smallStrength;
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                             OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.4f ? true : false;
-        boolean mix = false;
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, y).getBlock();
@@ -55,7 +36,7 @@ public class SurfaceBYGWillowSwamps extends SurfaceBase {
             else if (b == Blocks.STONE) {
                 depth++;
 
-                if (cliff) {
+                if (cliff && k > 64) {
                     if (depth > -1 && depth < 2) {
                         if (rand.nextInt(3) == 0) {
 
@@ -72,23 +53,10 @@ public class SurfaceBYGWillowSwamps extends SurfaceBase {
                 }
                 else {
                     if (depth == 0 && k > 61) {
-                        if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
-                            * floSmallStrength > floMixHeight) {
-                            primer.setBlockState(x, k, y, blockMixTop);
-
-                            mix = true;
-                        }
-                        else {
-                            primer.setBlockState(x, k, y, topBlock);
-                        }
+                        primer.setBlockState(x, k, y, topBlock);
                     }
                     else if (depth < 4) {
-                        if (mix) {
-                            primer.setBlockState(x, k, y, blockMixFiller);
-                        }
-                        else {
-                            primer.setBlockState(x, k, y, fillerBlock);
-                        }
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

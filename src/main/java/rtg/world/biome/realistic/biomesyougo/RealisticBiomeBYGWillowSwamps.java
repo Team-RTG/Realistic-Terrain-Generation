@@ -8,7 +8,12 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesyougo.config.BiomeConfigBYGWillowSwamps;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoTree;
+import rtg.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.world.gen.surface.biomesyougo.SurfaceBYGWillowSwamps;
 import rtg.world.gen.terrain.biomesyougo.TerrainBYGWillowSwamps;
 
@@ -16,69 +21,71 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState sugiLogBlock = Block.getBlockFromName("BiomesYouGo:CikaLog").getDefaultState();
-    private static IBlockState sugiLeavesBlock = Block.getBlockFromName("BiomesYouGo:CikaLeaves").getDefaultState();
+    private static IBlockState willowLogBlock = Block.getBlockFromName("BiomesYouGo:WillowLog").getDefaultState();
+    private static IBlockState willowLeavesBlock = Block.getBlockFromName("BiomesYouGo:WillowLeaves").getDefaultState();
 
     public RealisticBiomeBYGWillowSwamps(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
             new TerrainBYGWillowSwamps(),
-            new SurfaceBYGWillowSwamps(config,
-                biome.topBlock, //Block top
-                biome.fillerBlock, //Block filler,
-                biome.topBlock, //IBlockState mixTop,
-                biome.fillerBlock, //IBlockState mixFill,
-                80f, //float mixWidth,
-                -0.15f, //float mixHeight,
-                10f, //float smallWidth,
-                0.5f //float smallStrength
-            )
+            new SurfaceBYGWillowSwamps(config, biome.topBlock, biome.fillerBlock)
         );
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
+        myrtilloidesTree.logBlock = Blocks.LOG.getDefaultState();
+        myrtilloidesTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        this.addTree(myrtilloidesTree);
+
+        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
+        decoTrees.distribution.noiseDivisor = 80f;
+        decoTrees.distribution.noiseFactor = 60f;
+        decoTrees.distribution.noiseAddend = -15f;
+        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
+        decoTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoTrees.treeConditionNoise = 0f;
+        decoTrees.treeConditionChance = 16;
+        decoTrees.maxY = 70;
+        this.addDeco(decoTrees);
+
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = sugiLogBlock;
-        decoFallenTree.leavesBlock = sugiLeavesBlock;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
+        decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGWillowSwamps.decorationLogsId));
 
-        DecoShrub decoShrubSugi = new DecoShrub();
-        decoShrubSugi.logBlock = sugiLogBlock;
-        decoShrubSugi.leavesBlock = sugiLeavesBlock;
-        decoShrubSugi.maxY = 90;
-        decoShrubSugi.strengthFactor = 4f;
-        decoShrubSugi.chance = 8;
-        this.addDeco(decoShrubSugi);
+        TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
+        deadWillowTree.logBlock = Blocks.LOG.getDefaultState();
+        deadWillowTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        deadWillowTree.noLeaves = true;
+        this.addTree(deadWillowTree);
 
-        DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.maxY = 90;
-        decoShrubOak.strengthFactor = 4f;
-        decoShrubOak.chance = 4;
-        this.addDeco(decoShrubOak);
+        DecoTree deadWillow = new DecoTree(deadWillowTree);
+        deadWillow.treeType = DecoTree.TreeType.RTG_TREE;
+        deadWillow.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        deadWillow.treeConditionChance = 18;
+        deadWillow.maxY = 100;
+        this.addDeco(deadWillow);
 
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
-        this.addDeco(decoBoulder);
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 100;
+        decoShrub.strengthFactor = 6f;
+        this.addDeco(decoShrub);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.maxY = 105;
-        decoBaseBiomeDecorations.notEqualsZeroChance = 8;
-        this.addDeco(decoBaseBiomeDecorations);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 63;
-        decoGrass.maxY = 100;
-        decoGrass.loops = 1;
-        this.addDeco(decoGrass);
+        DecoShrub decoShrubBYG = new DecoShrub();
+        decoShrubBYG.logBlock = willowLogBlock;
+        decoShrubBYG.leavesBlock = willowLeavesBlock;
+        decoShrubBYG.maxY = 100;
+        decoShrubBYG.strengthFactor = 3f;
+        this.addDeco(decoShrubBYG);
     }
 }

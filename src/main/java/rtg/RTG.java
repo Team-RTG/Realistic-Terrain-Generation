@@ -81,7 +81,9 @@ public class RTG {
         eventMgr.registerEventHandlers();
 
         // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
-        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
+        if (ConfigRTG.enableWorldTypeNotificationScreen) {
+            MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
+        }
     }
 
     @EventHandler

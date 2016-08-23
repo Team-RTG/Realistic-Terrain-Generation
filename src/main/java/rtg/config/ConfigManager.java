@@ -4,6 +4,7 @@ import java.io.File;
 
 import rtg.config.abyssalcraft.ConfigAC;
 import rtg.config.biomesoplenty.ConfigBOP;
+import rtg.config.biomesyougo.ConfigBYG;
 import rtg.config.flowercraft.ConfigFC;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.sugiforest.ConfigSF;
@@ -15,6 +16,7 @@ public class ConfigManager {
     public static File vanillaConfigFile;
     public static File acConfigFile;
     public static File bopConfigFile;
+    public static File bygConfigFile;
     public static File fcConfigFile;
     public static File sfConfigFile;
 
@@ -26,6 +28,7 @@ public class ConfigManager {
         vanillaConfigFile = new File(configpath + "biomes/vanilla.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
         bopConfigFile = new File(configpath + "biomes/biomesoplenty.cfg");
+        bygConfigFile = new File(configpath + "biomes/biomesyougo.cfg");
         fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
         sfConfigFile = new File(configpath + "biomes/sugiforest.cfg");
 
@@ -35,6 +38,7 @@ public class ConfigManager {
 
         ConfigAC.init(acConfigFile);
         ConfigBOP.init(bopConfigFile);
+        ConfigBYG.init(bygConfigFile);
         ConfigFC.init(fcConfigFile);
         ConfigSF.init(sfConfigFile);
     }

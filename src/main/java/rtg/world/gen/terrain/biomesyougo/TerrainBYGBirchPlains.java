@@ -2,15 +2,13 @@ package rtg.world.gen.terrain.biomesyougo;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBYGBirchPlains extends TerrainBase {
 
-    private float baseHeight = 72f;
-    private float peakyHillWavelength = 40f;
-    private float peakyHillStrength = 10f;
-    private float smoothHillWavelength = 20f;
-    private float smoothHillStrength = 20f;
+
+    private GroundEffect groundEffect = new GroundEffect(4f);
 
     public TerrainBYGBirchPlains() {
 
@@ -18,11 +16,7 @@ public class TerrainBYGBirchPlains extends TerrainBase {
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-
-        float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
-
-        return riverized(groundNoise + h, river);
+        //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+        return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
     }
 }

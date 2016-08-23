@@ -39,6 +39,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     /**
      * Height restriction.
      */
+    public int minY;
     public int maxY;
 
     public DecoBaseBiomeDecorations() {
@@ -52,6 +53,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
         this.equalsZeroChance = 0; // Only used if greater than 0
         this.notEqualsZeroChance = 0; // Only used if greater than 0
         this.loops = 1; // You almost always want to loop only once.
+        this.minY = 1; // No height limit by default.
         this.maxY = 255; // No height limit by default.
 
         this.addDecoTypes(DecoType.BASE_BIOME_DECORATION);
@@ -68,7 +70,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                 int intZ = chunkY + rand.nextInt(16);// + 8;
                 int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
-                if (intY <= this.maxY) {
+                if (intY >= this.minY && intY <= this.maxY) {
 
                     if (this.equalsZeroChance > 0) {
 

@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.biomesyougo.config.BiomeConfigBYGAutumnForest;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -30,7 +31,10 @@ public class SurfaceBYGAutumnForest extends SurfaceBase {
 
         super(config, top, filler);
 
-        blockMixTop = mixTop;
+        blockMixTop = this.getConfigBlock(config,
+            BiomeConfigBYGAutumnForest.surfaceMixBlockId, BiomeConfigBYGAutumnForest.surfaceMixBlockMetaId,
+            mixTop
+        );
         blockMixFiller = mixFiller;
 
         floMixWidth = mixWidth;

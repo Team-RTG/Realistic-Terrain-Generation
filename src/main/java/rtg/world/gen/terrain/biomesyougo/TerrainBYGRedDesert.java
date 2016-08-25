@@ -1,28 +1,30 @@
 package rtg.world.gen.terrain.biomesyougo;
 
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBYGRedDesert extends TerrainBase {
 
-    private float baseHeight = 72f;
-    private float peakyHillWavelength = 40f;
-    private float peakyHillStrength = 10f;
-    private float smoothHillWavelength = 20f;
-    private float smoothHillStrength = 20f;
-
     public TerrainBYGRedDesert() {
 
+        super(64);
     }
 
     @Override
     public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        //return terrainPolar(x, y, simplex, river);
+        float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
 
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+        duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 
-        float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+        float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
+        float stFactor = duneHeight;
+        float hPitch = 70;    // Dune scale
+        float hDivisor = 40;
 
-        return riverized(groundNoise + h, river);
+        return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
+            groundNoise(x, y, 1f, simplex);
     }
 }

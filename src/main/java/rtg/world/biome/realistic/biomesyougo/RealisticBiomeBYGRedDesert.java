@@ -1,14 +1,19 @@
 package rtg.world.biome.realistic.biomesyougo;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import java.util.Random;
+
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesyougo.config.BiomeConfigBYGRedDesert;
-import rtg.world.biome.deco.*;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.biomesyougo.SurfaceBYGRedDesert;
 import rtg.world.gen.terrain.biomesyougo.TerrainBYGRedDesert;
 
@@ -16,69 +21,29 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState sugiLogBlock = Block.getBlockFromName("BiomesYouGo:CikaLog").getDefaultState();
-    private static IBlockState sugiLeavesBlock = Block.getBlockFromName("BiomesYouGo:CikaLeaves").getDefaultState();
-
     public RealisticBiomeBYGRedDesert(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
             new TerrainBYGRedDesert(),
-            new SurfaceBYGRedDesert(config,
-                biome.topBlock, //Block top
-                biome.fillerBlock, //Block filler,
-                biome.topBlock, //IBlockState mixTop,
-                biome.fillerBlock, //IBlockState mixFill,
-                80f, //float mixWidth,
-                -0.15f, //float mixHeight,
-                10f, //float smallWidth,
-                0.5f //float smallStrength
-            )
+            new SurfaceBYGRedDesert(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, biome.fillerBlock, 0.10f)
         );
 
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = sugiLogBlock;
-        decoFallenTree.leavesBlock = sugiLeavesBlock;
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGRedDesert.decorationLogsId));
+        this.waterSurfaceLakeChance = 0;
+        this.noLakes = true;
 
-        DecoShrub decoShrubSugi = new DecoShrub();
-        decoShrubSugi.logBlock = sugiLogBlock;
-        decoShrubSugi.leavesBlock = sugiLeavesBlock;
-        decoShrubSugi.maxY = 90;
-        decoShrubSugi.strengthFactor = 4f;
-        decoShrubSugi.chance = 8;
-        this.addDeco(decoShrubSugi);
-
-        DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.maxY = 90;
-        decoShrubOak.strengthFactor = 4f;
-        decoShrubOak.chance = 4;
-        this.addDeco(decoShrubOak);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
-        this.addDeco(decoBoulder);
+        this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.maxY = 105;
-        decoBaseBiomeDecorations.notEqualsZeroChance = 8;
         this.addDeco(decoBaseBiomeDecorations);
+    }
 
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 63;
-        decoGrass.maxY = 100;
-        decoGrass.loops = 1;
-        this.addDeco(decoGrass);
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                         OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+
+        this.getSurface().paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+
+        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
+        riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

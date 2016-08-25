@@ -32,6 +32,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.maxY = 82;
         this.addDeco(decoBaseBiomeDecorations);
 
         TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
@@ -61,6 +62,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
+        decoFallenTree.maxY = 76;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGWillowSwamps.decorationLogsId));
 
         TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
@@ -73,18 +75,18 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         deadWillow.treeType = DecoTree.TreeType.RTG_TREE;
         deadWillow.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         deadWillow.treeConditionChance = 18;
-        deadWillow.maxY = 100;
+        deadWillow.maxY = 84;
         this.addDeco(deadWillow);
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 100;
+        decoShrub.maxY = 88;
         decoShrub.strengthFactor = 6f;
         this.addDeco(decoShrub);
 
         DecoShrub decoShrubBYG = new DecoShrub();
         decoShrubBYG.logBlock = willowLogBlock;
         decoShrubBYG.leavesBlock = willowLeavesBlock;
-        decoShrubBYG.maxY = 100;
+        decoShrubBYG.maxY = 88;
         decoShrubBYG.strengthFactor = 3f;
         this.addDeco(decoShrubBYG);
     }

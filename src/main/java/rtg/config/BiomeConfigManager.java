@@ -8,6 +8,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
 import rtg.api.biome.biomesoplenty.config.*;
+import rtg.api.biome.biomesyougo.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
 import rtg.api.biome.sugiforest.config.BiomeConfigSF;
@@ -20,6 +21,7 @@ public class BiomeConfigManager {
 
         initBiomeConfigsAC();
         initBiomeConfigsBOP();
+        initBiomeConfigsBYG();
         initBiomeConfigsFC();
         initBiomeConfigsSF();
         initBiomeConfigsVanilla();
@@ -100,6 +102,17 @@ public class BiomeConfigManager {
         BiomeConfigBOP.biomeConfigBOPWetland = new BiomeConfigBOPWetland();
         BiomeConfigBOP.biomeConfigBOPWoodland = new BiomeConfigBOPWoodland();
         BiomeConfigBOP.biomeConfigBOPXericShrubland = new BiomeConfigBOPXericShrubland();
+    }
+
+    public static void initBiomeConfigsBYG() {
+
+        BiomeConfigBYG.biomeConfigBYGAutumnForest = new BiomeConfigBYGAutumnForest();
+        BiomeConfigBYG.biomeConfigBYGBirchPlains = new BiomeConfigBYGBirchPlains();
+        BiomeConfigBYG.biomeConfigBYGFrozenTundra = new BiomeConfigBYGFrozenTundra();
+        BiomeConfigBYG.biomeConfigBYGLushForest = new BiomeConfigBYGLushForest();
+        BiomeConfigBYG.biomeConfigBYGRedDesert = new BiomeConfigBYGRedDesert();
+        BiomeConfigBYG.biomeConfigBYGRedRockMountains = new BiomeConfigBYGRedRockMountains();
+        BiomeConfigBYG.biomeConfigBYGWillowSwamps = new BiomeConfigBYGWillowSwamps();
     }
 
     public static void initBiomeConfigsFC() {

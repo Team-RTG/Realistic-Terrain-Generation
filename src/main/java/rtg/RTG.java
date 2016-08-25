@@ -27,6 +27,7 @@ import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
@@ -97,6 +98,7 @@ public class RTG {
 
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
+        RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
 

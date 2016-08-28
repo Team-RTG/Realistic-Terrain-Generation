@@ -350,8 +350,33 @@ public class EventManagerRTG {
 
         @SubscribeEvent
         public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
+
             //Are we in an RTG world?
             isWorldTypeRTG = (event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
+        }
+
+        @SubscribeEvent
+        public void onBiomeDecorate(DecorateBiomeEvent.Decorate event) {
+
+            // Are we in an RTG world? Do we have RTG's chunk manager?
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
+                return;
+            }
+
+            switch (event.getType())
+            {
+                /*
+                 * Vanilla generates flowing liquids instead of lakes/ponds during biome decoration,
+                 * so we're going to cancel the event here and generate ponds via rPopulatePreDecorate().
+                 */
+                case LAKE_WATER:
+                case LAKE_LAVA:
+
+                    event.setResult(Event.Result.DENY);
+
+                default:
+                    break;
+            }
         }
     }
 

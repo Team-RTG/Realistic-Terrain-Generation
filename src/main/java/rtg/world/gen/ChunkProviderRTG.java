@@ -760,9 +760,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         //Initialise variables.
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
 
-        //Clay.
-        biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
-
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
         float snow = 0f;
@@ -792,7 +789,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                    realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
 
@@ -802,7 +799,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     catch (Exception e) {
 
-                        realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
 

@@ -60,14 +60,14 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, World world, Random rand, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
             for (int i = 0; i < loops; i++) {
 
-                int intX = chunkX + rand.nextInt(16);// + 8;
-                int intZ = chunkY + rand.nextInt(16);// + 8;
+                int intX = worldX + rand.nextInt(16);// + 8;
+                int intZ = worldZ + rand.nextInt(16);// + 8;
                 int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                 if (intY >= this.minY && intY <= this.maxY) {
@@ -75,33 +75,33 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+                            biome.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river, biome.baseBiome);
                         }
                         else {
-                            biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, biome.baseBiome);
+                            biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
                         }
                     }
                     else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+                            biome.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river, biome.baseBiome);
                         }
                         else {
-                            biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, biome.baseBiome);
+                            biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
                         }
                     }
                     else {
 
-                        biome.rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, biome.baseBiome);
+                        biome.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river, biome.baseBiome);
                     }
                 }
                 else {
-                    biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, biome.baseBiome);
+                    biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
                 }
             }
         }
         else {
-            biome.rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, biome.baseBiome);
+            biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
         }
     }
 }

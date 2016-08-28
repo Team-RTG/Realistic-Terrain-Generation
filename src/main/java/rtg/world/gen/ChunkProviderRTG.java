@@ -838,9 +838,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
         TimeTracker.manager.stop("Entities");
 
-        // Not sure why we're modifying the worldCoords here, but this is how it's done in ChunkProviderOverworld. - Pink
-        worldCoords = worldCoords.add(8, 0, 8);
-
         TimeTracker.manager.start("Ice");
         //everDecorated.add(location);
         probe.setX(chunkX);
@@ -848,6 +845,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         //if (!everDecorated.contains(probe)) throw new RuntimeException();
         if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE))
         {
+            // Not sure why we're modifying the worldCoords here, but this is how it's done in ChunkProviderOverworld. - Pink
+            worldCoords = worldCoords.add(8, 0, 8);
+
             for (int k2 = 0; k2 < 16; ++k2)
             {
                 for (int j3 = 0; j3 < 16; ++j3)

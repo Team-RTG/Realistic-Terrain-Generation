@@ -77,7 +77,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    protected int getExtraGoldGenCount() {
+    public int getExtraGoldGenCount() {
         return 20;
     }
 }

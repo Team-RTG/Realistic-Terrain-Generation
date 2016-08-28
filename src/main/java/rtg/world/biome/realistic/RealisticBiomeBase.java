@@ -16,10 +16,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderSettings;
-import net.minecraft.world.gen.feature.WorldGenDungeons;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
@@ -281,6 +278,35 @@ public class RealisticBiomeBase {
 
     public void rPopulatePostDecorate(World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
 
+        int worldX = chunkX * 16;
+        int worldZ = chunkZ * 16;
+        int worldHeight = worldObj.provider.getActualHeight();
+
+        //Flowing water.
+        if (ConfigRTG.flowingWaterChance > 0) {
+            if (rand.nextInt(ConfigRTG.flowingWaterChance) == 0) {
+                for(int l18 = 0; l18 < 50; l18++)
+                {
+                    int l21 = worldX + rand.nextInt(16);// + 8;
+                    int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
+                    int l24 = worldZ + rand.nextInt(16);// + 8;
+                    (new WorldGenLiquids(Blocks.FLOWING_WATER)).generate(worldObj, rand, new BlockPos(l21, k23, l24));
+                }
+            }
+        }
+
+        //Flowing lava.
+        if (ConfigRTG.flowingLavaChance > 0) {
+            if (rand.nextInt(ConfigRTG.flowingLavaChance) == 0) {
+                for(int i19 = 0; i19 < 20; i19++)
+                {
+                    int i22 = worldX + rand.nextInt(16);// + 8;
+                    int l23 = rand.nextInt(worldHeight / 2);
+                    int i25 = worldZ + rand.nextInt(16);// + 8;
+                    (new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(worldObj, rand, new BlockPos(i22, l23, i25));
+                }
+            }
+        }
     }
 
     /**

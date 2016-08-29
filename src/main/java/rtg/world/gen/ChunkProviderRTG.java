@@ -727,7 +727,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         TimeTracker.manager.start("Pools");
-        biome.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         TimeTracker.manager.stop("Pools");
 
         /**
@@ -826,7 +826,7 @@ public class ChunkProviderRTG implements IChunkGenerator
          */
 
         TimeTracker.manager.start("Post-decorations");
-        biome.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         TimeTracker.manager.stop("Post-decorations");
 
         TimeTracker.manager.start("Entities");

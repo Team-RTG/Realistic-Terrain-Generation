@@ -75,7 +75,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biome.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river, biome.baseBiome);
+                            biome.rDecorator.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river);
                         }
                         else {
                             biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
@@ -84,7 +84,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biome.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river, biome.baseBiome);
+                            biome.rDecorator.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river);
                         }
                         else {
                             biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
@@ -92,7 +92,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     }
                     else {
 
-                        biome.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river, biome.baseBiome);
+                        biome.rDecorator.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river);
                     }
                 }
                 else {

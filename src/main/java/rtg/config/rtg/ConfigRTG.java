@@ -72,6 +72,7 @@ public class ConfigRTG {
     // Flowing liquids
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public static boolean enableFlowingLiquidModifications = true;
     public static int flowingWaterChance = 200;
     public static int flowingLavaChance = 200;
 
@@ -379,6 +380,18 @@ public class ConfigRTG {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             // Flowing liquids
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            enableFlowingLiquidModifications = config.getBoolean(
+                "Enable Flowing Liquid Modifications",
+                "Flowing Liquids",
+                enableFlowingLiquidModifications,
+                "Must be set to TRUE for the other flowing liquid settings to have any effect."
+                    + Configuration.NEW_LINE +
+                    "If FALSE, RTG won't interfere with flowing liquid generation at all."
+                    + Configuration.NEW_LINE +
+                    "(Flowing liquids are the water/lava streams that generate on the sides of hills and mountains.)"
+                    + Configuration.NEW_LINE
+            );
 
             flowingLavaChance = config.getInt(
                 "Flowing Lava Chance",

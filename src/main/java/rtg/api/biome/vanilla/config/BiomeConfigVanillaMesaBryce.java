@@ -6,5 +6,7 @@ public class BiomeConfigVanillaMesaBryce extends BiomeConfigVanillaBase {
     public BiomeConfigVanillaMesaBryce() {
 
         super("mesabryce");
+
+        setPropertyValueById(allowVillagesId, false);
     }
 }

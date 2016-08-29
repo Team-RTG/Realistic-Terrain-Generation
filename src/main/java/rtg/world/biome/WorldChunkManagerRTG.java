@@ -372,7 +372,13 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
             int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
 
             for (int i1 = 0; i1 < width * length; ++i1) {
-                listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
+
+                try {
+                    listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
+                }
+                catch (Exception e) {
+                    listToReuse[i1] = biomePatcher.getPatchedBaseBiome(genBiomes.toString() + " " + this.biomeIndexLayer.toString());
+                }
 
                 if (listToReuse[i1] == null) {
                     listToReuse[i1] = biomePatcher.getPatchedBaseBiome("WCMRTG.getBiomes() could not find biome " + aint[i1]);

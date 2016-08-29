@@ -23,10 +23,10 @@ import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
-import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraft.world.gen.structure.*;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
@@ -253,7 +253,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 toCheck.add(chunkLocation);
                 return available;
             }
-    }
+        }
 
         //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
 
@@ -270,7 +270,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         for (int ci = 0; ci < 256; ci++) {
             biomesGeneratedInChunk[BiomeUtils.getId(landscape.biome[ci].baseBiome)] = true;
-            }
+        }
 
         for(k = 0; k < 256; k++)
         {
@@ -325,7 +325,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                 oceanMonumentGenerator.generate(this.worldObj, cx, cy, primer);
             }
         }
-            // store in the in process pile
+
+        // store in the in process pile
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
         inGeneration.put(chunkLocation, chunk);
 
@@ -374,11 +375,11 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (Direction checked: directions) {
             if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
             if (!chunkExists(true,cx+checked.xOffset, cy+checked.zOffset)) return;// that one's missing
-            }
+        }
         // passed all checks
         addToDecorationList(new PlaneLocation.Invariant(cx,cy));
         //this.doPopulate(world, cx, cy);
-        }
+    }
 
     public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
     {
@@ -677,7 +678,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         ChunkPos chunkCoords = new ChunkPos(chunkX, chunkZ);
         BlockPos worldCoords = new BlockPos(worldX, 0, worldZ);
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));
+        ForgeEventFactory.onChunkPopulate(true, this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks);
 
         if (mapFeaturesEnabled) {
 
@@ -726,12 +727,12 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         TimeTracker.manager.start("Pools");
-        biome.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         TimeTracker.manager.stop("Pools");
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
-         * Answer: building a frequency table of nearby biomes - Zeno. 
+         * Answer: building a frequency table of nearby biomes - Zeno.
          */
 
         final int adjust = 24;// seems off? but decorations aren't matching their chunks.
@@ -746,6 +747,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
         TimeTracker.manager.stop(biomeLayoutActivity);
         TimeTracker.manager.stop("Features");
+
         /**
          * ########################################################################
          * # START DECORATE BIOME
@@ -757,9 +759,6 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         //Initialise variables.
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
-
-        //Clay.
-        biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
 
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
@@ -790,7 +789,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
 
-                    realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
 
@@ -800,7 +799,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     catch (Exception e) {
 
-                        realisticBiome.decorateInAnOrderlyFashion(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
 
@@ -819,82 +818,58 @@ public class ChunkProviderRTG implements IChunkGenerator
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         TimeTracker.manager.stop("Decorations");
+
         /**
          * ########################################################################
          * # END DECORATE BIOME
          * ########################################################################
          */
+
         TimeTracker.manager.start("Post-decorations");
-        biome.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
-
-        //Flowing water.
-        if (ConfigRTG.flowingWaterChance > 0) {
-	        if (rand.nextInt(ConfigRTG.flowingWaterChance) == 0) {
-	    		for(int l18 = 0; l18 < 50; l18++)
-	    		{
-	    			int l21 = worldX + rand.nextInt(16);// + 8;
-                int k23 = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
-	    			int l24 = worldZ + rand.nextInt(16);// + 8;
-	    			(new WorldGenLiquids(Blocks.FLOWING_WATER)).generate(worldObj, rand, new BlockPos(l21, k23, l24));
-	    		}
-            }
-        }
-
-        //Flowing lava.
-        if (ConfigRTG.flowingLavaChance > 0) {
-	        if (rand.nextInt(ConfigRTG.flowingLavaChance) == 0) {
-	    		for(int i19 = 0; i19 < 20; i19++)
-	    		{
-	    			int i22 = worldX + rand.nextInt(16);// + 8;
-                int l23 = rand.nextInt(worldHeight / 2);
-	    			int i25 = worldZ + rand.nextInt(16);// + 8;
-	    			(new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(worldObj, rand, new BlockPos(i22, l23, i25));
-	    		}
-            }
-        }
-
+        biome.rDecorator.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         TimeTracker.manager.stop("Post-decorations");
+
         TimeTracker.manager.start("Entities");
         probe.setX(chunkX);
         probe.setZ(chunkZ);
         //if (everDecorated.contains(probe)) throw new RuntimeException();
-        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS))
-        {
-            WorldEntitySpawner.performWorldGenSpawning(this.worldObj, worldObj.getBiome(new BlockPos(worldX + 16, 0, worldZ + 16)), worldX, worldZ, 16, 16, this.rand);
+        if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
+            WorldEntitySpawner.performWorldGenSpawning(this.worldObj, biome.baseBiome, worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
-
         TimeTracker.manager.stop("Entities");
+
         TimeTracker.manager.start("Ice");
         //everDecorated.add(location);
         probe.setX(chunkX);
         probe.setZ(chunkZ);
         //if (!everDecorated.contains(probe)) throw new RuntimeException();
-        if (TerrainGen.populate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE))
+        {
+            // Not sure why we're modifying the worldCoords here, but this is how it's done in ChunkProviderOverworld. - Pink
+            worldCoords = worldCoords.add(8, 0, 8);
 
-            int k1, l1, i2;
+            for (int k2 = 0; k2 < 16; ++k2)
+            {
+                for (int j3 = 0; j3 < 16; ++j3)
+                {
+                    BlockPos blockpos1 = this.worldObj.getPrecipitationHeight(worldCoords.add(k2, 0, j3));
+                    BlockPos blockpos2 = blockpos1.down();
 
-            for(k1 = 0; k1 < 16; ++k1) {
-
-                for(l1 = 0; l1 < 16; ++l1) {
-
-                    i2 = this.worldObj.getPrecipitationHeight(new BlockPos(worldX + k1, 0, worldZ + l1)).getY();
-
-                    if (this.worldObj.canBlockFreezeNoWater(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ))) {
-                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2 - 1, l1 + worldZ), Blocks.ICE.getDefaultState(), 2);
+                    if (this.worldObj.canBlockFreezeWater(blockpos2))
+                    {
+                        this.worldObj.setBlockState(blockpos2, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(new BlockPos(k1 + worldX, i2, l1 + worldZ), true)) {
-                        this.worldObj.setBlockState(new BlockPos(k1 + worldX, i2, l1 + worldZ), Blocks.SNOW_LAYER.getDefaultState(), 2);
+                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(blockpos1, true))
+                    {
+                        this.worldObj.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }
             }
         }
-//        else {
-//            throw new RuntimeException();
-//        }
         TimeTracker.manager.stop("Ice");
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks));
+        ForgeEventFactory.onChunkPopulate(false, this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks);
 
         BlockFalling.fallInstantly = false;
         TimeTracker.manager.stop("RTG populate");

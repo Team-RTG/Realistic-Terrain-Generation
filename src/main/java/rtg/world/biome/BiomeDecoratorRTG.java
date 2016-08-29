@@ -29,7 +29,7 @@ import rtg.world.gen.feature.WorldGenClayRTG;
 
 public class BiomeDecoratorRTG
 {
-    public BlockPos chunkPos;
+    public BlockPos pos;
     public ChunkProviderSettings chunkProviderSettings;
 
     public WorldGenerator clayGen;
@@ -61,7 +61,7 @@ public class BiomeDecoratorRTG
 
     public void decorateClay(World worldIn, Random random, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float border, float river, boolean hasPlacedVillageBlocks)
     {
-        if (TerrainGen.decorate(worldIn, random, chunkPos, DecorateBiomeEvent.Decorate.EventType.CLAY)) {
+        if (TerrainGen.decorate(worldIn, random, new BlockPos(worldX, 0, worldZ), DecorateBiomeEvent.Decorate.EventType.CLAY)) {
 
             if (river > 0.85f) {
 
@@ -90,7 +90,7 @@ public class BiomeDecoratorRTG
             biome.theBiomeDecorator.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(generatorOptions).build();
         }
 
-        chunkPos = new BlockPos(worldX, 0, worldZ);
+        pos = new BlockPos(worldX, 0, worldZ);
 
         biome.theBiomeDecorator.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), biome.theBiomeDecorator.chunkProviderSettings.dirtSize);
         biome.theBiomeDecorator.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), biome.theBiomeDecorator.chunkProviderSettings.gravelSize);
@@ -104,50 +104,50 @@ public class BiomeDecoratorRTG
         biome.theBiomeDecorator.diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), biome.theBiomeDecorator.chunkProviderSettings.diamondSize);
         biome.theBiomeDecorator.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), biome.theBiomeDecorator.chunkProviderSettings.lapisSize);
 
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldIn, random, chunkPos));
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.dirtGen, chunkPos, OreGenEvent.GenerateMinable.EventType.DIRT)) {
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldIn, random, pos));
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.dirtGen, pos, OreGenEvent.GenerateMinable.EventType.DIRT)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.dirtCount, biome.theBiomeDecorator.dirtGen, biome.theBiomeDecorator.chunkProviderSettings.dirtMinHeight, biome.theBiomeDecorator.chunkProviderSettings.dirtMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.gravelGen, chunkPos, OreGenEvent.GenerateMinable.EventType.GRAVEL)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.gravelGen, pos, OreGenEvent.GenerateMinable.EventType.GRAVEL)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.gravelCount, biome.theBiomeDecorator.gravelGen, biome.theBiomeDecorator.chunkProviderSettings.gravelMinHeight, biome.theBiomeDecorator.chunkProviderSettings.gravelMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.dioriteGen, chunkPos, OreGenEvent.GenerateMinable.EventType.DIORITE)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.dioriteGen, pos, OreGenEvent.GenerateMinable.EventType.DIORITE)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.dioriteCount, biome.theBiomeDecorator.dioriteGen, biome.theBiomeDecorator.chunkProviderSettings.dioriteMinHeight, biome.theBiomeDecorator.chunkProviderSettings.dioriteMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.graniteGen, chunkPos, OreGenEvent.GenerateMinable.EventType.GRANITE)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.graniteGen, pos, OreGenEvent.GenerateMinable.EventType.GRANITE)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.graniteCount, biome.theBiomeDecorator.graniteGen, biome.theBiomeDecorator.chunkProviderSettings.graniteMinHeight, biome.theBiomeDecorator.chunkProviderSettings.graniteMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.andesiteGen, chunkPos, OreGenEvent.GenerateMinable.EventType.ANDESITE)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.andesiteGen, pos, OreGenEvent.GenerateMinable.EventType.ANDESITE)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.andesiteCount, biome.theBiomeDecorator.andesiteGen, biome.theBiomeDecorator.chunkProviderSettings.andesiteMinHeight, biome.theBiomeDecorator.chunkProviderSettings.andesiteMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.coalGen, chunkPos, OreGenEvent.GenerateMinable.EventType.COAL)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.coalGen, pos, OreGenEvent.GenerateMinable.EventType.COAL)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.coalCount, biome.theBiomeDecorator.coalGen, biome.theBiomeDecorator.chunkProviderSettings.coalMinHeight, biome.theBiomeDecorator.chunkProviderSettings.coalMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.ironGen, chunkPos, OreGenEvent.GenerateMinable.EventType.IRON)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.ironGen, pos, OreGenEvent.GenerateMinable.EventType.IRON)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.ironCount, biome.theBiomeDecorator.ironGen, biome.theBiomeDecorator.chunkProviderSettings.ironMinHeight, biome.theBiomeDecorator.chunkProviderSettings.ironMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.goldGen, chunkPos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.goldGen, pos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.goldCount, biome.theBiomeDecorator.goldGen, biome.theBiomeDecorator.chunkProviderSettings.goldMinHeight, biome.theBiomeDecorator.chunkProviderSettings.goldMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.redstoneGen, chunkPos, OreGenEvent.GenerateMinable.EventType.REDSTONE)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.redstoneGen, pos, OreGenEvent.GenerateMinable.EventType.REDSTONE)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.redstoneCount, biome.theBiomeDecorator.redstoneGen, biome.theBiomeDecorator.chunkProviderSettings.redstoneMinHeight, biome.theBiomeDecorator.chunkProviderSettings.redstoneMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.diamondGen, chunkPos, OreGenEvent.GenerateMinable.EventType.DIAMOND)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.diamondGen, pos, OreGenEvent.GenerateMinable.EventType.DIAMOND)) {
             this.genStandardOre1(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.diamondCount, biome.theBiomeDecorator.diamondGen, biome.theBiomeDecorator.chunkProviderSettings.diamondMinHeight, biome.theBiomeDecorator.chunkProviderSettings.diamondMaxHeight);
         }
-        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.lapisGen, chunkPos, OreGenEvent.GenerateMinable.EventType.LAPIS)) {
+        if (TerrainGen.generateOre(worldIn, random, biome.theBiomeDecorator.lapisGen, pos, OreGenEvent.GenerateMinable.EventType.LAPIS)) {
             this.genStandardOre2(worldIn, random, biome.theBiomeDecorator.chunkProviderSettings.lapisCount, biome.theBiomeDecorator.lapisGen, biome.theBiomeDecorator.chunkProviderSettings.lapisCenterHeight, biome.theBiomeDecorator.chunkProviderSettings.lapisSpread);
         }
         if (rbb.generatesEmeralds) {
-            this.genEmeraldOre(worldIn, random, chunkPos);
+            this.genEmeraldOre(worldIn, random, pos);
         }
         if (rbb.generatesSilverfish) {
-            this.genSilverfishOre(worldIn, random, chunkPos);
+            this.genSilverfishOre(worldIn, random, pos);
         }
         if (rbb.getExtraGoldGenCount() > 0) {
             this.genStandardOre1(worldIn, random, rbb.getExtraGoldGenCount(), biome.theBiomeDecorator.goldGen, rbb.getExtraGoldGenMinHeight(), rbb.getExtraGoldGenMaxHeight());
         }
-        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldIn, random, chunkPos));
+        MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldIn, random, pos));
     }
 
     public void genStandardOre1(World worldIn, Random random, int blockCount, WorldGenerator generator, int minHeight, int maxHeight)
@@ -172,7 +172,7 @@ public class BiomeDecoratorRTG
 
         for (int j = 0; j < blockCount; ++j)
         {
-            BlockPos blockpos = this.chunkPos.add(random.nextInt(16), random.nextInt(maxHeight - minHeight) + minHeight, random.nextInt(16));
+            BlockPos blockpos = this.pos.add(random.nextInt(16), random.nextInt(maxHeight - minHeight) + minHeight, random.nextInt(16));
             generator.generate(worldIn, random, blockpos);
         }
     }
@@ -181,7 +181,7 @@ public class BiomeDecoratorRTG
     {
         for (int i = 0; i < blockCount; ++i)
         {
-            BlockPos blockpos = this.chunkPos.add(random.nextInt(16), random.nextInt(spread) + random.nextInt(spread) + centerHeight - spread, random.nextInt(16));
+            BlockPos blockpos = this.pos.add(random.nextInt(16), random.nextInt(spread) + random.nextInt(spread) + centerHeight - spread, random.nextInt(16));
             generator.generate(worldIn, random, blockpos);
         }
     }

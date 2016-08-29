@@ -359,7 +359,7 @@ public class EventManagerRTG {
         public void onBiomeDecorate(DecorateBiomeEvent.Decorate event) {
 
             // Are flowing liquid modifications enabled?
-            // Note: This will need to move to the switch statement below if we add more than
+            // Note: This will need to move to the switch statement below if we add more case statements.
             if (!ConfigRTG.enableFlowingLiquidModifications) {
                 return;
             }

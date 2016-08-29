@@ -358,6 +358,12 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void onBiomeDecorate(DecorateBiomeEvent.Decorate event) {
 
+            // Are flowing liquid modifications enabled?
+            // Note: This will need to move to the switch statement below if we add more than
+            if (!ConfigRTG.enableFlowingLiquidModifications) {
+                return;
+            }
+
             // Are we in an RTG world? Do we have RTG's chunk manager?
             if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
                 return;
@@ -366,8 +372,8 @@ public class EventManagerRTG {
             switch (event.getType())
             {
                 /*
-                 * Vanilla generates flowing liquids instead of lakes/ponds during biome decoration,
-                 * so we're going to cancel the event here and generate ponds via rPopulatePreDecorate().
+                 * Vanilla generates flowing liquids during biome decoration,
+                 * so we're going to cancel that event here and generate them via rPopulatePostDecorate().
                  */
                 case LAKE_WATER:
                 case LAKE_LAVA:

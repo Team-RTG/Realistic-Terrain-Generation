@@ -6,5 +6,7 @@ public class BiomeConfigBOPKelpForest extends BiomeConfigBOPBase {
     public BiomeConfigBOPKelpForest() {
 
         super("kelpforest");
+
+        setPropertyValueById(allowVillagesId, false);
     }
 }

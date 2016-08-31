@@ -6,5 +6,7 @@ public class BiomeConfigBOPCoralReef extends BiomeConfigBOPBase {
     public BiomeConfigBOPCoralReef() {
 
         super("coralreef");
+
+        setPropertyValueById(allowVillagesId, false);
     }
 }

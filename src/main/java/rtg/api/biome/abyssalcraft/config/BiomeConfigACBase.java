@@ -7,5 +7,7 @@ public class BiomeConfigACBase extends BiomeConfig {
     public BiomeConfigACBase(String biomeSlug) {
 
         super("abyssalcraft", biomeSlug);
+
+        setPropertyValueById(allowVillagesId, false);
     }
 }

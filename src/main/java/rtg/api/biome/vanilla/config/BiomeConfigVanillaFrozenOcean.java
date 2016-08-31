@@ -16,6 +16,8 @@ public class BiomeConfigVanillaFrozenOcean extends BiomeConfigVanillaBase {
 
         super("frozenocean");
 
+        setPropertyValueById(allowVillagesId, false);
+
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockId, Type.STRING, surfaceMixBlockName, "", ""));
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockMetaId, Type.STRING, surfaceMixBlockMetaName, "", ""));
     }

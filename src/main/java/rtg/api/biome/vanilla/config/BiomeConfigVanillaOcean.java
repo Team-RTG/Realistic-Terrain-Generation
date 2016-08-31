@@ -16,6 +16,8 @@ public class BiomeConfigVanillaOcean extends BiomeConfigVanillaBase {
 
         super("ocean");
 
+        setPropertyValueById(allowVillagesId, false);
+
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockId, Type.STRING, surfaceMixBlockName, "", ""));
         this.addProperty(new BiomeConfigProperty(surfaceMixBlockMetaId, Type.STRING, surfaceMixBlockMetaName, "", ""));
     }

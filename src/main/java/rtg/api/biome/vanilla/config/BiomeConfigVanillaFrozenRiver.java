@@ -6,5 +6,7 @@ public class BiomeConfigVanillaFrozenRiver extends BiomeConfigVanillaBase {
     public BiomeConfigVanillaFrozenRiver() {
 
         super("frozenriver");
+
+        setPropertyValueById(allowVillagesId, false);
     }
 }

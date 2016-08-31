@@ -6,5 +6,7 @@ public class BiomeConfigVanillaMushroomIslandShore extends BiomeConfigVanillaBas
     public BiomeConfigVanillaMushroomIslandShore() {
 
         super("mushroomislandshore");
+
+        setPropertyValueById(allowVillagesId, false);
     }
 }

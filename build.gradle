@@ -34,6 +34,7 @@ minecraft {
     version = (ref.mcf_postfix!='') ? ref.mcf_version + '-' + ref.mcf_postfix : ref.mcf_version
     runDir = ref.run_dir
     mappings = ref.mappings
+    makeObfSourceJar = false
     replace '@MOD_NAME@', ref.mod_name
     replace '@MOD_ID@', ref.mod_id
     replace '@MOD_VERSION@', version

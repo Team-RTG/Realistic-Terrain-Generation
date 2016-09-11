@@ -39,7 +39,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -64,8 +63,6 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final boolean isRTGWorld;
     private final int sampleSize = 8;
     private final int sampleArraySize;
-    private BiomeAnalyzer analyzer = new BiomeAnalyzer();
-    private int [] xyinverted = analyzer.xyinverted();
 
     private Block bedrockBlock = Block.getBlockFromName(ConfigRTG.bedrockBlockId);
     private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
@@ -374,7 +371,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (k = 0; k < abyte1.length; ++k)
         {
             // biomes are y-first and terrain x-first
-            byte b = (byte)BiomeUtils.getId(this.baseBiomesList[this.xyinverted[k]]);
+            byte b = (byte)BiomeUtils.getId(this.baseBiomesList[k]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);

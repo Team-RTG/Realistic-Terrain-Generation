@@ -87,11 +87,12 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (i == k && j == l) {
 
+            int worldX = i * 16 + 8;
+            int worldZ = j * 16 + 8;
+
             if (booRTGWorld && booRTGChunkManager) {
 
                 WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getBiomeProvider();
-                int worldX = k * 16 + 8;
-                int worldZ = l * 16 + 8;
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
 
                 if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
@@ -100,7 +101,7 @@ public class MapGenVillageRTG extends MapGenVillage
             }
             else {
 
-                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
+                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);
             }
         }
 

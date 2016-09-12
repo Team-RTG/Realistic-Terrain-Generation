@@ -61,10 +61,7 @@ public class MapGenVillageRTG extends MapGenVillage
 
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
-        boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
-        boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG;
         boolean canSpawnVillage = false;
-
         int i = chunkX;
         int j = chunkZ;
 
@@ -87,6 +84,9 @@ public class MapGenVillageRTG extends MapGenVillage
         l = l + random.nextInt(this.distance - 8);
 
         if (i == k && j == l) {
+
+            boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
+            boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG;
 
             int worldX = i * 16 + 8;
             int worldZ = j * 16 + 8;

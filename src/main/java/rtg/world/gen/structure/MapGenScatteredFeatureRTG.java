@@ -109,7 +109,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             BlockPos pos = new BlockPos(i * 16 + 8, 0, j * 16 + 8);
             Biome biome = this.worldObj.getBiomeProvider().getBiome(pos);
 
-            if (biome == null) {
+            if (null == biome) {
+                Logger.error("MapGenScatteredFeatureRTG#canSpawnStructureAtCoords received a null biome at %d %d.", pos.getX(), pos.getZ());
                 return false;
             }
 
@@ -179,6 +180,11 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         public Start(World worldIn, Random random, int chunkX, int chunkZ, Biome biomeIn)
         {
             super(chunkX, chunkZ);
+
+            if (null == biomeIn) {
+                Logger.error("MapGenScatteredFeatureRTG.Start received a null biome at %d %d.", chunkX * 16 + 8, chunkZ * 16 + 8);
+                return;
+            }
 
             LinkedList arrComponents = new LinkedList();
 

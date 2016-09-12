@@ -18,6 +18,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -93,7 +94,10 @@ public class MapGenVillageRTG extends MapGenVillage
             if (booRTGWorld && booRTGChunkManager) {
 
                 WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getBiomeProvider();
-                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
+
+                //Why are we flipping XZ here? No idea, but it works. - Pink
+                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldZ, worldX);
+                Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
 
                 if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
                     canSpawnVillage = true;

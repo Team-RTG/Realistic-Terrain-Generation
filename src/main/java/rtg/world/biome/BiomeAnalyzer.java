@@ -22,7 +22,6 @@ public class BiomeAnalyzer {
     private int [] preferredBeach;
     private int [] searchPattern;
     private RealisticBiomeBase [] savedJittered = new RealisticBiomeBase[256];
-    private int [] xyinverted = xyinverted();
 
     // beach fixing
     float beachTop = 64.5f;
@@ -214,16 +213,16 @@ public class BiomeAnalyzer {
             //if (savedJittered[i]== null) throw new RuntimeException();
             if (noise[i]>61.5) {
                 // replace
-                jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
+                jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[i]);
             } else {
                 // check for river
-                if (canBeRiver&&!oceanBiome[genLayerBiomes[xyinverted[i]]]&&!swampBiome[genLayerBiomes[xyinverted[i]]]) {
+                if (canBeRiver&&!oceanBiome[genLayerBiomes[i]]&&!swampBiome[genLayerBiomes[i]]) {
                     // make river
-                    int riverBiomeID = BiomeUtils.getId(RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]).riverBiome);
+                    int riverBiomeID = BiomeUtils.getId(RealisticBiomeBase.getBiome(genLayerBiomes[i]).riverBiome);
                     jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);
                 } else {
                     // replace
-                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[xyinverted[i]]);
+                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(genLayerBiomes[i]);
                 }
             }
 
@@ -310,18 +309,6 @@ public class BiomeAnalyzer {
         //if (searchPattern.length != 256) throw new RuntimeException();
     }
 
-    public int[] xyinverted() {
-        int [] result = new int [256];
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j<16;j++) {
-                result[i*16+j]= j*16+i;
-            }
-        }
-        for (int i = 0; i<256;i++) {
-            if (result[result[i]]!=i) throw new RuntimeException(""+i + "" + result[i]+ " "+ result[result[i]]);
-        }
-        return result;
-    }
     private class SearchStatus {
         boolean absent = false;
         boolean notHunted = true;

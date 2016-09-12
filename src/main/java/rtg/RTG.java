@@ -79,6 +79,10 @@ public class RTG {
         ConfigManager.init(configPath);
 
         this.registerStructures();
+    }
+
+    @EventHandler
+    public void fmlLifeCycleEvent(FMLInitializationEvent event) {
 
         eventMgr = new EventManagerRTG();
         eventMgr.registerEventHandlers();
@@ -88,9 +92,6 @@ public class RTG {
             MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
         }
     }
-
-    @EventHandler
-    public void fmlLifeCycleEvent(FMLInitializationEvent event) {}
 
     @EventHandler
     public void fmlLifeCycle(FMLPostInitializationEvent event) {

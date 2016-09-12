@@ -18,6 +18,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
+import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -60,10 +61,7 @@ public class MapGenVillageRTG extends MapGenVillage
 
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
-        boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
-        boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG;
         boolean canSpawnVillage = false;
-
         int i = chunkX;
         int j = chunkZ;
 
@@ -87,20 +85,27 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (i == k && j == l) {
 
+            boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
+            boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG;
+
+            int worldX = i * 16 + 8;
+            int worldZ = j * 16 + 8;
+
             if (booRTGWorld && booRTGChunkManager) {
 
                 WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getBiomeProvider();
-                int worldX = k * 16 + 8;
-                int worldZ = l * 16 + 8;
-                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
+
+                //Why are we flipping XZ here? No idea, but it works. - Pink
+                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldZ, worldX);
 
                 if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
                     canSpawnVillage = true;
+                    Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
                 }
             }
             else {
 
-                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(i * 16 + 8, j * 16 + 8, 0, VILLAGE_SPAWN_BIOMES);
+                canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);
             }
         }
 

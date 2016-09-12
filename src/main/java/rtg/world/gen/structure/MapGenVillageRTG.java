@@ -97,10 +97,10 @@ public class MapGenVillageRTG extends MapGenVillage
 
                 //Why are we flipping XZ here? No idea, but it works. - Pink
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldZ, worldX);
-                Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
 
                 if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
                     canSpawnVillage = true;
+                    Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
                 }
             }
             else {

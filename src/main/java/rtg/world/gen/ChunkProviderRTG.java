@@ -704,6 +704,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         int worldZ = chunkZ * 16;
         TimeTracker.manager.start(biomeLayoutActivity);
 
+        //Flippy McFlipperson.
         RealisticBiomeBase biome = cmr.getBiomeDataAt(worldZ + 16, worldX + 16);
         //Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
 

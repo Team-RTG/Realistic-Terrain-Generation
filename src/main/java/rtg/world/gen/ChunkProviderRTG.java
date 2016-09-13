@@ -34,6 +34,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
+import static rtg.world.gen.LandscapeGenerator.biomeLayoutActivity;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
@@ -45,7 +46,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
-@SuppressWarnings({"WeakerAccess", "ForLoopReplaceableByForEach", "UnusedParameters", "deprecation"})
+@SuppressWarnings({"UnusedParameters", "deprecation"})
 public class ChunkProviderRTG implements IChunkGenerator
 {
     /**
@@ -69,7 +70,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private Random rand;
     private Random mapRand;
     private World worldObj;
-    protected RTGBiomeProvider cmr;
+    private RTGBiomeProvider cmr;
     private final LandscapeGenerator landscapeGenerator;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
@@ -102,7 +103,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     };
 
     private Compass compass = new Compass();
-    ArrayList<Direction> directions = compass.directions();
+    private ArrayList<Direction> directions = compass.directions();
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -216,7 +217,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             // so we'll unload any loaded entities
             if (available != null) {
                 ClassInheritanceMultiMap<Entity>[] entityLists = available.getEntityLists();
-                for (int i = 0; i< entityLists.length; i++) {
+                for (ClassInheritanceMultiMap<Entity> entityList : entityLists) {
                     /*
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
@@ -225,7 +226,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                         iterator.remove();
                     }
                     */
-                    worldObj.unloadEntities(entityLists[i]);
+                    worldObj.unloadEntities(entityList);
                 }
                 toCheck.add(chunkLocation);
                 return available;
@@ -372,7 +373,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         return chunk;
     }
 
-    public void decorateIfOtherwiseSurrounded(IChunkProvider world, PlaneLocation source, Direction fromNewChunk) {
+    private void decorateIfOtherwiseSurrounded(IChunkProvider world, PlaneLocation source, Direction fromNewChunk) {
 
         // check if this is the master provider
         if (WorldTypeRTG.chunkProvider != this) return;
@@ -397,7 +398,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         //this.doPopulate(world, cx, cy);
     }
 
-    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
+    private void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
     {
         int h;
         for(int i = 0; i < 16; i++)
@@ -432,9 +433,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         return (biomeMapCoordinate - sampleSize)*8;
         }
 
-    public static String biomeLayoutActivity = "Biome Layout";
-
-    public void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[] biomes, Biome[] base, float[] n)
+    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[] biomes, Biome[] base, float[] n)
     {
         ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, this.worldObj);
         MinecraftForge.EVENT_BUS.post(event);
@@ -639,7 +638,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
-        TimeTracker.manager.start(biomeLayoutActivity);
+        TimeTracker.manager.start("Biome Layout");
 
         //Flippy McFlipperson.
         RealisticBiomeBase biome = cmr.getBiomeDataAt(worldZ + 16, worldX + 16);
@@ -892,7 +891,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
 
 
-    public boolean neighborsDone(int cx, int cz) {
+    private boolean neighborsDone(int cx, int cz) {
         return chunkExists(true, cx - 1, cz - 1) &&
                chunkExists(true, cx - 1, cz) &&
                chunkExists(true, cx - 1, cz + 1) &&

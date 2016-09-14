@@ -24,24 +24,21 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.structure.*;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
-import static rtg.world.gen.LandscapeGenerator.biomeLayoutActivity;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.IBiomeProviderRTG;
-import rtg.world.biome.BiomeProviderIRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -49,6 +46,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 @SuppressWarnings({"UnusedParameters", "deprecation"})
 public class ChunkProviderRTG implements IChunkGenerator
 {
+    private static ChunkProviderRTG populatingProvider;
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -56,95 +54,88 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     private final StructureOceanMonument oceanMonumentGenerator;
-    private boolean mapFeaturesEnabled;
     private final int sampleSize = 8;
     private final int sampleArraySize;
-
+    private final LandscapeGenerator landscapeGenerator;
+    private final LimitedMap<ChunkPos, Chunk> availableChunks;
+    private final HashSet<ChunkPos> toDecorate = new HashSet<>();
+    private boolean mapFeaturesEnabled;
     private Block bedrockBlock = Block.getBlockFromName(ConfigRTG.bedrockBlockId);
     private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
-
     private Random rand;
     private Random mapRand;
     private World worldObj;
     private IBiomeProviderRTG cmr;
-    private final LandscapeGenerator landscapeGenerator;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
-	//private RealisticBiomeBase[] biomesForGeneration;
     private Biome[] baseBiomesList;
     private boolean[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
-    private HashMap<ChunkPos,Chunk> inGeneration = new HashMap<>();
+    private HashMap<ChunkPos, Chunk> inGeneration = new HashMap<>();
     private HashSet<ChunkPos> toCheck = new HashSet<>();
-
-    // we have to store this callback because it's a WeakReference in the event manager
-    public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
-
-        @Override
-        public void accept(ChunkEvent.Load event) {
-            if (event.isCanceled()) return;
-            int cx = event.getChunk().xPosition;
-            int cz = event.getChunk().zPosition;
-            ChunkPos pos = new ChunkPos(cx, cz);
-            if (!toCheck.contains(pos)) return;
-            toCheck.remove(pos);
-            for (Direction forPopulation: directions) {
-                decorateIfOtherwiseSurrounded(worldObj.getChunkProvider(), pos, forPopulation);
-            }
-            //clearDecorations(0);
-        }
-
-    };
-
     private Compass compass = new Compass();
     private ArrayList<Direction> directions = compass.directions();
 
-    public ChunkProviderRTG(World world, long l)
-    {
+    //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
+    private TimedHashSet<ChunkPos> chunkMade = new TimedHashSet<>(5 * 1000);
+    private boolean populating = false;
+    private LimitedSet<ChunkPos> alreadyDecorated = new LimitedSet<>(1000);
+    private AnvilChunkLoader chunkLoader;
+
+    // we have to store this callback because it's a WeakReference in the event manager
+    public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
+        @Override
+        public void accept(ChunkEvent.Load event) {
+            if (event.isCanceled()) return;
+            ChunkPos pos = event.getChunk().getChunkCoordIntPair();
+
+            if (!toCheck.contains(pos)) return;
+            toCheck.remove(pos);
+            for (Direction forPopulation : directions) {
+                decorateIfOtherwiseSurrounded(event.getWorld().getChunkProvider(), pos, forPopulation);
+            }
+            //clearDecorations(0);
+        }
+    };
+
+    public ChunkProviderRTG(World world, long l) {
         worldObj = world;
-        cmr = (BiomeProviderIRTG) worldObj.getBiomeProvider();
+        cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
         cell = new SimplexCellularNoise(l);
-
-        landscapeGenerator = new LandscapeGenerator(simplex,cell);
-
+        landscapeGenerator = new LandscapeGenerator(simplex, cell);
         mapRand = new Random(l);
         worldSeed = l;
-
         Map<String, String> m = new HashMap<>();
         m.put("size", "0");
         m.put("distance", "24");
-
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
         boolean isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
 
         if (isRTGWorld && ConfigRTG.enableCaveModifications) {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), CAVE);
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
         else {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), CAVE);
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
         if (isRTGWorld && ConfigRTG.enableRavineModifications) {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), RAVINE);
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
         else {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), RAVINE);
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
-        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), VILLAGE);
-        strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), STRONGHOLD);
-        mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), MINESHAFT);
-        scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), SCATTERED_FEATURE);
-        oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), OCEAN_MONUMENT);
-
+        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
+        strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
+        mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), EventType.MINESHAFT);
+        scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
+        oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
         CanyonColour.init(l);
-
         sampleArraySize = sampleSize * 2 + 5;
-
         baseBiomesList = new Biome[256];
         biomesGeneratedInChunk = new boolean[256];
         borderNoise = new float[256];
@@ -161,47 +152,39 @@ public class ChunkProviderRTG implements IChunkGenerator
     private void setWeightings() {
         float[][] weightings = new float[sampleArraySize * sampleArraySize][256];
         for (int i = 0; i < 16; i++) {
-            for (int j=0; j<16; j++) {
+            for (int j = 0; j < 16; j++) {
                 TimeTracker.manager.start("Weighting");
-                float limit = (float)Math.pow((56f*56f),.7);
+                float limit = (float) Math.pow((56f * 56f), .7);
                 // float limit = 56f;
 
-                for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
-                    for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
+                for (int mapX = 0; mapX < sampleArraySize; mapX++) {
+                    for (int mapZ = 0; mapZ < sampleArraySize; mapZ++) {
                         float xDist = (i - chunkCoordinate(mapX));
                         float yDist = (j - chunkCoordinate(mapZ));
-                        float distanceSquared = xDist*xDist + yDist*yDist;
+                        float distanceSquared = xDist * xDist + yDist * yDist;
                         //float distance = (float)Math.sqrt(distanceSquared);
-                        float distance = (float)Math.pow(distanceSquared,.7);
-                        float weight = 1f - distance/limit;
-                        if (weight <0) weight = 0;
-                        weightings[mapX*sampleArraySize + mapZ][i * 16 + j] = weight;
+                        float distance = (float) Math.pow(distanceSquared, .7);
+                        float weight = 1f - distance / limit;
+                        if (weight < 0) weight = 0;
+                        weightings[mapX * sampleArraySize + mapZ][i * 16 + j] = weight;
                     }
                 }
             }
         }
     }
+
+    private int chunkCoordinate(int biomeMapCoordinate) {
+        return (biomeMapCoordinate - sampleSize) * 8;
+    }
+
     public void isFakeGenerator() {
         this.mapFeaturesEnabled = false;
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
-     * specified chunk from the map seed and chunk seed
-     */
-    //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
-    private TimedHashSet<ChunkPos> chunkMade  = new TimedHashSet<>(5 * 1000);
-    private final LimitedMap<ChunkPos,Chunk> availableChunks;
-
     @Nonnull
-    public Chunk provideChunk(final int cx, final int cz)
-    {
+    public Chunk provideChunk(final int cx, final int cz) {
         final ChunkPos pos = new ChunkPos(cx, cz);
-        if (inGeneration.containsKey(pos)) {
-            return inGeneration.get(pos);
-        }
+        if (inGeneration.containsKey(pos)) return inGeneration.get(pos);
         //if (availableChunks.size() > 1000) throw new RuntimeException();
         if (chunkMade.contains(pos)) {
             Chunk available;
@@ -214,14 +197,14 @@ public class ChunkProviderRTG implements IChunkGenerator
             if (available != null) {
                 ClassInheritanceMultiMap<Entity>[] entityLists = available.getEntityLists();
                 for (ClassInheritanceMultiMap<Entity> entityList : entityLists) {
-                    /*
+                /*
                     Iterator iterator = entityLists[i].iterator();
                     while (iterator.hasNext()) {
 
                         iterator.next();
                         iterator.remove();
                     }
-                    */
+                */
                     worldObj.unloadEntities(entityList);
                 }
                 toCheck.add(pos);
@@ -233,31 +216,30 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         String rtgTerrain = "RTG Terrain";
         TimeTracker.manager.start(rtgTerrain);
-    	rand.setSeed((long)cx * 0x4f9939f508L + (long)cz * 0x1ef1565bd5L);
+        rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         int k;
 
-        ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx *16, cz*16);
+        ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx * 16, cz * 16);
 
         generateTerrain(cmr, cx, cz, primer, landscape.biome, landscape.noise);
         // that routine can change the blocks.
         //get standard biome Data
 
         for (int ci = 0; ci < 256; ci++) {
-            biomesGeneratedInChunk[BiomeUtils.getId(landscape.biome[ci].baseBiome)] = true;
+            biomesGeneratedInChunk[Biome.getIdForBiome(landscape.biome[ci].baseBiome)] = true;
         }
 
-        for(k = 0; k < 256; k++)
-        {
-            if(biomesGeneratedInChunk[k] )
-            {
+        for (k = 0; k < 256; k++) {
+            if (biomesGeneratedInChunk[k]) {
                 RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
                 biomesGeneratedInChunk[k] = false;
             }
             try {
                 baseBiomesList[k] = landscape.biome[k].baseBiome;
-            } catch (Exception e) {
-                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome(""+BiomeUtils.getId(landscape.biome[k].baseBiome));
+            }
+            catch (Exception e) {
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome));
             }
         }
 
@@ -346,10 +328,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         // doJitter no longer needed as the biome array gets fixed
         byte[] abyte1 = chunk.getBiomeArray();
 
-        for (k = 0; k < abyte1.length; ++k)
-        {
+        for (k = 0; k < abyte1.length; ++k) {
             // biomes are y-first and terrain x-first
-            byte b = (byte)BiomeUtils.getId(this.baseBiomesList[k]);
+            byte b = (byte) Biome.getIdForBiome(this.baseBiomesList[k]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
@@ -364,57 +345,29 @@ public class ChunkProviderRTG implements IChunkGenerator
         /*if (!chunkMade.contains(pos)||!everGenerated.contains(pos)) {
             throw new RuntimeException(pos.toString() +  chunkMade.size());
         }*/
-        availableChunks.put(pos,chunk);
+        availableChunks.put(pos, chunk);
         TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
 
-    private void decorateIfOtherwiseSurrounded(IChunkProvider world, ChunkPos pos, Direction fromNewChunk) {
+    private void generateTerrain(IBiomeProviderRTG cmr, int cx, int cz, ChunkPrimer primer,
+                                 RealisticBiomeBase biomes[], float[] noise) {
 
-        // check if this is the master provider
-        if (WorldTypeRTG.chunkProvider != this) return;
-
-        // see if otherwise surrounded besides the new chunk
-        ChunkPos probe = new ChunkPos(pos.chunkXPos + fromNewChunk.xOffset, pos.chunkZPos + fromNewChunk.zOffset);
-
-        // check to see if already decorated; shouldn't be but just in case
-        if (this.alreadyDecorated.contains(probe)) return;
-        // if an in-process chunk; we'll get a populate call later;
-        // if (this.inGeneration.containsKey(probe)) return;
-
-        for (Direction checked: directions) {
-            if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
-            if (!chunkExists(true,probe.chunkXPos+checked.xOffset, probe.chunkZPos+checked.zOffset)) return;// that one's missing
-        }
-        // passed all checks
-        addToDecorationList(probe);
-        //this.doPopulate(probe.chunkXPos, probe.chunkZPos);
-    }
-
-    private void generateTerrain(IBiomeProviderRTG cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
-    {
         int h;
-        for(int i = 0; i < 16; i++)
-        {
-            for(int j = 0; j < 16; j++)
-            {
-                h = (int)noise[j * 16 + i];
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                h = (int) noise[i * 16 + j];
 
-                for(int k = 0; k < 256; k++)
-                {
-                    if(k > h)
-                    {
-                        if(k < 63)
-                        {
+                for (int k = 0; k < 256; k++) {
+                    if (k > h) {
+                        if (k < 63) {
                             primer.setBlockState(i, k, j, Blocks.WATER.getDefaultState());
                         }
-                        else
-                        {
+                        else {
                             primer.setBlockState(i, k, j, Blocks.AIR.getDefaultState());
                         }
                     }
-                    else
-                    {
+                    else {
                         primer.setBlockState(i, k, j, Blocks.STONE.getDefaultState());
                     }
                 }
@@ -422,13 +375,11 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    private int chunkCoordinate(int biomeMapCoordinate) {
-        return (biomeMapCoordinate - sampleSize)*8;
-        }
+    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[]
+        biomes, Biome[] base, float[] n) {
 
-    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[] biomes, Biome[] base, float[] n)
-    {
-        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, this.worldObj);
+        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(
+            this, cx, cz, primer, this.worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Event.Result.DENY) return;
 
@@ -436,10 +387,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         float river;
         RealisticBiomeBase biome;
 
-    	for(i = 0; i < 16; i++)
-    	{
-    		for(j = 0; j < 16; j++)
-    		{
+        for (i = 0; i < 16; i++) {
+            for (j = 0; j < 16; j++) {
+
                 /*
                  * Some of the 'i' and 'j' parameters have been flipped when passing them.
                  * Prior to flipping, the surface was being XZ-chunk-flipped. - WhichOnesPink
@@ -451,7 +401,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
 
                 int rough;
-    			int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
+                int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
                 flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
 
                 if (flatBedrockLayers > 0) {
@@ -479,44 +429,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Loads or generates the chunk at the chunk location specified.
-     */
-    @SuppressWarnings("unused")
-	public Chunk loadChunk(int par1, int par2)
-    {
-        throw new RuntimeException();
-//        return provideChunk(par1, par2);
-    }
-
-    private boolean chunkExists(boolean checkNeighbours, int cx, int cz) {
-        //if (chunkExists(cx,cz)) return true;
-        ChunkPos location = new ChunkPos(cx,cz);
-        if (inGeneration.containsKey(location)) return true;
-        if (toCheck.contains(location)) return true;
-        if (this.chunkMade.contains(location)) return true;
-        //if  (world.chunkExists(cx, cz)) return true;
-        if (chunkLoader().chunkExists(worldObj, cx, cz)) return true;
-        //if (this.everGenerated.contains(location)) throw new RuntimeException("somehow lost "+location.toString());
-        return false;
-    }
-
-//    /**
-//     * @see IChunkProvider
-//     *
-//     * Checks to see if a chunk exists at x, y
-//     */
-/*
-    public boolean chunkExists(int par1, int par2)
-    {
-        probe2.setX(par1);
-        probe2.setZ(par2);
-        return this.inGeneration.containsKey(probe2);
-    }
-*/
-
     @Override
     public void populate(int x, int z) {
         // check if this is the master provider
@@ -527,82 +439,16 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
         clearDecorations(0);
     }
-    
-    public Runnable clearOnServerClose() {
-        return this::clearToDecorateList;
+
+    private boolean neighborsDone(int cx, int cz) {
+        return chunkExists(true, cx - 1, cz - 1) && chunkExists(true, cx - 1, cz) && chunkExists(true, cx - 1, cz + 1) && chunkExists(true, cx, cz - 1) && chunkExists(true, cx, cz + 1) && chunkExists(true, cx + 1, cz - 1) && chunkExists(true, cx + 1, cz) && chunkExists(true, cx + 1, cz + 1);
     }
 
-    private void clearToDecorateList() {
-        if (WorldTypeRTG.chunkProvider != this) return;
-        if (populating) return;// in process, do later;
-        // we have to make a copy of the set to work on or we'll get errors
-        Set<ChunkPos> toProcess = doableLocations(0);
-        while (toProcess.size() >0) {
-            toProcess.forEach(this::removeFromDecorationList);
-            for (ChunkPos location: toProcess) {
-                doPopulate(location.chunkXPos,location.chunkZPos);
-            }
-            // and loop because the decorating might have created other chunks to decorate;
-            toProcess = doableLocations(0);
-        }
-    }
-
-    private void clearDecorations(int limit) {
-        if (WorldTypeRTG.chunkProvider != this) return;
-        Set<ChunkPos> toProcess = doableLocations(limit);
-        toProcess.forEach(this::removeFromDecorationList);
-        for (ChunkPos location: toProcess) {
-            doPopulate(location.chunkXPos,location.chunkZPos);
-        }
-    }
-
-    private Set<ChunkPos> doableLocations(int limit) {
-        HashSet<ChunkPos> toProcess = new HashSet<>();
-        int found = 0;
-        synchronized(toDecorate) {
-            for (ChunkPos pos: toDecorate) {
-/*
-                Chunk existing;
-                existing = availableChunks.get(pos);
-                if (existing != null) {
-                    if (!existing.isTerrainPopulated()) {
-                        //continue; // not populated so let more "normal" systems handle it
-                    }
-                }
-*/
-                if (inGeneration.containsKey(pos)) continue;
-                toProcess.add(pos);
-                if (++found == limit) return toProcess;
-            }
-        }
-        return toProcess;
-    }
-
-    private boolean populating = false;
-    private static ChunkProviderRTG populatingProvider;
-
-    private final HashSet<ChunkPos> toDecorate = new HashSet<>();
-    private LimitedSet<ChunkPos> alreadyDecorated  = new LimitedSet<>(1000);
-    //private HashSet<PlaneLocation> everDecorated  = new HashSet<PlaneLocation>();
-
-    private void addToDecorationList(ChunkPos toAdd) {
-        synchronized(toDecorate) {
-            toDecorate.add(toAdd);
-        }
-    }
-
-    private void removeFromDecorationList(ChunkPos toAdd) {
-        synchronized(toDecorate) {
-            toDecorate.remove(toAdd);
-        }
-    }
-
-    private void doPopulate(int chunkX, int chunkZ)
-    {
+    private void doPopulate(int chunkX, int chunkZ) {
         // don't populate if already done
 
         ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
-        Logger.debug("trying to decorate: "+chunkPos.toString());
+        Logger.debug("trying to decorate: " + chunkPos.toString());
         if (alreadyDecorated.contains(chunkPos)) return;
 
         if (populating) {
@@ -632,14 +478,14 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start("Biome Layout");
 
         //Flippy McFlipperson.
-        RealisticBiomeBase biome = cmr.getBiomeDataAt(worldZ + 16, worldX + 16);
+        RealisticBiomeBase biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
         Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
 
-        TimeTracker.manager.stop(biomeLayoutActivity);
+        TimeTracker.manager.stop("Biome Layout");
         this.rand.setSeed(this.worldObj.getSeed());
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
-        this.rand.setSeed((long)chunkX * i1 + (long)chunkZ * j1 ^ this.worldObj.getSeed());
+        this.rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ this.worldObj.getSeed());
         boolean hasPlacedVillageBlocks = false;
         BlockPos worldCoords = new BlockPos(worldX, 0, worldZ);
 
@@ -740,15 +586,14 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         final int adjust = 24;// seems off? but decorations aren't matching their chunks.
 
-        TimeTracker.manager.start(biomeLayoutActivity);
+        TimeTracker.manager.start("Biome Layout");
         for (int bx = -4; bx <= 4; bx++) {
 
-        	for(int bz = -4; bz <= 4; bz++)
-        	{
-        		borderNoise[landscapeGenerator.getBiomeDataAt(cmr,worldX + adjust + bx * 4, worldZ + adjust  + bz * 4)] += 0.01234569f;
+            for (int bz = -4; bz <= 4; bz++) {
+                borderNoise[landscapeGenerator.getBiomeDataAt(cmr, worldX + adjust + bx * 4, worldZ + adjust + bz * 4)] += 0.01234569f;
             }
         }
-        TimeTracker.manager.stop(biomeLayoutActivity);
+        TimeTracker.manager.stop("Biome Layout");
         TimeTracker.manager.stop("Features");
 
         /*
@@ -766,21 +611,16 @@ public class ChunkProviderRTG implements IChunkGenerator
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
 
-        for(int bn = 0; bn < 256; bn++)
-        {
-        	if(borderNoise[bn] > 0f)
-        	{
-        		if(borderNoise[bn] >= 1f)
-        		{
-                    borderNoise[bn] = 1f;
-                }
+        for (int bn = 0; bn < 256; bn++) {
+            if (borderNoise[bn] > 0f) {
+                if (borderNoise[bn] >= 1f) borderNoise[bn] = 1f;
 
                 realisticBiome = RealisticBiomeBase.getBiome(bn);
 
                 // Do we need to patch the biome?
-                if (realisticBiome == null)
-                {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome("NULL biome (" + bn + ") found when generating border noise.");
+                if (realisticBiome == null) {
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                        "NULL biome (" + bn + ") found when generating border noise.");
                 }
 
                 /*
@@ -804,10 +644,10 @@ public class ChunkProviderRTG implements IChunkGenerator
                         realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
-/*
+            /*
                 if(realisticBiome.baseBiome.getTemperature() < 0.15f) {}
                 else {}
-*/
+            */
                 borderNoise[bn] = 0f;
             }
         }
@@ -833,25 +673,20 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.stop("Entities");
 
         TimeTracker.manager.start("Ice");
-        if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE))
-        {
+        if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
             // Not sure why we're modifying the worldCoords here, but this is how it's done in ChunkProviderOverworld. - Pink
             worldCoords = worldCoords.add(8, 0, 8);
 
-            for (int k2 = 0; k2 < 16; ++k2)
-            {
-                for (int j3 = 0; j3 < 16; ++j3)
-                {
+            for (int k2 = 0; k2 < 16; ++k2) {
+                for (int j3 = 0; j3 < 16; ++j3) {
                     BlockPos blockpos1 = this.worldObj.getPrecipitationHeight(worldCoords.add(k2, 0, j3));
                     BlockPos blockpos2 = blockpos1.down();
 
-                    if (this.worldObj.canBlockFreezeWater(blockpos2))
-                    {
+                    if (this.worldObj.canBlockFreezeWater(blockpos2)) {
                         this.worldObj.setBlockState(blockpos2, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(blockpos1, true))
-                    {
+                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(blockpos1, true)) {
                         this.worldObj.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }
@@ -867,79 +702,75 @@ public class ChunkProviderRTG implements IChunkGenerator
         populatingProvider = null;
     }
 
-
-
-    private boolean neighborsDone(int cx, int cz) {
-        return chunkExists(true, cx - 1, cz - 1) &&
-               chunkExists(true, cx - 1, cz) &&
-               chunkExists(true, cx - 1, cz + 1) &&
-               chunkExists(true, cx, cz - 1) &&
-               chunkExists(true, cx, cz + 1) &&
-               chunkExists(true, cx + 1, cz - 1) &&
-               chunkExists(true, cx + 1, cz) &&
-               chunkExists(true, cx + 1, cz + 1);
+    private void clearDecorations(int limit) {
+        if (WorldTypeRTG.chunkProvider != this) return;
+        Set<ChunkPos> toProcess = doableLocations(limit);
+        toProcess.forEach(this::removeFromDecorationList);
+        for (ChunkPos location : toProcess) {
+            doPopulate(location.chunkXPos, location.chunkZPos);
+        }
     }
 
-    /**
-     * @see IChunkGenerator
-     *
-     * Returns a list of creatures of the specified type that can spawn at the given location.
-     */
-    @Override @Nonnull
-    public List<Biome.SpawnListEntry> getPossibleCreatures(@Nonnull EnumCreatureType creatureType, @Nonnull BlockPos pos)
-    {
+    private Set<ChunkPos> doableLocations(int limit) {
+        HashSet<ChunkPos> toProcess = new HashSet<>();
+        int found = 0;
+        synchronized (toDecorate) {
+            for (ChunkPos pos : toDecorate) {
+            /*
+                Chunk existing;
+                existing = availableChunks.get(pos);
+                if (existing != null) {
+                    if (!existing.isTerrainPopulated()) {
+                        //continue; // not populated so let more "normal" systems handle it
+                    }
+                }
+            */
+                if (inGeneration.containsKey(pos)) continue;
+                toProcess.add(pos);
+                if (++found == limit) return toProcess;
+            }
+        }
+        return toProcess;
+    }
+
+    @Override
+    public boolean generateStructures(@Nonnull Chunk chunkIn, int x, int z) {
+        boolean flag = false;
+
+        if (ConfigRTG.generateOceanMonuments && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
+            flag = this.oceanMonumentGenerator.generateStructure(this.worldObj, this.rand, new ChunkPos(x, z));
+        }
+        return flag;
+    }
+
+    @Override
+    @Nonnull
+    public List<Biome.SpawnListEntry> getPossibleCreatures(@Nonnull EnumCreatureType creatureType, @Nonnull BlockPos pos) {
         Biome biome = this.worldObj.getBiome(pos);
 
-        if (this.mapFeaturesEnabled)
-        {
-            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos))
-            {
+        if (this.mapFeaturesEnabled) {
+            if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 
-            if (creatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos))
-            {
+            if (creatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
                 return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
         }
-
         return biome.getSpawnableList(creatureType);
     }
 
-    /**
-     * @see IChunkProvider
-     */
     @Override
     public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
 
-        if (!ConfigRTG.generateStrongholds) {
-            return null;
-        }
-
+        if (!ConfigRTG.generateStrongholds) return null;
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
     }
 
     @Override
-    public boolean generateStructures(@Nonnull Chunk chunkIn, int x, int z)
-    {
-        boolean flag = false;
-
-        if (ConfigRTG.generateOceanMonuments && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L)
-        {
-            flag = this.oceanMonumentGenerator.generateStructure(this.worldObj, this.rand, new ChunkPos(x, z));
-        }
-
-        return flag;
-    }
-
-    /**
-     * @see IChunkProvider
-     */
-    @Override
     public void recreateStructures(@Nonnull Chunk chunk, int par1, int par2) {
 
         if (mapFeaturesEnabled) {
-
             if (ConfigRTG.generateMineshafts) {
                 try {
                     mineshaftGenerator.generate(worldObj, par1, par2, new ChunkPrimer());
@@ -1012,14 +843,86 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
+    private void decorateIfOtherwiseSurrounded(IChunkProvider world, ChunkPos pos, Direction fromNewChunk) {
 
-    private AnvilChunkLoader chunkLoader;
+        // check if this is the master provider
+        if (WorldTypeRTG.chunkProvider != this) return;
+
+        // see if otherwise surrounded besides the new chunk
+        ChunkPos probe = new ChunkPos(pos.chunkXPos + fromNewChunk.xOffset, pos.chunkZPos + fromNewChunk.zOffset);
+
+        // check to see if already decorated; shouldn't be but just in case
+        if (this.alreadyDecorated.contains(probe)) return;
+        // if an in-process chunk; we'll get a populate call later;
+        // if (this.inGeneration.containsKey(probe)) return;
+
+        for (Direction checked : directions) {
+            if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
+            if (!chunkExists(true, probe.chunkXPos + checked.xOffset, probe.chunkZPos + checked.zOffset)) return;// that one's missing
+        }
+        // passed all checks
+        addToDecorationList(probe);
+        //this.doPopulate(probe.chunkXPos, probe.chunkZPos);
+    }
+
+    private boolean chunkExists(boolean checkNeighbours, int cx, int cz) {
+        //if (chunkExists(cx,cz)) return true;
+        ChunkPos location = new ChunkPos(cx, cz);
+        if (inGeneration.containsKey(location)) return true;
+        if (toCheck.contains(location)) return true;
+        if (this.chunkMade.contains(location)) return true;
+        //if  (world.chunkExists(cx, cz)) return true;
+        if (chunkLoader().chunkExists(worldObj, cx, cz)) return true;
+        //if (this.everGenerated.contains(location)) throw new RuntimeException("somehow lost "+location.toString());
+        return false;
+    }
+
+    private void addToDecorationList(ChunkPos toAdd) {
+        synchronized (toDecorate) {
+            toDecorate.add(toAdd);
+        }
+    }
+
     private AnvilChunkLoader chunkLoader() {
         if (chunkLoader == null) {
-            ChunkProviderServer server = (ChunkProviderServer)(worldObj.getChunkProvider());
-            chunkLoader = (AnvilChunkLoader)(server.chunkLoader);
+            ChunkProviderServer server = (ChunkProviderServer) (worldObj.getChunkProvider());
+            chunkLoader = (AnvilChunkLoader) (server.chunkLoader);
         }
         return chunkLoader;
     }
 
+    /**
+     * @see IChunkProvider
+     * Loads or generates the chunk at the chunk location specified.
+     */
+    @SuppressWarnings("unused")
+    public Chunk loadChunk(int par1, int par2) {
+        throw new RuntimeException();
+//      return provideChunk(par1, par2);
+    }
+
+    public Runnable clearOnServerClose() {
+        return this::clearToDecorateList;
+    }
+
+    private void clearToDecorateList() {
+        if (WorldTypeRTG.chunkProvider != this) return;
+        if (populating) return;// in process, do later;
+        // we have to make a copy of the set to work on or we'll get errors
+        Set<ChunkPos> toProcess = doableLocations(0);
+        while (toProcess.size() > 0) {
+            toProcess.forEach(this::removeFromDecorationList);
+            for (ChunkPos location : toProcess) {
+                doPopulate(location.chunkXPos, location.chunkZPos);
+            }
+            // and loop because the decorating might have created other chunks to decorate;
+            toProcess = doableLocations(0);
+        }
+    }
+
+    private void removeFromDecorationList(ChunkPos toAdd) {
+        synchronized (toDecorate) {
+            toDecorate.remove(toAdd);
+        }
+    }
 }

@@ -9,22 +9,14 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 
 import rtg.RTG;
-import rtg.world.biome.BiomeProviderIRTG;
+import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkProviderRTG;
 
 public class WorldTypeRTG extends WorldType
 {
 
-    private static BiomeProviderIRTG biomeProvider;
+    private static BiomeProviderRTG biomeProvider;
     public static ChunkProviderRTG chunkProvider;
-
-    private static Runnable clearChunkManager() {
-        return () -> biomeProvider = null;
-    }
-
-    private static Runnable clearChunkProvider() {
-        return () -> chunkProvider = null;
-    }
 
     public WorldTypeRTG(String name)
     {
@@ -38,10 +30,9 @@ public class WorldTypeRTG extends WorldType
         {
             if (biomeProvider == null) {
 
-                biomeProvider = new BiomeProviderIRTG(world, this);
-                RTG.instance.runOnNextServerCloseOnly(clearChunkManager());
+                biomeProvider = new BiomeProviderRTG(world, this);
+                RTG.instance.runOnNextServerCloseOnly(clearProvider(biomeProvider));
             }
-
             return biomeProvider;
         }
         else
@@ -56,9 +47,8 @@ public class WorldTypeRTG extends WorldType
         if (world.provider.getDimension() == 0) {
 
             if (chunkProvider == null) {
-
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed());
-                RTG.instance.runOnNextServerCloseOnly(clearChunkProvider());
+                RTG.instance.runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
                 // inform the event manager about the ChunkEvent.Load event
                 RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
@@ -76,15 +66,22 @@ public class WorldTypeRTG extends WorldType
             // no server close because it's not supposed to decorate
             //return chunkProvider;
         }
-        else {
-
-            return new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
-        }
+        else return new ChunkProviderOverworld(
+            world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions
+        );
     }
 
     @Override
     public float getCloudHeight()
     {
         return 256F;
+    }
+
+    private static Runnable clearProvider(Object provider) {
+        if (provider instanceof BiomeProviderRTG)
+            return () -> biomeProvider = null;
+        else if (provider instanceof ChunkProviderRTG)
+            return () -> chunkProvider = null;
+        else return null;
     }
 }

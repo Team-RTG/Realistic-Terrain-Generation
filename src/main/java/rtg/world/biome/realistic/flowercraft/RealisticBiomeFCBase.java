@@ -6,12 +6,13 @@ import net.minecraftforge.fml.common.Loader;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
-import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
+
+@SuppressWarnings("WeakerAccess")
 public class RealisticBiomeFCBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase fcPhantasia;
@@ -28,25 +29,18 @@ public class RealisticBiomeFCBase extends RealisticBiomeBase {
 
         if (Loader.isModLoaded("flowercraftmod")) {
 
-            Biome[] b = BiomeUtils.getRegisteredBiomes();
+            for (Biome biome : Biome.REGISTRY) {
 
-            for (int i = 0; i < 256; i++) {
+                if (biome.getBiomeName().isEmpty()) {
+                    Logger.warn("Biome ID %d has no name.", Biome.getIdForBiome(biome));
+                    continue;
+                }
 
-                if (b[i] != null) {
+                String biomeName = biome.getBiomeName();
+                String biomeClass = biome.getBiomeClass().getName();
 
-                    if (BiomeUtils.getName(b[i]) == null) {
-
-                        Logger.warn("Biome ID %d has no name.", BiomeUtils.getId(b[i]));
-                        continue;
-                    }
-
-                    Biome biome = b[i];
-                    String biomeName = BiomeUtils.getName(biome);
-                    String biomeClass = biome.getBiomeClass().getName();
-
-                    if (biomeName.equals("Phantasia") && biomeClass.equals("flowercraftmod.world.biome.BiomeGenFCPhantasia")) {
-                        fcPhantasia = new RealisticBiomeFCPhantasia(biome, BiomeConfigFC.biomeConfigFCPhantasia);
-                    }
+                if (biomeName.equals("Phantasia") && biomeClass.equals("flowercraftmod.world.biome.BiomeGenFCPhantasia")) {
+                    fcPhantasia = new RealisticBiomeFCPhantasia(biome, BiomeConfigFC.biomeConfigFCPhantasia);
                 }
             }
         }

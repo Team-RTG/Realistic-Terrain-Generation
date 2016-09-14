@@ -13,9 +13,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
 
-public class SurfaceACDarklandsPlains extends SurfaceBase {
+public class SurfaceACDarklandsPlains extends SurfaceACBase {
 
     public SurfaceACDarklandsPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -132,13 +132,13 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(decoShrub);
 
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
-        decoFlowers1.flowers = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}; 
+        decoFlowers1.flowers = new int[]{1, 2, 3, 6, 7, 8}; 
         decoFlowers1.strengthFactor = 2f;
         decoFlowers1.heightType = DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE; 
         this.addDeco(decoFlowers1);
 
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-        decoFlowers2.flowers = new int[]{10, 11, 14, 15};
+        decoFlowers2.flowers = new int[]{11, 12, 13, 14};
         decoFlowers2.strengthFactor = 1f; 
         decoFlowers2.chance = 1;
         decoFlowers2.heightType = DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE; 

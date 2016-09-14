@@ -15,11 +15,13 @@ public class SurfaceACBase extends SurfaceBase {
         super(config, top, fill);
     }
 
+    @Override
     protected IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
 
         return ACBlocks.darkstone.getDefaultState();
     }
 
+    @Override
     protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
         return ACBlocks.darkstone_cobblestone.getDefaultState();

@@ -13,8 +13,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.biome.BiomeDecoratorRTG;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.IBiomeProviderRTG;
+import rtg.world.biome.BiomeProviderIRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
@@ -157,7 +157,7 @@ public class RealisticBiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
-    public void rMapVolcanoes(ChunkPrimer primer, World world, RTGBiomeProvider cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void rMapVolcanoes(ChunkPrimer primer, World world, IBiomeProviderRTG cmr, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         // Have volcanoes been disabled in the global config?
         if (!ConfigRTG.enableVolcanoes) {
@@ -165,7 +165,7 @@ public class RealisticBiomeBase {
         }
 
         // Have volcanoes been disabled in the biome config?
-    	RealisticBiomeBase neighbourBiome = getBiome(BiomeUtils.getId(((WorldChunkManagerRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16)));
+    	RealisticBiomeBase neighbourBiome = getBiome(BiomeUtils.getId(((BiomeProviderIRTG) cmr).getBiomeGenAt(baseX * 16, baseY * 16)));
         if (!neighbourBiome.config._boolean(BiomeConfig.allowVolcanoesId)) {
             return;
         }
@@ -191,7 +191,7 @@ public class RealisticBiomeBase {
         }
     }
 
-    public void generateMapGen(ChunkPrimer primer, Long seed, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void generateMapGen(ChunkPrimer primer, Long seed, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         final int mapGenRadius = 5;
         final int volcanoGenRadius = 15;
@@ -217,7 +217,7 @@ public class RealisticBiomeBase {
         }
     }
 
-    public void rMapGen(ChunkPrimer primer, World world, RTGBiomeProvider cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void rMapGen(ChunkPrimer primer, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, int baseX, int baseY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
     }
 

@@ -24,7 +24,7 @@ import rtg.util.*;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
-public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvider
+public class BiomeProviderIRTG extends BiomeProvider implements IBiomeProviderRTG
 {
     /** A GenLayer containing the indices into Biome.biomeList[] */
     private GenLayer genBiomes;
@@ -39,7 +39,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     private BiomeCache biomeCache;
     private RealisticBiomePatcher biomePatcher;
 
-    protected WorldChunkManagerRTG()
+    protected BiomeProviderIRTG()
     {
 
         this.biomeCache = new BiomeCache(this);
@@ -52,12 +52,12 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
     }
 
-    public WorldChunkManagerRTG(World par1World,WorldType worldType)
+    public BiomeProviderIRTG(World world, WorldType worldType)
     {
 
         this();
-        long seed = par1World.getSeed();
-        if (par1World.provider.getDimension() != 0) throw new RuntimeException();
+        long seed = world.getSeed();
+        if (world.provider.getDimension() != 0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
         cell = new SimplexCellularNoise(seed);
@@ -71,10 +71,10 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     }
 
     /**
-     * @see RTGBiomeProvider
+     * @see IBiomeProviderRTG
      */
     @Override
-    public int[] getBiomesGens(int par1, int par2, int par3, int par4)
+    public int[] getBiomesGens(int x, int z, int par3, int par4)
     {
 
         int[] d = new int[par3 * par4];
@@ -83,7 +83,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
         {
             for (int j = 0; j < par4; j++)
             {
-                d[j * par3  + i] = BiomeUtils.getId(getBiomeGenAt(par1 + i, par2 + j));
+                d[j * par3  + i] = BiomeUtils.getId(getBiomeGenAt(x + i, z + j));
             }
         }
         return d;
@@ -135,7 +135,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     }
 
     /**
-     * @see RTGBiomeProvider
+     * @see IBiomeProviderRTG
      */
     @Override
     public Biome getBiomeGenAt(int par1, int par2) {
@@ -151,7 +151,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     }
 
     /**
-     * @see RTGBiomeProvider
+     * @see IBiomeProviderRTG
      */
     @Override
     public RealisticBiomeBase getBiomeDataAt(int par1, int par2)
@@ -222,7 +222,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     private float smallBendSize = 30;
 
     /**
-     * @see RTGBiomeProvider
+     * @see IBiomeProviderRTG
      */
     @Override
     public float getRiverStrength(int x, int y)
@@ -250,7 +250,7 @@ public class WorldChunkManagerRTG extends BiomeProvider implements RTGBiomeProvi
     }
 
     /**
-     * @see RTGBiomeProvider
+     * @see IBiomeProviderRTG
      */
     @Override
     public boolean isBorderlessAt(int x, int y)

@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.BiomeProviderIRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
@@ -212,7 +212,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof BiomeProviderIRTG)) {
                 return;
             }
 
@@ -231,7 +231,7 @@ public class EventManagerRTG {
                 return;
             }
 
-            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.getWorld().getBiomeProvider();
+            BiomeProviderIRTG cmr = (BiomeProviderIRTG) event.getWorld().getBiomeProvider();
             //Biome bgg = cmr.getBiomeGenAt(x, z);
             Biome bgg = event.getWorld().getBiome(event.getPos());
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(BiomeUtils.getId(bgg));
@@ -365,7 +365,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof BiomeProviderIRTG)) {
                 return;
             }
 

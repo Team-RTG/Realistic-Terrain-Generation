@@ -28,7 +28,7 @@ import com.google.common.collect.Sets;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.BiomeProviderIRTG;
 
 public class StructureOceanMonumentRTG extends StructureOceanMonument
 {
@@ -124,7 +124,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         }
 
         // Do we have RTG's chunk manager?
-        if (!(this.worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG)) {
+        if (!(this.worldObj.getBiomeProvider() instanceof BiomeProviderIRTG)) {
             Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
             return false;
         }
@@ -137,7 +137,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         int i1 = k - i + 1;
         int j1 = l - j + 1;
 
-        WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) this.worldObj.getBiomeProvider();
+        BiomeProviderIRTG cmr = (BiomeProviderIRTG) this.worldObj.getBiomeProvider();
         int[] aint = cmr.getBiomesGens(i, j, i1, j1);
 
         try

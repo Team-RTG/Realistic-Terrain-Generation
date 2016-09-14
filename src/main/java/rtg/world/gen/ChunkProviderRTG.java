@@ -40,8 +40,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.RTGBiomeProvider;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.IBiomeProviderRTG;
+import rtg.world.biome.BiomeProviderIRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -70,7 +70,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private Random rand;
     private Random mapRand;
     private World worldObj;
-    private RTGBiomeProvider cmr;
+    private IBiomeProviderRTG cmr;
     private final LandscapeGenerator landscapeGenerator;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
@@ -108,7 +108,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     public ChunkProviderRTG(World world, long l)
     {
         worldObj = world;
-        cmr = (WorldChunkManagerRTG) worldObj.getBiomeProvider();
+        cmr = (BiomeProviderIRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
         cell = new SimplexCellularNoise(l);
@@ -398,7 +398,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         //this.doPopulate(world, cx, cy);
     }
 
-    private void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
+    private void generateTerrain(IBiomeProviderRTG cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
     {
         int h;
         for(int i = 0; i < 16; i++)
@@ -838,7 +838,7 @@ public class ChunkProviderRTG implements IChunkGenerator
          */
 
         TimeTracker.manager.start("Post-decorations");
-        biome.rDecorator.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ);
         TimeTracker.manager.stop("Post-decorations");
 
         TimeTracker.manager.start("Entities");

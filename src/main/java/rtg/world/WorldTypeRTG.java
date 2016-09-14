@@ -1,5 +1,7 @@
 package rtg.world;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
@@ -7,33 +9,21 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 
 import rtg.RTG;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.BiomeProviderIRTG;
 import rtg.world.gen.ChunkProviderRTG;
 
 public class WorldTypeRTG extends WorldType
 {
 
-    private static WorldChunkManagerRTG chunkManager;
+    private static BiomeProviderIRTG biomeProvider;
     public static ChunkProviderRTG chunkProvider;
 
     private static Runnable clearChunkManager() {
-        return new Runnable() {
-
-            public void run() {
-                chunkManager = null;
-            }
-
-        };
+        return () -> biomeProvider = null;
     }
 
     private static Runnable clearChunkProvider() {
-        return new Runnable() {
-
-            public void run() {
-                chunkProvider = null;
-            }
-
-        };
+        return () -> chunkProvider = null;
     }
 
     public WorldTypeRTG(String name)
@@ -41,18 +31,18 @@ public class WorldTypeRTG extends WorldType
         super(name);
     }
 
-    @Override
-    public BiomeProvider getBiomeProvider(World world)
+    @Override @Nonnull
+    public BiomeProvider getBiomeProvider(@Nonnull World world)
     {
         if (world.provider.getDimension() == 0)
         {
-            if (chunkManager == null) {
+            if (biomeProvider == null) {
 
-                chunkManager = new WorldChunkManagerRTG(world, this);
+                biomeProvider = new BiomeProviderIRTG(world, this);
                 RTG.instance.runOnNextServerCloseOnly(clearChunkManager());
             }
 
-            return chunkManager;
+            return biomeProvider;
         }
         else
         {
@@ -60,8 +50,8 @@ public class WorldTypeRTG extends WorldType
         }
     }
 
-    @Override
-    public IChunkGenerator getChunkGenerator(World world, String generatorOptions)
+    @Override @Nonnull
+    public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions)
     {
         if (world.provider.getDimension() == 0) {
 

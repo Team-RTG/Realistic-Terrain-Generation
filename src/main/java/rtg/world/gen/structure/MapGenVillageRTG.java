@@ -20,7 +20,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.BiomeProviderIRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenVillageRTG extends MapGenVillage
@@ -86,14 +86,14 @@ public class MapGenVillageRTG extends MapGenVillage
         if (i == k && j == l) {
 
             boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
-            boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof WorldChunkManagerRTG;
+            boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof BiomeProviderIRTG;
 
             int worldX = i * 16 + 8;
             int worldZ = j * 16 + 8;
 
             if (booRTGWorld && booRTGChunkManager) {
 
-                WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) worldObj.getBiomeProvider();
+                BiomeProviderIRTG cmr = (BiomeProviderIRTG) worldObj.getBiomeProvider();
 
                 //Why are we flipping XZ here? No idea, but it works. - Pink
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldZ, worldX);

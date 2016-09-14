@@ -16,17 +16,14 @@ import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
-import rtg.util.UBColumnCache;
 
+@SuppressWarnings("deprecation")
 public class SurfaceBase {
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
-    // create UBColumnCache only if UB is present
-    private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
-    protected BiomeConfig biomeConfig;
 
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
 
@@ -43,8 +40,6 @@ public class SurfaceBase {
         if (config == null) {
             throw new RuntimeException("Biome config in SurfaceBase is NULL.");
         }
-
-        biomeConfig = config;
 
         topBlock = top;
         fillerBlock = fill;

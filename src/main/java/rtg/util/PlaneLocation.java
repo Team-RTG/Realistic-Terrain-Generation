@@ -1,114 +1,67 @@
-
 package rtg.util;
 
 
-import java.util.Comparator;
+import com.google.common.collect.Lists;
+import net.minecraft.util.math.ChunkPos;
 
 /**
- *
  * @author Zeno410
+ * @author srs_bsns
+ * @deprecated started @ 2016.09.13
  */
+@SuppressWarnings("deprecation")
 public abstract class PlaneLocation {
 
+    public abstract int getX();
+    public abstract int getZ();
 
-    public abstract int x();
-    public abstract int z();
-
-
-    public float distance(PlaneLocation location) {
-        return ((float)(x()-location.x()))*((float)(x()-location.x()))+
-                ((float)(z()-location.z())*((float)(z()-location.z())));
-    }
-
-    public <Type extends Provider> Type closest(Iterable<Type> choices) {
-        Type result = null;
-        float bestDistance = Float.MAX_VALUE;
-        float distance;
-
-        for (Type tested: choices) {
-            distance = this.distance(tested.planeLocation());
-            if (distance<bestDistance) {
-                result = tested;
-            }
-        }
-        return result;
-    }
-
-    public abstract class Provider {
-        abstract public PlaneLocation planeLocation();
-    }
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + this.x();
-        hash = 71 * hash + this.z();
+        hash = 71 * hash + this.getX();
+        hash = 71 * hash + this.getZ();
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof PlaneLocation)) {
-            return false;
-        }
-        final PlaneLocation other = (PlaneLocation) obj;
-        if (this.x() != other.x()) {
-            return false;
-        }
-        if (this.z() != other.z()) {
-            return false;
-        }
-        return true;
+    public boolean equals(final Object obj) {
+        return !((obj == null) || (!(obj instanceof PlaneLocation))) &&
+            this.getX() == ((PlaneLocation) obj).getX() && this.getZ() == ((PlaneLocation) obj).getZ();
     }
 
     @Override
-    public String toString() {
-        return "("+x()+ "," + z() + ")";
-    }
-     /**
+    public String toString() { return Lists.newArrayList(getX(), getZ()).toString(); }
+
+    /**
      * A subclass of PlaneLocation which allows the vars to be changed.
      * Intended for probing hash sets and maps
+     *
+     * @deprecated started @ 2016.09.13
      */
-    public static class Probe extends PlaneLocation {
+    public static class Probe extends ChunkPos {
         private int x;
         private int z;
-        public Probe(int _x, int _z) {
-            x = _x;
-            z = _z;
-        }
-
-        public int x() {return x;}
-        public int z() {return z;}
-
-        public  void setX(int newX) {x = newX;}
-        public void setZ(int newZ) {z = newZ;}
+        public Probe(int x, int z) { super(x, z); this.x=x; this.z=z; }
+        public int getX() {return this.x;}
+        public int getZ() {return this.z;}
+        public void setX(int x) {this.x = x;}
+        public void setZ(int z) {this.z = z;}
     }
 
-    public static Comparator<PlaneLocation> topLefttoBottomRight() {
-        return new Comparator<PlaneLocation>(){
-
-            public int compare(PlaneLocation arg0, PlaneLocation arg1) {
-                int result = arg0.x()-arg1.x();
-                if (result == 0) return arg0.z()-arg1.z();
-                return result;
-            }
-
-        };
-    }
-
+    /**
+     * @deprecated started @ 2016.09.13
+     */
     public static class Invariant extends PlaneLocation {
         private final int x;
         private final int z;
 
-        public Invariant(int _x, int _z) {
-            x = _x;
-            z = _z;
-        }
-
-        public int x() {return x;}
-        public int z() {return z;}
-
+        /**
+         * @param x
+         * @param z
+         * @deprecated
+         */
+        public Invariant(int x, int z) { this.x = x; this.z = z; }
+        public int getX() {return this.x;}
+        public int getZ() {return this.z;}
     }
 }

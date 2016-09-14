@@ -49,10 +49,6 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 @SuppressWarnings({"UnusedParameters", "deprecation"})
 public class ChunkProviderRTG implements IChunkGenerator
 {
-    /**
-     * Declare variables.
-     */
-
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -80,22 +76,22 @@ public class ChunkProviderRTG implements IChunkGenerator
     private float[] borderNoise;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
-    private HashMap<PlaneLocation,Chunk> inGeneration = new HashMap<>();
-    private HashSet<PlaneLocation> toCheck = new HashSet<>();
+    private HashMap<ChunkPos,Chunk> inGeneration = new HashMap<>();
+    private HashSet<ChunkPos> toCheck = new HashSet<>();
 
     // we have to store this callback because it's a WeakReference in the event manager
     public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
 
         @Override
-        public void accept(ChunkEvent.Load accepted) {
-            if (accepted.isCanceled()) return;
-            int cx = accepted.getChunk().xPosition;
-            int cy = accepted.getChunk().zPosition;
-            PlaneLocation location = new PlaneLocation.Invariant(cx, cy);
-            if (!toCheck.contains(location)) return;
-            toCheck.remove(location);
+        public void accept(ChunkEvent.Load event) {
+            if (event.isCanceled()) return;
+            int cx = event.getChunk().xPosition;
+            int cz = event.getChunk().zPosition;
+            ChunkPos pos = new ChunkPos(cx, cz);
+            if (!toCheck.contains(pos)) return;
+            toCheck.remove(pos);
             for (Direction forPopulation: directions) {
-                decorateIfOtherwiseSurrounded(worldObj.getChunkProvider(), location, forPopulation);
+                decorateIfOtherwiseSurrounded(worldObj.getChunkProvider(), pos, forPopulation);
             }
             //clearDecorations(0);
         }
@@ -196,20 +192,20 @@ public class ChunkProviderRTG implements IChunkGenerator
      * specified chunk from the map seed and chunk seed
      */
     //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
-    private TimedHashSet<PlaneLocation> chunkMade  = new TimedHashSet<>(5 * 1000);
-    private final LimitedMap<PlaneLocation,Chunk> availableChunks;
+    private TimedHashSet<ChunkPos> chunkMade  = new TimedHashSet<>(5 * 1000);
+    private final LimitedMap<ChunkPos,Chunk> availableChunks;
 
     @Nonnull
-    public Chunk provideChunk(final int cx, final int cy)
+    public Chunk provideChunk(final int cx, final int cz)
     {
-        final PlaneLocation chunkLocation = new PlaneLocation.Invariant(cx,cy);
-        if (inGeneration.containsKey(chunkLocation)) {
-            return inGeneration.get(chunkLocation);
+        final ChunkPos pos = new ChunkPos(cx, cz);
+        if (inGeneration.containsKey(pos)) {
+            return inGeneration.get(pos);
         }
         //if (availableChunks.size() > 1000) throw new RuntimeException();
-        if (chunkMade.contains(chunkLocation)) {
+        if (chunkMade.contains(pos)) {
             Chunk available;
-            available = availableChunks.get(chunkLocation);
+            available = availableChunks.get(pos);
             // this should never be happening but it came up when Forge/MC re-requested an already
             // made chunk for a lighting check (???)
 
@@ -228,22 +224,22 @@ public class ChunkProviderRTG implements IChunkGenerator
                     */
                     worldObj.unloadEntities(entityList);
                 }
-                toCheck.add(chunkLocation);
+                toCheck.add(pos);
                 return available;
             }
         }
 
-        //if (everGenerated.contains(chunkLocation)) throw new RuntimeException();
+        //if (everGenerated.contains(pos)) throw new RuntimeException();
 
         String rtgTerrain = "RTG Terrain";
         TimeTracker.manager.start(rtgTerrain);
-    	rand.setSeed((long)cx * 0x4f9939f508L + (long)cy * 0x1ef1565bd5L);
+    	rand.setSeed((long)cx * 0x4f9939f508L + (long)cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         int k;
 
-        ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx *16, cy*16);
+        ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx *16, cz*16);
 
-        generateTerrain(cmr, cx, cy, primer, landscape.biome, landscape.noise);
+        generateTerrain(cmr, cx, cz, primer, landscape.biome, landscape.noise);
         // that routine can change the blocks.
         //get standard biome Data
 
@@ -255,7 +251,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         {
             if(biomesGeneratedInChunk[k] )
             {
-                RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, landscape.noise);
+                RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
                 biomesGeneratedInChunk[k] = false;
             }
             try {
@@ -265,16 +261,16 @@ public class ChunkProviderRTG implements IChunkGenerator
             }
         }
 
-        replaceBlocksForBiome(cx, cy, primer, landscape.biome, baseBiomesList, landscape.noise);
+        replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
 
-        caveGenerator.generate(worldObj, cx, cy, primer);
-        ravineGenerator.generate(worldObj, cx, cy, primer);
+        caveGenerator.generate(worldObj, cx, cz, primer);
+        ravineGenerator.generate(worldObj, cx, cz, primer);
 
         if (mapFeaturesEnabled) {
 
             if (ConfigRTG.generateMineshafts) {
                 try {
-                    mineshaftGenerator.generate(this.worldObj, cx, cy, primer);
+                    mineshaftGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -288,7 +284,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
             if (ConfigRTG.generateStrongholds) {
                 try {
-                    strongholdGenerator.generate(this.worldObj, cx, cy, primer);
+                    strongholdGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -302,7 +298,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
             if (ConfigRTG.generateVillages) {
                 try {
-                    villageGenerator.generate(this.worldObj, cx, cy, primer);
+                    villageGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -316,7 +312,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
             if (ConfigRTG.generateScatteredFeatures) {
                 try {
-                    scatteredFeatureGenerator.generate(this.worldObj, cx, cy, primer);
+                    scatteredFeatureGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -330,7 +326,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
             if (ConfigRTG.generateOceanMonuments) {
                 try {
-                    oceanMonumentGenerator.generate(this.worldObj, cx, cy, primer);
+                    oceanMonumentGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -344,8 +340,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         // store in the in process pile
-        Chunk chunk = new Chunk(this.worldObj, primer, cx, cy);
-        inGeneration.put(chunkLocation, chunk);
+        Chunk chunk = new Chunk(this.worldObj, primer, cx, cz);
+        inGeneration.put(pos, chunk);
 
         // doJitter no longer needed as the biome array gets fixed
         byte[] abyte1 = chunk.getBiomeArray();
@@ -359,43 +355,40 @@ public class ChunkProviderRTG implements IChunkGenerator
         chunk.setBiomeArray(abyte1);
 
         chunk.generateSkylightMap();
-        toCheck.add(chunkLocation);
+        toCheck.add(pos);
 
         // remove from in process pile
-        inGeneration.remove(chunkLocation);
-        this.chunkMade.add(chunkLocation);
-        //this.everGenerated.add(chunkLocation);
-        /*if (!chunkMade.contains(chunkLocation)||!everGenerated.contains(chunkLocation)) {
-            throw new RuntimeException(chunkLocation.toString() +  chunkMade.size());
+        inGeneration.remove(pos);
+        this.chunkMade.add(pos);
+        //this.everGenerated.add(pos);
+        /*if (!chunkMade.contains(pos)||!everGenerated.contains(pos)) {
+            throw new RuntimeException(pos.toString() +  chunkMade.size());
         }*/
-        availableChunks.put(chunkLocation,chunk);
+        availableChunks.put(pos,chunk);
         TimeTracker.manager.stop(rtgTerrain);
         return chunk;
     }
 
-    private void decorateIfOtherwiseSurrounded(IChunkProvider world, PlaneLocation source, Direction fromNewChunk) {
+    private void decorateIfOtherwiseSurrounded(IChunkProvider world, ChunkPos pos, Direction fromNewChunk) {
 
         // check if this is the master provider
         if (WorldTypeRTG.chunkProvider != this) return;
 
         // see if otherwise surrounded besides the new chunk
-        int cx = source.x() + fromNewChunk.xOffset;
-        int cy = source.z() + fromNewChunk.zOffset;
+        ChunkPos probe = new ChunkPos(pos.chunkXPos + fromNewChunk.xOffset, pos.chunkZPos + fromNewChunk.zOffset);
 
         // check to see if already decorated; shouldn't be but just in case
-        probe.setX(cx);
-        probe.setZ(cy);
         if (this.alreadyDecorated.contains(probe)) return;
         // if an in-process chunk; we'll get a populate call later;
         // if (this.inGeneration.containsKey(probe)) return;
 
         for (Direction checked: directions) {
             if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
-            if (!chunkExists(true,cx+checked.xOffset, cy+checked.zOffset)) return;// that one's missing
+            if (!chunkExists(true,probe.chunkXPos+checked.xOffset, probe.chunkZPos+checked.zOffset)) return;// that one's missing
         }
         // passed all checks
-        addToDecorationList(new PlaneLocation.Invariant(cx,cy));
-        //this.doPopulate(world, cx, cy);
+        addToDecorationList(probe);
+        //this.doPopulate(probe.chunkXPos, probe.chunkZPos);
     }
 
     private void generateTerrain(IBiomeProviderRTG cmr, int cx, int cy, ChunkPrimer primer, RealisticBiomeBase biomes[], float[] noise)
@@ -498,19 +491,18 @@ public class ChunkProviderRTG implements IChunkGenerator
 //        return provideChunk(par1, par2);
     }
 
-    private boolean chunkExists(boolean checkNeighbours, int par1, int par2) {
-        //if (chunkExists(par1,par2)) return true;
-        PlaneLocation location = new PlaneLocation.Invariant(par1,par2);
+    private boolean chunkExists(boolean checkNeighbours, int cx, int cz) {
+        //if (chunkExists(cx,cz)) return true;
+        ChunkPos location = new ChunkPos(cx,cz);
         if (inGeneration.containsKey(location)) return true;
         if (toCheck.contains(location)) return true;
         if (this.chunkMade.contains(location)) return true;
-        //if  (world.chunkExists(par1, par2)) return true;
-        if (chunkLoader().chunkExists(worldObj, par1, par2)) return true;
+        //if  (world.chunkExists(cx, cz)) return true;
+        if (chunkLoader().chunkExists(worldObj, cx, cz)) return true;
         //if (this.everGenerated.contains(location)) throw new RuntimeException("somehow lost "+location.toString());
         return false;
     }
 
-    private PlaneLocation.Probe probe = new PlaneLocation.Probe(0, 0);
 //    /**
 //     * @see IChunkProvider
 //     *
@@ -519,10 +511,9 @@ public class ChunkProviderRTG implements IChunkGenerator
 /*
     public boolean chunkExists(int par1, int par2)
     {
-        probe.setX(par1);
-        probe.setZ(par2);
-
-        return this.inGeneration.containsKey(probe);
+        probe2.setX(par1);
+        probe2.setZ(par2);
+        return this.inGeneration.containsKey(probe2);
     }
 */
 
@@ -545,11 +536,11 @@ public class ChunkProviderRTG implements IChunkGenerator
         if (WorldTypeRTG.chunkProvider != this) return;
         if (populating) return;// in process, do later;
         // we have to make a copy of the set to work on or we'll get errors
-        Set<PlaneLocation> toProcess = doableLocations(0);
+        Set<ChunkPos> toProcess = doableLocations(0);
         while (toProcess.size() >0) {
             toProcess.forEach(this::removeFromDecorationList);
-            for (PlaneLocation location: toProcess) {
-                doPopulate(location.x(),location.z());
+            for (ChunkPos location: toProcess) {
+                doPopulate(location.chunkXPos,location.chunkZPos);
             }
             // and loop because the decorating might have created other chunks to decorate;
             toProcess = doableLocations(0);
@@ -558,29 +549,29 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     private void clearDecorations(int limit) {
         if (WorldTypeRTG.chunkProvider != this) return;
-        Set<PlaneLocation> toProcess = doableLocations(limit);
+        Set<ChunkPos> toProcess = doableLocations(limit);
         toProcess.forEach(this::removeFromDecorationList);
-        for (PlaneLocation location: toProcess) {
-            doPopulate(location.x(),location.z());
+        for (ChunkPos location: toProcess) {
+            doPopulate(location.chunkXPos,location.chunkZPos);
         }
     }
 
-    private Set<PlaneLocation> doableLocations(int limit) {
-        HashSet<PlaneLocation> toProcess = new HashSet<>();
+    private Set<ChunkPos> doableLocations(int limit) {
+        HashSet<ChunkPos> toProcess = new HashSet<>();
         int found = 0;
         synchronized(toDecorate) {
-            for (PlaneLocation location: toDecorate) {
+            for (ChunkPos pos: toDecorate) {
 /*
                 Chunk existing;
-                existing = availableChunks.get(location);
+                existing = availableChunks.get(pos);
                 if (existing != null) {
                     if (!existing.isTerrainPopulated()) {
                         //continue; // not populated so let more "normal" systems handle it
                     }
                 }
 */
-                if (inGeneration.containsKey(location)) continue;
-                toProcess.add(location);
+                if (inGeneration.containsKey(pos)) continue;
+                toProcess.add(pos);
                 if (++found == limit) return toProcess;
             }
         }
@@ -590,17 +581,17 @@ public class ChunkProviderRTG implements IChunkGenerator
     private boolean populating = false;
     private static ChunkProviderRTG populatingProvider;
 
-    private final HashSet<PlaneLocation> toDecorate = new HashSet<>();
-    private LimitedSet<PlaneLocation> alreadyDecorated  = new LimitedSet<>(1000);
+    private final HashSet<ChunkPos> toDecorate = new HashSet<>();
+    private LimitedSet<ChunkPos> alreadyDecorated  = new LimitedSet<>(1000);
     //private HashSet<PlaneLocation> everDecorated  = new HashSet<PlaneLocation>();
 
-    private void addToDecorationList(PlaneLocation toAdd) {
+    private void addToDecorationList(ChunkPos toAdd) {
         synchronized(toDecorate) {
             toDecorate.add(toAdd);
         }
     }
 
-    private void removeFromDecorationList(PlaneLocation toAdd) {
+    private void removeFromDecorationList(ChunkPos toAdd) {
         synchronized(toDecorate) {
             toDecorate.remove(toAdd);
         }
@@ -610,25 +601,25 @@ public class ChunkProviderRTG implements IChunkGenerator
     {
         // don't populate if already done
 
-        PlaneLocation location = new PlaneLocation.Invariant(chunkX, chunkZ);
-        //Logger.warn("trying to decorate "+location.toString());
-        if (alreadyDecorated.contains(location)) return;
+        ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
+        Logger.debug("trying to decorate: "+chunkPos.toString());
+        if (alreadyDecorated.contains(chunkPos)) return;
 
         if (populating) {
-            // this has been created by another decoration; put in todo pile
-            addToDecorationList(location);
+            // this has been created by another decoration; put in to-do pile
+            addToDecorationList(chunkPos);
             return;
         }
 
-        if (populatingProvider != null) {
-            throw new RuntimeException(toString() + " " + populatingProvider.toString());
-        }
-        if (inGeneration.containsKey(location)) {
-            addToDecorationList(location);
+        if (populatingProvider != null) throw new RuntimeException(toString() + " " + populatingProvider.toString());
+
+        if (inGeneration.containsKey(chunkPos)) {
+            addToDecorationList(chunkPos);
             return;
         }
-        //Logger.warn("decorating");
-        alreadyDecorated.add(location);
+
+        Logger.debug("decorating");
+        alreadyDecorated.add(chunkPos);
         populating = true;
         populatingProvider = this;
 
@@ -642,7 +633,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         //Flippy McFlipperson.
         RealisticBiomeBase biome = cmr.getBiomeDataAt(worldZ + 16, worldX + 16);
-        //Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
+        Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
 
         TimeTracker.manager.stop(biomeLayoutActivity);
         this.rand.setSeed(this.worldObj.getSeed());
@@ -650,7 +641,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long)chunkX * i1 + (long)chunkZ * j1 ^ this.worldObj.getSeed());
         boolean hasPlacedVillageBlocks = false;
-        ChunkPos chunkCoords = new ChunkPos(chunkX, chunkZ);
         BlockPos worldCoords = new BlockPos(worldX, 0, worldZ);
 
         ForgeEventFactory.onChunkPopulate(true, this, this.worldObj, this.rand, chunkX, chunkZ, false);
@@ -660,7 +650,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.start("Mineshafts");
             if (ConfigRTG.generateMineshafts) {
                 try {
-                    mineshaftGenerator.generateStructure(worldObj, rand, chunkCoords);
+                    mineshaftGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -676,7 +666,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.start("Strongholds");
             if (ConfigRTG.generateStrongholds) {
                 try {
-                    strongholdGenerator.generateStructure(worldObj, rand, chunkCoords);
+                    strongholdGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -692,7 +682,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.start("Villages");
             if (ConfigRTG.generateVillages) {
                 try {
-                    hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, chunkCoords);
+                    hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
                     hasPlacedVillageBlocks = false;
@@ -709,7 +699,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.start("Scattered");
             if (ConfigRTG.generateScatteredFeatures) {
                 try {
-                    scatteredFeatureGenerator.generateStructure(worldObj, rand, chunkCoords);
+                    scatteredFeatureGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -725,7 +715,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.start("Monuments");
             if (ConfigRTG.generateOceanMonuments) {
                 try {
-                    oceanMonumentGenerator.generateStructure(this.worldObj, rand, chunkCoords);
+                    oceanMonumentGenerator.generateStructure(this.worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
                     if (ConfigRTG.crashOnStructureExceptions) {
@@ -753,9 +743,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start(biomeLayoutActivity);
         for (int bx = -4; bx <= 4; bx++) {
 
-        	for(int by = -4; by <= 4; by++)
+        	for(int bz = -4; bz <= 4; bz++)
         	{
-        		borderNoise[landscapeGenerator.getBiomeDataAt(cmr,worldX + adjust + bx * 4, worldZ + adjust  + by * 4)] += 0.01234569f;
+        		borderNoise[landscapeGenerator.getBiomeDataAt(cmr,worldX + adjust + bx * 4, worldZ + adjust  + bz * 4)] += 0.01234569f;
             }
         }
         TimeTracker.manager.stop(biomeLayoutActivity);
@@ -814,14 +804,9 @@ public class ChunkProviderRTG implements IChunkGenerator
                         realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
-
 /*
-                if(realisticBiome.baseBiome.getTemperature() < 0.15f)
-                {
-                }
-                else
-                {
-                }
+                if(realisticBiome.baseBiome.getTemperature() < 0.15f) {}
+                else {}
 */
                 borderNoise[bn] = 0f;
             }
@@ -842,19 +827,12 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.stop("Post-decorations");
 
         TimeTracker.manager.start("Entities");
-        probe.setX(chunkX);
-        probe.setZ(chunkZ);
-        //if (everDecorated.contains(probe)) throw new RuntimeException();
         if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
             WorldEntitySpawner.performWorldGenSpawning(this.worldObj, biome.baseBiome, worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
         TimeTracker.manager.stop("Entities");
 
         TimeTracker.manager.start("Ice");
-        //everDecorated.add(location);
-        probe.setX(chunkX);
-        probe.setZ(chunkZ);
-        //if (!everDecorated.contains(probe)) throw new RuntimeException();
         if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE))
         {
             // Not sure why we're modifying the worldCoords here, but this is how it's done in ChunkProviderOverworld. - Pink

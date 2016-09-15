@@ -1,7 +1,7 @@
 package rtg.world.gen;
 
-import javax.annotation.Nonnull;
 import java.util.*;
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -24,6 +24,7 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.structure.*;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
@@ -33,6 +34,7 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
@@ -448,7 +450,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         // don't populate if already done
 
         ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
-        Logger.debug("trying to decorate: " + chunkPos.toString());
+        //Logger.debug("trying to decorate: " + chunkPos.toString());
         if (alreadyDecorated.contains(chunkPos)) return;
 
         if (populating) {
@@ -464,7 +466,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             return;
         }
 
-        Logger.debug("decorating");
+        //Logger.debug("decorating");
         alreadyDecorated.add(chunkPos);
         populating = true;
         populatingProvider = this;
@@ -479,7 +481,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         //Flippy McFlipperson.
         RealisticBiomeBase biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
-        Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
+        //Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
 
         TimeTracker.manager.stop("Biome Layout");
         this.rand.setSeed(this.worldObj.getSeed());

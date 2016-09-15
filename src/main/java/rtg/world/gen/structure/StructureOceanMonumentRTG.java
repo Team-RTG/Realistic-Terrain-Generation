@@ -1,9 +1,9 @@
 package rtg.world.gen.structure;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.Map.Entry;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -123,13 +123,13 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     {
         // Are we in an RTG world?
         if (!(this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
-            Logger.debug("Could not generate ocean monument. This is not an RTG world.");
+            //Logger.debug("Could not generate ocean monument. This is not an RTG world.");
             return false;
         }
 
         // Do we have RTG's chunk manager?
         if (!(this.worldObj.getBiomeProvider() instanceof BiomeProviderRTG)) {
-            Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
+            //Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
             return false;
         }
 

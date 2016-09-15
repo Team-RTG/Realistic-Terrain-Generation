@@ -14,9 +14,8 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaForestHills;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
 
-public class SurfaceACDarklands extends SurfaceBase {
+public class SurfaceACDarklands extends SurfaceACBase {
 
     private boolean beach;
     private IBlockState beachBlock;

@@ -9,21 +9,21 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.UBColumnCache;
 
-@SuppressWarnings("deprecation")
 public class SurfaceBase {
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
-    private final static ModPresenceTester abyssalCraftMod = new ModPresenceTester("abyssalcraft");
+    // create UBColumnCache only if UB is present
+    private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
+    protected BiomeConfig biomeConfig;
 
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
 
@@ -40,6 +40,8 @@ public class SurfaceBase {
         if (config == null) {
             throw new RuntimeException("Biome config in SurfaceBase is NULL.");
         }
+
+        biomeConfig = config;
 
         topBlock = top;
         fillerBlock = fill;
@@ -77,24 +79,12 @@ public class SurfaceBase {
 
     protected IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
 
-        if (abyssalCraftMod.present()) {
-            return ACBlocks.darkstone.getDefaultState();
-        }
-        else {
-
-            return Blocks.STONE.getDefaultState();
-        }
+        return Blocks.STONE.getDefaultState();
     }
 
     protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
-        if (abyssalCraftMod.present()) {
-
-            return ACBlocks.darkstone_cobblestone.getDefaultState();
-        }
-        else {
-            return Blocks.COBBLESTONE.getDefaultState();
-        }
+        return Blocks.COBBLESTONE.getDefaultState();
     }
 
     public IBlockState getTopBlock() {

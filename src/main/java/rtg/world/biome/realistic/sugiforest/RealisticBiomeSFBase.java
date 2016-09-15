@@ -6,12 +6,12 @@ import net.minecraftforge.fml.common.Loader;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.sugiforest.config.BiomeConfigSF;
-import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
+@SuppressWarnings("WeakerAccess")
 public class RealisticBiomeSFBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase sfSugiForest;
@@ -27,25 +27,18 @@ public class RealisticBiomeSFBase extends RealisticBiomeBase {
 
         if (Loader.isModLoaded("sugiforest")) {
 
-            Biome[] b = BiomeUtils.getRegisteredBiomes();
+            for (Biome biome : Biome.REGISTRY) {
 
-            for (int i = 0; i < 256; i++) {
+                if (biome.getBiomeName().isEmpty()) {
+                    Logger.warn("Biome ID %d has no name.", Biome.getIdForBiome(biome));
+                    continue;
+                }
 
-                if (b[i] != null) {
+                String biomeName = biome.getBiomeName();
+                String biomeClass = biome.getBiomeClass().getName();
 
-                    if (BiomeUtils.getName(b[i]) == null) {
-
-                        Logger.warn("Biome ID %d has no name.", BiomeUtils.getId(b[i]));
-                        continue;
-                    }
-
-                    Biome biome = b[i];
-                    String biomeName = BiomeUtils.getName(biome);
-                    String biomeClass = biome.getBiomeClass().getName();
-
-                    if (biomeName.equals("Sugi Forest") && biomeClass.equals("sugiforest.world.BiomeSugiForest")) {
-                        sfSugiForest = new RealisticBiomeSFSugiForest(biome, BiomeConfigSF.biomeConfigSFSugiForest);
-                    }
+                if (biomeName.equals("Sugi Forest") && biomeClass.equals("sugiforest.world.BiomeSugiForest")) {
+                    sfSugiForest = new RealisticBiomeSFSugiForest(biome, BiomeConfigSF.biomeConfigSFSugiForest);
                 }
             }
         }

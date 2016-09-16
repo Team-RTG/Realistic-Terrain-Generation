@@ -15,7 +15,6 @@ import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.feature.*;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -25,28 +24,10 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenClayRTG;
 
 public class BiomeDecoratorRTG
 {
     public BlockPos pos;
-    public ChunkProviderSettings chunkProviderSettings;
-
-    public WorldGenerator clayGen;
-    public int clayPerChunk;
-
-    public WorldGenerator dirtGen;
-    public WorldGenerator gravelGen;
-    public WorldGenerator graniteGen;
-    public WorldGenerator dioriteGen;
-    public WorldGenerator andesiteGen;
-    public WorldGenerator coalGen;
-    public WorldGenerator ironGen;
-    public WorldGenerator goldGen;
-    public WorldGenerator redstoneGen;
-    public WorldGenerator diamondGen;
-    public WorldGenerator lapisGen;
-
     public RealisticBiomeBase rbb;
     public Biome biome;
 
@@ -54,27 +35,6 @@ public class BiomeDecoratorRTG
 
         this.rbb = rbb;
         this.biome = rbb.baseBiome;
-
-        this.clayGen = new WorldGenClayRTG(20); // Vanilla = 4
-        this.clayPerChunk = 3; // Vanilla = 1
-    }
-
-    public void decorateClay(World worldIn, Random random, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float border, float river, boolean hasPlacedVillageBlocks)
-    {
-        if (TerrainGen.decorate(worldIn, random, new BlockPos(worldX, 0, worldZ), DecorateBiomeEvent.Decorate.EventType.CLAY)) {
-
-            if (river > 0.85f) {
-
-                for (int j2 = 0; j2 < this.clayPerChunk; j2++) {
-
-                    int l5 = worldX + random.nextInt(16);
-                    int i9 = 53 + random.nextInt(15);
-                    int l11 = worldZ + random.nextInt(16);
-
-                    this.clayGen.generate(worldIn, random, new BlockPos(l5, i9, l11));
-                }
-            }
-        }
     }
 
     /*

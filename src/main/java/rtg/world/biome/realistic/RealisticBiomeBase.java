@@ -370,8 +370,6 @@ public class RealisticBiomeBase {
 
     public void rDecorate(World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks)
     {
-        this.rDecorator.decorateClay(world, rand, worldX, worldY, simplex, cell, strength, river, hasPlacedVillageBlocks);
-
     	for (int i = 0; i < this.decos.size(); i++) {
     	    decoStack.add(new ChunkDecoration(new PlaneLocation.Invariant(worldX,worldY),decos.get(i)));
             if (decoStack.size()>20) {

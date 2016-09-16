@@ -1,21 +1,21 @@
 package rtg.world.biome;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.annotation.Nonnull;
 
-import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeCache;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
+
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -35,7 +35,6 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     //private SimplexCellularNoise simplexCell;
     private VoronoiCellNoise river;
     private float[] borderNoise;
-    private BiomeCache biomeCache;
     private RealisticBiomePatcher biomePatcher;
     private double riverValleyLevel = 60.0 / 450.0;//60.0/450.0;
     private float riverSeparation = 1875;
@@ -43,7 +42,17 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     private float smallBendSize = 30;
 
     public BiomeProviderRTG(World world, WorldType worldType) {
-        this();
+
+        super(world.getWorldInfo());
+
+        this.biomesToSpawnIn = new ArrayList<>();
+        this.borderNoise = new float[256];
+        this.biomePatcher = new RealisticBiomePatcher();
+        this.riverSeparation /= ConfigRTG.riverFrequencyMultiplier;
+        this.riverValleyLevel *= ConfigRTG.riverSizeMultiplier();
+        this.largeBendSize *= ConfigRTG.riverBendinessMultiplier;
+        this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
+
         long seed = world.getSeed();
         if (world.provider.getDimension() != 0) throw new RuntimeException();
 
@@ -56,17 +65,6 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
         testCellBorder();
-    }
-
-    protected BiomeProviderRTG() {
-        this.biomeCache = new BiomeCache(this);
-        this.biomesToSpawnIn = new ArrayList<>();
-        this.borderNoise = new float[256];
-        this.biomePatcher = new RealisticBiomePatcher();
-        this.riverSeparation /= ConfigRTG.riverFrequencyMultiplier;
-        this.riverValleyLevel *= ConfigRTG.riverSizeMultiplier();
-        this.largeBendSize *= ConfigRTG.riverBendinessMultiplier;
-        this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
     }
 
     private static void testCellBorder() {
@@ -135,7 +133,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
      */
     @Override
     public Biome getBiomeGenAt(int x, int z) {
-        return this.biomeCache.getBiomeCacheBlock(x, z).getBiome(x, z);
+        return this.getBiome(new BlockPos(x, 0, z));
     }
 
     /**
@@ -223,18 +221,6 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     }
 
     @Override
-    @Nonnull
-    public Biome getBiome(@Nonnull BlockPos pos) {
-        return this.getBiome(pos, Biomes.DEFAULT);
-    }
-
-    @Override
-    @Nonnull
-    public Biome getBiome(BlockPos pos, @Nonnull Biome defaultBiome) {
-        return this.biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
-    }
-
-    @Override
     public float getTemperatureAtHeight(float p_76939_1_, int p_76939_2_) {
         return p_76939_1_;
     }
@@ -255,50 +241,10 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
             if (biomes[i1] == null) {
                 biomes[i1] = biomePatcher.getPatchedBaseBiome(
-                    "WCMRTG.getBiomesForGeneration() could not find biome " + aint[i1]);
+                    "BPRTG.getBiomesForGeneration() could not find biome " + aint[i1]);
             }
         }
         return biomes;
-    }
-
-    @Override
-    @Nonnull
-    public Biome[] getBiomes(Biome[] oldBiomeList, int x, int z, int width, int depth) {
-        return this.getBiomes(oldBiomeList, x, z, width, depth, true);
-    }
-
-    @Override
-    @Nonnull
-    public Biome[] getBiomes(Biome[] listToReuse, int x, int z, int width, int length, boolean cacheFlag) {
-        IntCache.resetIntCache();
-
-        if (listToReuse == null || listToReuse.length < width * length) {
-            listToReuse = new Biome[width * length];
-        }
-
-        if (cacheFlag && width == 16 && length == 16 && (x & 15) == 0 && (z & 15) == 0) {
-            Biome[] abiomegenbase1 = this.biomeCache.getCachedBiomes(x, z);
-            System.arraycopy(abiomegenbase1, 0, listToReuse, 0, width * length);
-            return listToReuse;
-        }
-        else {
-            int[] aint = this.biomeIndexLayer.getInts(x, z, width, length);
-
-            for (int i1 = 0; i1 < width * length; ++i1) {
-
-                try {
-                    listToReuse[i1] = RealisticBiomeBase.getBiome(aint[i1]).baseBiome;
-                }
-                catch (Exception e) {
-                    listToReuse[i1] = biomePatcher.getPatchedBaseBiome(genBiomes.toString() + " " + this.biomeIndexLayer.toString());
-                }
-
-                if (listToReuse[i1] == null) {
-                    listToReuse[i1] = biomePatcher.getPatchedBaseBiome("WCMRTG.getBiomes() could not find biome " + aint[i1]);
-                }
-            }
-            return listToReuse;
-        }
     }
 
     @Override
@@ -352,11 +298,6 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
             }
         }
         return blockpos;
-    }
-
-    @Override
-    public void cleanupCache() {
-        this.biomeCache.cleanupCache();
     }
 
     @Override

@@ -328,6 +328,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         inGeneration.put(pos, chunk);
 
         // doJitter no longer needed as the biome array gets fixed
+/* the final nail in the flippage coffin -srs
         byte[] abyte1 = chunk.getBiomeArray();
 
         for (k = 0; k < abyte1.length; ++k) {
@@ -336,6 +337,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
+*/
 
         chunk.generateSkylightMap();
         toCheck.add(pos);

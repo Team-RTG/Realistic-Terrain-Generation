@@ -489,7 +489,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ this.worldObj.getSeed());
         boolean hasPlacedVillageBlocks = false;
-        BlockPos worldCoords = new BlockPos(worldX, 0, worldZ);
 
         ForgeEventFactory.onChunkPopulate(true, this, this.worldObj, this.rand, chunkX, chunkZ, false);
 
@@ -676,20 +675,22 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         TimeTracker.manager.start("Ice");
         if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
-            // Not sure why we're modifying the worldCoords here, but this is how it's done in ChunkProviderOverworld. - Pink
-            worldCoords = worldCoords.add(8, 0, 8);
 
-            for (int k2 = 0; k2 < 16; ++k2) {
-                for (int j3 = 0; j3 < 16; ++j3) {
-                    BlockPos blockpos1 = this.worldObj.getPrecipitationHeight(worldCoords.add(k2, 0, j3));
-                    BlockPos blockpos2 = blockpos1.down();
+            int i4, j4;
 
-                    if (this.worldObj.canBlockFreezeWater(blockpos2)) {
-                        this.worldObj.setBlockState(blockpos2, Blocks.ICE.getDefaultState(), 2);
+            for (i4 = 0; i4 < 16; ++i4) {
+
+                for (j4 = 0; j4 < 16; ++j4) {
+
+                    BlockPos snowPos = this.worldObj.getPrecipitationHeight(new BlockPos(worldX + i4, 0, worldZ + j4));
+                    BlockPos icePos = snowPos.down();
+
+                    if(this.worldObj.canBlockFreezeWater(icePos)) {
+                        this.worldObj.setBlockState(icePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(blockpos1, true)) {
-                        this.worldObj.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState(), 2);
+                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(snowPos, true)) {
+                        this.worldObj.setBlockState(snowPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }
             }

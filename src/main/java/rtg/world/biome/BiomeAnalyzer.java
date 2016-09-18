@@ -34,7 +34,7 @@ public class BiomeAnalyzer {
         determineSwampBiomes();
         determineBeachBiomes();
         determineLandBiomes();
-        determinePreferredBeaches();
+        setupDefaultBeachesForBiomes();
         prepareSearchPattern();
         setSearches();
         savedJittered = new RealisticBiomeBase[256];
@@ -249,31 +249,35 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void determinePreferredBeaches() {
+    private void setupDefaultBeachesForBiomes() {
+
         preferredBeach = new int[256];
-        for (int i = 0; i < preferredBeach.length; i++){
+
+        for (int i = 0; i < preferredBeach.length; i++) {
+
+            // We need to work with the realistic biome, so let's try to get it from the base biome, aborting if necessary.
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            RealisticBiomeBase realisticVersion = RealisticBiomeBase.getBiome(i);
-            // no beach if set to no beach
-            if (realisticVersion != null)
-                if (realisticVersion.disallowAllBeaches) preferredBeach[i] = i;
-            if (biome.getTemperature() <= 0.05f) {
-                preferredBeach[i]= Biome.getIdForBiome(Biomes.COLD_BEACH);
-                continue;
-            } // implied else;
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
+            if (realisticBiome == null) continue;
 
-            // sand beach if set to no stone beach
-            if (realisticVersion != null) {
-                if (realisticVersion.disallowStoneBeaches) {
-                    preferredBeach[i] = Biome.getIdForBiome(Biomes.BEACH);
-                    continue;
-                }
-            }// implied else;
-            // this code from Climate Control and is still crude
-            float height = biome.getBaseHeight() + biome.getHeightVariation()*2;
-            if ((height>(1.0f+0.5))) preferredBeach[i] = Biome.getIdForBiome(Biomes.STONE_BEACH);
-            else preferredBeach[i] = Biome.getIdForBiome(Biomes.BEACH);
+            /*
+             * Now that we have the realistic biome, let's make sure all biomes get a default beach.
+             * To do this, let's try to determine the best beach based on the biome's height & temperature.
+             * (Some of this code is from Climate Control, and it's still a bit crude. - Zeno)
+             */
+            float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
+            float temp = biome.getTemperature();
+            Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
+
+            if ((height > (1.0f + 0.5f))) {
+                preferredBeach[i] = Biome.getIdForBiome(realisticBiome.disallowStoneBeaches ? beach : Biomes.STONE_BEACH);
+            }
+
+            // If beaches aren't allowed in this biome, then use this biome as the beach.
+            if (realisticBiome.disallowAllBeaches) {
+                preferredBeach[i] = i;
+            }
         }
     }
 

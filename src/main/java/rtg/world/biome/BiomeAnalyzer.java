@@ -268,8 +268,13 @@ public class BiomeAnalyzer {
              */
             float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
             float temp = biome.getTemperature();
+
+            // Store the temp-specific beach in a variable so we can use it later on.
             Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
 
+            preferredBeach[i] = Biome.getIdForBiome(beach);
+
+            // If this is a mountainous biome, then it should have a stone beach, unless disallowed.
             if ((height > (1.0f + 0.5f))) {
                 preferredBeach[i] = Biome.getIdForBiome(realisticBiome.disallowStoneBeaches ? beach : Biomes.STONE_BEACH);
             }

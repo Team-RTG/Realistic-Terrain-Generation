@@ -33,6 +33,8 @@ public class BiomeConfig {
     public static final String caveFrequencyName = "Cave Frequency";
     public static final String ravineFrequencyId = "ravineFrequency";
     public static final String ravineFrequencyName = "Ravine Frequency";
+    public static final String beachBiomeId = "beachBiome";
+    public static final String beachBiomeName = "Beach Biome";
     public String modSlug;
     public String biomeSlug;
     public ArrayList<BiomeConfigProperty> properties;
@@ -59,6 +61,19 @@ public class BiomeConfig {
         this.addProperty(new BiomeConfigProperty(caveDensityId, Type.INTEGER, caveDensityName, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40));
         this.addProperty(new BiomeConfigProperty(caveFrequencyId, Type.INTEGER, caveFrequencyName, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40));
         this.addProperty(new BiomeConfigProperty(ravineFrequencyId, Type.INTEGER, ravineFrequencyName, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome." + Configuration.NEW_LINE, -1, -1, 100));
+
+        this.addProperty(new BiomeConfigProperty(
+            beachBiomeId, Type.INTEGER, beachBiomeName,
+            "Biome ID to use for this biome's beach."
+                + Configuration.NEW_LINE
+                + "If this biome has been hardcoded to use a specific beach, this setting will have no effect."
+                + Configuration.NEW_LINE
+                + "If you don't want this biome to have a beach, enter the ID of this biome."
+                + Configuration.NEW_LINE
+                + "Set to -1 to use automatic beach detection."
+                + Configuration.NEW_LINE,
+            -1, -1, 255
+        ));
     }
 
     public void addProperty(BiomeConfigProperty property) {

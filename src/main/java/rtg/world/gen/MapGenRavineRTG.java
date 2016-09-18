@@ -13,7 +13,6 @@ import net.minecraft.world.gen.MapGenRavine;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.BiomeUtils;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenRavineRTG extends MapGenRavine
@@ -209,7 +208,7 @@ public class MapGenRavineRTG extends MapGenRavine
 
         if (biome != null) {
 
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(BiomeUtils.getId(biome));
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
 
             if (realisticBiome != null) {
                 ravineFrequency = (realisticBiome.config._int(BiomeConfig.ravineFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.ravineFrequencyId) : ravineFrequency;
@@ -244,13 +243,11 @@ public class MapGenRavineRTG extends MapGenRavine
     }
 
     //Exception biomes to make sure we generate like vanilla
-    private boolean isExceptionBiome(net.minecraft.world.biome.Biome biome)
-    {
-        if (biome == net.minecraft.init.Biomes.BEACH) return true;
-        if (biome == net.minecraft.init.Biomes.DESERT) return true;
-        if (biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND) return true;
-        if (biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND_SHORE) return true;
-        return false;
+    private boolean isExceptionBiome(net.minecraft.world.biome.Biome biome) {
+        return biome == net.minecraft.init.Biomes.BEACH ||
+               biome == net.minecraft.init.Biomes.DESERT ||
+               biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND ||
+               biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND_SHORE;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account

@@ -40,6 +40,23 @@ public class BiomeAnalyzer {
         savedJittered = new RealisticBiomeBase[256];
     }
 
+    public int[] xyinverted() {
+
+        int [] result = new int [256];
+
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                result[i * 16 + j] = j * 16 + i;
+            }
+        }
+
+        for (int i = 0; i < 256; i++) {
+            if (result[result[i]] != i) throw new RuntimeException("" + i + " " + result[i] + " " + result[result[i]]);
+        }
+
+        return result;
+    }
+
     /**
      *
      * @author Zeno410, Modified by srs_bsns 20160914
@@ -64,6 +81,7 @@ public class BiomeAnalyzer {
         private final int [] quadrantBiome = new int[4];
         private final float [] quadrantBiomeWeighting = new float [4];
         private int biomeCount;
+        private int [] xyinverted = xyinverted();
 
         SmoothingSearchStatus(boolean[] desired) { this.desired = desired; }
 

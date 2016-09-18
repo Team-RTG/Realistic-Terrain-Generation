@@ -37,12 +37,13 @@ import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
-import static rtg.reference.ModInfo.*;
 
-@Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
+
+@SuppressWarnings({"WeakerAccess", "unused"})
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)", acceptableRemoteVersions = "*")
 public class RTG {
 
-    @Instance(MOD_ID)
+    @Instance(ModInfo.MOD_ID)
     public static RTG instance;
     public static String configPath;
     public static WorldTypeRTG worldtype;
@@ -121,12 +122,8 @@ public class RTG {
     @EventHandler
     public void serverStopped(FMLServerStoppedEvent event)
     {
-        for (Runnable action: serverCloseActions) {
-            action.run();
-        }
-        for (Runnable action: oneShotServerCloseActions) {
-            action.run();
-        }
+        serverCloseActions.forEach(Runnable::run);
+        oneShotServerCloseActions.forEach(Runnable::run);
         oneShotServerCloseActions.clear();
     }
 

@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.WorldChunkManagerRTG;
+import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
@@ -31,6 +31,7 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class EventManagerRTG {
 
     // Event handlers.
@@ -73,11 +74,6 @@ public class EventManagerRTG {
 
     public class GenerateMinableRTG {
 
-        GenerateMinableRTG() {
-
-            logEventMessage("Initialising GenerateMinableRTG...");
-        }
-
         @SubscribeEvent
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
@@ -110,11 +106,6 @@ public class EventManagerRTG {
 
     public class InitBiomeGensRTG {
 
-        InitBiomeGensRTG() {
-
-            logEventMessage("Initialising InitBiomeGensRTG...");
-        }
-
         @SubscribeEvent
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
@@ -134,11 +125,6 @@ public class EventManagerRTG {
     }
 
     public class InitMapGenRTG {
-
-        InitMapGenRTG() {
-
-            logEventMessage("Initialising InitMapGenRTG...");
-        }
 
         @SubscribeEvent(priority = EventPriority.LOW)
         public void initMapGenRTG(InitMapGenEvent event) {
@@ -212,9 +198,8 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
-                return;
-            }
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
+                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
 
             // Should we generate a vanilla tree instead?
             if (event.getRand().nextInt(ConfigRTG.rtgTreeChance) != 0) {
@@ -231,14 +216,14 @@ public class EventManagerRTG {
                 return;
             }
 
-            WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) event.getWorld().getBiomeProvider();
+            BiomeProviderRTG cmr = (BiomeProviderRTG) event.getWorld().getBiomeProvider();
             //Biome bgg = cmr.getBiomeGenAt(x, z);
             Biome bgg = event.getWorld().getBiome(event.getPos());
-            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(BiomeUtils.getId(bgg));
+            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(Biome.getIdForBiome(bgg));
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
-            Logger.debug("Biome = %s", BiomeUtils.getName(rb.baseBiome));
+            Logger.debug("Biome = %s", rb.baseBiome.getBiomeName());
             Logger.debug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
             Logger.debug("Ground Sapling Meta = %d", saplingMeta);
 
@@ -365,9 +350,8 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.getWorld().getBiomeProvider() instanceof WorldChunkManagerRTG)) {
-                return;
-            }
+            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
+                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
 
             switch (event.getType())
             {

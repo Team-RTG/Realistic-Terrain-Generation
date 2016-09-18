@@ -14,9 +14,8 @@ import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.surface.SurfaceBase;
 
-public class SurfaceACDarklandsHighland extends SurfaceBase {
+public class SurfaceACDarklandsHighland extends SurfaceACBase {
 
     private IBlockState mixBlockTop;
     private byte mixBlockTopMeta;

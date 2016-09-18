@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
 
-import rtg.util.Logger;
-
 /**
  * Quercus Robur (Pedunculate Oak)
  */
@@ -299,8 +297,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
                     String replaceBlock = world.getBlockState(blockpos1).getBlock().getLocalizedName();
 
-                    Logger.debug("Block at %d %d %d (%s) is not replaceable.",
-                        blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), replaceBlock);
+                    //Logger.debug("Block at %d %d %d (%s) is not replaceable.", blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), replaceBlock);
 
                     return j;
                 }
@@ -368,7 +365,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         boolean isSoil = state.getBlock().canSustainPlant(state, this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.SAPLING));
 
         if (!isSoil) {
-            Logger.debug("Invalid tree location! Ground block is not soil.");
+            //Logger.debug("Invalid tree location! Ground block is not soil.");
             return false;
         }
         else {
@@ -378,7 +375,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
                 return true;
             }
             else if (i < 6) {
-                Logger.debug("Invalid tree location! checkBlockLine() == false");
+                //Logger.debug("Invalid tree location! checkBlockLine() == false");
                 return false;
             }
             else {

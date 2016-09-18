@@ -6,7 +6,6 @@ import net.minecraftforge.fml.common.Loader;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.agriculturalrevolution.config.BiomeConfigAR;
-import rtg.util.BiomeUtils;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
@@ -32,40 +31,33 @@ public class RealisticBiomeARBase extends RealisticBiomeBase {
 
         if (Loader.isModLoaded("CookingPlus")) {
 
-            Biome[] b = BiomeUtils.getRegisteredBiomes();
+            for (Biome biome : Biome.REGISTRY) {
 
-            for (int i = 0; i < 256; i++) {
+                if (biome.getBiomeName().isEmpty()) {
+                    Logger.warn("Biome ID %d has no name.", Biome.getIdForBiome(biome));
+                    continue;
+                }
 
-                if (b[i] != null) {
+                String biomeName = biome.getBiomeName();
+                String biomeClass = biome.getBiomeClass().getName();
 
-                    if (BiomeUtils.getName(b[i]) == null) {
-
-                        Logger.warn("Biome ID %d has no name.", BiomeUtils.getId(b[i]));
-                        continue;
-                    }
-
-                    Biome biome = b[i];
-                    String biomeName = BiomeUtils.getName(biome);
-                    String biomeClass = biome.getBiomeClass().getName();
-
-                    if (biomeName.equals("Orchard") && biomeClass.equals("CookingPlus.generation.CookingPlusOrchardBiome")) {
-                        arOrchard = new RealisticBiomeAROrchard(biome, BiomeConfigAR.biomeConfigAROrchard);
-                    }
-                    else if (biomeName.equals("Bamboo Grove") && biomeClass.equals("CookingPlus.generation.CookingPlusBambooBiome")) {
-                        arBambooGrove = new RealisticBiomeARBambooGrove(biome, BiomeConfigAR.biomeConfigARBambooGrove);
-                    }
-                    else if (biomeName.equals("Kelp Forest") && biomeClass.equals("CookingPlus.generation.CookingPlusKelpForestBiome")) {
-                        arKelpForest = new RealisticBiomeARKelpForest(biome, BiomeConfigAR.biomeConfigARKelpForest);
-                    }
-                    else if (biomeName.equals("Coral Reef") && biomeClass.equals("CookingPlus.generation.CookingPlusCoralReefBiome")) {
-                        arCoralReef = new RealisticBiomeARCoralReef(biome, BiomeConfigAR.biomeConfigARCoralReef);
-                    }
-                    else if (biomeName.equals("Tropical Hills") && biomeClass.equals("CookingPlus.generation.CookingPlusTropicalBiome")) {
-                        arTropicalHills = new RealisticBiomeARTropicalHills(biome, BiomeConfigAR.biomeConfigARTropicalHills);
-                    }
-                    else if (biomeName.equals("Deep Reef") && biomeClass.equals("CookingPlus.generation.CookingPlusDeepReefBiome")) {
-                        arDeepReef = new RealisticBiomeARDeepReef(biome, BiomeConfigAR.biomeConfigARDeepReef);
-                    }
+                if (biomeName.equals("Orchard") && biomeClass.equals("CookingPlus.generation.CookingPlusOrchardBiome")) {
+                    arOrchard = new RealisticBiomeAROrchard(biome, BiomeConfigAR.biomeConfigAROrchard);
+                }
+                else if (biomeName.equals("Bamboo Grove") && biomeClass.equals("CookingPlus.generation.CookingPlusBambooBiome")) {
+                    arBambooGrove = new RealisticBiomeARBambooGrove(biome, BiomeConfigAR.biomeConfigARBambooGrove);
+                }
+                else if (biomeName.equals("Kelp Forest") && biomeClass.equals("CookingPlus.generation.CookingPlusKelpForestBiome")) {
+                    arKelpForest = new RealisticBiomeARKelpForest(biome, BiomeConfigAR.biomeConfigARKelpForest);
+                }
+                else if (biomeName.equals("Coral Reef") && biomeClass.equals("CookingPlus.generation.CookingPlusCoralReefBiome")) {
+                    arCoralReef = new RealisticBiomeARCoralReef(biome, BiomeConfigAR.biomeConfigARCoralReef);
+                }
+                else if (biomeName.equals("Tropical Hills") && biomeClass.equals("CookingPlus.generation.CookingPlusTropicalBiome")) {
+                    arTropicalHills = new RealisticBiomeARTropicalHills(biome, BiomeConfigAR.biomeConfigARTropicalHills);
+                }
+                else if (biomeName.equals("Deep Reef") && biomeClass.equals("CookingPlus.generation.CookingPlusDeepReefBiome")) {
+                    arDeepReef = new RealisticBiomeARDeepReef(biome, BiomeConfigAR.biomeConfigARDeepReef);
                 }
             }
         }

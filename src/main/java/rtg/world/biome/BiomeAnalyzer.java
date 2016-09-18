@@ -286,6 +286,31 @@ public class BiomeAnalyzer {
         }
     }
 
+    public static Biome getDefaultBeachForBiome(Biome biome) {
+
+        if (biome == null) throw new RuntimeException("Found NULL biome when getting default beach for biome.");
+
+        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+        if (realisticBiome == null) throw new RuntimeException("Found NULL realistic biome when getting default beach for biome.");
+
+        /*
+         * Let's try to determine the best beach based on the biome's height & temperature.
+         * (Some of this code is from Climate Control, and it's still a bit crude. - Zeno)
+         */
+        float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
+        float temp = biome.getTemperature();
+
+        // Use a cold beach if the temperature is low enough; otherwise, just use a normal beach.
+        Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
+
+        // If this is a mountainous biome, then it should have a stone beach by default.
+        if ((height > (1.0f + 0.5f))) {
+            beach = Biomes.STONE_BEACH;
+        }
+
+        return beach;
+    }
+
     /* HUNTING
      *
      */

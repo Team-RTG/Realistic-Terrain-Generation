@@ -39,6 +39,7 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -58,6 +59,8 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final StructureOceanMonument oceanMonumentGenerator;
     private final int sampleSize = 8;
     private final int sampleArraySize;
+    private BiomeAnalyzer analyzer = new BiomeAnalyzer();
+    private int [] xyinverted = analyzer.xyinverted();
     private final LandscapeGenerator landscapeGenerator;
     private final LimitedMap<ChunkPos, Chunk> availableChunks;
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
@@ -328,16 +331,14 @@ public class ChunkProviderRTG implements IChunkGenerator
         inGeneration.put(pos, chunk);
 
         // doJitter no longer needed as the biome array gets fixed
-/* the final nail in the flippage coffin -srs
-        byte[] abyte1 = chunk.getBiomeArray();
 
+        byte[] abyte1 = chunk.getBiomeArray();
         for (k = 0; k < abyte1.length; ++k) {
-            // biomes are y-first and terrain x-first
-            byte b = (byte) Biome.getIdForBiome(this.baseBiomesList[k]);
+            // Biomes are y-first and terrain x-first
+            byte b = (byte) Biome.getIdForBiome(this.baseBiomesList[xyinverted[k]]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
-*/
 
         chunk.generateSkylightMap();
         toCheck.add(pos);

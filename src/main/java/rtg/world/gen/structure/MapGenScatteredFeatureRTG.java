@@ -233,6 +233,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     private static boolean canSpawnIgloo(Biome b) {
-        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.PLAINS));
     }
 }

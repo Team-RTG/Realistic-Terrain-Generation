@@ -84,19 +84,83 @@ public class EventManagerRTG {
 
             switch (event.getType()) {
 
-                case ANDESITE: if (!ConfigRTG.generateOreAndesite) { event.setResult(Event.Result.DENY); return; }
-                case COAL: if (!ConfigRTG.generateOreCoal) { event.setResult(Event.Result.DENY); return; }
-                case DIAMOND: if (!ConfigRTG.generateOreDiamond) { event.setResult(Event.Result.DENY); return; }
-                case DIORITE: if (!ConfigRTG.generateOreDiorite) { event.setResult(Event.Result.DENY); return; }
-                case DIRT: if (!ConfigRTG.generateOreDirt) { event.setResult(Event.Result.DENY); return; }
-                case EMERALD: if (!ConfigRTG.generateOreEmerald) { event.setResult(Event.Result.DENY); return; }
-                case GOLD: if (!ConfigRTG.generateOreGold) { event.setResult(Event.Result.DENY); return; }
-                case GRANITE: if (!ConfigRTG.generateOreGranite) { event.setResult(Event.Result.DENY); return; }
-                case GRAVEL: if (!ConfigRTG.generateOreGravel) { event.setResult(Event.Result.DENY); return; }
-                case IRON: if (!ConfigRTG.generateOreIron) { event.setResult(Event.Result.DENY); return; }
-                case LAPIS: if (!ConfigRTG.generateOreLapis) { event.setResult(Event.Result.DENY); return; }
-                case REDSTONE: if (!ConfigRTG.generateOreRedstone) { event.setResult(Event.Result.DENY); return; }
-                case SILVERFISH: if (!ConfigRTG.generateOreSilverfish) { event.setResult(Event.Result.DENY); return; }
+                case ANDESITE:
+                    if (!ConfigRTG.generateOreAndesite) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case COAL:
+                    if (!ConfigRTG.generateOreCoal) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case DIAMOND:
+                    if (!ConfigRTG.generateOreDiamond) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case DIORITE:
+                    if (!ConfigRTG.generateOreDiorite) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case DIRT:
+                    if (!ConfigRTG.generateOreDirt) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case EMERALD:
+                    if (!ConfigRTG.generateOreEmerald) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case GOLD:
+                    if (!ConfigRTG.generateOreGold) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case GRANITE:
+                    if (!ConfigRTG.generateOreGranite) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case GRAVEL:
+                    if (!ConfigRTG.generateOreGravel) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case IRON:
+                    if (!ConfigRTG.generateOreIron) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case LAPIS:
+                    if (!ConfigRTG.generateOreLapis) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case REDSTONE:
+                    if (!ConfigRTG.generateOreRedstone) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case SILVERFISH:
+                    if (!ConfigRTG.generateOreSilverfish) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
 
                 default:
                     break;

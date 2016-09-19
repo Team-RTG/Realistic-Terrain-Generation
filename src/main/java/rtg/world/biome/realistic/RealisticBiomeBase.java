@@ -12,6 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
+import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.deco.DecoBase;
@@ -30,6 +31,7 @@ public class RealisticBiomeBase {
         new RealisticBiomeBase[256];
     public final Biome baseBiome;
     public final Biome riverBiome;
+    public final Biome beachBiome;
     public BiomeConfig config;
 
     public TerrainBase terrain;
@@ -82,6 +84,7 @@ public class RealisticBiomeBase {
         arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
         baseBiome = biome;
         riverBiome = river;
+        beachBiome = BiomeAnalyzer.getBeachForBiome(baseBiome);
 
         rDecorator = new BiomeDecoratorRTG(this);
 

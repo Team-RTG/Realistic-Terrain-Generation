@@ -66,11 +66,11 @@ public class BiomeConfig {
             beachBiomeId, Type.INTEGER, beachBiomeName,
             "Biome ID to use for this biome's beach."
                 + Configuration.NEW_LINE
-                + "If this biome has been hardcoded to use a specific beach, this setting will have no effect."
+                + "Must be the ID of one of the vanilla beaches (Beach = 16, Cold Beach = 26, Stone Beach = 25) or the ID of this biome (no beach)."
                 + Configuration.NEW_LINE
-                + "If you don't want this biome to have a beach, enter the ID of this biome."
+                + "Set to -1 to use automatic beach detection. (RECOMMENDED)"
                 + Configuration.NEW_LINE
-                + "Set to -1 to use automatic beach detection."
+                + "Note: If this biome has been hardcoded to use a specific beach, this setting will have no effect."
                 + Configuration.NEW_LINE,
             -1, -1, 255
         ));

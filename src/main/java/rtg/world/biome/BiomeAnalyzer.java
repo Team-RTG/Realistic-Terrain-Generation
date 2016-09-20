@@ -308,29 +308,27 @@ public class BiomeAnalyzer {
         /*
          * Use the beach that has been set in the biome config.
          * If automatic beach detection is enabled (-1), try to determine the best beach based on the biome's height & temperature.
-         * (Some of this code is from Climate Control, and it's still a bit crude. - Zeno)
          */
 
+        Biome beach;
         Biome preferredBeach = getPreferredBeachForBiome(biome);
-        Biome beach = preferredBeach;
         int configBeachId = realisticBiome.config._int(BiomeConfig.beachBiomeId);
 
         if (configBeachId > -1 && configBeachId < 256) {
-
-            if (configBeachId == Biome.getIdForBiome(Biomes.BEACH)
-                || configBeachId == Biome.getIdForBiome(Biomes.COLD_BEACH)
-                || configBeachId == Biome.getIdForBiome(Biomes.STONE_BEACH)
-                || configBeachId == Biome.getIdForBiome(realisticBiome.baseBiome)
-                ) {
-
-                beach = Biome.getBiome(configBeachId, preferredBeach);
-            }
+            beach = Biome.getBiome(configBeachId, preferredBeach);
+        }
+        else {
+            beach = preferredBeach;
         }
 
         return beach;
     }
 
     public static Biome getPreferredBeachForBiome(Biome biome) {
+
+        /*
+         * Some of this code is from Climate Control, and it's still a bit crude. - Zeno
+         */
 
         float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
         float temp = biome.getTemperature();

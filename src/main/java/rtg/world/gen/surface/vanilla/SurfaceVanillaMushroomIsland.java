@@ -17,8 +17,6 @@ import rtg.world.gen.surface.SurfaceBase;
 
 public class SurfaceVanillaMushroomIsland extends SurfaceBase {
 
-    private int beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -26,17 +24,15 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
     private float sStrength = 65f;
     private float cCliff = 1.5f;
 
-    public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff) {
+    public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
         super(config, top, fill);
-        beach = beachHeight;
-        beachBlock = genBeachBlock;
         min = minCliff;
     }
 
-    public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, int beachHeight, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
+    public SurfaceVanillaMushroomIsland(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
 
-        this(config, top, fill, beachHeight, genBeachBlock, minCliff);
+        this(config, top, fill, minCliff);
 
         sCliff = stoneCliff;
         sHeight = stoneHeight;
@@ -49,7 +45,6 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
 
         float c = CliffCalculator.calc(x, y, noise);
         int cliff = 0;
-        boolean gravel = false;
 
         Block b;
         for (int k = 255; k > -1; k--) {
@@ -61,9 +56,6 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
                 depth++;
 
                 if (depth == 0) {
-                    if (k < beach) {
-                        gravel = true;
-                    }
 
                     float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
                     if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
@@ -86,10 +78,6 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
                     else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     }
-                    else if (k < beach) {
-                        primer.setBlockState(x, k, y, beachBlock);
-                        gravel = true;
-                    }
                     else {
                         primer.setBlockState(x, k, y, topBlock);
                     }
@@ -100,9 +88,6 @@ public class SurfaceVanillaMushroomIsland extends SurfaceBase {
                     }
                     else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
-                    }
-                    else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
                     }
                     else {
                         primer.setBlockState(x, k, y, fillerBlock);

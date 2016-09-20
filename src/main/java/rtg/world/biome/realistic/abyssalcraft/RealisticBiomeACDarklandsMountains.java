@@ -19,7 +19,7 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 
         super(config, biome, river,
             new TerrainACDarklandsMountains(120f, 100f),
-            new SurfaceACDarklandsMountains(config, biome.topBlock, biome.fillerBlock, false, null, 0.2f)
+            new SurfaceACDarklandsMountains(config, biome.topBlock, biome.fillerBlock, 0.2f)
         );
 
         this.noLakes = true;

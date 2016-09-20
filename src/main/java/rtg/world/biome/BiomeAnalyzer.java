@@ -4,6 +4,9 @@ package rtg.world.biome;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
+import net.minecraftforge.common.BiomeDictionary;
+
+import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -34,7 +37,7 @@ public class BiomeAnalyzer {
         determineSwampBiomes();
         determineBeachBiomes();
         determineLandBiomes();
-        determinePreferredBeaches();
+        setupBeachesForBiomes();
         prepareSearchPattern();
         setSearches();
         savedJittered = new RealisticBiomeBase[256];
@@ -267,32 +270,84 @@ public class BiomeAnalyzer {
         }
     }
 
-    private void determinePreferredBeaches() {
+    private void setupBeachesForBiomes() {
+
         preferredBeach = new int[256];
-        for (int i = 0; i < preferredBeach.length; i++){
+
+        for (int i = 0; i < preferredBeach.length; i++) {
+
+            // We need to work with the realistic biome, so let's try to get it from the base biome, aborting if necessary.
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            RealisticBiomeBase realisticVersion = RealisticBiomeBase.getBiome(i);
-            // no beach if set to no beach
-            if (realisticVersion != null)
-                if (realisticVersion.disallowAllBeaches) preferredBeach[i] = i;
-            if (biome.getTemperature() <= 0.05f) {
-                preferredBeach[i]= Biome.getIdForBiome(Biomes.COLD_BEACH);
-                continue;
-            } // implied else;
+            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
+            if (realisticBiome == null) continue;
 
-            // sand beach if set to no stone beach
-            if (realisticVersion != null) {
-                if (realisticVersion.disallowStoneBeaches) {
-                    preferredBeach[i] = Biome.getIdForBiome(Biomes.BEACH);
-                    continue;
+            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome);
+
+            // If stone beaches aren't allowed in this biome, then determine the best beach to use based on the biome's temperature.
+            if (realisticBiome.disallowStoneBeaches) {
+                if (Biome.getIdForBiome(realisticBiome.beachBiome) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
+                    preferredBeach[i] = Biome.getIdForBiome((biome.getTemperature() <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH);
                 }
-            }// implied else;
-            // this code from Climate Control and is still crude
-            float height = biome.getBaseHeight() + biome.getHeightVariation()*2;
-            if ((height>(1.0f+0.5))) preferredBeach[i] = Biome.getIdForBiome(Biomes.STONE_BEACH);
-            else preferredBeach[i] = Biome.getIdForBiome(Biomes.BEACH);
+            }
+
+            // If beaches aren't allowed in this biome, then use this biome as the beach.
+            if (realisticBiome.disallowAllBeaches) {
+                preferredBeach[i] = i;
+            }
         }
+    }
+
+    public static Biome getBeachForBiome(Biome biome) {
+
+        if (biome == null) throw new RuntimeException("Found NULL biome when getting beach for biome.");
+
+        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+        if (realisticBiome == null) throw new RuntimeException("Found NULL realistic biome when getting beach for biome.");
+
+        /*
+         * Use the beach that has been set in the biome config.
+         * If automatic beach detection is enabled (-1), try to determine the best beach based on the biome's height & temperature.
+         */
+
+        Biome beach;
+        Biome preferredBeach = getPreferredBeachForBiome(biome);
+        int configBeachId = realisticBiome.config._int(BiomeConfig.beachBiomeId);
+
+        if (configBeachId > -1 && configBeachId < 256) {
+            beach = Biome.getBiome(configBeachId, preferredBeach);
+        }
+        else {
+            beach = preferredBeach;
+        }
+
+        return beach;
+    }
+
+    public static Biome getPreferredBeachForBiome(Biome biome) {
+
+        /*
+         * Some of this code is from Climate Control, and it's still a bit crude. - Zeno
+         */
+
+        float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
+        float temp = biome.getTemperature();
+
+        // Use a cold beach if the temperature is low enough; otherwise, just use a normal beach.
+        Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
+
+        // If this is a mountainous biome or a Taiga variant, then let's use a stone beach.
+        if ((height > (1.0f + 0.5f)) || isTaigaBiome(biome)) {
+            beach = Biomes.STONE_BEACH;
+        }
+
+        return beach;
+    }
+
+    private static boolean isTaigaBiome(Biome biome) {
+        return BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.COLD)
+            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.CONIFEROUS)
+            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FOREST);
     }
 
     /* HUNTING

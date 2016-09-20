@@ -39,8 +39,8 @@ public class DecoAbyssalCraftTree extends DecoTree {
         this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         this.treeConditionNoise = 0f;
         this.treeConditionChance = 1;
-        this.minY = 1; // No lower height limit by default.
-        this.maxY = 255; // No upper height limit by default.
+        this.minY = 63; // No underwater trees by default.
+        this.maxY = 230; // Sensible upper height limit by default.
         this.logBlock = Blocks.LOG.getDefaultState();
         this.leavesBlock = Blocks.LEAVES.getDefaultState();
         this.minSize = 2;

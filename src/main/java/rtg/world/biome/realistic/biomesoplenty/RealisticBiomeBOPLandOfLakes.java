@@ -26,7 +26,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPLandOfLakes(58f, 76f, 36f),
-            new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f)
+            new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f)
         );
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();

@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.mithwoodforest;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -10,7 +8,6 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
@@ -19,7 +16,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.mithwoodforest.SurfaceMFMithwoodForest;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
 import rtg.world.gen.terrain.mithwoodforest.TerrainMFMithwoodForest;
 
 public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
@@ -33,7 +29,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
         super(config, biome, river,
             new TerrainMFMithwoodForest(),
-            new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
+            new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
         );
    
         TreeRTG megaMithwood = new TreeRTGPinusNigra();

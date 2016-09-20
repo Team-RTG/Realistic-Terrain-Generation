@@ -16,7 +16,7 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
 
         super(config, biome, river,
             new TerrainBYGRedRockMountains(230f, 100f, 68f),
-            new SurfaceBYGRedRockMountains(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f)
+            new SurfaceBYGRedRockMountains(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
         this.noLakes = true;

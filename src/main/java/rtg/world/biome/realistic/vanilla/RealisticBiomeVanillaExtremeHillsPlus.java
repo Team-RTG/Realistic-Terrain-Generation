@@ -21,7 +21,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
         super(config, biome, river,
             new TerrainVanillaExtremeHillsPlus(150f, 80f, 90f),
-            new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f)
+            new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f)
         );
 
         this.generatesEmeralds = true;

@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
         super(config, biome, river,
             new TerrainVanillaJungleHills(72f, 40f),
-            new SurfaceVanillaJungleHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 1f, 1.5f, 60f, 65f, 1.5f)
+            new SurfaceVanillaJungleHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 1f, 1.5f, 60f, 65f, 1.5f)
         );
 
         this.waterSurfaceLakeChance = 3;

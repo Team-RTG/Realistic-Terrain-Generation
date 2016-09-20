@@ -16,8 +16,6 @@ import rtg.util.OpenSimplexNoise;
 
 public class SurfaceMountainStoneMix1 extends SurfaceBase {
 
-    private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -28,11 +26,9 @@ public class SurfaceMountainStoneMix1 extends SurfaceBase {
     private IBlockState mix;
     private float mixHeight;
 
-    public SurfaceMountainStoneMix1(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff, IBlockState mixBlock, float mixSize) {
+    public SurfaceMountainStoneMix1(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff, IBlockState mixBlock, float mixSize) {
 
         super(config, top, fill);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
         min = minCliff;
 
         sCliff = stoneCliff;
@@ -49,7 +45,6 @@ public class SurfaceMountainStoneMix1 extends SurfaceBase {
 
         float c = CliffCalculator.calc(x, y, noise);
         int cliff = 0;
-        boolean gravel = false;
         boolean m = false;
 
         Block b;
@@ -62,11 +57,6 @@ public class SurfaceMountainStoneMix1 extends SurfaceBase {
                 depth++;
 
                 if (depth == 0) {
-                    if (k < 63) {
-                        if (beach) {
-                            gravel = true;
-                        }
-                    }
 
                     float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
                     if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
@@ -90,11 +80,7 @@ public class SurfaceMountainStoneMix1 extends SurfaceBase {
                         primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
                     }
                     else if (k < 63) {
-                        if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
-                            gravel = true;
-                        }
-                        else if (k < 62) {
+                        if (k < 62) {
                             primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else {
@@ -115,9 +101,6 @@ public class SurfaceMountainStoneMix1 extends SurfaceBase {
                     }
                     else if (cliff == 2) {
                         primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
-                    }
-                    else if (gravel) {
-                        primer.setBlockState(x, k, y, beachBlock);
                     }
                     else {
                         primer.setBlockState(x, k, y, fillerBlock);

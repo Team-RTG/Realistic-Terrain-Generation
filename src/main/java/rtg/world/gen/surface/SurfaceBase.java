@@ -136,7 +136,7 @@ public class SurfaceBase {
 
         try {
             if (Block.getBlockFromName(userBlockId) != null) {
-                fillerBlock = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));
+                blockReturn = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));
             }
             else {
                 blockReturn = blockDefault;

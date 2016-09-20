@@ -19,7 +19,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPAlps(),
-            new SurfaceBOPAlps(config, biome.topBlock, biome.fillerBlock, false, null, 0.45f)
+            new SurfaceBOPAlps(config, biome.topBlock, biome.fillerBlock, 0.45f)
         );
 
         this.generatesEmeralds = true;

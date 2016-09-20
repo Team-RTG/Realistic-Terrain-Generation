@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 
         super(config, biome, river,
             new TerrainVanillaBirchForestHills(),
-            new SurfaceVanillaBirchForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
+            new SurfaceVanillaBirchForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
         );
 
         this.noLakes = true;

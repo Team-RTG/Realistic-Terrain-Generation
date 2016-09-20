@@ -19,7 +19,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaTaigaHills(),
-            new SurfaceVanillaTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), true, Blocks.GRAVEL.getDefaultState(), 0.2f)
+            new SurfaceVanillaTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f)
         );
 
         this.noLakes = true;

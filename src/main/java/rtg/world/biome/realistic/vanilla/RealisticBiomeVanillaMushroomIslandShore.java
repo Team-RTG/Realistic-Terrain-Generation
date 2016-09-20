@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
 
         super(config, biome, river,
             new TerrainVanillaMushroomIslandShore(),
-            new SurfaceVanillaMushroomIslandShore(config, biome.topBlock, biome.fillerBlock, 67, biome.topBlock, 0f)
+            new SurfaceVanillaMushroomIslandShore(config, biome.topBlock, biome.fillerBlock, 0f)
         );
 
         this.noLakes = true;

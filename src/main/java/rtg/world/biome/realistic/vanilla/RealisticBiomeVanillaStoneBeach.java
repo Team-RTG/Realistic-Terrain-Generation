@@ -18,7 +18,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaStoneBeach(),
-            new SurfaceVanillaStoneBeach(config, Blocks.GRAVEL.getDefaultState(), biome.fillerBlock, true, Blocks.GRAVEL.getDefaultState(), 1f, 1.5f, 85f, 20f, 4f)
+            new SurfaceVanillaStoneBeach(config, Blocks.GRAVEL.getDefaultState(), biome.fillerBlock, 1f, 1.5f, 85f, 20f, 4f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

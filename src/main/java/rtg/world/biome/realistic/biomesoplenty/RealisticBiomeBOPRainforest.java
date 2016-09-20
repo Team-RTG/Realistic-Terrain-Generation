@@ -19,7 +19,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPRainforest(90f, 300f),
-            new SurfaceBOPRainforest(config, biome.topBlock, biome.fillerBlock, false, null, 1.3f)
+            new SurfaceBOPRainforest(config, biome.topBlock, biome.fillerBlock, 1.3f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

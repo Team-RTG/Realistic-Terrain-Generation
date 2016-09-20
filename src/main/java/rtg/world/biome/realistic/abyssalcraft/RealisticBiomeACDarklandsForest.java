@@ -21,7 +21,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
         super(config, biome, river,
             new TerrainACDarklandsForest(),
-            new SurfaceACDarklandsForest(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
+            new SurfaceACDarklandsForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
         );
 
         DecoAbyssalCraftTree decoTrees = new DecoAbyssalCraftTree();

@@ -22,7 +22,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPFlowerField(),
-            new SurfaceBOPFlowerField(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f)
+            new SurfaceBOPFlowerField(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f)
         );
 
         // First, let's get a few shrubs in to break things up a bit.

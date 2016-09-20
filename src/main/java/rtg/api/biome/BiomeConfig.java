@@ -66,11 +66,21 @@ public class BiomeConfig {
             beachBiomeId, Type.INTEGER, beachBiomeName,
             "Biome ID to use for this biome's beach."
                 + Configuration.NEW_LINE
-                + "Must be the ID of one of the vanilla beaches (Beach = 16, Cold Beach = 26, Stone Beach = 25) or the ID of this biome (no beach)."
+                + "The only 'officially supported' values for this setting are:"
                 + Configuration.NEW_LINE
-                + "Set to -1 to use automatic beach detection. (RECOMMENDED)"
+                + "-1 = Automatic beach generation (RECOMMENDED)"
                 + Configuration.NEW_LINE
-                + "Note: If this biome has been hardcoded to use a specific beach, this setting will have no effect."
+                + "16 = Vanilla Beach"
+                + Configuration.NEW_LINE
+                + "26 = Vanilla Cold Beach"
+                + Configuration.NEW_LINE
+                + "25 = Vanilla Stone Beach"
+                + Configuration.NEW_LINE
+                + "The ID of this biome = No beach"
+                + Configuration.NEW_LINE
+                + "Other biome IDs are allowed, but they have not been tested, may yield undesirable results, and will not be supported."
+                + Configuration.NEW_LINE
+                + "Note: If this biome has been hardcoded by RTG to use a specific beach, this setting will have no effect."
                 + Configuration.NEW_LINE,
             -1, -1, 255
         ));

@@ -172,6 +172,9 @@ public class RealisticBiomeBase {
 
     public void generateMapGen(ChunkPrimer primer, Long seed, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
+        // Have volcanoes been disabled in the global config?
+        if (!ConfigRTG.enableVolcanoes) return;
+
         final int mapGenRadius = 5;
         final int volcanoGenRadius = 15;
 

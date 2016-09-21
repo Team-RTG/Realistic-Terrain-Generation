@@ -179,14 +179,6 @@ public class RealisticBiomeBase {
         long l = (mapRand.nextLong() / 2L) * 2L + 1L;
         long l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
 
-        // Structures generation
-        for (int baseX = chunkX - mapGenRadius; baseX <= chunkX + mapGenRadius; baseX++) {
-            for (int baseY = chunkY - mapGenRadius; baseY <= chunkY + mapGenRadius; baseY++) {
-                mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapGen(primer, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
-            }
-        }
-
         // Volcanoes generation
         for (int baseX = chunkX - volcanoGenRadius; baseX <= chunkX + volcanoGenRadius; baseX++) {
             for (int baseY = chunkY - volcanoGenRadius; baseY <= chunkY + volcanoGenRadius; baseY++) {
@@ -195,12 +187,6 @@ public class RealisticBiomeBase {
             }
         }
     }
-
-    public void rMapGen(
-        ChunkPrimer primer, World world, IBiomeProviderRTG cmr, Random mapRand,
-        int chunkX, int chunkY, int baseX, int baseY,
-        OpenSimplexNoise simplex, CellNoise cell, float noise[]) {}
-
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land

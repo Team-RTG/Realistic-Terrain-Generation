@@ -148,12 +148,12 @@ public class RealisticBiomeBase {
         if (!ConfigRTG.enableVolcanoes) return;
 
         // Have volcanoes been disabled in the biome config?
-    	RealisticBiomeBase neighbourBiome = getBiome(Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16)));
-        if (!neighbourBiome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
+    	RealisticBiomeBase biome = getBiome(Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16)));
+        if (!biome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = neighbourBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : neighbourBiome.config._int(BiomeConfig.volcanoChanceId);
+        int chance = biome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : biome.config._int(BiomeConfig.volcanoChanceId);
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D

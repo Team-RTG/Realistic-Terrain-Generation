@@ -9,7 +9,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
 /**
@@ -29,6 +29,7 @@ public class BiomeAnalyzer {
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;
     private final static int NO_BIOME = -1;
+    private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
 
     public BiomeAnalyzer() {
         determineRiverBiomes();
@@ -279,7 +280,12 @@ public class BiomeAnalyzer {
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
             RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
-            if (realisticBiome == null) continue;
+
+            // Do we need to patch the biome?
+            if (realisticBiome == null) {
+                realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                    "NULL biome (" + i + ") found when setting up beaches for biomes.");
+            }
 
             preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome);
 

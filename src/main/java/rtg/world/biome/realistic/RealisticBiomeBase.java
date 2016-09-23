@@ -75,8 +75,6 @@ public class RealisticBiomeBase {
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
 
-    protected RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
-
     public RealisticBiomeBase(BiomeConfig config, Biome biome) {
 
         this(config, biome, Biomes.RIVER);
@@ -184,6 +182,7 @@ public class RealisticBiomeBase {
     	RealisticBiomeBase realisticBiome = getBiome(biomeId);
         // Do we need to patch the biome?
         if (realisticBiome == null) {
+            RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
             realisticBiome = biomePatcher.getPatchedRealisticBiome(
                 "NULL biome (" + biomeId + ") found when mapping volcanoes.");
         }

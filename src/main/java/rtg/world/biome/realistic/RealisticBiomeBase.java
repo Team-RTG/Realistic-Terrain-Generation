@@ -75,6 +75,8 @@ public class RealisticBiomeBase {
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
 
+    protected RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+
     public RealisticBiomeBase(BiomeConfig config, Biome biome) {
 
         this(config, biome, Biomes.RIVER);
@@ -178,15 +180,18 @@ public class RealisticBiomeBase {
         if (!ConfigRTG.enableVolcanoes) return;
 
         // Have volcanoes been disabled in the biome config?
-    	RealisticBiomeBase biome = getBiome(Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16)));
-        if (biome == null) throw new RuntimeException("rMapVolcanoes biome is NULL at " + baseX * 16 + " " + baseY * 16);
-        if (biome.config == null) throw new RuntimeException("rMapVolcanoes biome config is NULL at " + baseX * 16 + " " + baseY * 16);
-
-        if (!biome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
+        int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
+    	RealisticBiomeBase realisticBiome = getBiome(biomeId);
+        // Do we need to patch the biome?
+        if (realisticBiome == null) {
+            realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                "NULL biome (" + biomeId + ") found when mapping volcanoes.");
+        }
+        if (!realisticBiome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = biome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : biome.config._int(BiomeConfig.volcanoChanceId);
+        int chance = realisticBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : realisticBiome.config._int(BiomeConfig.volcanoChanceId);
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D

@@ -149,6 +149,8 @@ public class RealisticBiomeBase {
 
         // Have volcanoes been disabled in the biome config?
     	RealisticBiomeBase biome = getBiome(Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16)));
+        if (biome == null) return;
+
         if (!biome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
 
         // Have volcanoes been disabled via frequency?

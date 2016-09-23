@@ -91,14 +91,14 @@ class LandscapeGenerator {
         TimeTracker.manager.start("Biome Layout");
 
         for(int i = -sampleSize; i < sampleSize + 5; i++) {
-    		for(int j = -sampleSize; j < sampleSize + 5; j++) {
-    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] =
-                    Biome.getIdForBiome(cmr.getBiomeDataAt(cx + ((i * 8)), cz + ((j * 8))).baseBiome);
-    		}
-    	}
+            for(int j = -sampleSize; j < sampleSize + 5; j++) {
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] =
+                Biome.getIdForBiome(cmr.getBiomeDataAt(cx + ((i * 8)), cz + ((j * 8))).baseBiome);
+            }
+        }
 
         TimeTracker.manager.stop("Biome Layout");
-    	float river;
+        float river;
 
         // fill the old smallRender
         for (int i = 0; i < 16; i++) {
@@ -119,18 +119,18 @@ class LandscapeGenerator {
                     weightedBiomes[biomeIndex] /= totalWeight;
                 }
 
-    			landscape.noise[i * 16 + j] = 0f;
+                landscape.noise[i * 16 + j] = 0f;
 
                 TimeTracker.manager.stop("Weighting");
                 TimeTracker.manager.start("Generating");
-    			river = cmr.getRiverStrength(cx + i, cz + j);
+                river = cmr.getRiverStrength(cx + i, cz + j);
                 landscape.river[i * 16 + j] = -river;
                 float totalBorder = 0f;
 
-    			for(int k = 0; k < 256; k++)
-    			{
-    				if(weightedBiomes[k] > 0f)
-    				{
+                for(int k = 0; k < 256; k++)
+                {
+                    if(weightedBiomes[k] > 0f)
+                    {
                         totalBorder += weightedBiomes[k];
                         RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(k);
 
@@ -140,12 +140,12 @@ class LandscapeGenerator {
                                 "NULL biome (" + k + ") found when getting newer noise.");
                         }
 
-    					landscape.noise[i * 16 + j] += realisticBiome.rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        landscape.noise[i * 16 + j] += realisticBiome.rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
 
                         // 0 for the next column
                         weightedBiomes[k] = 0f;
-    				}
-    			}
+                    }
+                }
                 if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
                 TimeTracker.manager.stop("Generating");
             }

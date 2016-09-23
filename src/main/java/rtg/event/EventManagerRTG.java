@@ -47,7 +47,6 @@ public class EventManagerRTG {
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
     private boolean isWorldTypeRTG = true;
-    private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
 
     public EventManagerRTG() {
 
@@ -289,6 +288,7 @@ public class EventManagerRTG {
 
             // Do we need to patch the biome?
             if (rb == null) {
+                RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
                 rb = biomePatcher.getPatchedRealisticBiome(
                     "NULL biome (" + Biome.getIdForBiome(bgg) + ") found when growing an RTG sapling.");
             }

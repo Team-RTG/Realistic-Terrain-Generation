@@ -6,6 +6,7 @@ import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
 /**
@@ -22,7 +23,7 @@ class LandscapeGenerator {
     private float [] weightedBiomes = new float [256];
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
-
+    private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
 
     LandscapeGenerator(OpenSimplexNoise simplex, CellNoise cell) {
         sampleArraySize = sampleSize * 2 + 5;
@@ -131,8 +132,16 @@ class LandscapeGenerator {
     				if(weightedBiomes[k] > 0f)
     				{
                         totalBorder += weightedBiomes[k];
-    					landscape.noise[i * 16 + j] += RealisticBiomeBase.getBiome(k).
-                                rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(k);
+
+                        // Do we need to patch the biome?
+                        if (realisticBiome == null) {
+                            realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                                "NULL biome (" + k + ") found when getting newer noise.");
+                        }
+
+    					landscape.noise[i * 16 + j] += realisticBiome.rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+
                         // 0 for the next column
                         weightedBiomes[k] = 0f;
     				}

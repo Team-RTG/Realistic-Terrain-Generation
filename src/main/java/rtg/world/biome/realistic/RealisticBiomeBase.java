@@ -11,7 +11,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.*;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.SaplingUtil;
+import rtg.util.SimplexOctave;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
@@ -84,7 +87,7 @@ public class RealisticBiomeBase {
         arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
         baseBiome = biome;
         riverBiome = river;
-        beachBiome = BiomeAnalyzer.getBeachForBiome(baseBiome);
+        beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);
 
@@ -137,6 +140,33 @@ public class RealisticBiomeBase {
         this(config, b, riverbiome, t, new SurfaceBase[]{s});
 
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
+    }
+
+    /*
+     * Returns the beach biome to use for this biome.
+     * By default, it uses the beach that has been set in the biome config.
+     * If automatic beach detection is enabled (-1), it uses the supplied preferred beach.
+     */
+    protected Biome beachBiome(Biome preferredBeach) {
+
+        Biome beach;
+        int configBeachId = this.config._int(BiomeConfig.beachBiomeId);
+
+        if (configBeachId > -1 && configBeachId < 256) {
+            beach = Biome.getBiome(configBeachId, preferredBeach);
+        }
+        else {
+            beach = preferredBeach;
+        }
+
+        return beach;
+    }
+
+    /*
+     * Returns the beach biome to use for this biome, with a dynamically-calculated preferred beach.
+     */
+    public Biome beachBiome() {
+        return this.beachBiome(BiomeAnalyzer.getPreferredBeachForBiome(this.baseBiome));
     }
 
     public void rMapVolcanoes(

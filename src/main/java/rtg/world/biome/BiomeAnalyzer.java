@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -298,36 +297,11 @@ public class BiomeAnalyzer {
         }
     }
 
-    public static Biome getBeachForBiome(Biome biome) {
-
-        if (biome == null) throw new RuntimeException("Found NULL biome when getting beach for biome.");
-
-        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
-        if (realisticBiome == null) throw new RuntimeException("Found NULL realistic biome when getting beach for biome.");
-
-        /*
-         * Use the beach that has been set in the biome config.
-         * If automatic beach detection is enabled (-1), try to determine the best beach based on the biome's height & temperature.
-         */
-
-        Biome beach;
-        Biome preferredBeach = getPreferredBeachForBiome(biome);
-        int configBeachId = realisticBiome.config._int(BiomeConfig.beachBiomeId);
-
-        if (configBeachId > -1 && configBeachId < 256) {
-            beach = Biome.getBiome(configBeachId, preferredBeach);
-        }
-        else {
-            beach = preferredBeach;
-        }
-
-        return beach;
-    }
-
     public static Biome getPreferredBeachForBiome(Biome biome) {
 
         /*
          * Some of this code is from Climate Control, and it's still a bit crude. - Zeno
+         * Some of this code is from Pink's brain, and it's also a bit crude. - Pink
          */
 
         float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);

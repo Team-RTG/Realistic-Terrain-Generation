@@ -149,7 +149,8 @@ public class RealisticBiomeBase {
 
         // Have volcanoes been disabled in the biome config?
     	RealisticBiomeBase biome = getBiome(Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16)));
-        if (biome == null) return;
+        if (biome == null) throw new RuntimeException("rMapVolcanoes biome is NULL at " + baseX * 16 + " " + baseY * 16);
+        if (biome.config == null) throw new RuntimeException("rMapVolcanoes biome config is NULL at " + baseX * 16 + " " + baseY * 16);
 
         if (!biome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
 

@@ -89,4 +89,9 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     public int getExtraGoldGenCount() {
         return 20;
     }
+
+    @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.MESA);
+    }
 }

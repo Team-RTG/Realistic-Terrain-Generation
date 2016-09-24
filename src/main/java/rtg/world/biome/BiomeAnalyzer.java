@@ -317,8 +317,13 @@ public class BiomeAnalyzer {
         Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
 
         // If this is a mountainous biome or a Taiga variant, then let's use a stone beach.
-        if ((height > (1.0f + 0.5f)) || isTaigaBiome(biome)) {
+        if ((height > (1.0f + 0.5f) && temp > 0.05f) || isTaigaBiome(biome)) {
             beach = Biomes.STONE_BEACH;
+        }
+
+        // Snowy biomes should always use cold beach; otherwise, the transition looks too abrupt.
+        if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY)) {
+            beach = Biomes.COLD_BEACH;
         }
 
         return beach;
@@ -327,7 +332,8 @@ public class BiomeAnalyzer {
     private static boolean isTaigaBiome(Biome biome) {
         return BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.COLD)
             && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.CONIFEROUS)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FOREST);
+            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FOREST)
+            && !BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY);
     }
 
     /* HUNTING

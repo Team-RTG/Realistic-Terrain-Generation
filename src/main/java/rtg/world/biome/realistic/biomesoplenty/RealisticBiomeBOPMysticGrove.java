@@ -33,7 +33,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         decoFallenTree.distribution.noiseAddend = -15f;
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 12;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BOPBlocks.log_4.getStateFromMeta(2), BOPBlocks.log_2.getStateFromMeta(1)};
+        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BOPBlocks.log_3.getStateFromMeta(4), BOPBlocks.log_1.getStateFromMeta(5)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMysticGrove.decorationLogsId));

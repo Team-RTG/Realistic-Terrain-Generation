@@ -3,6 +3,7 @@ package rtg.world.gen.feature;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -47,9 +48,7 @@ public class WorldGenLog extends WorldGenerator {
         }
 
         WorldUtil worldUtil = new WorldUtil(world);
-        int dir = rand.nextInt(2);
-        int dirMeta = 4 + (dir * 4) + this.logBlock.getBlock().getMetaFromState(this.logBlock);
-
+        int dir = rand.nextInt(2); // The direction of the log (0 = X; 1 = Z)
         int i;
         IBlockState b;
         int air = 0;
@@ -100,7 +99,14 @@ public class WorldGenLog extends WorldGenerator {
             aX.add(x);
             aY.add(y);
             aZ.add(z);
-            aBlock.add(logBlock.getBlock().getStateFromMeta(dirMeta));
+
+            // If we can't rotate the log block for whatever reason, then just place it as it is.
+            try {
+                aBlock.add(logBlock.withProperty(BlockLog.LOG_AXIS, (dir == 0 ? BlockLog.EnumAxis.X : BlockLog.EnumAxis.Z)));
+            }
+            catch (Exception e) {
+                aBlock.add(logBlock);
+            }
 
             if (this.generateLeaves) {
                 addLeaves(world, rand, dir, x, y, z);

@@ -140,7 +140,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         if (isRTGWorld && ConfigRTG.enableVillageModifications) {
-            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(m), EventType.VILLAGE);
+            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(), EventType.VILLAGE);
         }
         else {
             villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);

@@ -44,6 +44,10 @@ import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenStrongholdRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
+import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
 @SuppressWarnings({"UnusedParameters", "deprecation"})
@@ -118,27 +122,53 @@ public class ChunkProviderRTG implements IChunkGenerator
         m.put("size", "0");
         m.put("distance", "24");
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
+
         boolean isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
 
         if (isRTGWorld && ConfigRTG.enableCaveModifications) {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
+            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
         else {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
+            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
         if (isRTGWorld && ConfigRTG.enableRavineModifications) {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
+            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
         else {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
+            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
-        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
-        strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
+        if (isRTGWorld && ConfigRTG.enableVillageModifications) {
+            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(m), EventType.VILLAGE);
+        }
+        else {
+            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
+        }
+
+        if (isRTGWorld && ConfigRTG.enableStrongholdModifications) {
+            strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStrongholdRTG(), EventType.STRONGHOLD);
+        }
+        else {
+            strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
+        }
+
         mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), EventType.MINESHAFT);
-        scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
-        oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
+
+        if (isRTGWorld && ConfigRTG.enableScatteredFeatureModifications) {
+            scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeatureRTG(), EventType.SCATTERED_FEATURE);
+        }
+        else {
+            scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
+        }
+
+        if (isRTGWorld && ConfigRTG.enableOceanMonumentModifications) {
+            oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonumentRTG(), EventType.OCEAN_MONUMENT);
+        }
+        else {
+            oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
+        }
+
         CanyonColour.init(l);
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];

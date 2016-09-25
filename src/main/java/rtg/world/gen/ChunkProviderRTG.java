@@ -254,6 +254,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         int k;
+        RealisticBiomeBase realisticBiome;
 
         ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx * 16, cz * 16);
 
@@ -262,14 +263,33 @@ public class ChunkProviderRTG implements IChunkGenerator
         //get standard biome Data
 
         for (int ci = 0; ci < 256; ci++) {
-            biomesGeneratedInChunk[Biome.getIdForBiome(landscape.biome[ci].baseBiome)] = true;
+
+            realisticBiome = landscape.biome[ci];
+
+            // Do we need to patch the biome?
+            if (realisticBiome == null) {
+                realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                    "NULL biome (" + ci + ") found when providing chunk.");
+            }
+
+            biomesGeneratedInChunk[Biome.getIdForBiome(realisticBiome.baseBiome)] = true;
         }
 
         for (k = 0; k < 256; k++) {
             if (biomesGeneratedInChunk[k]) {
-                RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
+
+                realisticBiome = RealisticBiomeBase.getBiome(k);
+
+                // Do we need to patch the biome?
+                if (realisticBiome == null) {
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                        "NULL biome (" + k + ") found when providing chunk.");
+                }
+
+                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
                 biomesGeneratedInChunk[k] = false;
             }
+
             try {
                 baseBiomesList[k] = landscape.biome[k].baseBiome;
             }

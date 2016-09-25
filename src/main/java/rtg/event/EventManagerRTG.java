@@ -26,6 +26,7 @@ import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 
@@ -222,6 +223,14 @@ public class EventManagerRTG {
             //Biome bgg = cmr.getBiomeGenAt(x, z);
             Biome bgg = event.getWorld().getBiome(event.getPos());
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(Biome.getIdForBiome(bgg));
+
+            // Do we need to patch the biome?
+            if (rb == null) {
+                RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+                rb = biomePatcher.getPatchedRealisticBiome(
+                    "NULL biome (" + Biome.getIdForBiome(bgg) + ") found when growing an RTG sapling.");
+            }
+
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 

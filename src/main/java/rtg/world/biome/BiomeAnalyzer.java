@@ -280,12 +280,7 @@ public class BiomeAnalyzer {
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
             RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
-
-            // Do we need to patch the biome?
-            if (realisticBiome == null) {
-                realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                    "NULL biome (" + i + ") found when setting up beaches for biomes.");
-            }
+            if (realisticBiome == null) continue;
 
             preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome);
 

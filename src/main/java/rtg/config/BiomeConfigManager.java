@@ -7,6 +7,8 @@ import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
+import rtg.api.biome.betteragriculture.config.BiomeConfigBA;
+import rtg.api.biome.betteragriculture.config.BiomeConfigBAFarmlandBiome;
 import rtg.api.biome.biomesoplenty.config.*;
 import rtg.api.biome.biomesyougo.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
@@ -22,6 +24,7 @@ public class BiomeConfigManager {
     public static void initBiomeConfigs() {
 
         initBiomeConfigsAC();
+        initBiomeConfigsBA();
         initBiomeConfigsBOP();
         initBiomeConfigsBYG();
         initBiomeConfigsFC();
@@ -38,6 +41,11 @@ public class BiomeConfigManager {
         BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
         BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
         BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
+    }
+
+    public static void initBiomeConfigsBA() {
+
+        BiomeConfigBA.biomeConfigBAFarmlandBiome = new BiomeConfigBAFarmlandBiome();
     }
 
     public static void initBiomeConfigsBOP() {

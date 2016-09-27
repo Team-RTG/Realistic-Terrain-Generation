@@ -47,6 +47,7 @@ public class DecoTree extends DecoBase {
     public int minCrownSize; // Min tree height (only used with certain tree presets)
     public int maxCrownSize; // Max tree height (only used with certain tree presets)
     public boolean noLeaves;
+    public Scatter scatter;
 
     public DecoTree() {
 
@@ -79,6 +80,7 @@ public class DecoTree extends DecoBase {
         this.minCrownSize = 2;
         this.maxCrownSize = 4;
         this.noLeaves = false;
+        this.scatter = new Scatter(16, 0);
 
         this.addDecoTypes(DecoType.TREE);
     }
@@ -107,6 +109,7 @@ public class DecoTree extends DecoBase {
         this.minCrownSize = source.minCrownSize;
         this.maxCrownSize = source.maxCrownSize;
         this.noLeaves = source.noLeaves;
+        this.scatter = source.scatter;
     }
 
     public DecoTree(TreeRTG tree) {
@@ -153,8 +156,8 @@ public class DecoTree extends DecoBase {
                 loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
-                    int intX = chunkX + rand.nextInt(16);// + 8;
-                    int intZ = chunkY + rand.nextInt(16);// + 8;
+                    int intX = scatter.get(rand, chunkX); // + 8;
+                    int intZ = scatter.get(rand, chunkY); // + 8;
                     int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -225,6 +228,26 @@ public class DecoTree extends DecoBase {
         NOISE_GREATER_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
         X_DIVIDED_BY_STRENGTH;
+    }
+
+    public static class Scatter {
+
+        int bound;
+        int reach;
+
+        public Scatter(int bound, int reach) {
+
+            if (bound < 1) {
+                throw new RuntimeException("Scatter bound must be greater than 0.");
+            };
+
+            this.bound = bound;
+            this.reach = reach;
+        }
+
+        public int get(Random rand, int coord) {
+            return coord + rand.nextInt(bound) + reach;
+        }
     }
 
     /**

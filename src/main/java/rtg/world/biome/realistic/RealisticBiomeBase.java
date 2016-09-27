@@ -3,6 +3,8 @@ package rtg.world.biome.realistic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -452,6 +454,14 @@ public class RealisticBiomeBase {
 
             // Set the sapling data for this tree before we add it to the list.
             tree.saplingBlock = SaplingUtil.getSaplingFromLeaves(tree.leavesBlock);
+
+            try {
+                IBlockState leaves = tree.leavesBlock.withProperty(BlockLeaves.CHECK_DECAY, false);
+                tree.leavesBlock = leaves;
+            }
+            catch (Exception e) {
+                // Do nothing.
+            }
 
             this.rtgTrees.add(tree);
         }

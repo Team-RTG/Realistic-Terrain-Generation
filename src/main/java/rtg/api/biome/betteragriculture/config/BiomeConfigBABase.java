@@ -6,6 +6,6 @@ public class BiomeConfigBABase extends BiomeConfig {
 
     public BiomeConfigBABase(String biomeSlug) {
 
-        super("sugiforest", biomeSlug);
+        super("betteragriculture", biomeSlug);
     }
 }

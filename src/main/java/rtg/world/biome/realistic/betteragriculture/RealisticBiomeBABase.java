@@ -25,7 +25,7 @@ public class RealisticBiomeBABase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("farmland")) {
+        if (Loader.isModLoaded("betteragriculture")) {
 
             for (Biome biome : Biome.REGISTRY) {
 
@@ -37,7 +37,7 @@ public class RealisticBiomeBABase extends RealisticBiomeBase {
                 String biomeName = biome.getBiomeName();
                 String biomeClass = biome.getBiomeClass().getName();
 
-                if (biomeName.equals("Farmland") && biomeClass.equals("farmland.world.BiomeFarmland")) {
+                if (biomeName.equals("FarmlandBiome") && biomeClass.equals("betteragriculture.world.biome.FarmlandBiome")) {
                     baFarmlandBiome = new RealisticBiomeBAFarmlandBiome(biome, BiomeConfigBA.biomeConfigBAFarmlandBiome);
                 }
             }

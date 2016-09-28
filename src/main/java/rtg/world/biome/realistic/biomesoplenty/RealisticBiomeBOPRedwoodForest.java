@@ -25,7 +25,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPRedwoodForest(58f, 80f, 30f),
-            new SurfaceBOPRedwoodForest(config, biome.topBlock, biome.fillerBlock, false, null, 0.4f)
+            new SurfaceBOPRedwoodForest(config, biome.topBlock, biome.fillerBlock, 0.4f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

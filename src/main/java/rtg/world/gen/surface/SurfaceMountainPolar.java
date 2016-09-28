@@ -13,15 +13,11 @@ import rtg.util.OpenSimplexNoise;
 
 public class SurfaceMountainPolar extends SurfaceBase {
 
-    private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
-    public SurfaceMountainPolar(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
+    public SurfaceMountainPolar(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
         super(config, top, fill);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
         min = minCliff;
     }
 

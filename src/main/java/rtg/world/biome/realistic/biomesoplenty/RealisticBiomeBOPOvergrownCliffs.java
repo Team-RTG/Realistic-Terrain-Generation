@@ -19,7 +19,7 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPOvergrownCliffs(300f, 100f, 0f),
-            new SurfaceBOPOvergrownCliffs(config, biome.topBlock, biome.fillerBlock, false, null, 0.95f)
+            new SurfaceBOPOvergrownCliffs(config, biome.topBlock, biome.fillerBlock, 0.95f)
         );
 
         this.generatesEmeralds = true;

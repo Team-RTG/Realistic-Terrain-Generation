@@ -39,10 +39,15 @@ import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenStrongholdRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
+import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
 @SuppressWarnings({"UnusedParameters", "deprecation"})
@@ -58,6 +63,8 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final StructureOceanMonument oceanMonumentGenerator;
     private final int sampleSize = 8;
     private final int sampleArraySize;
+    private BiomeAnalyzer analyzer = new BiomeAnalyzer();
+    private int [] xyinverted = analyzer.xyinverted();
     private final LandscapeGenerator landscapeGenerator;
     private final LimitedMap<ChunkPos, Chunk> availableChunks;
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
@@ -115,27 +122,53 @@ public class ChunkProviderRTG implements IChunkGenerator
         m.put("size", "0");
         m.put("distance", "24");
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
+
         boolean isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
 
         if (isRTGWorld && ConfigRTG.enableCaveModifications) {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
+            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
         else {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
+            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
         if (isRTGWorld && ConfigRTG.enableRavineModifications) {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
+            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
         else {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
+            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
-        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
-        strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
+        if (isRTGWorld && ConfigRTG.enableVillageModifications) {
+            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(), EventType.VILLAGE);
+        }
+        else {
+            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
+        }
+
+        if (isRTGWorld && ConfigRTG.enableStrongholdModifications) {
+            strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStrongholdRTG(), EventType.STRONGHOLD);
+        }
+        else {
+            strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
+        }
+
         mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), EventType.MINESHAFT);
-        scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
-        oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
+
+        if (isRTGWorld && ConfigRTG.enableScatteredFeatureModifications) {
+            scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeatureRTG(), EventType.SCATTERED_FEATURE);
+        }
+        else {
+            scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
+        }
+
+        if (isRTGWorld && ConfigRTG.enableOceanMonumentModifications) {
+            oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonumentRTG(), EventType.OCEAN_MONUMENT);
+        }
+        else {
+            oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
+        }
+
         CanyonColour.init(l);
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];
@@ -221,6 +254,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         int k;
+        RealisticBiomeBase realisticBiome;
 
         ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx * 16, cz * 16);
 
@@ -229,14 +263,33 @@ public class ChunkProviderRTG implements IChunkGenerator
         //get standard biome Data
 
         for (int ci = 0; ci < 256; ci++) {
-            biomesGeneratedInChunk[Biome.getIdForBiome(landscape.biome[ci].baseBiome)] = true;
+
+            realisticBiome = landscape.biome[ci];
+
+            // Do we need to patch the biome?
+            if (realisticBiome == null) {
+                realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                    "NULL biome (" + ci + ") found when providing chunk.");
+            }
+
+            biomesGeneratedInChunk[Biome.getIdForBiome(realisticBiome.baseBiome)] = true;
         }
 
         for (k = 0; k < 256; k++) {
             if (biomesGeneratedInChunk[k]) {
-                RealisticBiomeBase.getBiome(k).generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
+
+                realisticBiome = RealisticBiomeBase.getBiome(k);
+
+                // Do we need to patch the biome?
+                if (realisticBiome == null) {
+                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                        "NULL biome (" + k + ") found when providing chunk.");
+                }
+
+                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
                 biomesGeneratedInChunk[k] = false;
             }
+
             try {
                 baseBiomesList[k] = landscape.biome[k].baseBiome;
             }
@@ -328,16 +381,14 @@ public class ChunkProviderRTG implements IChunkGenerator
         inGeneration.put(pos, chunk);
 
         // doJitter no longer needed as the biome array gets fixed
-/* the final nail in the flippage coffin -srs
-        byte[] abyte1 = chunk.getBiomeArray();
 
+        byte[] abyte1 = chunk.getBiomeArray();
         for (k = 0; k < abyte1.length; ++k) {
-            // biomes are y-first and terrain x-first
-            byte b = (byte) Biome.getIdForBiome(this.baseBiomesList[k]);
+            // Biomes are y-first and terrain x-first
+            byte b = (byte) Biome.getIdForBiome(this.baseBiomesList[xyinverted[k]]);
             abyte1[k] = b;
         }
         chunk.setBiomeArray(abyte1);
-*/
 
         chunk.generateSkylightMap();
         toCheck.add(pos);

@@ -11,7 +11,11 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.*;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.util.SaplingUtil;
+import rtg.util.SimplexOctave;
+import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.deco.DecoBase;
@@ -30,6 +34,7 @@ public class RealisticBiomeBase {
         new RealisticBiomeBase[256];
     public final Biome baseBiome;
     public final Biome riverBiome;
+    public final Biome beachBiome;
     public BiomeConfig config;
 
     public TerrainBase terrain;
@@ -82,6 +87,7 @@ public class RealisticBiomeBase {
         arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
         baseBiome = biome;
         riverBiome = river;
+        beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);
 
@@ -136,6 +142,33 @@ public class RealisticBiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
+    /*
+     * Returns the beach biome to use for this biome.
+     * By default, it uses the beach that has been set in the biome config.
+     * If automatic beach detection is enabled (-1), it uses the supplied preferred beach.
+     */
+    protected Biome beachBiome(Biome preferredBeach) {
+
+        Biome beach;
+        int configBeachId = this.config._int(BiomeConfig.beachBiomeId);
+
+        if (configBeachId > -1 && configBeachId < 256) {
+            beach = Biome.getBiome(configBeachId, preferredBeach);
+        }
+        else {
+            beach = preferredBeach;
+        }
+
+        return beach;
+    }
+
+    /*
+     * Returns the beach biome to use for this biome, with a dynamically-calculated preferred beach.
+     */
+    public Biome beachBiome() {
+        return this.beachBiome(BiomeAnalyzer.getPreferredBeachForBiome(this.baseBiome));
+    }
+
     public void rMapVolcanoes(
         ChunkPrimer primer, World world, IBiomeProviderRTG cmr,
         Random mapRand, int baseX, int baseY, int chunkX, int chunkY,
@@ -145,12 +178,19 @@ public class RealisticBiomeBase {
         if (!ConfigRTG.enableVolcanoes) return;
 
         // Have volcanoes been disabled in the biome config?
-    	RealisticBiomeBase neighbourBiome = getBiome(Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16)));
-        if (!neighbourBiome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
+        int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
+    	RealisticBiomeBase realisticBiome = getBiome(biomeId);
+        // Do we need to patch the biome?
+        if (realisticBiome == null) {
+            RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+            realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                "NULL biome (" + biomeId + ") found when mapping volcanoes.");
+        }
+        if (!realisticBiome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = neighbourBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : neighbourBiome.config._int(BiomeConfig.volcanoChanceId);
+        int chance = realisticBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : realisticBiome.config._int(BiomeConfig.volcanoChanceId);
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
@@ -169,20 +209,15 @@ public class RealisticBiomeBase {
 
     public void generateMapGen(ChunkPrimer primer, Long seed, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
+        // Have volcanoes been disabled in the global config?
+        if (!ConfigRTG.enableVolcanoes) return;
+
         final int mapGenRadius = 5;
         final int volcanoGenRadius = 15;
 
         mapRand.setSeed(seed);
         long l = (mapRand.nextLong() / 2L) * 2L + 1L;
         long l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
-
-        // Structures generation
-        for (int baseX = chunkX - mapGenRadius; baseX <= chunkX + mapGenRadius; baseX++) {
-            for (int baseY = chunkY - mapGenRadius; baseY <= chunkY + mapGenRadius; baseY++) {
-                mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapGen(primer, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
-            }
-        }
 
         // Volcanoes generation
         for (int baseX = chunkX - volcanoGenRadius; baseX <= chunkX + volcanoGenRadius; baseX++) {
@@ -192,12 +227,6 @@ public class RealisticBiomeBase {
             }
         }
     }
-
-    public void rMapGen(
-        ChunkPrimer primer, World world, IBiomeProviderRTG cmr, Random mapRand,
-        int chunkX, int chunkY, int baseX, int baseY,
-        OpenSimplexNoise simplex, CellNoise cell, float noise[]) {}
-
 
     public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land

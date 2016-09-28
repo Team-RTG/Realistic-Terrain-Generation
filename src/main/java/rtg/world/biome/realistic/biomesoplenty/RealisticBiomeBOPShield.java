@@ -46,7 +46,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree1.logConditionNoise = 0f;
         decoFallenTree1.logConditionChance = 6;
         decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = BOPBlocks.log_4.getDefaultState();
+        decoFallenTree1.logBlock = BOPBlocks.log_2.getStateFromMeta(6);
         decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree1.minSize = 3;
         decoFallenTree1.maxSize = 4;

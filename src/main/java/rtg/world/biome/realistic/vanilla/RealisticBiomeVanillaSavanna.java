@@ -26,4 +26,9 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionSavanna(this.config._boolean(BiomeConfigVanillaSavanna.decorationLogsId)));
     }
+
+    @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.BEACH);
+    }
 }

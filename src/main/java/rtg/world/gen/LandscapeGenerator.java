@@ -6,6 +6,7 @@ import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
 /**
@@ -22,7 +23,7 @@ class LandscapeGenerator {
     private float [] weightedBiomes = new float [256];
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
-
+    private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
 
     LandscapeGenerator(OpenSimplexNoise simplex, CellNoise cell) {
         sampleArraySize = sampleSize * 2 + 5;
@@ -90,14 +91,14 @@ class LandscapeGenerator {
         TimeTracker.manager.start("Biome Layout");
 
         for(int i = -sampleSize; i < sampleSize + 5; i++) {
-    		for(int j = -sampleSize; j < sampleSize + 5; j++) {
-    			biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] =
-                    Biome.getIdForBiome(cmr.getBiomeDataAt(cx + ((i * 8)), cz + ((j * 8))).baseBiome);
-    		}
-    	}
+            for(int j = -sampleSize; j < sampleSize + 5; j++) {
+                biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] =
+                Biome.getIdForBiome(cmr.getBiomeDataAt(cx + ((i * 8)), cz + ((j * 8))).baseBiome);
+            }
+        }
 
         TimeTracker.manager.stop("Biome Layout");
-    	float river;
+        float river;
 
         // fill the old smallRender
         for (int i = 0; i < 16; i++) {
@@ -118,25 +119,33 @@ class LandscapeGenerator {
                     weightedBiomes[biomeIndex] /= totalWeight;
                 }
 
-    			landscape.noise[i * 16 + j] = 0f;
+                landscape.noise[i * 16 + j] = 0f;
 
                 TimeTracker.manager.stop("Weighting");
                 TimeTracker.manager.start("Generating");
-    			river = cmr.getRiverStrength(cx + i, cz + j);
+                river = cmr.getRiverStrength(cx + i, cz + j);
                 landscape.river[i * 16 + j] = -river;
                 float totalBorder = 0f;
 
-    			for(int k = 0; k < 256; k++)
-    			{
-    				if(weightedBiomes[k] > 0f)
-    				{
+                for(int k = 0; k < 256; k++)
+                {
+                    if(weightedBiomes[k] > 0f)
+                    {
                         totalBorder += weightedBiomes[k];
-    					landscape.noise[i * 16 + j] += RealisticBiomeBase.getBiome(k).
-                                rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(k);
+
+                        // Do we need to patch the biome?
+                        if (realisticBiome == null) {
+                            realisticBiome = biomePatcher.getPatchedRealisticBiome(
+                                "NULL biome (" + k + ") found when getting newer noise.");
+                        }
+
+                        landscape.noise[i * 16 + j] += realisticBiome.rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+
                         // 0 for the next column
                         weightedBiomes[k] = 0f;
-    				}
-    			}
+                    }
+                }
                 if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
                 TimeTracker.manager.stop("Generating");
             }

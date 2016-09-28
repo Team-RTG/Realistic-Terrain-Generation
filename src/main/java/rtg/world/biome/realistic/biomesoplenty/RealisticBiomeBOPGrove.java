@@ -22,7 +22,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPGrove(),
-            new SurfaceBOPGrove(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.15f)
+            new SurfaceBOPGrove(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.15f)
         );
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();

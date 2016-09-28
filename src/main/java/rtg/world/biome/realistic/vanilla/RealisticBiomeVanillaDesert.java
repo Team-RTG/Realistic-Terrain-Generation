@@ -45,4 +45,9 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
+
+    @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.BEACH);
+    }
 }

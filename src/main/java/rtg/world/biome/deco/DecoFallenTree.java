@@ -31,7 +31,6 @@ public class DecoFallenTree extends DecoBase {
     public int minSize; // Min log height (only used with certain log presets)
     public int maxSize; // Max log height (only used with certain log presets)
     public IBlockState[] randomLogBlocks;
-    protected boolean useRandomLogs;
 
     public DecoFallenTree() {
 
@@ -52,7 +51,6 @@ public class DecoFallenTree extends DecoBase {
         this.minSize = 2;
         this.maxSize = 4;
         this.randomLogBlocks = new IBlockState[]{};
-        this.useRandomLogs = (this.randomLogBlocks.length > 0);
 
         this.addDecoTypes(DecoType.FALLEN_TREE);
     }
@@ -71,7 +69,6 @@ public class DecoFallenTree extends DecoBase {
         this.minSize = source.minSize;
         this.maxSize = source.maxSize;
         this.randomLogBlocks = source.randomLogBlocks;
-        this.useRandomLogs = source.useRandomLogs;
     }
 
     @Override
@@ -83,8 +80,7 @@ public class DecoFallenTree extends DecoBase {
             WorldUtil worldUtil = new WorldUtil(world);
 
             //Do we want to choose a random log?
-            if (this.useRandomLogs) {
-
+            if (this.randomLogBlocks.length > 0) {
                 this.logBlock = this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)];
             }
 

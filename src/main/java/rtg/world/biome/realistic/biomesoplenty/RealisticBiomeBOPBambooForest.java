@@ -20,7 +20,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPBambooForest(),
-            new SurfaceBOPBambooForest(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.15f)
+            new SurfaceBOPBambooForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.15f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -79,4 +79,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
     }
+
+    @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.BEACH);
+    }
 }

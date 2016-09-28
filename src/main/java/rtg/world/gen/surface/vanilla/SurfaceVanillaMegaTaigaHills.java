@@ -17,8 +17,6 @@ import rtg.world.gen.surface.SurfaceBase;
 
 public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {
 
-    private boolean beach;
-    private IBlockState beachBlock;
     private float min;
 
     private float sCliff = 1.5f;
@@ -29,18 +27,16 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {
     private float iStrength = 50f;
     private float cCliff = 1.5f;
 
-    public SurfaceVanillaMegaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff) {
+    public SurfaceVanillaMegaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
         super(config, top, fill);
-        beach = genBeach;
-        beachBlock = genBeachBlock;
         min = minCliff;
     }
 
-    public SurfaceVanillaMegaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, boolean genBeach, IBlockState genBeachBlock, float minCliff, float stoneCliff,
+    public SurfaceVanillaMegaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
                                         float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
 
-        this(config, top, fill, genBeach, genBeachBlock, minCliff);
+        this(config, top, fill, minCliff);
 
         sCliff = stoneCliff;
         sHeight = stoneHeight;
@@ -57,7 +53,6 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {
 
         float c = CliffCalculator.calc(x, y, noise);
         int cliff = 0;
-        boolean gravel = false;
 
         Block b;
         for (int k = 255; k > -1; k--) {
@@ -69,11 +64,6 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {
                 depth++;
 
                 if (depth == 0) {
-                    if (k < 63) {
-                        if (beach) {
-                            gravel = true;
-                        }
-                    }
 
                     float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
                     if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
@@ -103,11 +93,7 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {
                         primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     }
                     else if (k < 63) {
-                        if (beach) {
-                            primer.setBlockState(x, k, y, beachBlock);
-                            gravel = true;
-                        }
-                        else if (k < 62) {
+                        if (k < 62) {
                             primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else {
@@ -127,9 +113,6 @@ public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {
                     }
                     else if (cliff == 3) {
                         primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
-                    }
-                    else if (gravel) {
-                        primer.setBlockState(x, k, y, Blocks.GRAVEL.getDefaultState());
                     }
                     else {
                         primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());

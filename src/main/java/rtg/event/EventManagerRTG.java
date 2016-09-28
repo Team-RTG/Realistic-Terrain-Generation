@@ -9,26 +9,26 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.*;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+import net.minecraftforge.event.terraingen.OreGenEvent;
+import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
+import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.*;
+import rtg.util.Acceptor;
+import rtg.util.Logger;
+import rtg.util.RandomUtil;
+import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.MapGenCavesRTG;
-import rtg.world.gen.MapGenRavineRTG;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
-import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
-import rtg.world.gen.structure.MapGenStrongholdRTG;
-import rtg.world.gen.structure.MapGenVillageRTG;
-import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -39,13 +39,11 @@ public class EventManagerRTG {
     private final LoadChunkRTG LOAD_CHUNK_EVENT_HANDLER = new LoadChunkRTG();
     private final GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
     private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
-    private final InitMapGenRTG INIT_MAP_GEN_EVENT_HANDLER = new InitMapGenRTG();
     private final SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
     private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
-    private boolean isWorldTypeRTG = true;
 
     public EventManagerRTG() {
 
@@ -84,19 +82,83 @@ public class EventManagerRTG {
 
             switch (event.getType()) {
 
-                case ANDESITE: if (!ConfigRTG.generateOreAndesite) { event.setResult(Event.Result.DENY); return; }
-                case COAL: if (!ConfigRTG.generateOreCoal) { event.setResult(Event.Result.DENY); return; }
-                case DIAMOND: if (!ConfigRTG.generateOreDiamond) { event.setResult(Event.Result.DENY); return; }
-                case DIORITE: if (!ConfigRTG.generateOreDiorite) { event.setResult(Event.Result.DENY); return; }
-                case DIRT: if (!ConfigRTG.generateOreDirt) { event.setResult(Event.Result.DENY); return; }
-                case EMERALD: if (!ConfigRTG.generateOreEmerald) { event.setResult(Event.Result.DENY); return; }
-                case GOLD: if (!ConfigRTG.generateOreGold) { event.setResult(Event.Result.DENY); return; }
-                case GRANITE: if (!ConfigRTG.generateOreGranite) { event.setResult(Event.Result.DENY); return; }
-                case GRAVEL: if (!ConfigRTG.generateOreGravel) { event.setResult(Event.Result.DENY); return; }
-                case IRON: if (!ConfigRTG.generateOreIron) { event.setResult(Event.Result.DENY); return; }
-                case LAPIS: if (!ConfigRTG.generateOreLapis) { event.setResult(Event.Result.DENY); return; }
-                case REDSTONE: if (!ConfigRTG.generateOreRedstone) { event.setResult(Event.Result.DENY); return; }
-                case SILVERFISH: if (!ConfigRTG.generateOreSilverfish) { event.setResult(Event.Result.DENY); return; }
+                case ANDESITE:
+                    if (!ConfigRTG.generateOreAndesite) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case COAL:
+                    if (!ConfigRTG.generateOreCoal) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case DIAMOND:
+                    if (!ConfigRTG.generateOreDiamond) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case DIORITE:
+                    if (!ConfigRTG.generateOreDiorite) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case DIRT:
+                    if (!ConfigRTG.generateOreDirt) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case EMERALD:
+                    if (!ConfigRTG.generateOreEmerald) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case GOLD:
+                    if (!ConfigRTG.generateOreGold) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case GRANITE:
+                    if (!ConfigRTG.generateOreGranite) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case GRAVEL:
+                    if (!ConfigRTG.generateOreGravel) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case IRON:
+                    if (!ConfigRTG.generateOreIron) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case LAPIS:
+                    if (!ConfigRTG.generateOreLapis) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case REDSTONE:
+                    if (!ConfigRTG.generateOreRedstone) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
+
+                case SILVERFISH:
+                    if (!ConfigRTG.generateOreSilverfish) {
+                        event.setResult(Event.Result.DENY);
+                    }
+                    break;
 
                 default:
                     break;
@@ -121,65 +183,6 @@ public class EventManagerRTG {
                 //throw ex;
                 // failed attempt because the GenLayers don't end with GenLayerRiverMix
             }
-        }
-    }
-
-    public class InitMapGenRTG {
-
-        @SubscribeEvent(priority = EventPriority.LOW)
-        public void initMapGenRTG(InitMapGenEvent event) {
-
-            // Are we in an RTG world?
-            if (!isWorldTypeRTG) {
-                return;
-            }
-
-            Logger.debug("event type = %s", event.getType().toString());
-            Logger.debug("event originalGen = %s", event.getOriginalGen().toString());
-
-            switch (event.getType()) {
-
-                case SCATTERED_FEATURE:
-                    if (ConfigRTG.enableScatteredFeatureModifications) {
-                        event.setNewGen(new MapGenScatteredFeatureRTG());
-                    }
-                    break;
-
-                case VILLAGE:
-                    if (ConfigRTG.enableVillageModifications) {
-                        event.setNewGen(new MapGenVillageRTG());
-                    }
-                    break;
-
-                case CAVE:
-                    if (ConfigRTG.enableCaveModifications) {
-                        event.setNewGen(new MapGenCavesRTG());
-                    }
-                    break;
-
-                case RAVINE:
-                    if (ConfigRTG.enableRavineModifications) {
-                        event.setNewGen(new MapGenRavineRTG());
-                    }
-                    break;
-
-                case OCEAN_MONUMENT:
-                    if (ConfigRTG.enableOceanMonumentModifications) {
-                        event.setNewGen(new StructureOceanMonumentRTG());
-                    }
-                    break;
-
-                case STRONGHOLD:
-                    if (ConfigRTG.enableStrongholdModifications) {
-                        event.setNewGen(new MapGenStrongholdRTG());
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-
-            Logger.debug("event newGen = %s", event.getNewGen().toString());
         }
     }
 
@@ -220,6 +223,14 @@ public class EventManagerRTG {
             //Biome bgg = cmr.getBiomeGenAt(x, z);
             Biome bgg = event.getWorld().getBiome(event.getPos());
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(Biome.getIdForBiome(bgg));
+
+            // Do we need to patch the biome?
+            if (rb == null) {
+                RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+                rb = biomePatcher.getPatchedRealisticBiome(
+                    "NULL biome (" + Biome.getIdForBiome(bgg) + ") found when growing an RTG sapling.");
+            }
+
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
@@ -334,13 +345,6 @@ public class EventManagerRTG {
         }
 
         @SubscribeEvent
-        public void preBiomeDecorate(DecorateBiomeEvent.Pre event) {
-
-            //Are we in an RTG world?
-            isWorldTypeRTG = (event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG);
-        }
-
-        @SubscribeEvent
         public void onBiomeDecorate(DecorateBiomeEvent.Decorate event) {
 
             // Are flowing liquid modifications enabled?
@@ -385,7 +389,6 @@ public class EventManagerRTG {
         MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_EVENT_HANDLER);
         MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
 

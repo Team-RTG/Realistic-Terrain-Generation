@@ -27,7 +27,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaDesertM(10f, 20f, 68f, 200f),
-            new SurfaceVanillaDesertM(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
+            new SurfaceVanillaDesertM(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
         this.waterSurfaceLakeChance = 0;
@@ -45,5 +45,10 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
         riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    }
+
+    @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.BEACH);
     }
 }

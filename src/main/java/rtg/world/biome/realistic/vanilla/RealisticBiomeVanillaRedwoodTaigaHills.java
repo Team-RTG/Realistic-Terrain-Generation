@@ -20,7 +20,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
 
         super(config, biome, river,
             new TerrainVanillaRedwoodTaigaHills(),
-            new SurfaceVanillaRedwoodTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), true, Blocks.SAND.getDefaultState(), 0.2f)
+            new SurfaceVanillaRedwoodTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f)
         );
 
         this.noLakes = true;

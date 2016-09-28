@@ -23,7 +23,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         super(config, biome, river,
             new TerrainVanillaFlowerForest(),
-            new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f)
+            new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f)
         );
 
         // First, let's get a few shrubs in to break things up a bit.

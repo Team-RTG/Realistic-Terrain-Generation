@@ -17,8 +17,10 @@ import java.util.Random;
  */
 public class DecoWheat extends DecoBase {
 
-    public int type; // This can be any block.
-    public float strengthFactor; // Higher = something or another.
+    public int type; // This can the number 0,1,2.
+    public int size; //Higher = larger fields
+    public int density; //Higher = Crops closer together
+    public float strengthFactor; // Higher = More frequent spawns.
     public int minY; // Lower height restriction.
     public int maxY; // Upper height restriction.
     public int chance; // Higher = more rare.
@@ -33,6 +35,8 @@ public class DecoWheat extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.type = 2;
+        this.size = 20;
+        this.density = 30;
         this.strengthFactor = 2f;
         this.minY = 60; // Sensible lower height limit by default.
         this.maxY = 255; // No upper height limit by default.
@@ -48,7 +52,7 @@ public class DecoWheat extends DecoBase {
         if (this.allowed) {
 
             WorldUtil worldUtil = new WorldUtil(world);
-            WorldGenerator worldGenerator = new WorldGenWildWheat(type);
+            WorldGenerator worldGenerator = new WorldGenWildWheat(type, size, density);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
                 int i1 = chunkX + rand.nextInt(16);// + 8;

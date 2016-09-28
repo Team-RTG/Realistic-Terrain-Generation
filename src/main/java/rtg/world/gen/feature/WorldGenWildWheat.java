@@ -13,14 +13,18 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class WorldGenWildWheat extends WorldGenerator {
 
     private Block farmtype;
+    private int farmsize;
+    private int farmdensity;
 
 
     /**
      * 0 = potatoes, 1 = carrots, 2 = wheat
      */
-    public WorldGenWildWheat(int type) {
+    public WorldGenWildWheat(int type, int size, int density) {
 
         farmtype = type == 0 ? Blocks.POTATOES : type == 1 ? Blocks.CARROTS : Blocks.WHEAT;
+        farmsize = size;
+        farmdensity = density;
     }
 
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -52,10 +56,10 @@ public class WorldGenWildWheat extends WorldGenerator {
         }
 
         int rx, ry, rz;
-        for (int i = 0; i < 30; i++) {
-            rx = rand.nextInt(5) - 2;
+        for (int i = 0; i < farmdensity; i++) {
+            rx = rand.nextInt(farmsize) - 2;
             ry = rand.nextInt(2) - 1;
-            rz = rand.nextInt(5) - 2;
+            rz = rand.nextInt(farmsize) - 2;
             b = world.getBlockState(new BlockPos(x + rx, y + ry, z + rz));
 
             if ((b.getBlock() == Blocks.GRASS || b.getBlock() == Blocks.DIRT) && world.isAirBlock(new BlockPos(x + rx, y + ry + 1, z + rz))) {

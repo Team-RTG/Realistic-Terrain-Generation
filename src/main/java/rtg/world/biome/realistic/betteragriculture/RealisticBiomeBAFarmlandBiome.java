@@ -48,6 +48,15 @@ public class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.bet
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBAFarmlandBiome.decorationLogsId));
 
+        DecoWheat decoWheat = new DecoWheat();
+        decoWheat.type = 2;
+        decoWheat.chance = 80;
+        decoWheat.strengthFactor = 8f;
+        decoWheat.maxY = 255;
+        decoWheat.size = 80;
+        decoWheat.density = 30;
+        this.addDeco(decoWheat);
+
         DecoShrub decoShrubBA = new DecoShrub();
         decoShrubBA.logBlock = BALogBlock;
         decoShrubBA.leavesBlock = BALeavesBlock;
@@ -81,10 +90,5 @@ public class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.bet
         decoGrass.loops = 1;
         this.addDeco(decoGrass);
 
-        DecoWheat decoWheat = new DecoWheat();
-        decoWheat.type = 2;
-        decoWheat.chance = 80;
-        decoWheat.strengthFactor = 2f;
-        decoWheat.maxY = 70;
     }
 }

@@ -6,9 +6,9 @@ import rtg.world.gen.terrain.TerrainBase;
 
 public class TerrainBAFarmlandBiome extends TerrainBase {
 
-    private float baseHeight = 72f;
-    private float peakyHillWavelength = 40f;
-    private float peakyHillStrength = 10f;
+    private float baseHeight = 67f;
+    private float peakyHillWavelength = 15f;
+    private float peakyHillStrength = 5f;
     private float smoothHillWavelength = 20f;
     private float smoothHillStrength = 20f;
 

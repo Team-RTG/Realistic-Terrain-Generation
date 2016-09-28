@@ -54,7 +54,7 @@ public class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.bet
         decoWheat.strengthFactor = 8f;
         decoWheat.maxY = 255;
         decoWheat.size = 80;
-        decoWheat.density = 30;
+        decoWheat.density = 1000;
         this.addDeco(decoWheat);
 
         DecoShrub decoShrubBA = new DecoShrub();

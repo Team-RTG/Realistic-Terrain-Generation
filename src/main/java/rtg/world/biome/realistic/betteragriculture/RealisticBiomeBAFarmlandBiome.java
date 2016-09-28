@@ -48,14 +48,32 @@ public class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.bet
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBAFarmlandBiome.decorationLogsId));
 
-        DecoWheat decoWheat = new DecoWheat();
-        decoWheat.type = 2;
-        decoWheat.chance = 80;
-        decoWheat.strengthFactor = 8f;
-        decoWheat.maxY = 255;
-        decoWheat.size = 80;
-        decoWheat.density = 1000;
-        this.addDeco(decoWheat);
+        DecoWheat decoWheatWheat = new DecoWheat();
+        decoWheatWheat.type = 2;
+        decoWheatWheat.chance = 80;
+        decoWheatWheat.strengthFactor = 8f;
+        decoWheatWheat.maxY = 255;
+        decoWheatWheat.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoWheatWheat.density = 500;
+        this.addDeco(decoWheatWheat);
+
+        DecoWheat decoWheatCarrot = new DecoWheat();
+        decoWheatCarrot.type = 1;
+        decoWheatCarrot.chance = 80;
+        decoWheatCarrot.strengthFactor = 8f;
+        decoWheatCarrot.maxY = 255;
+        decoWheatCarrot.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoWheatCarrot.density = 500;
+        this.addDeco(decoWheatCarrot);
+
+        DecoWheat decoWheatPotato = new DecoWheat();
+        decoWheatPotato.type = 0;
+        decoWheatPotato.chance = 80;
+        decoWheatPotato.strengthFactor = 8f;
+        decoWheatPotato.maxY = 255;
+        decoWheatPotato.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoWheatPotato.density = 500;
+        this.addDeco(decoWheatPotato);
 
         DecoShrub decoShrubBA = new DecoShrub();
         decoShrubBA.logBlock = BALogBlock;

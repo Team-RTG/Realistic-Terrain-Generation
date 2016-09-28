@@ -19,7 +19,7 @@ public class DecoWheat extends DecoBase {
 
     public int type; // This can the number 0,1,2.
     public int size; //Higher = larger fields
-    public int density; //Higher = Crops closer together
+    public int density; //Higher = Crops in fields closer together
     public float strengthFactor; // Higher = More frequent spawns.
     public int minY; // Lower height restriction.
     public int maxY; // Upper height restriction.
@@ -35,8 +35,8 @@ public class DecoWheat extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.type = 2;
-        this.size = 20;
-        this.density = 30;
+        this.size = 5;//DO NOT PUT HIGHER THAN 30
+        this.density = 50;
         this.strengthFactor = 2f;
         this.minY = 60; // Sensible lower height limit by default.
         this.maxY = 255; // No upper height limit by default.

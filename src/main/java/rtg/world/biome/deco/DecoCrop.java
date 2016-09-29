@@ -8,35 +8,37 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.WorldUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenWildWheat;
+import rtg.world.gen.feature.WorldGenCrops;
 
 import java.util.Random;
 
 /**
  * @author lightningo7
  */
-public class DecoWheat extends DecoBase {
+public class DecoCrop extends DecoBase {
 
-    public int type; // This can the number 0,1,2.
-    public int size; //Higher = larger fields
-    public int density; //Higher = Crops in fields closer together
+    public int type; // This can the number 0,1,2,3.
+    public int size; //Higher = larger fields.
+    public int density; //Higher = Crops in fields closer together.
+    public int height; //Higher = Crops on more y levels - When higher tends to be less dense.
     public float strengthFactor; // Higher = More frequent spawns.
     public int minY; // Lower height restriction.
     public int maxY; // Upper height restriction.
     public int chance; // Higher = more rare.
     public boolean water;
 
-    public DecoWheat() {
+    public DecoCrop() {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.type = 2;
         this.size = 5;//DO NOT PUT HIGHER THAN 30
         this.density = 50;
+        this.height = 2;
         this.strengthFactor = 2f;
         this.minY = 60; // Sensible lower height limit by default.
         this.maxY = 255; // No upper height limit by default.
@@ -52,7 +54,7 @@ public class DecoWheat extends DecoBase {
         if (this.allowed) {
 
             WorldUtil worldUtil = new WorldUtil(world);
-            WorldGenerator worldGenerator = new WorldGenWildWheat(type, size, density);
+            WorldGenerator worldGenerator = new WorldGenCrops(type, size, density, height);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
                 int i1 = chunkX + rand.nextInt(16);// + 8;

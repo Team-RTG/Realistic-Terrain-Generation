@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.betteragriculture;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -12,22 +11,21 @@ import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.betteragriculture.SurfaceBAFarmlandBiome;
 import rtg.world.gen.terrain.betteragriculture.TerrainBAFarmlandBiome;
 
-public class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase {
+import static net.minecraft.block.BlockDirt.VARIANT;
+
+  class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase {
 
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState BALogBlock = Block.getBlockFromName("minecraft:log").getDefaultState();
-    private static IBlockState BALeavesBlock = Block.getBlockFromName("minecraft:leaves").getDefaultState();
-
-    public RealisticBiomeBAFarmlandBiome(Biome biome, BiomeConfig config) {
+     RealisticBiomeBAFarmlandBiome(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
             new TerrainBAFarmlandBiome(),
             new SurfaceBAFarmlandBiome(config,
                 biome.topBlock, //Block top
-                biome.fillerBlock, //Block filler,
-                biome.topBlock, //IBlockState mixTop,
-                biome.fillerBlock, //IBlockState mixFill,
+                Blocks.DIRT.getDefaultState(), //Block filler,
+                Blocks.DIRT.getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.COARSE_DIRT), //IBlockState mixTop,
+                Blocks.DIRT.getDefaultState(), //IBlockState mixFill,
                 80f, //float mixWidth,
                 -0.15f, //float mixHeight,
                 10f, //float smallWidth,
@@ -42,58 +40,63 @@ public class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.bet
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = BALogBlock;
-        decoFallenTree.leavesBlock = BALeavesBlock;
+        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LOG.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBAFarmlandBiome.decorationLogsId));
 
-        DecoWheat decoWheatWheat = new DecoWheat();
-        decoWheatWheat.type = 2;
-        decoWheatWheat.chance = 80;
-        decoWheatWheat.strengthFactor = 8f;
-        decoWheatWheat.maxY = 255;
-        decoWheatWheat.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoWheatWheat.density = 500;
-        this.addDeco(decoWheatWheat);
+        DecoCrop decoWheat = new DecoCrop();
+        decoWheat.type = 3;
+        decoWheat.chance = 80;
+        decoWheat.strengthFactor = 15f;
+        decoWheat.maxY = 255;
+        decoWheat.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoWheat.density = 600;
+        decoWheat.height = 5;
+        this.addDeco(decoWheat);
 
-        DecoWheat decoWheatCarrot = new DecoWheat();
-        decoWheatCarrot.type = 1;
-        decoWheatCarrot.chance = 80;
-        decoWheatCarrot.strengthFactor = 8f;
-        decoWheatCarrot.maxY = 255;
-        decoWheatCarrot.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoWheatCarrot.density = 500;
-        this.addDeco(decoWheatCarrot);
+        DecoCrop decoBeet = new DecoCrop();
+        decoBeet.type = 2;
+        decoBeet.chance = 80;
+        decoBeet.strengthFactor = 12f;
+        decoBeet.maxY = 255;
+        decoBeet.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoBeet.density = 500;
+        decoBeet.height = 5;
+        this.addDeco(decoBeet);
 
-        DecoWheat decoWheatPotato = new DecoWheat();
-        decoWheatPotato.type = 0;
-        decoWheatPotato.chance = 80;
-        decoWheatPotato.strengthFactor = 8f;
-        decoWheatPotato.maxY = 255;
-        decoWheatPotato.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoWheatPotato.density = 500;
-        this.addDeco(decoWheatPotato);
+        DecoCrop decoCarrot = new DecoCrop();
+        decoCarrot.type = 1;
+        decoCarrot.chance = 80;
+        decoCarrot.strengthFactor = 12f;
+        decoCarrot.maxY = 255;
+        decoCarrot.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoCarrot.density = 500;
+        decoCarrot.height = 5;
+        this.addDeco(decoCarrot);
 
-        DecoShrub decoShrubBA = new DecoShrub();
-        decoShrubBA.logBlock = BALogBlock;
-        decoShrubBA.leavesBlock = BALeavesBlock;
-        decoShrubBA.maxY = 90;
-        decoShrubBA.strengthFactor = 4f;
-        decoShrubBA.chance = 8;
-        this.addDeco(decoShrubBA);
+        DecoCrop decoPotato = new DecoCrop();
+        decoPotato.type = 0;
+        decoPotato.chance = 80;
+        decoPotato.strengthFactor = 12f;
+        decoPotato.maxY = 255;
+        decoPotato.size = 30;//DO NOT PUT HIGHER THAN 30
+        decoPotato.density = 500;
+        decoPotato.height = 5;
+        this.addDeco(decoPotato);
 
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.maxY = 90;
-        decoShrubOak.strengthFactor = 4f;
+        decoShrubOak.strengthFactor = 2f;
         decoShrubOak.chance = 4;
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.boulderBlock = Blocks.DIRT.getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.PODZOL);
         decoBoulder.chance = 24;
         decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
+        decoBoulder.strengthFactor = 4f;
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

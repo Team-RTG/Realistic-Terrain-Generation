@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy {
+    public static final String LOCATION = "rtg.proxy.CommonProxy";
 
     public void preInit(FMLPreInitializationEvent event) {
 

@@ -21,6 +21,7 @@ import rtg.config.ConfigManager;
 import rtg.config.rtg.ConfigRTG;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
+import rtg.proxy.ClientProxy;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
@@ -40,33 +41,30 @@ import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = "required-after:Forge@[" + ModInfo.FORGE_DEP + ",)", acceptableRemoteVersions = "*")
+@Mod(
+    modid                    = ModInfo.MOD_ID,
+    name                     = ModInfo.MOD_NAME,
+    version                  = ModInfo.MOD_VERSION,
+    dependencies             = "required-after:Forge@[" + ModInfo.MCF_MINVER + "," + ModInfo.MCF_MAXVER + ")" + ModInfo.MOD_DEPS,
+    acceptableRemoteVersions = "*"
+)
 public class RTG {
 
-    @Instance(ModInfo.MOD_ID)
-    public static RTG instance;
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-
-    @SidedProxy(serverSide = ModInfo.PROXY_COMMON, clientSide = ModInfo.PROXY_CLIENT)
-    public static CommonProxy proxy;
-
     private ConfigManager configManager = new ConfigManager();
-
     private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
-    /*
-     * This method is currently unused, but we're leaving it here for when we start
-     * supporting multiple dimensions.
-     */
-    public ConfigManager configManager(int dimension) {
-        return configManager;
-    }
+    @Instance(ModInfo.MOD_ID)
+    public static RTG instance;
+
+    @SidedProxy(serverSide = CommonProxy.LOCATION, clientSide = ClientProxy.LOCATION)
+    public static CommonProxy proxy;
 
     @EventHandler
-    public void fmlLifeCycleEvent(FMLPreInitializationEvent event) {
+    public void initPre(FMLPreInitializationEvent event) {
 
         instance = this;
 
@@ -84,7 +82,7 @@ public class RTG {
     }
 
     @EventHandler
-    public void fmlLifeCycleEvent(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
 
         eventMgr = new EventManagerRTG();
         eventMgr.registerEventHandlers();
@@ -96,7 +94,7 @@ public class RTG {
     }
 
     @EventHandler
-    public void fmlLifeCycle(FMLPostInitializationEvent event) {
+    public void initPost(FMLPostInitializationEvent event) {
 
         RealisticBiomeVanillaBase.addBiomes();
 
@@ -111,16 +109,8 @@ public class RTG {
         RealisticBiomePresenceTester.doBiomeCheck();
     }
 
-    public void runOnServerClose(Runnable action) {
-        serverCloseActions.add(action);
-    }
-
-    public void runOnNextServerCloseOnly(Runnable action) {
-        serverCloseActions.add(action);
-    }
-
     @EventHandler
-    public void serverStopped(FMLServerStoppedEvent event)
+    public void onServerStopped(FMLServerStoppedEvent event)
     {
         serverCloseActions.forEach(Runnable::run);
         oneShotServerCloseActions.forEach(Runnable::run);
@@ -144,5 +134,21 @@ public class RTG {
         if (ConfigRTG.enableStrongholdModifications) {
             MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
         }
+    }
+
+    public void runOnServerClose(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
+
+    /*
+     * This method is currently unused, but we're leaving it here for when we start
+     * supporting multiple dimensions.
+     */
+    public ConfigManager configManager(int dimension) {
+        return configManager;
     }
 }

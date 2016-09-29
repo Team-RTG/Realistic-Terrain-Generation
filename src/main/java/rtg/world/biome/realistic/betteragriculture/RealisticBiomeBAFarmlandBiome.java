@@ -11,20 +11,19 @@ import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.betteragriculture.SurfaceBAFarmlandBiome;
 import rtg.world.gen.terrain.betteragriculture.TerrainBAFarmlandBiome;
 
-import static net.minecraft.block.BlockDirt.VARIANT;
 
-  class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase {
+class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase {
 
     public static Biome river = Biomes.RIVER;
 
-     RealisticBiomeBAFarmlandBiome(Biome biome, BiomeConfig config) {
+    RealisticBiomeBAFarmlandBiome(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
             new TerrainBAFarmlandBiome(),
             new SurfaceBAFarmlandBiome(config,
                 biome.topBlock, //Block top
                 Blocks.DIRT.getDefaultState(), //Block filler,
-                Blocks.DIRT.getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.COARSE_DIRT), //IBlockState mixTop,
+                Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT), //IBlockState mixTop,
                 Blocks.DIRT.getDefaultState(), //IBlockState mixFill,
                 80f, //float mixWidth,
                 -0.15f, //float mixHeight,
@@ -93,7 +92,7 @@ import static net.minecraft.block.BlockDirt.VARIANT;
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.DIRT.getDefaultState().withProperty(VARIANT, BlockDirt.DirtType.PODZOL);
+        decoBoulder.boulderBlock = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
         decoBoulder.chance = 24;
         decoBoulder.maxY = 80;
         decoBoulder.strengthFactor = 4f;

@@ -1,5 +1,6 @@
 package rtg.world.gen.feature;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 import net.minecraft.block.*;
@@ -30,7 +31,7 @@ public class WorldGenCrops extends WorldGenerator {
         farmHeight = height;
     }
 
-    @SuppressWarnings("NullableProblems")
+    @ParametersAreNonnullByDefault
     public boolean generate(World world, Random rand, BlockPos blockPos) {
 
         return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());

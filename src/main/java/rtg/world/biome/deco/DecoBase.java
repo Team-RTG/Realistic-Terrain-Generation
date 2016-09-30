@@ -126,6 +126,7 @@ public class DecoBase {
         SHRUB,
         TEST,
         TREE,
-        VINE
+        VINE,
+        WHEAT
     }
 }

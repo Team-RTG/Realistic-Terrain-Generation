@@ -22,6 +22,7 @@ import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -410,6 +411,14 @@ public class RealisticBiomeBase {
                         break;
                     }
                 }
+            }
+            else if (deco instanceof DecoShrub) {
+                DecoShrub shrubDeco = (DecoShrub)deco;
+                if (shrubDeco.leavesBlock.getBlock() instanceof BlockLeaves) {
+                    IBlockState leaves = shrubDeco.leavesBlock.withProperty(BlockLeaves.CHECK_DECAY, false);
+                    shrubDeco.leavesBlock = leaves;
+                }
+                deco = shrubDeco;
             }
 
             this.decos.add(deco);

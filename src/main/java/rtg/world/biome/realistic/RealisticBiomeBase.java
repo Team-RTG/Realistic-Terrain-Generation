@@ -22,6 +22,7 @@ import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -181,7 +182,7 @@ public class RealisticBiomeBase {
 
         // Have volcanoes been disabled in the biome config?
         int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
-    	RealisticBiomeBase realisticBiome = getBiome(biomeId);
+        RealisticBiomeBase realisticBiome = getBiome(biomeId);
         // Do we need to patch the biome?
         if (realisticBiome == null) {
             RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
@@ -274,7 +275,7 @@ public class RealisticBiomeBase {
 
         // check if rivers need lowering
         //if (riverFlattening < actualRiverProportion) {
-            r = riverFlattening/actualRiverProportion;
+        r = riverFlattening/actualRiverProportion;
         //}
 
         //if (1>0) return 62f+r*10f;
@@ -324,7 +325,7 @@ public class RealisticBiomeBase {
 
             for (int s = 0; s < surfacesLength; s++)
                 surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
-            }
+        }
         else this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
     }
 
@@ -383,9 +384,9 @@ public class RealisticBiomeBase {
             }
             if (deco.preGenerate(this, world, rand, chunkX, chunkZ, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
                 deco.generate(this, world, rand, chunkX, chunkZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
-    		}
+            }
             decoStack.remove(decoStack.size() - 1);
-    	}
+        }
     }
 
     /**
@@ -410,6 +411,14 @@ public class RealisticBiomeBase {
                         break;
                     }
                 }
+            }
+            else if (deco instanceof DecoShrub) {
+                DecoShrub shrubDeco = (DecoShrub)deco;
+                if (shrubDeco.leavesBlock.getBlock() instanceof BlockLeaves) {
+                    IBlockState leaves = shrubDeco.leavesBlock.withProperty(BlockLeaves.CHECK_DECAY, false);
+                    shrubDeco.leavesBlock = leaves;
+                }
+                deco = shrubDeco;
             }
 
             this.decos.add(deco);
@@ -455,6 +464,10 @@ public class RealisticBiomeBase {
             // Set the sapling data for this tree before we add it to the list.
             tree.saplingBlock = SaplingUtil.getSaplingFromLeaves(tree.leavesBlock);
 
+            /*
+             * Make sure all leaves delay their decay to prevent insta-despawning of leaves (e.g. Swamp Willow)
+             * The try/catch is a safeguard against trees that use leaves which aren't an instance of BlockLeaves.
+             */
             try {
                 IBlockState leaves = tree.leavesBlock.withProperty(BlockLeaves.CHECK_DECAY, false);
                 tree.leavesBlock = leaves;

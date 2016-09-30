@@ -3,11 +3,13 @@ package rtg.config;
 import java.io.File;
 
 import rtg.config.abyssalcraft.ConfigAC;
+import rtg.config.agriculturalrevolution.ConfigAR;
+import rtg.config.betteragriculture.ConfigBA;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.biomesyougo.ConfigBYG;
 import rtg.config.flowercraft.ConfigFC;
-import rtg.config.rtg.ConfigRTG;
 import rtg.config.mithwoodforest.ConfigMF;
+import rtg.config.rtg.ConfigRTG;
 import rtg.config.sugiforest.ConfigSF;
 import rtg.config.vanilla.ConfigVanilla;
 
@@ -16,6 +18,8 @@ public class ConfigManager {
     public static File rtgConfigFile;
     public static File vanillaConfigFile;
     public static File acConfigFile;
+    public static File arConfigFile;
+    public static File baConfigFile;
     public static File bopConfigFile;
     public static File bygConfigFile;
     public static File fcConfigFile;
@@ -29,6 +33,8 @@ public class ConfigManager {
         rtgConfigFile = new File(configpath + "rtg.cfg");
         vanillaConfigFile = new File(configpath + "biomes/vanilla.cfg");
         acConfigFile = new File(configpath + "biomes/abyssalcraft.cfg");
+        arConfigFile = new File(configpath + "biomes/agriculturalrevolution.cfg");
+        baConfigFile = new File(configpath + "biomes/betteragriculture.cfg");
         bopConfigFile = new File(configpath + "biomes/biomesoplenty.cfg");
         bygConfigFile = new File(configpath + "biomes/biomesyougo.cfg");
         fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
@@ -40,6 +46,8 @@ public class ConfigManager {
         ConfigVanilla.init(vanillaConfigFile);
 
         ConfigAC.init(acConfigFile);
+        ConfigAR.init(arConfigFile);
+        ConfigBA.init(baConfigFile);
         ConfigBOP.init(bopConfigFile);
         ConfigBYG.init(bygConfigFile);
         ConfigFC.init(fcConfigFile);

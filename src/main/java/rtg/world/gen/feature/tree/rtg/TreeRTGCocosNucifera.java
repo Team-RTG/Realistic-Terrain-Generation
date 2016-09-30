@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +12,8 @@ import net.minecraft.world.World;
  * Cocos Nucifera (Coconut Palm)
  */
 public class TreeRTGCocosNucifera extends TreeRTG {
+
+    protected IBlockState trunkLog;
 
     private static int leavesLength = 133;
     private static int[] leaves = new int[]{
@@ -109,6 +112,14 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+
+        try {
+            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
+        }
+        catch (Exception e) {
+            this.trunkLog = this.logBlock;
+        }
+
         IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
         boolean validGroundBlock = false;
 
@@ -146,8 +157,8 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         float velZ = (float) Math.sin(horDir * Math.PI / 180D) * verDir;
 
         while (c < length) {
-            // TODO: this.logMeta + 12 (meta)
-            world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), this.logBlock, this.generateFlag);
+
+            world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), this.trunkLog, this.generateFlag);
 
             if (c < length - 3) {
                 loss = Math.abs(velX) + Math.abs(velZ);

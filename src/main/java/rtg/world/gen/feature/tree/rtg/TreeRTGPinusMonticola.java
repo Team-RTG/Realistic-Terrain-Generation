@@ -3,6 +3,7 @@ package rtg.world.gen.feature.tree.rtg;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -16,6 +17,8 @@ import net.minecraftforge.common.IPlantable;
  * Pinus Monticola (California Mountain Pine)
  */
 public class TreeRTGPinusMonticola extends TreeRTG {
+
+    protected IBlockState trunkLog;
 
     private int height;
 
@@ -54,6 +57,14 @@ public class TreeRTGPinusMonticola extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+
+        try {
+            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
+        }
+        catch (Exception e) {
+            this.trunkLog = this.logBlock;
+        }
+
         this.height = this.trunkSize + this.crownSize;
 
         int l = rand.nextInt(this.height * 2) + this.height * 2;
@@ -186,8 +197,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
                     break;
                 }
 
-                //TODO: this.logMeta + 12 (meta)
-                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.logBlock, this.generateFlag);
+                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
                 sh--;
             }
         }

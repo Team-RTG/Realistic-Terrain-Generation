@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -14,6 +15,8 @@ import net.minecraft.world.World;
  * Pinus Ponderosa (Ponderosa Pine)
  */
 public class TreeRTGPinusPonderosa extends TreeRTG {
+
+    protected IBlockState trunkLog;
 
     /**
      * <b>Pinus Ponderosa (Ponderosa Pine)</b><br><br>
@@ -43,7 +46,9 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
 
         super();
 
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()));
+        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(
+            Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()
+        ));
     }
 
     @Override
@@ -52,6 +57,14 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+
+        try {
+            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
+        }
+        catch (Exception e) {
+            this.trunkLog = this.logBlock;
+        }
+
         int startY = y;
 
         IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
@@ -154,8 +167,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
         int h = (int) Math.ceil(this.trunkSize / 4f);
         h = h + rand.nextInt(h * 2);
         for (int i = -1; i < h; i++) {
-            //TODO: this.logMeta + 12 (meta)
-            world.setBlockState(new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            world.setBlockState(new BlockPos(x, y + i, z), this.trunkLog, this.generateFlag);
         }
     }
 

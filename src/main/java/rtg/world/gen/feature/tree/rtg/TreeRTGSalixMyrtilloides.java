@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +12,8 @@ import net.minecraft.world.World;
  * Salix Myrtilloides (Swamp Willow)
  */
 public class TreeRTGSalixMyrtilloides extends TreeRTG {
+
+    protected IBlockState trunkLog;
 
     /**
      * <b>Salix Myrtilloides (Swamp Willow)</b><br>
@@ -37,7 +40,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
 
         super();
 
-        this.setLogBlock(Blocks.LOG.getStateFromMeta(0)).setLeavesBlock(Blocks.LEAVES.getStateFromMeta(0));
+        this.setLogBlock(Blocks.LOG.getDefaultState()).setLeavesBlock(Blocks.LEAVES.getDefaultState());
     }
 
     @Override
@@ -46,9 +49,18 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+
+        try {
+            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
+        }
+        catch (Exception e) {
+            this.trunkLog = this.logBlock;
+        }
+
         IBlockState cb;
         boolean earth = false;
         boolean water = false;
+
         for (int c1 = -2; c1 <= 2; c1++) {
             for (int c3 = -2; c3 <= 2; c3++) {
                 for (int c2 = -1; c2 <= 1; c2++) {
@@ -98,8 +110,9 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
                 c++;
                 hd += 0.5f;
 
-                //TODO: this.logMeta + 12
-                world.setBlockState(new BlockPos(x + (int) (c * xd), y + (int) hd, z + (int) (c * yd)), this.logBlock, this.generateFlag);
+                world.setBlockState(
+                    new BlockPos(x + (int) (c * xd), y + (int) hd, z + (int) (c * yd)), this.trunkLog, this.generateFlag
+                );
             }
             createLeavesAroundBranch(world, rand, x + (int) (c * xd), y + (int) hd, z + (int) (c * yd), 2, 1);
         }
@@ -146,11 +159,11 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
 
         int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
         int sh;
+
         for (int t = 0; t < 5; t++) {
             sh = rand.nextInt(3) + y;
             while (sh > y - 3) {
-                //TODO: this.logMeta + 12 (meta)
-                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.logBlock, this.generateFlag);
+                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
                 sh--;
             }
         }

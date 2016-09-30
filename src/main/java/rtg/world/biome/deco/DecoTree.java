@@ -142,14 +142,14 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
+            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkZ), TREE)) {
 
                 WorldUtil worldUtil = new WorldUtil(world);
-                float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+                float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
@@ -157,7 +157,7 @@ public class DecoTree extends DecoBase {
                 loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
                     int intX = scatter.get(rand, chunkX); // + 8;
-                    int intZ = scatter.get(rand, chunkY); // + 8;
+                    int intZ = scatter.get(rand, chunkZ); // + 8;
                     int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -253,7 +253,7 @@ public class DecoTree extends DecoBase {
     /**
      * Parameter object for noise calculations.
      * <p>
-     * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
+     * simplex.noise2(chunkX / noiseDivisor, chunkZ / noiseDivisor) * noiseFactor + noiseAddend;
      *
      * @author WhichOnesPink
      * @author Zeno410

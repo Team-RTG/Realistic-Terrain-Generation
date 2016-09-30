@@ -7,6 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
+import rtg.api.biome.agriculturalrevolution.config.*;
 import rtg.api.biome.betteragriculture.config.BiomeConfigBA;
 import rtg.api.biome.betteragriculture.config.BiomeConfigBAFarmlandBiome;
 import rtg.api.biome.biomesoplenty.config.*;
@@ -24,6 +25,7 @@ public class BiomeConfigManager {
     public static void initBiomeConfigs() {
 
         initBiomeConfigsAC();
+        initBiomeConfigsAR();
         initBiomeConfigsBA();
         initBiomeConfigsBOP();
         initBiomeConfigsBYG();
@@ -41,6 +43,16 @@ public class BiomeConfigManager {
         BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
         BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
         BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
+    }
+
+    public static void initBiomeConfigsAR() {
+
+        BiomeConfigAR.biomeConfigARBambooGrove = new BiomeConfigARBambooGrove();
+        BiomeConfigAR.biomeConfigARCoralReef = new BiomeConfigARCoralReef();
+        BiomeConfigAR.biomeConfigARDeepReef = new BiomeConfigARDeepReef();
+        BiomeConfigAR.biomeConfigARKelpForest = new BiomeConfigARKelpForest();
+        BiomeConfigAR.biomeConfigAROrchard = new BiomeConfigAROrchard();
+        BiomeConfigAR.biomeConfigARTropicalHills = new BiomeConfigARTropicalHills();
     }
 
     public static void initBiomeConfigsBA() {

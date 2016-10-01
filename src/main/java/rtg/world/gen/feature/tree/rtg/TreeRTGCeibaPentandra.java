@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -16,6 +17,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
     protected int branch;
     protected float verStart;
     protected float verRand;
+    protected IBlockState trunkLog;
 
     /**
      * <b>Ceiba Pentandra (White Silk-Cotton Tree)</b><br><br>
@@ -93,6 +95,14 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+
+        try {
+            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
+        }
+        catch (Exception e) {
+            this.trunkLog = this.logBlock;
+        }
+
         IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
         if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState()) {
             return false;
@@ -100,7 +110,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
 
         if (this.trunkSize > 0) {
             for (int k = 0; k < 3; k++) {
-                generateBranch(world, rand, x, y + this.trunkSize, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, this.trunkSize * 1.7f, 1f);
+                generateBranch(world, rand, x, y + this.trunkSize, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, this.trunkSize * 1.7f, 1f, true);
             }
         }
 
@@ -113,7 +123,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         for (int j = 0; j < branch; j++) {
             horDir = (120 * j) - 60 + rand.nextInt(120);
             verDir = verStart + rand.nextFloat() * verRand;
-            generateBranch(world, rand, x, y + this.crownSize, z, horDir, verDir, length, 1f);
+            generateBranch(world, rand, x, y + this.crownSize, z, horDir, verDir, length, 1f, false);
 
             eX = x + (int) (Math.cos(horDir * Math.PI / 180D) * verDir * length);
             eZ = z + (int) (Math.sin(horDir * Math.PI / 180D) * verDir * length);
@@ -131,7 +141,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
      * horDir = number between -180D and 180D
      * verDir = number between 1F (horizontal) and 0F (vertical)
      */
-    public void generateBranch(World world, Random rand, float x, float y, float z, double horDir, float verDir, float length, float speed) {
+    public void generateBranch(World world, Random rand, float x, float y, float z, double horDir, float verDir, float length, float speed, boolean isTrunk) {
 
         if (verDir < 0f) {
             verDir = -verDir;
@@ -148,7 +158,13 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         float velZ = (float) Math.sin(horDir * Math.PI / 180D) * verDir;
 
         while (c < length) {
-            world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
+
+            if (isTrunk) {
+                world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
+            }
+            else {
+                world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
+            }
 
             x += velX;
             y += velY;

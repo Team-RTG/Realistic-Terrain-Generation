@@ -49,8 +49,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         mangroveTree.treeType = DecoTree.TreeType.RTG_TREE;
         mangroveTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         mangroveTree.treeConditionChance = 1;
-        mangroveTree.strengthFactorForLoops = 8f;
+        mangroveTree.strengthFactorForLoops = 12f;
         mangroveTree.maxY = 110;
+        mangroveTree.scatter = new DecoTree.Scatter(16, 0);
         this.addDeco(mangroveTree);
 
         TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
@@ -67,8 +68,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaPentandraTree.treeType = DecoTree.TreeType.RTG_TREE;
         ceibaPentandraTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         ceibaPentandraTree.treeConditionChance = 1;
-        ceibaPentandraTree.strengthFactorForLoops = 8f;
+        ceibaPentandraTree.strengthFactorForLoops = 12f;
         ceibaPentandraTree.maxY = 110;
+        ceibaPentandraTree.scatter = new DecoTree.Scatter(16, 0);
         this.addDeco(ceibaPentandraTree);
 
         TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
@@ -85,8 +87,9 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
         ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
         ceibaRoseaTree.treeConditionChance = 1;
-        ceibaRoseaTree.strengthFactorForLoops = 8f;
+        ceibaRoseaTree.strengthFactorForLoops = 12f;
         ceibaRoseaTree.maxY = 110;
+        ceibaRoseaTree.scatter = new DecoTree.Scatter(16, 0);
         this.addDeco(ceibaRoseaTree);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -106,13 +109,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         darkOakShrub.logBlock = Blocks.LOG2.getStateFromMeta(1);
         darkOakShrub.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
         darkOakShrub.maxY = 100;
-        darkOakShrub.strengthFactor = 10f;
+        darkOakShrub.strengthFactor = 8f;
 
         DecoShrub oakShrub = new DecoShrub();
         oakShrub.logBlock = Blocks.LOG.getDefaultState();
         oakShrub.leavesBlock = Blocks.LEAVES.getDefaultState();
         oakShrub.maxY = 100;
-        oakShrub.strengthFactor = 10f;
+        oakShrub.strengthFactor = 8f;
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
 
@@ -127,7 +130,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoCobwebs.chance = 1;
         decoCobwebs.minY = 63;
         decoCobwebs.maxY = 76;
-        decoCobwebs.strengthFactor = 30f;
+        decoCobwebs.strengthFactor = 24f;
         decoCobwebs.adjacentBlock = Blocks.LOG2.getStateFromMeta(1);
         decoCobwebs.minAdjacents = 2;
         this.addDeco(decoCobwebs, this.config._boolean(BiomeConfigVanillaRoofedForest.decorationCobwebsId));

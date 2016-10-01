@@ -47,6 +47,7 @@ public class DecoTree extends DecoBase {
     public int minCrownSize; // Min tree height (only used with certain tree presets)
     public int maxCrownSize; // Max tree height (only used with certain tree presets)
     public boolean noLeaves;
+    public Scatter scatter;
 
     public DecoTree() {
 
@@ -79,6 +80,7 @@ public class DecoTree extends DecoBase {
         this.minCrownSize = 2;
         this.maxCrownSize = 4;
         this.noLeaves = false;
+        this.scatter = new Scatter(16, 0);
 
         this.addDecoTypes(DecoType.TREE);
     }
@@ -107,6 +109,7 @@ public class DecoTree extends DecoBase {
         this.minCrownSize = source.minCrownSize;
         this.maxCrownSize = source.maxCrownSize;
         this.noLeaves = source.noLeaves;
+        this.scatter = source.scatter;
     }
 
     public DecoTree(TreeRTG tree) {
@@ -139,22 +142,22 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
+            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkZ), TREE)) {
 
                 WorldUtil worldUtil = new WorldUtil(world);
-                float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+                float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
-                    int intX = chunkX + rand.nextInt(16);// + 8;
-                    int intZ = chunkY + rand.nextInt(16);// + 8;
+                    int intX = scatter.get(rand, chunkX); // + 8;
+                    int intZ = scatter.get(rand, chunkZ); // + 8;
                     int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
@@ -227,10 +230,30 @@ public class DecoTree extends DecoBase {
         X_DIVIDED_BY_STRENGTH;
     }
 
+    public static class Scatter {
+
+        int bound;
+        int reach;
+
+        public Scatter(int bound, int reach) {
+
+            if (bound < 1) {
+                throw new RuntimeException("Scatter bound must be greater than 0.");
+            };
+
+            this.bound = bound;
+            this.reach = reach;
+        }
+
+        public int get(Random rand, int coord) {
+            return coord + rand.nextInt(bound) + reach;
+        }
+    }
+
     /**
      * Parameter object for noise calculations.
      * <p>
-     * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
+     * simplex.noise2(chunkX / noiseDivisor, chunkZ / noiseDivisor) * noiseFactor + noiseAddend;
      *
      * @author WhichOnesPink
      * @author Zeno410

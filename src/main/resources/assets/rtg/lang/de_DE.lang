@@ -1,8 +1,8 @@
 generator.RTG=Realistisch
 
-warning.rtgStartup1=Realistische Terrain-Generation verwendet eine benutzerdefinierte Welt Typ.
-warning.rtgStartup2=Wenn Sie realistisch Gelände wollen, halten Sie die 'World Type' Button
-warning.rtgStartup3=unter Weitere Welt Optionen klicken, bis sie Realistisch anzeigt.
-warning.rtgStartup4=Die Welt-Typ kann durch Änderung der "Level-type 'auf Servern verwendet werden, in
-warning.rtgStartup5=server.properties zu" RTG "(ohne Anführungszeichen).
-warning.rtgStartup6=Diese Meldung wird nur einmal angezeigt werden soll.
+warning.rtgStartup1=Realistische Terrain-Generation verwendet einen benutzerdefinierten Welt-Typ.
+warning.rtgStartup2=Wenn du realistisches Terrain willst, klicke mehrmals den 'World Type'-Button
+warning.rtgStartup3=unter 'Weitere Welt'-Optionen, bis er 'Realistisch' anzeigt.
+warning.rtgStartup4=Der Welt-Typ kann auf Servern verwendet werden, indem in server.properties
+warning.rtgStartup5=der 'level-type' auf 'RTG' (ohne Anführungszeichen) gesetzt wird.
+warning.rtgStartup6=Diese Meldung wird nur einmal angezeigt.

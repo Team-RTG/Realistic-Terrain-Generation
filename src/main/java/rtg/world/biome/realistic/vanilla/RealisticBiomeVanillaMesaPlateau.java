@@ -86,6 +86,6 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(Biomes.MESA);
+        return this.beachBiome(Biomes.BEACH);
     }
 }

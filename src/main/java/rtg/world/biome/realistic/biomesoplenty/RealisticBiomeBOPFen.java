@@ -73,7 +73,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionChance = 16;
         decoFallenTree2.maxY = 100;
         decoFallenTree2.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-        decoFallenTree2.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        decoFallenTree2.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 5;
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();

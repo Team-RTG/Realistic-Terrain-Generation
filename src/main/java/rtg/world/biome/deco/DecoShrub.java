@@ -48,8 +48,8 @@ public class DecoShrub extends DecoBase {
         this.size = -1;
         this.useDefaultRandom = false;
         this.Sand = true; //Whether shrubs generate on sand
-        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
-        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), Blocks.LEAVES.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
+        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
+        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
         this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.minY = 1; // No height limit by default.
         this.maxY = 255; // No height limit by default.

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.*;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -62,8 +63,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaExtremeHillsPlus.decorationLogsId));

@@ -1,5 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.BlockNewLeaf;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -71,8 +74,8 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
+        decoFallenTree.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+        decoFallenTree.leavesBlock = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSwamplandM.decorationLogsId));

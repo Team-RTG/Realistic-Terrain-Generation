@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.*;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -71,8 +72,8 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionNoise = 0f;
         decoFallenTree2.logConditionChance = 16;
         decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        decoFallenTree2.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenTree2.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+        decoFallenTree2.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 5;
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();

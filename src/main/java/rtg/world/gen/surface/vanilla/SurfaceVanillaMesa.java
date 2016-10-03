@@ -3,8 +3,11 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -54,7 +57,7 @@ public class SurfaceVanillaMesa extends SurfaceBase
                     {
                         if(depth == 0)
                         {
-                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1));
+                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.ORANGE));
                         }
                         else
                         {
@@ -69,7 +72,7 @@ public class SurfaceVanillaMesa extends SurfaceBase
                         }
                         else if(rand.nextInt((int)(r / 2f) + 1) == 0)
                         {
-                            primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
+                            primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                         }
                         else
                         {

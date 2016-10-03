@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -50,7 +51,7 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
                         }
                         else if (k > 74 + grassRaise) {
                             if (rand.nextInt(5) == 0) {
-                                primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
+                                primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                             }
                             else {
                                 if (depth == 0) {
@@ -79,7 +80,7 @@ public class SurfaceVanillaMesaBryce extends SurfaceBase {
                                     primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                                 }
                                 else if (rand.nextInt((int) (r / 2f) + 1) == 0) {
-                                    primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
+                                    primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                                 }
                                 else {
                                     primer.setBlockState(x, k, y, topBlock);

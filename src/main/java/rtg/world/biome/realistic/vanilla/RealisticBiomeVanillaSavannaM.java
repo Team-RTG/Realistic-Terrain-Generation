@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -20,7 +21,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaSavannaM(),
-            new SurfaceVanillaSavannaM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(1))
+            new SurfaceVanillaSavannaM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT))
         );
 
         this.noLakes = true;

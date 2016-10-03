@@ -61,8 +61,8 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.LOG.getStateFromMeta(0);
-        this.leavesBlock = Blocks.LEAVES.getStateFromMeta(0);
+        this.logBlock = Blocks.LOG.getDefaultState();
+        this.leavesBlock = Blocks.LEAVES.getDefaultState();
         this.trunkSize = 4;
         this.crownSize = 8;
 

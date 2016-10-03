@@ -3,8 +3,10 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -34,7 +36,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             new SurfaceVanillaMesa(
                 config,
                 Blocks.SAND.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
-                Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1),
+                Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.ORANGE),
                 0
             )
         );

@@ -66,10 +66,10 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
                     }
 
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getStateFromMeta(0));
+                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getStateFromMeta(0));
+                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                     }
                     else if (k < 63) {
                         if (k < 62) {
@@ -85,10 +85,10 @@ public class SurfaceVanillaDesertHills extends SurfaceBase {
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getStateFromMeta(0));
+                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getStateFromMeta(0));
+                        primer.setBlockState(x, k, y, Blocks.SANDSTONE.getDefaultState());
                     }
                     else {
                         primer.setBlockState(x, k, y, fillerBlock);

@@ -2,6 +2,7 @@ package rtg.world.biome.deco;
 
 import java.util.Random;
 
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +23,7 @@ public class DecoShrub extends DecoBase {
 
     public int size;
     public boolean useDefaultRandom;
+    public boolean Sand;
     public IBlockState[] randomLogBlocks;
     public IBlockState[] randomLeavesBlocks;
     public float strengthFactor; // Higher = more/bigger shrubs.
@@ -39,14 +41,15 @@ public class DecoShrub extends DecoBase {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.size = -1;
         this.useDefaultRandom = false;
-        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getStateFromMeta(1)};
-        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), Blocks.LEAVES.getStateFromMeta(1)};
+        this.Sand = true; //Whether shrubs generate on sand
+        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
+        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), Blocks.LEAVES.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
         this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.minY = 1; // No height limit by default.
         this.maxY = 255; // No height limit by default.
@@ -91,7 +94,7 @@ public class DecoShrub extends DecoBase {
             }
 
             WorldUtil worldUtil = new WorldUtil(world);
-            WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock);
+            WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.Sand);
 
             int loopCount = this.loops;
             loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;

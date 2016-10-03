@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.*;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -56,8 +57,8 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 16;
-        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(3);
+        decoFallenTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE);
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 14;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPEucalyptusForest.decorationLogsId));

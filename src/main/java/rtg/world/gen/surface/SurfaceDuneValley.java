@@ -3,6 +3,7 @@ package rtg.world.gen.surface;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -52,7 +53,7 @@ public class SurfaceDuneValley extends SurfaceBase {
                         sand = true;
                     }
                     else if (dirt && m < 0.22f || k < 62) {
-                        primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                     }
                     else {
                         primer.setBlockState(x, k, y, topBlock);

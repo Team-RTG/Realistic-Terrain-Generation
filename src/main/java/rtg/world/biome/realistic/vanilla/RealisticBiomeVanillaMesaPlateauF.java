@@ -24,7 +24,7 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauF;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
-    public static Biome biome = Biomes.MESA_CLEAR_ROCK;
+    public static Biome biome = Biomes.MESA_ROCK;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesaPlateauF(BiomeConfig config) {
@@ -66,7 +66,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         addDeco(decoDeadBush);
 
         DecoTree decoTree = new DecoTree(new WorldGenTrees(false));
-        decoTree.loops = 20;
+        decoTree.loops = 24;
         decoTree.treeType = DecoTree.TreeType.WORLDGEN;
         decoTree.treeCondition = DecoTree.TreeCondition.X_DIVIDED_BY_STRENGTH;
         decoTree.distribution = new DecoTree.Distribution(24f, 1f, 0f);

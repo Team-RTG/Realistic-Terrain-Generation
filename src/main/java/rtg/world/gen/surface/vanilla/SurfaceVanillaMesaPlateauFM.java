@@ -32,16 +32,16 @@ public class SurfaceVanillaMesaPlateauFM extends SurfaceBase {
 
         float c = CliffCalculator.calc(x, y, noise);
         boolean cliff = c > 1.3f;
+        Block b;
 
-        for (int k = 255; k > -1; k--) {
-
-            Block b = primer.getBlockState(x, k, y).getBlock();
-
-            if (b == Blocks.AIR) {
+        for(int k = 255; k > -1; k--)
+        {
+            b = primer.getBlockState(x, k, y).getBlock();
+            if(b == Blocks.AIR)
+            {
                 depth = -1;
             }
             else if (b == Blocks.STONE) {
-
                 depth++;
 
                 if (cliff) {
@@ -51,34 +51,25 @@ public class SurfaceVanillaMesaPlateauFM extends SurfaceBase {
 
                     if (k > 74 + grassRaise)
                     {
-                        if (depth == 0)
-                        {
-                            int r = (int)((k - (62 + grassRaise)) / 2f);
-                            if(rand.nextInt(r + 1) == 0)
-                            {
-                                primer.setBlockState(x, k, y, topBlock);
-                            }
-                            else if(rand.nextInt((int)(r / 2f) + 1) == 0)
-                            {
+                        if (depth == 0) {
+                            if (rand.nextInt(5) == 0) {
                                 primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                             }
-                            else
-                            {
-                                primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
+                            else {
+                                primer.setBlockState(x, k, y, topBlock);
                             }
                         }
-                        else
-                        {
-                            primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        else if (depth < 4) {
+                            primer.setBlockState(x, k, y, fillerBlock);
                         }
                     }
                     else if (depth == 0 && k > 61) {
                         int r = (int)((k - (62 + grassRaise)) / 2f);
-                        if(rand.nextInt(r + 1) == 0)
+                        if(rand.nextInt(r + 2) == 0)
                         {
                             primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                         }
-                        else if(rand.nextInt((int)(r / 2f) + 1) == 0)
+                        else if(rand.nextInt((int)(r / 2f) + 2) == 0)
                         {
                             primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                         }

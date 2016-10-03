@@ -54,11 +54,11 @@ public class SurfaceVanillaMesaPlateauF extends SurfaceBase {
                         if(depth == 0)
                         {
                             int r = (int)((k - (62 + grassRaise)) / 2f);
-                            if(rand.nextInt(r + 1) == 0)
+                            if(rand.nextInt(r + 2) == 0)
                             {
                                 primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                             }
-                            else if(rand.nextInt((int)(r / 2f) + 1) == 0)
+                            else if(rand.nextInt((int)(r / 2f) + 2) == 0)
                             {
                                 primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT));
                             }

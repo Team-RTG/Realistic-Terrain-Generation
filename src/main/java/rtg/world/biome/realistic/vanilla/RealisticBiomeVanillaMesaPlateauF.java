@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,6 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateauF(
                 config,
-                Blocks.SAND.getStateFromMeta(BlockSand.EnumType.RED_SAND.getMetadata()),
+                BlockUtil.getState(Blocks.SAND, 1),
                 Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.ORANGE),
                 0
             )

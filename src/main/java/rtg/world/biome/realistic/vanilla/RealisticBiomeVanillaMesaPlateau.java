@@ -10,6 +10,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
@@ -28,7 +29,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
         super(config, biome, river,
             new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaPlateau(config, Blocks.SAND.getStateFromMeta(1), Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1), 0)
+            new SurfaceVanillaMesaPlateau(config, BlockUtil.getState(Blocks.SAND, 1), Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1), 0)
         );
 
         this.noLakes = true;

@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -22,7 +23,7 @@ public class SurfaceRedDesert extends SurfaceBase {
 
     public SurfaceRedDesert(BiomeConfig config) {
 
-        super(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1));
+        super(config, BlockUtil.getState(Blocks.SAND, 1), BlockUtil.getState(Blocks.SAND, 1));
 
         bottomBlock = Blocks.SANDSTONE.getDefaultState();
         cliffBlock1 = Blocks.STAINED_HARDENED_CLAY.getDefaultState();

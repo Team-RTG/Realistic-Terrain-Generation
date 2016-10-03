@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -71,7 +72,7 @@ public class SurfaceVanillaColdBeach extends SurfaceBase {
                         }
                         else {
                             if (k < 69) {
-                                primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
+                                primer.setBlockState(x, k, y, BlockUtil.getState(Blocks.SAND, sandMetadata));
                             } // else probably steep shore so leave stone
 
                         }
@@ -82,7 +83,7 @@ public class SurfaceVanillaColdBeach extends SurfaceBase {
                         }
                         else {
                             if (k < 69) {
-                                primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
+                                primer.setBlockState(x, k, y, BlockUtil.getState(Blocks.SAND, sandMetadata));
                             }
                         }
                     }

@@ -8,6 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.util.BlockUtil;
+
 public class WorldGenJungleCacti extends WorldGenerator {
 
     private boolean sand;
@@ -43,7 +45,7 @@ public class WorldGenJungleCacti extends WorldGenerator {
                 if (b == Blocks.SAND.getDefaultState() || (!sand && (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()))) {
                     int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
                     if (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()) {
-                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), Blocks.SAND.getStateFromMeta(sandByte), 2);
+                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), BlockUtil.getState(Blocks.SAND, sandByte), 2);
                     }
 
                     for (int i2 = 0; i2 < l1 + eHeight; ++i2) {

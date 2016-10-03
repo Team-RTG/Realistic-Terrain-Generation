@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -70,7 +71,7 @@ public class SurfaceBOPGravelBeach extends SurfaceBase {
                             primer.setBlockState(x, k, y, topBlock);
                         }
                         else {
-                            primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
+                            primer.setBlockState(x, k, y, BlockUtil.getState(Blocks.SAND, sandMetadata));
                         }
                     }
                     else if (depth < 4) {
@@ -78,7 +79,7 @@ public class SurfaceBOPGravelBeach extends SurfaceBase {
                             primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else {
-                            primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
+                            primer.setBlockState(x, k, y, BlockUtil.getState(Blocks.SAND, sandMetadata));
                         }
                     }
                     else if (!dirt) {

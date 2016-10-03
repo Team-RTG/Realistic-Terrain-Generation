@@ -9,6 +9,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
@@ -30,7 +31,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1), 0)
+            new SurfaceVanillaMesaBryce(config, BlockUtil.getState(Blocks.SAND, 1), BlockUtil.getState(Blocks.SAND, 1), 0)
         );
 
         this.waterSurfaceLakeChance = 0;

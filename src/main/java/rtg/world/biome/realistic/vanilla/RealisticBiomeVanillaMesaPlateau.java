@@ -21,14 +21,14 @@ import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
-    public static Biome biome = Biomes.MESA_ROCK;
+    public static Biome biome = Biomes.MESA_CLEAR_ROCK;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
 
         super(config, biome, river,
             new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaPlateau(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1), 0)
+            new SurfaceVanillaMesaPlateau(config, Blocks.SAND.getStateFromMeta(1), Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1), 0)
         );
 
         this.noLakes = true;

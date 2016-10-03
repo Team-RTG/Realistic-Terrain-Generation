@@ -16,14 +16,13 @@ import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-public class SurfaceVanillaMesa extends SurfaceBase
-{
+public class SurfaceVanillaMesa extends SurfaceBase {
+
     private int grassRaise = 0;
 
-    public SurfaceVanillaMesa(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight)
-    {
-        super(config, top, fill);
+    public SurfaceVanillaMesa(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
 
+        super(config, top, fill);
         grassRaise = grassHeight;
     }
 
@@ -41,8 +40,7 @@ public class SurfaceVanillaMesa extends SurfaceBase
             {
                 depth = -1;
             }
-            else if(b == Blocks.STONE)
-            {
+            else if (b == Blocks.STONE) {
                 depth++;
 
                 if (cliff) {
@@ -52,22 +50,25 @@ public class SurfaceVanillaMesa extends SurfaceBase
 
                     if (k > 74 + grassRaise)
                     {
-                        if(depth == 0)
-                        {
-                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(1));
+                        if (depth == 0) {
+                            if (rand.nextInt(5) == 0) {
+                                primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
+                            }
+                            else {
+                                primer.setBlockState(x, k, y, topBlock);
+                            }
                         }
-                        else
-                        {
-                            primer.setBlockState(x, k, y, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        else if (depth < 4) {
+                            primer.setBlockState(x, k, y, fillerBlock);
                         }
                     }
                     else if (depth == 0 && k > 61) {
                         int r = (int)((k - (62 + grassRaise)) / 2f);
-                        if(rand.nextInt(r + 1) == 0)
+                        if(rand.nextInt(r + 2) == 0)
                         {
                             primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
                         }
-                        else if(rand.nextInt((int)(r / 2f) + 1) == 0)
+                        else if(rand.nextInt((int)(r / 2f) + 2) == 0)
                         {
                             primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(1));
                         }

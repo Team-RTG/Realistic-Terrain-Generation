@@ -26,26 +26,35 @@ ext.ref = parseprops(file('build.properties'))
 ext.ref.mod_deps = parseprops(file('mod_deps.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
-archivesBaseName = ref.mod_abbr
-// remove travis stuff from version for now because we aren't using it and it was a mess. -srs
-version = ref.mc_version + '-' + ref.mod_version
+archivesBaseName = (ref.mod_id as String).toUpperCase() + '-' + (ref.mc_version as String)
+version = ref.mod_version
 
-minecraft {
-    version = (ref.mcf_postfix!='') ? ref.mcf_version + '-' + ref.mcf_postfix : ref.mcf_version
-    runDir = ref.run_dir
-    mappings = ref.mappings
-    makeObfSourceJar = false
-    replace '@MOD_NAME@', ref.mod_name
-    replace '@MOD_ID@', ref.mod_id
-    replace '@MOD_VERSION@', version
-    replace '@MCF_VERSION@', ref.mcf_version
-    if (ref.mod_deps!="") replace '@MOD_DEPS@', ";" + ref.mod_deps.depstring
-    else replace '@MOD_DEPS@', ''
-    replaceIn 'ModInfo.java'
+/* TODO: remove third party source and start using these dependencies
+repositories {
+    maven { url "http://files.minecraftforge.net/maven" } //BiomesOPlenty
+    maven { url 'https://dl.bintray.com/shinoow/maven/' } //AbyssalCraft
 }
 
 dependencies {
     provided fileTree(dir: 'libs', include: '*.jar')
+    deobfProvided "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:" + (ref.mod_deps.bopver as String) + ":deobf"
+    deobfProvided 'com.shinoow.abyssalcraft:AbyssalCraft:' + (ref.mod_deps.acver as String) + ':dev'
+}
+*/
+
+minecraft {
+    version = (ref.mcf_suffix!='') ? ref.mcf_version + '-' + ref.mcf_suffix : ref.mcf_version
+    mappings = ref.mcp_mappings
+    runDir = ref.run_dir
+    makeObfSourceJar = false
+    replace '@MOD_ID@',         ref.mod_id
+    replace '@MOD_NAME@',       ref.mod_name
+    replace '@MOD_VERSION@',    project.version
+    replace '0.0-MCF+MINVER',     ref.mcf_minver
+    replace '9001.0-MCF+MAXVER',     ref.mcf_maxver
+    if (ref.mod_deps!="") replace ';after:MODDEPS', ";" + (ref.mod_deps.depstring as String)
+    else replace ';after:MODDEPS', ''
+    replaceIn 'ModInfo.java'
 }
 
 processResources {
@@ -71,8 +80,18 @@ sourceJar {classifier = 'src'}
 // For a debugging session used 'gradle -DEBUG [runClient|runServer]'
 allprojects {
     tasks.withType(JavaExec) {
-        jvmArgs '-Xms2G', '-Xmx4G'
+// disabled to possibly alleviate testing issues on cumputers with low memory
+//      jvmArgs '-Xms2G', '-Xmx4G'
         if (System.getProperty("EBUG")!=null)
             jvmArgs '-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y'
     }
+}
+
+// use -Dwarn|-Dwarnall CLI arguement for verbose compiler warnings
+// -Dwarn covers the 3 most common warnings only
+tasks.withType(JavaCompile) {
+    if (System.getProperty("warn") != null)
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:rawtypes" << "-Xlint:deprecation"
+    if (System.getProperty("warnall") != null)
+        options.compilerArgs << "-Xlint:all"
 }

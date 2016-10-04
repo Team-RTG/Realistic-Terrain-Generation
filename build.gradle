@@ -29,7 +29,6 @@ group = ref.package_base + '.' + ref.mod_id
 archivesBaseName = (ref.mod_id as String).toUpperCase() + '-' + (ref.mc_version as String)
 version = ref.mod_version
 
-/* TODO: remove third party source and start using these dependencies
 repositories {
     maven { url "http://files.minecraftforge.net/maven" } //BiomesOPlenty
     maven { url 'https://dl.bintray.com/shinoow/maven/' } //AbyssalCraft
@@ -40,7 +39,6 @@ dependencies {
     deobfProvided "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:" + (ref.mod_deps.bopver as String) + ":deobf"
     deobfProvided 'com.shinoow.abyssalcraft:AbyssalCraft:' + (ref.mod_deps.acver as String) + ':dev'
 }
-*/
 
 minecraft {
     version = (ref.mcf_suffix!='') ? ref.mcf_version + '-' + ref.mcf_suffix : ref.mcf_version

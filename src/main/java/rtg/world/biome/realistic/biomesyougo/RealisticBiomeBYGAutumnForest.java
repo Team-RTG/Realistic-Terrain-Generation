@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -28,7 +29,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
             new SurfaceBYGAutumnForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
-                Blocks.DIRT.getStateFromMeta(2), //IBlockState mixTop,
+                Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL), //IBlockState mixTop,
                 biome.fillerBlock, //IBlockState mixFill,
                 80f, //float mixWidth,
                 0.35f, //float mixHeight,
@@ -79,7 +80,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         quercusRoburOakTree.minCrownSize = 5;
         quercusRoburOakTree.maxCrownSize = 9;
         quercusRoburOakTree.validGroundBlocks.clear();
-        quercusRoburOakTree.validGroundBlocks.add(Blocks.DIRT.getStateFromMeta(2));
+        quercusRoburOakTree.validGroundBlocks.add(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
         this.addTree(quercusRoburOakTree);
 
         DecoTree bigOakTrees = new DecoTree(quercusRoburOakTree);

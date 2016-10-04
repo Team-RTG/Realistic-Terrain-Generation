@@ -13,20 +13,15 @@ import rtg.config.rtg.ConfigRTG;
 
 public class WorldGenShrubRTG extends WorldGenerator {
 
-    private int size;
+    private int varSize;
     private IBlockState logBlock;
     private IBlockState leaveBlock;
-    private boolean sand;
+    private boolean varSand;
 
-    public WorldGenShrubRTG(int s, IBlockState log, IBlockState leav) {
+    public WorldGenShrubRTG(int size, IBlockState log, IBlockState leav, boolean sand) {
 
-        this(s, log, leav, false);
-    }
-
-    public WorldGenShrubRTG(int s, IBlockState log, IBlockState leav, boolean sa) {
-
-        size = s;
-        sand = sa;
+        varSize = size;
+        varSand = sand;
 
         logBlock = log;
         leaveBlock = leav;
@@ -39,18 +34,18 @@ public class WorldGenShrubRTG extends WorldGenerator {
         int y = pos.getY();
         int z = pos.getZ();
 
-        int width = size > 6 ? 6 : size;
-        int height = size > 3 ? 2 : 1;
+        int width = varSize > 6 ? 6 : varSize;
+        int height = varSize > 3 ? 2 : 1;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < varSize; i++) {
             int rX = rand.nextInt(width * 2) - width;
             int rY = rand.nextInt(height);
             int rZ = rand.nextInt(width * 2) - width;
 
-            if (i == 0 && size > 4) {
+            if (i == 0 && varSize > 4) {
                 buildLeaves(world, x + rX, y, z + rZ, 3);
             }
-            else if (i == 1 && size > 2) {
+            else if (i == 1 && varSize > 2) {
                 buildLeaves(world, x + rX, y, z + rZ, 2);
             }
             else {
@@ -69,7 +64,7 @@ public class WorldGenShrubRTG extends WorldGenerator {
             return;
         }
 
-        if (b.getMaterial() == Material.GRASS || b.getMaterial() == Material.GROUND || (sand && b.getMaterial() == Material.SAND)) {
+        if (b.getMaterial() == Material.GRASS || b.getMaterial() == Material.GROUND || (varSand && b.getMaterial() == Material.SAND)) {
             if (b1 != Blocks.WATER.getDefaultState()) {
                 if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
 

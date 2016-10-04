@@ -1,5 +1,6 @@
 package rtg.util;
 
+import net.minecraft.block.BlockSnow;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -10,7 +11,7 @@ public class SnowHeightCalculator {
 
             if (h > 7) {
                 primer.setBlockState(x, y + 2, z, Blocks.SNOW_LAYER.getDefaultState());
-                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getStateFromMeta(7));
+                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, 7));
             } else {
                 primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getStateFromMeta(h));
             }

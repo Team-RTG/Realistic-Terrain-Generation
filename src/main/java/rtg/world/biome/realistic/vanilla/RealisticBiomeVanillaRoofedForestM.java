@@ -1,5 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
+import net.minecraft.block.BlockNewLeaf;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -34,8 +37,8 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoBoulder);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
-        mucronataTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        mucronataTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
+        mucronataTree.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+        mucronataTree.leavesBlock = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK);
         mucronataTree.minTrunkSize = 3;
         mucronataTree.maxTrunkSize = 4;
         mucronataTree.minCrownSize = 7;
@@ -58,8 +61,8 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.ALWAYS_GENERATE;
         decoFallenTree.logConditionChance = 1;
         decoFallenTree.loops = 4;
-        decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
+        decoFallenTree.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+        decoFallenTree.leavesBlock = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRoofedForestM.decorationLogsId));

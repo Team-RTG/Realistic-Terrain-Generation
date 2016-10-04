@@ -3,8 +3,10 @@ package rtg.world.gen.surface;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -40,11 +42,11 @@ public class SurfaceGrassCanyon extends SurfaceBase {
 
                 if (depth > -1 && depth < 12) {
                     if (cliff) {
-                        primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
+                        primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.byMetadata(claycolor)));
                     }
                     else {
                         if (depth > 4) {
-                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
+                            primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.byMetadata(claycolor)));
                         }
                         else {
                             if (depth == 0) {
@@ -57,7 +59,7 @@ public class SurfaceGrassCanyon extends SurfaceBase {
                     }
                 }
                 else if (k > 63) {
-                    primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(claycolor));
+                    primer.setBlockState(x, k, y, Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.byMetadata(claycolor)));
                 }
             }
         }

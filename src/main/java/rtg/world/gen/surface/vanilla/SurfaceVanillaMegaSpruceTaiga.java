@@ -3,6 +3,7 @@ package rtg.world.gen.surface.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -68,7 +69,7 @@ public class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {
                         primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
                     }
                     else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
-                        primer.setBlockState(x, k, y, Blocks.DIRT.getStateFromMeta(2));
+                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
                     }
                     else {
                         primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());

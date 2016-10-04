@@ -2,6 +2,7 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -41,8 +42,8 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.LOG.getStateFromMeta(2);
-        this.logBlock = Blocks.LEAVES.getStateFromMeta(2);
+        this.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
+        this.logBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
     }
 
     @Override

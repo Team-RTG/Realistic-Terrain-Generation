@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -30,8 +31,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         );
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.logBlock = Blocks.LOG.getStateFromMeta(2);
-        birchTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
+        birchTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
+        birchTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
         birchTree.minTrunkSize = 4;
         birchTree.maxTrunkSize = 10;
         birchTree.minCrownSize = 8;
@@ -50,8 +51,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         birchTrees.maxY = 120;
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.LOG.getStateFromMeta(1);
-        sitchensisTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        sitchensisTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        sitchensisTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
         sitchensisTree.minTrunkSize = 4;
         sitchensisTree.maxTrunkSize = 9;
         sitchensisTree.minCrownSize = 5;
@@ -78,7 +79,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 12;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getStateFromMeta(1), Blocks.LOG.getStateFromMeta(2)};
+        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE), Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH)};
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 12;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLandOfLakes.decorationLogsId));

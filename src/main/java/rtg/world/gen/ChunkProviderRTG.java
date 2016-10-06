@@ -141,6 +141,7 @@ public class ChunkProviderRTG implements IChunkProvider
 
     private Compass compass = new Compass();
     ArrayList<Direction> directions = compass.directions();
+    private PlaneLocation.Probe probe = new PlaneLocation.Probe(0, 0);
 
     public ChunkProviderRTG(World world, long l)
     {
@@ -549,21 +550,12 @@ public class ChunkProviderRTG implements IChunkProvider
         return false;
     }
 
-    private PlaneLocation.Probe probe = new PlaneLocation.Probe(0, 0);
-    /**
-     * @see IChunkProvider
-     *
-     * Checks to see if a chunk exists at x, y
-     */
-    public boolean chunkExists(int par1, int par2)
-    {
-        probe.setX(par1);
-        probe.setZ(par2);
-        /**
-         * TODO: Write custom logic to determine whether chunk exists, instead of assuming it does.
-         */
-        return this.inGeneration.containsKey(probe);
-        //return true;
+    public boolean chunkExists(int par1, int par2) {
+        PlaneLocation location = new PlaneLocation.Invariant(par1, par2);
+        return inGeneration.containsKey(location)
+            || toCheck.contains(location)
+            || this.chunkMade.contains(location)
+            || chunkLoader().chunkExists(worldObj, par1, par2);
     }
     /**
      * @see IChunkProvider

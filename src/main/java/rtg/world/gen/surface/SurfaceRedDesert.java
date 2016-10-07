@@ -3,8 +3,10 @@ package rtg.world.gen.surface;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -23,20 +25,20 @@ public class SurfaceRedDesert extends SurfaceBase {
 
     public SurfaceRedDesert(BiomeConfig config) {
 
-        super(config, BlockUtil.getState(Blocks.SAND, 1), BlockUtil.getState(Blocks.SAND, 1));
+        super(config, BlockUtil.getStateSand(1), BlockUtil.getStateSand(1));
 
         bottomBlock = Blocks.SANDSTONE.getDefaultState();
         cliffBlock1 = Blocks.STAINED_HARDENED_CLAY.getDefaultState();
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
-        float c = CliffCalculator.calc(x, y, noise);
+        float c = CliffCalculator.calc(x, z, noise);
         boolean cliff = c > 1.4f ? true : false;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, k, y).getBlock();
+            Block b = primer.getBlockState(x, k, z).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -45,18 +47,18 @@ public class SurfaceRedDesert extends SurfaceBase {
 
                 if (cliff) {
                     if (depth < 6) {
-                        primer.setBlockState(x, k, y, cliffBlock1.getBlock().getStateFromMeta((byte) 14));
+                        primer.setBlockState(x, k, z, cliffBlock1.getBlock().getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.RED));
                     }
                 }
                 else if (depth < 6) {
                     if (depth == 0 && k > 61) {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, z, topBlock);
                     }
                     else if (depth < 4) {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, z, fillerBlock);
                     }
                     else {
-                        primer.setBlockState(x, k, y, bottomBlock.getBlock().getDefaultState());
+                        primer.setBlockState(x, k, z, bottomBlock.getBlock().getDefaultState());
                     }
                 }
             }

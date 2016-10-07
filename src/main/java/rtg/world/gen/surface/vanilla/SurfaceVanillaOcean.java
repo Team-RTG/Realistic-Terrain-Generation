@@ -62,7 +62,7 @@ public class SurfaceVanillaOcean extends SurfaceBase {
                 }
 
                 else if (depth == 0 && k < 69) {
-                    primer.setBlockState(x, k, y, BlockUtil.getState(Blocks.SAND, sandMetadata));
+                    primer.setBlockState(x, k, y, BlockUtil.getStateSand(sandMetadata));
 
                 }
             }

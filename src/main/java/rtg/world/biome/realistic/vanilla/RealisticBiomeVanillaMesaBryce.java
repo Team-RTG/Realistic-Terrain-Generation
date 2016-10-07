@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockSand;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -31,7 +32,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, BlockUtil.getState(Blocks.SAND, 1), BlockUtil.getState(Blocks.SAND, 1), 0)
+            new SurfaceVanillaMesaBryce(config, BlockUtil.getStateSand(1), BlockUtil.getStateSand(1), 0)
         );
 
         this.waterSurfaceLakeChance = 0;
@@ -55,8 +56,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = Blocks.SAND;
-        decoCactus.soilMeta = (byte) 1;
+        decoCactus.soilBlock = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

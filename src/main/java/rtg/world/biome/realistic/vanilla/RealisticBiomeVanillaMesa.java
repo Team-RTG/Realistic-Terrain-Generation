@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -35,7 +36,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             new TerrainVanillaMesa(),
             new SurfaceVanillaMesa(
                 config,
-                BlockUtil.getState(Blocks.SAND, 1),
+                BlockUtil.getStateSand(1),
                 Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.ORANGE),
                 0
             )
@@ -61,8 +62,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = Blocks.SAND;
-        decoCactus.soilMeta = (byte) 1;
+        decoCactus.soilBlock = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

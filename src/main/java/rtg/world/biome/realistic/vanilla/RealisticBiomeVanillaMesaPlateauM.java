@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -34,8 +35,8 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
             new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f),
             new SurfaceVanillaMesaPlateauM(
                 config,
-                BlockUtil.getState(Blocks.SAND, 1),
-                Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.ORANGE),
+                BlockUtil.getStateSand(1),
+                BlockUtil.getStateClay(1),
                 0
             )
         );
@@ -47,8 +48,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.strengthFactor = 25f;
-        decoCactus.soilBlock = Blocks.SAND;
-        decoCactus.soilMeta = (byte) 1;
+        decoCactus.soilBlock = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
         decoCactus.sandOnly = false;
         decoCactus.maxRiver = 0.8f;
         addDeco(decoCactus);

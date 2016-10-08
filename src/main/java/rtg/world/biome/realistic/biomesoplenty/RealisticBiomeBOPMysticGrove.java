@@ -1,13 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.enums.BOPWoods;
+import biomesoplenty.common.block.BlockBOPLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -33,7 +32,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         decoFallenTree.distribution.noiseAddend = -15f;
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 12;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BOPBlocks.log_3.getStateFromMeta(4), BOPBlocks.log_1.getStateFromMeta(5)};
+        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockBOPLog.paging.getVariantState(BOPWoods.JACARANDA), BlockBOPLog.paging.getVariantState(BOPWoods.MAGIC)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMysticGrove.decorationLogsId));

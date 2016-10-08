@@ -1,20 +1,19 @@
 package rtg.world.biome.deco;
 
-import java.util.Random;
-
-import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.WorldUtil;
 import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenShrubRTG;
+
+import java.util.Random;
 
 /**
  * @author WhichOnesPink
@@ -48,8 +47,8 @@ public class DecoShrub extends DecoBase {
         this.size = -1;
         this.useDefaultRandom = false;
         this.Sand = true; //Whether shrubs generate on sand
-        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
-        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE)}; //Not sure if this breaks the random generator
+        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
+        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
         this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.minY = 1; // No height limit by default.
         this.maxY = 255; // No height limit by default.

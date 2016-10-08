@@ -1,16 +1,10 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
-import net.minecraft.block.BlockSand;
-import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
@@ -25,6 +19,8 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
+import java.util.Random;
+
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.MESA;
@@ -37,7 +33,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
             new SurfaceVanillaMesa(
                 config,
                 BlockUtil.getStateSand(1),
-                Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.ORANGE),
+                BlockUtil.getStateClay(1),
                 0
             )
         );
@@ -62,7 +58,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
+        decoCactus.soilBlock = BlockUtil.getStateSand(1);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

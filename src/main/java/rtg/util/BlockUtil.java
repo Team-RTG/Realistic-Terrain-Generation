@@ -122,4 +122,23 @@ public class BlockUtil {
                 return Blocks.DIRT.getDefaultState();
         }
     }
+
+    public static IBlockState getStateSapling (int meta) {
+        switch (meta) {
+            case 0:
+                return Blocks.SAPLING.getDefaultState();
+            case 1:
+                return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.SPRUCE);
+            case 2:
+                return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.BIRCH);
+            case 3:
+                return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.JUNGLE);
+            case 4:
+                return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.ACACIA);
+            case 5:
+                return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.DARK_OAK);
+            default:
+                return Blocks.SAPLING.getDefaultState();
+        }
+    }
 }

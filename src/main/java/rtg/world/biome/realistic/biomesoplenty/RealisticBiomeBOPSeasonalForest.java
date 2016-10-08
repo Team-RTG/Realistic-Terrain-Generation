@@ -1,17 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.BlockNewLog;
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
-import biomesoplenty.api.biome.BOPBiomes;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSeasonalForest;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
@@ -55,7 +51,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         decoFallenTree.distribution.noiseAddend = -15f;
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK), Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH)};
+        decoFallenTree.randomLogBlocks = new IBlockState[]{BlockUtil.getStateLog2(1), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(2)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSeasonalForest.decorationLogsId));

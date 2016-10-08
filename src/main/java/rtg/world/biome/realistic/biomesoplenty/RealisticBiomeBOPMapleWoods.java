@@ -1,16 +1,13 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.BlockOldLog;
-import net.minecraft.block.BlockPlanks;
+import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
-import biomesoplenty.api.biome.BOPBiomes;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMapleWoods;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMapleWoods;
@@ -35,7 +32,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
         decoFallenTree.logConditionNoise = 8f;
         decoFallenTree.logConditionChance = 1;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE)};
+        decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMapleWoods.decorationLogsId));

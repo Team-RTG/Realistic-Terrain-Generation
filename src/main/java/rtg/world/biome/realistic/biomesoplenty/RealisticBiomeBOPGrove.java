@@ -1,14 +1,11 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import net.minecraft.block.*;
-import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
-
 import biomesoplenty.api.biome.BOPBiomes;
-
+import net.minecraft.init.Biomes;
+import net.minecraft.world.biome.Biome;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
@@ -23,7 +20,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
         super(config, biome, river,
             new TerrainBOPGrove(),
-            new SurfaceBOPGrove(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL), 0.15f)
+            new SurfaceBOPGrove(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
@@ -34,8 +31,8 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.logConditionNoise = 8f;
         decoFallenTree1.logConditionChance = 1;
         decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        decoFallenTree1.logBlock = BlockUtil.getStateLog(2);
+        decoFallenTree1.leavesBlock = BlockUtil.getStateLeaf(2);
         decoFallenTree1.minSize = 3;
         decoFallenTree1.maxSize = 6;
 
@@ -47,8 +44,8 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionNoise = 8f;
         decoFallenTree2.logConditionChance = 1;
         decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-        decoFallenTree2.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        decoFallenTree2.logBlock = BlockUtil.getStateLog2(1);
+        decoFallenTree2.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 6;
 
@@ -56,13 +53,13 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPGrove.decorationLogsId));
 
         DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        decoShrubCustom.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        decoShrubCustom.logBlock = BlockUtil.getStateLog(2);
+        decoShrubCustom.leavesBlock = BlockUtil.getStateLeaf(2);
         decoShrubCustom.maxY = 110;
         decoShrubCustom.strengthFactor = 2f;
         DecoShrub decoShrubCustom2 = new DecoShrub();
-        decoShrubCustom2.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-        decoShrubCustom2.leavesBlock = Blocks.LEAVES2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+        decoShrubCustom2.logBlock = BlockUtil.getStateLog2(1);
+        decoShrubCustom2.leavesBlock = BlockUtil.getStateLeaf2(1);
         decoShrubCustom2.maxY = 110;
         decoShrubCustom2.strengthFactor = 2f;
         DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);

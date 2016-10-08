@@ -1,26 +1,22 @@
 package rtg.world.gen.surface;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 
+import java.util.Random;
+
 public class SurfaceRedDesert extends SurfaceBase {
 
     private IBlockState cliffBlock1;
-    private IBlockState cliffBlock2;
     private IBlockState bottomBlock;
 
     public SurfaceRedDesert(BiomeConfig config) {
@@ -28,7 +24,7 @@ public class SurfaceRedDesert extends SurfaceBase {
         super(config, BlockUtil.getStateSand(1), BlockUtil.getStateSand(1));
 
         bottomBlock = Blocks.SANDSTONE.getDefaultState();
-        cliffBlock1 = Blocks.STAINED_HARDENED_CLAY.getDefaultState();
+        cliffBlock1 = BlockUtil.getStateClay(14);
     }
 
     @Override
@@ -47,7 +43,7 @@ public class SurfaceRedDesert extends SurfaceBase {
 
                 if (cliff) {
                     if (depth < 6) {
-                        primer.setBlockState(x, k, z, cliffBlock1.getBlock().getDefaultState().withProperty(BlockStainedGlass.COLOR, EnumDyeColor.RED));
+                        primer.setBlockState(x, k, z, cliffBlock1);
                     }
                 }
                 else if (depth < 6) {

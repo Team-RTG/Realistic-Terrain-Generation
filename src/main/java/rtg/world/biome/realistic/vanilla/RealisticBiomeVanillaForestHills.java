@@ -1,12 +1,11 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.BlockDirt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaForestHills;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.collection.DecoCollectionForest;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForestHills;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaForestHills;
@@ -20,7 +19,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
 
         super(config, biome, river,
             new TerrainVanillaForestHills(),
-            new SurfaceVanillaForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL), 0.15f)
+            new SurfaceVanillaForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 
         this.noLakes = true;

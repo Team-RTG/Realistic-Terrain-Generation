@@ -1,17 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.enums.BOPWoods;
 import biomesoplenty.common.block.BlockBOPLog;
-import net.minecraft.block.*;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
@@ -74,8 +71,8 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionNoise = 0f;
         decoFallenTree2.logConditionChance = 16;
         decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK);
-        decoFallenTree2.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        decoFallenTree2.logBlock = BlockUtil.getStateLog2(1);
+        decoFallenTree2.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 5;
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();

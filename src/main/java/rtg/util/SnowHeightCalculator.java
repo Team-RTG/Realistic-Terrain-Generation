@@ -13,7 +13,7 @@ public class SnowHeightCalculator {
                 primer.setBlockState(x, y + 2, z, Blocks.SNOW_LAYER.getDefaultState());
                 primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, 7));
             } else {
-                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getStateFromMeta(h));
+                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, (int) h));
             }
         }
     }

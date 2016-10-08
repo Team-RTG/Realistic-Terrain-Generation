@@ -1,13 +1,13 @@
 package rtg.world.gen.feature.tree.rtg;
 
-import java.util.Random;
-
-import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import rtg.util.BlockUtil;
+
+import java.util.Random;
 
 /**
  * Betula Papyrifera (Paper Birch)
@@ -42,8 +42,8 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        this.logBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        this.logBlock = BlockUtil.getStateLog(2);
+        this.leavesBlock = BlockUtil.getStateLeaf(2);
     }
 
     @Override

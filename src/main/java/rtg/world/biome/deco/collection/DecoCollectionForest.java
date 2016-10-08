@@ -1,10 +1,9 @@
 package rtg.world.biome.deco.collection;
 
-import net.minecraft.block.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
@@ -46,8 +45,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         oakPines.maxY = 85;
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
-        ponderosaSpruceTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        ponderosaSpruceTree.logBlock = BlockUtil.getStateLog(1);
+        ponderosaSpruceTree.leavesBlock = BlockUtil.getStateLeaf(1);
         ponderosaSpruceTree.minTrunkSize = 11;
         ponderosaSpruceTree.maxTrunkSize = 21;
         ponderosaSpruceTree.minCrownSize = 15;
@@ -113,8 +112,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         decoFallenSpruce.logCondition = LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 24;
         decoFallenSpruce.maxY = 80;
-        decoFallenSpruce.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
-        decoFallenSpruce.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        decoFallenSpruce.logBlock = BlockUtil.getStateLog(1);
+        decoFallenSpruce.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
 
@@ -129,8 +128,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
         this.addDeco(decoShrubOak);
 
         DecoShrub decoShrubSpruce = new DecoShrub();
-        decoShrubSpruce.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.SPRUCE);
-        decoShrubSpruce.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        decoShrubSpruce.logBlock = BlockUtil.getStateLog(1);
+        decoShrubSpruce.leavesBlock = BlockUtil.getStateLeaf(1);
         decoShrubSpruce.maxY = 140;
         decoShrubSpruce.strengthFactor = 4f;
         decoShrubSpruce.chance = 9;

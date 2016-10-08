@@ -1,12 +1,11 @@
 package rtg.world.biome.realistic.vanilla;
 
-import net.minecraft.block.*;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestM;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
@@ -28,8 +27,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         this.noLakes = true;
 
         TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
-        tallBirch.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        tallBirch.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        tallBirch.logBlock = BlockUtil.getStateLog(2);
+        tallBirch.leavesBlock = BlockUtil.getStateLeaf(2);
         tallBirch.minTrunkSize = 16;
         tallBirch.maxTrunkSize = 23;
         tallBirch.minCrownSize = 4;
@@ -60,8 +59,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionChance = 20;
-        decoFallenTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestM.decorationLogsId));

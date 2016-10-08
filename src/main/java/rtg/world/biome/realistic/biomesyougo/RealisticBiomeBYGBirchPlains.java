@@ -1,12 +1,10 @@
 package rtg.world.biome.realistic.biomesyougo;
 
-import net.minecraft.block.*;
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesyougo.config.BiomeConfigBYGBirchPlains;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoGrass;
@@ -22,7 +20,7 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
 
         super(config, biome, river,
             new TerrainBYGBirchPlains(),
-            new SurfaceBYGBirchPlains(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL), 0.15f)
+            new SurfaceBYGBirchPlains(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -32,8 +30,8 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGBirchPlains.decorationLogsId));
@@ -43,8 +41,8 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoShrub decoShrubBirch = new DecoShrub();
-        decoShrubBirch.logBlock = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);
-        decoShrubBirch.leavesBlock = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.BIRCH);
+        decoShrubBirch.logBlock = BlockUtil.getStateLog(2);
+        decoShrubBirch.leavesBlock = BlockUtil.getStateLeaf(2);
         decoShrubBirch.maxY = 90;
         decoShrubBirch.strengthFactor = 6f;
         decoShrubBirch.chance = 4;

@@ -1,5 +1,7 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import biomesoplenty.api.enums.BOPWoods;
+import biomesoplenty.common.block.BlockBOPLog;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -45,7 +47,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 12;
-        decoFallenTree.logBlock = BOPBlocks.log_2.getStateFromMeta(3);
+        decoFallenTree.logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.PALM);
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;

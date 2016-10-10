@@ -5,9 +5,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesyougo.config.BiomeConfigBYGWillowSwamps;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoShrub;
@@ -58,8 +58,8 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
+        decoFallenTree.logBlock = BlockUtil.getStateLog2(1);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         decoFallenTree.maxY = 76;

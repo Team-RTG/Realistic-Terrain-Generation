@@ -3,9 +3,9 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
@@ -71,8 +71,8 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.LEAVES2.getStateFromMeta(1);
+        decoFallenTree.logBlock = BlockUtil.getStateLog2(1);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSwampland.decorationLogsId));

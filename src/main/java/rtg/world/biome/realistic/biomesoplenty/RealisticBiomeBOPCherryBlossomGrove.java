@@ -1,12 +1,11 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.enums.BOPWoods;
+import biomesoplenty.common.block.BlockBOPLog;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCherryBlossomGrove;
 import rtg.world.biome.deco.DecoBase;
@@ -52,7 +51,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.logConditionNoise = 0f;
         decoFallenTree1.logConditionChance = 16;
         decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = BOPBlocks.log_1.getStateFromMeta(1);
+        decoFallenTree1.logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.CHERRY);
         decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree1.minSize = 3;
         decoFallenTree1.maxSize = 5;

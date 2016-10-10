@@ -1,30 +1,26 @@
 package rtg.world.gen.feature;
 
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import rtg.util.BlockUtil;
+
+import java.util.Random;
 
 public class WorldGenWaterGrass extends WorldGenerator {
 
-    private Block block;
-    private int metadata;
-    private int minHeight;
+    private Block blockData;
+    private int varMetadata;
+    private int varMinHeight;
 
-    public WorldGenWaterGrass(Block b, int m) {
+    public WorldGenWaterGrass(Block block, int metadata, int minHeight) {
 
-        this(b, m, 10);
-    }
-
-    public WorldGenWaterGrass(Block b, int m, int mh) {
-
-        block = b;
-        metadata = m;
-        minHeight = 10;
+        blockData = block;
+        varMetadata = metadata;
+        varMinHeight = minHeight;
     }
 
     public boolean generate(World world, Random rand, BlockPos blockPos) {
@@ -39,14 +35,14 @@ public class WorldGenWaterGrass extends WorldGenerator {
                 break;
             }
 
-            if (y < minHeight) {
+            if (y < varMinHeight) {
                 return false;
             }
             y--;
         }
 
         Block b;
-        if (block == Blocks.DOUBLE_PLANT) {
+        if (blockData == Blocks.DOUBLE_PLANT) {
             int i1, j1, k1;
             for (int l = 0; l < 32; ++l) {
                 i1 = x + rand.nextInt(8) - rand.nextInt(8);
@@ -59,11 +55,11 @@ public class WorldGenWaterGrass extends WorldGenerator {
                 }
 
                 if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.DOUBLE_PLANT.getStateFromMeta(metadata));
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.DOUBLE_PLANT.getStateFromMeta(varMetadata));
                 }
             }
         }
-        else if (block == Blocks.LEAVES) {
+        else if (blockData == Blocks.LEAVES) {
             for (int l = 0; l < 64; ++l) {
                 int i1 = x + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
@@ -75,7 +71,7 @@ public class WorldGenWaterGrass extends WorldGenerator {
                 }
 
                 if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == Blocks.GRASS) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
+                    world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateLeaf(varMetadata), 0);
                 }
             }
         }
@@ -94,7 +90,7 @@ public class WorldGenWaterGrass extends WorldGenerator {
                     //TODO replace this
                     // && block.canBlockStay(world, new BlockPos(i1, j1, k1))
                     ) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
+                    world.setBlockState(new BlockPos(i1, j1, k1), blockData.getStateFromMeta(varMetadata), 0);
                 }
             }
         }

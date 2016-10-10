@@ -5,9 +5,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
@@ -29,7 +29,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
         super(config, biome, river,
             new TerrainMFMithwoodForest(),
-            new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(2), 0.10f)
+            new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f)
         );
    
         TreeRTG megaMithwood = new TreeRTGPinusNigra();
@@ -75,8 +75,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(RTGOak);
         
         TreeRTG megaBirch = new TreeRTGBetulaPapyrifera();
-        megaBirch.logBlock = Blocks.LOG.getStateFromMeta(2);
-        megaBirch.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
+        megaBirch.logBlock = BlockUtil.getStateLog(2);
+        megaBirch.leavesBlock = BlockUtil.getStateLeaf(2);
         megaBirch.minTrunkSize = 4;
         megaBirch.maxTrunkSize = 10;
         megaBirch.minCrownSize = 8;
@@ -92,8 +92,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(RTGBirch);
         
         TreeRTG megaSpruce = new TreeRTGPinusPonderosa();
-        megaSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
-        megaSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        megaSpruce.logBlock = BlockUtil.getStateLog(1);
+        megaSpruce.leavesBlock = BlockUtil.getStateLeaf(1);
         megaSpruce.minTrunkSize = 11;
         megaSpruce.maxTrunkSize = 21;
         megaSpruce.minCrownSize = 15;
@@ -179,16 +179,17 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoFallenBirch.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenBirch.logConditionChance = 8;
         decoFallenBirch.maxY = 100;
-        decoFallenBirch.logBlock = Blocks.LOG.getStateFromMeta(2);
-        decoFallenBirch.leavesBlock = Blocks.LEAVES.getStateFromMeta(2);
+        decoFallenBirch.logBlock = BlockUtil.getStateLog(2);
+        decoFallenBirch.leavesBlock = BlockUtil.getStateLeaf(2);
         decoFallenBirch.minSize = 3;
         decoFallenBirch.maxSize = 6;
+
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 8;
         decoFallenSpruce.maxY = 100;
-        decoFallenSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
-        decoFallenSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenSpruce.logBlock = BlockUtil.getStateLog(1);
+        decoFallenSpruce.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenBirch, decoFallenSpruce);

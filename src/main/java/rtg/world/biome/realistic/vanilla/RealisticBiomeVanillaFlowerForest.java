@@ -3,9 +3,9 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
@@ -70,8 +70,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.maxY = 140;
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = Blocks.LOG.getStateFromMeta(1);
-        ponderosaSpruceTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        ponderosaSpruceTree.logBlock = BlockUtil.getStateLog(1);
+        ponderosaSpruceTree.leavesBlock = BlockUtil.getStateLeaf(1);
         ponderosaSpruceTree.minTrunkSize = 11;
         ponderosaSpruceTree.maxTrunkSize = 21;
         ponderosaSpruceTree.minCrownSize = 15;
@@ -113,8 +113,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenSpruce.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
         decoFallenSpruce.logConditionChance = 8;
         decoFallenSpruce.maxY = 100;
-        decoFallenSpruce.logBlock = Blocks.LOG.getStateFromMeta(1);
-        decoFallenSpruce.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenSpruce.logBlock = BlockUtil.getStateLog(1);
+        decoFallenSpruce.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);

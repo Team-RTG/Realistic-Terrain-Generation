@@ -1,14 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
@@ -21,6 +19,8 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
 
+import java.util.Random;
+
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.MUTATED_MESA;
@@ -30,7 +30,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
-            new SurfaceVanillaMesaBryce(config, Blocks.SAND.getStateFromMeta(1), Blocks.SAND.getStateFromMeta(1), 0)
+            new SurfaceVanillaMesaBryce(config, BlockUtil.getStateSand(1), BlockUtil.getStateSand(1), 0)
         );
 
         this.waterSurfaceLakeChance = 0;
@@ -54,8 +54,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = Blocks.SAND;
-        decoCactus.soilMeta = (byte) 1;
+        decoCactus.soilBlock = BlockUtil.getStateSand(1);
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);

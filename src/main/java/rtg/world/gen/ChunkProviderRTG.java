@@ -293,35 +293,73 @@ public class ChunkProviderRTG implements IChunkProvider
         if (mapFeaturesEnabled) {
 
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generate(this, this.worldObj, cx, cy, primer);
+                try {
+                    mineshaftGenerator.generate(this, this.worldObj, cx, cy, primer);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
 
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generate(this, this.worldObj, cx, cy, primer);
+                try {
+                    strongholdGenerator.generate(this, this.worldObj, cx, cy, primer);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
 
             if (ConfigRTG.generateVillages) {
-
-                if (ConfigRTG.villageCrashFix) {
-
-                    try {
-                        villageGenerator.generate(this, this.worldObj, cx, cy, primer);
-                    }
-                    catch (Exception e) {
-                        // Do nothing.
-                    }
-                }
-                else {
+                try {
                     villageGenerator.generate(this, this.worldObj, cx, cy, primer);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
                 }
             }
 
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generate(this, this.worldObj, cx, cy, primer);
+                try {
+                    scatteredFeatureGenerator.generate(this, this.worldObj, cx, cy, primer);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
 
             if (ConfigRTG.generateOceanMonuments) {
-                oceanMonumentGenerator.generate(this, this.worldObj, cx, cy, primer);
+                try {
+                    oceanMonumentGenerator.generate(this, this.worldObj, cx, cy, primer);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
         }
             // store in the in process pile
@@ -683,44 +721,82 @@ public class ChunkProviderRTG implements IChunkProvider
 
             TimeTracker.manager.start("Mineshafts");
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                try {
+                    mineshaftGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
             TimeTracker.manager.stop("Mineshafts");
 
             TimeTracker.manager.start("Strongholds");
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                try {
+                    strongholdGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
             TimeTracker.manager.stop("Strongholds");
 
             TimeTracker.manager.start("Villages");
             if (ConfigRTG.generateVillages) {
-
-                if (ConfigRTG.villageCrashFix) {
-
-                    try {
-                        hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
-                    }
-                    catch (Exception e) {
-                        hasPlacedVillageBlocks = false;
-                    }
+                try {
+                    hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
                 }
-                else {
-
-                hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                catch (Exception e) {
+                    hasPlacedVillageBlocks = false;
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
                 }
             }
             TimeTracker.manager.stop("Villages");
 
             TimeTracker.manager.start("Scattered");
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                try {
+                    scatteredFeatureGenerator.generateStructure(worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
             TimeTracker.manager.stop("Scattered");
 
             TimeTracker.manager.start("Monuments");
             if (ConfigRTG.generateOceanMonuments) {
-                oceanMonumentGenerator.generateStructure(this.worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                try {
+                    oceanMonumentGenerator.generateStructure(this.worldObj, rand, new ChunkCoordIntPair(chunkX, chunkZ));
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
             TimeTracker.manager.stop("Monuments");
         }
@@ -1022,32 +1098,59 @@ public class ChunkProviderRTG implements IChunkProvider
         if (mapFeaturesEnabled) {
 
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generate(this, worldObj, par1, par2, null);
+                try {
+                    mineshaftGenerator.generate(this, worldObj, par1, par2, null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
 
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generate(this, worldObj, par1, par2, null);
+                try {
+                    strongholdGenerator.generate(this, worldObj, par1, par2, null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
 
             if (ConfigRTG.generateVillages) {
-
-                if (ConfigRTG.villageCrashFix) {
-
-                    try {
-                        villageGenerator.generate(this, this.worldObj, par1, par2, null);
-                    }
-                    catch (Exception e) {
-                        // Do nothing.
-                    }
-
-                }
-                else {
+                try {
                     villageGenerator.generate(this, this.worldObj, par1, par2, null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
                 }
             }
 
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
+                try {
+                    scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException (e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
 
             if (ConfigRTG.generateOceanMonuments) {

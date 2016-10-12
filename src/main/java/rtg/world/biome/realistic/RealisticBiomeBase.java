@@ -30,7 +30,7 @@ import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
-public class RealisticBiomeBase {
+public abstract class RealisticBiomeBase {
 
     private static final RealisticBiomeBase[] arrRealisticBiomeIds =
         new RealisticBiomeBase[256];
@@ -142,6 +142,10 @@ public class RealisticBiomeBase {
         this(config, b, riverbiome, t, new SurfaceBase[]{s});
 
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
+    }
+
+    public TerrainBase initTerrain() {
+        return new TerrainBase();
     }
 
     /*

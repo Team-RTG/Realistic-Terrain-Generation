@@ -1,11 +1,12 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.enums.BOPWoods;
-import biomesoplenty.common.block.BlockBOPLog;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
 import rtg.util.BlockUtil;
@@ -59,7 +60,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 16;
-        decoFallenTree.logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.EBONY);
+        decoFallenTree.logBlock = BOPBlocks.log_3.getStateFromMeta(2);
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;

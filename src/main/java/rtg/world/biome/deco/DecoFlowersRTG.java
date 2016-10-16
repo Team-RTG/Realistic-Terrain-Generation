@@ -27,26 +27,23 @@ public class DecoFlowersRTG extends DecoBase {
     public int notEqualsZeroChance;
     public int loops;
 
-    /**
+    /*
      * FLOWER LIST:
-     * <p>
-     * 0	Rose -
-     * 1	Blue Orchid -
-     * 2	Allium -
-     * 3	Azure Bluet -
-     * 4	Red Tulip -
-     * 5	Orange Tulip -
-     * 6	White Tulip -
-     * 7	Pink Tulip -
-     * 8	Oxeye Daisy -
-     * <p>
-     * 9	yellow Flower -
-     * <p>
-     * 10	Sunflower -
-     * 11	Lilac -
-     * 12	Double Tallgrass -
-     * 13	Large Fern -
-     * 14	Rose Bush -
+     * 0	Poppy
+     * 1	Blue Orchid
+     * 2	Allium
+     * 3	Azure Bluet
+     * 4	Red Tulip
+     * 5	Orange Tulip
+     * 6	White Tulip
+     * 7	Pink Tulip
+     * 8	Oxeye Daisy
+     * 9	Yellow Flower
+     * 10	Sunflower
+     * 11	Lilac
+     * 12	Double Tallgrass
+     * 13	Large Fern
+     * 14	Rose Bush
      * 15	Peony
      */
     public DecoFlowersRTG() {
@@ -78,6 +75,7 @@ public class DecoFlowersRTG extends DecoBase {
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+
                 for (int i = 0; i < this.loops * 16; i++) {
                     int intX = chunkX + rand.nextInt(16);// + 8;
                     int intZ = chunkY + rand.nextInt(16);// + 8;

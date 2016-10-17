@@ -50,14 +50,15 @@ public class WorldGenFlowersRTG extends WorldGenerator {
             //for (int l = 0; l < 64; ++l)
             {
                 int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
+                int j1 = y;// + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1))
-                    && (!world.provider.getHasNoSky() || j1 < 254)
-                    && Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))
-                    && Blocks.DOUBLE_PLANT.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower))) {
+                boolean isAirBlock = world.isAirBlock(new BlockPos(i1, j1, k1));
+                boolean hasNoSky = world.provider.getHasNoSky();
+                boolean canPlaceBlock = Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, new BlockPos(i1, j1, k1));
+                boolean canBlockStay = Blocks.DOUBLE_PLANT.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower));
 
+                if (isAirBlock && (!hasNoSky || j1 < 254) && canPlaceBlock && canBlockStay) {
                     world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower), 2);
                 }
             }
@@ -66,14 +67,15 @@ public class WorldGenFlowersRTG extends WorldGenerator {
             //for (int l = 0; l < 64; ++l)
             {
                 int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
+                int j1 = y;// + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1))
-                    && (!world.provider.getHasNoSky() || j1 < 254)
-                    && Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))
-                    && Blocks.YELLOW_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower))) {
+                boolean isAirBlock = world.isAirBlock(new BlockPos(i1, j1, k1));
+                boolean hasNoSky = world.provider.getHasNoSky();
+                boolean canPlaceBlock = Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1));
+                boolean canBlockStay = Blocks.YELLOW_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower));
 
+                if (isAirBlock && (!hasNoSky || j1 < 254) && canPlaceBlock && canBlockStay) {
                     world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower), 2);
                 }
             }
@@ -82,14 +84,15 @@ public class WorldGenFlowersRTG extends WorldGenerator {
             //for (int l = 0; l < 64; ++l)
             {
                 int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
-                int j1 = y + rand.nextInt(4) - rand.nextInt(4);
+                int j1 = y;// + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1))
-                    && (!world.provider.getHasNoSky() || j1 < 254)
-                    && Blocks.RED_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))
-                    && Blocks.RED_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower))) {
+                boolean isAirBlock = world.isAirBlock(new BlockPos(i1, j1, k1));
+                boolean hasNoSky = world.provider.getHasNoSky();
+                boolean canPlaceBlock = Blocks.RED_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1));
+                boolean canBlockStay = Blocks.RED_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower));
 
+                if (isAirBlock && (!hasNoSky || j1 < 254) && canPlaceBlock && canBlockStay) {
                     world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower), 2);
                 }
             }

@@ -11,6 +11,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 
@@ -21,6 +22,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public int[] flowers; // Integer array of flower IDs.
     public float strengthFactor; // Higher = more flowers.
+    public int minY; // Height restriction.
     public int maxY; // Height restriction.
     public HeightType heightType; // How we determine the Y coord.
     public int chance; // Higher = more rare.
@@ -57,7 +59,8 @@ public class DecoFlowersRTG extends DecoBase {
         this.flowers = new int[]{0, 9}; // Only roses and dandelions by default.
         this.chance = 1; // 100% chance of generating by default.
         this.notEqualsZeroChance = 1;
-        this.maxY = 255; // No height limit by default.
+        this.minY = 1; // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
+        this.maxY = 253; // 2 below max build height to account for 2-block tall flowers.
         this.heightType = HeightType.NEXT_INT;
         this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.loops = 1;
@@ -83,7 +86,7 @@ public class DecoFlowersRTG extends DecoBase {
                     int intY;
                     switch (this.heightType) {
                         case NEXT_INT:
-                            intY = rand.nextInt(this.maxY);
+                            intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
                             break;
 
                         case GET_HEIGHT_VALUE:

@@ -2,12 +2,14 @@ package rtg.world.gen.feature;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.util.BlockUtil;
+import rtg.util.WorldUtil;
 
 public class WorldGenFlowersRTG extends WorldGenerator {
 
@@ -53,13 +55,15 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 int j1 = y;// + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                boolean isAirBlock = world.isAirBlock(new BlockPos(i1, j1, k1));
-                boolean hasNoSky = world.provider.getHasNoSky();
-                boolean canPlaceBlock = Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, new BlockPos(i1, j1, k1));
-                boolean canBlockStay = Blocks.DOUBLE_PLANT.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower));
+                IBlockState doublePlant = BlockUtil.getStateFlower(randomFlower);
+                BlockPos doublePlantPos = new BlockPos(i1, j1, k1);
+                WorldUtil worldUtil = new WorldUtil(world);
 
-                if (isAirBlock && (!hasNoSky || j1 < 254) && canPlaceBlock && canBlockStay) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower), 2);
+                if (world.isAirBlock(doublePlantPos)
+                    && (!world.provider.getHasNoSky() || j1 < 254)
+                    && Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, doublePlantPos)) {
+
+                    worldUtil.setDoublePlant(doublePlantPos, doublePlant);
                 }
             }
         }
@@ -70,13 +74,15 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 int j1 = y;// + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                boolean isAirBlock = world.isAirBlock(new BlockPos(i1, j1, k1));
-                boolean hasNoSky = world.provider.getHasNoSky();
-                boolean canPlaceBlock = Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1));
-                boolean canBlockStay = Blocks.YELLOW_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower));
+                IBlockState flower = BlockUtil.getStateFlower(randomFlower);
+                BlockPos flowerPos = new BlockPos(i1, j1, k1);
 
-                if (isAirBlock && (!hasNoSky || j1 < 254) && canPlaceBlock && canBlockStay) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower), 2);
+                if (world.isAirBlock(flowerPos)
+                    && (!world.provider.getHasNoSky() || j1 < 254)
+                    && Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, flowerPos)
+                    && Blocks.YELLOW_FLOWER.canBlockStay(world, flowerPos, flower)) {
+
+                    world.setBlockState(flowerPos, flower, 2);
                 }
             }
         }
@@ -87,13 +93,15 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 int j1 = y;// + rand.nextInt(4) - rand.nextInt(4);
                 int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                boolean isAirBlock = world.isAirBlock(new BlockPos(i1, j1, k1));
-                boolean hasNoSky = world.provider.getHasNoSky();
-                boolean canPlaceBlock = Blocks.RED_FLOWER.canPlaceBlockAt(world, new BlockPos(i1, j1, k1));
-                boolean canBlockStay = Blocks.RED_FLOWER.canBlockStay(world, new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower));
+                IBlockState flower = BlockUtil.getStateFlower(randomFlower);
+                BlockPos flowerPos = new BlockPos(i1, j1, k1);
 
-                if (isAirBlock && (!hasNoSky || j1 < 254) && canPlaceBlock && canBlockStay) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), BlockUtil.getStateFlower(randomFlower), 2);
+                if (world.isAirBlock(flowerPos)
+                    && (!world.provider.getHasNoSky() || j1 < 254)
+                    && Blocks.RED_FLOWER.canPlaceBlockAt(world, flowerPos)
+                    && Blocks.RED_FLOWER.canBlockStay(world, flowerPos, flower)) {
+
+                    world.setBlockState(flowerPos, flower, 2);
                 }
             }
         }

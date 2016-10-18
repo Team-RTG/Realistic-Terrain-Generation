@@ -177,17 +177,23 @@ public class BlockUtil {
             case 9:
                 return Blocks.YELLOW_FLOWER.getDefaultState();
             case 10:
-                return Blocks.DOUBLE_PLANT.getDefaultState();
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER);
             case 11:
-                return Blocks.DOUBLE_PLANT.getStateFromMeta(1);
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.SYRINGA);
             case 12:
-                return Blocks.DOUBLE_PLANT.getStateFromMeta(2);
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.GRASS);
             case 13:
-                return Blocks.DOUBLE_PLANT.getStateFromMeta(3);
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.FERN);
             case 14:
-                return Blocks.DOUBLE_PLANT.getStateFromMeta(4);
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.ROSE);
             case 15:
-                return Blocks.DOUBLE_PLANT.getStateFromMeta(5);
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.PAEONIA);
             default:
                 return Blocks.RED_FLOWER.getStateFromMeta(meta);
         }

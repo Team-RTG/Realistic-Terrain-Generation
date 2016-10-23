@@ -111,7 +111,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
         // A combo-deal of grass and vines. (This could probably be pulled out into individual decos.)
         DecoJungleGrassVines decoJungleGrassVines = new DecoJungleGrassVines();
-        this.addDeco(decoJungleLilypadVines);
+        this.addDeco(decoJungleGrassVines);
 
         // Flowers.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();

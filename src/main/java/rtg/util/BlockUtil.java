@@ -141,4 +141,61 @@ public class BlockUtil {
                 return Blocks.SAPLING.getDefaultState();
         }
     }
+
+    /*
+     * FLOWER LIST:
+     * 0	Poppy
+     * 1	Blue Orchid
+     * 2	Allium
+     * 3	Azure Bluet
+     * 4	Red Tulip
+     * 5	Orange Tulip
+     * 6	White Tulip
+     * 7	Pink Tulip
+     * 8	Oxeye Daisy
+     * 9	Yellow Flower
+     * 10	Sunflower
+     * 11	Lilac
+     * 12	Double Tallgrass
+     * 13	Large Fern
+     * 14	Rose Bush
+     * 15	Peony
+     */
+    public static IBlockState getStateFlower (int meta) {
+        switch (meta) {
+            case 0:
+                return Blocks.RED_FLOWER.getDefaultState();
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                return Blocks.RED_FLOWER.getStateFromMeta(meta);
+            case 9:
+                return Blocks.YELLOW_FLOWER.getDefaultState();
+            case 10:
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER);
+            case 11:
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.SYRINGA);
+            case 12:
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.GRASS);
+            case 13:
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.FERN);
+            case 14:
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.ROSE);
+            case 15:
+                return Blocks.DOUBLE_PLANT.getDefaultState()
+                    .withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.PAEONIA);
+            default:
+                return Blocks.RED_FLOWER.getStateFromMeta(meta);
+        }
+    }
 }

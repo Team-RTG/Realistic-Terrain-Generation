@@ -2,6 +2,7 @@ package rtg.util;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -112,6 +113,15 @@ public class WorldUtil {
         }
 
         return true;
+    }
+
+    public void setDoublePlant(BlockPos lowerPos, IBlockState doublePlant, int flag) {
+        this.world.setBlockState(lowerPos, doublePlant.withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flag);
+        this.world.setBlockState(lowerPos.up(), doublePlant.withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flag);
+    }
+
+    public void setDoublePlant(BlockPos lowerPos, IBlockState doublePlant) {
+        this.setDoublePlant(lowerPos, doublePlant, 2);
     }
 
     public enum SurroundCheckType {

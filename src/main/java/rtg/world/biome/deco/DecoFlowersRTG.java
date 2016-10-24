@@ -11,6 +11,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
+import rtg.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 
@@ -21,32 +22,30 @@ public class DecoFlowersRTG extends DecoBase {
 
     public int[] flowers; // Integer array of flower IDs.
     public float strengthFactor; // Higher = more flowers.
+    public int minY; // Height restriction.
     public int maxY; // Height restriction.
     public HeightType heightType; // How we determine the Y coord.
     public int chance; // Higher = more rare.
     public int notEqualsZeroChance;
     public int loops;
 
-    /**
+    /*
      * FLOWER LIST:
-     * <p>
-     * 0	Rose -
-     * 1	Blue Orchid -
-     * 2	Allium -
-     * 3	Azure Bluet -
-     * 4	Red Tulip -
-     * 5	Orange Tulip -
-     * 6	White Tulip -
-     * 7	Pink Tulip -
-     * 8	Oxeye Daisy -
-     * <p>
-     * 9	yellow Flower -
-     * <p>
-     * 10	Sunflower -
-     * 11	Lilac -
-     * 12	Double Tallgrass -
-     * 13	Large Fern -
-     * 14	Rose Bush -
+     * 0	Poppy
+     * 1	Blue Orchid
+     * 2	Allium
+     * 3	Azure Bluet
+     * 4	Red Tulip
+     * 5	Orange Tulip
+     * 6	White Tulip
+     * 7	Pink Tulip
+     * 8	Oxeye Daisy
+     * 9	Yellow Flower
+     * 10	Sunflower
+     * 11	Lilac
+     * 12	Double Tallgrass
+     * 13	Large Fern
+     * 14	Rose Bush
      * 15	Peony
      */
     public DecoFlowersRTG() {
@@ -60,7 +59,8 @@ public class DecoFlowersRTG extends DecoBase {
         this.flowers = new int[]{0, 9}; // Only roses and dandelions by default.
         this.chance = 1; // 100% chance of generating by default.
         this.notEqualsZeroChance = 1;
-        this.maxY = 255; // No height limit by default.
+        this.minY = 1; // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
+        this.maxY = 253; // 2 below max build height to account for 2-block tall flowers.
         this.heightType = HeightType.NEXT_INT;
         this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.loops = 1;
@@ -78,6 +78,7 @@ public class DecoFlowersRTG extends DecoBase {
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+
                 for (int i = 0; i < this.loops * 16; i++) {
                     int intX = chunkX + rand.nextInt(16);// + 8;
                     int intZ = chunkY + rand.nextInt(16);// + 8;
@@ -85,7 +86,7 @@ public class DecoFlowersRTG extends DecoBase {
                     int intY;
                     switch (this.heightType) {
                         case NEXT_INT:
-                            intY = rand.nextInt(this.maxY);
+                            intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
                             break;
 
                         case GET_HEIGHT_VALUE:

@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,7 +27,7 @@ public class SurfaceBYGRedRockMountains extends SurfaceBase
 
     private static IBlockState redRockStone = Block.getBlockFromName("BiomesYouGo:RedRock").getDefaultState();
     private static IBlockState redRockCobble = Block.getBlockFromName("BiomesYouGo:RedRockCobblestone").getDefaultState();
-    private static IBlockState redClay = Blocks.STAINED_HARDENED_CLAY.getStateFromMeta(14);
+    private static IBlockState redClay = BlockUtil.getStateClay(14);
 
     public SurfaceBYGRedRockMountains(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff)
     {

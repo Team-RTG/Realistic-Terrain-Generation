@@ -3,9 +3,9 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRedwoodTaigaHills;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRedwoodTaigaHills;
@@ -41,8 +41,8 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
         decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         decoFallenTree.logConditionNoise = 0f;
         decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = Blocks.LOG.getStateFromMeta(1);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenTree.logBlock = BlockUtil.getStateLog(1);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRedwoodTaigaHills.decorationLogsId));

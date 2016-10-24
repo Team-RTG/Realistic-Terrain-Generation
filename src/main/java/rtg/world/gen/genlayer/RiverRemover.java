@@ -5,6 +5,7 @@ import net.minecraft.world.gen.layer.GenLayerRiverMix;
 import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
 
 import rtg.util.Accessor;
+import rtg.util.Logger;
 
 /**
  * @author Zeno410
@@ -12,12 +13,12 @@ import rtg.util.Accessor;
 public class RiverRemover {
 
     private Accessor<GenLayerRiverMix, GenLayer> riverMixBiome =
-        new Accessor<GenLayerRiverMix, GenLayer>("field_75910_b");
+        new Accessor<>("field_75910_b", "biomePatternGeneratorChain");
 
     public GenLayer[] riverLess(GenLayer[] vanilla) {
 
         try {
-            GenLayer riverMixParent = this.riverMixBiome.get((GenLayerRiverMix) vanilla[0]);
+            GenLayer riverMixParent = this.riverMixBiome.get((GenLayerRiverMix)vanilla[0]);
             if (riverMixParent == null) {
                 return vanilla;
             }
@@ -26,6 +27,7 @@ public class RiverRemover {
             return new GenLayer[]{withoutRivers, genlayervoronoizoom, withoutRivers};
         }
         catch (Exception e) {
+            Logger.error("RiverRemover failed");
             return vanilla;
         }
     }

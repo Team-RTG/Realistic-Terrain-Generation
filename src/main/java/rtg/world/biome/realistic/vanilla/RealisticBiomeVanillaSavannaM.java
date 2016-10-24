@@ -3,9 +3,9 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaM;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.biome.deco.collection.DecoCollectionSavanna;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSavannaM;
@@ -20,7 +20,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaSavannaM(),
-            new SurfaceVanillaSavannaM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getStateFromMeta(1))
+            new SurfaceVanillaSavannaM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(1))
         );
 
         this.noLakes = true;

@@ -33,7 +33,7 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */

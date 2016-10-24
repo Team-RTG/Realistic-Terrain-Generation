@@ -2,6 +2,7 @@ package rtg.world.biome.deco;
 
 import java.util.Random;
 
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -79,7 +80,7 @@ public class DecoAbyssalCraftTree extends DecoTree {
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
-                                WorldGenerator worldgenerator = new WorldGenTreeACDarkwood(6 + rand.nextInt(6), 10 + rand.nextInt(10), 0, 0);
+                                WorldGenerator worldgenerator = new WorldGenTreeACDarkwood(6 + rand.nextInt(6), 10 + rand.nextInt(10), ACBlocks.darklands_oak_wood.getDefaultState(), ACBlocks.darklands_oak_leaves.getDefaultState());
                                 worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
 

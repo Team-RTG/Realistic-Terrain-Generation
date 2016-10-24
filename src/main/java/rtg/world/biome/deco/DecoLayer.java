@@ -1,42 +1,40 @@
 package rtg.world.biome.deco;
 
+import java.util.Random;
+
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.util.BlockUtil;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.WorldUtil;
 import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenShrubRTG;
-
-import java.util.Random;
+import rtg.world.gen.feature.WorldGenLayers;
 
 /**
  * @author WhichOnesPink
  */
-public class DecoShrub extends DecoBase {
+public class DecoLayer extends DecoBase {
 
-    public int size;
-    public boolean useDefaultRandom;
-    public boolean Sand;
-    public IBlockState[] randomLogBlocks;
-    public IBlockState[] randomLeavesBlocks;
+    public IBlockState layerBlock;
+    public PropertyInteger layerProperty;
+    public int dropHeight;
+    public int layerRange;
+    public int layerScatter;
+
     public float strengthFactor; // Higher = more/bigger shrubs.
     public int minY; // Height restriction.
     public int maxY; // Height restriction.
     public int chance; // Higher = more rare.
     public int notEqualsZerochance;
     public int loops;
-    public int minSize;
-    public int maxSize;
-    public IBlockState logBlock;
-    public IBlockState leavesBlock;
 
-    public DecoShrub() {
+    public DecoLayer(IBlockState layerBlock, PropertyInteger layerProperty) {
 
         super();
 
@@ -44,29 +42,19 @@ public class DecoShrub extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.size = -1;
-        this.useDefaultRandom = false;
-        this.Sand = true; //Whether shrubs generate on sand
-        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
-        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
-        this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.minY = 1; // No height limit by default.
+        this.layerBlock = layerBlock;
+        this.layerProperty = layerProperty;
+        this.dropHeight = 2;
+        this.layerRange = 4;
+        this.layerScatter = 3;
+        this.strengthFactor = 2f;
+        this.minY = 63; // Sensible height limit by default.
         this.maxY = 255; // No height limit by default.
         this.chance = 1; // 100% chance of generating by default.
         this.notEqualsZerochance = 1;
         this.loops = 1;
-        this.minSize = 3;
-        this.maxSize = 4;
-        this.logBlock = Blocks.LOG.getDefaultState();
-        this.leavesBlock = Blocks.LEAVES.getDefaultState();
 
-        this.addDecoTypes(DecoType.SHRUB);
-    }
-
-    public DecoShrub(boolean useDefaultRandom) {
-
-        this();
-        this.useDefaultRandom = true;
+        this.addDecoTypes(DecoType.LAYER, DecoType.LEAVES, DecoType.FALLEN_LEAVES);
     }
 
     @Override
@@ -74,29 +62,11 @@ public class DecoShrub extends DecoBase {
 
         if (this.allowed) {
 
-            DecoBase.tweakShrubLeaves(this, false, true);
-
-            // Shrub size.
-            this.size = (this.size == -1) ? rand.nextInt(4) + 1 : this.size;
-            if (this.minSize > 0 && this.maxSize > 0 && this.maxSize >= this.minSize) {
-                this.size = this.minSize + rand.nextInt(this.maxSize - this.minSize + 1);
-            }
-
-            // Do we want random shrubs?
-            if (this.useDefaultRandom &&
-                this.randomLogBlocks.length > 0 &&
-                this.randomLogBlocks.length == this.randomLeavesBlocks.length) {
-                int rnd = rand.nextInt(this.randomLogBlocks.length);
-
-                this.logBlock = this.randomLogBlocks[rnd];
-                this.leavesBlock = this.randomLeavesBlocks[rnd];
-            }
-
             WorldUtil worldUtil = new WorldUtil(world);
-            WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.Sand);
+            WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
 
             int loopCount = this.loops;
-            loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
+            loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
                 int intX = chunkX + rand.nextInt(16);// + 8;
                 int intZ = chunkY + rand.nextInt(16);// + 8;
@@ -119,7 +89,7 @@ public class DecoShrub extends DecoBase {
     }
 
     private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
-        // If we're in a village, check to make sure the shrub has extra room to grow to avoid corrupting the village.
+        // If we're in a village, check to make sure the layer has extra room to avoid corrupting the village.
         if (hasPlacedVillageBlocks) {
             if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, x, y, z)) {
                 return false;

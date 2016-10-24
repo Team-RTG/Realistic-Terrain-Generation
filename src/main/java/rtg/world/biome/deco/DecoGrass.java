@@ -15,7 +15,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 
-/**
+/*
  * @author WhichOnesPink
  */
 public class DecoGrass extends DecoBase {
@@ -39,7 +39,7 @@ public class DecoGrass extends DecoBase {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */

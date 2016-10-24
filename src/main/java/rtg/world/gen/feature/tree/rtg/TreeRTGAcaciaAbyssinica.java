@@ -41,8 +41,8 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
 
         super();
 
-        this.logBlock = Blocks.LOG2.getStateFromMeta(0);
-        this.leavesBlock = Blocks.LEAVES2.getStateFromMeta(0);
+        this.logBlock = Blocks.LOG2.getDefaultState();
+        this.leavesBlock = Blocks.LEAVES2.getDefaultState();
         this.trunkSize = 12;
     }
 

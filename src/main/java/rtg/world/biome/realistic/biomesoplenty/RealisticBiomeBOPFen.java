@@ -9,6 +9,7 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
+import rtg.util.BlockUtil;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
@@ -71,8 +72,8 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.logConditionNoise = 0f;
         decoFallenTree2.logConditionChance = 16;
         decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = Blocks.LOG2.getStateFromMeta(1);
-        decoFallenTree2.leavesBlock = Blocks.LEAVES.getStateFromMeta(1);
+        decoFallenTree2.logBlock = BlockUtil.getStateLog2(1);
+        decoFallenTree2.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree2.minSize = 3;
         decoFallenTree2.maxSize = 5;
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();

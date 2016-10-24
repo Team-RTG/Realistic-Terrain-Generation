@@ -11,6 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaOcean;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
@@ -61,7 +62,7 @@ public class SurfaceVanillaOcean extends SurfaceBase {
                 }
 
                 else if (depth == 0 && k < 69) {
-                    primer.setBlockState(x, k, y, Blocks.SAND.getStateFromMeta(sandMetadata));
+                    primer.setBlockState(x, k, y, BlockUtil.getStateSand(sandMetadata));
 
                 }
             }

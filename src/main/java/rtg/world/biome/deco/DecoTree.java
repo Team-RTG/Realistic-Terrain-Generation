@@ -207,6 +207,9 @@ public class DecoTree extends DecoBase {
             case NOISE_GREATER_AND_RANDOM_CHANCE:
                 return (noise > this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
 
+            case NOISE_LESSER_AND_RANDOM_CHANCE:
+                return (noise < this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
+
             case RANDOM_CHANCE:
                 return rand.nextInt(this.treeConditionChance) == 0;
 
@@ -226,6 +229,7 @@ public class DecoTree extends DecoBase {
     public enum TreeCondition {
         ALWAYS_GENERATE,
         NOISE_GREATER_AND_RANDOM_CHANCE,
+        NOISE_LESSER_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
         X_DIVIDED_BY_STRENGTH;
     }

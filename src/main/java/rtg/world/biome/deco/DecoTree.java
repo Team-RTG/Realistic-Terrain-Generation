@@ -8,13 +8,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import net.minecraftforge.event.terraingen.TerrainGen;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
-import rtg.util.WorldUtil;
+import rtg.event.terraingen.DecorateBiomeEventRTG;
+import rtg.util.*;
 import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -146,15 +145,46 @@ public class DecoTree extends DecoBase {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkZ), TREE)) {
+            /*
+             * Determine how many trees we're going to try to generate (loopCount).
+             * The actual number of trees that end up being generated could be *less* than this value,
+             * depending on environmental conditions.
+             */
+            float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            int loopCount = this.loops;
+            loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
+            loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
+            loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
+
+            if (loopCount < 1) {
+                return;
+            }
+
+            /*
+             * Since RTG posts a TREE event for each batch of trees it tries to generate (instead of one event per chunk),
+             * we post this custom event so that we can pass the number of trees RTG expects to generate in each batch.
+             *
+             * This provides more contextual information to mods like Recurrent Complex, which can use the info to better
+             * determine how to handle each batch of trees.
+             *
+             * Because the custom event extends DecorateBiomeEvent.Decorate, it still works with mods that don't need
+             * the additonal context.
+             */
+            DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(
+                world, rand, new BlockPos(chunkX, 0, chunkZ), TREE, loopCount
+            );
+            MinecraftForge.TERRAIN_GEN_BUS.post(event);
+
+            if (event.getResult() != Event.Result.DENY) {
+
+                loopCount = event.getModifiedAmount();
+
+                if (loopCount < 1) {
+                    return;
+                }
 
                 WorldUtil worldUtil = new WorldUtil(world);
-                float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
-                int loopCount = this.loops;
-                loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
-                loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
-                loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
                     int intX = scatter.get(rand, chunkX); // + 8;
                     int intZ = scatter.get(rand, chunkZ); // + 8;
@@ -194,6 +224,9 @@ public class DecoTree extends DecoBase {
                         }
                     }
                 }
+            }
+            else {
+                //Logger.info("Tree generation was cancelled.");
             }
         }
     }

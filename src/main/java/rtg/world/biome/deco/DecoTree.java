@@ -12,6 +12,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
+import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
 import rtg.util.*;
 import rtg.util.WorldUtil.SurroundCheckType;
@@ -160,6 +162,16 @@ public class DecoTree extends DecoBase {
                 return;
             }
 
+            // Now let's check the configs to see if we should increase/decrease this value.
+            DecoUtil decoUtil = new DecoUtil(this);
+            loopCount = decoUtil.calculateLoopCount(
+                loopCount, ConfigRTG.treeDensityMultiplier, biome, BiomeConfig.treeDensityMultiplierId, ConfigRTG.MAX_TREE_DENSITY
+            );
+
+            if (loopCount < 1) {
+                return;
+            }
+
             /*
              * Since RTG posts a TREE event for each batch of trees it tries to generate (instead of one event per chunk),
              * we post this custom event so that we can pass the number of trees RTG expects to generate in each batch.
@@ -168,7 +180,7 @@ public class DecoTree extends DecoBase {
              * determine how to handle each batch of trees.
              *
              * Because the custom event extends DecorateBiomeEvent.Decorate, it still works with mods that don't need
-             * the additonal context.
+             * the additional context.
              */
             DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(
                 world, rand, new BlockPos(chunkX, 0, chunkZ), TREE, loopCount

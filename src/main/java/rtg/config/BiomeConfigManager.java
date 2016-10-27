@@ -235,8 +235,21 @@ public class BiomeConfigManager {
                             prop.name,
                             categoryName,
                             prop.valueInt,
-                            prop.minValue,
-                            prop.maxValue,
+                            prop.minValueInt,
+                            prop.maxValueInt,
+                            prop.description
+                        );
+
+                        break;
+
+                    case FLOAT:
+
+                        prop.valueFloat = config.getFloat(
+                            prop.name,
+                            categoryName,
+                            prop.valueFloat,
+                            prop.minValueFloat,
+                            prop.maxValueFloat,
                             prop.description
                         );
 
@@ -263,6 +276,7 @@ public class BiomeConfigManager {
                         );
 
                         break;
+
                     default:
                         throw new RuntimeException("BiomeConfigProperty type not supported.");
                 }

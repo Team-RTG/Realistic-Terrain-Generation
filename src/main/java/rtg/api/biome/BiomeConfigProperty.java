@@ -8,10 +8,16 @@ public class BiomeConfigProperty {
     public String name;
     public String description;
 
-    public int minValue;
-    public int maxValue;
+    public int minValueInt;
+    public int maxValueInt;
     public int valueInt;
+
+    public float minValueFloat;
+    public float maxValueFloat;
+    public float valueFloat;
+
     public boolean valueBoolean;
+
     public String valueString;
 
     public BiomeConfigProperty(String id, Type type, String name, String description) {
@@ -36,17 +42,27 @@ public class BiomeConfigProperty {
         this.valueString = defaultValue;
     }
 
-    public BiomeConfigProperty(String id, Type type, String name, String description, int defaultValue, int minValue, int maxValue) {
+    public BiomeConfigProperty(String id, Type type, String name, String description, int defaultValue, int minValueInt, int maxValueInt) {
 
         this(id, type, name, description);
 
         this.valueInt = defaultValue;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
+        this.minValueInt = minValueInt;
+        this.maxValueInt = maxValueInt;
+    }
+
+    public BiomeConfigProperty(String id, Type type, String name, String description, float defaultValue, float minValueFloat, float maxValueFloat) {
+
+        this(id, type, name, description);
+
+        this.valueFloat = defaultValue;
+        this.minValueFloat = minValueFloat;
+        this.maxValueFloat = maxValueFloat;
     }
 
     public enum Type {
         INTEGER,
+        FLOAT,
         BOOLEAN,
         STRING
     }

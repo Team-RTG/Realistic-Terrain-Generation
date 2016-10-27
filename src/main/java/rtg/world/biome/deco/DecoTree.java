@@ -12,8 +12,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
 import rtg.util.*;
 import rtg.util.WorldUtil.SurroundCheckType;
@@ -164,9 +162,7 @@ public class DecoTree extends DecoBase {
 
             // Now let's check the configs to see if we should increase/decrease this value.
             DecoUtil decoUtil = new DecoUtil(this);
-            loopCount = decoUtil.calculateLoopCount(
-                loopCount, ConfigRTG.treeDensityMultiplier, biome, BiomeConfig.treeDensityMultiplierId, ConfigRTG.MAX_TREE_DENSITY
-            );
+            loopCount = decoUtil.calculateLoopCountFromTreeDensity(loopCount, biome);
 
             if (loopCount < 1) {
                 return;

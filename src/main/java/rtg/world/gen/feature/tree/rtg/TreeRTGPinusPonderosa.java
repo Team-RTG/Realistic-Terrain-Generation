@@ -7,7 +7,6 @@ import java.util.Random;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -45,10 +44,6 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
     public TreeRTGPinusPonderosa() {
 
         super();
-
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(
-            Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()
-        ));
     }
 
     @Override
@@ -65,19 +60,12 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
             this.trunkLog = this.logBlock;
         }
 
-        int startY = y;
-
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
-
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (g == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
+        if (!this.isGroundValid(world, new ArrayList<BlockPos>(Arrays.asList(
+            new BlockPos(x + 1, y, z),
+            new BlockPos(x - 1, y, z),
+            new BlockPos(x, y, z + 1),
+            new BlockPos(x, y, z - 1)
+        )))) {
             return false;
         }
 

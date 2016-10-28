@@ -8,6 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import rtg.config.rtg.ConfigRTG;
+
 /**
  * Salix Myrtilloides (Swamp Willow)
  */
@@ -46,6 +48,10 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos, ConfigRTG.allowTreesToGenerateOnSand)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -55,28 +61,6 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
         }
         catch (Exception e) {
             this.trunkLog = this.logBlock;
-        }
-
-        IBlockState cb;
-        boolean earth = false;
-        boolean water = false;
-
-        for (int c1 = -2; c1 <= 2; c1++) {
-            for (int c3 = -2; c3 <= 2; c3++) {
-                for (int c2 = -1; c2 <= 1; c2++) {
-                    cb = world.getBlockState(new BlockPos(x + c1, y + c2, z + c3));
-                    if (cb == Blocks.GRASS.getDefaultState()) {
-                        earth = true;
-                    }
-                    else if (cb == Blocks.WATER.getDefaultState()) {
-                        water = true;
-                    }
-                }
-            }
-        }
-
-        if (!(earth && water)) {
-            return false;
         }
 
         int height = 13;
@@ -167,5 +151,38 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
                 sh--;
             }
         }
+    }
+
+    @Override
+    protected boolean isGroundValid(World world, BlockPos trunkPos, boolean sandAllowed) {
+
+        int x = trunkPos.getX();
+        int y = trunkPos.getY();
+        int z = trunkPos.getZ();
+        IBlockState cb;
+        BlockPos posTemp;
+        boolean earth = false;
+        boolean water = false;
+
+        for (int c1 = -2; c1 <= 2; c1++) {
+            for (int c3 = -2; c3 <= 2; c3++) {
+                for (int c2 = -1; c2 <= 1; c2++) {
+                    posTemp = new BlockPos(x + c1, y + c2, z + c3);
+                    cb = world.getBlockState(posTemp);
+                    if (this.validGroundBlocks.contains(cb)) {
+                        earth = true;
+                    }
+                    else if (cb == Blocks.WATER.getDefaultState()) {
+                        water = true;
+                    }
+                }
+            }
+        }
+
+        if (!(earth && water)) {
+            return false;
+        }
+
+        return true;
     }
 }

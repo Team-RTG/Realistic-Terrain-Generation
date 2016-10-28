@@ -1,13 +1,14 @@
 package rtg.world.gen.feature.tree.rtg;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import rtg.util.BlockUtil;
 
-import java.util.Random;
+import rtg.util.BlockUtil;
 
 /**
  * Cocos Nucifera (Coconut Palm)
@@ -110,6 +111,10 @@ public class TreeRTGCocosNucifera extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos, true)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -119,20 +124,6 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         }
         catch (Exception e) {
             this.trunkLog = this.logBlock;
-        }
-
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
-
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (b == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
-            return false;
         }
 
         double horDir = getRandomDir(rand);

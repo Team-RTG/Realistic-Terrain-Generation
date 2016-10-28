@@ -4,11 +4,8 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import rtg.config.rtg.ConfigRTG;
 
 
 /**
@@ -73,6 +70,10 @@ public class TreeRTGRhizophoraMucronata extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -82,18 +83,6 @@ public class TreeRTGRhizophoraMucronata extends TreeRTG {
         }
         catch (Exception e) {
             this.trunkLog = this.logBlock;
-        }
-
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-
-        if (b == Blocks.SAND.getDefaultState() && !ConfigRTG.allowTreesToGenerateOnSand) {
-            return false;
-        }
-
-        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState() && b != Blocks.SAND.getDefaultState()) {
-            if (!(b == Blocks.WATER.getDefaultState() && world.getBlockState(new BlockPos(x, y - 2, z)) == Blocks.SAND.getDefaultState() && world.getBlockState(new BlockPos(x, y, z)) == Blocks.AIR.getDefaultState())) {
-                return false;
-            }
         }
 
         int branch = this.minBranches + rand.nextInt(this.maxBranches - this.minBranches + 1);

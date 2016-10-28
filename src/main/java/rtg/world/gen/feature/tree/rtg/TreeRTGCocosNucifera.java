@@ -150,7 +150,7 @@ public class TreeRTGCocosNucifera extends TreeRTG {
 
         while (c < length) {
 
-            world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), this.trunkLog, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos((int) posX, (int) posY, (int) posZ), this.trunkLog, this.generateFlag);
 
             if (c < length - 3) {
                 loss = Math.abs(velX) + Math.abs(velZ);
@@ -173,14 +173,14 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         if (!this.noLeaves) {
 
             for (int j = 0; j < leavesLength; j += 3) {
-                world.setBlockState(new BlockPos(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2]), this.leavesBlock, this.generateFlag);
+                this.setTreeBlock(world, new BlockPos(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2]), this.leavesBlock, this.generateFlag);
             }
         }
 
         for (int k = 0; k < cocoasLength; k += 4) {
             if (rand.nextInt(20) == 0) {
                 //TODO: cocoas[k + 0] + 8 (meta)
-                world.setBlockState(new BlockPos(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3]), Blocks.COCOA.getDefaultState(), this.generateFlag);
+                this.setTreeBlock(world, new BlockPos(x + cocoas[k + 1], y + cocoas[k + 2], z + cocoas[k + 3]), Blocks.COCOA.getDefaultState(), this.generateFlag);
             }
         }
 

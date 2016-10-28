@@ -52,7 +52,7 @@ public class TreeRTGCupressusSempervirens extends TreeRTG {
 
         int i, j, k;
         for (i = 0; i < this.trunkSize; i++) {
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
@@ -65,12 +65,12 @@ public class TreeRTGCupressusSempervirens extends TreeRTG {
                 for (j = -2; j <= 2; j++) {
                     for (k = -2; k <= 2; k++) {
                         if (Math.abs(j) + Math.abs(k) != 4 && ((j > -2 && k > -2 && j < 2 && k < 2) || rand.nextInt(4) != 0)) {
-                            world.setBlockState(new BlockPos(x + j, y, z + k), this.leavesBlock, this.generateFlag);
+                            this.setTreeBlock(world, new BlockPos(x + j, y, z + k), this.leavesBlock, this.generateFlag);
                         }
                     }
                 }
             }
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
@@ -80,37 +80,37 @@ public class TreeRTGCupressusSempervirens extends TreeRTG {
                 for (j = -1; j <= 1; j++) {
                     for (k = -1; k <= 1; k++) {
                         if (Math.abs(j) + Math.abs(k) < 2 || (rand.nextInt(4) != 0)) {
-                            world.setBlockState(new BlockPos(x + j, y, z + k), this.leavesBlock, this.generateFlag);
+                            this.setTreeBlock(world, new BlockPos(x + j, y, z + k), this.leavesBlock, this.generateFlag);
                         }
                     }
                 }
 
                 if (i == 0) {
-                    world.setBlockState(new BlockPos(x + 1, y, z), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x - 1, y, z), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x, y, z + 1), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x, y, z - 1), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x + 2, y, z), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x - 2, y, z), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x, y, z + 2), this.leavesBlock, this.generateFlag);
-                    world.setBlockState(new BlockPos(x, y, z - 2), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x + 1, y, z), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x - 1, y, z), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x, y, z + 1), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x, y, z - 1), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x + 2, y, z), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x - 2, y, z), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x, y, z + 2), this.leavesBlock, this.generateFlag);
+                    this.setTreeBlock(world, new BlockPos(x, y, z - 2), this.leavesBlock, this.generateFlag);
                 }
             }
 
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
-        world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+        this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
         if (!this.noLeaves) {
-            world.setBlockState(new BlockPos(x + 1, y, z), this.leavesBlock, this.generateFlag);
-            world.setBlockState(new BlockPos(x - 1, y, z), this.leavesBlock, this.generateFlag);
-            world.setBlockState(new BlockPos(x, y, z + 1), this.leavesBlock, this.generateFlag);
-            world.setBlockState(new BlockPos(x, y, z - 1), this.leavesBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x + 1, y, z), this.leavesBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x - 1, y, z), this.leavesBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z + 1), this.leavesBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z - 1), this.leavesBlock, this.generateFlag);
 
-            world.setBlockState(new BlockPos(x, y + 1, z), this.leavesBlock, this.generateFlag);
-            world.setBlockState(new BlockPos(x, y + 2, z), this.leavesBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y + 1, z), this.leavesBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y + 2, z), this.leavesBlock, this.generateFlag);
         }
 
         return true;

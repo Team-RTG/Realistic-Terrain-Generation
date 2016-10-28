@@ -2,8 +2,6 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -59,7 +57,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         int i;
         for (i = 0; i < this.trunkSize; i++) {
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
@@ -87,7 +85,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
                 buildBranch(world, rand, x, y, z, dX, dZ, 1, i < this.crownSize - 2 ? 2 : 1); //i < treeSize - 4 ? 2 : 1
             }
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
             if (i < this.crownSize - 2) {
                 if (rand.nextBoolean()) {
@@ -129,7 +127,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+            this.setTreeBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
         }
     }
 
@@ -137,10 +135,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         if (!this.noLeaves) {
 
-            IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-            if (b.getMaterial() == Material.AIR) {
-                world.setBlockState(new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
-            }
+            this.setTreeBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
         }
     }
 }

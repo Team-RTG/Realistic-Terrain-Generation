@@ -1,11 +1,7 @@
 package rtg.world.gen.feature.tree.rtg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -41,30 +37,18 @@ public class TreeRTGCupressusSempervirens extends TreeRTG {
     public TreeRTGCupressusSempervirens() {
 
         super();
-
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()));
     }
 
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
-
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (g == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
-            return false;
-        }
 
         int i, j, k;
         for (i = 0; i < this.trunkSize; i++) {

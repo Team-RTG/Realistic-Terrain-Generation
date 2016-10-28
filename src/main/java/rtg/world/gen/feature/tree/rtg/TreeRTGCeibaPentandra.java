@@ -4,7 +4,6 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -92,6 +91,10 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -101,11 +104,6 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         }
         catch (Exception e) {
             this.trunkLog = this.logBlock;
-        }
-
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState()) {
-            return false;
         }
 
         if (this.trunkSize > 0) {

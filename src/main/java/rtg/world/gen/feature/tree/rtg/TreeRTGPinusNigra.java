@@ -47,6 +47,10 @@ public class TreeRTGPinusNigra extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -56,11 +60,6 @@ public class TreeRTGPinusNigra extends TreeRTG {
         }
         catch (Exception e) {
             this.trunkLog = this.logBlock;
-        }
-
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (g != Blocks.GRASS.getDefaultState() && g != Blocks.DIRT.getDefaultState()) {
-            return false;
         }
 
         int height = this.trunkSize;

@@ -164,4 +164,18 @@ public class TreeRTG extends WorldGenAbstractTree {
 
         return true;
     }
+
+    protected void placeLogBlock(World world, BlockPos pos, IBlockState logBlock, int generateFlag) {
+
+        if (this.isReplaceable(world, pos)) {
+            world.setBlockState(pos, logBlock, generateFlag);
+        }
+    }
+
+    protected void placeLeavesBlock(World world, BlockPos pos, IBlockState leavesBlock, int generateFlag) {
+
+        if (world.isAirBlock(pos)) {
+            world.setBlockState(pos, leavesBlock, generateFlag);
+        }
+    }
 }

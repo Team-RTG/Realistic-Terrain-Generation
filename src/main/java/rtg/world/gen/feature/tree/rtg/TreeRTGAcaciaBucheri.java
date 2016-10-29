@@ -58,7 +58,7 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
         int bh = h - 3;
 
         for (int i = 0; i < h; i++) {
-            world.setBlockState(new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
         }
         genLeaves(world, rand, x, y + h, z);
 
@@ -74,7 +74,7 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
             c = 1;
 
             while (sh < h) {
-                world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), this.logBlock, this.generateFlag);
                 sh++;
                 c += 0.5f;
             }
@@ -92,21 +92,19 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
             int j;
             for (i = -1; i <= 1; i++) {
                 for (j = -1; j <= 1; j++) {
-                    if (world.isAirBlock(new BlockPos(x + i, y + 1, z + j))) {
-                        world.setBlockState(new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
-                    }
+                    this.placeLeavesBlock(world, new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
                 }
             }
 
             for (i = -2; i <= 2; i++) {
                 for (j = -2; j <= 2; j++) {
-                    if (world.isAirBlock(new BlockPos(x + i, y, z + j)) && Math.abs(i) + Math.abs(j) < 4) {
-                        world.setBlockState(new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag);
+                    if (Math.abs(i) + Math.abs(j) < 4) {
+                        this.placeLeavesBlock(world, new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag);
                     }
                 }
             }
         }
 
-        world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+        this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
     }
 }

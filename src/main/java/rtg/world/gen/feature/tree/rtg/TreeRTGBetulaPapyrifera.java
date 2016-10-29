@@ -57,7 +57,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         int i;
         for (i = 0; i < this.trunkSize; i++) {
-            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
@@ -85,7 +85,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
                 buildBranch(world, rand, x, y, z, dX, dZ, 1, i < this.crownSize - 2 ? 2 : 1); //i < treeSize - 4 ? 2 : 1
             }
-            this.setTreeBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
             if (i < this.crownSize - 2) {
                 if (rand.nextBoolean()) {
@@ -127,7 +127,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            this.setTreeBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
         }
     }
 
@@ -135,7 +135,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         if (!this.noLeaves) {
 
-            this.setTreeBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
+            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
         }
     }
 }

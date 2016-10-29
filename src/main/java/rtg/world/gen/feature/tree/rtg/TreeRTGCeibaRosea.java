@@ -115,8 +115,8 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         }
 
         for (int i = y + this.trunkSize - 2; i < y + this.crownSize + 2; i++) {
-            this.setTreeBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag);
-            this.setTreeBlock(world, new BlockPos(x + 1, i, z + 1), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + 1, i, z + 1), this.logBlock, this.generateFlag);
         }
 
         float horDir, verDir;
@@ -167,10 +167,10 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         while (c < length) {
 
             if (isTrunk) {
-                this.setTreeBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
             }
             else {
-                this.setTreeBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
             }
 
             x += velX;
@@ -191,12 +191,12 @@ public class TreeRTGCeibaRosea extends TreeRTG {
                     dist = Math.abs((float) i / width) + (float) Math.abs(j) + Math.abs((float) k / width);
                     if (dist <= size - 0.5f || (dist <= size && rand.nextBoolean())) {
                         if (dist < 1.3f) {
-                            this.setTreeBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.logBlock, this.generateFlag);
+                            this.placeLogBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.logBlock, this.generateFlag);
                         }
 
                         if (!this.noLeaves) {
 
-                            this.setTreeBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.leavesBlock, this.generateFlag);
+                            this.placeLeavesBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.leavesBlock, this.generateFlag);
                         }
                     }
                 }

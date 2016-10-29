@@ -67,7 +67,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
         float branchIncrease = 0.25f;
 
         for (int i = 0; i <= height; i++) {
-            this.setTreeBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
         }
         buildLeaves(world, rand, x, y + height, z, 2);
         buildTrunk(world, rand, x, y, z);
@@ -82,7 +82,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
             yd = (float) Math.sin(dir * Math.PI / 180f);
 
             for (b = 0; b <= bl; b++) {
-                this.setTreeBlock(world, new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), this.trunkLog, this.generateFlag);
             }
             buildLeaves(world, rand, x, y + j, z, 2);
             buildLeaves(world, rand, x + (int) (b * xd), y + j, z + (int) (b * yd), 2);
@@ -104,7 +104,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
                         l = i * i + j * j + k * k;
                         if (l <= t) {
                             if ((l < t / 2 || rand.nextBoolean())) {
-                                this.setTreeBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
+                                this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
                             }
                         }
                     }
@@ -125,7 +125,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
                     break;
                 }
 
-                this.setTreeBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
                 sh--;
             }
         }

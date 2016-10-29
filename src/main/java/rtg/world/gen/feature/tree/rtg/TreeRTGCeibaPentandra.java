@@ -113,7 +113,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         }
 
         for (int i = y + this.trunkSize; i < y + this.crownSize; i++) {
-            this.setTreeBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag);
         }
 
         float horDir, verDir;
@@ -158,10 +158,10 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         while (c < length) {
 
             if (isTrunk) {
-                this.setTreeBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
             }
             else {
-                this.setTreeBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
             }
 
             x += velX;
@@ -182,12 +182,12 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
                     dist = Math.abs((float) i / width) + (float) Math.abs(j) + Math.abs((float) k / width);
                     if (dist <= size - 0.5f || (dist <= size && rand.nextBoolean())) {
                         if (dist < 0.6f) {
-                            this.setTreeBlock(world, new BlockPos(x + i, y + j, z + k), this.logBlock, this.generateFlag);
+                            this.placeLogBlock(world, new BlockPos(x + i, y + j, z + k), this.logBlock, this.generateFlag);
                         }
 
                         if (!this.noLeaves) {
 
-                            this.setTreeBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
+                            this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
                         }
                     }
                 }

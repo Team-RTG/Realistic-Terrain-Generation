@@ -33,6 +33,7 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.mithwoodforest.RealisticBiomeMFBase;
+import rtg.world.biome.realistic.morechinesemc.RealisticBiomeMCMBase;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
@@ -105,6 +106,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeMCMBase.addBiomes();
         RealisticBiomeMFBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
         

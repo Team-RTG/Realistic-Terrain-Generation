@@ -129,12 +129,15 @@ public class BiomeConfigManager {
 
     public static void initBiomeConfigsBYG() {
 
+        BiomeConfigBYG.biomeConfigBYGAthuraForest = new BiomeConfigBYGAthuraForest();
         BiomeConfigBYG.biomeConfigBYGAutumnForest = new BiomeConfigBYGAutumnForest();
         BiomeConfigBYG.biomeConfigBYGBirchPlains = new BiomeConfigBYGBirchPlains();
         BiomeConfigBYG.biomeConfigBYGFrozenTundra = new BiomeConfigBYGFrozenTundra();
         BiomeConfigBYG.biomeConfigBYGLushForest = new BiomeConfigBYGLushForest();
+        BiomeConfigBYG.biomeConfigBYGMushroomMountains = new BiomeConfigBYGMushroomMountains();
         BiomeConfigBYG.biomeConfigBYGRedDesert = new BiomeConfigBYGRedDesert();
         BiomeConfigBYG.biomeConfigBYGRedRockMountains = new BiomeConfigBYGRedRockMountains();
+        BiomeConfigBYG.biomeConfigBYGShrubs = new BiomeConfigBYGShrubs();
         BiomeConfigBYG.biomeConfigBYGWillowSwamps = new BiomeConfigBYGWillowSwamps();
     }
 

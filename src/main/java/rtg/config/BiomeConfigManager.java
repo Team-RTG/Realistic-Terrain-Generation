@@ -16,6 +16,7 @@ import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMF;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
+import rtg.api.biome.morechinesemc.config.*;
 import rtg.api.biome.sugiforest.config.BiomeConfigSF;
 import rtg.api.biome.sugiforest.config.BiomeConfigSFSugiForest;
 import rtg.api.biome.vanilla.config.*;
@@ -30,6 +31,7 @@ public class BiomeConfigManager {
         initBiomeConfigsBOP();
         initBiomeConfigsBYG();
         initBiomeConfigsFC();
+        initBiomeConfigsMCM();
         initBiomeConfigsMF();
         initBiomeConfigsSF();
         initBiomeConfigsVanilla();
@@ -144,6 +146,15 @@ public class BiomeConfigManager {
     public static void initBiomeConfigsFC() {
 
         BiomeConfigFC.biomeConfigFCPhantasia = new BiomeConfigFCPhantasia();
+    }
+
+    public static void initBiomeConfigsMCM() {
+
+        BiomeConfigMCM.biomeConfigMCMBlackPlain = new BiomeConfigMCMBlackPlain();
+        BiomeConfigMCM.biomeConfigMCMBog = new BiomeConfigMCMBog();
+        BiomeConfigMCM.biomeConfigMCMLoessPlateau = new BiomeConfigMCMLoessPlateau();
+        BiomeConfigMCM.biomeConfigMCMMudFlat = new BiomeConfigMCMMudFlat();
+        BiomeConfigMCM.biomeConfigMCMWarmTaiga = new BiomeConfigMCMWarmTaiga();
     }
 
     public static void initBiomeConfigsMF() {

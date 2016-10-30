@@ -4,11 +4,8 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import rtg.config.rtg.ConfigRTG;
 
 
 /**
@@ -95,6 +92,10 @@ public class TreeRTGCeibaRosea extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -106,16 +107,6 @@ public class TreeRTGCeibaRosea extends TreeRTG {
             this.trunkLog = this.logBlock;
         }
 
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-
-        if (b == Blocks.SAND.getDefaultState() && !ConfigRTG.allowTreesToGenerateOnSand) {
-            return false;
-        }
-
-        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState() && b != Blocks.SAND.getDefaultState()) {
-            return false;
-        }
-
         float r = rand.nextFloat() * 360;
         if (this.trunkSize > 0) {
             for (int k = 0; k < 5; k++) {
@@ -124,8 +115,8 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         }
 
         for (int i = y + this.trunkSize - 2; i < y + this.crownSize + 2; i++) {
-            world.setBlockState(new BlockPos(x, i, z), this.logBlock, this.generateFlag);
-            world.setBlockState(new BlockPos(x + 1, i, z + 1), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + 1, i, z + 1), this.logBlock, this.generateFlag);
         }
 
         float horDir, verDir;
@@ -176,10 +167,10 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         while (c < length) {
 
             if (isTrunk) {
-                world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
             }
             else {
-                world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
             }
 
             x += velX;
@@ -200,14 +191,12 @@ public class TreeRTGCeibaRosea extends TreeRTG {
                     dist = Math.abs((float) i / width) + (float) Math.abs(j) + Math.abs((float) k / width);
                     if (dist <= size - 0.5f || (dist <= size && rand.nextBoolean())) {
                         if (dist < 1.3f) {
-                            world.setBlockState(new BlockPos((int) x + i, (int) y + j, (int) z + k), this.logBlock, this.generateFlag);
+                            this.placeLogBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.logBlock, this.generateFlag);
                         }
 
                         if (!this.noLeaves) {
 
-                            if (world.isAirBlock(new BlockPos((int) x + i, (int) y + j, (int) z + k))) {
-                                world.setBlockState(new BlockPos((int) x + i, (int) y + j, (int) z + k), this.leavesBlock, this.generateFlag);
-                            }
+                            this.placeLeavesBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.leavesBlock, this.generateFlag);
                         }
                     }
                 }

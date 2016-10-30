@@ -14,8 +14,10 @@ import rtg.api.biome.biomesoplenty.config.*;
 import rtg.api.biome.biomesyougo.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
+import rtg.api.biome.mineworld.*;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMF;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
+import rtg.api.biome.morechinesemc.config.*;
 import rtg.api.biome.sugiforest.config.BiomeConfigSF;
 import rtg.api.biome.sugiforest.config.BiomeConfigSFSugiForest;
 import rtg.api.biome.vanilla.config.*;
@@ -30,7 +32,9 @@ public class BiomeConfigManager {
         initBiomeConfigsBOP();
         initBiomeConfigsBYG();
         initBiomeConfigsFC();
+        initBiomeConfigsMCM();
         initBiomeConfigsMF();
+        initBiomeConfigsMW();
         initBiomeConfigsSF();
         initBiomeConfigsVanilla();
     }
@@ -129,12 +133,15 @@ public class BiomeConfigManager {
 
     public static void initBiomeConfigsBYG() {
 
+        BiomeConfigBYG.biomeConfigBYGAthuraForest = new BiomeConfigBYGAthuraForest();
         BiomeConfigBYG.biomeConfigBYGAutumnForest = new BiomeConfigBYGAutumnForest();
         BiomeConfigBYG.biomeConfigBYGBirchPlains = new BiomeConfigBYGBirchPlains();
         BiomeConfigBYG.biomeConfigBYGFrozenTundra = new BiomeConfigBYGFrozenTundra();
         BiomeConfigBYG.biomeConfigBYGLushForest = new BiomeConfigBYGLushForest();
+        BiomeConfigBYG.biomeConfigBYGMushroomMountains = new BiomeConfigBYGMushroomMountains();
         BiomeConfigBYG.biomeConfigBYGRedDesert = new BiomeConfigBYGRedDesert();
         BiomeConfigBYG.biomeConfigBYGRedRockMountains = new BiomeConfigBYGRedRockMountains();
+        BiomeConfigBYG.biomeConfigBYGShrubs = new BiomeConfigBYGShrubs();
         BiomeConfigBYG.biomeConfigBYGWillowSwamps = new BiomeConfigBYGWillowSwamps();
     }
 
@@ -143,9 +150,28 @@ public class BiomeConfigManager {
         BiomeConfigFC.biomeConfigFCPhantasia = new BiomeConfigFCPhantasia();
     }
 
+    public static void initBiomeConfigsMCM() {
+
+        BiomeConfigMCM.biomeConfigMCMBlackPlain = new BiomeConfigMCMBlackPlain();
+        BiomeConfigMCM.biomeConfigMCMBog = new BiomeConfigMCMBog();
+        BiomeConfigMCM.biomeConfigMCMLoessPlateau = new BiomeConfigMCMLoessPlateau();
+        BiomeConfigMCM.biomeConfigMCMMudFlat = new BiomeConfigMCMMudFlat();
+        BiomeConfigMCM.biomeConfigMCMWarmTaiga = new BiomeConfigMCMWarmTaiga();
+    }
+
     public static void initBiomeConfigsMF() {
 
         BiomeConfigMF.biomeConfigMFMithwoodForest = new BiomeConfigMFMithwoodForest();
+    }
+
+    public static void initBiomeConfigsMW() {
+
+        BiomeConfigMW.biomeConfigMWAppleForest = new BiomeConfigMWAppleForest();
+        BiomeConfigMW.biomeConfigMWArctic = new BiomeConfigMWArctic();
+        BiomeConfigMW.biomeConfigMWDeadForest = new BiomeConfigMWDeadForest();
+        BiomeConfigMW.biomeConfigMWIceHills = new BiomeConfigMWIceHills();
+        BiomeConfigMW.biomeConfigMWPalms = new BiomeConfigMWPalms();
+        BiomeConfigMW.biomeConfigMWVolcano = new BiomeConfigMWVolcano();
     }
 
     public static void initBiomeConfigsSF() {
@@ -235,8 +261,21 @@ public class BiomeConfigManager {
                             prop.name,
                             categoryName,
                             prop.valueInt,
-                            prop.minValue,
-                            prop.maxValue,
+                            prop.minValueInt,
+                            prop.maxValueInt,
+                            prop.description
+                        );
+
+                        break;
+
+                    case FLOAT:
+
+                        prop.valueFloat = config.getFloat(
+                            prop.name,
+                            categoryName,
+                            prop.valueFloat,
+                            prop.minValueFloat,
+                            prop.maxValueFloat,
                             prop.description
                         );
 
@@ -263,6 +302,7 @@ public class BiomeConfigManager {
                         );
 
                         break;
+
                     default:
                         throw new RuntimeException("BiomeConfigProperty type not supported.");
                 }

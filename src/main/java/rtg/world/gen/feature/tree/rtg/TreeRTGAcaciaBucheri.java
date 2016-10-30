@@ -2,12 +2,9 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import rtg.config.rtg.ConfigRTG;
 
 
 /**
@@ -49,24 +46,19 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-
-        if (b == Blocks.SAND.getDefaultState() && !ConfigRTG.allowTreesToGenerateOnSand) {
-            return false;
-        }
-
-        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState()) {
-            return false;
-        }
 
         int h = this.trunkSize;
         int bh = h - 3;
 
         for (int i = 0; i < h; i++) {
-            world.setBlockState(new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
         }
         genLeaves(world, rand, x, y + h, z);
 
@@ -82,7 +74,7 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
             c = 1;
 
             while (sh < h) {
-                world.setBlockState(new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), this.logBlock, this.generateFlag);
                 sh++;
                 c += 0.5f;
             }
@@ -100,21 +92,19 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
             int j;
             for (i = -1; i <= 1; i++) {
                 for (j = -1; j <= 1; j++) {
-                    if (world.isAirBlock(new BlockPos(x + i, y + 1, z + j))) {
-                        world.setBlockState(new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
-                    }
+                    this.placeLeavesBlock(world, new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
                 }
             }
 
             for (i = -2; i <= 2; i++) {
                 for (j = -2; j <= 2; j++) {
-                    if (world.isAirBlock(new BlockPos(x + i, y, z + j)) && Math.abs(i) + Math.abs(j) < 4) {
-                        world.setBlockState(new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag);
+                    if (Math.abs(i) + Math.abs(j) < 4) {
+                        this.placeLeavesBlock(world, new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag);
                     }
                 }
             }
         }
 
-        world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+        this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
     }
 }

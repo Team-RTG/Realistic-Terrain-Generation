@@ -47,6 +47,10 @@ public class TreeRTGPinusNigra extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -58,17 +62,12 @@ public class TreeRTGPinusNigra extends TreeRTG {
             this.trunkLog = this.logBlock;
         }
 
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (g != Blocks.GRASS.getDefaultState() && g != Blocks.DIRT.getDefaultState()) {
-            return false;
-        }
-
         int height = this.trunkSize;
         int leafheight = this.crownSize;
         float branchIncrease = 0.25f;
 
         for (int i = 0; i <= height; i++) {
-            world.setBlockState(new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
         }
         buildLeaves(world, rand, x, y + height, z, 2);
         buildTrunk(world, rand, x, y, z);
@@ -83,7 +82,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
             yd = (float) Math.sin(dir * Math.PI / 180f);
 
             for (b = 0; b <= bl; b++) {
-                world.setBlockState(new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), this.trunkLog, this.generateFlag);
             }
             buildLeaves(world, rand, x, y + j, z, 2);
             buildLeaves(world, rand, x + (int) (b * xd), y + j, z + (int) (b * yd), 2);
@@ -104,8 +103,8 @@ public class TreeRTGPinusNigra extends TreeRTG {
                     for (int k = -size; k <= size; k++) {
                         l = i * i + j * j + k * k;
                         if (l <= t) {
-                            if (world.isAirBlock(new BlockPos(x + i, y + j, z + k)) && (l < t / 2 || rand.nextBoolean())) {
-                                world.setBlockState(new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
+                            if ((l < t / 2 || rand.nextBoolean())) {
+                                this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
                             }
                         }
                     }
@@ -126,7 +125,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
                     break;
                 }
 
-                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
                 sh--;
             }
         }

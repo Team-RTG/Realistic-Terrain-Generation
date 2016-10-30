@@ -936,6 +936,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         return false;
     }
 
+    public boolean chunkExists(int x, int z) {
+        return this.chunkExists(true, x, z);
+    }
+
     private void addToDecorationList(ChunkPos toAdd) {
         synchronized (toDecorate) {
             toDecorate.add(toAdd);

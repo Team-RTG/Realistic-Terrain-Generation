@@ -4,7 +4,6 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -92,6 +91,10 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
@@ -103,11 +106,6 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
             this.trunkLog = this.logBlock;
         }
 
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (b != Blocks.GRASS.getDefaultState() && b != Blocks.DIRT.getDefaultState()) {
-            return false;
-        }
-
         if (this.trunkSize > 0) {
             for (int k = 0; k < 3; k++) {
                 generateBranch(world, rand, x, y + this.trunkSize, z, (120 * k) - 40 + rand.nextInt(80), 1.6f + rand.nextFloat() * 0.1f, this.trunkSize * 1.7f, 1f, true);
@@ -115,7 +113,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         }
 
         for (int i = y + this.trunkSize; i < y + this.crownSize; i++) {
-            world.setBlockState(new BlockPos(x, i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag);
         }
 
         float horDir, verDir;
@@ -160,10 +158,10 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         while (c < length) {
 
             if (isTrunk) {
-                world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
             }
             else {
-                world.setBlockState(new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
             }
 
             x += velX;
@@ -184,14 +182,12 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
                     dist = Math.abs((float) i / width) + (float) Math.abs(j) + Math.abs((float) k / width);
                     if (dist <= size - 0.5f || (dist <= size && rand.nextBoolean())) {
                         if (dist < 0.6f) {
-                            world.setBlockState(new BlockPos(x + i, y + j, z + k), this.logBlock, this.generateFlag);
+                            this.placeLogBlock(world, new BlockPos(x + i, y + j, z + k), this.logBlock, this.generateFlag);
                         }
 
                         if (!this.noLeaves) {
 
-                            if (world.isAirBlock(new BlockPos(x + i, y + j, z + k))) {
-                                world.setBlockState(new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
-                            }
+                            this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
                         }
                     }
                 }

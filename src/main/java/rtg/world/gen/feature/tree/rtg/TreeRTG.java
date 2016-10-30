@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+
+import rtg.config.rtg.ConfigRTG;
+import rtg.util.BlockUtil;
 
 /**
  * The base class for all RTG trees.
@@ -64,7 +69,9 @@ public class TreeRTG extends WorldGenAbstractTree {
         this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(
             Blocks.GRASS.getDefaultState(),
             Blocks.DIRT.getDefaultState(),
-            Blocks.SAND.getDefaultState()
+            BlockUtil.getStateDirt(2),
+            Blocks.SAND.getDefaultState(),
+            BlockUtil.getStateSand(1)
         ));
     }
 
@@ -121,5 +128,84 @@ public class TreeRTG extends WorldGenAbstractTree {
 
         this.noLeaves = noLeaves;
         return this;
+    }
+
+    protected boolean isGroundValid(World world, BlockPos trunkPos) {
+
+        return this.isGroundValid(world, trunkPos, ConfigRTG.allowTreesToGenerateOnSand);
+    }
+
+    protected boolean isGroundValid(World world, BlockPos trunkPos, boolean sandAllowed) {
+
+        IBlockState g = world.getBlockState(new BlockPos(trunkPos.getX(), trunkPos.getY() - 1, trunkPos.getZ()));
+
+        if (g.getBlock() == Blocks.SAND && !sandAllowed) {
+            return false;
+        }
+
+        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
+            if (g == this.validGroundBlocks.get(i)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean isGroundValid(World world, ArrayList<BlockPos> trunkPos) {
+
+        if (trunkPos.isEmpty()) {
+            throw new RuntimeException("Unable to determine if ground is valid. No trunks.");
+        }
+
+        for (int i = 0; i < trunkPos.size(); i++) {
+            if (!this.isGroundValid(world, trunkPos.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected void placeLogBlock(World world, BlockPos pos, IBlockState logBlock, int generateFlag) {
+
+        if (this.isReplaceable(world, pos)) {
+            world.setBlockState(pos, logBlock, generateFlag);
+        }
+    }
+
+    protected void placeLeavesBlock(World world, BlockPos pos, IBlockState leavesBlock, int generateFlag) {
+
+        if (world.isAirBlock(pos)) {
+            world.setBlockState(pos, leavesBlock, generateFlag);
+        }
+    }
+
+    @Override
+    public boolean isReplaceable(World world, BlockPos pos)
+    {
+        IBlockState state = world.getBlockState(pos);
+
+        return state.getBlock().isAir(state, world, pos)
+            || state.getBlock().isLeaves(state, world, pos)
+            || state.getBlock().isWood(world, pos)
+            || canGrowInto(state.getBlock());
+    }
+
+    @Override
+    protected boolean canGrowInto(Block blockType)
+    {
+        Material material = blockType.getDefaultState().getMaterial();
+
+        return material == Material.AIR
+            || material == Material.LEAVES
+            || material == Material.PLANTS
+            || blockType == Blocks.GRASS
+            || blockType == Blocks.DIRT
+            || blockType == Blocks.LOG
+            || blockType == Blocks.LOG2
+            || blockType == Blocks.SNOW_LAYER
+            || blockType == Blocks.SAPLING
+            || blockType == Blocks.VINE;
     }
 }

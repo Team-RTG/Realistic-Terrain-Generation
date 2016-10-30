@@ -1,7 +1,5 @@
 package rtg.world.gen.feature.tree.rtg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -65,8 +63,6 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         this.leavesBlock = Blocks.LEAVES.getDefaultState();
         this.trunkSize = 4;
         this.crownSize = 8;
-
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState()));
     }
 
     /**
@@ -322,17 +318,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         int y = position.getY();
         int z = position.getZ();
 
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
-
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (g == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
+        if (!this.isGroundValid(world, position)) {
             return false;
         }
 

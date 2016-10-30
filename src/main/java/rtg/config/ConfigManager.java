@@ -8,6 +8,7 @@ import rtg.config.betteragriculture.ConfigBA;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.biomesyougo.ConfigBYG;
 import rtg.config.flowercraft.ConfigFC;
+import rtg.config.mineworld.ConfigMW;
 import rtg.config.mithwoodforest.ConfigMF;
 import rtg.config.morechinesemc.ConfigMCM;
 import rtg.config.rtg.ConfigRTG;
@@ -26,6 +27,7 @@ public class ConfigManager {
     public static File fcConfigFile;
     public static File mcmConfigFile;
     public static File mfConfigFile;
+    public static File mwConfigFile;
     public static File sfConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
@@ -42,6 +44,7 @@ public class ConfigManager {
         fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
         mcmConfigFile = new File(configpath + "biomes/morechinesemc.cfg");
         mfConfigFile = new File(configpath + "biomes/mithwoodforest.cfg");
+        mwConfigFile = new File(configpath + "biomes/mineworld.cfg");
         sfConfigFile = new File(configpath + "biomes/sugiforest.cfg");
 
         ConfigRTG.init(rtgConfigFile);
@@ -56,6 +59,7 @@ public class ConfigManager {
         ConfigFC.init(fcConfigFile);
         ConfigMCM.init(mcmConfigFile);
         ConfigMF.init(mfConfigFile);
+        ConfigMW.init(mwConfigFile);
         ConfigSF.init(sfConfigFile);
     }
 

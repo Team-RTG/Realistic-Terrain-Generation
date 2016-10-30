@@ -14,6 +14,7 @@ import rtg.api.biome.biomesoplenty.config.*;
 import rtg.api.biome.biomesyougo.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.api.biome.flowercraft.config.BiomeConfigFCPhantasia;
+import rtg.api.biome.mineworld.*;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMF;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
 import rtg.api.biome.morechinesemc.config.*;
@@ -33,6 +34,7 @@ public class BiomeConfigManager {
         initBiomeConfigsFC();
         initBiomeConfigsMCM();
         initBiomeConfigsMF();
+        initBiomeConfigsMW();
         initBiomeConfigsSF();
         initBiomeConfigsVanilla();
     }
@@ -160,6 +162,16 @@ public class BiomeConfigManager {
     public static void initBiomeConfigsMF() {
 
         BiomeConfigMF.biomeConfigMFMithwoodForest = new BiomeConfigMFMithwoodForest();
+    }
+
+    public static void initBiomeConfigsMW() {
+
+        BiomeConfigMW.biomeConfigMWAppleForest = new BiomeConfigMWAppleForest();
+        BiomeConfigMW.biomeConfigMWArctic = new BiomeConfigMWArctic();
+        BiomeConfigMW.biomeConfigMWDeadForest = new BiomeConfigMWDeadForest();
+        BiomeConfigMW.biomeConfigMWIceHills = new BiomeConfigMWIceHills();
+        BiomeConfigMW.biomeConfigMWPalms = new BiomeConfigMWPalms();
+        BiomeConfigMW.biomeConfigMWVolcano = new BiomeConfigMWVolcano();
     }
 
     public static void initBiomeConfigsSF() {

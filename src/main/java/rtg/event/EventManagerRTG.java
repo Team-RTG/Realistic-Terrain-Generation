@@ -215,7 +215,7 @@ public class EventManagerRTG {
 
             // Are we dealing with a sapling? Sounds like a silly question, but apparently it's one that needs to be asked.
             if (!(saplingBlock.getBlock() instanceof BlockSapling)) {
-                Logger.warn("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
+                Logger.debug("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
                 return;
             }
 

@@ -59,11 +59,20 @@ public class RealisticBiomeBYGBase extends RealisticBiomeBase {
                 else if (biomeName.equals("willowSwamps") && biomeClass.equals("mod.mcreator.mcreator_willowSwamps$BiomeGenwillowSwamps")) {
                     bygWillowSwamps = new RealisticBiomeBYGWillowSwamps(biome, BiomeConfigBYG.biomeConfigBYGWillowSwamps);
                 }
-                else if (biomeName.equals("birchPlains2") && biomeClass.equals("mod.mcreator.mcreator_birchPlains2$BiomeGenbirchPlains2")) {
+                else if (biomeName.equals("birchPlains1") && biomeClass.equals("mod.mcreator.mcreator_birchPlains1$BiomeGenbirchPlains1")) {
                     bygBirchPlains = new RealisticBiomeBYGBirchPlains(biome, BiomeConfigBYG.biomeConfigBYGBirchPlains);
                 }
-                else if (biomeName.equals("frozenTundra") && biomeClass.equals("mod.mcreator.mcreator_frozenTundra$BiomeGenfrozenTundra")) {
+                else if (biomeName.equals("tundra") && biomeClass.equals("mod.mcreator.mcreator_tundra$BiomeGentundra")) {
                     bygFrozenTundra = new RealisticBiomeBYGFrozenTundra(biome, BiomeConfigBYG.biomeConfigBYGFrozenTundra);
+                }
+                else if (biomeName.equals("athuraForest") && biomeClass.equals("mod.mcreator.mcreator_athuraForest$BiomeGenathuraForest")) {
+                    bygFrozenTundra = new RealisticBiomeBYGAthuraForest(biome, BiomeConfigBYG.biomeConfigBYGAthuraForest);
+                }
+                else if (biomeName.equals("mushroomMoutains") && biomeClass.equals("mod.mcreator.mcreator_mushroomMoutains$BiomeGenmushroomMoutains")) {
+                    bygFrozenTundra = new RealisticBiomeBYGMushroomMountains(biome, BiomeConfigBYG.biomeConfigBYGMushroomMountains);
+                }
+                else if (biomeName.equals("shrubs") && biomeClass.equals("mod.mcreator.mcreator_shrubs$BiomeGenshrubs")) {
+                    bygFrozenTundra = new RealisticBiomeBYGShrubs(biome, BiomeConfigBYG.biomeConfigBYGShrubs);
                 }
             }
         }

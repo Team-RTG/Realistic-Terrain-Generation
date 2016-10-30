@@ -1,25 +1,32 @@
 package rtg.world.gen.surface.vanilla;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaiga;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
 
-import java.util.Random;
-
 public class SurfaceVanillaTaiga extends SurfaceBase {
+
+    private IBlockState mixBlock;
 
     public SurfaceVanillaTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
 
         super(config, top, fill);
+
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaTaiga.surfaceMixBlockId,
+            BiomeConfigVanillaTaiga.surfaceMixBlockMetaId, BlockUtil.getStateDirt(2));
     }
 
     @Override
@@ -68,7 +75,7 @@ public class SurfaceVanillaTaiga extends SurfaceBase {
                         primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
                     }
                     else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
-                        primer.setBlockState(x, k, z, BlockUtil.getStateDirt(2));
+                        primer.setBlockState(x, k, z, mixBlock);
                     }
                     else {
                         primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());

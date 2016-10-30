@@ -2,10 +2,9 @@ package rtg.api.biome.morechinesemc.config;
 
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.BiomeConfigProperty.Type;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBase;
 
 
-public class BiomeConfigMCMWarmTaiga extends BiomeConfigVanillaBase {
+public class BiomeConfigMCMWarmTaiga extends BiomeConfigMCMBase {
 
     public static final String decorationLogsId = "decorationLogs";
     public static final String decorationLogsName = "RTG Decoration: Logs";

@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
@@ -19,7 +18,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
 
         super(config, biome, river,
             new TerrainVanillaTaigaHills(),
-            new SurfaceVanillaTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f)
+            new SurfaceVanillaTaigaHills(config, biome.topBlock, biome.fillerBlock)
         );
 
         this.noLakes = true;

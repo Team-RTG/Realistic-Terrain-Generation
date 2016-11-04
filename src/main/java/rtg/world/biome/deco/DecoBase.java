@@ -135,6 +135,15 @@ public class DecoBase {
         WHEAT
     }
 
+    public static void tweakTreeLeaves(DecoTree deco, boolean checkDecay, boolean decayable) {
+        if (deco.leavesBlock.getBlock() instanceof BlockLeaves) {
+            IBlockState leaves = deco.leavesBlock
+                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
+                .withProperty(BlockLeaves.DECAYABLE, decayable);
+            deco.leavesBlock = leaves;
+        }
+    }
+
     public static void tweakShrubLeaves(DecoShrub deco, boolean checkDecay, boolean decayable) {
         if (deco.leavesBlock.getBlock() instanceof BlockLeaves) {
             IBlockState leaves = deco.leavesBlock

@@ -18,7 +18,10 @@ import rtg.world.gen.feature.WorldGenPond;
  */
 public class DecoPond extends DecoBase {
 
-    public int chunksPerPond;
+    public int chunksPerPond = 8;
+    public int minY = 64;
+    public int loops = 1;
+
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
 
     @Override
@@ -26,17 +29,19 @@ public class DecoPond extends DecoBase {
 
         if (this.allowed && ConfigRTG.waterSurfaceLakeChance > 0) {
 
-
-            int i2 = chunkX + rand.nextInt(16);// + 8;
-            int i8 = chunkY + rand.nextInt(16);// + 8;
-            int l4 = world.getHeight(new BlockPos(i2, 0, i8)).getY();
-
             //Surface lakes.
-            if (rand.nextInt(chunksPerPond) == 0) {
+            for (int i = 0; i < this.loops; i++) {
 
-                if (l4 > 63) {
+                int i2 = chunkX + rand.nextInt(16);// + 8;
+                int i8 = chunkY + rand.nextInt(16);// + 8;
+                int l4 = world.getHeight(new BlockPos(i2, 0, i8)).getY();
 
-                    pondGenerator.generate(world, rand, new BlockPos(i2, l4, i8));
+                if (rand.nextInt(this.chunksPerPond) == 0) {
+
+                    if (l4 >= this.minY) {
+
+                        pondGenerator.generate(world, rand, new BlockPos(i2, l4, i8));
+                    }
                 }
             }
         }

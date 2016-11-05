@@ -23,10 +23,12 @@ import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
+import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
+import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
@@ -323,13 +325,40 @@ public abstract class RealisticBiomeBase {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures ? 0: river;
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config.getPropertyById(BiomeConfig.useRTGSurfacesId).valueBoolean) {
+        float riverRegion = this.noWaterFeatures ? 0f : river;
 
-            for (int s = 0; s < surfacesLength; s++)
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
+
+            for (int s = 0; s < surfacesLength; s++) {
                 surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            }
         }
-        else this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+        else {
+
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+        }
+    }
+
+    protected void rReplaceRiverSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+
+        float riverRegion = this.noWaterFeatures ? 0f : river;
+
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
+
+            for (int s = 0; s < surfacesLength; s++) {
+                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            }
+
+            if (ConfigRTG.enableLushRiverBankSurfacesInHotBiomes) {
+
+                SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
+                riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            }
+        }
+        else {
+
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+        }
     }
 
     public float r3Dnoise(float z) {
@@ -432,12 +461,21 @@ public abstract class RealisticBiomeBase {
 
     public void addDecoCollection(DecoCollectionBase decoCollection) {
 
+        // Don't add the desert river deco collection if the user has disabled it.
+        if (decoCollection instanceof DecoCollectionDesertRiver) {
+            if (!ConfigRTG.enableLushRiverBankDecorationsInHotBiomes) {
+                return;
+            }
+        }
+
+        // Add this collection's decos to master deco list.
         if (decoCollection.decos.size() > 0) {
             for (int i = 0; i < decoCollection.decos.size(); i++) {
                 this.addDeco(decoCollection.decos.get(i));
             }
         }
 
+        // If there are any tree decos in this collection, then add the individual TreeRTG objects to master tree list.
         if (decoCollection.rtgTrees.size() > 0) {
             for (int i = 0; i < decoCollection.rtgTrees.size(); i++) {
                 this.addTree(decoCollection.rtgTrees.get(i));

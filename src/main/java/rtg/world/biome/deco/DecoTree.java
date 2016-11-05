@@ -192,6 +192,7 @@ public class DecoTree extends DecoBase {
                 }
 
                 WorldUtil worldUtil = new WorldUtil(world);
+                DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
                     int intX = scatter.get(rand, chunkX); // + 8;

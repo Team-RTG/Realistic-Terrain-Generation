@@ -47,7 +47,7 @@ public class SurfacePolar extends SurfaceBase {
 
                 if (riverPaint) {
                     if (grass && depth < 4) {
-                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                     else if (depth == 0) {
                         if (rand.nextInt(2) == 0) {

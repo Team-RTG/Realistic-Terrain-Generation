@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
@@ -51,9 +52,10 @@ public class EventManagerRTG {
 
     }
 
-    public class LoadChunkRTG
-    {
+    public class LoadChunkRTG {
+
         LoadChunkRTG() {
+
             logEventMessage("Initialising LoadChunkRTG...");
         }
 
@@ -82,88 +84,74 @@ public class EventManagerRTG {
                 return;
             }
 
-            switch (event.getType()) {
+            OreGenEvent.GenerateMinable.EventType eventType = event.getType();
 
-                case ANDESITE:
-                    if (!ConfigRTG.generateOreAndesite) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
+            // No switch statements allowed! - Pink
 
-                case COAL:
-                    if (!ConfigRTG.generateOreCoal) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case DIAMOND:
-                    if (!ConfigRTG.generateOreDiamond) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case DIORITE:
-                    if (!ConfigRTG.generateOreDiorite) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case DIRT:
-                    if (!ConfigRTG.generateOreDirt) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case EMERALD:
-                    if (!ConfigRTG.generateOreEmerald) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case GOLD:
-                    if (!ConfigRTG.generateOreGold) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case GRANITE:
-                    if (!ConfigRTG.generateOreGranite) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case GRAVEL:
-                    if (!ConfigRTG.generateOreGravel) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case IRON:
-                    if (!ConfigRTG.generateOreIron) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case LAPIS:
-                    if (!ConfigRTG.generateOreLapis) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case REDSTONE:
-                    if (!ConfigRTG.generateOreRedstone) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                case SILVERFISH:
-                    if (!ConfigRTG.generateOreSilverfish) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                    break;
-
-                default:
-                    break;
+            if (eventType == ANDESITE) {
+                if (!ConfigRTG.generateOreAndesite) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == COAL) {
+                if (!ConfigRTG.generateOreCoal) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == DIAMOND) {
+                if (!ConfigRTG.generateOreDiamond) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == DIORITE) {
+                if (!ConfigRTG.generateOreDiorite) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == DIRT) {
+                if (!ConfigRTG.generateOreDirt) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == EMERALD) {
+                if (!ConfigRTG.generateOreEmerald) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == GOLD) {
+                if (!ConfigRTG.generateOreGold) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == GRANITE) {
+                if (!ConfigRTG.generateOreGranite) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == GRAVEL) {
+                if (!ConfigRTG.generateOreGravel) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == IRON) {
+                if (!ConfigRTG.generateOreIron) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == LAPIS) {
+                if (!ConfigRTG.generateOreLapis) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == REDSTONE) {
+                if (!ConfigRTG.generateOreRedstone) {
+                    event.setResult(Event.Result.DENY);
+                }
+            }
+            else if (eventType == SILVERFISH) {
+                if (!ConfigRTG.generateOreSilverfish) {
+                    event.setResult(Event.Result.DENY);
+                }
             }
         }
     }
@@ -188,9 +176,10 @@ public class EventManagerRTG {
         }
     }
 
-    public class SaplingGrowTreeRTG
-    {
+    public class SaplingGrowTreeRTG {
+
         SaplingGrowTreeRTG() {
+
             logEventMessage("Initialising SaplingGrowTreeRTG...");
         }
 
@@ -204,7 +193,9 @@ public class EventManagerRTG {
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
             if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
-                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
+                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
+                return;
+            }
 
             // Should we generate a vanilla tree instead?
             if (event.getRand().nextInt(ConfigRTG.rtgTreeChance) != 0) {
@@ -357,7 +348,9 @@ public class EventManagerRTG {
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
             if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
-                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
+                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
+                return;
+            }
 
             DecorateBiomeEvent.Decorate.EventType eventType = event.getType();
 
@@ -395,10 +388,12 @@ public class EventManagerRTG {
     }
 
     private static void logEventMessage(String message) {
+
         Logger.debug("RTG Event System: " + message);
     }
 
     public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
+
         chunkLoadEvents.put(dimension, action);
     }
 }

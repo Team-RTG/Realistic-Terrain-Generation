@@ -17,6 +17,8 @@ import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.Acceptor;
@@ -357,19 +359,16 @@ public class EventManagerRTG {
             if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
 
-            switch (event.getType())
-            {
-                /*
-                 * Vanilla generates flowing liquids during biome decoration,
-                 * so we're going to cancel that event here and generate them via rPopulatePostDecorate().
-                 */
-                case LAKE_WATER:
-                case LAKE_LAVA:
+            DecorateBiomeEvent.Decorate.EventType eventType = event.getType();
 
-                    event.setResult(Event.Result.DENY);
+            // No switch statements allowed! - Pink
 
-                default:
-                    break;
+            /*
+             * Vanilla generates flowing liquids during biome decoration,
+             * so we're going to cancel that event here and generate them via rPopulatePostDecorate().
+             */
+            if (eventType == LAKE_WATER || eventType == LAKE_LAVA) {
+                event.setResult(Event.Result.DENY);
             }
         }
     }

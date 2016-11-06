@@ -22,10 +22,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
 
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.Acceptor;
-import rtg.util.Logger;
-import rtg.util.RandomUtil;
-import rtg.util.SaplingUtil;
+import rtg.util.*;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -255,6 +252,9 @@ public class EventManagerRTG {
                 // If there are valid trees, then proceed; otherwise, let's get out here.
                 if (validTrees.size() > 0) {
 
+                    // Prevent the original tree from generating.
+                    event.setResult(Event.Result.DENY);
+
                     // Get a random tree from the list of valid trees.
                     TreeRTG tree = validTrees.get(event.getRand().nextInt(validTrees.size()));
 
@@ -272,6 +272,17 @@ public class EventManagerRTG {
                         tree.crownSize = RandomUtil.getRandomInt(event.getRand(), tree.minCrownSize, tree.maxCrownSize);
                     }
 
+                    int treeHeight = tree.trunkSize + tree.crownSize;
+                    if (treeHeight < 1) {
+                        Logger.debug("Unable to grow RTG tree with no height.");
+                        return;
+                    }
+
+                    if (!tree.hasSpaceToGrow(event.getWorld(), event.getRand(), event.getPos(), treeHeight)) {
+                        Logger.debug("Unable to grow RTG tree with %d height. Something in the way.", treeHeight);
+                        return;
+                    }
+
                     /*
                      * Set the generateFlag to what it needs to be for growing trees from saplings,
                      * generate the tree, and then set it back to what it was before.
@@ -284,9 +295,6 @@ public class EventManagerRTG {
                     tree.generateFlag = oldFlag;
 
                     if (generated) {
-
-                        // Prevent the original tree from generating.
-                        event.setResult(Event.Result.DENY);
 
                         // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
                         if (event.getWorld().getBlockState(event.getPos()) == saplingBlock) {

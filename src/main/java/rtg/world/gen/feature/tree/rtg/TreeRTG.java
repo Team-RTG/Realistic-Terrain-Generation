@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.BlockUtil;
+import rtg.util.WorldUtil;
 
 /**
  * The base class for all RTG trees.
@@ -207,5 +208,26 @@ public class TreeRTG extends WorldGenAbstractTree {
             || blockType == Blocks.SNOW_LAYER
             || blockType == Blocks.SAPLING
             || blockType == Blocks.VINE;
+    }
+
+    public boolean hasSpaceToGrow(World world, Random rand, BlockPos pos, int treeHeight) {
+
+        WorldUtil worldUtil = new WorldUtil(world);
+        if (!worldUtil.isSurroundedByBlock(
+            Blocks.AIR.getDefaultState(),
+            treeHeight,
+            WorldUtil.SurroundCheckType.UP,
+            rand,
+            pos.getX(),
+            pos.getY(),
+            pos.getZ()
+        )) {
+
+            //Logger.debug("Unable to grow RTG tree with %d height. Something in the way.", treeHeight);
+
+            return false;
+        }
+
+        return true;
     }
 }

@@ -25,6 +25,9 @@ public class SurfaceBase {
     protected IBlockState fillerBlock;
     protected BiomeConfig biomeConfig;
 
+    public static IBlockState shadowStoneBlock = Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
+    public static IBlockState shadowDesertBlock = Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
+
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
 
         this(config, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));
@@ -61,7 +64,7 @@ public class SurfaceBase {
         }
         else {
 
-            return Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
+            return shadowStoneBlock;
         }
     }
 
@@ -73,7 +76,7 @@ public class SurfaceBase {
         }
         else {
 
-            return Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
+            return shadowDesertBlock;
         }
     }
 

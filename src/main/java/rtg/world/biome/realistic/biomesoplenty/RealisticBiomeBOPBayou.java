@@ -37,7 +37,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
         DecoPond decoPond = new DecoPond();
         decoPond.chunksPerPond = 1;
-        decoPond.minY = 63;
+        decoPond.maxY = 67;
         decoPond.loops = 8;
         this.addDeco(decoPond);
 

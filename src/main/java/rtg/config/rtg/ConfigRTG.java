@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Loader;
 import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.util.Logger;
-import rtg.util.ModPresenceTester;
 
 public class ConfigRTG {
 
@@ -934,9 +933,6 @@ public class ConfigRTG {
 
     private static void setVolcanoBlockDefaults() {
 
-        ModPresenceTester bopMod = new ModPresenceTester("BiomesOPlenty");
-        ModPresenceTester ubcMod = new ModPresenceTester("UndergroundBiomes");
-
         volcanoBlockId = "minecraft:obsidian";
         volcanoBlockMeta = 0;
         volcanoMix1BlockId = "minecraft:cobblestone";
@@ -945,21 +941,6 @@ public class ConfigRTG {
         volcanoMix2BlockMeta = 0;
         volcanoMix3BlockId = "minecraft:coal_block";
         volcanoMix3BlockMeta = 0;
-
-        if (bopMod.present()) {
-
-            volcanoMix1BlockId = "BiomesOPlenty:ashStone";
-            volcanoMix1BlockMeta = 0;
-            volcanoMix2BlockId = "BiomesOPlenty:ash";
-            volcanoMix2BlockMeta = 0;
-        }
-        else if (ubcMod.present()) {
-
-            volcanoMix1BlockId = "UndergroundBiomes:igneousCobblestone";
-            volcanoMix1BlockMeta = 5;
-            volcanoMix2BlockId = "UndergroundBiomes:igneousStone";
-            volcanoMix2BlockMeta = 5;
-        }
     }
 
     public static float lakeSizeMultiplier() {

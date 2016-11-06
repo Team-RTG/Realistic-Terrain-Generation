@@ -21,10 +21,23 @@ public class WorldGenVolcano {
     private static final float ventRadius = 7f;
     private static final int lavaHeight = 138 + 3 + (ConfigRTG.enableVolcanoEruptions ? 5 : 0);    // + 3 to account for lava cone tip
     private static final int baseVolcanoHeight = 142 + 8;
-    protected static IBlockState volcanoBlock = Block.getBlockFromName(ConfigRTG.volcanoBlockId).getStateFromMeta(ConfigRTG.volcanoBlockMeta);
-    protected static IBlockState volcanoPatchBlock = Block.getBlockFromName(ConfigRTG.volcanoMix1BlockId).getStateFromMeta(ConfigRTG.volcanoMix1BlockMeta);
-    protected static IBlockState volcanoPatchBlock2 = Block.getBlockFromName(ConfigRTG.volcanoMix2BlockId).getStateFromMeta(ConfigRTG.volcanoMix2BlockMeta);
-    protected static IBlockState volcanoPatchBlock3 = Block.getBlockFromName(ConfigRTG.volcanoMix3BlockId).getStateFromMeta(ConfigRTG.volcanoMix3BlockMeta);
+
+    protected static IBlockState volcanoBlock = getConfigVolcanoBlock(
+        ConfigRTG.volcanoBlockId, ConfigRTG.volcanoBlockMeta, Blocks.obsidian.getDefaultState()
+    );
+
+    protected static IBlockState volcanoPatchBlock = getConfigVolcanoBlock(
+        ConfigRTG.volcanoMix1BlockId, ConfigRTG.volcanoMix1BlockMeta, Blocks.cobblestone.getDefaultState()
+    );
+
+    protected static IBlockState volcanoPatchBlock2 = getConfigVolcanoBlock(
+        ConfigRTG.volcanoMix2BlockId, ConfigRTG.volcanoMix2BlockMeta, Blocks.gravel.getDefaultState()
+    );
+
+    protected static IBlockState volcanoPatchBlock3 = getConfigVolcanoBlock(
+        ConfigRTG.volcanoMix3BlockId, ConfigRTG.volcanoMix3BlockMeta, Blocks.coal_block.getDefaultState()
+    );
+
     protected static IBlockState lavaBlock = ConfigRTG.enableVolcanoEruptions ? Blocks.flowing_lava.getDefaultState() : Blocks.lava.getDefaultState();
 
     public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
@@ -195,5 +208,16 @@ public class WorldGenVolcano {
     public static int cta(int x, int y, int z) {
 
         return (x * 16 + z) * 256 + y;
+    }
+
+    private static IBlockState getConfigVolcanoBlock(String id, int meta, IBlockState defaultBlock) {
+
+        try {
+            IBlockState volcanoBlock = Block.getBlockFromName(id).getStateFromMeta(meta);
+            return volcanoBlock;
+        }
+        catch (Exception e) {
+            return defaultBlock;
+        }
     }
 }

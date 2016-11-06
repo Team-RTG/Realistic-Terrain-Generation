@@ -20,6 +20,7 @@ public class DecoPond extends DecoBase {
 
     public int chunksPerPond = 8;
     public int minY = 64;
+    public int maxY = 240;
     public int loops = 1;
 
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
@@ -38,7 +39,7 @@ public class DecoPond extends DecoBase {
 
                 if (rand.nextInt(this.chunksPerPond) == 0) {
 
-                    if (l4 >= this.minY) {
+                    if (l4 >= this.minY && l4 <= this.maxY) {
 
                         pondGenerator.generate(world, rand, new BlockPos(i2, l4, i8));
                     }

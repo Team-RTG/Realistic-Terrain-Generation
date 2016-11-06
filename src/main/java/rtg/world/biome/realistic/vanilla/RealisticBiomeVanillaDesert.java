@@ -8,11 +8,13 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
@@ -32,6 +34,29 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionDesert());
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase(64f) {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                //return terrainPolar(x, y, simplex, river);
+                float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+
+                duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+
+                float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
+                float stFactor = duneHeight;
+                float hPitch = 70;    // Dune scale
+                float hDivisor = 40;
+
+                return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
+                    groundNoise(x, y, 1f, simplex);
+            }
+        };
     }
 
     @Override

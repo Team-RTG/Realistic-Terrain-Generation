@@ -5,8 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDeepOcean;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDeepOcean;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
@@ -28,5 +31,18 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return terrainOcean(x, y, simplex, river, 40f);
+            }
+        };
     }
 }

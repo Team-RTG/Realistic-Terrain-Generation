@@ -146,6 +146,9 @@ public abstract class RealisticBiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
+    /*
+     * TODO: Replace all instances of '68f' with default base height.
+     */
     public TerrainBase initTerrain() {
         return new TerrainBase();
     }

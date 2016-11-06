@@ -3,14 +3,19 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenTrees;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForest;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForest;
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase {
@@ -98,5 +103,20 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+                //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 }

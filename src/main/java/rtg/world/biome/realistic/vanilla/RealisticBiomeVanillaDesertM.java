@@ -14,6 +14,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertM;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
@@ -33,6 +34,19 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionDesert());
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase(68f) {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 20f, 10f);
+            }
+        };
     }
 
     @Override

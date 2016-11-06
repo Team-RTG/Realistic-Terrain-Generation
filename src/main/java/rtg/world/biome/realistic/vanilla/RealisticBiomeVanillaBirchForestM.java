@@ -3,13 +3,17 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestM;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestM;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestM;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
@@ -69,5 +73,18 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         decoShrub.maxY = 110;
         decoShrub.strengthFactor = 2f;
         this.addDeco(decoShrub);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+            }
+        };
     }
 }

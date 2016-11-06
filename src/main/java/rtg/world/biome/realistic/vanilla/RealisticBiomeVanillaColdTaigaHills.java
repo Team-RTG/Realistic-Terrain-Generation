@@ -6,8 +6,11 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaHills;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaHills;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaHills;
 
 public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBase {
@@ -25,5 +28,18 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
         this.noLakes = true;
 
         this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaColdTaigaHills.decorationLogsId), 8f));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase(72f) {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 35f, base - 62f);
+            }
+        };
     }
 }

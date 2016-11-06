@@ -47,7 +47,8 @@ public class SurfaceVanillaDesert extends SurfaceBase {
 
                 if (riverPaint) {
                     if (grass && depth < 4) {
-                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
+                        //primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                     else if (depth == 0) {
                         primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? Blocks.SAND.getDefaultState() : Blocks.SANDSTONE.getDefaultState());

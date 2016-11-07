@@ -17,7 +17,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase
 	{
 		super(config, 
 			BiomeGenBase.coldBeach,
-			BiomeGenBase.river,
+			BiomeGenBase.frozenRiver,
 			new TerrainVanillaColdBeach(),
 			new SurfaceVanillaColdBeach(config, topBlock, fillerBlock, topBlock, fillerBlock, (byte)0, 1)
 		);

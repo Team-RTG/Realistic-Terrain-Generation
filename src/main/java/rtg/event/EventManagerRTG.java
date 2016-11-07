@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
@@ -26,6 +27,7 @@ import rtg.util.RandomUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.RealisticBiomePatcher;
 import rtg.world.gen.MapGenCavesRTG;
 import rtg.world.gen.MapGenRavineRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -244,12 +246,27 @@ public class EventManagerRTG
             int z = event.z;
 
             Block saplingBlock = world.getBlock(x, y, z);
+
+            // Are we dealing with a sapling? Sounds like a silly question, but apparently it's one that needs to be asked.
+            if (!(saplingBlock instanceof BlockSapling)) {
+                Logger.debug("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getLocalizedName());
+                return;
+            }
+
             byte saplingMeta = (byte) saplingBlock.getDamageValue(world, x, y, z);
 
             WorldChunkManagerRTG cmr = (WorldChunkManagerRTG) world.getWorldChunkManager();
             //BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
             BiomeGenBase bgg = world.getBiomeGenForCoords(x, z);
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
+
+            // Do we need to patch the biome?
+            if (rb == null) {
+                RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+                rb = biomePatcher.getPatchedRealisticBiome(
+                    "NULL biome (" + bgg.biomeID + ") found when growing an RTG sapling.");
+            }
+
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
 
             Logger.debug("Biome = %s", rb.baseBiome.biomeName);

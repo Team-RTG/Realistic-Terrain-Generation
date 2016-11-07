@@ -2,16 +2,16 @@ package rtg.world.gen.surface.vanilla;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.surface.SurfaceBase;
-
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class SurfaceVanillaBeach extends SurfaceBase
 {
@@ -22,10 +22,10 @@ public class SurfaceVanillaBeach extends SurfaceBase
 	
 	public SurfaceVanillaBeach(BiomeConfig config, Block top, Block filler, Block cliff1, Block cliff2, byte metadata, int cliff)
 	{
-		super(config, Blocks.dirt, (byte)0, Blocks.dirt, (byte)0);
+		super(config, top, (byte)0, filler, (byte)0);
 		
-		cliffBlock1 = Blocks.dirt;
-		cliffBlock2 = Blocks.stone;
+		cliffBlock1 = top;
+		cliffBlock2 = top;
 		sandMetadata = metadata;
 		cliffType = cliff;
 	}

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
 
-import cpw.mods.fml.common.Loader;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.util.Logger;
@@ -46,9 +44,10 @@ public class ConfigRTG
     public static int duneHeight = 4;
     
     /* ==================== Debugging ==================== */
-    
+
     public static boolean enableDebugging = false;
-    
+    public static boolean crashOnStructureExceptions = false;
+
     /* ==================== Dungeons ==================== */
     
     public static boolean generateDungeons = true;
@@ -153,8 +152,6 @@ public class ConfigRTG
     public static int minDistanceVillages = 12; // Vanilla = 8
     public static int maxDistanceVillages = 48; // Vanilla = 32
 
-    public static boolean villageCrashFix = (Loader.isModLoaded("enviromine")) ? true : false;
-    
     /* ==================== Volcanoes ==================== */
 
     public static String volcanoBlockId;
@@ -288,6 +285,18 @@ public class ConfigRTG
             /* ==================== Debugging ==================== */
             
             enableDebugging = config.getBoolean("Enable Debugging", "Debugging", enableDebugging, "WARNING: This should only be enabled if you know what you're doing." + Configuration.NEW_LINE);
+
+            crashOnStructureExceptions = config.getBoolean(
+                "Crash on Structure Exceptions",
+                "Debugging",
+                crashOnStructureExceptions,
+                "Instead of crashing when it experiences 'java.util.ConcurrentModificationException' (or any other exception)"
+                    + Configuration.NEW_LINE +
+                    "during structure generation, RTG will stop trying to generate that structure and continue generating the world."
+                    + Configuration.NEW_LINE +
+                    "You should only set this to TRUE if you have been instructed to do so by an RTG developer, or if you know what you're doing."
+                    + Configuration.NEW_LINE
+            );
             
             /* ==================== Dungeons ==================== */
             
@@ -523,16 +532,6 @@ public class ConfigRTG
             villageSize = config.getInt("Size of villages", "Villages", villageSize, 0, 10, "Higher values = bigger villages; 0 = Vanilla" + Configuration.NEW_LINE);
             minDistanceVillages = config.getInt("Minimum distance between villages", "Villages", minDistanceVillages, 1, Integer.MAX_VALUE, "Higher values = villages further apart; 8 = Vanilla" + Configuration.NEW_LINE);
             maxDistanceVillages = config.getInt("Maximum distance between villages", "Villages", maxDistanceVillages, 1, Integer.MAX_VALUE, "Lower values = villages closer together; 32 = Vanilla" + Configuration.NEW_LINE);
-            
-            villageCrashFix = config.getBoolean(
-                "Village Crash Fix",
-                "Villages",
-                villageCrashFix,
-                "Set this to TRUE to if you are experiencing 'java.util.ConcurrentModificationException' crashes related to village generation."
-                + Configuration.NEW_LINE +
-                "Defaults to FALSE unless EnviroMine is installed, in which case it defaults to TRUE."
-                + Configuration.NEW_LINE
-            );
             
             /* ==================== Volcanoes ==================== */
 

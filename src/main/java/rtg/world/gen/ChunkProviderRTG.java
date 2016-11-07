@@ -1,20 +1,6 @@
 package rtg.world.gen;
 
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -37,37 +23,27 @@ import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.*;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.registry.GameData;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.AICWrapper;
-import rtg.util.Acceptor;
-import rtg.util.Accessor;
-import rtg.util.CanyonColour;
-import rtg.util.CellNoise;
-import rtg.util.Compass;
-import rtg.util.Converter;
-import rtg.util.Direction;
-import rtg.util.LimitedMap;
-import rtg.util.LimitedSet;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.PlaneLocation;
-import rtg.util.SimplexCellularNoise;
-import rtg.util.TimeTracker;
-import rtg.util.TimedHashSet;
+import rtg.util.*;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.RTGBiomeProvider;
 import rtg.world.biome.WorldChunkManagerRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.registry.GameData;
 
 
 public class ChunkProviderRTG implements IChunkProvider
@@ -315,34 +291,63 @@ public class ChunkProviderRTG implements IChunkProvider
         if (mapFeaturesEnabled) {
 
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            }
-            
-            if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
-            }
-            
-            if (ConfigRTG.generateVillages) {
-                
-                if (ConfigRTG.villageCrashFix) {
-                    
-                    try {
-                        villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                try {
+                    mineshaftGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
                     }
-                    catch (Exception e) {
-                        // Do nothing.
+                    else {
+                        Logger.fatal(e.getMessage(), e);
                     }
                 }
-                else {
+            }
+
+            if (ConfigRTG.generateStrongholds) {
+                try {
+                    strongholdGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
+            }
+
+            if (ConfigRTG.generateVillages) {
+                try {
                     villageGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
                 }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
-            
+
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                try {
+                    scatteredFeatureGenerator.func_151539_a(this, this.worldObj, cx, cy, blocks);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
         }
-            // store in the in process pile
+
+        // store in the in process pile
         Chunk chunk = new Chunk(this.worldObj, blocks, metadata, cx, cy);
         inGeneration.put(chunkLocation, chunk);
         
@@ -713,47 +718,77 @@ public class ChunkProviderRTG implements IChunkProvider
 
         if (mapFeaturesEnabled) {
 
-        TimeTracker.manager.start("Mineshafts");
+            TimeTracker.manager.start("Mineshafts");
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
-            }
-
-        TimeTracker.manager.stop("Mineshafts");
-        TimeTracker.manager.start("Strongholds");
-            if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
-            }
-
-        TimeTracker.manager.stop("Strongholds");
-                TimeTracker.manager.start("Villages");
-            if (ConfigRTG.generateVillages) {
-                
-                if (ConfigRTG.villageCrashFix) {
-                    
-                    try {
-                        hasPlacedVillageBlocks = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                try {
+                    mineshaftGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
                     }
-                    catch (Exception e) {
-                        hasPlacedVillageBlocks = false;
+                    else {
+                        Logger.fatal(e.getMessage(), e);
                     }
                 }
-                else {
-                    
+            }
+            TimeTracker.manager.stop("Mineshafts");
+
+            TimeTracker.manager.start("Strongholds");
+            if (ConfigRTG.generateStrongholds) {
+                try {
+                    strongholdGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
+            }
+            TimeTracker.manager.stop("Strongholds");
+
+            TimeTracker.manager.start("Villages");
+            if (ConfigRTG.generateVillages) {
+                try {
                     hasPlacedVillageBlocks = villageGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
                 }
-            }
+                catch (Exception e) {
 
-                TimeTracker.manager.stop("Villages");
-                TimeTracker.manager.start("Scattered");
-            if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                    hasPlacedVillageBlocks = false;
+
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
-                TimeTracker.manager.stop("Scattered");
+            TimeTracker.manager.stop("Villages");
+
+            TimeTracker.manager.start("Scattered");
+            if (ConfigRTG.generateScatteredFeatures) {
+                try {
+                    scatteredFeatureGenerator.generateStructuresInChunk(worldObj, rand, chunkX, chunkZ);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
+            }
+            TimeTracker.manager.stop("Scattered");
         }
 
-                TimeTracker.manager.start("Pools");
+        TimeTracker.manager.start("Pools");
         biome.rPopulatePreDecorate(ichunkprovider, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
-                TimeTracker.manager.stop("Pools");
+        TimeTracker.manager.stop("Pools");
 
         /**
          * What is this doing? And why does it need to be done here? - Pink
@@ -1024,34 +1059,61 @@ public class ChunkProviderRTG implements IChunkProvider
     {
 
         if (mapFeaturesEnabled) {
-            
+
             if (ConfigRTG.generateMineshafts) {
-                mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                try {
+                    mineshaftGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
-            
+
             if (ConfigRTG.generateStrongholds) {
-                strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                try {
+                    strongholdGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
-            
+
             if (ConfigRTG.generateVillages) {
-                
-                if (ConfigRTG.villageCrashFix) {
-                    
-                    try {
-                        villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
-                    }
-                    catch (Exception e) {
-                        // Do nothing.
-                    }
-                    
+                try {
+                    villageGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
                 }
-                else {
-                    villageGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
                 }
             }
-            
+
             if (ConfigRTG.generateScatteredFeatures) {
-                scatteredFeatureGenerator.func_151539_a(this, this.worldObj, par1, par2, (Block[])null);
+                try {
+                    scatteredFeatureGenerator.func_151539_a(this, worldObj, par1, par2, (Block[])null);
+                }
+                catch (Exception e) {
+                    if (ConfigRTG.crashOnStructureExceptions) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.fatal(e.getMessage(), e);
+                    }
+                }
             }
         }
 	}

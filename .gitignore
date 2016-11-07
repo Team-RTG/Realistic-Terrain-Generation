@@ -30,3 +30,4 @@ gradlew-cleanCache.bat
 gradlew-setupDecompWorkspace-refresh-deps.bat
 gradlew-idea.bat
 /gradlew-runClient.bat
+gradlew-clean-build.bat

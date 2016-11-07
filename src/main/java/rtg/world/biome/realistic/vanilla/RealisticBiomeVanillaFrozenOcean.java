@@ -19,7 +19,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase
     
         super(config, 
             BiomeGenBase.frozenOcean,
-            BiomeGenBase.river,
+            BiomeGenBase.frozenRiver,
             new TerrainVanillaFrozenOcean(),
             new SurfaceVanillaFrozenOcean(config, Blocks.sand, Blocks.sand, Blocks.gravel, 20f, 0.2f));
         

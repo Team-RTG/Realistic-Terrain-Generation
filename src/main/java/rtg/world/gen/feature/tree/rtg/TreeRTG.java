@@ -201,15 +201,12 @@ public class TreeRTG extends WorldGenAbstractTree {
         return material == Material.AIR
             || material == Material.LEAVES
             || material == Material.PLANTS
-            || blockType == Blocks.GRASS
-            || blockType == Blocks.DIRT
-            || blockType == Blocks.LOG
-            || blockType == Blocks.LOG2
-            || blockType == Blocks.SNOW_LAYER
-            || blockType == Blocks.SAPLING
-            || blockType == Blocks.VINE;
+            || material == Material.GRASS
+            || material == Material.GROUND
+            || material == Material.WOOD
+            || material == Material.VINE
+            || material == Material.SNOW;
     }
-
     public boolean hasSpaceToGrow(World world, Random rand, BlockPos pos, int treeHeight) {
 
         WorldUtil worldUtil = new WorldUtil(world);

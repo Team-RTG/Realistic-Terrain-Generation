@@ -18,6 +18,8 @@ import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
@@ -61,6 +63,21 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 
     @Override

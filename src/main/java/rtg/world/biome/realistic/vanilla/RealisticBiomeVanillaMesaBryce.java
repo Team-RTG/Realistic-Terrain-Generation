@@ -18,6 +18,7 @@ import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
@@ -57,6 +58,19 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         decoCactus.loops = 18;
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase(69f) {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return terrainBryce(x, y, simplex, river, 20f, border);
+            }
+        };
     }
 
     @Override

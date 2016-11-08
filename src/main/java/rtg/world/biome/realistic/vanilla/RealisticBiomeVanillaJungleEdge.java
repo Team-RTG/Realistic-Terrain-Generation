@@ -2,12 +2,17 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdge;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdge;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdge;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
@@ -38,5 +43,20 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleEdge.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase() {
+
+            private GroundEffect groundEffect = new GroundEffect(4f);
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            }
+        };
     }
 }

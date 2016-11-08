@@ -3,14 +3,18 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlains;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
@@ -45,5 +49,18 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         decoFallenTree.minSize = 1;
         decoFallenTree.maxSize = 5;        
 		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));
+	}
+
+	@Override
+	public TerrainBase initTerrain() {
+
+		return new TerrainBase() {
+
+			@Override
+			public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+				return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
+			}
+		};
 	}
 }

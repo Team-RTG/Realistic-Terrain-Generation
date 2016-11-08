@@ -221,11 +221,17 @@ public class ConfigRTG {
     // Terrain shadowing
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowStoneBlockByte = 9;
+    public static String defaultShadowStoneBlockId = "minecraft:stained_hardened_clay";
+    public static int defaultShadowStoneBlockByte = 9;
 
-    public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowDesertBlockByte = 0;
+    public static String shadowStoneBlockId = defaultShadowStoneBlockId;
+    public static int shadowStoneBlockByte = defaultShadowStoneBlockByte;
+
+    public static String defaultShadowDesertBlockId = "minecraft:stained_hardened_clay";
+    public static int defaultShadowDesertBlockByte = 0;
+
+    public static String shadowDesertBlockId = defaultShadowDesertBlockId;
+    public static int shadowDesertBlockByte = defaultShadowDesertBlockByte;
 
     public static boolean enableUBCStoneShadowing = true;
     public static boolean enableUBCDesertShadowing = true;

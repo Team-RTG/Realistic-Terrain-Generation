@@ -182,6 +182,8 @@ public class ConfigRTG {
     public static float riverBendinessMultiplier = 1f;
     public static float riverCutOffScale = 350f;
     public static float riverCutOffAmplitude = 0.5f;
+    public static boolean enableLushRiverBankDecorationsInHotBiomes = true;
+    public static boolean enableLushRiverBankSurfacesInHotBiomes = true;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Saplings
@@ -219,11 +221,17 @@ public class ConfigRTG {
     // Terrain shadowing
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public static String shadowStoneBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowStoneBlockByte = 9;
+    public static String defaultShadowStoneBlockId = "minecraft:stained_hardened_clay";
+    public static int defaultShadowStoneBlockByte = 9;
 
-    public static String shadowDesertBlockId = "minecraft:stained_hardened_clay";
-    public static int shadowDesertBlockByte = 0;
+    public static String shadowStoneBlockId = defaultShadowStoneBlockId;
+    public static int shadowStoneBlockByte = defaultShadowStoneBlockByte;
+
+    public static String defaultShadowDesertBlockId = "minecraft:stained_hardened_clay";
+    public static int defaultShadowDesertBlockByte = 0;
+
+    public static String shadowDesertBlockId = defaultShadowDesertBlockId;
+    public static int shadowDesertBlockByte = defaultShadowDesertBlockByte;
 
     public static boolean enableUBCStoneShadowing = true;
     public static boolean enableUBCDesertShadowing = true;
@@ -666,6 +674,26 @@ public class ConfigRTG {
                 "Rivers",
                 0.5f, 0, 2,
                 "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
+
+            enableLushRiverBankDecorationsInHotBiomes = config.getBoolean(
+                "Enable Lush River Bank Decorations in Hot Biomes",
+                "Rivers",
+                enableLushRiverBankDecorationsInHotBiomes,
+                "Set this to FALSE to prevent RTG from generating lush river bank decorations in hot biomes, like Desert and Mesa."
+                    + Configuration.NEW_LINE +
+                    "Lush decorations consist of tallgrass, trees, shrubs, and other flora."
+                    + Configuration.NEW_LINE
+            );
+
+            enableLushRiverBankSurfacesInHotBiomes = config.getBoolean(
+                "Enable Lush River Bank Surfaces in Hot Biomes",
+                "Rivers",
+                enableLushRiverBankSurfacesInHotBiomes,
+                "Set this to FALSE to prevent RTG from generating lush river bank surfaces in hot biomes, like Desert and Mesa."
+                    + Configuration.NEW_LINE +
+                    "Lush surfaces consist (almost exclusively) of grass blocks."
+                    + Configuration.NEW_LINE
+            );
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             // Saplings

@@ -25,6 +25,9 @@ public class SurfaceBase {
     protected IBlockState fillerBlock;
     protected BiomeConfig biomeConfig;
 
+    public IBlockState shadowStoneBlock;
+    public IBlockState shadowDesertBlock;
+
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
 
         this(config, top.getStateFromMeta(topByte), fill.getStateFromMeta(fillByte));
@@ -42,10 +45,9 @@ public class SurfaceBase {
         }
 
         biomeConfig = config;
-
         topBlock = top;
         fillerBlock = fill;
-
+        this.initShadowBlocks();
         this.assignUserConfigs(config, top, fill);
     }
 
@@ -61,7 +63,7 @@ public class SurfaceBase {
         }
         else {
 
-            return Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
+            return this.shadowStoneBlock;
         }
     }
 
@@ -73,7 +75,7 @@ public class SurfaceBase {
         }
         else {
 
-            return Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
+            return this.shadowDesertBlock;
         }
     }
 
@@ -147,5 +149,22 @@ public class SurfaceBase {
         }
 
         return blockReturn;
+    }
+
+    protected void initShadowBlocks() {
+
+        try {
+            this.shadowStoneBlock = Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
+        }
+        catch (Exception e) {
+            this.shadowStoneBlock = Block.getBlockFromName(ConfigRTG.defaultShadowStoneBlockId).getStateFromMeta(ConfigRTG.defaultShadowStoneBlockByte);
+        }
+
+        try {
+            this.shadowDesertBlock = Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
+        }
+        catch (Exception e) {
+            this.shadowDesertBlock = Block.getBlockFromName(ConfigRTG.defaultShadowDesertBlockId).getStateFromMeta(ConfigRTG.defaultShadowDesertBlockByte);
+        }
     }
 }

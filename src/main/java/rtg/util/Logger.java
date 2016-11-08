@@ -36,6 +36,12 @@ public class Logger {
     public static void fatal(String message, Throwable throwable, Object... data) {
 
         FMLLog.log(Level.FATAL, "[RTG-FATAL] " + message, data);
-        Minecraft.getMinecraft().crashed(new CrashReport(message, throwable));
+
+        try {
+            Minecraft.getMinecraft().crashed(new CrashReport(message, throwable));
+        }
+        catch (Exception e) {
+            ;
+        }
     }
 }

@@ -1,16 +1,17 @@
 package rtg.world.biome.deco;
 
+import java.util.Random;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.WorldUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenCrops;
-
-import java.util.Random;
 
 /**
  * @author lightningo7
@@ -35,15 +36,15 @@ public class DecoCrop extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.type = 2;
+        this.type = 3;
         this.size = 5;//DO NOT PUT HIGHER THAN 30
         this.density = 50;
         this.height = 2;
         this.strengthFactor = 2f;
-        this.minY = 60; // Sensible lower height limit by default.
+        this.minY = 63; // Sensible lower height limit by default.
         this.maxY = 255; // No upper height limit by default.
-        this.chance = 10;
-        this.water = true;
+        this.chance = 10; //The higher the number the less common it will be
+        this.water = true; //whether or not to spawn water with the crops
 
         this.addDecoTypes(DecoType.WHEAT);
     }
@@ -54,7 +55,11 @@ public class DecoCrop extends DecoBase {
         if (this.allowed) {
 
             WorldUtil worldUtil = new WorldUtil(world);
-            WorldGenerator worldGenerator = new WorldGenCrops(type, size, density, height);
+            WorldGenerator worldGenerator = new WorldGenCrops(type, size, density, height, water);
+
+            if (this.chance < 1) {
+                return;
+            }
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
                 int i1 = chunkX + rand.nextInt(16);// + 8;

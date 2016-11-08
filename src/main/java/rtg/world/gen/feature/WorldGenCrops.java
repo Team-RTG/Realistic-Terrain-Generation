@@ -18,17 +18,19 @@ public class WorldGenCrops extends WorldGenerator {
     private int farmSize;
     private int farmDensity;
     private int farmHeight;
+    private boolean farmWater;
 
 
     /*
      * 0 = potatoes, 1 = carrots, 2 = beetroot, 3 = wheat
      */
-    public WorldGenCrops(int type, int size, int density, int height) {
+    public WorldGenCrops(int type, int size, int density, int height, Boolean water) {
 
         farmType = type == 0 ? Blocks.POTATOES : type == 1 ? Blocks.CARROTS : type == 2 ? Blocks.BEETROOTS : Blocks.WHEAT;
         farmSize = size;
         farmDensity = density;
         farmHeight = height;
+        farmWater = water;
     }
 
     @ParametersAreNonnullByDefault
@@ -74,8 +76,9 @@ public class WorldGenCrops extends WorldGenerator {
                 world.setBlockState(new BlockPos(x + rx, y +ry + 1, z + rz), ((BlockCrops) farmType).withAge(rand.nextInt(maxGrowth)));
             }
         }
-
-        world.setBlockState(new BlockPos(x, y, z), Blocks.WATER.getDefaultState());
+        if(farmWater == true) {
+            world.setBlockState(new BlockPos(x, y, z), Blocks.WATER.getDefaultState());
+        }
         return true;
     }
 }

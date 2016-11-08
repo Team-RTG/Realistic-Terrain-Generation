@@ -3,7 +3,9 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
 import rtg.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
@@ -28,10 +30,12 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoCrop decoCropWheat = new DecoCrop();
         decoCropWheat.size = 8;
         decoCropWheat.density = 5;
-        decoCropWheat.chance = 50;
+        decoCropWheat.chance = this.config._int(BiomeConfigVanillaPlains.decorationWheatChanceId);
         decoCropWheat.type = 3;
         decoCropWheat.water = false;
-        this.addDeco(decoCropWheat);
+        decoCropWheat.minY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMinYId);
+        decoCropWheat.maxY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMaxYId);
+        this.addDeco(decoCropWheat, this.config._boolean(BiomeConfigVanillaPlains.decorationWheatId));
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();

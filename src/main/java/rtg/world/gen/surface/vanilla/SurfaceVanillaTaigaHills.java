@@ -10,6 +10,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaHills;
+import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -17,46 +19,27 @@ import rtg.world.gen.surface.SurfaceBase;
 
 public class SurfaceVanillaTaigaHills extends SurfaceBase {
 
-    private float min;
+    private IBlockState mixBlock;
 
-    private float sCliff = 1.5f;
-    private float sHeight = 60f;
-    private float sStrength = 65f;
-    private float iCliff = 0.3f;
-    private float iHeight = 100f;
-    private float iStrength = 50f;
-    private float cCliff = 1.5f;
-
-    public SurfaceVanillaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
+    public SurfaceVanillaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill) {
 
         super(config, top, fill);
-        min = minCliff;
-    }
 
-    public SurfaceVanillaTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
-
-        this(config, top, fill, minCliff);
-
-        sCliff = stoneCliff;
-        sHeight = stoneHeight;
-        sStrength = stoneStrength;
-        iCliff = snowCliff;
-        iHeight = snowHeight;
-        iStrength = snowStrength;
-        cCliff = clayCliff;
+        mixBlock = this.getConfigBlock(config, BiomeConfigVanillaTaigaHills.surfaceMixBlockId,
+            BiomeConfigVanillaTaigaHills.surfaceMixBlockMetaId, BlockUtil.getStateDirt(2));
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand,
                              OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
-        float c = CliffCalculator.calc(x, y, noise);
+        float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
+        float c = CliffCalculator.calc(x, z, noise);
         int cliff = 0;
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState(x, k, y).getBlock();
+            b = primer.getBlockState(x, k, z).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -65,57 +48,51 @@ public class SurfaceVanillaTaigaHills extends SurfaceBase {
 
                 if (depth == 0) {
 
-                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
-                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
+                    if (c > 0.45f && c > 1.5f - ((k - 60f) / 65f) + p) {
                         cliff = 1;
                     }
-                    if (c > cCliff) {
+                    if (c > 1.5f) {
                         cliff = 2;
                     }
-                    if (k > 110 + (p * 4) && c < iCliff + ((k - iHeight) / iStrength) + p) {
+                    if (k > 110 + (p * 4) && c < 0.3f + ((k - 100f) / 50f) + p) {
                         cliff = 3;
                     }
 
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, hcCobble(world, i, j, x, z, k));
                         }
                         else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, hcStone(world, i, j, x, z, k));
                         }
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, z, getShadowStoneBlock(world, i, j, x, z, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
+                        primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
                     }
-                    else if (k < 63) {
-                        if (k < 62) {
-                            primer.setBlockState(x, k, y, fillerBlock);
-                        }
-                        else {
-                            primer.setBlockState(x, k, y, topBlock);
-                        }
+                    else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
+                        primer.setBlockState(x, k, z, mixBlock);
                     }
                     else {
-                        primer.setBlockState(x, k, y, Blocks.GRASS.getDefaultState());
+                        primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
                     }
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, z, hcStone(world, i, j, x, z, k));
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, z, getShadowStoneBlock(world, i, j, x, z, k));
                     }
                     else if (cliff == 3) {
-                        primer.setBlockState(x, k, y, Blocks.SNOW.getDefaultState());
+                        primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
                     }
                     else {
-                        primer.setBlockState(x, k, y, Blocks.DIRT.getDefaultState());
+                        primer.setBlockState(x, k, z, Blocks.DIRT.getDefaultState());
                     }
                 }
             }

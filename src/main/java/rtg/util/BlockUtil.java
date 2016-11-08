@@ -7,6 +7,10 @@ import net.minecraft.item.EnumDyeColor;
 
 public class BlockUtil {
 
+    public static Block getBlock(String id) {
+        return Block.getBlockFromName(id);
+    }
+
     public static IBlockState getStateSand(int meta) {
 
         switch (meta) {

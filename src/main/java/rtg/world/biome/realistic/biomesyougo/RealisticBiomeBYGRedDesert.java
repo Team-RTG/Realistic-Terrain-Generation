@@ -23,7 +23,6 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGRedDesert(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGRedDesert(),
             new SurfaceBYGRedDesert(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.fillerBlock, 0.10f)
         );
 

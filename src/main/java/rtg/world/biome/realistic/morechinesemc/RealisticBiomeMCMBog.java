@@ -19,7 +19,6 @@ public class RealisticBiomeMCMBog extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMBog(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.morechinesemc.TerrainMCMBog(),
             new SurfaceMCMBog(config, biome.topBlock, biome.fillerBlock)
         );
 

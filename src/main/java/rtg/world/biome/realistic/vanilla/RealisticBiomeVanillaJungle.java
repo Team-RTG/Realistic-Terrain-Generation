@@ -26,7 +26,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungle(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaJungle(),
             new SurfaceVanillaJungle(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.09f)
         );
 

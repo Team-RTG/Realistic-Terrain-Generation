@@ -18,7 +18,6 @@ public class RealisticBiomeARDeepReef extends RealisticBiomeARBase {
     public RealisticBiomeARDeepReef(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.agriculturalrevolution.TerrainARDeepReef(),
             new SurfaceARDeepReef(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f)
         );
 

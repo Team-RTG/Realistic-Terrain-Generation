@@ -17,7 +17,6 @@ public class RealisticBiomeBYGFrozenTundra extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGFrozenTundra(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGFrozenTundra(),
             new SurfaceBYGFrozenTundra(config, biome.topBlock, biome.fillerBlock)
         );
 

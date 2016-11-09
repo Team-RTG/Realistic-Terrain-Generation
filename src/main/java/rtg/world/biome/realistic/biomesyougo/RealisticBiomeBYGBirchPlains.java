@@ -23,7 +23,6 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGBirchPlains(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGBirchPlains(),
             new SurfaceBYGBirchPlains(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 

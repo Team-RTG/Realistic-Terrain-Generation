@@ -21,7 +21,6 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBambooForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPBambooForest(),
             new SurfaceBOPBambooForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 

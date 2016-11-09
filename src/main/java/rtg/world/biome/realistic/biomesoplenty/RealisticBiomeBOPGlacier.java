@@ -21,7 +21,6 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPGlacier(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPGlacier(230f, 40f, 68f),
             new SurfaceBOPGlacier(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f)
         );

@@ -30,7 +30,6 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGWillowSwamps(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGWillowSwamps(),
             new SurfaceBYGWillowSwamps(config, biome.topBlock, biome.fillerBlock)
         );
 

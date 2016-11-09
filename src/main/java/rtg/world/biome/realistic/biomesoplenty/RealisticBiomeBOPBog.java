@@ -22,7 +22,6 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBog(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPBog(),
             new SurfaceBOPBog(config, biome.topBlock, biome.fillerBlock)
         );
 

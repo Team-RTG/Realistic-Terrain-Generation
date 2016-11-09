@@ -26,7 +26,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSeasonalForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPSeasonalForest(15f, 80f, 68f, 170f),
             new SurfaceBOPSeasonalForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

@@ -27,7 +27,6 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGAutumnForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGAutumnForest(),
             new SurfaceBYGAutumnForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

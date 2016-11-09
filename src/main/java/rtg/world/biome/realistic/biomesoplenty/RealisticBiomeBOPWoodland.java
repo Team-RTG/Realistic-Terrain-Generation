@@ -20,7 +20,6 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPWoodland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPWoodland(10f, 25f, 72f, 120f),
             new SurfaceBOPWoodland(config, biome.topBlock, biome.fillerBlock)
         );
 

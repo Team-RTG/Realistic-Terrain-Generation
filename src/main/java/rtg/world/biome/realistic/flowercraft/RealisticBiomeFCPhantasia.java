@@ -18,7 +18,6 @@ public class RealisticBiomeFCPhantasia extends RealisticBiomeFCBase {
     public RealisticBiomeFCPhantasia(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.flowercraft.TerrainFCPhantasia(),
             new SurfaceFCPhantasia(config, biome.topBlock, biome.fillerBlock)
         );
 

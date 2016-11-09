@@ -25,7 +25,6 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMysticGrove(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove(),
             new SurfaceBOPMysticGrove(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -23,7 +23,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPCrag(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPCrag(90f),
             new SurfaceBOPCrag(config, biome.topBlock, biome.fillerBlock, biome.topBlock)
         );
 

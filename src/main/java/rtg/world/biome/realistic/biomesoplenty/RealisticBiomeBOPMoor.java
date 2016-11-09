@@ -21,7 +21,6 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMoor(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMoor(68f, 75f, 16f),
             new SurfaceBOPMoor(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState())
         );
 

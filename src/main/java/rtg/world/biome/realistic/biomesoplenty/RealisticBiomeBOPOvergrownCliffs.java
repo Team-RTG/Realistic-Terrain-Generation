@@ -20,7 +20,6 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOvergrownCliffs(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOvergrownCliffs(300f, 100f, 0f),
             new SurfaceBOPOvergrownCliffs(config, biome.topBlock, biome.fillerBlock, 0.95f)
         );
 

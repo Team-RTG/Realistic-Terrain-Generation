@@ -18,7 +18,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaMushroomIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland(),
             new SurfaceVanillaMushroomIsland(config, biome.topBlock, biome.fillerBlock, 0f)
         );
 

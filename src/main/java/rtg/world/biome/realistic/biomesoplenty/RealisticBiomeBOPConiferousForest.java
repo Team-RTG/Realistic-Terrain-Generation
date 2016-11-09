@@ -25,7 +25,6 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPConiferousForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPConiferousForest(58f, 84f, 24f),
             new SurfaceBOPConiferousForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

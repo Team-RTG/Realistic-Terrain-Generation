@@ -19,7 +19,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaIceMountains(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains(230f, 60f, 68f),
             new SurfaceVanillaIceMountains(config, biome.topBlock, biome.fillerBlock, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f)
         );

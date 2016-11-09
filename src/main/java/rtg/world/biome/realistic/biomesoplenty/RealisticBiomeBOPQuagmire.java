@@ -20,7 +20,6 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPQuagmire(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPQuagmire(),
             new SurfaceBOPQuagmire(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -22,7 +22,6 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPChaparral(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPChaparral(),
             new SurfaceBOPChaparral(config, biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f)
         );
 

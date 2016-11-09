@@ -23,7 +23,6 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGShrubs(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGShrubs(),
             new SurfaceBYGShrubs(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

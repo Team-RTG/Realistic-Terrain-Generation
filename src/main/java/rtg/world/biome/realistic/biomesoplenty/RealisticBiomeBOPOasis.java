@@ -24,7 +24,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOasis(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOasis(),
             new SurfaceBOPOasis(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

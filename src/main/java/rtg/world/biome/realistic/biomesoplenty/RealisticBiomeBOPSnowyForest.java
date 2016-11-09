@@ -20,7 +20,6 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSnowyForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPSnowyForest(58f, 69f, 28f),
             new SurfaceBOPSnowyForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

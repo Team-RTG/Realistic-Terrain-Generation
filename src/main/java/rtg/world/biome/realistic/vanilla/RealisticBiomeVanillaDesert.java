@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaDesert(),
             new SurfaceVanillaDesert(config, biome.topBlock, biome.fillerBlock)
         );
 

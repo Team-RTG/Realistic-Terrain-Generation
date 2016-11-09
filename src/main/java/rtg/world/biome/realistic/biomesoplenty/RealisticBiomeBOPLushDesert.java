@@ -27,7 +27,6 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLushDesert(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPLushDesert(65f, 40f, 10f),
             new SurfaceBOPLushDesert(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

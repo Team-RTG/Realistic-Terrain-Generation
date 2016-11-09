@@ -21,7 +21,6 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOutback(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback(65f, 50f, 10f),
             new SurfaceBOPOutback(config,
                 Blocks.GRASS.getDefaultState(), //Block top
                 biome.fillerBlock, //Block filler,

@@ -26,7 +26,6 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMountainPeaks(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainPeaks(120f, 100f),
             new SurfaceBOPMountainPeaks(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

@@ -20,7 +20,6 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMeadow(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMeadow(),
             new SurfaceBOPMeadow(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -20,7 +20,6 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPShrubland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPShrubland(),
             new SurfaceBOPShrubland(config, biome.topBlock, biome.fillerBlock)
         );
 

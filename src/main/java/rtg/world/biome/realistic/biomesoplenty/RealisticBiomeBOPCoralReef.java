@@ -20,7 +20,6 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPCoralReef(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f),
             new SurfaceBOPCoralReef(config, biome.topBlock, biome.fillerBlock)
         );
 

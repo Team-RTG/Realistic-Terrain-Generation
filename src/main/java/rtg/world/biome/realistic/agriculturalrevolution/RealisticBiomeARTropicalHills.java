@@ -18,7 +18,6 @@ public class RealisticBiomeARTropicalHills extends RealisticBiomeARBase {
     public RealisticBiomeARTropicalHills(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.agriculturalrevolution.TerrainARTropicalHills(10f, 80f, 68f, 200f),
             new SurfaceARTropicalHills(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), false, null, 0f, 1.5f, 60f, 65f, 1.5f)
         );
 

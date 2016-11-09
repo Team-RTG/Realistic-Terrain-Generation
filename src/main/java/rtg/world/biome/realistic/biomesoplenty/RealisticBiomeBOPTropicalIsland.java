@@ -24,7 +24,6 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPTropicalIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPTropicalIsland(),
             new SurfaceBOPTropicalIsland(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

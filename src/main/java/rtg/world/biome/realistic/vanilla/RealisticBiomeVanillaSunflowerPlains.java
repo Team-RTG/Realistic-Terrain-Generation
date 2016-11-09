@@ -19,7 +19,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaSunflowerPlains(),
             new SurfaceVanillaSunflowerPlains(config, biome.topBlock, biome.fillerBlock)
         );
 

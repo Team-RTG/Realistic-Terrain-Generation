@@ -27,7 +27,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPShield(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield(0f, 100f, 68f, 170f),
             new SurfaceBOPShield(config, biome.topBlock, biome.fillerBlock)
         );
 

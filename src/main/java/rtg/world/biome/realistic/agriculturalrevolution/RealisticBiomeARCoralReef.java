@@ -17,7 +17,6 @@ public class RealisticBiomeARCoralReef extends RealisticBiomeARBase {
     public RealisticBiomeARCoralReef(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.agriculturalrevolution.TerrainARCoralReef(false, -10f, 0f, 0f, 0f, 30f),
             new SurfaceARCoralReef(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -20,7 +20,6 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPTropicalRainforest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPTropicalRainforest(0f, 60f, 68f, 200f),
             new SurfaceBOPTropicalRainforest(config, biome.topBlock, biome.fillerBlock)
         );
 

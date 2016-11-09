@@ -27,7 +27,6 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPCherryBlossomGrove(58f, 76f, 20f),
             new SurfaceBOPCherryBlossomGrove(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

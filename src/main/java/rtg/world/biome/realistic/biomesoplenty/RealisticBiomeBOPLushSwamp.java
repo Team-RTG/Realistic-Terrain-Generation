@@ -24,7 +24,6 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLushSwamp(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPLushSwamp(),
             new SurfaceBOPLushSwamp(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -20,7 +20,6 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSteppe(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPSteppe(65f, 68f, 30f),
             new SurfaceBOPSteppe(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -28,7 +28,6 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPDeadForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadForest(58f, 80f, 30f),
             new SurfaceBOPDeadForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

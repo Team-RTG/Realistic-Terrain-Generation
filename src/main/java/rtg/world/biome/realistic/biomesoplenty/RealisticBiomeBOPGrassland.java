@@ -20,7 +20,6 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPGrassland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrassland(),
             new SurfaceBOPGrassland(config, biome.topBlock, biome.fillerBlock)
         );
 

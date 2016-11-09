@@ -23,7 +23,6 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMLoessPlateau(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.morechinesemc.TerrainMCMLoessPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceMCMLoessPlateau(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

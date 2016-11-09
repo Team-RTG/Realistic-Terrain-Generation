@@ -20,7 +20,6 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPKelpForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPKelpForest(false, -10f, 0f, 0f, 0f, 30f),
             new SurfaceBOPKelpForest(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -21,7 +21,6 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
     RealisticBiomeBAFarmlandBiome(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.betteragriculture.TerrainBAFarmlandBiome(),
             new SurfaceBAFarmlandBiome(config,
                 biome.topBlock, //Block top
                 Blocks.DIRT.getDefaultState(), //Block filler,

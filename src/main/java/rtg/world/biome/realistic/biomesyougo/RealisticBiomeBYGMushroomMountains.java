@@ -18,7 +18,6 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGMushroomMountains(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGMushroomMountains(230f, 100f, 68f),
             new SurfaceBYGMushroomMountains(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f)
         );
 

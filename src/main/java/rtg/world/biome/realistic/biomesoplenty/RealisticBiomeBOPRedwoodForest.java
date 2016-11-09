@@ -26,7 +26,6 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPRedwoodForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPRedwoodForest(58f, 80f, 30f),
             new SurfaceBOPRedwoodForest(config, biome.topBlock, biome.fillerBlock, 0.4f)
         );
 

@@ -21,7 +21,6 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBrushland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPBrushland(),
             new SurfaceBOPBrushland(config, biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 13f, 0.27f)
         );
 

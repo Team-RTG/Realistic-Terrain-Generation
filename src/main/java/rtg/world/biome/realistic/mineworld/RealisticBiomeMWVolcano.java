@@ -17,7 +17,6 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
     public RealisticBiomeMWVolcano(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.mineworld.TerrainMWVolcano(),
             new SurfaceMWVolcano(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

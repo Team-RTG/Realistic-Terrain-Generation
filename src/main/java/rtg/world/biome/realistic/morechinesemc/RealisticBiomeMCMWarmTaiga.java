@@ -23,7 +23,6 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMWarmTaiga(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.morechinesemc.TerrainMCMWarmTaiga(),
             new SurfaceMCMWarmTaiga(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

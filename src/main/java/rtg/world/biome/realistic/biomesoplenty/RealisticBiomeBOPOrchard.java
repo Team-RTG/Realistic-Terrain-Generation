@@ -24,7 +24,6 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOrchard(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOrchard(58f, 67f, 25f),
             new SurfaceBOPOrchard(config, biome.topBlock, biome.fillerBlock)
         );
 

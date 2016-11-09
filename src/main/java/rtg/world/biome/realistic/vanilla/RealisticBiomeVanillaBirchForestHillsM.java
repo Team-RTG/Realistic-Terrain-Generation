@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM(),
             new SurfaceVanillaBirchForestHillsM(config, biome.topBlock, biome.fillerBlock)
         );
 

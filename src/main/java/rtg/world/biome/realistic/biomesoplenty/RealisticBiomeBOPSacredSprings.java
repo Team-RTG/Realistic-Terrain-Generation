@@ -20,7 +20,6 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSacredSprings(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPSacredSprings(150f, 30f, 68f),
             new SurfaceBOPSacredSprings(config, biome.topBlock, biome.fillerBlock)
         );
 

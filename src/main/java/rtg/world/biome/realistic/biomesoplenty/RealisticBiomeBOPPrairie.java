@@ -20,7 +20,6 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPPrairie(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPPrairie(65f, 80f, 25f),
             new SurfaceBOPPrairie(config, biome.topBlock, biome.fillerBlock)
         );
 

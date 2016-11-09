@@ -20,7 +20,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPAlps(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPAlps(),
             new SurfaceBOPAlps(config, biome.topBlock, biome.fillerBlock, 0.45f)
         );
 

@@ -18,7 +18,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaFrozenRiver(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenRiver(),
             new SurfaceVanillaFrozenRiver(config)
         );
 

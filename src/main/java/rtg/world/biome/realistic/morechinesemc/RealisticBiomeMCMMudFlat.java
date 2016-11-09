@@ -19,7 +19,6 @@ public class RealisticBiomeMCMMudFlat extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMMudFlat(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.morechinesemc.TerrainMCMMudFlat(),
             new SurfaceMCMMudFlat(config, biome.topBlock, biome.fillerBlock)
         );
 

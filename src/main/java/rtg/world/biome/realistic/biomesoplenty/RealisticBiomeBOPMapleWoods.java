@@ -25,7 +25,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMapleWoods(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMapleWoods(68f, 80f, 30f),
             new SurfaceBOPMapleWoods(config, biome.topBlock, biome.fillerBlock)
         );
 

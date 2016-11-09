@@ -21,7 +21,6 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPColdDesert(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPColdDesert(),
             new SurfaceBOPColdDesert(config,
                 Blocks.SNOW.getDefaultState(), //Block top
                 biome.fillerBlock, //Block filler,

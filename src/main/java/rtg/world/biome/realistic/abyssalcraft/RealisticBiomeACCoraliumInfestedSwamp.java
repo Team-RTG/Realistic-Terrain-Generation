@@ -20,7 +20,6 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
     public RealisticBiomeACCoraliumInfestedSwamp(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.abyssalcraft.TerrainACCoraliumInfestedSwamp(),
             new SurfaceACCoraliumInfestedSwamp(config, biome.topBlock, biome.fillerBlock)
         );
 

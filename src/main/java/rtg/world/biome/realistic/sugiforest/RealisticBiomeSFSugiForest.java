@@ -24,7 +24,6 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
     public RealisticBiomeSFSugiForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.sugiforest.TerrainSFSugiForest(),
             new SurfaceSFSugiForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

@@ -17,7 +17,6 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
     public RealisticBiomeARBambooGrove(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.agriculturalrevolution.TerrainARBambooGrove(),
             new SurfaceARBambooGrove(config, biome.topBlock, biome.fillerBlock, false, null, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.15f)
         );
 

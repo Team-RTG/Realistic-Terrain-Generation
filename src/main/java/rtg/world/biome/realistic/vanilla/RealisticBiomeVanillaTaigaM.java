@@ -19,7 +19,6 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaTaigaM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f),
             new SurfaceVanillaTaigaM(config, biome.topBlock, biome.fillerBlock)
         );
 

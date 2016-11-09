@@ -25,7 +25,6 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaMesaPlateauF(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateauF(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateauF(
                 config,
                 BlockUtil.getStateSand(1),

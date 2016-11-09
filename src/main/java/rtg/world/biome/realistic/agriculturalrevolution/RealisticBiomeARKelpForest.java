@@ -17,7 +17,6 @@ public class RealisticBiomeARKelpForest extends RealisticBiomeARBase {
     public RealisticBiomeARKelpForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.agriculturalrevolution.TerrainARKelpForest(false, -10f, 0f, 0f, 0f, 30f),
             new SurfaceARKelpForest(config, biome.topBlock, biome.fillerBlock)
         );
 

@@ -20,7 +20,6 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPRainforest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPRainforest(90f, 300f),
             new SurfaceBOPRainforest(config, biome.topBlock, biome.fillerBlock, 1.3f)
         );
 

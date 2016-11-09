@@ -21,7 +21,6 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMarsh(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMarsh(),
             new SurfaceBOPMarsh(config, biome.topBlock, biome.fillerBlock)
         );
 

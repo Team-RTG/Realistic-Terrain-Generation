@@ -24,7 +24,6 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
     public RealisticBiomeMWDeadForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.mineworld.TerrainMWDeadForest(58f, 80f, 30f),
             new SurfaceMWDeadForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

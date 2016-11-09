@@ -22,7 +22,6 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     public RealisticBiomeMWAppleForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.mineworld.TerrainMWAppleForest(58f, 76f, 18f),
             new SurfaceMWAppleForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

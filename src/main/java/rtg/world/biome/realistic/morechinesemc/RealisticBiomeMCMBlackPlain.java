@@ -18,7 +18,6 @@ public class RealisticBiomeMCMBlackPlain extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMBlackPlain(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.morechinesemc.TerrainMCMBlackPlain(),
             new SurfaceMCMBlackPlain(config, biome.topBlock, biome.fillerBlock)
         );
 

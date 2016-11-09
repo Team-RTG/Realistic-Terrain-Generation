@@ -20,7 +20,6 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPFlowerIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPFlowerIsland(65f, 68f, 24f),
             new SurfaceBOPFlowerIsland(config, biome.topBlock, biome.fillerBlock)
         );
 

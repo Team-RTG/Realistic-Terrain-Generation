@@ -25,7 +25,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaBirchForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForest(),
             new SurfaceVanillaBirchForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 

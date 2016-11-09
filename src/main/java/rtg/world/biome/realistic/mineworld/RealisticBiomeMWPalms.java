@@ -17,7 +17,6 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
     public RealisticBiomeMWPalms(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.mineworld.TerrainMWPalms(),
             new SurfaceMWPalms(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

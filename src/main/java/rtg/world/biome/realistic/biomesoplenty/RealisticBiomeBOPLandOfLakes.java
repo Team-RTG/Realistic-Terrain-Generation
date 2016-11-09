@@ -28,7 +28,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLandOfLakes(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes(58f, 76f, 36f),
             new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f)
         );
 

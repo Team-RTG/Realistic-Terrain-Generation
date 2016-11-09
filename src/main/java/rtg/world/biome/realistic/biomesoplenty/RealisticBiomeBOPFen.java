@@ -29,7 +29,6 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPFen(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPFen(),
             new SurfaceBOPFen(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

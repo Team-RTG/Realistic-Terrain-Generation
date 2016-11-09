@@ -27,7 +27,6 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGAthuraForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesyougo.TerrainBYGAthuraForest(),
             new SurfaceBYGAthuraForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

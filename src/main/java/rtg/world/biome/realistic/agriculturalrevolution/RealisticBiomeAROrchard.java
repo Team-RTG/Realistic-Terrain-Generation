@@ -17,7 +17,6 @@ public class RealisticBiomeAROrchard extends RealisticBiomeARBase {
     public RealisticBiomeAROrchard(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.agriculturalrevolution.TerrainAROrchard(58f, 67f, 25f),
             new SurfaceAROrchard(config, biome.topBlock, biome.fillerBlock)
         );
 

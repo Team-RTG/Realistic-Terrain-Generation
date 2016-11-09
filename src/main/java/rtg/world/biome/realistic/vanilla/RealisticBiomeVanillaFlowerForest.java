@@ -25,7 +25,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaFlowerForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest(),
             new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f)
         );
 

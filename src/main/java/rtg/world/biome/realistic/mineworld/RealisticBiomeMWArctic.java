@@ -18,7 +18,6 @@ public class RealisticBiomeMWArctic extends RealisticBiomeMWBase {
     public RealisticBiomeMWArctic(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.mineworld.TerrainMWArctic(),
             new SurfaceMWArctic(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

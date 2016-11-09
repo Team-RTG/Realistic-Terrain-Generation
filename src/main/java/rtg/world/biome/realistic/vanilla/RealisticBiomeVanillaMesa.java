@@ -29,7 +29,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaMesa(),
             new SurfaceVanillaMesa(
                 config,
                 BlockUtil.getStateSand(1),

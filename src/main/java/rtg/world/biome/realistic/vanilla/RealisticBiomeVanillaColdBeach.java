@@ -19,7 +19,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach(),
             new SurfaceVanillaColdBeach(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, (byte) 0, 1)
         );
 

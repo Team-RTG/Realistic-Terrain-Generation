@@ -24,7 +24,6 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPHeathland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPHeathland(),
             new SurfaceBOPHeathland(config, biome.topBlock, biome.fillerBlock)
         );
 

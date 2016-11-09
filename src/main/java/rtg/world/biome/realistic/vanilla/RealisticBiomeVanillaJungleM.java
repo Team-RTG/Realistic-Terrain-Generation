@@ -26,7 +26,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungleM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaJungleM(),
             new SurfaceVanillaJungleM(config, biome.topBlock, biome.fillerBlock)
         );
 

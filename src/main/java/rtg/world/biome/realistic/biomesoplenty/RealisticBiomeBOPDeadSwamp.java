@@ -24,7 +24,6 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPDeadSwamp(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadSwamp(),
             new SurfaceBOPDeadSwamp(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState())
         );
 

@@ -22,7 +22,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPHighland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPHighland(),
             new SurfaceBOPHighland(config, biome.topBlock, biome.fillerBlock)
         );
 

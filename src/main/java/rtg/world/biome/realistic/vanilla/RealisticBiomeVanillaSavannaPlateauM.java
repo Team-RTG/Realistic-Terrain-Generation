@@ -22,7 +22,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaSavannaPlateauM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaSavannaPlateauM(config, biome.topBlock, biome.fillerBlock, 0)
         );
 

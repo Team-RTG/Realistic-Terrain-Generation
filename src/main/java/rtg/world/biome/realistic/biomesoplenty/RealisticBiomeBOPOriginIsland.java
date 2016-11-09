@@ -20,7 +20,6 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOriginIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOriginIsland(65f, 80f, 38f),
             new SurfaceBOPOriginIsland(config, biome.topBlock, biome.fillerBlock)
         );
 

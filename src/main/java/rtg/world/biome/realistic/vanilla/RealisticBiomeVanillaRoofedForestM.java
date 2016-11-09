@@ -23,7 +23,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public RealisticBiomeVanillaRoofedForestM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM(),
             new SurfaceVanillaRoofedForestM(config, biome.topBlock, biome.fillerBlock)
         );
 

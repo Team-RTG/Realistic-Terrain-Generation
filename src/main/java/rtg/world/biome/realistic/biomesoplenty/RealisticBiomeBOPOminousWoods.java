@@ -24,7 +24,6 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOminousWoods(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOminousWoods(65f, 80f, 48f),
             new SurfaceBOPOminousWoods(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState())
         );
 

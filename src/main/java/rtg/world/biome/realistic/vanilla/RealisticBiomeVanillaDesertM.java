@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesertM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM(10f, 20f, 68f, 200f),
             new SurfaceVanillaDesertM(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f)
         );
 

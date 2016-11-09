@@ -22,7 +22,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaSavanna(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaSavanna(),
             new SurfaceVanillaSavanna(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.GRASS.getDefaultState(), 13f, 0.27f)
         );
 

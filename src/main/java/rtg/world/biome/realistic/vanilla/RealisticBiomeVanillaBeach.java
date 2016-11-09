@@ -22,7 +22,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaBeach(),
             new SurfaceVanillaBeach(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, (byte) 0, 1)
         );
 

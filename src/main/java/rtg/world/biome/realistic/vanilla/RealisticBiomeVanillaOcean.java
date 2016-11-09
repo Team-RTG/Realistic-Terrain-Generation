@@ -19,7 +19,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaOcean(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaOcean(),
             new SurfaceVanillaOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f)
         );
 

@@ -18,7 +18,6 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaStoneBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaStoneBeach(),
             new SurfaceVanillaStoneBeach(config, Blocks.GRAVEL.getDefaultState(), biome.fillerBlock, 1f, 1.5f, 85f, 20f, 4f)
         );
 

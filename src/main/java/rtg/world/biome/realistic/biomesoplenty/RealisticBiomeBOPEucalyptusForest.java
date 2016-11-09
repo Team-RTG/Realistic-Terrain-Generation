@@ -26,7 +26,6 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPEucalyptusForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPEucalyptusForest(),//(58f, 80f, 36f),
             new SurfaceBOPEucalyptusForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

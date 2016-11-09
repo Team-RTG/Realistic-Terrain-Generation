@@ -20,7 +20,6 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 	public RealisticBiomeBOPMangrove(BiomeConfig config)
 	{
 		super(config, biome, river,
-			new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMangrove(),
 			new SurfaceBOPMangrove(config, biome.topBlock, biome.fillerBlock)
 		);
 		

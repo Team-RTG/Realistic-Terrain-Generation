@@ -31,7 +31,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBayou(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou(),
             new SurfaceBOPBayou(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
         );
 

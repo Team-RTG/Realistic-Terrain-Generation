@@ -20,7 +20,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPGravelBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPGravelBeach(),
             new SurfaceBOPGravelBeach(
                 config,
                 biome.topBlock,

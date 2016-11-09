@@ -21,7 +21,6 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaForestHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaForestHills(),
             new SurfaceVanillaForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 

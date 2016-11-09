@@ -21,7 +21,6 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPWetland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPWetland(),
             new SurfaceBOPWetland(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState())
         );
 

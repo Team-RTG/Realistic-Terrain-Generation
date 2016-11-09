@@ -20,7 +20,6 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPTundra(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPTundra(),
             new SurfaceBOPTundra(config, biome.topBlock, biome.fillerBlock)
         );
 

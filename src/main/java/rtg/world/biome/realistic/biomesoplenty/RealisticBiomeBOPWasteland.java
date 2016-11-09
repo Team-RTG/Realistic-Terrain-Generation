@@ -20,7 +20,6 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPWasteland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPWasteland(),
             new SurfaceBOPWasteland(config, biome.topBlock, biome.fillerBlock)
         );
 

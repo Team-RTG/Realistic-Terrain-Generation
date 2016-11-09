@@ -22,7 +22,6 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMountainFoothills(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainFoothills(),
             new SurfaceBOPMountainFoothills(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

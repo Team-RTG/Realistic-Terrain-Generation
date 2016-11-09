@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaSwamplandM(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaSwamplandM(50f, 25f, 60f),
             new SurfaceVanillaSwamplandM(config, biome.topBlock, biome.fillerBlock)
         );
 

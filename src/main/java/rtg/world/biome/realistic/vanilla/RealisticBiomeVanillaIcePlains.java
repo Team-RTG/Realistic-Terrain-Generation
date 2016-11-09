@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 	public RealisticBiomeVanillaIcePlains(BiomeConfig config)
 	{
 		super(config, biome, river,
-			new rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlains(),
 			new SurfaceVanillaIcePlains(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock)
 		);
 

@@ -22,7 +22,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMegaTaiga(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaiga(),
             new SurfaceVanillaMegaTaiga(config, biome.topBlock, biome.fillerBlock)
         );
 

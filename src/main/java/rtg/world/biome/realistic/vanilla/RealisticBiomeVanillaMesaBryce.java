@@ -28,7 +28,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesaBryce(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
             new SurfaceVanillaMesaBryce(config, BlockUtil.getStateSand(1), BlockUtil.getStateSand(1), 0)
         );
 

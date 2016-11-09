@@ -18,7 +18,6 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
     public RealisticBiomeMWIceHills(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.mineworld.TerrainMWIceHills(230f, 60f, 68f),
             new SurfaceMWIceHills(config,
                 biome.topBlock,
                 biome.fillerBlock,

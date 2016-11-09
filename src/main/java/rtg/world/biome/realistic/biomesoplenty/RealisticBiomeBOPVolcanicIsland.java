@@ -20,7 +20,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPVolcanicIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPVolcanicIsland(),
             new SurfaceBOPVolcanicIsland(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,

@@ -20,7 +20,6 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
     public RealisticBiomeACDarklandsHighland(BiomeConfig config) {
 
         super(config, biome, river,
-            new rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsHighland(10f, 120f, 10f, 200f),
             new SurfaceACDarklandsHighland(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, 60f, -0.14f, 14f, 0.25f)
         );
 

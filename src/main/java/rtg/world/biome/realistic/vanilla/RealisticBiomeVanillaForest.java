@@ -12,7 +12,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionForest;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForest;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaForest;
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
@@ -22,7 +21,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaForest(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaForest(),
             new SurfaceVanillaForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f)
         );
 
@@ -32,21 +31,27 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaForest();
+    }
 
-            private float hillStrength = 10f;// this needs to be linked to the
+    public class TerrainVanillaForest extends TerrainBase {
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        private float hillStrength = 10f;// this needs to be linked to the
 
-                groundNoise = groundNoise(x, y, groundVariation, simplex);
+        public TerrainVanillaForest() {
 
-                float m = hills(x, y, hillStrength, simplex, river);
+        }
 
-                float floNoise = 65f + groundNoise + m;
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
 
-                return riverized(floNoise, river);
-            }
-        };
+            groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+            float m = hills(x, y, hillStrength, simplex, river);
+
+            float floNoise = 65f + groundNoise + m;
+
+            return riverized(floNoise, river);
+        }
     }
 }

@@ -17,7 +17,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungle;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
 
@@ -27,7 +26,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungle(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaJungle(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaJungle(),
             new SurfaceVanillaJungle(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.09f)
         );
 
@@ -151,13 +150,18 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaJungle();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaJungle extends TerrainBase {
 
-                return terrainFlatLakes(x, y, simplex, river, 3f, 66f);
-            }
-        };
+        public TerrainVanillaJungle() {
+
+        }
+
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainFlatLakes(x, y, simplex, river, 3f, 66f);
+        }
     }
 }

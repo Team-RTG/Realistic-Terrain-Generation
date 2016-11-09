@@ -16,7 +16,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
 
@@ -26,7 +25,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaFlowerForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaFlowerForest(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest(),
             new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f)
         );
 
@@ -134,13 +133,19 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaFlowerForest();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaFlowerForest extends TerrainBase {
 
-                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
-            }
-        };
+        public TerrainVanillaFlowerForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+        }
     }
 }

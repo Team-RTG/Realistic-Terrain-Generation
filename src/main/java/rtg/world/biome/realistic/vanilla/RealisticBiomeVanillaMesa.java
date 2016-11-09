@@ -20,7 +20,6 @@ import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesa;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesa;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
@@ -30,7 +29,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaMesa(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaMesa(),
             new SurfaceVanillaMesa(
                 config,
                 BlockUtil.getStateSand(1),
@@ -68,16 +67,22 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaMesa();
+    }
 
-            private GroundEffect groundEffect = new GroundEffect(4f);
+    public class TerrainVanillaMesa extends TerrainBase {
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        private GroundEffect groundEffect = new GroundEffect(4f);
 
-                return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
-            }
-        };
+        public TerrainVanillaMesa() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return riverized(68f + groundEffect.added(simplex, cell, x, y), river);
+        }
     }
 
     @Override

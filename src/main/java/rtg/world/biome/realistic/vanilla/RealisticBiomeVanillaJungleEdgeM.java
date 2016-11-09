@@ -12,7 +12,6 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdgeM;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdgeM;
 
 public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase {
 
@@ -22,7 +21,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaJungleEdgeM(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdgeM(),
             new SurfaceVanillaJungleEdgeM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -47,13 +46,19 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaJungleEdgeM();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaJungleEdgeM extends TerrainBase {
 
-                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
-            }
-        };
+        public TerrainVanillaJungleEdgeM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+        }
     }
 }

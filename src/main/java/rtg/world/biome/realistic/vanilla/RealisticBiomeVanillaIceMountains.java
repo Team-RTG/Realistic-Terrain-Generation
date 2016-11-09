@@ -10,7 +10,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIceMountains;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains;
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
 
@@ -20,7 +19,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaIceMountains(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaIceMountains(230f, 60f, 68f),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaIceMountains(230f, 60f, 68f),
             new SurfaceVanillaIceMountains(config, biome.topBlock, biome.fillerBlock, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
                 -0.14f, 14f, 0.25f)
         );
@@ -34,13 +33,26 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaIceMountains(230f, 60f, 68f);
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaIceMountains extends TerrainBase {
 
-                return terrainLonelyMountain(x, y, simplex, cell, river, 60f, 230f, 68f);
-            }
-        };
+        private float width;
+        private float strength;
+        private float terrainHeight;
+
+        public TerrainVanillaIceMountains(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            terrainHeight = height;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, terrainHeight);
+        }
     }
 }

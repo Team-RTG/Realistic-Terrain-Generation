@@ -12,7 +12,6 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaSpruceTaiga;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaSpruceTaiga;
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
 
@@ -22,7 +21,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaMegaSpruceTaiga(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaMegaSpruceTaiga(),
             new SurfaceVanillaMegaSpruceTaiga(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -49,13 +48,18 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaMegaSpruceTaiga();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaMegaSpruceTaiga extends TerrainBase {
 
-                return terrainFlatLakes(x, y, simplex, river, 14f, 66f);
-            }
-        };
+        public TerrainVanillaMegaSpruceTaiga() {
+
+        }
+
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainFlatLakes(x, y, simplex, river, 14f, 66f);
+        }
     }
 }

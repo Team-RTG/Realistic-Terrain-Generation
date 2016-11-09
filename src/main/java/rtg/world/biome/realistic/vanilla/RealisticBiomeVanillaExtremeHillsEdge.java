@@ -14,7 +14,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsEdge;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsEdge;
 
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
 
@@ -24,7 +23,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     public RealisticBiomeVanillaExtremeHillsEdge(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f),
             new SurfaceVanillaExtremeHillsEdge(config, biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f)
         );
 
@@ -100,13 +99,28 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(68f) {
+        return new TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f);
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaExtremeHillsEdge extends TerrainBase {
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 60f, 10f);
-            }
-        };
+        private float start;
+        private float height;
+        private float base;
+        private float width;
+
+        public TerrainVanillaExtremeHillsEdge(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
+        }
     }
 }

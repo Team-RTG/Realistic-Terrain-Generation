@@ -15,7 +15,6 @@ import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertM;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
@@ -25,7 +24,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesertM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaDesertM(10f, 20f, 68f, 200f),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM(10f, 20f, 68f, 200f),
             new SurfaceVanillaDesertM(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
@@ -39,14 +38,28 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(68f) {
+        return new TerrainVanillaDesertM(10f, 20f, 68f, 200f);
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaDesertM extends TerrainBase {
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 20f, 10f);
-            }
-        };
+        private float start;
+        private float height;
+        private float width;
+
+        public TerrainVanillaDesertM(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
+        }
     }
 
     @Override

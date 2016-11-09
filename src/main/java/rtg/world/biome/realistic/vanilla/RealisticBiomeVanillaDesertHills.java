@@ -15,7 +15,6 @@ import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertHills;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertHills;
 
 public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
 
@@ -25,7 +24,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaDesertHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaDesertHills(10f, 80f, 68f, 200f),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaDesertHills(10f, 80f, 68f, 200f),
             new SurfaceVanillaDesertHills(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
@@ -39,14 +38,28 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(68f) {
+        return new TerrainVanillaDesertHills(10f, 80f, 68f, 200f);
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-            {
-                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 80f, base - 62f);
-            }
-        };
+    public class TerrainVanillaDesertHills extends TerrainBase {
+
+        private float start;
+        private float height;
+        private float width;
+
+        public TerrainVanillaDesertHills(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
+        {
+            return terrainHighland(x, y, simplex, cell, river, start, width, height, base - 62f);
+        }
     }
 
     @Override

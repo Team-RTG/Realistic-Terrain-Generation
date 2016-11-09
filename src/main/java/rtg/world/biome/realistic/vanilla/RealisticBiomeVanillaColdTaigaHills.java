@@ -11,7 +11,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaHills;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaHills;
 
 public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBase {
 
@@ -21,7 +20,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaColdTaigaHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaColdTaigaHills(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaHills(),
             new SurfaceVanillaColdTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f)
         );
 
@@ -33,13 +32,20 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(72f) {
+        return new TerrainVanillaColdTaigaHills();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaColdTaigaHills extends TerrainBase {
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 35f, base - 62f);
-            }
-        };
+        public TerrainVanillaColdTaigaHills() {
+
+            base = 72f;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 35f, base - 62f);
+        }
     }
 }

@@ -17,7 +17,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleHills;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
 
@@ -27,7 +26,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaJungleHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaJungleHills(72f, 40f),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaJungleHills(72f, 40f),
             new SurfaceVanillaJungleHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 1f, 1.5f, 60f, 65f, 1.5f)
         );
 
@@ -152,13 +151,23 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(72f) {
+        return new TerrainVanillaJungleHills(72f, 40f);
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaJungleHills extends TerrainBase {
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 40f, base - 62f);
-            }
-        };
+        private float hillStrength = 40f;
+
+        public TerrainVanillaJungleHills(float bh, float hs) {
+
+            base = bh;
+            hillStrength = hs;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+        }
     }
 }

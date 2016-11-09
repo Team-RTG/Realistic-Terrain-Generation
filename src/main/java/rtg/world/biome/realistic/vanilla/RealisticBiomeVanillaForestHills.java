@@ -12,7 +12,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionForest;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaForestHills;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaForestHills;
 
 public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase {
 
@@ -22,7 +21,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaForestHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaForestHills(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaForestHills(),
             new SurfaceVanillaForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 
@@ -34,14 +33,29 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(72f) {
+        return new TerrainVanillaForestHills();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaForestHills extends TerrainBase {
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 30f, base - 62f);
+        private float hillStrength = 30f;
 
-            }
-        };
+        public TerrainVanillaForestHills() {
+
+            this(72f, 30f);
+        }
+
+        public TerrainVanillaForestHills(float bh, float hs) {
+
+            base = bh;
+            hillStrength = hs;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+
+        }
     }
 }

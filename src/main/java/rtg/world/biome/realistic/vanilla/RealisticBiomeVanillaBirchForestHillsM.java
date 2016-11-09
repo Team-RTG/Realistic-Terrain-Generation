@@ -15,7 +15,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHillsM;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM;
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanillaBase {
 
@@ -25,7 +24,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaBirchForestHillsM(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM(),
             new SurfaceVanillaBirchForestHillsM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -109,15 +108,21 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaBirchForestHillsM();
+    }
 
-            private float hillStrength = 70f;
+    public class TerrainVanillaBirchForestHillsM extends TerrainBase {
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        private float hillStrength = 70f;
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, 10f);
-            }
-        };
+        public TerrainVanillaBirchForestHillsM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, 10f);
+        }
     }
 }

@@ -10,7 +10,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDeepOcean;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDeepOcean;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
@@ -20,7 +19,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDeepOcean(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaDeepOcean(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaDeepOcean(),
             new SurfaceVanillaDeepOcean(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f)
         );
 
@@ -36,13 +35,19 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaDeepOcean();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaDeepOcean extends TerrainBase {
 
-                return terrainOcean(x, y, simplex, river, 40f);
-            }
-        };
+        public TerrainVanillaDeepOcean() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainOcean(x, y, simplex, river, 40f);
+        }
     }
 }

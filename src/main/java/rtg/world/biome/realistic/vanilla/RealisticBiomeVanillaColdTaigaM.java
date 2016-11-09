@@ -10,7 +10,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdTaigaM;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaM;
 
 public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
 
@@ -20,7 +19,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdTaigaM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaColdTaigaM(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaColdTaigaM(),
             new SurfaceVanillaColdTaigaM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -32,13 +31,19 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaColdTaigaM();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaColdTaigaM extends TerrainBase {
 
-                return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
-            }
-        };
+        public TerrainVanillaColdTaigaM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+        }
     }
 }

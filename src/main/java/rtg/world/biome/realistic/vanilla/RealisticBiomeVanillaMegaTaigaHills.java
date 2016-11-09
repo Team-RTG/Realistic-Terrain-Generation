@@ -13,7 +13,6 @@ import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaTaigaHills;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaigaHills;
 
 public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBase {
 
@@ -23,7 +22,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaMegaTaigaHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaMegaTaigaHills(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaigaHills(),
             new SurfaceVanillaMegaTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f)
         );
 
@@ -82,13 +81,22 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(72f) {
+        return new TerrainVanillaMegaTaigaHills();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaMegaTaigaHills extends TerrainBase {
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, 40f, base - 62f);
-            }
-        };
+        private float hillStrength = 40f;
+
+        public TerrainVanillaMegaTaigaHills() {
+
+            base = 72f;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+        }
     }
 }

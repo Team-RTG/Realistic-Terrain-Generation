@@ -17,7 +17,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
 
@@ -27,7 +26,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     public RealisticBiomeVanillaBirchForestHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaBirchForestHills(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills(),
             new SurfaceVanillaBirchForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f)
         );
 
@@ -111,15 +110,27 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaBirchForestHills();
+    }
 
-            private float hillStrength = 35f;
+    public class TerrainVanillaBirchForestHills extends TerrainBase {
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        private float hillStrength = 35f;
 
-                return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
-            }
-        };
+        public TerrainVanillaBirchForestHills() {
+
+        }
+
+        public TerrainVanillaBirchForestHills(float bh, float hs) {
+
+            base = bh;
+            hillStrength = hs;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+        }
     }
 }

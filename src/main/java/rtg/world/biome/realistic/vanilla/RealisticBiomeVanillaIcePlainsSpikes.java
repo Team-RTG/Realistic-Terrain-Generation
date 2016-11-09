@@ -9,7 +9,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaIcePlainsSpikes;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
 
@@ -19,7 +18,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaIcePlainsSpikes(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaIcePlainsSpikes(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaIcePlainsSpikes(),
             new SurfaceVanillaIcePlainsSpikes(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock)
         );
 
@@ -32,13 +31,19 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaIcePlainsSpikes();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaIcePlainsSpikes extends TerrainBase {
 
-                return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
-            }
-        };
+        public TerrainVanillaIcePlainsSpikes() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
+        }
     }
 }

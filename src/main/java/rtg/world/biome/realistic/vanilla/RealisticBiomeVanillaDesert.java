@@ -15,7 +15,6 @@ import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesert;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesert;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
@@ -25,7 +24,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaDesert(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaDesert(),
             new SurfaceVanillaDesert(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -39,24 +38,31 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase(64f) {
+        return new TerrainVanillaDesert();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-                //return terrainPolar(x, y, simplex, river);
-                float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+    public class TerrainVanillaDesert extends TerrainBase {
 
-                duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+        public TerrainVanillaDesert() {
 
-                float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
-                float stFactor = duneHeight;
-                float hPitch = 70;    // Dune scale
-                float hDivisor = 40;
+            super(64);
+        }
 
-                return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
-                    groundNoise(x, y, 1f, simplex);
-            }
-        };
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            //return terrainPolar(x, y, simplex, river);
+            float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+
+            duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+
+            float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
+            float stFactor = duneHeight;
+            float hPitch = 70;    // Dune scale
+            float hDivisor = 40;
+
+            return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
+                groundNoise(x, y, 1f, simplex);
+        }
     }
 
     @Override

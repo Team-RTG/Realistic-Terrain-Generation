@@ -10,7 +10,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
@@ -20,7 +19,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaColdBeach(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach(),
             new SurfaceVanillaColdBeach(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, (byte) 0, 1)
         );
 
@@ -35,13 +34,19 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBase() {
+        return new TerrainVanillaColdBeach();
+    }
 
-            @Override
-            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public class TerrainVanillaColdBeach extends TerrainBase {
 
-                return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
-            }
-        };
+        public TerrainVanillaColdBeach() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
+        }
     }
 }

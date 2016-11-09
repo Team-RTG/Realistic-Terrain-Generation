@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -76,11 +75,6 @@ public abstract class RealisticBiomeBase {
 
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
-
-    public RealisticBiomeBase(BiomeConfig config, Biome biome) {
-
-        this(config, biome, Biomes.RIVER);
-    }
 
     public RealisticBiomeBase(BiomeConfig config, Biome biome, Biome river) {
 

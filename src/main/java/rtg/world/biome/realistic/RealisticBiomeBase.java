@@ -37,7 +37,6 @@ public abstract class RealisticBiomeBase {
     public final Biome beachBiome;
     public BiomeConfig config;
 
-    public TerrainBase oldTerrain;
     public TerrainBase terrain;
 
     public SurfaceBase[] surfaces;
@@ -122,8 +121,6 @@ public abstract class RealisticBiomeBase {
 
         this(config, b, riverbiome);
 
-        this.oldTerrain = t;
-
         surfaces = s;
         surfacesLength = s.length;
 
@@ -139,7 +136,6 @@ public abstract class RealisticBiomeBase {
 
     private void init() {
         this.terrain = initTerrain();
-        this.compareTerrain();
     }
 
     public abstract TerrainBase initTerrain();
@@ -555,13 +551,12 @@ public abstract class RealisticBiomeBase {
         return 80;
     }
 
-    public boolean compareTerrain() {
+    public boolean compareTerrain(TerrainBase oldTerrain) {
 
         OpenSimplexNoise simplex = new OpenSimplexNoise(4444);
         SimplexCellularNoise cell = new SimplexCellularNoise(4444);
         Random rand = new Random(4444);
 
-        TerrainBase oldTerrain = this.oldTerrain;
         float oldNoise;
 
         TerrainBase newTerrain = this.initTerrain();

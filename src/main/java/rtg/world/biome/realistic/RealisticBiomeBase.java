@@ -38,6 +38,7 @@ public abstract class RealisticBiomeBase {
     public final Biome beachBiome;
     public BiomeConfig config;
 
+    public TerrainBase oldTerrain;
     public TerrainBase terrain;
 
     public SurfaceBase[] surfaces;
@@ -126,6 +127,8 @@ public abstract class RealisticBiomeBase {
     public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase[] s) {
 
         this(config, b, riverbiome);
+
+        this.oldTerrain = t;
 
         surfaces = s;
         surfacesLength = s.length;
@@ -564,14 +567,14 @@ public abstract class RealisticBiomeBase {
         SimplexCellularNoise cell = new SimplexCellularNoise(4444);
         Random rand = new Random(4444);
 
-        TerrainBase oldTerrain = this.terrain;
+        TerrainBase oldTerrain = this.oldTerrain;
         float oldNoise;
 
         TerrainBase newTerrain = this.initTerrain();
         float newNoise;
 
-        for (int x = -16; x <= 16; x++) {
-            for (int z = -16; z <= 16; z++) {
+        for (int x = -64; x <= 64; x++) {
+            for (int z = -64; z <= 64; z++) {
 
                 oldNoise = oldTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
                 newNoise = newTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
@@ -579,8 +582,9 @@ public abstract class RealisticBiomeBase {
                 //Logger.info("%s (%d) = oldNoise = %f | newNoise = %f", this.baseBiome.getBiomeName(), Biome.getIdForBiome(this.baseBiome), oldNoise, newNoise);
 
                 if (oldNoise != newNoise) {
-                    Logger.warn("Terrains do not match in biome ID %d (%s).", Biome.getIdForBiome(this.baseBiome), this.baseBiome.getBiomeName());
-                    return false;
+                   throw new RuntimeException(
+                       "Terrains do not match in biome ID " + Biome.getIdForBiome(this.baseBiome) + " (" + this.baseBiome.getBiomeName() + ")."
+                   );
                 }
             }
         }

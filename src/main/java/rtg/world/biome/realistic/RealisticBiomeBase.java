@@ -13,10 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SaplingUtil;
-import rtg.util.SimplexOctave;
+import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
@@ -137,6 +134,8 @@ public abstract class RealisticBiomeBase {
 
         surfaces = s;
         surfacesLength = s.length;
+
+        compareTerrain();
     }
 
     public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
@@ -554,5 +553,35 @@ public abstract class RealisticBiomeBase {
      */
     public int getExtraGoldGenMaxHeight() {
         return 80;
+    }
+
+    public boolean compareTerrain() {
+
+        OpenSimplexNoise simplex = new OpenSimplexNoise(4444);
+        SimplexCellularNoise cell = new SimplexCellularNoise(4444);
+        Random rand = new Random(4444);
+
+        TerrainBase oldTerrain = this.terrain;
+        float oldNoise;
+
+        TerrainBase newTerrain = this.initTerrain();
+        float newNoise;
+
+        for (int x = -16; x <= 16; x++) {
+            for (int z = -16; z <= 16; z++) {
+
+                oldNoise = oldTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
+                newNoise = newTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
+
+                //Logger.info("%s (%d) = oldNoise = %f | newNoise = %f", this.baseBiome.getBiomeName(), Biome.getIdForBiome(this.baseBiome), oldNoise, newNoise);
+
+                if (oldNoise != newNoise) {
+                    Logger.warn("Terrains do not match in biome ID %d (%s).", Biome.getIdForBiome(this.baseBiome), this.baseBiome.getBiomeName());
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

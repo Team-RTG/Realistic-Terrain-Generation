@@ -4,9 +4,11 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.mineworld.SurfaceMWVolcano;
-import rtg.world.gen.terrain.mineworld.TerrainMWVolcano;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
@@ -15,7 +17,7 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
     public RealisticBiomeMWVolcano(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainMWVolcano(),
+            new rtg.world.gen.terrain.mineworld.TerrainMWVolcano(),
             new SurfaceMWVolcano(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -35,5 +37,24 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainMWVolcano();
+    }
+
+    public class TerrainMWVolcano extends TerrainBase {
+
+        public TerrainMWVolcano() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainVolcano(x, y, simplex, cell, border, 70f);
+        }
     }
 }

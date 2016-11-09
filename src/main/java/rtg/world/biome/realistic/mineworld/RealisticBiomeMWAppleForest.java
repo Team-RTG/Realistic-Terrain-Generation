@@ -8,9 +8,11 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.mineworld.BiomeConfigMWAppleForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.mineworld.SurfaceMWAppleForest;
-import rtg.world.gen.terrain.mineworld.TerrainMWAppleForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
 
@@ -20,7 +22,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     public RealisticBiomeMWAppleForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainMWAppleForest(58f, 76f, 18f),
+            new rtg.world.gen.terrain.mineworld.TerrainMWAppleForest(58f, 76f, 18f),
             new SurfaceMWAppleForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -67,5 +69,31 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainMWAppleForest(58f, 76f, 18f);
+    }
+
+    public class TerrainMWAppleForest extends TerrainBase {
+
+        private float minHeight;
+        private float maxHeight;
+        private float hillStrength;
+
+        public TerrainMWAppleForest(float minHeight, float maxHeight, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
+            this.hillStrength = hillStrength;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
+        }
     }
 }

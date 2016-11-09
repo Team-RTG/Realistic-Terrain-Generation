@@ -5,9 +5,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
@@ -16,7 +19,7 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.mithwoodforest.SurfaceMFMithwoodForest;
-import rtg.world.gen.terrain.mithwoodforest.TerrainMFMithwoodForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
@@ -28,7 +31,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
     public RealisticBiomeMFMithwoodForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainMFMithwoodForest(),
+            new rtg.world.gen.terrain.mithwoodforest.TerrainMFMithwoodForest(),
             new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f)
         );
    
@@ -199,6 +202,28 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 24f;
         this.addDeco(decoGrass);
-        
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainMFMithwoodForest();
+    }
+
+    public class TerrainMFMithwoodForest extends TerrainBase {
+
+        public TerrainMFMithwoodForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

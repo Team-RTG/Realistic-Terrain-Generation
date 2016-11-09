@@ -9,7 +9,6 @@ import rtg.api.biome.biomesyougo.config.BiomeConfigBYG;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class RealisticBiomeBYGBase extends RealisticBiomeBase {
@@ -22,9 +21,9 @@ public abstract class RealisticBiomeBYGBase extends RealisticBiomeBase {
     public static RealisticBiomeBase bygRedRockMountains;
     public static RealisticBiomeBase bygWillowSwamps;
 
-    public RealisticBiomeBYGBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBYGBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        super(config, b, riverbiome, t, s);
+        super(config, b, riverbiome, s);
 
         this.waterSurfaceLakeChance = 30;
         this.lavaSurfaceLakeChance = 0;

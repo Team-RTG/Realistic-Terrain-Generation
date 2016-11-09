@@ -117,7 +117,7 @@ public abstract class RealisticBiomeBase {
         this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
     }
 
-    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase[] s) {
 
         this(config, b, riverbiome);
 
@@ -127,9 +127,9 @@ public abstract class RealisticBiomeBase {
         this.init();
     }
 
-    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        this(config, b, riverbiome, t, new SurfaceBase[]{s});
+        this(config, b, riverbiome, new SurfaceBase[]{s});
 
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }

@@ -31,8 +31,8 @@ import rtg.world.gen.terrain.TerrainBase;
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase {
 
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds =
-        new RealisticBiomeBase[256];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
+
     public final Biome baseBiome;
     public final Biome riverBiome;
     public final Biome beachBiome;
@@ -123,19 +123,14 @@ public abstract class RealisticBiomeBase {
         this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
     }
 
-    public static RealisticBiomeBase getBiome(int id) { return arrRealisticBiomeIds[id]; }
-    public static RealisticBiomeBase[] arr() { return arrRealisticBiomeIds; }
-
     public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase[] s) {
 
         this(config, b, riverbiome);
 
-        terrain = t;
-
         surfaces = s;
         surfacesLength = s.length;
 
-        compareTerrain();
+        this.init();
     }
 
     public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
@@ -145,7 +140,20 @@ public abstract class RealisticBiomeBase {
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
     }
 
+    private void init() {
+        this.terrain = initTerrain();
+        this.compareTerrain();
+    }
+
     public abstract TerrainBase initTerrain();
+
+    public static RealisticBiomeBase getBiome(int id) {
+        return arrRealisticBiomeIds[id];
+    }
+
+    public static RealisticBiomeBase[] arr() {
+        return arrRealisticBiomeIds;
+    }
 
     /*
      * Returns the beach biome to use for this biome.

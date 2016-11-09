@@ -3,12 +3,15 @@ package rtg.world.biome.realistic.betteragriculture;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.betteragriculture.config.BiomeConfigBAFarmlandBiome;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.betteragriculture.SurfaceBAFarmlandBiome;
-import rtg.world.gen.terrain.betteragriculture.TerrainBAFarmlandBiome;
+import rtg.world.gen.terrain.TerrainBase;
 
 
 class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase {
@@ -18,7 +21,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
     RealisticBiomeBAFarmlandBiome(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBAFarmlandBiome(),
+            new rtg.world.gen.terrain.betteragriculture.TerrainBAFarmlandBiome(),
             new SurfaceBAFarmlandBiome(config,
                 biome.topBlock, //Block top
                 Blocks.DIRT.getDefaultState(), //Block filler,
@@ -108,6 +111,34 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         decoGrass.maxY = 100;
         decoGrass.loops = 1;
         this.addDeco(decoGrass);
+    }
 
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBAFarmlandBiome();
+    }
+
+    public class TerrainBAFarmlandBiome extends TerrainBase {
+
+        private float baseHeight = 67f;
+        private float peakyHillWavelength = 15f;
+        private float peakyHillStrength = 5f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 20f;
+
+        public TerrainBAFarmlandBiome() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

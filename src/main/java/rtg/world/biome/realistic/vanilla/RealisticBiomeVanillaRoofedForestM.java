@@ -3,14 +3,17 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForestM;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForestM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
 
@@ -20,7 +23,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public RealisticBiomeVanillaRoofedForestM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaRoofedForestM(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForestM(),
             new SurfaceVanillaRoofedForestM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -100,5 +103,24 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoMushrooms.maxY = 90;
         decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
         this.addDeco(decoMushrooms);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaRoofedForestM();
+    }
+
+    public class TerrainVanillaRoofedForestM extends TerrainBase {
+
+        public TerrainVanillaRoofedForestM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 50f, 68f);
+        }
     }
 }

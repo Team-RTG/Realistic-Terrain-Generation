@@ -3,13 +3,17 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsEdge;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsEdge;
+import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsEdge;
 
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
@@ -91,5 +95,18 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBase(68f) {
+
+            @Override
+            public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+                return terrainHighland(x, y, simplex, cell, river, 10f, 200f, 60f, 10f);
+            }
+        };
     }
 }

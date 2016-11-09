@@ -4,9 +4,11 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMushroomIsland;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
@@ -16,7 +18,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaMushroomIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaMushroomIsland(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaMushroomIsland(),
             new SurfaceVanillaMushroomIsland(config, biome.topBlock, biome.fillerBlock, 0f)
         );
 
@@ -24,5 +26,27 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaMushroomIsland();
+    }
+
+    public class TerrainVanillaMushroomIsland extends TerrainBase {
+
+        private float heigth;
+        private float width;
+
+        public TerrainVanillaMushroomIsland() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainGrasslandFlats(x, y, simplex, river, 40f, 25f, 68f);
+        }
     }
 }

@@ -3,15 +3,18 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwampland;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaSwampland;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
@@ -21,7 +24,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaSwampland(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaSwampland(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaSwampland(),
             new SurfaceVanillaSwampland(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -90,5 +93,24 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaSwampland();
+    }
+
+    public class TerrainVanillaSwampland extends TerrainBase {
+
+        public TerrainVanillaSwampland() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainMarsh(x, y, simplex, 61.5f);
+        }
     }
 }

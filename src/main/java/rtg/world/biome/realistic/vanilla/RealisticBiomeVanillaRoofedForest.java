@@ -3,9 +3,12 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -13,7 +16,8 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRoofedForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
@@ -23,7 +27,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaRoofedForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaRoofedForest(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaRoofedForest(),
             new SurfaceVanillaRoofedForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.08f)
         );
 
@@ -150,5 +154,26 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoDeadBush.chance = 2;
         decoDeadBush.strengthFactor = 2f;
         this.addDeco(decoDeadBush);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaRoofedForest();
+    }
+
+    public class TerrainVanillaRoofedForest extends TerrainBase {
+
+        private GroundEffect groundEffect = new GroundEffect(4f);
+
+        public TerrainVanillaRoofedForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f)
+            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+        }
     }
 }

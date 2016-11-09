@@ -7,7 +7,8 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaStoneBeach;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaStoneBeach;
+import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
@@ -17,11 +18,24 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaStoneBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaStoneBeach(),
+            new rtg.world.gen.terrain.vanilla.TerrainVanillaStoneBeach(),
             new SurfaceVanillaStoneBeach(config, Blocks.GRAVEL.getDefaultState(), biome.fillerBlock, 1f, 1.5f, 85f, 20f, 4f)
         );
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaStoneBeach();
+    }
+
+    public class TerrainVanillaStoneBeach extends TerrainVanillaBeach {
+
+        public TerrainVanillaStoneBeach() {
+
+        }
     }
 }

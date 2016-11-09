@@ -11,7 +11,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeARBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase arBambooGrove;
     public static RealisticBiomeBase arCoralReef;

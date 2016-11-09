@@ -12,7 +12,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings("WeakerAccess")
-public class RealisticBiomeBYGBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeBYGBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase bygAutumnForest;
     public static RealisticBiomeBase bygBirchPlains;

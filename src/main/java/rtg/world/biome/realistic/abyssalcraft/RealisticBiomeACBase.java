@@ -12,7 +12,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeACBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase acCoraliumInfestedSwamp;
     public static RealisticBiomeBase acDarklands;

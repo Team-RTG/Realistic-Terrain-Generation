@@ -12,7 +12,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings("WeakerAccess")
-public class RealisticBiomeMCMBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase mcmBlackPlain;
     public static RealisticBiomeBase mcmBog;

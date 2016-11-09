@@ -12,7 +12,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeBOPBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase bopAlps;
     public static RealisticBiomeBase bopBambooForest;

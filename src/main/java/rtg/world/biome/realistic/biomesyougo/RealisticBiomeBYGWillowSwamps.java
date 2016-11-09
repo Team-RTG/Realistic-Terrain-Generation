@@ -5,9 +5,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesyougo.config.BiomeConfigBYGWillowSwamps;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoShrub;
@@ -15,7 +18,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.world.gen.surface.biomesyougo.SurfaceBYGWillowSwamps;
-import rtg.world.gen.terrain.biomesyougo.TerrainBYGWillowSwamps;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
 
@@ -27,7 +30,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGWillowSwamps(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBYGWillowSwamps(),
+            new rtg.world.gen.terrain.biomesyougo.TerrainBYGWillowSwamps(),
             new SurfaceBYGWillowSwamps(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -89,5 +92,24 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoShrubBYG.maxY = 88;
         decoShrubBYG.strengthFactor = 3f;
         this.addDeco(decoShrubBYG);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBYGWillowSwamps();
+    }
+
+    public class TerrainBYGWillowSwamps extends TerrainBase {
+
+        public TerrainBYGWillowSwamps() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainMarsh(x, y, simplex, 61.5f);
+        }
     }
 }

@@ -9,10 +9,12 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPTropicalIsland;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPTropicalIsland;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPTropicalIsland;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
@@ -22,7 +24,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPTropicalIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPTropicalIsland(),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPTropicalIsland(),
             new SurfaceBOPTropicalIsland(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -50,5 +52,24 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPTropicalIsland.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPTropicalIsland();
+    }
+
+    public class TerrainBOPTropicalIsland extends TerrainBase {
+
+        public TerrainBOPTropicalIsland() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, simplex, river, 160f, 30f, 65f);
+        }
     }
 }

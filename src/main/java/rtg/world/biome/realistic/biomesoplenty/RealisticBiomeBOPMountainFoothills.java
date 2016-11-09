@@ -7,9 +7,11 @@ import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountainFoothills;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainFoothills;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
 
@@ -20,7 +22,7 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMountainFoothills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPMountainFoothills(),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainFoothills(),
             new SurfaceBOPMountainFoothills(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -35,5 +37,37 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPMountainFoothills();
+    }
+
+    public class TerrainBOPMountainFoothills extends TerrainBase {
+
+        private float baseHeight = 76f;
+        private float hillStrength = 30f;
+
+        public TerrainBOPMountainFoothills() {
+
+        }
+
+        public TerrainBOPMountainFoothills(float bh, float hs) {
+
+            baseHeight = bh;
+            hillStrength = hs;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float m = hills(x, y, hillStrength, simplex, river);
+
+            return riverized(baseHeight + groundNoise, river) + m;
+        }
     }
 }

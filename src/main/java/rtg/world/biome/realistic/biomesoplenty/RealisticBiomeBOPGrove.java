@@ -1,15 +1,19 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
+
+import biomesoplenty.api.biome.BOPBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGrove;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
@@ -19,7 +23,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPGrove(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPGrove(),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPGrove(),
             new SurfaceBOPGrove(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 
@@ -78,5 +82,33 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPGrove();
+    }
+
+    public class TerrainBOPGrove extends TerrainBase {
+
+        private float baseHeight = 64f;
+        private float peakyHillWavelength = 40f;
+        private float peakyHillStrength = 5f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 10f;
+
+        public TerrainBOPGrove() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            // no ground noise
+
+            float h = this.terrainGrasslandHills(x, y, simplex, cell, river, smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength, baseHeight);
+
+            return h;
+        }
     }
 }

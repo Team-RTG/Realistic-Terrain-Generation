@@ -10,6 +10,8 @@ import biomesoplenty.api.block.BOPBlocks;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
@@ -17,7 +19,7 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFen;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFen;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
 
@@ -27,7 +29,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPFen(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPFen(),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPFen(),
             new SurfaceBOPFen(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -83,5 +85,24 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPFen();
+    }
+
+    public class TerrainBOPFen extends TerrainBase {
+
+        public TerrainBOPFen() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainMarsh(x, y, simplex, 61.5f);
+        }
     }
 }

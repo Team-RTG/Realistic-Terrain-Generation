@@ -8,10 +8,12 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOrchard;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOrchard;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOrchard;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class
 RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
@@ -22,7 +24,7 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOrchard(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPOrchard(58f, 67f, 25f),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPOrchard(58f, 67f, 25f),
             new SurfaceBOPOrchard(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -40,5 +42,31 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
         decoFallenTree.minSize = 2;
         decoFallenTree.maxSize = 3;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOrchard.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPOrchard(58f, 67f, 25f);
+    }
+
+    public class TerrainBOPOrchard extends TerrainBase {
+
+        private float minHeight;
+        private float maxHeight;
+        private float hillStrength;
+
+        public TerrainBOPOrchard(float minHeight, float maxHeight, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
+            this.hillStrength = hillStrength;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
+        }
     }
 }

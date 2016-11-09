@@ -1,18 +1,22 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
+import biomesoplenty.api.biome.BOPBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSeasonalForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSeasonalForest;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSeasonalForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
@@ -22,7 +26,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSeasonalForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPSeasonalForest(15f, 80f, 68f, 170f),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPSeasonalForest(15f, 80f, 68f, 170f),
             new SurfaceBOPSeasonalForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -55,5 +59,33 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSeasonalForest.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPSeasonalForest(15f, 80f, 68f, 170f);
+    }
+
+    public class TerrainBOPSeasonalForest extends TerrainBase {
+
+        private float start;
+        private float height;
+        private float base;
+        private float width;
+
+        public TerrainBOPSeasonalForest(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, start, width, height, 0f);
+        }
     }
 }

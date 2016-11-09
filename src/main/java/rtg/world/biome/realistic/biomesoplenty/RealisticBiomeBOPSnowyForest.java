@@ -6,9 +6,11 @@ import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPSnowyForest;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPSnowyForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
 
@@ -18,7 +20,7 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSnowyForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPSnowyForest(58f, 69f, 28f),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPSnowyForest(58f, 69f, 28f),
             new SurfaceBOPSnowyForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -33,5 +35,31 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPSnowyForest(58f, 69f, 28f);
+    }
+
+    public class TerrainBOPSnowyForest extends TerrainBase {
+
+        private float minHeight;
+        private float maxHeight;
+        private float hillStrength;
+
+        public TerrainBOPSnowyForest(float minHeight, float maxHeight, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
+            this.hillStrength = hillStrength;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
+        }
     }
 }

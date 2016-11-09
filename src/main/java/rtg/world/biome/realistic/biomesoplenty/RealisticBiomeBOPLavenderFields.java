@@ -6,11 +6,13 @@ import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLavenderFields;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLavenderFields;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
 
@@ -20,7 +22,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLavenderFields(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPLavenderFields(),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPLavenderFields(),
             new SurfaceBOPLavenderFields(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f)
         );
 
@@ -37,5 +39,24 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPLavenderFields();
+    }
+
+    public class TerrainBOPLavenderFields extends TerrainBase {
+
+        public TerrainBOPLavenderFields() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 66f);
+        }
     }
 }

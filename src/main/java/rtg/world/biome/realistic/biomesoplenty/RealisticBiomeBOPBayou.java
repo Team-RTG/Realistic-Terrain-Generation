@@ -10,9 +10,11 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBayou;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
@@ -29,7 +31,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBayou(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPBayou(),
+            new rtg.world.gen.terrain.biomesoplenty.TerrainBOPBayou(),
             new SurfaceBOPBayou(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
         );
 
@@ -121,5 +123,24 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoMushrooms.maxY = 90;
         decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
         this.addDeco(decoMushrooms);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPBayou();
+    }
+
+    public class TerrainBOPBayou extends TerrainBase {
+
+        public TerrainBOPBayou() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 80f, 1f, 40f, 20f, 62f);
+        }
     }
 }

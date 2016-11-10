@@ -6,9 +6,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeVanillaBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase vanillaBeach;
     public static RealisticBiomeBase vanillaBirchForest;
@@ -70,9 +69,9 @@ public class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public static RealisticBiomeBase vanillaTaigaHills;
     public static RealisticBiomeBase vanillaTaigaM;
 
-    public RealisticBiomeVanillaBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeVanillaBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        super(config, b, riverbiome, t, s);
+        super(config, b, riverbiome, s);
 
         this.lavaSurfaceLakeChance = 0;
     }

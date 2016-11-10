@@ -4,9 +4,11 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRiver;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRiver;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
@@ -16,7 +18,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaRiver(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaRiver(),
             new SurfaceVanillaRiver(config)
         );
 
@@ -25,5 +26,24 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaRiver();
+    }
+
+    public class TerrainVanillaRiver extends TerrainBase {
+
+        public TerrainVanillaRiver() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainFlatLakes(x, y, simplex, river, 3f, 60f);
+        }
     }
 }

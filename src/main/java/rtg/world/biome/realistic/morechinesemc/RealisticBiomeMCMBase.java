@@ -9,10 +9,9 @@ import rtg.api.biome.morechinesemc.config.BiomeConfigMCM;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings("WeakerAccess")
-public class RealisticBiomeMCMBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase mcmBlackPlain;
     public static RealisticBiomeBase mcmBog;
@@ -20,9 +19,9 @@ public class RealisticBiomeMCMBase extends RealisticBiomeBase {
     public static RealisticBiomeBase mcmMudFlat;
     public static RealisticBiomeBase mcmWarmTaiga;
 
-    public RealisticBiomeMCMBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeMCMBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        super(config, b, riverbiome, t, s);
+        super(config, b, riverbiome, s);
 
         this.waterSurfaceLakeChance = 30;
         this.lavaSurfaceLakeChance = 0;

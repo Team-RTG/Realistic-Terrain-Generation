@@ -10,12 +10,14 @@ import biomesoplenty.api.block.BOPBlocks;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPShield;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPShield;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
@@ -25,7 +27,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPShield(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPShield(0f, 100f, 68f, 170f),
             new SurfaceBOPShield(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -67,5 +68,34 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
         this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPShield.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPShield(0f, 100f, 68f, 170f);
+    }
+
+    // this biome also changes the lake generation in RealisticBiomeBase
+    public class TerrainBOPShield extends TerrainBase {
+
+        private float start;
+        private float height;
+        private float base;
+        private float width;
+
+        public TerrainBOPShield(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 64f);
+        }
     }
 }

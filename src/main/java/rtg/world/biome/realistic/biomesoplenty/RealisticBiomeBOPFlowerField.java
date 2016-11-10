@@ -6,12 +6,14 @@ import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFlowerField;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFlowerField;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
@@ -21,7 +23,6 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPFlowerField(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPFlowerField(),
             new SurfaceBOPFlowerField(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f)
         );
 
@@ -56,5 +57,24 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 24f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPFlowerField();
+    }
+
+    public class TerrainBOPFlowerField extends TerrainBase {
+
+        public TerrainBOPFlowerField() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+        }
     }
 }

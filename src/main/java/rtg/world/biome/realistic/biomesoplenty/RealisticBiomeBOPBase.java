@@ -10,9 +10,8 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeBOPBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase bopAlps;
     public static RealisticBiomeBase bopBambooForest;
@@ -79,9 +78,9 @@ public class RealisticBiomeBOPBase extends RealisticBiomeBase {
     public static RealisticBiomeBase bopXericShrubland;
 
 
-    public RealisticBiomeBOPBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBOPBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        super(config, b, riverbiome, t, s);
+        super(config, b, riverbiome, s);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

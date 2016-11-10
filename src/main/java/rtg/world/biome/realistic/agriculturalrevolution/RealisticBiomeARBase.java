@@ -9,9 +9,8 @@ import rtg.api.biome.agriculturalrevolution.config.BiomeConfigAR;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
-public class RealisticBiomeARBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase arBambooGrove;
     public static RealisticBiomeBase arCoralReef;
@@ -20,9 +19,9 @@ public class RealisticBiomeARBase extends RealisticBiomeBase {
     public static RealisticBiomeBase arOrchard;
     public static RealisticBiomeBase arTropicalHills;
 
-    public RealisticBiomeARBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeARBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        super(config, b, riverbiome, t, s);
+        super(config, b, riverbiome, s);
 
         this.lavaSurfaceLakeChance = 0;
     }

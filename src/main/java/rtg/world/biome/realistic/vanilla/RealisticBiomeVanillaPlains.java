@@ -7,12 +7,15 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
@@ -22,7 +25,6 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaPlains(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaPlains(),
             new SurfaceVanillaPlains(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -99,5 +101,26 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // Vanilla trees look awful in this biome, so let's make sure they don't generate.
         //DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         //this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaPlains();
+    }
+
+    public class TerrainVanillaPlains extends TerrainBase {
+
+        private GroundEffect groundEffect = new GroundEffect(4f);
+
+        public TerrainVanillaPlains() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+        }
     }
 }

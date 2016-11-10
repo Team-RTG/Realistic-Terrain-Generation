@@ -3,13 +3,16 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaRedwoodTaigaHills;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaRedwoodTaigaHills;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaRedwoodTaigaHills;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanillaBase {
 
@@ -19,7 +22,6 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
     public RealisticBiomeVanillaRedwoodTaigaHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaRedwoodTaigaHills(),
             new SurfaceVanillaRedwoodTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f)
         );
 
@@ -73,5 +75,27 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaRedwoodTaigaHills();
+    }
+
+    public class TerrainVanillaRedwoodTaigaHills extends TerrainBase {
+
+        private float hillStrength = 40f;
+
+        public TerrainVanillaRedwoodTaigaHills() {
+
+            base = 72f;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+        }
     }
 }

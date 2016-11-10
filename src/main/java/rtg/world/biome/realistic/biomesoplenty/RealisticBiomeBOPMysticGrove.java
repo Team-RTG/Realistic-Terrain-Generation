@@ -10,10 +10,12 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMysticGrove;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMysticGrove;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
 
@@ -23,7 +25,6 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMysticGrove(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPMysticGrove(),
             new SurfaceBOPMysticGrove(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -40,5 +41,24 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPMysticGrove();
+    }
+
+    public class TerrainBOPMysticGrove extends TerrainBase {
+
+        public TerrainBOPMysticGrove() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+        }
     }
 }

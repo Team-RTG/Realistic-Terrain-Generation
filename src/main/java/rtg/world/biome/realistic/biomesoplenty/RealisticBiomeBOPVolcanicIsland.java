@@ -6,9 +6,11 @@ import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPVolcanicIsland;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPVolcanicIsland;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
@@ -18,7 +20,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPVolcanicIsland(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPVolcanicIsland(),
             new SurfaceBOPVolcanicIsland(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -41,5 +42,24 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         decoGrassDoubleTallgrass.loops = 15;
         decoGrassDoubleTallgrass.maxY = 128;
         this.addDeco(decoGrassDoubleTallgrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPVolcanicIsland();
+    }
+
+    public class TerrainBOPVolcanicIsland extends TerrainBase {
+
+        public TerrainBOPVolcanicIsland() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainVolcano(x, y, simplex, cell, border, 70f);
+        }
     }
 }

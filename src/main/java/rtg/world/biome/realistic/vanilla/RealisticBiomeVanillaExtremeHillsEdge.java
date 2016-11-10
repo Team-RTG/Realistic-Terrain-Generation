@@ -3,14 +3,17 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsEdge;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsEdge;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsEdge;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
 
@@ -20,7 +23,6 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     public RealisticBiomeVanillaExtremeHillsEdge(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f),
             new SurfaceVanillaExtremeHillsEdge(config, biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f)
         );
 
@@ -91,5 +93,33 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f);
+    }
+
+    public class TerrainVanillaExtremeHillsEdge extends TerrainBase {
+
+        private float start;
+        private float height;
+        private float base;
+        private float width;
+
+        public TerrainVanillaExtremeHillsEdge(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
+        }
     }
 }

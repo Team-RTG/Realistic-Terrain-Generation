@@ -9,9 +9,14 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountainPeaks;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPMountainPeaks;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPMountainPeaks;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
@@ -21,7 +26,6 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMountainPeaks(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPMountainPeaks(120f, 100f),
             new SurfaceBOPMountainPeaks(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -71,5 +75,49 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 3f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPMountainPeaks(120f, 100f);
+    }
+
+    public class TerrainBOPMountainPeaks extends TerrainBase {
+
+        private float width;
+        private float strength;
+        private float terrainHeight;
+        private float spikeWidth = 30;
+        private float spikeHeight = 50;
+        private HeightEffect heightEffect;
+
+        public TerrainBOPMountainPeaks(float mountainWidth, float mountainStrength) {
+
+            this(mountainWidth, mountainStrength, 90f);
+        }
+
+        public TerrainBOPMountainPeaks(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            terrainHeight = height;
+            MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+            mountainEffect.mountainHeight = strength;
+            mountainEffect.mountainWavelength = width;
+            mountainEffect.spikeHeight = this.spikeHeight;
+            mountainEffect.spikeWavelength = this.spikeWidth;
+
+
+            heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+            heightEffect = new JitterEffect(3f, 6f, heightEffect);
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return riverized(heightEffect.added(simplex, cell, x, y) + terrainHeight, river);
+        }
     }
 }

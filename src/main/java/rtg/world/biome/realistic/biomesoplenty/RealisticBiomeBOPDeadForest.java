@@ -10,13 +10,15 @@ import biomesoplenty.api.block.BOPBlocks;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeadForest;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
@@ -26,7 +28,6 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPDeadForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPDeadForest(58f, 80f, 30f),
             new SurfaceBOPDeadForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -81,5 +82,36 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPDeadForest(58f, 80f, 30f);
+    }
+
+    public class TerrainBOPDeadForest extends TerrainBase {
+
+        private float minHeight = 58f;
+        private float maxHeight = 120f;
+        private float hillStrength = 30f;
+        private float deadForestGroundAmplitude = 10f;
+
+        public TerrainBOPDeadForest() {
+
+        }
+
+        public TerrainBOPDeadForest(float minHeight, float maxHeight, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
+            this.hillStrength = hillStrength;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, deadForestGroundAmplitude, 0f);
+        }
     }
 }

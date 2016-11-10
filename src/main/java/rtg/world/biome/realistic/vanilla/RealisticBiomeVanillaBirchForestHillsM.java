@@ -3,15 +3,18 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenTrees;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHillsM;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHillsM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHillsM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanillaBase {
 
@@ -21,7 +24,6 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public RealisticBiomeVanillaBirchForestHillsM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaBirchForestHillsM(),
             new SurfaceVanillaBirchForestHillsM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -100,5 +102,26 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaBirchForestHillsM();
+    }
+
+    public class TerrainVanillaBirchForestHillsM extends TerrainBase {
+
+        private float hillStrength = 70f;
+
+        public TerrainVanillaBirchForestHillsM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, 10f);
+        }
     }
 }

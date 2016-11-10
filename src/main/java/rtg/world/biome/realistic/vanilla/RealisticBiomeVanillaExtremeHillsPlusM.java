@@ -5,9 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlusM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlusM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanillaBase {
 
@@ -17,7 +19,6 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     public RealisticBiomeVanillaExtremeHillsPlusM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaExtremeHillsPlusM(230f, 120f, 68f),
             new SurfaceVanillaExtremeHillsPlusM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f)
         );
 
@@ -28,5 +29,30 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaExtremeHillsPlusM(230f, 120f, 68f);
+    }
+
+    public class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
+
+        private float width;
+        private float strength;
+
+        public TerrainVanillaExtremeHillsPlusM(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            base = height;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainLonelyMountain(x, y, simplex, cell, river, strength, width, base);
+        }
     }
 }

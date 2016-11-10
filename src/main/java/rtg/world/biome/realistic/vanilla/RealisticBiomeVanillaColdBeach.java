@@ -5,9 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaColdBeach;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaColdBeach;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
@@ -17,7 +19,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaColdBeach(),
             new SurfaceVanillaColdBeach(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, (byte) 0, 1)
         );
 
@@ -27,5 +28,24 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
         decoBoulder.maxY = 95;
         decoBoulder.strengthFactor = 3f;
         this.addDeco(decoBoulder);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaColdBeach();
+    }
+
+    public class TerrainVanillaColdBeach extends TerrainBase {
+
+        public TerrainVanillaColdBeach() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
+        }
     }
 }

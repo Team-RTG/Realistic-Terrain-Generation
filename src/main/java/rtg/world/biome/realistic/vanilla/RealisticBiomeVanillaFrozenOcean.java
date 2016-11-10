@@ -5,9 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFrozenOcean;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaFrozenOcean;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase {
 
@@ -17,7 +19,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaFrozenOcean(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaFrozenOcean(),
             new SurfaceVanillaFrozenOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f)
         );
 
@@ -27,5 +28,24 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaFrozenOcean();
+    }
+
+    public class TerrainVanillaFrozenOcean extends TerrainBase {
+
+        public TerrainVanillaFrozenOcean() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainOcean(x, y, simplex, river, 50f);
+        }
     }
 }

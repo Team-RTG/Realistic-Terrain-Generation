@@ -5,10 +5,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaStoneBeach;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBeach;
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
@@ -31,10 +32,16 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
         return new TerrainVanillaStoneBeach();
     }
 
-    public class TerrainVanillaStoneBeach extends TerrainVanillaBeach {
+    public class TerrainVanillaStoneBeach extends TerrainBase {
 
         public TerrainVanillaStoneBeach() {
 
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, simplex, river, 180f, 35f, 63f);
         }
     }
 }

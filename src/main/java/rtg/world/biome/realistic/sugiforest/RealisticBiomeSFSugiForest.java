@@ -8,9 +8,11 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.sugiforest.config.BiomeConfigSFSugiForest;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.sugiforest.SurfaceSFSugiForest;
-import rtg.world.gen.terrain.sugiforest.TerrainSFSugiForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
 
@@ -22,7 +24,6 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
     public RealisticBiomeSFSugiForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainSFSugiForest(),
             new SurfaceSFSugiForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -80,5 +81,34 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoGrass.maxY = 100;
         decoGrass.loops = 1;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainSFSugiForest();
+    }
+
+    public class TerrainSFSugiForest extends TerrainBase {
+
+        private float baseHeight = 72f;
+        private float peakyHillWavelength = 40f;
+        private float peakyHillStrength = 10f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 20f;
+
+        public TerrainSFSugiForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

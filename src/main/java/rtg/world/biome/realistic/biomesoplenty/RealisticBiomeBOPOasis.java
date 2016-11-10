@@ -9,10 +9,12 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOasis;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOasis;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
 
@@ -22,7 +24,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOasis(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPOasis(),
             new SurfaceBOPOasis(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -49,5 +50,24 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOasis.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPOasis();
+    }
+
+    public class TerrainBOPOasis extends TerrainBase {
+
+        public TerrainBOPOasis() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 100f, 65f);
+        }
     }
 }

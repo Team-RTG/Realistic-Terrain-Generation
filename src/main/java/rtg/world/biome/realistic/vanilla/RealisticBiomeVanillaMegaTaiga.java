@@ -3,13 +3,16 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaTaiga;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMegaTaiga;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMegaTaiga;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 
@@ -19,7 +22,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMegaTaiga(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaMegaTaiga(),
             new SurfaceVanillaMegaTaiga(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -71,5 +73,23 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 10f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaMegaTaiga();
+    }
+
+    public class TerrainVanillaMegaTaiga extends TerrainBase {
+
+        public TerrainVanillaMegaTaiga() {
+
+        }
+
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainFlatLakes(x, y, simplex, river, 13f, 66f);
+        }
     }
 }

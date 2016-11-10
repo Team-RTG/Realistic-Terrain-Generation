@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -13,10 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SaplingUtil;
-import rtg.util.SimplexOctave;
+import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
@@ -32,10 +28,10 @@ import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
-public class RealisticBiomeBase {
+public abstract class RealisticBiomeBase {
 
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds =
-        new RealisticBiomeBase[256];
+    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
+
     public final Biome baseBiome;
     public final Biome riverBiome;
     public final Biome beachBiome;
@@ -79,11 +75,6 @@ public class RealisticBiomeBase {
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
 
-    public RealisticBiomeBase(BiomeConfig config, Biome biome) {
-
-        this(config, biome, Biomes.RIVER);
-    }
-
     public RealisticBiomeBase(BiomeConfig config, Biome biome, Biome river) {
 
         if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
@@ -126,24 +117,35 @@ public class RealisticBiomeBase {
         this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
     }
 
-    public static RealisticBiomeBase getBiome(int id) { return arrRealisticBiomeIds[id]; }
-    public static RealisticBiomeBase[] arr() { return arrRealisticBiomeIds; }
-
-    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase[] s) {
+    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase[] s) {
 
         this(config, b, riverbiome);
 
-        terrain = t;
-
         surfaces = s;
         surfacesLength = s.length;
+
+        this.init();
     }
 
-    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        this(config, b, riverbiome, t, new SurfaceBase[]{s});
+        this(config, b, riverbiome, new SurfaceBase[]{s});
 
         surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
+    }
+
+    private void init() {
+        this.terrain = initTerrain();
+    }
+
+    public abstract TerrainBase initTerrain();
+
+    public static RealisticBiomeBase getBiome(int id) {
+        return arrRealisticBiomeIds[id];
+    }
+
+    public static RealisticBiomeBase[] arr() {
+        return arrRealisticBiomeIds;
     }
 
     /*
@@ -547,5 +549,35 @@ public class RealisticBiomeBase {
      */
     public int getExtraGoldGenMaxHeight() {
         return 80;
+    }
+
+    public boolean compareTerrain(TerrainBase oldTerrain) {
+
+        OpenSimplexNoise simplex = new OpenSimplexNoise(4444);
+        SimplexCellularNoise cell = new SimplexCellularNoise(4444);
+        Random rand = new Random(4444);
+
+        float oldNoise;
+
+        TerrainBase newTerrain = this.initTerrain();
+        float newNoise;
+
+        for (int x = -64; x <= 64; x++) {
+            for (int z = -64; z <= 64; z++) {
+
+                oldNoise = oldTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
+                newNoise = newTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
+
+                //Logger.info("%s (%d) = oldNoise = %f | newNoise = %f", this.baseBiome.getBiomeName(), Biome.getIdForBiome(this.baseBiome), oldNoise, newNoise);
+
+                if (oldNoise != newNoise) {
+                   throw new RuntimeException(
+                       "Terrains do not match in biome ID " + Biome.getIdForBiome(this.baseBiome) + " (" + this.baseBiome.getBiomeName() + ")."
+                   );
+                }
+            }
+        }
+
+        return true;
     }
 }

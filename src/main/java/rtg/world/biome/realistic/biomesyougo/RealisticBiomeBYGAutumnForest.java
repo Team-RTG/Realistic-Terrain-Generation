@@ -5,14 +5,17 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesyougo.config.BiomeConfigBYGAutumnForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.world.gen.surface.biomesyougo.SurfaceBYGAutumnForest;
-import rtg.world.gen.terrain.biomesyougo.TerrainBYGAutumnForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
 
@@ -24,7 +27,6 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGAutumnForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBYGAutumnForest(),
             new SurfaceBYGAutumnForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -105,5 +107,34 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         decoGrass.maxY = 105;
         decoGrass.loops = 1;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBYGAutumnForest();
+    }
+
+    public class TerrainBYGAutumnForest extends TerrainBase {
+
+        private float baseHeight = 72f;
+        private float peakyHillWavelength = 40f;
+        private float peakyHillStrength = 10f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 20f;
+
+        public TerrainBYGAutumnForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

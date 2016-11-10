@@ -15,7 +15,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaPlateau;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaPlateau;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
@@ -25,7 +25,6 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f),
             new SurfaceVanillaMesaPlateau(config, BlockUtil.getStateSand(1), BlockUtil.getStateClay(1), 0)
         );
 
@@ -64,6 +63,60 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         decoTree.treeConditionNoise = 0f;
         decoTree.minY = 74;
         addDeco(decoTree);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f);
+    }
+
+    public class TerrainVanillaMesaPlateau extends TerrainBase {
+
+        private float[] height;
+        private int heightLength;
+        private float strength;
+
+        /*
+         * Example parameters:
+         *
+         * allowed to generate rivers?
+         * riverGen = true
+         *
+         * canyon jump heights
+         * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
+         *
+         * strength of canyon jump heights
+         * heightStrength = 35f
+         *
+         * canyon width (cliff to cliff)
+         * canyonWidth = 160f
+         *
+         * canyon heigth (total heigth)
+         * canyonHeight = 60f
+         *
+         * canyon strength
+         * canyonStrength = 40f
+         *
+         */
+        public TerrainVanillaMesaPlateau(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
+            /**    Values come in pairs per layer. First is how high to step up.
+             * 	Second is a value between 0 and 1, signifying when to step up.
+             */
+            height = new float[]{32.0f, 0.4f};
+            /**
+             * lower values = smoother.
+             */
+            strength = 10f;
+            heightLength = height.length;
+            base = 69f;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+        }
     }
 
     @Override

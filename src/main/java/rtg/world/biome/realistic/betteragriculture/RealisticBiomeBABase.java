@@ -9,16 +9,15 @@ import rtg.api.biome.betteragriculture.config.BiomeConfigBA;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings("WeakerAccess")
-public class RealisticBiomeBABase extends RealisticBiomeBase {
+public abstract class RealisticBiomeBABase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase baFarmlandBiome;
 
-    public RealisticBiomeBABase(BiomeConfig config, Biome b, Biome riverbiome, TerrainBase t, SurfaceBase s) {
+    public RealisticBiomeBABase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
 
-        super(config, b, riverbiome, t, s);
+        super(config, b, riverbiome, s);
 
         this.lavaSurfaceLakeChance = 0;
     }

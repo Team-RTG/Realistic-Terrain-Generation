@@ -8,10 +8,13 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPHeathland;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPHeathland;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPHeathland;
+import rtg.world.gen.terrain.HillockEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
 
@@ -21,7 +24,6 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPHeathland(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPHeathland(),
             new SurfaceBOPHeathland(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -40,5 +42,35 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPHeathland();
+    }
+
+    public class TerrainBOPHeathland extends TerrainBase {
+
+        private float baseHeight = 66f;
+        private HillockEffect hills;
+
+        public TerrainBOPHeathland() {
+
+            hills = new HillockEffect();
+            hills.height = 25;
+            hills.minimumSimplex = 0.3f;
+            hills.octave = 0;
+            hills.wavelength = 50f;
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            float added = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+            added += hills.added(simplex, cell, x, y);
+            return riverized(baseHeight + added, river);
+        }
     }
 }

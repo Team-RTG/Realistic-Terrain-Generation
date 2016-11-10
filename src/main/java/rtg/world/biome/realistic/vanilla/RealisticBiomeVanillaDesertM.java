@@ -14,7 +14,7 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaDesertM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaDesertM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
@@ -24,7 +24,6 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesertM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaDesertM(10f, 20f, 68f, 200f),
             new SurfaceVanillaDesertM(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f)
         );
 
@@ -33,6 +32,33 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionDesert());
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaDesertM(10f, 20f, 68f, 200f);
+    }
+
+    public class TerrainVanillaDesertM extends TerrainBase {
+
+        private float start;
+        private float height;
+        private float width;
+
+        public TerrainVanillaDesertM(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, start, width, height, 10f);
+        }
     }
 
     @Override

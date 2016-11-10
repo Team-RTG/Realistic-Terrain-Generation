@@ -8,12 +8,14 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.biomesyougo.SurfaceBYGAthuraForest;
-import rtg.world.gen.terrain.biomesyougo.TerrainBYGAthuraForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
 
@@ -25,7 +27,6 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGAthuraForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBYGAthuraForest(),
             new SurfaceBYGAthuraForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -62,5 +63,34 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
         decoGrass.maxY = 105;
         decoGrass.loops = 1;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBYGAthuraForest();
+    }
+
+    public class TerrainBYGAthuraForest extends TerrainBase {
+
+        private float baseHeight = 72f;
+        private float peakyHillWavelength = 40f;
+        private float peakyHillStrength = 10f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 20f;
+
+        public TerrainBYGAthuraForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

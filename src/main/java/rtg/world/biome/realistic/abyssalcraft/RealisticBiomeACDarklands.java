@@ -8,11 +8,13 @@ import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklands;
-import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklands;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
 
@@ -22,7 +24,6 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     public RealisticBiomeACDarklands(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainACDarklands(),
             new SurfaceACDarklands(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.15f)
         );
 
@@ -45,5 +46,34 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainACDarklands();
+    }
+
+    public class TerrainACDarklands extends TerrainBase {
+
+        private float hillStrength = 40f;
+
+        public TerrainACDarklands() {
+
+            this(72f, 40f);
+        }
+
+        public TerrainACDarklands(float bh, float hs) {
+
+            base = bh;
+            hillStrength = hs;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+
+        }
     }
 }

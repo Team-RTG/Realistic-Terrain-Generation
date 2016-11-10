@@ -2,15 +2,19 @@ package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesyougo.config.BiomeConfigBYGBirchPlains;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.biomesyougo.SurfaceBYGBirchPlains;
-import rtg.world.gen.terrain.biomesyougo.TerrainBYGBirchPlains;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
 
@@ -19,7 +23,6 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGBirchPlains(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBYGBirchPlains(),
             new SurfaceBYGBirchPlains(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f)
         );
 
@@ -52,5 +55,27 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
         decoGrass.maxY = 100;
         decoGrass.strengthFactor = 6f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBYGBirchPlains();
+    }
+
+    public class TerrainBYGBirchPlains extends TerrainBase {
+
+
+        private GroundEffect groundEffect = new GroundEffect(4f);
+
+        public TerrainBYGBirchPlains() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+        }
     }
 }

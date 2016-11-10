@@ -1,18 +1,22 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
+import biomesoplenty.api.biome.BOPBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPEucalyptusForest;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPEucalyptusForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
 
@@ -22,7 +26,6 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPEucalyptusForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPEucalyptusForest(),//(58f, 80f, 36f),
             new SurfaceBOPEucalyptusForest(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -63,5 +66,34 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPEucalyptusForest(); //(58f, 80f, 36f)
+    }
+
+    public class TerrainBOPEucalyptusForest extends TerrainBase {
+
+        private float baseHeight = 76f;
+        private float peakyHillWavelength = 40f;
+        private float peakyHillStrength = 20f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 10f;
+
+        public TerrainBOPEucalyptusForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

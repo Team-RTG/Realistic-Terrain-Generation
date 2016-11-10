@@ -1,20 +1,24 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
+import biomesoplenty.api.biome.BOPBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLandOfLakes;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLandOfLakes;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
@@ -24,7 +28,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLandOfLakes(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPLandOfLakes(58f, 76f, 36f),
             new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f)
         );
 
@@ -96,5 +99,31 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPLandOfLakes(58f, 76f, 36f);
+    }
+
+    public class TerrainBOPLandOfLakes extends TerrainBase {
+
+        private float minHeight;
+        private float maxHeight;
+        private float hillStrength;
+
+        public TerrainBOPLandOfLakes(float minHeight, float maxHeight, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
+            this.hillStrength = hillStrength;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
+        }
     }
 }

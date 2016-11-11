@@ -4,16 +4,19 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenTrees;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestHills;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaBirchForestHills;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaBirchForestHills;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
 
@@ -23,7 +26,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     public RealisticBiomeVanillaBirchForestHills(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaBirchForestHills(),
             new SurfaceVanillaBirchForestHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f)
         );
 
@@ -102,5 +104,32 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 20f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaBirchForestHills();
+    }
+
+    public class TerrainVanillaBirchForestHills extends TerrainBase {
+
+        private float hillStrength = 35f;
+
+        public TerrainVanillaBirchForestHills() {
+
+        }
+
+        public TerrainVanillaBirchForestHills(float bh, float hs) {
+
+            base = bh;
+            hillStrength = hs;
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainHighland(x, y, simplex, cell, river, 10f, 68f, hillStrength, base - 62f);
+        }
     }
 }

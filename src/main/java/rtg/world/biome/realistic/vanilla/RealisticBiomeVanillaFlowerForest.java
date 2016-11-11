@@ -3,16 +3,19 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaFlowerForest;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaFlowerForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
 
@@ -22,7 +25,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaFlowerForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaFlowerForest(),
             new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f)
         );
 
@@ -125,5 +127,24 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 24f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaFlowerForest();
+    }
+
+    public class TerrainVanillaFlowerForest extends TerrainBase {
+
+        public TerrainVanillaFlowerForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
+        }
     }
 }

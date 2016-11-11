@@ -4,16 +4,19 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
@@ -23,7 +26,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungleM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaJungleM(),
             new SurfaceVanillaJungleM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -143,5 +145,24 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaJungleM();
+    }
+
+    public class TerrainVanillaJungleM extends TerrainBase {
+
+        public TerrainVanillaJungleM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+        }
     }
 }

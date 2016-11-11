@@ -3,14 +3,20 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsPlus;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaExtremeHillsPlus;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaExtremeHillsPlus;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.MountainsWithPassesEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
@@ -20,7 +26,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     public RealisticBiomeVanillaExtremeHillsPlus(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaExtremeHillsPlus(150f, 80f, 90f),
             new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f)
         );
 
@@ -92,5 +97,42 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         decoDoublePlants.fernChance = 3;
         decoDoublePlants.loops = 15;
         this.addDeco(decoDoublePlants);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaExtremeHillsPlus(150f, 80f, 90f);
+    }
+
+    public class TerrainVanillaExtremeHillsPlus extends TerrainBase {
+
+        private float width;
+        private float strength;
+        private float spikeWidth = 40;
+        private float spikeHeight = 70;
+        private HeightEffect heightEffect;
+
+        public TerrainVanillaExtremeHillsPlus(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            base = height;
+            MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+            mountainEffect.mountainHeight = strength;
+            mountainEffect.mountainWavelength = width;
+            mountainEffect.spikeHeight = this.spikeHeight;
+            mountainEffect.spikeWavelength = this.spikeWidth;
+
+            heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+            heightEffect = new JitterEffect(3f, 6f, heightEffect);
+            //this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return riverized(heightEffect.added(simplex, cell, x, y) + base, river);
+        }
     }
 }

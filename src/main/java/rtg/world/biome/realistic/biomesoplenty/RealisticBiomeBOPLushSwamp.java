@@ -8,11 +8,13 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLushSwamp;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPLushSwamp;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPLushSwamp;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
 
@@ -22,7 +24,6 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLushSwamp(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPLushSwamp(),
             new SurfaceBOPLushSwamp(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -47,5 +48,25 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLushSwamp.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPLushSwamp();
+    }
+
+    public class TerrainBOPLushSwamp extends TerrainBase {
+
+        public TerrainBOPLushSwamp() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainMarsh(x, y, simplex, 61.5f);
+            //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
+        }
     }
 }

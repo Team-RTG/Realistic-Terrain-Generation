@@ -3,17 +3,19 @@ package rtg.world.biome.realistic.vanilla;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
 import rtg.util.BlockUtil;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrass;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.DecoTree;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaPlains;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
@@ -23,9 +25,19 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaPlains(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaPlains(),
             new SurfaceVanillaPlains(config, biome.topBlock, biome.fillerBlock)
         );
+
+        //Sparse wheat
+        DecoCrop decoCropWheat = new DecoCrop();
+        decoCropWheat.size = 8;
+        decoCropWheat.density = 5;
+        decoCropWheat.chance = this.config._int(BiomeConfigVanillaPlains.decorationWheatChanceId);
+        decoCropWheat.type = 3;
+        decoCropWheat.water = false;
+        decoCropWheat.minY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMinYId);
+        decoCropWheat.maxY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMaxYId);
+        this.addDeco(decoCropWheat, this.config._boolean(BiomeConfigVanillaPlains.decorationWheatId));
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();
@@ -89,5 +101,26 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // Vanilla trees look awful in this biome, so let's make sure they don't generate.
         //DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         //this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaPlains();
+    }
+
+    public class TerrainVanillaPlains extends TerrainBase {
+
+        private GroundEffect groundEffect = new GroundEffect(4f);
+
+        public TerrainVanillaPlains() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+        }
     }
 }

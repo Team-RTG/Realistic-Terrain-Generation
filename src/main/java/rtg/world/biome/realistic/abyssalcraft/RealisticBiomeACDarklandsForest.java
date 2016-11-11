@@ -8,9 +8,11 @@ import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.abyssalcraft.SurfaceACDarklandsForest;
-import rtg.world.gen.terrain.abyssalcraft.TerrainACDarklandsForest;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
@@ -20,7 +22,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     public RealisticBiomeACDarklandsForest(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainACDarklandsForest(),
             new SurfaceACDarklandsForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
         );
 
@@ -60,5 +61,32 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainACDarklandsForest();
+    }
+
+    public class TerrainACDarklandsForest extends TerrainBase {
+
+        private float hillStrength = 10f;// this needs to be linked to the
+
+        public TerrainACDarklandsForest() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+            float m = hills(x, y, hillStrength, simplex, river);
+
+            float floNoise = 65f + groundNoise + m;
+
+            return riverized(floNoise, river);
+        }
     }
 }

@@ -6,9 +6,11 @@ import net.minecraft.world.biome.Biome;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPGravelBeach;
-import rtg.world.gen.terrain.biomesoplenty.TerrainBOPGravelBeach;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
@@ -18,7 +20,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPGravelBeach(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainBOPGravelBeach(),
             new SurfaceBOPGravelBeach(
                 config,
                 biome.topBlock,
@@ -32,5 +33,24 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPGravelBeach();
+    }
+
+    public class TerrainBOPGravelBeach extends TerrainBase {
+
+        public TerrainBOPGravelBeach() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
+        }
     }
 }

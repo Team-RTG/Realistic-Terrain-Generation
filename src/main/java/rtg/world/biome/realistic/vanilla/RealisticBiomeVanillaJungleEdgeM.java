@@ -2,13 +2,16 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdgeM;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaJungleEdgeM;
-import rtg.world.gen.terrain.vanilla.TerrainVanillaJungleEdgeM;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase {
 
@@ -18,7 +21,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainVanillaJungleEdgeM(),
             new SurfaceVanillaJungleEdgeM(config, biome.topBlock, biome.fillerBlock)
         );
 
@@ -38,5 +40,24 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleEdgeM.decorationLogsId));
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaJungleEdgeM();
+    }
+
+    public class TerrainVanillaJungleEdgeM extends TerrainBase {
+
+        public TerrainVanillaJungleEdgeM() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
+        }
     }
 }

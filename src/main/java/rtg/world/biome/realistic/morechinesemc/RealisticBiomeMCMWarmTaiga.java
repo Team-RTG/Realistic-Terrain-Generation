@@ -7,12 +7,14 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.morechinesemc.config.BiomeConfigMCMWarmTaiga;
 import rtg.util.BlockUtil;
+import rtg.util.CellNoise;
+import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.morechinesemc.SurfaceMCMWarmTaiga;
-import rtg.world.gen.terrain.morechinesemc.TerrainMCMWarmTaiga;
+import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
 
@@ -21,7 +23,6 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMWarmTaiga(Biome biome, BiomeConfig config) {
 
         super(config, biome, river,
-            new TerrainMCMWarmTaiga(),
             new SurfaceMCMWarmTaiga(config,
                 biome.topBlock, //Block top
                 biome.fillerBlock, //Block filler,
@@ -64,5 +65,34 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainMCMWarmTaiga();
+    }
+
+    public class TerrainMCMWarmTaiga extends TerrainBase {
+
+        private float baseHeight = 72f;
+        private float peakyHillWavelength = 40f;
+        private float peakyHillStrength = 10f;
+        private float smoothHillWavelength = 20f;
+        private float smoothHillStrength = 20f;
+
+        public TerrainMCMWarmTaiga() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
+
+            float h = terrainGrasslandHills(x, y, simplex, cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+
+            return riverized(groundNoise + h, river);
+        }
     }
 }

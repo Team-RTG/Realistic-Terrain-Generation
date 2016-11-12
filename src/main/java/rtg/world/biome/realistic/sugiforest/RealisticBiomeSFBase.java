@@ -8,16 +8,15 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.sugiforest.config.BiomeConfigSF;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class RealisticBiomeSFBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase sfSugiForest;
 
-    public RealisticBiomeSFBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeSFBase(BiomeConfig config, Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(config, b, riverbiome);
 
         this.lavaSurfaceLakeChance = 0;
     }

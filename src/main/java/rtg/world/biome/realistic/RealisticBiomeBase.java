@@ -36,13 +36,9 @@ public abstract class RealisticBiomeBase {
     public final Biome riverBiome;
     public final Biome beachBiome;
     public BiomeConfig config;
-
     public TerrainBase terrain;
-
-    public SurfaceBase[] surfaces;
-    public int surfacesLength;
+    public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
-
     public BiomeDecoratorRTG rDecorator;
 
     public int waterSurfaceLakeChance; //Lower = more frequent
@@ -115,30 +111,19 @@ public abstract class RealisticBiomeBase {
         this.largeBendSize *= ConfigRTG.lakeFrequencyMultiplier;
         this.mediumBendSize *= ConfigRTG.lakeFrequencyMultiplier;
         this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
-    }
-
-    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase[] s) {
-
-        this(config, b, riverbiome);
-
-        surfaces = s;
-        surfacesLength = s.length;
 
         this.init();
     }
 
-    public RealisticBiomeBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
-
-        this(config, b, riverbiome, new SurfaceBase[]{s});
-
-        surfaceGeneric = new SurfaceGeneric(config, s.getTopBlock(), s.getFillerBlock());
-    }
-
     private void init() {
         this.terrain = initTerrain();
+        this.surface = initSurface();
+        this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
     }
 
     public abstract TerrainBase initTerrain();
+
+    public abstract SurfaceBase initSurface();
 
     public static RealisticBiomeBase getBiome(int id) {
         return arrRealisticBiomeIds[id];
@@ -327,9 +312,7 @@ public abstract class RealisticBiomeBase {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
 
-            for (int s = 0; s < surfacesLength; s++) {
-                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
-            }
+            this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
         }
         else {
 
@@ -343,9 +326,7 @@ public abstract class RealisticBiomeBase {
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
 
-            for (int s = 0; s < surfacesLength; s++) {
-                surfaces[s].paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
-            }
+            this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
 
             if (ConfigRTG.enableLushRiverBankSurfacesInHotBiomes) {
 
@@ -371,20 +352,7 @@ public abstract class RealisticBiomeBase {
 
     public SurfaceBase getSurface() {
 
-        if (this.surfacesLength == 0) {
-
-            throw new RuntimeException(
-                "No realistic surfaces found for " + this.baseBiome.getBiomeName() +
-                    " (" + Biome.getIdForBiome(this.baseBiome) + ")."
-            );
-        }
-
-        return this.surfaces[0];
-    }
-
-    public SurfaceBase[] getSurfaces() {
-
-        return this.surfaces;
+        return this.surface;
     }
 
     private class ChunkDecoration {

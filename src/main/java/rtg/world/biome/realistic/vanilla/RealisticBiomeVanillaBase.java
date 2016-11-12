@@ -5,7 +5,6 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.vanilla.config.BiomeConfigVanilla;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
 
@@ -69,9 +68,9 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public static RealisticBiomeBase vanillaTaigaHills;
     public static RealisticBiomeBase vanillaTaigaM;
 
-    public RealisticBiomeVanillaBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeVanillaBase(BiomeConfig config, Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(config, b, riverbiome);
 
         this.lavaSurfaceLakeChance = 0;
     }

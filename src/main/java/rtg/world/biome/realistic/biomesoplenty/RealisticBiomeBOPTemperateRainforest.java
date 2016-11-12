@@ -28,9 +28,6 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
     public RealisticBiomeBOPTemperateRainforest(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -153,5 +150,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -30,8 +30,6 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
         super(config, biome, river);
 
         this.noLakes = true;
-
-        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaTaigaHills.decorationLogsId), 10f));
     }
 
     @Override
@@ -154,5 +152,6 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
+        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaTaigaHills.decorationLogsId), 10f));
     }
 }

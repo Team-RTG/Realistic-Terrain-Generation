@@ -33,12 +33,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.maxY = 128;
-        this.addDeco(decoGrassDoubleTallgrass);
     }
 
     @Override
@@ -158,5 +152,10 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        decoGrassDoubleTallgrass.loops = 15;
+        decoGrassDoubleTallgrass.maxY = 128;
+        this.addDeco(decoGrassDoubleTallgrass);
     }
 }

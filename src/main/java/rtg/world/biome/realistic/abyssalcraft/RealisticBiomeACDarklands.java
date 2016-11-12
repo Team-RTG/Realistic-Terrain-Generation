@@ -33,26 +33,6 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     public RealisticBiomeACDarklands(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 8;
-        decoFallenTree.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
-        decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
-        decoFallenTree.minSize = 2;
-        decoFallenTree.maxSize = 3;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigACDarklands.decorationLogsId));
-
-        DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
-        decoShrubCustom.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
-        decoShrubCustom.maxY = 110;
-        decoShrubCustom.notEqualsZerochance = 3;
-        decoShrubCustom.strengthFactor = 2f;
-        this.addDeco(decoShrubCustom);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -192,5 +172,24 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     @Override
     public void initDecos() {
 
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 8;
+        decoFallenTree.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
+        decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
+        decoFallenTree.minSize = 2;
+        decoFallenTree.maxSize = 3;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigACDarklands.decorationLogsId));
+
+        DecoShrub decoShrubCustom = new DecoShrub();
+        decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
+        decoShrubCustom.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
+        decoShrubCustom.maxY = 110;
+        decoShrubCustom.notEqualsZerochance = 3;
+        decoShrubCustom.strengthFactor = 2f;
+        this.addDeco(decoShrubCustom);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

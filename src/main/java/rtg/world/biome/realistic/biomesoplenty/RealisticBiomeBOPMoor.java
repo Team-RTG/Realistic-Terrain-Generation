@@ -31,9 +31,6 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
         super(config, biome, river);
 
         this.noWaterFeatures = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -125,5 +122,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

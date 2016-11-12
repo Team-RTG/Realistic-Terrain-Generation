@@ -31,21 +31,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOasis(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 16;
-        decoFallenTree.logBlock = BOPBlocks.log_2.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOasis.decorationLogsId));
     }
 
     @Override
@@ -166,5 +151,19 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 16;
+        decoFallenTree.logBlock = BOPBlocks.log_2.getStateFromMeta(3);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 5;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOasis.decorationLogsId));
     }
 }

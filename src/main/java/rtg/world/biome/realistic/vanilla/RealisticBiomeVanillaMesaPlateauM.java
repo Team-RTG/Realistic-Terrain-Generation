@@ -30,24 +30,6 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
         this.noLakes = true;
         this.waterSurfaceLakeChance = 30;
-
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-
-        DecoCactus decoCactus = new DecoCactus();
-        decoCactus.strengthFactor = 25f;
-        decoCactus.soilBlock = BlockUtil.getStateClay(1);
-        decoCactus.sandOnly = false;
-        decoCactus.maxRiver = 0.8f;
-        addDeco(decoCactus);
-
-        DecoReed decoReed = new DecoReed();
-        decoReed.loops = 5;
-        decoReed.maxRiver = 0.8f;
-        addDeco(decoReed);
-
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.strengthFactor = 5f;
-        addDeco(decoDeadBush);
     }
 
     @Override
@@ -194,5 +176,22 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
 
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+
+        DecoCactus decoCactus = new DecoCactus();
+        decoCactus.strengthFactor = 25f;
+        decoCactus.soilBlock = BlockUtil.getStateClay(1);
+        decoCactus.sandOnly = false;
+        decoCactus.maxRiver = 0.8f;
+        addDeco(decoCactus);
+
+        DecoReed decoReed = new DecoReed();
+        decoReed.loops = 5;
+        decoReed.maxRiver = 0.8f;
+        addDeco(decoReed);
+
+        DecoDeadBush decoDeadBush = new DecoDeadBush();
+        decoDeadBush.strengthFactor = 5f;
+        addDeco(decoDeadBush);
     }
 }

@@ -26,10 +26,6 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
     public RealisticBiomeMWPalms(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.equalsZeroChance = 5;
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -151,5 +147,8 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.equalsZeroChance = 5;
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

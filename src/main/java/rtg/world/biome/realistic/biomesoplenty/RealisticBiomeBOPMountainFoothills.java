@@ -29,9 +29,6 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMountainFoothills(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -165,5 +162,7 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

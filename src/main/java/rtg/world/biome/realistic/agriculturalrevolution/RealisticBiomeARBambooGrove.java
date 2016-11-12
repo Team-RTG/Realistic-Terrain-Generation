@@ -25,9 +25,6 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
     public RealisticBiomeARBambooGrove(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -220,5 +217,7 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

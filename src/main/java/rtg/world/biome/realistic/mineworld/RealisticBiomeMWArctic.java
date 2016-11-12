@@ -26,9 +26,6 @@ public class RealisticBiomeMWArctic extends RealisticBiomeMWBase {
     public RealisticBiomeMWArctic(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -169,5 +166,7 @@ public class RealisticBiomeMWArctic extends RealisticBiomeMWBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

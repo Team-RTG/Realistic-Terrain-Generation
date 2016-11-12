@@ -32,30 +32,6 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
     public RealisticBiomeBOPSnowyConiferousForest(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 80;
-        decoBoulder.chance = 16;
-        decoBoulder.strengthFactor = 1f;
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 16;
-        decoFallenTree.logBlock = BOPBlocks.log_1.getStateFromMeta(3);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSnowyConiferousForest.decorationLogsId));
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 12;
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -202,5 +178,28 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
     @Override
     public void initDecos() {
 
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.maxY = 80;
+        decoBoulder.chance = 16;
+        decoBoulder.strengthFactor = 1f;
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 16;
+        decoFallenTree.logBlock = BOPBlocks.log_1.getStateFromMeta(3);
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 4;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSnowyConiferousForest.decorationLogsId));
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.notEqualsZeroChance = 12;
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

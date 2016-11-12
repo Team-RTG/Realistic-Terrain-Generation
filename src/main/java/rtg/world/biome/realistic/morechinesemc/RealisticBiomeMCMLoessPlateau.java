@@ -33,37 +33,6 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
 
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(1);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigMCMLoessPlateau.decorationLogsId));
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.logBlock = BlockUtil.getStateLog(1);
-        decoShrub.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoShrub.maxY = 90;
-        decoShrub.strengthFactor = 2f;
-        decoShrub.chance = 12;
-        this.addDeco(decoShrub);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 30;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
-        this.addDeco(decoBoulder);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -225,5 +194,35 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
     @Override
     public void initDecos() {
 
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 24;
+        decoFallenTree.logBlock = BlockUtil.getStateLog(1);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigMCMLoessPlateau.decorationLogsId));
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.logBlock = BlockUtil.getStateLog(1);
+        decoShrub.leavesBlock = BlockUtil.getStateLeaf(1);
+        decoShrub.maxY = 90;
+        decoShrub.strengthFactor = 2f;
+        decoShrub.chance = 12;
+        this.addDeco(decoShrub);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.chance = 30;
+        decoBoulder.maxY = 80;
+        decoBoulder.strengthFactor = 2f;
+        this.addDeco(decoBoulder);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

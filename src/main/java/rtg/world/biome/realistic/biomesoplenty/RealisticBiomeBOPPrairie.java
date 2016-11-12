@@ -28,9 +28,6 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPPrairie(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -120,5 +117,7 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

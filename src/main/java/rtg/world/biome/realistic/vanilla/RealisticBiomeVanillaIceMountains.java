@@ -29,9 +29,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
         super(config, biome, river);
 
         this.noLakes = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -149,5 +146,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

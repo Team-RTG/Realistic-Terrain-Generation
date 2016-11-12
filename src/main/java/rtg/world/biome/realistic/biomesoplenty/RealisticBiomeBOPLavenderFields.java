@@ -30,20 +30,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLavenderFields(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.chance = 10;
-        decoShrub.strengthFactor = 4f;
-        this.addDeco(decoShrub);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 6f;
-        this.addDeco(decoGrass);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -173,5 +159,18 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.chance = 10;
+        decoShrub.strengthFactor = 4f;
+        this.addDeco(decoShrub);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 128;
+        decoGrass.strengthFactor = 6f;
+        this.addDeco(decoGrass);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

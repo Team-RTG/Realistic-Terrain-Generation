@@ -32,9 +32,6 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
         this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -169,5 +166,7 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

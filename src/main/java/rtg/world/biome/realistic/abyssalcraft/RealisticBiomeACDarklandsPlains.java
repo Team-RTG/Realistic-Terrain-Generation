@@ -29,9 +29,6 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
     public RealisticBiomeACDarklandsPlains(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -113,5 +110,7 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

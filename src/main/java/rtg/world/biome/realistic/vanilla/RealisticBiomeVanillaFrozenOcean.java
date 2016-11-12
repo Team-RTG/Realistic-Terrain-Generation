@@ -31,9 +31,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -119,5 +116,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

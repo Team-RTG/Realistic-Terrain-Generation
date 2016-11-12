@@ -32,27 +32,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSeasonalForest(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 80;
-        decoBoulder.chance = 16;
-        decoBoulder.strengthFactor = 1f;
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 6;
-        decoFallenTree.randomLogBlocks = new IBlockState[]{BlockUtil.getStateLog2(1), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(2)};
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSeasonalForest.decorationLogsId));
     }
 
     @Override
@@ -182,5 +161,25 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.maxY = 80;
+        decoBoulder.chance = 16;
+        decoBoulder.strengthFactor = 1f;
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.randomLogBlocks = new IBlockState[]{BlockUtil.getStateLog2(1), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(2)};
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 4;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSeasonalForest.decorationLogsId));
     }
 }

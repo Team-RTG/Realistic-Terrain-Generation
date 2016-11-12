@@ -28,8 +28,6 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaForest(BiomeConfig config) {
 
         super(config, biome, river);
-
-        this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfigVanillaForest.decorationLogsId)));
     }
 
     @Override
@@ -169,5 +167,6 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
+        this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfigVanillaForest.decorationLogsId)));
     }
 }

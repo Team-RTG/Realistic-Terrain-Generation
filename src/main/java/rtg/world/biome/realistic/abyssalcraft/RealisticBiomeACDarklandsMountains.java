@@ -32,9 +32,6 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -197,5 +194,7 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

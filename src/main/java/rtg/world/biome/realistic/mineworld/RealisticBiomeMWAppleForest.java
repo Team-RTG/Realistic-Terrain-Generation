@@ -28,41 +28,6 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     public RealisticBiomeMWAppleForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.strengthFactor = 2f;
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 95;
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree1 = new DecoFallenTree();
-        decoFallenTree1.distribution.noiseDivisor = 100f;
-        decoFallenTree1.distribution.noiseFactor = 6f;
-        decoFallenTree1.distribution.noiseAddend = 0.8f;
-        decoFallenTree1.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree1.logConditionNoise = 0f;
-        decoFallenTree1.logConditionChance = 16;
-        decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = mwLogBlock;
-        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree1.minSize = 3;
-        decoFallenTree1.maxSize = 5;
-        this.addDeco(decoFallenTree1, this.config._boolean(BiomeConfigMWAppleForest.decorationLogsId));
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 120;
-        decoShrub.strengthFactor = 3f;
-        this.addDeco(decoShrub);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 20f;
-        this.addDeco(decoGrass);
     }
 
     @Override
@@ -191,5 +156,39 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     @Override
     public void initDecos() {
 
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.strengthFactor = 2f;
+        decoBoulder.chance = 24;
+        decoBoulder.maxY = 95;
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree1 = new DecoFallenTree();
+        decoFallenTree1.distribution.noiseDivisor = 100f;
+        decoFallenTree1.distribution.noiseFactor = 6f;
+        decoFallenTree1.distribution.noiseAddend = 0.8f;
+        decoFallenTree1.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree1.logConditionNoise = 0f;
+        decoFallenTree1.logConditionChance = 16;
+        decoFallenTree1.maxY = 100;
+        decoFallenTree1.logBlock = mwLogBlock;
+        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
+        decoFallenTree1.minSize = 3;
+        decoFallenTree1.maxSize = 5;
+        this.addDeco(decoFallenTree1, this.config._boolean(BiomeConfigMWAppleForest.decorationLogsId));
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 120;
+        decoShrub.strengthFactor = 3f;
+        this.addDeco(decoShrub);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 128;
+        decoGrass.strengthFactor = 20f;
+        this.addDeco(decoGrass);
     }
 }

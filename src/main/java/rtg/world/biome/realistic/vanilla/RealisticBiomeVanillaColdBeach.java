@@ -27,13 +27,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 3f;
-        this.addDeco(decoBoulder);
     }
 
     @Override
@@ -144,5 +137,11 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.chance = 16;
+        decoBoulder.maxY = 95;
+        decoBoulder.strengthFactor = 3f;
+        this.addDeco(decoBoulder);
     }
 }

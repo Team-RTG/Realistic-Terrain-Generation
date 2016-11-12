@@ -25,9 +25,6 @@ public class RealisticBiomeBYGFrozenTundra extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGFrozenTundra(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -114,5 +111,7 @@ public class RealisticBiomeBYGFrozenTundra extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

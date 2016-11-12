@@ -102,8 +102,9 @@ public abstract class RealisticBiomeBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.addDeco(decoBaseBiomeDecorations);
+
         // set the water feature constants with the config changes
-        this.lakeInterval           *= ConfigRTG.lakeFrequencyMultiplier;
+        this.lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
         this.lakeWaterLevel *= ConfigRTG.lakeSizeMultiplier();
         this.lakeShoreLevel *= ConfigRTG.lakeSizeMultiplier();
         this.lakeDepressionLevel *= ConfigRTG.lakeSizeMultiplier();

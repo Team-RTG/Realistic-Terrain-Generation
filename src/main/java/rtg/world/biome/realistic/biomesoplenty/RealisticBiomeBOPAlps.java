@@ -31,9 +31,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
         this.generatesEmeralds = true;
         this.noLakes = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -178,5 +175,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

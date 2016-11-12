@@ -26,9 +26,6 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
 
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -229,5 +226,7 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
 
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

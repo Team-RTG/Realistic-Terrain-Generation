@@ -28,9 +28,6 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPColdDesert(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -151,5 +148,12 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

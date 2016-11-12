@@ -31,28 +31,6 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPLushSwamp(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 80;
-        decoBoulder.chance = 16;
-        decoBoulder.strengthFactor = 1f;
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.ALWAYS_GENERATE;
-        decoFallenTree.logConditionChance = 4;
-        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLushSwamp.decorationLogsId));
     }
 
     @Override
@@ -129,5 +107,31 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
+        decoBoulder.maxY = 80;
+        decoBoulder.chance = 16;
+        decoBoulder.strengthFactor = 1f;
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.ALWAYS_GENERATE;
+        decoFallenTree.logConditionChance = 4;
+        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 4;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLushSwamp.decorationLogsId));
     }
 }

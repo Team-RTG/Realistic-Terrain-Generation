@@ -30,9 +30,6 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-        this.addDecoCollection(new DecoCollectionDesert());
     }
 
     @Override
@@ -161,5 +158,12 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesert());
     }
 }

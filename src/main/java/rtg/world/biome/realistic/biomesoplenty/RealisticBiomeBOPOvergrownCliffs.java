@@ -30,9 +30,6 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
         super(config, biome, river);
 
         this.generatesEmeralds = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -174,5 +171,12 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

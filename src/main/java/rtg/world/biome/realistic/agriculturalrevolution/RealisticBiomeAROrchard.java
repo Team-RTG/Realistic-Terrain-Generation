@@ -25,9 +25,6 @@ public class RealisticBiomeAROrchard extends RealisticBiomeARBase {
     public RealisticBiomeAROrchard(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -110,5 +107,12 @@ public class RealisticBiomeAROrchard extends RealisticBiomeARBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

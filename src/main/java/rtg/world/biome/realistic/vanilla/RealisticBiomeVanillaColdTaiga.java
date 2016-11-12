@@ -28,8 +28,6 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaColdTaiga(BiomeConfig config) {
 
         super(config, biome, river);
-
-        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaColdTaiga.decorationLogsId), 8f));
     }
 
     @Override
@@ -131,5 +129,11 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaColdTaiga.decorationLogsId), 8f));
     }
 }

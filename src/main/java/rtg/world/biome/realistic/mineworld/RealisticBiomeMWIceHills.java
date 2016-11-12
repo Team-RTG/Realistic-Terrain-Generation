@@ -26,9 +26,6 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
     public RealisticBiomeMWIceHills(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -148,5 +145,12 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

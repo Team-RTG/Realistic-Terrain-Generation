@@ -102,8 +102,9 @@ public abstract class RealisticBiomeBase {
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.allowed = false;
         this.addDeco(decoBaseBiomeDecorations);
+
         // set the water feature constants with the config changes
-        this.lakeInterval           *= ConfigRTG.lakeFrequencyMultiplier;
+        this.lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
         this.lakeWaterLevel *= ConfigRTG.lakeSizeMultiplier();
         this.lakeShoreLevel *= ConfigRTG.lakeSizeMultiplier();
         this.lakeDepressionLevel *= ConfigRTG.lakeSizeMultiplier();
@@ -119,11 +120,14 @@ public abstract class RealisticBiomeBase {
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
+        initDecos();
     }
 
     public abstract TerrainBase initTerrain();
 
     public abstract SurfaceBase initSurface();
+
+    public abstract void initDecos();
 
     public static RealisticBiomeBase getBiome(int id) {
         return arrRealisticBiomeIds[id];

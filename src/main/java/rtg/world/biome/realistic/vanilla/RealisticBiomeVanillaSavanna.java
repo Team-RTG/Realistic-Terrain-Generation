@@ -29,9 +29,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaSavanna(BiomeConfig config) {
 
         super(config, biome, river);
-
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-        this.addDecoCollection(new DecoCollectionSavanna(this.config._boolean(BiomeConfigVanillaSavanna.decorationLogsId)));
     }
 
     @Override
@@ -129,5 +126,12 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionSavanna(this.config._boolean(BiomeConfigVanillaSavanna.decorationLogsId)));
     }
 }

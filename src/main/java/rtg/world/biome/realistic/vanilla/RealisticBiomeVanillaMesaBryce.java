@@ -31,29 +31,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
-
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 83;
-        this.addDeco(decoBoulder);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.loops = 3;
-        decoShrub.maxY = 90;
-        addDeco(decoShrub);
-
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.maxY = 100;
-        decoDeadBush.loops = 3;
-        this.addDeco(decoDeadBush);
-
-        DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = BlockUtil.getStateSand(1);
-        decoCactus.loops = 18;
-        decoCactus.maxY = 100;
-        this.addDeco(decoCactus);
     }
 
     @Override
@@ -218,5 +195,32 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.maxY = 83;
+        this.addDeco(decoBoulder);
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.loops = 3;
+        decoShrub.maxY = 90;
+        addDeco(decoShrub);
+
+        DecoDeadBush decoDeadBush = new DecoDeadBush();
+        decoDeadBush.maxY = 100;
+        decoDeadBush.loops = 3;
+        this.addDeco(decoDeadBush);
+
+        DecoCactus decoCactus = new DecoCactus();
+        decoCactus.soilBlock = BlockUtil.getStateSand(1);
+        decoCactus.loops = 18;
+        decoCactus.maxY = 100;
+        this.addDeco(decoCactus);
     }
 }

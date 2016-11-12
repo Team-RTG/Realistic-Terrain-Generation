@@ -28,9 +28,6 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 	public RealisticBiomeBOPMangrove(BiomeConfig config)
 	{
 		super(config, biome, river);
-		
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
 	}
 
 	@Override
@@ -106,5 +103,12 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void initDecos() {
+
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
 	}
 }

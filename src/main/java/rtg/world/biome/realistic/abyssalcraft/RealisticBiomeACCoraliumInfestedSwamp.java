@@ -28,9 +28,6 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
     public RealisticBiomeACCoraliumInfestedSwamp(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -105,5 +102,12 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

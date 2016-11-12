@@ -33,34 +33,6 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPRedwoodForest(BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder1.maxY = 80;
-        decoBoulder1.chance = 16;
-        decoBoulder1.strengthFactor = 1f;
-        DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder2.maxY = 80;
-        decoBoulder2.chance = 16;
-        decoBoulder2.strengthFactor = 1f;
-        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
-        this.addDeco(decoHelper5050);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 12;
-        decoFallenTree.logBlock = BOPBlocks.log_3.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPRedwoodForest.decorationLogsId));
     }
 
     @Override
@@ -187,5 +159,37 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder1 = new DecoBoulder();
+        decoBoulder1.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder1.maxY = 80;
+        decoBoulder1.chance = 16;
+        decoBoulder1.strengthFactor = 1f;
+        DecoBoulder decoBoulder2 = new DecoBoulder();
+        decoBoulder2.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder2.maxY = 80;
+        decoBoulder2.chance = 16;
+        decoBoulder2.strengthFactor = 1f;
+        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
+        this.addDeco(decoHelper5050);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 12;
+        decoFallenTree.logBlock = BOPBlocks.log_3.getDefaultState();
+        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 9;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPRedwoodForest.decorationLogsId));
     }
 }

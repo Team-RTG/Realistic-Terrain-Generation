@@ -33,31 +33,6 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGAthuraForest(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoShrub decoShrubAthura = new DecoShrub();
-        decoShrubAthura.logBlock = athuraLogBlock;
-        decoShrubAthura.leavesBlock = athuraLeavesBlock;
-        decoShrubAthura.maxY = 90;
-        decoShrubAthura.strengthFactor = 4f;
-        decoShrubAthura.chance = 8;
-        this.addDeco(decoShrubAthura);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
-        this.addDeco(decoBoulder);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 63;
-        decoGrass.maxY = 105;
-        decoGrass.loops = 1;
-        this.addDeco(decoGrass);
     }
 
     @Override
@@ -186,5 +161,34 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoShrub decoShrubAthura = new DecoShrub();
+        decoShrubAthura.logBlock = athuraLogBlock;
+        decoShrubAthura.leavesBlock = athuraLeavesBlock;
+        decoShrubAthura.maxY = 90;
+        decoShrubAthura.strengthFactor = 4f;
+        decoShrubAthura.chance = 8;
+        this.addDeco(decoShrubAthura);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+        decoBoulder.chance = 24;
+        decoBoulder.maxY = 80;
+        decoBoulder.strengthFactor = 2f;
+        this.addDeco(decoBoulder);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        // Grass filler.
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.minY = 63;
+        decoGrass.maxY = 105;
+        decoGrass.loops = 1;
+        this.addDeco(decoGrass);
     }
 }

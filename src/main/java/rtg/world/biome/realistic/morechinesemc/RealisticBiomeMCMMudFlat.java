@@ -27,9 +27,6 @@ public class RealisticBiomeMCMMudFlat extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMMudFlat(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -130,5 +127,12 @@ public class RealisticBiomeMCMMudFlat extends RealisticBiomeMCMBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

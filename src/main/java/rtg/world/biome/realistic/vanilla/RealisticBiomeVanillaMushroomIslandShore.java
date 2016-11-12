@@ -28,9 +28,6 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
         super(config, biome, river);
 
         this.noLakes = true;
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -139,5 +136,12 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

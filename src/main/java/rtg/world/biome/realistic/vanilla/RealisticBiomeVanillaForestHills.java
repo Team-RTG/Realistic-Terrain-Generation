@@ -30,8 +30,6 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
         super(config, biome, river);
 
         this.noLakes = true;
-
-        this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfigVanillaForestHills.decorationLogsId)));
     }
 
     @Override
@@ -166,5 +164,11 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfigVanillaForestHills.decorationLogsId)));
     }
 }

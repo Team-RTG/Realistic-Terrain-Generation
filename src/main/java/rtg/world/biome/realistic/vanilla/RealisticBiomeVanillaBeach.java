@@ -30,25 +30,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaBeach(BiomeConfig config) {
 
         super(config, biome, river);
-
-        // Scattered palm trees.
-
-        TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
-        nuciferaTree.minTrunkSize = 7;
-        nuciferaTree.maxTrunkSize = 9;
-        nuciferaTree.minCrownSize = 6;
-        nuciferaTree.maxCrownSize = 8;
-        nuciferaTree.validGroundBlocks.clear();
-        nuciferaTree.validGroundBlocks.add(Blocks.SAND.getDefaultState());
-        this.addTree(nuciferaTree);
-
-        DecoTree palmTrees = new DecoTree(nuciferaTree);
-        palmTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        palmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        palmTrees.treeConditionNoise = -0.2f;
-        palmTrees.treeConditionChance = 12;
-        palmTrees.maxY = 68;
-        this.addDeco(palmTrees, this.config._boolean(BiomeConfigVanillaBeach.decorationPalmTreesId));
     }
 
     @Override
@@ -157,5 +138,28 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        // Scattered palm trees.
+
+        TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
+        nuciferaTree.minTrunkSize = 7;
+        nuciferaTree.maxTrunkSize = 9;
+        nuciferaTree.minCrownSize = 6;
+        nuciferaTree.maxCrownSize = 8;
+        nuciferaTree.validGroundBlocks.clear();
+        nuciferaTree.validGroundBlocks.add(Blocks.SAND.getDefaultState());
+        this.addTree(nuciferaTree);
+
+        DecoTree palmTrees = new DecoTree(nuciferaTree);
+        palmTrees.treeType = DecoTree.TreeType.RTG_TREE;
+        palmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        palmTrees.treeConditionNoise = -0.2f;
+        palmTrees.treeConditionChance = 12;
+        palmTrees.maxY = 68;
+        this.addDeco(palmTrees, this.config._boolean(BiomeConfigVanillaBeach.decorationPalmTreesId));
     }
 }

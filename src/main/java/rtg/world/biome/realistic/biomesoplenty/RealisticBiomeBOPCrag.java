@@ -35,14 +35,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
-
-        DecoPond decoPond = new DecoPond();
-        decoPond.chunksPerPond = 3;// very high because most are blocked by topography
-        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
-        this.addDeco(borderedPond);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -178,5 +170,17 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoPond decoPond = new DecoPond();
+        decoPond.chunksPerPond = 3;// very high because most are blocked by topography
+        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
+        this.addDeco(borderedPond);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -30,11 +30,6 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
-
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -176,5 +171,14 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
 
         this.rReplaceRiverSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver());
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -19,7 +19,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
-import rtg.world.biome.deco.DecoFallenTree.LogCondition;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -31,27 +30,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 	public RealisticBiomeVanillaIcePlains(BiomeConfig config)
 	{
 		super(config, biome, river);
-
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
-        
-		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.checkRiver = true;
-		decoBoulder.minRiver = 0.87f;
-		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-		decoBoulder.chance = 16;
-		decoBoulder.maxY = 95;
-		decoBoulder.strengthFactor = 5f;
-		this.addDeco(decoBoulder);
-        
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(1);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenTree.minSize = 1;
-        decoFallenTree.maxSize = 5;        
-		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));
 	}
 
 	@Override
@@ -131,5 +109,30 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void initDecos() {
+
+		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+		this.addDeco(decoBaseBiomeDecorations);
+
+		DecoBoulder decoBoulder = new DecoBoulder();
+		decoBoulder.checkRiver = true;
+		decoBoulder.minRiver = 0.87f;
+		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
+		decoBoulder.chance = 16;
+		decoBoulder.maxY = 95;
+		decoBoulder.strengthFactor = 5f;
+		this.addDeco(decoBoulder);
+
+		DecoFallenTree decoFallenTree = new DecoFallenTree();
+		decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+		decoFallenTree.logConditionChance = 24;
+		decoFallenTree.logBlock = BlockUtil.getStateLog(1);
+		decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
+		decoFallenTree.minSize = 1;
+		decoFallenTree.maxSize = 5;
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));
 	}
 }

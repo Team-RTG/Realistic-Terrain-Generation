@@ -40,93 +40,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         super(config, biome, river);
 
         this.waterSurfaceLakeChance = 0; // We want RTG ponds, not Mojang lakes.
-
-        DecoPond decoPond = new DecoPond();
-        decoPond.chunksPerPond = 1;
-        decoPond.maxY = 67;
-        decoPond.loops = 8;
-        this.addDeco(decoPond);
-
-//        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
-//        myrtilloidesTree.logBlock = logBlock;
-//        myrtilloidesTree.leavesBlock = leavesBlock;
-//        myrtilloidesTree.validGroundBlocks.add(mudBlock);
-//        this.addTree(myrtilloidesTree);
-//        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
-//        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
-//        decoTrees.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-//        decoTrees.treeConditionChance = 4;
-//        decoTrees.logBlock = logBlock;
-//        decoTrees.leavesBlock = leavesBlock;
-//        decoTrees.maxY = 90;
-//        this.addDeco(decoTrees);
-
-        /*
-         * STOP! Don't add anymore trees! BOP seems to generate a batch of its trees every time RTG generates a batch
-         * of its trees, even though we're not calling the BOP Bayou's decorate() method.
-         */
-
-//        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
-//        roseaTree.logBlock = logBlock;
-//        roseaTree.leavesBlock = leavesBlock;
-//        roseaTree.validGroundBlocks.add(mudBlock);
-//        roseaTree.minTrunkSize = 2;
-//        roseaTree.maxTrunkSize = 3;
-//        roseaTree.minCrownSize = 10;
-//        roseaTree.maxCrownSize = 18;
-//        roseaTree.noLeaves = false;
-//        this.addTree(roseaTree);
-//        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
-//        ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
-//        ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-//        ceibaRoseaTree.treeConditionChance = 4;
-//        ceibaRoseaTree.maxY = 90;
-//        ceibaRoseaTree.scatter = new DecoTree.Scatter(16, 0);
-//        this.addDeco(ceibaRoseaTree);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
-        this.addDeco(decoBaseBiomeDecorations);
-
-        // Shrubs to fill in the blanks.
-        DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.maxY = 90;
-        decoShrubOak.strengthFactor = 4f;
-        decoShrubOak.chance = 3;
-        this.addDeco(decoShrubOak);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = -0.2f;
-        decoFallenTree.logConditionChance = 4;
-        decoFallenTree.logBlock = logBlock;
-        decoFallenTree.leavesBlock = leavesBlock;
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPBayou.decorationLogsId));
-
-        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
-        this.addDeco(decoJungleLilypadVines);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.maxY = 90;
-        decoGrassDoubleTallgrass.strengthFactor = 4f;
-        decoGrassDoubleTallgrass.doubleGrassChance = 8;
-        this.addDeco(decoGrassDoubleTallgrass);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 90;
-        decoGrass.strengthFactor = 4f;
-        decoGrass.chance = 2;
-        this.addDeco(decoGrass);
-
-        DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
-        this.addDeco(decoMushrooms);
     }
 
     @Override
@@ -253,5 +166,96 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoPond decoPond = new DecoPond();
+        decoPond.chunksPerPond = 1;
+        decoPond.maxY = 67;
+        decoPond.loops = 8;
+        this.addDeco(decoPond);
+
+//        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
+//        myrtilloidesTree.logBlock = logBlock;
+//        myrtilloidesTree.leavesBlock = leavesBlock;
+//        myrtilloidesTree.validGroundBlocks.add(mudBlock);
+//        this.addTree(myrtilloidesTree);
+//        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
+//        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
+//        decoTrees.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+//        decoTrees.treeConditionChance = 4;
+//        decoTrees.logBlock = logBlock;
+//        decoTrees.leavesBlock = leavesBlock;
+//        decoTrees.maxY = 90;
+//        this.addDeco(decoTrees);
+
+        /*
+         * STOP! Don't add anymore trees! BOP seems to generate a batch of its trees every time RTG generates a batch
+         * of its trees, even though we're not calling the BOP Bayou's decorate() method.
+         */
+
+//        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
+//        roseaTree.logBlock = logBlock;
+//        roseaTree.leavesBlock = leavesBlock;
+//        roseaTree.validGroundBlocks.add(mudBlock);
+//        roseaTree.minTrunkSize = 2;
+//        roseaTree.maxTrunkSize = 3;
+//        roseaTree.minCrownSize = 10;
+//        roseaTree.maxCrownSize = 18;
+//        roseaTree.noLeaves = false;
+//        this.addTree(roseaTree);
+//        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
+//        ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
+//        ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+//        ceibaRoseaTree.treeConditionChance = 4;
+//        ceibaRoseaTree.maxY = 90;
+//        ceibaRoseaTree.scatter = new DecoTree.Scatter(16, 0);
+//        this.addDeco(ceibaRoseaTree);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
+        this.addDeco(decoBaseBiomeDecorations);
+
+        // Shrubs to fill in the blanks.
+        DecoShrub decoShrubOak = new DecoShrub();
+        decoShrubOak.maxY = 90;
+        decoShrubOak.strengthFactor = 4f;
+        decoShrubOak.chance = 3;
+        this.addDeco(decoShrubOak);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = -0.2f;
+        decoFallenTree.logConditionChance = 4;
+        decoFallenTree.logBlock = logBlock;
+        decoFallenTree.leavesBlock = leavesBlock;
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPBayou.decorationLogsId));
+
+        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
+        this.addDeco(decoJungleLilypadVines);
+
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.maxY = 90;
+        decoGrassDoubleTallgrass.strengthFactor = 4f;
+        decoGrassDoubleTallgrass.doubleGrassChance = 8;
+        this.addDeco(decoGrassDoubleTallgrass);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 90;
+        decoGrass.strengthFactor = 4f;
+        decoGrass.chance = 2;
+        this.addDeco(decoGrass);
+
+        DecoMushrooms decoMushrooms = new DecoMushrooms();
+        decoMushrooms.maxY = 90;
+        decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
+        this.addDeco(decoMushrooms);
     }
 }

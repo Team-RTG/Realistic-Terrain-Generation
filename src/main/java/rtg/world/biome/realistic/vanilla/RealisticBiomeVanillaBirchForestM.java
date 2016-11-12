@@ -32,50 +32,6 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         super(config, biome, river);
 
         this.noLakes = true;
-
-        TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
-        tallBirch.logBlock = BlockUtil.getStateLog(2);
-        tallBirch.leavesBlock = BlockUtil.getStateLeaf(2);
-        tallBirch.minTrunkSize = 16;
-        tallBirch.maxTrunkSize = 23;
-        tallBirch.minCrownSize = 4;
-        tallBirch.maxCrownSize = 11;
-        this.addTree(tallBirch);
-
-        DecoTree superTallBirch = new DecoTree(tallBirch);
-        superTallBirch.strengthFactorForLoops = 16f;
-        superTallBirch.strengthNoiseFactorForLoops = true;
-        superTallBirch.treeType = DecoTree.TreeType.RTG_TREE;
-        superTallBirch.distribution.noiseDivisor = 80f;
-        superTallBirch.distribution.noiseFactor = 60f;
-        superTallBirch.distribution.noiseAddend = -15f;
-        superTallBirch.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
-        superTallBirch.maxY = 100;
-        this.addDeco(superTallBirch);
-
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.maxY = 128;
-        decoDoublePlants.strengthFactor = 8f;
-        this.addDeco(decoDoublePlants);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 24f;
-        this.addDeco(decoGrass);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 20;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestM.decorationLogsId));
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 2f;
-        this.addDeco(decoShrub);
     }
 
     @Override
@@ -201,5 +157,53 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
+        tallBirch.logBlock = BlockUtil.getStateLog(2);
+        tallBirch.leavesBlock = BlockUtil.getStateLeaf(2);
+        tallBirch.minTrunkSize = 16;
+        tallBirch.maxTrunkSize = 23;
+        tallBirch.minCrownSize = 4;
+        tallBirch.maxCrownSize = 11;
+        this.addTree(tallBirch);
+
+        DecoTree superTallBirch = new DecoTree(tallBirch);
+        superTallBirch.strengthFactorForLoops = 16f;
+        superTallBirch.strengthNoiseFactorForLoops = true;
+        superTallBirch.treeType = DecoTree.TreeType.RTG_TREE;
+        superTallBirch.distribution.noiseDivisor = 80f;
+        superTallBirch.distribution.noiseFactor = 60f;
+        superTallBirch.distribution.noiseAddend = -15f;
+        superTallBirch.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
+        superTallBirch.maxY = 100;
+        this.addDeco(superTallBirch);
+
+        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
+        decoDoublePlants.maxY = 128;
+        decoDoublePlants.strengthFactor = 8f;
+        this.addDeco(decoDoublePlants);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 128;
+        decoGrass.strengthFactor = 24f;
+        this.addDeco(decoGrass);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
+        decoFallenTree.logConditionChance = 20;
+        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestM.decorationLogsId));
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 110;
+        decoShrub.strengthFactor = 2f;
+        this.addDeco(decoShrub);
     }
 }

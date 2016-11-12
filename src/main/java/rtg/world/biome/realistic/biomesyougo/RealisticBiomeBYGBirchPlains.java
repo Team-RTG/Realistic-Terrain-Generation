@@ -31,36 +31,6 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGBirchPlains(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGBirchPlains.decorationLogsId));
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.maxY = 100;
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoShrub decoShrubBirch = new DecoShrub();
-        decoShrubBirch.logBlock = BlockUtil.getStateLog(2);
-        decoShrubBirch.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoShrubBirch.maxY = 90;
-        decoShrubBirch.strengthFactor = 6f;
-        decoShrubBirch.chance = 4;
-        this.addDeco(decoShrubBirch);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 100;
-        decoGrass.strengthFactor = 6f;
-        this.addDeco(decoGrass);
     }
 
     @Override
@@ -190,5 +160,39 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 24;
+        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGBirchPlains.decorationLogsId));
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.maxY = 100;
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoShrub decoShrubBirch = new DecoShrub();
+        decoShrubBirch.logBlock = BlockUtil.getStateLog(2);
+        decoShrubBirch.leavesBlock = BlockUtil.getStateLeaf(2);
+        decoShrubBirch.maxY = 90;
+        decoShrubBirch.strengthFactor = 6f;
+        decoShrubBirch.chance = 4;
+        this.addDeco(decoShrubBirch);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.maxY = 100;
+        decoGrass.strengthFactor = 6f;
+        this.addDeco(decoGrass);
     }
 }

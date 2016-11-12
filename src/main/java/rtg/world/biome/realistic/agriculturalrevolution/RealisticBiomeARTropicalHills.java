@@ -25,9 +25,6 @@ public class RealisticBiomeARTropicalHills extends RealisticBiomeARBase {
     public RealisticBiomeARTropicalHills(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
@@ -162,5 +159,12 @@ public class RealisticBiomeARTropicalHills extends RealisticBiomeARBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

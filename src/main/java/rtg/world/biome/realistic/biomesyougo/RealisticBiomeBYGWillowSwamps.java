@@ -35,65 +35,6 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGWillowSwamps(Biome biome, BiomeConfig config) {
 
         super(config, biome, river);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.maxY = 82;
-        this.addDeco(decoBaseBiomeDecorations);
-
-        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
-        myrtilloidesTree.logBlock = Blocks.LOG.getDefaultState();
-        myrtilloidesTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        this.addTree(myrtilloidesTree);
-
-        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
-        decoTrees.distribution.noiseDivisor = 80f;
-        decoTrees.distribution.noiseFactor = 60f;
-        decoTrees.distribution.noiseAddend = -15f;
-        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        decoTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoTrees.treeConditionNoise = 0f;
-        decoTrees.treeConditionChance = 16;
-        decoTrees.maxY = 70;
-        this.addDeco(decoTrees);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = BlockUtil.getStateLog2(1);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
-        decoFallenTree.maxY = 76;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGWillowSwamps.decorationLogsId));
-
-        TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
-        deadWillowTree.logBlock = Blocks.LOG.getDefaultState();
-        deadWillowTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        deadWillowTree.noLeaves = true;
-        this.addTree(deadWillowTree);
-
-        DecoTree deadWillow = new DecoTree(deadWillowTree);
-        deadWillow.treeType = DecoTree.TreeType.RTG_TREE;
-        deadWillow.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-        deadWillow.treeConditionChance = 18;
-        deadWillow.maxY = 84;
-        this.addDeco(deadWillow);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 88;
-        decoShrub.strengthFactor = 6f;
-        this.addDeco(decoShrub);
-
-        DecoShrub decoShrubBYG = new DecoShrub();
-        decoShrubBYG.logBlock = willowLogBlock;
-        decoShrubBYG.leavesBlock = willowLeavesBlock;
-        decoShrubBYG.maxY = 88;
-        decoShrubBYG.strengthFactor = 3f;
-        this.addDeco(decoShrubBYG);
     }
 
     @Override
@@ -168,5 +109,68 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
                 }
             }
         }
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.maxY = 82;
+        this.addDeco(decoBaseBiomeDecorations);
+
+        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
+        myrtilloidesTree.logBlock = Blocks.LOG.getDefaultState();
+        myrtilloidesTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        this.addTree(myrtilloidesTree);
+
+        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
+        decoTrees.distribution.noiseDivisor = 80f;
+        decoTrees.distribution.noiseFactor = 60f;
+        decoTrees.distribution.noiseAddend = -15f;
+        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
+        decoTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoTrees.treeConditionNoise = 0f;
+        decoTrees.treeConditionChance = 16;
+        decoTrees.maxY = 70;
+        this.addDeco(decoTrees);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 80f;
+        decoFallenTree.distribution.noiseFactor = 60f;
+        decoFallenTree.distribution.noiseAddend = -15f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 6;
+        decoFallenTree.logBlock = BlockUtil.getStateLog2(1);
+        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 6;
+        decoFallenTree.maxY = 76;
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGWillowSwamps.decorationLogsId));
+
+        TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
+        deadWillowTree.logBlock = Blocks.LOG.getDefaultState();
+        deadWillowTree.leavesBlock = Blocks.LEAVES.getDefaultState();
+        deadWillowTree.noLeaves = true;
+        this.addTree(deadWillowTree);
+
+        DecoTree deadWillow = new DecoTree(deadWillowTree);
+        deadWillow.treeType = DecoTree.TreeType.RTG_TREE;
+        deadWillow.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
+        deadWillow.treeConditionChance = 18;
+        deadWillow.maxY = 84;
+        this.addDeco(deadWillow);
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.maxY = 88;
+        decoShrub.strengthFactor = 6f;
+        this.addDeco(decoShrub);
+
+        DecoShrub decoShrubBYG = new DecoShrub();
+        decoShrubBYG.logBlock = willowLogBlock;
+        decoShrubBYG.leavesBlock = willowLeavesBlock;
+        decoShrubBYG.maxY = 88;
+        decoShrubBYG.strengthFactor = 3f;
+        this.addDeco(decoShrubBYG);
     }
 }

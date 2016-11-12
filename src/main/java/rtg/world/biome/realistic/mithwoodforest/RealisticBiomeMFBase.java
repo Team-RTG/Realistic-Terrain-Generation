@@ -8,16 +8,15 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.mithwoodforest.config.BiomeConfigMF;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class RealisticBiomeMFBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase mfMithwoodForest;
 
-    public RealisticBiomeMFBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeMFBase(BiomeConfig config, Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(config, b, riverbiome);
 
         this.lavaSurfaceLakeChance = 0;
     }

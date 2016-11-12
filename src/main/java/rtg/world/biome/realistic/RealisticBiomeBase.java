@@ -140,6 +140,8 @@ public abstract class RealisticBiomeBase {
 
     public abstract TerrainBase initTerrain();
 
+    public abstract SurfaceBase initSurface();
+
     public static RealisticBiomeBase getBiome(int id) {
         return arrRealisticBiomeIds[id];
     }

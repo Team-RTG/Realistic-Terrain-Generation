@@ -1,4 +1,4 @@
-package rtg.world.gen.surface.abyssalcraft;
+package rtg.world.biome.realistic.abyssalcraft;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.World;

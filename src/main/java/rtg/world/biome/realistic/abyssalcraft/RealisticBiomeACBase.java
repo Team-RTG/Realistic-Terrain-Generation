@@ -9,7 +9,6 @@ import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.abyssalcraft.config.BiomeConfigAC;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
@@ -20,9 +19,9 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
     public static RealisticBiomeBase acDarklandsMountains;
     public static RealisticBiomeBase acDarklandsPlains;
 
-    public RealisticBiomeACBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeACBase(BiomeConfig config, Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(config, b, riverbiome);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -16,9 +15,9 @@ public abstract class RealisticBiomeFCBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase fcPhantasia;
 
-    public RealisticBiomeFCBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeFCBase(BiomeConfig config, Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(config, b, riverbiome);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;

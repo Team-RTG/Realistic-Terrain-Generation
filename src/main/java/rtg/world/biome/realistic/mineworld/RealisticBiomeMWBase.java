@@ -8,7 +8,6 @@ import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.mineworld.BiomeConfigMW;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
@@ -20,9 +19,9 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
     public static RealisticBiomeBase mwPalms;
     public static RealisticBiomeBase mwVolcano;
 
-    public RealisticBiomeMWBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeMWBase(BiomeConfig config, Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(config, b, riverbiome);
 
         this.waterSurfaceLakeChance = 30;
         this.lavaSurfaceLakeChance = 0;

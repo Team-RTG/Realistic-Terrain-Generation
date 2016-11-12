@@ -119,11 +119,14 @@ public abstract class RealisticBiomeBase {
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
+        initDecos();
     }
 
     public abstract TerrainBase initTerrain();
 
     public abstract SurfaceBase initSurface();
+
+    public abstract void initDecos();
 
     public static RealisticBiomeBase getBiome(int id) {
         return arrRealisticBiomeIds[id];

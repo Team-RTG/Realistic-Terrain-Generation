@@ -16,7 +16,7 @@ import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
 
-public class SurfaceBase {
+public abstract class SurfaceBase {
 
     private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
     // create UBColumnCache only if UB is present

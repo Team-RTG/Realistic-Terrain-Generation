@@ -8,7 +8,7 @@ import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import rtg.api.biome.BiomeConfig;
 import rtg.world.gen.surface.SurfaceBase;
 
-public class SurfaceACBase extends SurfaceBase {
+public abstract class SurfaceACBase extends SurfaceBase {
 
     public SurfaceACBase(BiomeConfig config, IBlockState top, IBlockState fill) {
 

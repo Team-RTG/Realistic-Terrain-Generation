@@ -177,4 +177,9 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
         this.rReplaceRiverSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

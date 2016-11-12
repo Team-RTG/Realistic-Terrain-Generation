@@ -162,4 +162,9 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

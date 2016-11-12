@@ -198,4 +198,9 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

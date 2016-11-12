@@ -121,4 +121,9 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

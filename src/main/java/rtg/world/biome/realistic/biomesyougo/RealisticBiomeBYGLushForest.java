@@ -191,4 +191,9 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

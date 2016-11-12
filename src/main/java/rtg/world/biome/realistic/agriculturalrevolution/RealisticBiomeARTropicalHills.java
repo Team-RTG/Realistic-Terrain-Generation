@@ -163,4 +163,9 @@ public class RealisticBiomeARTropicalHills extends RealisticBiomeARBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

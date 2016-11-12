@@ -107,4 +107,9 @@ public class RealisticBiomeFCPhantasia extends RealisticBiomeFCBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

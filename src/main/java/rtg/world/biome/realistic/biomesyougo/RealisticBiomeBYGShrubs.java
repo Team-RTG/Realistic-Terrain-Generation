@@ -189,4 +189,9 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

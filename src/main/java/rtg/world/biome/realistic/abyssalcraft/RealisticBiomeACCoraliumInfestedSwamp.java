@@ -106,4 +106,9 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

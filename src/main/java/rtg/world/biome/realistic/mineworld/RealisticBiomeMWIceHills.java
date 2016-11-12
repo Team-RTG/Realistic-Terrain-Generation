@@ -149,4 +149,9 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

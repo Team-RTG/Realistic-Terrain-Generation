@@ -110,4 +110,9 @@ public class RealisticBiomeBYGFrozenTundra extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

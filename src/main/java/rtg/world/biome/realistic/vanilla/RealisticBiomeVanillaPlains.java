@@ -183,4 +183,9 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

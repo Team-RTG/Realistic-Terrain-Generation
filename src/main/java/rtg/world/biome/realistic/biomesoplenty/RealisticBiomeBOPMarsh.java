@@ -121,4 +121,9 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -232,4 +232,9 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

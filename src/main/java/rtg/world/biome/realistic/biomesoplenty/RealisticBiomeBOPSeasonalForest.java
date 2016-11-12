@@ -178,4 +178,9 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

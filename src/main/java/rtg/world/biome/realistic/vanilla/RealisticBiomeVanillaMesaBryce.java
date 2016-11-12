@@ -219,4 +219,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

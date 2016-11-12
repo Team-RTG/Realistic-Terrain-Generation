@@ -161,4 +161,9 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

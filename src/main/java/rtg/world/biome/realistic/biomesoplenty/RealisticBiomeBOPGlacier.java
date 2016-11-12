@@ -138,4 +138,9 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

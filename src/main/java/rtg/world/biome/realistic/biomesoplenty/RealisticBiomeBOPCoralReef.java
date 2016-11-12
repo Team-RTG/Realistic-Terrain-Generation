@@ -146,4 +146,9 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

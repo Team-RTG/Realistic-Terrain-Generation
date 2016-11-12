@@ -235,4 +235,9 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

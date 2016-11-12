@@ -154,4 +154,9 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

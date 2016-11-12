@@ -146,4 +146,9 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -159,4 +159,9 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

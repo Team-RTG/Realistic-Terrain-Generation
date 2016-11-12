@@ -150,4 +150,9 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

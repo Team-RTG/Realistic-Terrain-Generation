@@ -182,4 +182,9 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -91,4 +91,9 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

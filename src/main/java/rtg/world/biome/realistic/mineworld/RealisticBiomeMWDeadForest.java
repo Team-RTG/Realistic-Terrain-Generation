@@ -203,4 +203,9 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

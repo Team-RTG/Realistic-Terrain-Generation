@@ -140,4 +140,9 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

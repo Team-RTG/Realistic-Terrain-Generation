@@ -169,4 +169,9 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

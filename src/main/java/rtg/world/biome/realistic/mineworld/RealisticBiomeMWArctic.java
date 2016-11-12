@@ -165,4 +165,9 @@ public class RealisticBiomeMWArctic extends RealisticBiomeMWBase {
             return topBlock;
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

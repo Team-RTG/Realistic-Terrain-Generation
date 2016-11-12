@@ -121,4 +121,9 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

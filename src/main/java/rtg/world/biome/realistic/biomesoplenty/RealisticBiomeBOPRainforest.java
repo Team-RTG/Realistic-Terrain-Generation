@@ -154,4 +154,9 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

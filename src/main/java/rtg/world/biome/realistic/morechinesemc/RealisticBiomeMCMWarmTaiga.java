@@ -190,4 +190,9 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

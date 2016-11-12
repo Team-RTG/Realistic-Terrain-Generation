@@ -115,4 +115,9 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

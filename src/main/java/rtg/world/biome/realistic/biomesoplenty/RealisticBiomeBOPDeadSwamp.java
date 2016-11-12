@@ -120,4 +120,9 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

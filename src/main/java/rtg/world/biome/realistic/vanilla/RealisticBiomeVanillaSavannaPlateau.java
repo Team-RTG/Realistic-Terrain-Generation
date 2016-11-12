@@ -240,4 +240,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

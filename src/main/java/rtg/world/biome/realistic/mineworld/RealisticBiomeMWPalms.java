@@ -147,4 +147,9 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

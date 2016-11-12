@@ -196,4 +196,9 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

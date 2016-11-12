@@ -273,4 +273,9 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

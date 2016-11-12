@@ -187,4 +187,9 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

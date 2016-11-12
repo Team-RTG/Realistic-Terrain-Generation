@@ -197,4 +197,9 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

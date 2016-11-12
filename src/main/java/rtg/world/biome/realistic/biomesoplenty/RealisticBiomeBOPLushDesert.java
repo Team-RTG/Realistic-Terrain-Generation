@@ -209,4 +209,9 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -193,4 +193,9 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

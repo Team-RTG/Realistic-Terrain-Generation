@@ -131,4 +131,9 @@ public class RealisticBiomeMCMMudFlat extends RealisticBiomeMCMBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

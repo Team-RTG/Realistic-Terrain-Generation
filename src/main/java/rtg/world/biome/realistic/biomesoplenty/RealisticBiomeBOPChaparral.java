@@ -149,4 +149,9 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

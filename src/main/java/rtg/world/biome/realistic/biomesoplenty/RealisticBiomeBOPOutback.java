@@ -185,4 +185,9 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

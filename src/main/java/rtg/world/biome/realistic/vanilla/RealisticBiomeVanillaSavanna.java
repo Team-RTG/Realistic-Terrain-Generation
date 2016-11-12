@@ -130,4 +130,9 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

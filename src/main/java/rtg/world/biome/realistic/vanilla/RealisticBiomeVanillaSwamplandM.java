@@ -179,4 +179,9 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

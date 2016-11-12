@@ -175,4 +175,9 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

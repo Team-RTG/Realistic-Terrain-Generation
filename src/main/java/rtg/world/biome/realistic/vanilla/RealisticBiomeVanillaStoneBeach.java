@@ -146,4 +146,9 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

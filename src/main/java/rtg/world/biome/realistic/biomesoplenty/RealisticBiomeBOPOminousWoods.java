@@ -128,4 +128,9 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

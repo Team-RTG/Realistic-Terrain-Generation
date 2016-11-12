@@ -190,4 +190,9 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

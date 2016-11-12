@@ -230,4 +230,9 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

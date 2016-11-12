@@ -183,4 +183,9 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

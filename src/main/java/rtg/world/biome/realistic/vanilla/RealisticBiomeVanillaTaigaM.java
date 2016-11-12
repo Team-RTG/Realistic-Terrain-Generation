@@ -159,4 +159,9 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

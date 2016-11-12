@@ -115,4 +115,9 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

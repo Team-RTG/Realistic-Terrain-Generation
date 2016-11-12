@@ -202,4 +202,9 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

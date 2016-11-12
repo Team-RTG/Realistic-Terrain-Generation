@@ -116,4 +116,9 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

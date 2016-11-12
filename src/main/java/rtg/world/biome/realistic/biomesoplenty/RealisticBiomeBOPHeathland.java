@@ -134,4 +134,9 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

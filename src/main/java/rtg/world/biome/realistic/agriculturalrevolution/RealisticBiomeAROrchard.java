@@ -111,4 +111,9 @@ public class RealisticBiomeAROrchard extends RealisticBiomeARBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

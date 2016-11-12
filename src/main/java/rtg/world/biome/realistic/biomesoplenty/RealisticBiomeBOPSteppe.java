@@ -116,4 +116,9 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

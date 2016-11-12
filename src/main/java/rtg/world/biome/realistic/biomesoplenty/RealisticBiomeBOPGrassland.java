@@ -107,4 +107,9 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

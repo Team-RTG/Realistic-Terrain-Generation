@@ -115,4 +115,9 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

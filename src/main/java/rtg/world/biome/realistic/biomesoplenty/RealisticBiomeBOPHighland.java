@@ -126,4 +126,9 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

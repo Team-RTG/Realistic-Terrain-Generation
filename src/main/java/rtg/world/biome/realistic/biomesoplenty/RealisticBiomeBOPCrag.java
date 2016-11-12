@@ -179,4 +179,9 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

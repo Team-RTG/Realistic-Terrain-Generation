@@ -165,4 +165,9 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
             return lavaRock;
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

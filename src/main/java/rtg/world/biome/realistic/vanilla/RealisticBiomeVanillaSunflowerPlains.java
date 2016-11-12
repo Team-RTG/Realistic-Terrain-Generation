@@ -107,4 +107,9 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

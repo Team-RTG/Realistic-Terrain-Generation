@@ -105,4 +105,9 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

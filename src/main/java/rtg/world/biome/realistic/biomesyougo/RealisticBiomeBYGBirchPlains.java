@@ -191,4 +191,9 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

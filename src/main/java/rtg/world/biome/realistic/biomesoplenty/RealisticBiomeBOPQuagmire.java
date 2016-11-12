@@ -107,4 +107,9 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

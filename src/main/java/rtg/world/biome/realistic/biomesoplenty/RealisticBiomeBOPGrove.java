@@ -220,4 +220,9 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

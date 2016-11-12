@@ -221,4 +221,9 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -174,4 +174,9 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

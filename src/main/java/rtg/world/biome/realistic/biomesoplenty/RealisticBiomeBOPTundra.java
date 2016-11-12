@@ -107,4 +107,9 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

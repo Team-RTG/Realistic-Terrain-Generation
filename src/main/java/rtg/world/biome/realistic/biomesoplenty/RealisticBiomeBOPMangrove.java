@@ -107,4 +107,9 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 			}
 		}
 	}
+
+	@Override
+	public void initDecos() {
+
+	}
 }

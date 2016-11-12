@@ -120,4 +120,9 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

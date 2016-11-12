@@ -187,4 +187,9 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

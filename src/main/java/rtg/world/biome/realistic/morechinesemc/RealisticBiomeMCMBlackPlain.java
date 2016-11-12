@@ -106,4 +106,9 @@ public class RealisticBiomeMCMBlackPlain extends RealisticBiomeMCMBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

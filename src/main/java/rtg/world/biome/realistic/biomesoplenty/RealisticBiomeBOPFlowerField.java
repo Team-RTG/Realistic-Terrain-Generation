@@ -188,4 +188,9 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -181,4 +181,9 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

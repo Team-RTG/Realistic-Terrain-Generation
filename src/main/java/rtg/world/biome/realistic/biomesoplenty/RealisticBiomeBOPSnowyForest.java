@@ -154,4 +154,9 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

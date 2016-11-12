@@ -162,4 +162,9 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

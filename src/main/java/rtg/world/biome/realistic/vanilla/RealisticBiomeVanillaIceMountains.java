@@ -145,4 +145,9 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

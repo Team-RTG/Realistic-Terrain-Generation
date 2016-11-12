@@ -213,4 +213,9 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

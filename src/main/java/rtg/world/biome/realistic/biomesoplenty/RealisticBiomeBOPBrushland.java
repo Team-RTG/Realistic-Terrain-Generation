@@ -135,4 +135,9 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

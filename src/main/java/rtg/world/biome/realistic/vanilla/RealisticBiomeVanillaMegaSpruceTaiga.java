@@ -151,4 +151,9 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

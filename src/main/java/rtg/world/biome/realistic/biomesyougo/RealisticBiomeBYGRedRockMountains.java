@@ -225,4 +225,9 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
             return redRockStone;
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -201,4 +201,9 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

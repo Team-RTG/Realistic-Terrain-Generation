@@ -148,4 +148,9 @@ public class RealisticBiomeARKelpForest extends RealisticBiomeARBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

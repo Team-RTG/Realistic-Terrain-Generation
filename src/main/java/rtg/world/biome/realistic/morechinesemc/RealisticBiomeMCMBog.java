@@ -131,4 +131,9 @@ public class RealisticBiomeMCMBog extends RealisticBiomeMCMBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

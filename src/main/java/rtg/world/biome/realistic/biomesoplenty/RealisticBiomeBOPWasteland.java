@@ -107,4 +107,9 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

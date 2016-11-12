@@ -212,4 +212,9 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

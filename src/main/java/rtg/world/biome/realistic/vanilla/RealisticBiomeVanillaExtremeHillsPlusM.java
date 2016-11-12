@@ -167,4 +167,9 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

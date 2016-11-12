@@ -206,4 +206,9 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

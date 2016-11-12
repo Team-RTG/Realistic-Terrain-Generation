@@ -141,4 +141,9 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

@@ -216,4 +216,9 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

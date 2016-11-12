@@ -134,4 +134,9 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

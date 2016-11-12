@@ -116,4 +116,9 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

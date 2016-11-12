@@ -107,4 +107,9 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

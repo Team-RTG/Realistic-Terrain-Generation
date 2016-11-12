@@ -217,4 +217,9 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

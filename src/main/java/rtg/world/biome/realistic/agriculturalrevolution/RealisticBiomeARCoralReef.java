@@ -148,4 +148,9 @@ public class RealisticBiomeARCoralReef extends RealisticBiomeARBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

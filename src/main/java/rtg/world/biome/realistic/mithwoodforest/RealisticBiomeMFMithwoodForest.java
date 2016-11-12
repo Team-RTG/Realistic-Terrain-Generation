@@ -336,4 +336,9 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

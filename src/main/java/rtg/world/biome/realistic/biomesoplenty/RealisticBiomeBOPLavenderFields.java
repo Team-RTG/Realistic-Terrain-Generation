@@ -169,4 +169,9 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
             }
         }
     }
+
+    @Override
+    public void initDecos() {
+
+    }
 }

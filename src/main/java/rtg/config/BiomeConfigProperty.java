@@ -1,4 +1,4 @@
-package rtg.api.biome;
+package rtg.config;
 
 
 public class BiomeConfigProperty {

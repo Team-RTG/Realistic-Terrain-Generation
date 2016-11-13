@@ -1,4 +1,4 @@
-package rtg.config.rtg;
+package rtg.config;
 
 import java.io.File;
 import java.util.ArrayList;

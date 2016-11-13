@@ -1,10 +1,10 @@
-package rtg.api.biome;
+package rtg.config;
 
 import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
 
-import rtg.api.biome.BiomeConfigProperty.Type;
+import rtg.config.BiomeConfigProperty.Type;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 

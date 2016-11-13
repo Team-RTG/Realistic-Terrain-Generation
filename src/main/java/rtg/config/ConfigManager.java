@@ -2,8 +2,6 @@ package rtg.config;
 
 import java.io.File;
 
-import rtg.config.rtg.ConfigRTG;
-
 public class ConfigManager {
 
     public static File rtgConfigFile;

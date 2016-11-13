@@ -5,7 +5,7 @@ import net.minecraft.world.World;
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.world.gen.surface.SurfaceBase;
 
 public abstract class SurfaceACBase extends SurfaceBase {

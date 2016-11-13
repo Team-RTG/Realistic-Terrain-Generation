@@ -12,8 +12,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.BiomeConfigProperty;
+import rtg.config.BiomeConfig;
+import rtg.config.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;

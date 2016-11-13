@@ -2,7 +2,6 @@ package rtg.world.biome.deco;
 
 import java.util.Random;
 
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,6 +9,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;

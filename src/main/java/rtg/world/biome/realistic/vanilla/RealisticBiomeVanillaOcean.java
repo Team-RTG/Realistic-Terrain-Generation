@@ -10,15 +10,15 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.BiomeConfigProperty;
+import rtg.config.BiomeConfig;
+import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.api.biome.BiomeConfig.allowVillagesId;
+import static rtg.config.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 

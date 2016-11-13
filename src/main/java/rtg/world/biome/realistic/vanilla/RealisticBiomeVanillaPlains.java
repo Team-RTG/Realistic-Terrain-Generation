@@ -12,8 +12,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import net.minecraftforge.common.config.Configuration;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.BiomeConfigProperty;
+import rtg.config.BiomeConfig;
+import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;

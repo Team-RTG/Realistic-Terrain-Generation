@@ -12,15 +12,15 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.api.biome.BiomeConfig.allowVolcanoesId;
-import static rtg.api.biome.BiomeConfig.volcanoChanceId;
+import static rtg.config.BiomeConfig.allowVolcanoesId;
+import static rtg.config.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 

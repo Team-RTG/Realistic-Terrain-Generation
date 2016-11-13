@@ -14,9 +14,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.RTG;
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.BiomeConfigProperty;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.BiomeConfig;
+import rtg.config.BiomeConfigProperty;
+import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;

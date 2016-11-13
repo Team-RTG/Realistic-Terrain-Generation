@@ -2,7 +2,6 @@ package rtg.world.gen;
 
 import java.util.Random;
 
-import com.google.common.base.Objects;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,8 +11,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+
+import com.google.common.base.Objects;
+
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings({"NullableProblems", "WeakerAccess", "unused"})

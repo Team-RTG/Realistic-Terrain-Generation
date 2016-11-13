@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Loader;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {

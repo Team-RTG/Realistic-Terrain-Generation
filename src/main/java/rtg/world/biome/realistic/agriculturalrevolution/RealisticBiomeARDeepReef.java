@@ -21,14 +21,20 @@ public class RealisticBiomeARDeepReef extends RealisticBiomeARBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeARDeepReef(Biome biome, BiomeConfig config) {
+    public RealisticBiomeARDeepReef(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(BiomeConfig.allowVillagesId, false);
     }
 
     @Override

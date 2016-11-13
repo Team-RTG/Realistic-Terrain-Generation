@@ -19,15 +19,22 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
 
     public static Biome biome = BOPBiomes.kelp_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPKelpForest(BiomeConfig config) {
+    public RealisticBiomeBOPKelpForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
     }
 
     @Override

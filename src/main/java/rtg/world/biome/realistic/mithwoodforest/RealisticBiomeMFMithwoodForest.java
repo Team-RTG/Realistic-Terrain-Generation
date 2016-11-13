@@ -11,8 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mithwoodforest.config.BiomeConfigMFMithwoodForest;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -33,9 +32,18 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
     private static IBlockState mithwoodLogBlock = Block.getBlockFromName("mithwoodforest:mithwood_log").getDefaultState();
     private static IBlockState mithwoodLeavesBlock = Block.getBlockFromName("mithwoodforest:mithwood_leaves").getDefaultState();
 
-    public RealisticBiomeMFMithwoodForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMFMithwoodForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -90,8 +98,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaForest.surfaceMixBlockId,
-                BiomeConfigVanillaForest.surfaceMixBlockMetaId,
+            mixBlock = this.getConfigBlock(config, config.surfaceMixBlockId,
+                config.surfaceMixBlockMetaId,
                 mix);
             mixHeight = mixSize;
         }
@@ -302,7 +310,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoFallenMithwoodTree.leavesBlock = mithwoodLeavesBlock;
         decoFallenMithwoodTree.minSize = 3;
         decoFallenMithwoodTree.maxSize = 6;
-        this.addDeco(decoFallenMithwoodTree, this.config._boolean(BiomeConfigMFMithwoodForest.decorationLogsId));
+        this.addDeco(decoFallenMithwoodTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoFallenTree decoFallenOak = new DecoFallenTree();
         decoFallenOak.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
@@ -312,7 +320,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoFallenOak.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenOak.minSize = 3;
         decoFallenOak.maxSize = 6;
-        this.addDeco(decoFallenOak, this.config._boolean(BiomeConfigMFMithwoodForest.decorationLogsId));
+        this.addDeco(decoFallenOak, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoFallenTree decoFallenBirch = new DecoFallenTree();
         decoFallenBirch.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
@@ -332,7 +340,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenBirch, decoFallenSpruce);
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigMFMithwoodForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.maxY = 128;

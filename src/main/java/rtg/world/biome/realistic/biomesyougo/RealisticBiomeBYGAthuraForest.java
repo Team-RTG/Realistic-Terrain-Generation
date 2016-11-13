@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesyougo.config.BiomeConfigBYGAthuraForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -30,9 +30,18 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
     private static IBlockState athuraLogBlock = Block.getBlockFromName("BiomesYouGo:AthuraLog").getDefaultState();
     private static IBlockState athuraLeavesBlock = Block.getBlockFromName("BiomesYouGo:AthuraLeaves").getDefaultState();
 
-    public RealisticBiomeBYGAthuraForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGAthuraForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -95,7 +104,7 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
             super(config, top, filler);
 
             blockMixTop = this.getConfigBlock(config,
-                BiomeConfigBYGAthuraForest.surfaceMixBlockId, BiomeConfigBYGAthuraForest.surfaceMixBlockMetaId,
+                BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId,
                 mixTop
             );
             blockMixFiller = mixFiller;

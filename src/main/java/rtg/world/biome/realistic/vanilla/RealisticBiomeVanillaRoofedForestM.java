@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaRoofedForestM;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -27,11 +27,20 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public static Biome biome = Biomes.MUTATED_ROOFED_FOREST;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaRoofedForestM(BiomeConfig config) {
+    public RealisticBiomeVanillaRoofedForestM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -147,7 +156,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaRoofedForestM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;

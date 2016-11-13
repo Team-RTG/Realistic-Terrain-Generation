@@ -17,17 +17,24 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.MUSHROOM_ISLAND;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMushroomIsland(BiomeConfig config) {
+    public RealisticBiomeVanillaMushroomIsland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
     }
 
     @Override

@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,12 +26,29 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands_hills;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsHighland(BiomeConfig config) {
+    public RealisticBiomeACDarklandsHighland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""
+        ));
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""
+        ));
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.surfaceMixFillerBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixFillerBlockName, "", ""
+        ));
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.surfaceMixFillerBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixFillerBlockMetaName, "", ""
+        ));
     }
 
     @Override
@@ -83,9 +100,9 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixBlockId, BiomeConfigVanillaExtremeHills.surfaceMixBlockMetaId, mixTop);
+            mixBlockTop = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId, mixTop);
 
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockId, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockMetaId, mixFill);
+            mixBlockFill = this.getConfigBlock(config, BiomeConfig.surfaceMixFillerBlockId, BiomeConfig.surfaceMixFillerBlockMetaId, mixFill);
 
             width = mixWidth;
             height = mixHeight;

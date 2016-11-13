@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPRedwoodForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -30,9 +30,15 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.redwood_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPRedwoodForest(BiomeConfig config) {
+    public RealisticBiomeBOPRedwoodForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -190,6 +196,6 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPRedwoodForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

@@ -454,13 +454,13 @@ public class ConfigRTG {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             lakeSizeMultiplier = config.getFloat(
-                "Lake Size Multipler",
+                "Lake Size Multiplier",
                 "Lakes (Scenic)",
                 1, 0, 10,
                 "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
 
             lakeFrequencyMultiplier = config.getFloat(
-                "Lake Frequency Multipler",
+                "Lake Frequency Multiplier",
                 "Lakes (Scenic)",
                 1, 0, 10,
                 "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
@@ -650,7 +650,7 @@ public class ConfigRTG {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             riverSizeMultiplier = config.getFloat(
-                "River Width Multipler",
+                "River Width Multiplier",
                 "Rivers",
                 1, 0, 10,
                 "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
@@ -871,7 +871,7 @@ public class ConfigRTG {
             );
 
             treeDensityMultiplier = config.getFloat(
-                "RTG Tree Density Multipler",
+                "RTG Tree Density Multiplier",
                 "Trees",
                 1, 0, MAX_TREE_DENSITY,
                 "This setting allows you to increase/decrease the number of RTG trees that generate."

@@ -15,8 +15,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
-import rtg.api.event.BiomeConfigEvent;
-import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
 import rtg.config.rtg.ConfigRTG;
 import rtg.event.EventManagerRTG;
@@ -72,11 +70,6 @@ public class RTG {
         instance = this;
 
         worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
-
-        // Biome configs MUST get initialised before the main config.
-        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
-        BiomeConfigManager.initBiomeConfigs();
-        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
 
         configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         ConfigManager.init(configPath);

@@ -12,7 +12,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleM;
+import rtg.api.biome.BiomeConfigProperty;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -24,18 +25,30 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVolcanoesId;
+import static rtg.api.biome.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.MUTATED_JUNGLE;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaJungleM(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationCactusId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationCactusName, "", true));
+
+        this.config.setPropertyValueById(allowVolcanoesId, true);
+        this.config.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
     }
 
     @Override
@@ -182,7 +195,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -213,7 +226,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
         decoJungleCacti.sandOnly = false;
         decoJungleCacti.extraHeight = 7;
         decoJungleCacti.sandMeta = (byte) 1;
-        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigVanillaJungleM.decorationCactusId));
+        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfig.decorationCactusId));
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();

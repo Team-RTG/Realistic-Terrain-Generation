@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOasis;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +28,15 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.oasis.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOasis(BiomeConfig config) {
+    public RealisticBiomeBOPOasis() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -164,6 +170,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOasis.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

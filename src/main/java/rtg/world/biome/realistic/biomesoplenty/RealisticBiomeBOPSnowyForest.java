@@ -13,21 +13,30 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.decorationLogsId;
+import static rtg.api.biome.BiomeConfig.decorationLogsName;
 
 public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
 
     public static Biome biome = BOPBiomes.snowy_forest.get();
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeBOPSnowyForest(BiomeConfig config) {
+    public RealisticBiomeBOPSnowyForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, decorationLogsName, "", true));
     }
 
     @Override

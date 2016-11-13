@@ -25,9 +25,14 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
     public static Biome biome = ACBiomes.coralium_infested_swamp;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACCoraliumInfestedSwamp(BiomeConfig config) {
+    public RealisticBiomeACCoraliumInfestedSwamp() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override

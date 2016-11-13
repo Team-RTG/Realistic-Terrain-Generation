@@ -10,8 +10,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import net.minecraftforge.common.config.Configuration;
+
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -29,9 +31,42 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.PLAINS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaPlains(BiomeConfig config) {
+    public RealisticBiomeVanillaPlains() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationWheatId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationWheatName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.decorationWheatChanceId,
+            BiomeConfigProperty.Type.INTEGER,
+            BiomeConfig.decorationWheatChanceName,
+            "1/x chance that wheat will generate."
+                + Configuration.NEW_LINE +
+                "0 = Never generate; 1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
+                + Configuration.NEW_LINE,
+            50, 0, Integer.MAX_VALUE
+        ));
+
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.decorationWheatMinYId,
+            BiomeConfigProperty.Type.INTEGER,
+            BiomeConfig.decorationWheatMinYName,
+            "The lowest Y value at which wheat is allowed to generate in this biome.",
+            63, 63, 255
+        ));
+
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.decorationWheatMaxYId,
+            BiomeConfigProperty.Type.INTEGER,
+            BiomeConfig.decorationWheatMaxYName,
+            "The highest Y value at which wheat is allowed to generate in this biome.",
+            255, 63, 255
+        ));
     }
 
     @Override
@@ -117,12 +152,12 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoCrop decoCropWheat = new DecoCrop();
         decoCropWheat.size = 8;
         decoCropWheat.density = 5;
-        decoCropWheat.chance = this.config._int(BiomeConfigVanillaPlains.decorationWheatChanceId);
+        decoCropWheat.chance = this.config._int(BiomeConfig.decorationWheatChanceId);
         decoCropWheat.type = 3;
         decoCropWheat.water = false;
-        decoCropWheat.minY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMinYId);
-        decoCropWheat.maxY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMaxYId);
-        this.addDeco(decoCropWheat, this.config._boolean(BiomeConfigVanillaPlains.decorationWheatId));
+        decoCropWheat.minY = this.config._int(BiomeConfig.decorationWheatMinYId);
+        decoCropWheat.maxY = this.config._int(BiomeConfig.decorationWheatMaxYId);
+        this.addDeco(decoCropWheat, this.config._boolean(BiomeConfig.decorationWheatId));
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();

@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +11,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import net.minecraftforge.common.config.Configuration;
+
+import rtg.RTG;
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
@@ -36,6 +41,7 @@ public abstract class RealisticBiomeBase {
     public final Biome riverBiome;
     public final Biome beachBiome;
     public BiomeConfig config;
+    public String configPath;
     public TerrainBase terrain;
     public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
@@ -71,13 +77,13 @@ public abstract class RealisticBiomeBase {
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
 
-    public RealisticBiomeBase(BiomeConfig config, Biome biome, Biome river) {
+    public RealisticBiomeBase(Biome biome, Biome river) {
 
-        if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
-        this.config = config;
         arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
+
         baseBiome = biome;
         riverBiome = river;
+        this.config = new BiomeConfig(this);
         beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);
@@ -117,16 +123,17 @@ public abstract class RealisticBiomeBase {
     }
 
     private void init() {
+        initConfig();
+        setBiomeConfigsFromUserConfigs();
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
         initDecos();
     }
 
+    public abstract void initConfig();
     public abstract TerrainBase initTerrain();
-
     public abstract SurfaceBase initSurface();
-
     public abstract void initDecos();
 
     public static RealisticBiomeBase getBiome(int id) {
@@ -551,5 +558,97 @@ public abstract class RealisticBiomeBase {
         }
 
         return true;
+    }
+
+    public String configPath() {
+        return RTG.configPath + "biomes/" + this.modSlug() + "/" + this.biomeSlug() + ".cfg";
+    }
+
+    public String modSlug() {
+        throw new RuntimeException("Realistic biomes need a mod slug.");
+    }
+
+    public String biomeSlug() {
+        return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
+    }
+
+    public void setBiomeConfigsFromUserConfigs() {
+
+        Configuration config = new Configuration(new File(this.configPath()));
+
+        try {
+            config.load();
+
+            String categoryName = "biome." + this.modSlug() + "." + this.biomeSlug();
+            ArrayList<BiomeConfigProperty> properties = this.config.getProperties();
+
+            for (int j = 0; j < properties.size(); j++) {
+
+                BiomeConfigProperty prop = properties.get(j);
+
+                switch (prop.type) {
+
+                    case INTEGER:
+
+                        prop.valueInt = config.getInt(
+                            prop.name,
+                            categoryName,
+                            prop.valueInt,
+                            prop.minValueInt,
+                            prop.maxValueInt,
+                            prop.description
+                        );
+
+                        break;
+
+                    case FLOAT:
+
+                        prop.valueFloat = config.getFloat(
+                            prop.name,
+                            categoryName,
+                            prop.valueFloat,
+                            prop.minValueFloat,
+                            prop.maxValueFloat,
+                            prop.description
+                        );
+
+                        break;
+
+                    case BOOLEAN:
+
+                        prop.valueBoolean = config.getBoolean(
+                            prop.name,
+                            categoryName,
+                            prop.valueBoolean,
+                            prop.description
+                        );
+
+                        break;
+
+                    case STRING:
+
+                        prop.valueString = config.getString(
+                            prop.name,
+                            categoryName,
+                            prop.valueString,
+                            prop.description
+                        );
+
+                        break;
+
+                    default:
+                        throw new RuntimeException("BiomeConfigProperty type not supported.");
+                }
+            }
+
+        }
+        catch (Exception e) {
+            Logger.error("RTG had a problem loading " + this.modSlug() + "/" + this.biomeSlug() + " configuration.");
+        }
+        finally {
+            if (config.hasChanged()) {
+                config.save();
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesyougo.config.BiomeConfigBYGAutumnForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -29,9 +29,18 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
     private static IBlockState cikaLogBlock = Block.getBlockFromName("BiomesYouGo:CikaLog").getDefaultState();
     private static IBlockState cikaLeavesBlock = Block.getBlockFromName("BiomesYouGo:CikaLeaves").getDefaultState();
 
-    public RealisticBiomeBYGAutumnForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGAutumnForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -94,7 +103,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
             super(config, top, filler);
 
             blockMixTop = this.getConfigBlock(config,
-                BiomeConfigBYGAutumnForest.surfaceMixBlockId, BiomeConfigBYGAutumnForest.surfaceMixBlockMetaId,
+                BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId,
                 mixTop
             );
             blockMixFiller = mixFiller;
@@ -176,7 +185,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGAutumnForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoShrub decoShrubCika = new DecoShrub();
         decoShrubCika.logBlock = cikaLogBlock;

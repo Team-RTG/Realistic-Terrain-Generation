@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSwamplandM;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -28,9 +28,15 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MUTATED_SWAMPLAND;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaSwamplandM(BiomeConfig config) {
+    public RealisticBiomeVanillaSwamplandM() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -167,7 +173,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaSwamplandM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

@@ -23,12 +23,15 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public static Biome biome = Biomes.MUTATED_ICE_FLATS;
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeVanillaIcePlainsSpikes(BiomeConfig config) {
+    public RealisticBiomeVanillaIcePlainsSpikes() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

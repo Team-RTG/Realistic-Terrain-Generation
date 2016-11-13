@@ -20,15 +20,22 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
     public static Biome biome = BOPBiomes.gravel_beach.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPGravelBeach(BiomeConfig config) {
+    public RealisticBiomeBOPGravelBeach() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
     }
 
     @Override

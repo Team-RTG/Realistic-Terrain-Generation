@@ -25,10 +25,13 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.origin_island.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOriginIsland(BiomeConfig config) {
+    public RealisticBiomeBOPOriginIsland() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

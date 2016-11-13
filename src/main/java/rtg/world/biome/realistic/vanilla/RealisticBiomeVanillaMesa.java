@@ -26,12 +26,15 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MESA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMesa(BiomeConfig config) {
+    public RealisticBiomeVanillaMesa() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 20;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -27,13 +27,16 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.highland.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPHighland(BiomeConfig config) {
+    public RealisticBiomeBOPHighland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -15,7 +15,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBayou;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -35,11 +35,20 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         .withProperty(BlockLeaves.CHECK_DECAY, false)
         .withProperty(BlockLeaves.DECAYABLE, false);
 
-    public RealisticBiomeBOPBayou(BiomeConfig config) {
+    public RealisticBiomeBOPBayou() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0; // We want RTG ponds, not Mojang lakes.
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -90,8 +99,8 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigBOPBayou.surfaceMixBlockId,
-                BiomeConfigBOPBayou.surfaceMixBlockMetaId,
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId,
                 mix);
             mixHeight = mixSize;
         }
@@ -236,7 +245,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = leavesBlock;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPBayou.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
         this.addDeco(decoJungleLilypadVines);

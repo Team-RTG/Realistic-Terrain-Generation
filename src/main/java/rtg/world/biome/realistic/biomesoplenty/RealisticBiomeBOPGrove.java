@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPGrove;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -28,9 +28,15 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.grove.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPGrove(BiomeConfig config) {
+    public RealisticBiomeBOPGrove() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -195,7 +201,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.maxSize = 6;
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
-        this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPGrove.decorationLogsId));
+        this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = BlockUtil.getStateLog(2);

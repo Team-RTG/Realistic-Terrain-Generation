@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -25,9 +25,18 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.FOREST;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaForest(BiomeConfig config) {
+    public RealisticBiomeVanillaForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -86,8 +95,8 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaForest.surfaceMixBlockId,
-                BiomeConfigVanillaForest.surfaceMixBlockMetaId,
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId,
                 mix);
             mixHeight = mixSize;
         }
@@ -167,6 +176,6 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfigVanillaForest.decorationLogsId)));
+        this.addDecoCollection(new DecoCollectionForest(this.config._boolean(BiomeConfig.decorationLogsId)));
     }
 }

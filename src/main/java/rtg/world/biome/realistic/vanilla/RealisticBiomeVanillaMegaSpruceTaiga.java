@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaMegaSpruceTaiga;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -20,17 +20,28 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVolcanoesId;
+import static rtg.api.biome.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.MUTATED_REDWOOD_TAIGA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMegaSpruceTaiga(BiomeConfig config) {
+    public RealisticBiomeVanillaMegaSpruceTaiga() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.setPropertyValueById(allowVolcanoesId, true);
+        this.config.setPropertyValueById(volcanoChanceId, -1);
     }
 
     @Override
@@ -153,6 +164,6 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaMegaSpruceTaiga.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

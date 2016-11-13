@@ -15,18 +15,25 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.FROZEN_RIVER;
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeVanillaFrozenRiver(BiomeConfig config) {
+    public RealisticBiomeVanillaFrozenRiver() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
     }
 
     @Override

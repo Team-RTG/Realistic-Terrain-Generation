@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWIceHills;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,9 +23,18 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
 
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeMWIceHills(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWIceHills(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixFillerBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixFillerBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixFillerBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixFillerBlockMetaName, "", ""));
     }
 
     @Override
@@ -83,12 +92,12 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigMWIceHills.surfaceMixBlockId,
-                BiomeConfigMWIceHills.surfaceMixBlockMetaId,
+            mixBlockTop = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId,
                 mixTop);
 
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigMWIceHills.surfaceMixFillerBlockId,
-                BiomeConfigMWIceHills.surfaceMixFillerBlockMetaId,
+            mixBlockFill = this.getConfigBlock(config, BiomeConfig.surfaceMixFillerBlockId,
+                BiomeConfig.surfaceMixFillerBlockMetaId,
                 mixFill);
 
             cliffBlock1 = cliff1;

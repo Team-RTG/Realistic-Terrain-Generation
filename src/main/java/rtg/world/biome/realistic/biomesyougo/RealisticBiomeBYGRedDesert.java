@@ -24,13 +24,16 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBYGRedDesert(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGRedDesert(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

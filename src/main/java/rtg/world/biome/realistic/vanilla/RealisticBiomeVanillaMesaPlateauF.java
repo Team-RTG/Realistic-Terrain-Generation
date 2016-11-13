@@ -23,13 +23,16 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     public static Biome biome = Biomes.MESA_ROCK;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMesaPlateauF(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaPlateauF() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.waterSurfaceLakeChance = 30;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

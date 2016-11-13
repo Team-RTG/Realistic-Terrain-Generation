@@ -23,10 +23,13 @@ public class RealisticBiomeMCMBlackPlain extends RealisticBiomeMCMBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMCMBlackPlain(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMCMBlackPlain(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

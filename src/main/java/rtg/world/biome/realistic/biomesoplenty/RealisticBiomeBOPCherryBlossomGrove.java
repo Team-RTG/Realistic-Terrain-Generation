@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPCherryBlossomGrove;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -31,9 +31,15 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.cherry_blossom_grove.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPCherryBlossomGrove(BiomeConfig config) {
+    public RealisticBiomeBOPCherryBlossomGrove() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -196,7 +202,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{15, 1};
-        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfigBOPCherryBlossomGrove.decorationLogsId));
+        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

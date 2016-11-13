@@ -22,10 +22,13 @@ public class RealisticBiomeARTropicalHills extends RealisticBiomeARBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeARTropicalHills(Biome biome, BiomeConfig config) {
+    public RealisticBiomeARTropicalHills(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPEucalyptusForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -30,9 +30,15 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.eucalyptus_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPEucalyptusForest(BiomeConfig config) {
+    public RealisticBiomeBOPEucalyptusForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -187,7 +193,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 14;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPEucalyptusForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

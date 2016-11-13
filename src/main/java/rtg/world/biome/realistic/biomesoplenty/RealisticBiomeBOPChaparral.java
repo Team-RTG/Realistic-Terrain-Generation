@@ -26,10 +26,13 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.chaparral.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPChaparral(BiomeConfig config) {
+    public RealisticBiomeBOPChaparral() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

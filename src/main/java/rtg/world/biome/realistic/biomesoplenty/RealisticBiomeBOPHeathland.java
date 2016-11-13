@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPHeathland;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +28,15 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.heathland.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPHeathland(BiomeConfig config) {
+    public RealisticBiomeBOPHeathland() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -133,7 +139,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPHeathland.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

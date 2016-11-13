@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaM;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -25,11 +25,20 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MUTATED_TAIGA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaTaigaM(BiomeConfig config) {
+    public RealisticBiomeVanillaTaigaM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -83,8 +92,8 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
 
             super(config, top, fill);
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaTaigaM.surfaceMixBlockId,
-                BiomeConfigVanillaTaigaM.surfaceMixBlockMetaId, BlockUtil.getStateDirt(2));
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId, BlockUtil.getStateDirt(2));
         }
 
         @Override
@@ -161,6 +170,6 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaTaigaM.decorationLogsId), 10f));
+        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfig.decorationLogsId), 10f));
     }
 }

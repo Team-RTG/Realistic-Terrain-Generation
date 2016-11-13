@@ -28,14 +28,17 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.crag.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPCrag(BiomeConfig config) {
+    public RealisticBiomeBOPCrag() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

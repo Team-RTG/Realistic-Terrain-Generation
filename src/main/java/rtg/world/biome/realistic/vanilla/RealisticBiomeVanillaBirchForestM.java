@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForestM;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -27,11 +27,20 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     public static Biome biome = Biomes.MUTATED_BIRCH_FOREST;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaBirchForestM(BiomeConfig config) {
+    public RealisticBiomeVanillaBirchForestM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -82,8 +91,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaBirchForestM.surfaceMixBlockId,
-                BiomeConfigVanillaBirchForestM.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId, mix);
             mixHeight = mixSize;
         }
 
@@ -199,7 +208,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForestM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;

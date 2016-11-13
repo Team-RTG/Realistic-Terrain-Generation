@@ -5,47 +5,102 @@ import java.util.ArrayList;
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.api.biome.BiomeConfigProperty.Type;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
 public class BiomeConfig {
 
-    public static final String allowVillagesId = "allowVillages";
-    public static final String allowVillagesName = "Allow Villages";
-    public static final String allowVolcanoesId = "allowVolcanoes";
-    public static final String allowVolcanoesName = "Allow Volcanoes";
-    public static final String volcanoChanceId = "volcanoChance";
-    public static final String volcanoChanceName = "Volcano Chance";
-    public static final String useRTGDecorationsId = "useRTGDecorations";
-    public static final String useRTGDecorationsName = "Use RTG Decorations";
-    public static final String useRTGSurfacesId = "useRTGSurfaces";
-    public static final String useRTGSurfacesName = "Use RTG Surfaces";
-    public static final String surfaceTopBlockId = "surfaceTopBlock";
-    public static final String surfaceTopBlockName = "RTG Surface: Top Block";
-    public static final String surfaceTopBlockMetaId = "surfaceTopBlockMeta";
-    public static final String surfaceTopBlockMetaName = "RTG Surface: Top Block Meta";
-    public static final String surfaceFillerBlockId = "surfaceFillerBlock";
-    public static final String surfaceFillerBlockName = "RTG Surface: Filler Block";
-    public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
-    public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
-    public static final String caveDensityId = "caveDensity";
-    public static final String caveDensityName = "Cave Density";
-    public static final String caveFrequencyId = "caveFrequency";
-    public static final String caveFrequencyName = "Cave Frequency";
-    public static final String ravineFrequencyId = "ravineFrequency";
-    public static final String ravineFrequencyName = "Ravine Frequency";
-    public static final String beachBiomeId = "beachBiome";
-    public static final String beachBiomeName = "Beach Biome";
-    public static final String treeDensityMultiplierId = "treeDensityMultiplier";
-    public static final String treeDensityMultiplierName = "RTG Tree Density Multiplier";
-    public String modSlug;
-    public String biomeSlug;
+    public RealisticBiomeBase realisticBiome;
     public ArrayList<BiomeConfigProperty> properties;
 
-    public BiomeConfig(String modSlug, String biomeSlug) {
+    /*
+     * GLOBAL CONFIGS
+     */
+    public static final String allowVillagesId = "allowVillages";
+    public static final String allowVillagesName = "Allow Villages";
 
-        this.modSlug = modSlug;
-        this.biomeSlug = biomeSlug;
+    public static final String allowVolcanoesId = "allowVolcanoes";
+    public static final String allowVolcanoesName = "Allow Volcanoes";
 
+    public static final String volcanoChanceId = "volcanoChance";
+    public static final String volcanoChanceName = "Volcano Chance";
+
+    public static final String useRTGDecorationsId = "useRTGDecorations";
+    public static final String useRTGDecorationsName = "Use RTG Decorations";
+
+    public static final String useRTGSurfacesId = "useRTGSurfaces";
+    public static final String useRTGSurfacesName = "Use RTG Surfaces";
+
+    public static final String surfaceTopBlockId = "surfaceTopBlock";
+    public static final String surfaceTopBlockName = "RTG Surface: Top Block";
+
+    public static final String surfaceTopBlockMetaId = "surfaceTopBlockMeta";
+    public static final String surfaceTopBlockMetaName = "RTG Surface: Top Block Meta";
+
+    public static final String surfaceFillerBlockId = "surfaceFillerBlock";
+    public static final String surfaceFillerBlockName = "RTG Surface: Filler Block";
+
+    public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
+    public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
+
+    public static final String caveDensityId = "caveDensity";
+    public static final String caveDensityName = "Cave Density";
+
+    public static final String caveFrequencyId = "caveFrequency";
+    public static final String caveFrequencyName = "Cave Frequency";
+
+    public static final String ravineFrequencyId = "ravineFrequency";
+    public static final String ravineFrequencyName = "Ravine Frequency";
+
+    public static final String beachBiomeId = "beachBiome";
+    public static final String beachBiomeName = "Beach Biome";
+
+    public static final String treeDensityMultiplierId = "treeDensityMultiplier";
+    public static final String treeDensityMultiplierName = "RTG Tree Density Multiplier";
+
+    /*
+     * OPTIONAL CONFIGS
+     */
+
+    public static final String decorationLogsId = "decorationLogs";
+    public static final String decorationLogsName = "RTG Decoration: Logs";
+
+    public static final String surfaceMixBlockId = "surfaceMixBlock";
+    public static final String surfaceMixBlockName = "RTG Surface: Mix Block";
+
+    public static final String surfaceMixBlockMetaId = "surfaceMixBlockMeta";
+    public static final String surfaceMixBlockMetaName = "RTG Surface: Mix Block Meta";
+
+    public static final String surfaceMixFillerBlockId = "surfaceMixFillerBlock";
+    public static final String surfaceMixFillerBlockName = "RTG Surface: Mix Filler Block";
+
+    public static final String surfaceMixFillerBlockMetaId = "surfaceMixFillerBlockMeta";
+    public static final String surfaceMixFillerBlockMetaName = "RTG Surface: Mix Filler Block Meta";
+
+    public static final String decorationPalmTreesId = "decorationPalmTrees";
+    public static final String decorationPalmTreesName = "RTG Decoration: Palm Trees";
+
+    public static final String decorationCactusId = "decorationCactus";
+    public static final String decorationCactusName = "RTG Decoration: Cactus";
+
+    public static final String decorationCobwebsId = "decorationCobwebs";
+    public static final String decorationCobwebsName = "RTG Decoration: Cobwebs";
+
+    public static final String decorationWheatId = "decorationWheat";
+    public static final String decorationWheatName = "RTG Decoration: Wheat";
+
+    public static final String decorationWheatChanceId = "decorationWheatChance";
+    public static final String decorationWheatChanceName = "RTG Decoration: Wheat (Chance)";
+
+    public static final String decorationWheatMinYId = "decorationWheatMinY";
+    public static final String decorationWheatMinYName = "RTG Decoration: Wheat (Min Y)";
+
+    public static final String decorationWheatMaxYId = "decorationWheatMaxY";
+    public static final String decorationWheatMaxYName = "RTG Decoration: Wheat (Max Y)";
+
+    public BiomeConfig(RealisticBiomeBase realisticBiome) {
+
+        this.realisticBiome = realisticBiome;
         this.properties = new ArrayList<BiomeConfigProperty>();
 
         this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
@@ -173,7 +228,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 
@@ -185,7 +240,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 
@@ -197,7 +252,7 @@ public class BiomeConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
     }
 
@@ -209,7 +264,16 @@ public class BiomeConfig {
         }
         catch (Exception e) {
 
-            throw new RuntimeException("Biome config property (" + modSlug + "." + biomeSlug + "." + id + ") could not be found. Reason: " + e.getMessage());
+            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
         }
+    }
+
+    public static String formatSlug(String s) {
+
+        s = s.toLowerCase();
+        s = s.replaceAll("\\+", "plus");
+        s = s.replaceAll("\\W", "");
+
+        return s;
     }
 }

@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSnowyConiferousForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -29,9 +29,15 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
     public static Biome biome = BOPBiomes.snowy_coniferous_forest.get();
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeBOPSnowyConiferousForest(BiomeConfig config) {
+    public RealisticBiomeBOPSnowyConiferousForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -196,7 +202,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSnowyConiferousForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 12;

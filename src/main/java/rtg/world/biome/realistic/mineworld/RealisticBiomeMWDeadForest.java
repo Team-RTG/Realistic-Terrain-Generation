@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWDeadForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -28,9 +28,18 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMWDeadForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWDeadForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -94,8 +103,8 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config, BiomeConfigMWDeadForest.surfaceMixBlockId,
-                BiomeConfigMWDeadForest.surfaceMixBlockMetaId, mixTop);
+            blockMixTop = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId, mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;
@@ -202,7 +211,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{12, 8};
-        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfigMWDeadForest.decorationLogsId));
+        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

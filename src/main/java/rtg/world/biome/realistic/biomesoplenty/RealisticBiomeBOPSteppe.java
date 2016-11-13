@@ -25,10 +25,13 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.steppe.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPSteppe(BiomeConfig config) {
+    public RealisticBiomeBOPSteppe() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

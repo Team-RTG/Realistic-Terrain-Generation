@@ -23,10 +23,13 @@ public class RealisticBiomeFCPhantasia extends RealisticBiomeFCBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeFCPhantasia(Biome biome, BiomeConfig config) {
+    public RealisticBiomeFCPhantasia(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

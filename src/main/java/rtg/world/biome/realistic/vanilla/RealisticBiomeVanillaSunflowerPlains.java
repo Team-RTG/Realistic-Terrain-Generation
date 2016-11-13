@@ -24,10 +24,13 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     public static Biome biome = Biomes.MUTATED_PLAINS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaSunflowerPlains(BiomeConfig config) {
+    public RealisticBiomeVanillaSunflowerPlains() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

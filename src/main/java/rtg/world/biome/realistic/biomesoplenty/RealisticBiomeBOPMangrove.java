@@ -25,10 +25,13 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 	public static Biome biome = BOPBiomes.mangrove.get();
 	public static Biome river = Biomes.RIVER;
 	
-	public RealisticBiomeBOPMangrove(BiomeConfig config)
+	public RealisticBiomeBOPMangrove()
 	{
-		super(config, biome, river);
+		super(biome, river);
 	}
+
+	@Override
+	public void initConfig() {}
 
 	@Override
 	public TerrainBase initTerrain() {

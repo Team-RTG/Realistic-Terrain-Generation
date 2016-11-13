@@ -26,12 +26,15 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.moor.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPMoor(BiomeConfig config) {
+    public RealisticBiomeBOPMoor() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -19,20 +19,29 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVolcanoesId;
+import static rtg.api.biome.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
     public static Biome biome = BOPBiomes.volcanic_island.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPVolcanicIsland(BiomeConfig config) {
+    public RealisticBiomeBOPVolcanicIsland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVolcanoesId, true);
+        this.config.setPropertyValueById(volcanoChanceId, -1);
     }
 
     @Override

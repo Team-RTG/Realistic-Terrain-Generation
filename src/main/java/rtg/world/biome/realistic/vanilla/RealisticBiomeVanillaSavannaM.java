@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaM;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -26,11 +26,20 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MUTATED_SAVANNA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaSavannaM(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -85,8 +94,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavannaM.surfaceMixBlockId,
-                BiomeConfigVanillaSavannaM.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId, mix);
         }
 
         @Override
@@ -184,6 +193,6 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public void initDecos() {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
-        this.addDecoCollection(new DecoCollectionSavanna(this.config._boolean(BiomeConfigVanillaSavannaM.decorationLogsId)));
+        this.addDecoCollection(new DecoCollectionSavanna(this.config._boolean(BiomeConfig.decorationLogsId)));
     }
 }

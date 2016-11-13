@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMysticGrove;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +28,15 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.mystic_grove.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPMysticGrove(BiomeConfig config) {
+    public RealisticBiomeBOPMysticGrove() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -120,7 +126,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BOPBlocks.log_3.getStateFromMeta(4), BOPBlocks.log_1.getStateFromMeta(5)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMysticGrove.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

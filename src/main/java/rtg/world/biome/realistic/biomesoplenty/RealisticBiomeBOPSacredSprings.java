@@ -25,13 +25,16 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.sacred_springs.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPSacredSprings(BiomeConfig config) {
+    public RealisticBiomeBOPSacredSprings() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noWaterFeatures = true;
         this.waterSurfaceLakeChance = 2;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

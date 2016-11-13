@@ -14,8 +14,7 @@ import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklandsForest;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +27,23 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands_forest;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsForest(BiomeConfig config) {
+    public RealisticBiomeACDarklandsForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true
+        ));
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""
+        ));
+        this.config.addProperty(new BiomeConfigProperty(
+            BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""
+        ));
     }
 
     @Override
@@ -89,7 +102,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaForest.surfaceMixBlockId, BiomeConfigVanillaForest.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId, mix);
             mixHeight = mixSize;
         }
 
@@ -187,7 +200,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
         decoFallenTree.minSize = 2;
         decoFallenTree.maxSize = 3;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigACDarklandsForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(this.config.decorationLogsId));
 
         DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();

@@ -28,10 +28,13 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.flower_field.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPFlowerField(BiomeConfig config) {
+    public RealisticBiomeBOPFlowerField() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

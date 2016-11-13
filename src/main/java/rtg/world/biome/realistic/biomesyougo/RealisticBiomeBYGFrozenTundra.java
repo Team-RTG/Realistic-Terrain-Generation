@@ -22,10 +22,13 @@ public class RealisticBiomeBYGFrozenTundra extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeBYGFrozenTundra(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGFrozenTundra(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

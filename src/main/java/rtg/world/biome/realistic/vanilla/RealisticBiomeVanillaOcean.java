@@ -11,27 +11,37 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaOcean;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.OCEAN;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaOcean(BiomeConfig config) {
+    public RealisticBiomeVanillaOcean() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -71,7 +81,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
             super(config, top, filler);
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaOcean.surfaceMixBlockId, BiomeConfigVanillaOcean.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId, mix);
 
             width = mixWidth;
             height = mixHeight;

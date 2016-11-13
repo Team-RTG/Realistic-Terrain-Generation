@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWVolcano;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -19,19 +19,31 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVolcanoesId;
+import static rtg.api.biome.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMWVolcano(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWVolcano(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
+
+        this.config.setPropertyValueById(allowVolcanoesId, true);
+        this.config.setPropertyValueById(volcanoChanceId, -1);
     }
 
     @Override
@@ -84,8 +96,8 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config, BiomeConfigMWVolcano.surfaceMixBlockId,
-                BiomeConfigMWVolcano.surfaceMixBlockMetaId, mixTop);
+            blockMixTop = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId, mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;

@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOminousWoods;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +28,15 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.ominous_woods.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOminousWoods(BiomeConfig config) {
+    public RealisticBiomeBOPOminousWoods() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -130,6 +136,6 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
         decoFallenTree.randomLogBlocks = new IBlockState[]{BOPBlocks.log_1.getStateFromMeta(2), BOPBlocks.log_3.getStateFromMeta(2)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOminousWoods.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

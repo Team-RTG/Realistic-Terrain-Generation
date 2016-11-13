@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -32,9 +32,15 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.dead_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPDeadForest(BiomeConfig config) {
+    public RealisticBiomeBOPDeadForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -205,7 +211,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{12, 1};
-        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfigBOPDeadForest.decorationLogsId));
+        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

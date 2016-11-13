@@ -25,10 +25,13 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.quagmire.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPQuagmire(BiomeConfig config) {
+    public RealisticBiomeBOPQuagmire() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

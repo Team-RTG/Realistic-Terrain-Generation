@@ -22,10 +22,13 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeARBambooGrove(Biome biome, BiomeConfig config) {
+    public RealisticBiomeARBambooGrove(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

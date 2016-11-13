@@ -11,7 +11,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdge;
+import rtg.api.biome.BiomeConfigProperty;
+import rtg.config.rtg.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -21,15 +22,26 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVolcanoesId;
+import static rtg.api.biome.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.JUNGLE_EDGE;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaJungleEdge(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleEdge() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.setPropertyValueById(allowVolcanoesId, true);
+        this.config.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
     }
 
     @Override
@@ -126,6 +138,6 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleEdge.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

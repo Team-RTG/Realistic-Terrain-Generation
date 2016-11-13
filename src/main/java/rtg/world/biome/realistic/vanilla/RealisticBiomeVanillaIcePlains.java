@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaIcePlains;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -27,9 +27,15 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 	public static Biome biome = Biomes.ICE_PLAINS;
 	public static Biome river = Biomes.FROZEN_RIVER;
 	
-	public RealisticBiomeVanillaIcePlains(BiomeConfig config)
-	{
-		super(config, biome, river);
+	public RealisticBiomeVanillaIcePlains() {
+
+		super(biome, river);
+	}
+
+	@Override
+	public void initConfig() {
+
+		this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
 	}
 
 	@Override
@@ -133,6 +139,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
 		decoFallenTree.minSize = 1;
 		decoFallenTree.maxSize = 5;
-		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaIcePlains.decorationLogsId));
+		this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 	}
 }

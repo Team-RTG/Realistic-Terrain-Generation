@@ -24,10 +24,13 @@ public class RealisticBiomeMCMBog extends RealisticBiomeMCMBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMCMBog(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMCMBog(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

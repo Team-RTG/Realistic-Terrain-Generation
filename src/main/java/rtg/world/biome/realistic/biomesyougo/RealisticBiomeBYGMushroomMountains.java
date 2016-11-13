@@ -23,13 +23,16 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBYGMushroomMountains(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGMushroomMountains(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

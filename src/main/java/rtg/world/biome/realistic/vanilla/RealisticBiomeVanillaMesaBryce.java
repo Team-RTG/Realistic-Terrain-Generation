@@ -19,18 +19,25 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.MUTATED_MESA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMesaBryce(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaBryce() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
     }
 
     @Override

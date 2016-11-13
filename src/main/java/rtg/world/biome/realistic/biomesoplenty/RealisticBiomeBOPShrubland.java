@@ -25,10 +25,13 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.shrubland.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPShrubland(BiomeConfig config) {
+    public RealisticBiomeBOPShrubland() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

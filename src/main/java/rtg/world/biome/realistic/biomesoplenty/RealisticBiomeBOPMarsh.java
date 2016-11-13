@@ -26,10 +26,13 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.marsh.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPMarsh(BiomeConfig config) {
+    public RealisticBiomeBOPMarsh() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

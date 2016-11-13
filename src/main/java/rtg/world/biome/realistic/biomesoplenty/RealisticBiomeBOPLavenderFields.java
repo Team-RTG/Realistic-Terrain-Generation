@@ -27,10 +27,13 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.lavender_fields.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPLavenderFields(BiomeConfig config) {
+    public RealisticBiomeBOPLavenderFields() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

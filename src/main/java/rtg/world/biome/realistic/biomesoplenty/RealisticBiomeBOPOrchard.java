@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPOrchard;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +28,15 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.orchard.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOrchard(BiomeConfig config) {
+    public RealisticBiomeBOPOrchard() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -131,6 +137,6 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 2;
         decoFallenTree.maxSize = 3;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPOrchard.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

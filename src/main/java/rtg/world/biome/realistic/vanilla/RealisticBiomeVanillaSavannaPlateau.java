@@ -25,12 +25,15 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     public static Biome biome = Biomes.SAVANNA_PLATEAU;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaSavannaPlateau(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaPlateau() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -29,9 +29,18 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public static Biome biome = Biomes.MUTATED_FOREST;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaFlowerForest(BiomeConfig config) {
+    public RealisticBiomeVanillaFlowerForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
     }
 
     @Override
@@ -82,8 +91,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockId,
-                BiomeConfigVanillaFlowerForest.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
+                BiomeConfig.surfaceMixBlockMetaId, mix);
             mixHeight = mixSize;
         }
 
@@ -254,7 +263,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaFlowerForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();

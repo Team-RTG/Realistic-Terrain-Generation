@@ -26,12 +26,17 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands_mountains;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsMountains(BiomeConfig config) {
+    public RealisticBiomeACDarklandsMountains() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override

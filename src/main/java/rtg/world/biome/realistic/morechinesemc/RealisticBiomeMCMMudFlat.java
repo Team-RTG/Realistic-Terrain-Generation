@@ -24,10 +24,13 @@ public class RealisticBiomeMCMMudFlat extends RealisticBiomeMCMBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMCMMudFlat(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMCMMudFlat(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

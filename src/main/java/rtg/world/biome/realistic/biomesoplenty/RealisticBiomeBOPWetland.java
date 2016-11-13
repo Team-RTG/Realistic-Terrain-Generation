@@ -26,10 +26,13 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.wetland.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPWetland(BiomeConfig config) {
+    public RealisticBiomeBOPWetland() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPSeasonalForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -29,9 +29,15 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.seasonal_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPSeasonalForest(BiomeConfig config) {
+    public RealisticBiomeBOPSeasonalForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -180,6 +186,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         decoFallenTree.randomLogBlocks = new IBlockState[]{BlockUtil.getStateLog2(1), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(2)};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPSeasonalForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
     }
 }

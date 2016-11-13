@@ -18,15 +18,22 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.COLD_BEACH;
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
+    public RealisticBiomeVanillaColdBeach() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.setPropertyValueById(allowVillagesId, false);
     }
 
     @Override

@@ -24,13 +24,16 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MUTATED_DESERT;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaDesertM(BiomeConfig config) {
+    public RealisticBiomeVanillaDesertM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

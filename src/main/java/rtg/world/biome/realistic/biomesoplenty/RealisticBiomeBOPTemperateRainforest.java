@@ -25,10 +25,13 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
     public static Biome biome = BOPBiomes.temperate_rainforest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPTemperateRainforest(BiomeConfig config) {
+    public RealisticBiomeBOPTemperateRainforest() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

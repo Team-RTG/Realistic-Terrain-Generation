@@ -27,10 +27,13 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.boreal_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPBorealForest(BiomeConfig config) {
+    public RealisticBiomeBOPBorealForest() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

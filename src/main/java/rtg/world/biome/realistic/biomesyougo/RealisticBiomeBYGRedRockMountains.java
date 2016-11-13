@@ -20,13 +20,16 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBYGRedRockMountains(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGRedRockMountains(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

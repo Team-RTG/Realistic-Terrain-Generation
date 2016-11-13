@@ -25,10 +25,13 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.outback.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOutback(BiomeConfig config) {
+    public RealisticBiomeBOPOutback() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

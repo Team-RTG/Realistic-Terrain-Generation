@@ -26,9 +26,14 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands_plains;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsPlains(BiomeConfig config) {
+    public RealisticBiomeACDarklandsPlains() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override

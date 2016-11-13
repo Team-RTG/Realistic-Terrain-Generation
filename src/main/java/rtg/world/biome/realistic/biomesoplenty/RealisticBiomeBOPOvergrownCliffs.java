@@ -13,23 +13,32 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.biome.BiomeConfig;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.api.biome.BiomeConfig.decorationLogsId;
+import static rtg.api.biome.BiomeConfig.decorationLogsName;
 
 public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
     public static Biome biome = BOPBiomes.overgrown_cliffs.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOvergrownCliffs(BiomeConfig config) {
+    public RealisticBiomeBOPOvergrownCliffs() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, decorationLogsName, "", true));
     }
 
     @Override

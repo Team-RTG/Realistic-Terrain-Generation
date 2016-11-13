@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPConiferousForest;
+import rtg.api.biome.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -29,9 +29,15 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.coniferous_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPConiferousForest(BiomeConfig config) {
+    public RealisticBiomeBOPConiferousForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
     }
 
     @Override
@@ -179,7 +185,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPConiferousForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 12;

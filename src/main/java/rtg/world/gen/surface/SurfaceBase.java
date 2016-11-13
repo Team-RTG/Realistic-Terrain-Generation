@@ -101,50 +101,43 @@ public abstract class SurfaceBase {
 
     private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
 
-        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
-        try {
-            if (Block.getBlockFromName(userTopBlock) != null) {
-                topBlock = Block.getBlockFromName(userTopBlock).getStateFromMeta(Byte.valueOf(userTopBlockMeta));
-            }
-            else {
-                topBlock = top;
-            }
-        }
-        catch (Exception e) {
-            topBlock = top;
-        }
+        topBlock = getConfigBlock(
+            config, BiomeConfig.surfaceTopBlockId, BiomeConfig.surfaceTopBlockMetaId, top
+        );
 
-        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
-        try {
-            if (Block.getBlockFromName(userFillerBlock) != null) {
-                fillerBlock = Block.getBlockFromName(userFillerBlock).getStateFromMeta(Integer.parseInt(userFillerBlockMeta));
-            }
-            else {
-                fillerBlock = fill;
-            }
-        }
-        catch (Exception e) {
-            fillerBlock = fill;
-        }
+        fillerBlock = getConfigBlock(
+            config, BiomeConfig.surfaceFillerBlockId, BiomeConfig.surfaceFillerBlockMetaId, fill
+        );
     }
 
-    protected IBlockState getConfigBlock(BiomeConfig config, String propertyId, String propertyMeta, IBlockState blockDefault) {
+    protected IBlockState getConfigBlock(BiomeConfig config, String propertyBlockId, String propertyBlockMeta, IBlockState blockDefault) {
 
-        IBlockState blockReturn = blockDefault;
-        String userBlockId = config._string(propertyId);
-        String userBlockMeta = config._string(propertyMeta);
+        IBlockState blockReturn;
+        String userBlockId = config._string(propertyBlockId);
+        String userBlockMeta = config._string(propertyBlockMeta);
 
         try {
-            if (Block.getBlockFromName(userBlockId) != null) {
-                blockReturn = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));
+
+            Block blockConfig = Block.getBlockFromName(userBlockId);
+
+            if (blockConfig != null) {
+
+                if (userBlockMeta.equals("") || userBlockMeta.equals("0")) {
+
+                    blockReturn = blockConfig.getDefaultState();
+                }
+                else {
+
+                    blockReturn = blockConfig.getStateFromMeta(Byte.valueOf(userBlockMeta));
+                }
             }
             else {
+
                 blockReturn = blockDefault;
             }
         }
         catch (Exception e) {
+
             blockReturn = blockDefault;
         }
 

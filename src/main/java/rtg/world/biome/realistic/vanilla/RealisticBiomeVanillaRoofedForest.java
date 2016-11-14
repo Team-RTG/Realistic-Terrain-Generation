@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationCobwebsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationCobwebsName, "", true));
 
         this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", "0"));
     }
 
     @Override

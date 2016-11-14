@@ -47,7 +47,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationCactusId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationCactusName, "", true));
 
         this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""));
+        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", "0"));
 
         this.config.setPropertyValueById(allowVolcanoesId, true);
         this.config.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));

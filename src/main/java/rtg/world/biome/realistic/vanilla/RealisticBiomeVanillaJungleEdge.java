@@ -11,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.config.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;

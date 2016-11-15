@@ -1,13 +1,13 @@
-package rtg.config;
+package rtg.config.property;
 
 
-public class BiomeConfigProperty {
+public class ConfigProperty {
 
     public Type type;
     public String name;
     public String description;
 
-    public BiomeConfigProperty(Type type, String name, String description) {
+    public ConfigProperty(Type type, String name, String description) {
 
         this.type = type;
         this.name = name;

@@ -14,7 +14,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.RTG;
-import rtg.config.*;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
+import rtg.config.property.*;
 import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -582,17 +584,17 @@ public abstract class RealisticBiomeBase {
             config.load();
 
             String categoryName = "biome." + this.modSlug() + "." + this.biomeSlug();
-            ArrayList<BiomeConfigProperty> properties = this.config.getProperties();
+            ArrayList<ConfigProperty> properties = this.config.getProperties();
 
             for (int j = 0; j < properties.size(); j++) {
 
-                BiomeConfigProperty prop = properties.get(j);
+                ConfigProperty prop = properties.get(j);
 
                 switch (prop.type) {
 
                     case INTEGER:
 
-                        BiomeConfigPropertyInt propInt = (BiomeConfigPropertyInt)properties.get(j);
+                        ConfigPropertyInt propInt = (ConfigPropertyInt)properties.get(j);
 
                         propInt.set(config.getInt(
                             propInt.name,
@@ -607,7 +609,7 @@ public abstract class RealisticBiomeBase {
 
                     case FLOAT:
 
-                        BiomeConfigPropertyFloat propFloat = (BiomeConfigPropertyFloat)properties.get(j);
+                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat)properties.get(j);
 
                         propFloat.set(config.getFloat(
                             propFloat.name,
@@ -622,7 +624,7 @@ public abstract class RealisticBiomeBase {
 
                     case BOOLEAN:
 
-                        BiomeConfigPropertyBoolean propBool = (BiomeConfigPropertyBoolean)properties.get(j);
+                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)properties.get(j);
 
                         propBool.set(config.getBoolean(
                             propBool.name,
@@ -635,7 +637,7 @@ public abstract class RealisticBiomeBase {
 
                     case STRING:
 
-                        BiomeConfigPropertyString propString = (BiomeConfigPropertyString)properties.get(j);
+                        ConfigPropertyString propString = (ConfigPropertyString)properties.get(j);
 
                         propString.set(config.getString(
                             propString.name,
@@ -647,7 +649,7 @@ public abstract class RealisticBiomeBase {
                         break;
 
                     default:
-                        throw new RuntimeException("BiomeConfigProperty type not supported.");
+                        throw new RuntimeException("ConfigProperty type not supported.");
                 }
             }
 

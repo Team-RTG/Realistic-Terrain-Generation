@@ -1,13 +1,13 @@
-package rtg.config;
+package rtg.config.property;
 
 
-public class BiomeConfigPropertyInt extends BiomeConfigProperty {
+public class ConfigPropertyInt extends ConfigProperty {
 
     public int minValueInt;
     public int maxValueInt;
     public int valueInt;
 
-    public BiomeConfigPropertyInt(Type type, String name, String description, int defaultValue, int minValueInt, int maxValueInt) {
+    public ConfigPropertyInt(Type type, String name, String description, int defaultValue, int minValueInt, int maxValueInt) {
 
         super(type, name, description);
 

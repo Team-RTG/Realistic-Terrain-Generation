@@ -1,11 +1,11 @@
-package rtg.config;
+package rtg.config.property;
 
 
-public class BiomeConfigPropertyBoolean extends BiomeConfigProperty {
+public class ConfigPropertyBoolean extends ConfigProperty {
 
     public boolean valueBoolean;
 
-    public BiomeConfigPropertyBoolean(Type type, String name, String description, boolean defaultValue) {
+    public ConfigPropertyBoolean(Type type, String name, String description, boolean defaultValue) {
 
         super(type, name, description);
 

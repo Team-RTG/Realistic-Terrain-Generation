@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,11 +23,17 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     public static Biome biome = Biomes.MUSHROOM_ISLAND;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMushroomIsland(BiomeConfig config) {
+    public RealisticBiomeVanillaMushroomIsland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

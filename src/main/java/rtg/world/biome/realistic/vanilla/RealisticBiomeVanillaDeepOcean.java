@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaDeepOcean;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -23,14 +22,23 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.DEEP_OCEAN;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaDeepOcean(BiomeConfig config) {
+    public RealisticBiomeVanillaDeepOcean() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VILLAGES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -69,8 +77,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
             super(config, top, filler);
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaDeepOcean.surfaceMixBlockId,
-                BiomeConfigVanillaDeepOcean.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
 
             width = mixWidth;
             height = mixHeight;

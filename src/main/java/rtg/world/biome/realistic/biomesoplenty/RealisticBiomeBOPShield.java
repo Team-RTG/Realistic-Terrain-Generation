@@ -13,8 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPShield;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -31,9 +30,15 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.shield.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPShield(BiomeConfig config) {
+    public RealisticBiomeBOPShield() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -161,6 +166,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree2.maxSize = 4;
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
-        this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfigBOPShield.decorationLogsId));
+        this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.*;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
@@ -25,12 +25,18 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MUTATED_MESA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMesaBryce(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaBryce() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

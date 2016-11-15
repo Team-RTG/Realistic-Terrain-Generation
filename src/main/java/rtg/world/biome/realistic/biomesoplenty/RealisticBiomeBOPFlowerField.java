@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,10 +28,13 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.flower_field.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPFlowerField(BiomeConfig config) {
+    public RealisticBiomeBOPFlowerField() {
 
-        super(config, biome, river);
+        super(biome, river);
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

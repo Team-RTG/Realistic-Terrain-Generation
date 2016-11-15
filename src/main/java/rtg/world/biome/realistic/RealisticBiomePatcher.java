@@ -2,7 +2,7 @@ package rtg.world.biome.realistic;
 
 import net.minecraft.world.biome.Biome;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 
 public class RealisticBiomePatcher {
 

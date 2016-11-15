@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 
 /**
  * Salix Myrtilloides (Swamp Willow)

@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesyougo.config.BiomeConfigBYGShrubs;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -27,9 +26,18 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBYGShrubs(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGShrubs(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -91,10 +99,7 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config,
-                BiomeConfigBYGShrubs.surfaceMixBlockId, BiomeConfigBYGShrubs.surfaceMixBlockMetaId,
-                mixTop
-            );
+            blockMixTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;
@@ -174,7 +179,7 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 2;
         decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGShrubs.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();

@@ -13,8 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPMountainPeaks;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -30,13 +29,19 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.mountain.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPMountainPeaks(BiomeConfig config) {
+    public RealisticBiomeBOPMountainPeaks() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -203,7 +208,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPMountainPeaks.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;

@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaTaigaHills;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -25,11 +24,20 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.TAIGA_HILLS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaTaigaHills(BiomeConfig config) {
+    public RealisticBiomeVanillaTaigaHills() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -74,8 +82,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
 
             super(config, top, fill);
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaTaigaHills.surfaceMixBlockId,
-                BiomeConfigVanillaTaigaHills.surfaceMixBlockMetaId, BlockUtil.getStateDirt(2));
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateDirt(2));
         }
 
         @Override
@@ -152,6 +159,6 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaTaigaHills.decorationLogsId), 10f));
+        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig().ALLOW_LOGS.get(), 10f));
     }
 }

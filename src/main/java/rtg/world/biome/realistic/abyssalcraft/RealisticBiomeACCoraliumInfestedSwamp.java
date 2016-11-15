@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -25,9 +25,14 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
     public static Biome biome = ACBiomes.coralium_infested_swamp;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACCoraliumInfestedSwamp(BiomeConfig config) {
+    public RealisticBiomeACCoraliumInfestedSwamp() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override

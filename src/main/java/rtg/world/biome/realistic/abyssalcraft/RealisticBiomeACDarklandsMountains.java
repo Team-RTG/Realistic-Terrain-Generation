@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,12 +26,17 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands_mountains;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsMountains(BiomeConfig config) {
+    public RealisticBiomeACDarklandsMountains() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
     }
 
     @Override

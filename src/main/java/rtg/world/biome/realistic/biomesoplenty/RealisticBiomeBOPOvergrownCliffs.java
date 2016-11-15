@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -25,11 +25,17 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.overgrown_cliffs.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPOvergrownCliffs(BiomeConfig config) {
+    public RealisticBiomeBOPOvergrownCliffs() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override

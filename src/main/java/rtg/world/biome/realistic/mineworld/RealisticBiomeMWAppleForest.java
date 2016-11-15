@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWAppleForest;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -25,9 +24,18 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     public static Biome river = Biomes.RIVER;
     private static IBlockState mwLogBlock = BlockUtil.getBlock("mw:logs").getDefaultState();
 
-    public RealisticBiomeMWAppleForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWAppleForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -86,8 +94,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config, BiomeConfigMWAppleForest.surfaceMixBlockId,
-                BiomeConfigMWAppleForest.surfaceMixBlockMetaId, mixTop);
+            blockMixTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;
@@ -175,7 +182,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
         decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree1.minSize = 3;
         decoFallenTree1.maxSize = 5;
-        this.addDeco(decoFallenTree1, this.config._boolean(BiomeConfigMWAppleForest.decorationLogsId));
+        this.addDeco(decoFallenTree1, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;

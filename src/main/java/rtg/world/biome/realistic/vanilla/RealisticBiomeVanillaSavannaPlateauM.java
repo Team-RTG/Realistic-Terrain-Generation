@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.*;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
@@ -24,12 +24,15 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public static Biome biome = Biomes.MUTATED_SAVANNA_ROCK;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaSavannaPlateauM(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaPlateauM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

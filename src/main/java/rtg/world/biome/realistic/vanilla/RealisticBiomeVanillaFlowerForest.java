@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaFlowerForest;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -29,9 +28,18 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public static Biome biome = Biomes.MUTATED_FOREST;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaFlowerForest(BiomeConfig config) {
+    public RealisticBiomeVanillaFlowerForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -82,8 +90,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaFlowerForest.surfaceMixBlockId,
-                BiomeConfigVanillaFlowerForest.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -254,7 +261,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenSpruce.minSize = 3;
         decoFallenSpruce.maxSize = 6;
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaFlowerForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();

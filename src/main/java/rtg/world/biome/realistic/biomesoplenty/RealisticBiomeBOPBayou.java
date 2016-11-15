@@ -14,8 +14,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBayou;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -35,11 +34,20 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         .withProperty(BlockLeaves.CHECK_DECAY, false)
         .withProperty(BlockLeaves.DECAYABLE, false);
 
-    public RealisticBiomeBOPBayou(BiomeConfig config) {
+    public RealisticBiomeBOPBayou() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0; // We want RTG ponds, not Mojang lakes.
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -90,9 +98,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigBOPBayou.surfaceMixBlockId,
-                BiomeConfigBOPBayou.surfaceMixBlockMetaId,
-                mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -236,7 +242,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = leavesBlock;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPBayou.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
         this.addDeco(decoJungleLilypadVines);

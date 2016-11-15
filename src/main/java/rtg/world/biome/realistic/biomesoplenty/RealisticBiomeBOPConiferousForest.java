@@ -13,8 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPConiferousForest;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -29,9 +28,15 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.coniferous_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPConiferousForest(BiomeConfig config) {
+    public RealisticBiomeBOPConiferousForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -179,7 +184,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPConiferousForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 12;

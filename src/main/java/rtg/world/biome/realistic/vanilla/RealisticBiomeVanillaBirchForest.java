@@ -11,8 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBirchForest;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -30,9 +29,18 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
     public static Biome biome = Biomes.BIRCH_FOREST;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaBirchForest(BiomeConfig config) {
+    public RealisticBiomeVanillaBirchForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -86,9 +94,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaBirchForest.surfaceMixBlockId,
-                BiomeConfigVanillaBirchForest.surfaceMixBlockMetaId,
-                mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -219,7 +225,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaBirchForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 120;

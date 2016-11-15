@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsEdge;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -27,14 +26,25 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     public static Biome biome = Biomes.EXTREME_HILLS_EDGE;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaExtremeHillsEdge(BiomeConfig config) {
+    public RealisticBiomeVanillaExtremeHillsEdge() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
         this.generatesSilverfish = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -85,13 +95,8 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixBlockId,
-                BiomeConfigVanillaExtremeHillsEdge.surfaceMixBlockMetaId,
-                mixTop);
-
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockId,
-                BiomeConfigVanillaExtremeHillsEdge.surfaceMixFillerBlockMetaId, mixFill
-            );
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
 
             width = mixWidth;
             height = mixHeight;
@@ -189,7 +194,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaExtremeHillsEdge.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;

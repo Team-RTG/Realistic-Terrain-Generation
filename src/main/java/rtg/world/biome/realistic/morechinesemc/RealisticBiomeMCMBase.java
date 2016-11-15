@@ -4,8 +4,6 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.morechinesemc.config.BiomeConfigMCM;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -18,12 +16,17 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
     public static RealisticBiomeBase mcmMudFlat;
     public static RealisticBiomeBase mcmWarmTaiga;
 
-    public RealisticBiomeMCMBase(BiomeConfig config, Biome b, Biome riverbiome) {
+    public RealisticBiomeMCMBase(Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome);
+        super(b, riverbiome);
 
         this.waterSurfaceLakeChance = 30;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public String modSlug() {
+        return "morechinesemc";
     }
 
     public static void addBiomes() {
@@ -41,19 +44,19 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
                 String biomeClass = biome.getBiomeClass().getName();
 
                 if (biomeName.equals("Black Plain") && biomeClass.equals("com.mcbbs.shp241.morechinesemc.world.BiomeBlackPlain")) {
-                    mcmBlackPlain = new RealisticBiomeMCMBlackPlain(biome, BiomeConfigMCM.biomeConfigMCMBlackPlain);
+                    mcmBlackPlain = new RealisticBiomeMCMBlackPlain(biome);
                 }
                 else if (biomeName.equals("Bog") && biomeClass.equals("com.mcbbs.shp241.morechinesemc.world.BiomeBog")) {
-                    mcmBog = new RealisticBiomeMCMBog(biome, BiomeConfigMCM.biomeConfigMCMBog);
+                    mcmBog = new RealisticBiomeMCMBog(biome);
                 }
                 else if (biomeName.equals("Loess Plateau") && biomeClass.equals("com.mcbbs.shp241.morechinesemc.world.BiomeWarmTaiga")) {
-                    mcmLoessPlateau = new RealisticBiomeMCMLoessPlateau(biome, BiomeConfigMCM.biomeConfigMCMLoessPlateau);
+                    mcmLoessPlateau = new RealisticBiomeMCMLoessPlateau(biome);
                 }
                 else if (biomeName.equals("Mud Flat") && biomeClass.equals("com.mcbbs.shp241.morechinesemc.world.BiomeMudFlat")) {
-                    mcmMudFlat = new RealisticBiomeMCMMudFlat(biome, BiomeConfigMCM.biomeConfigMCMMudFlat);
+                    mcmMudFlat = new RealisticBiomeMCMMudFlat(biome);
                 }
                 else if (biomeName.equals("Warm Taiga") && biomeClass.equals("com.mcbbs.shp241.morechinesemc.world.BiomeWarmTaiga")) {
-                    mcmWarmTaiga = new RealisticBiomeMCMWarmTaiga(biome, BiomeConfigMCM.biomeConfigMCMWarmTaiga);
+                    mcmWarmTaiga = new RealisticBiomeMCMWarmTaiga(biome);
                 }
             }
         }

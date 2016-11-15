@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.sugiforest.config.BiomeConfigSFSugiForest;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,9 +25,15 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
     private static IBlockState sugiLogBlock = Block.getBlockFromName("sugiforest:sugi_log").getDefaultState();
     private static IBlockState sugiLeavesBlock = Block.getBlockFromName("sugiforest:sugi_leaves").getDefaultState();
 
-    public RealisticBiomeSFSugiForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeSFSugiForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -170,7 +175,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoFallenTree.leavesBlock = sugiLeavesBlock;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigSFSugiForest.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubSugi = new DecoShrub();
         decoShrubSugi.logBlock = sugiLogBlock;

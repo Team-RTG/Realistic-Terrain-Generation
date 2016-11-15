@@ -12,8 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLushSwamp;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -28,9 +27,15 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.lush_swamp.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPLushSwamp(BiomeConfig config) {
+    public RealisticBiomeBOPLushSwamp() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -132,6 +137,6 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 4;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLushSwamp.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

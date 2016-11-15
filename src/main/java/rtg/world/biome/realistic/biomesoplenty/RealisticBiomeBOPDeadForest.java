@@ -13,8 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPDeadForest;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -32,9 +31,15 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.dead_forest.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPDeadForest(BiomeConfig config) {
+    public RealisticBiomeBOPDeadForest() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -205,7 +210,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{12, 1};
-        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfigBOPDeadForest.decorationLogsId));
+        this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

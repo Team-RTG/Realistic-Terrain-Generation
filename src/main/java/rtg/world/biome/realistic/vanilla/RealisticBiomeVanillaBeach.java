@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaBeach;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -22,14 +21,22 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
+
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
 
     public static Biome biome = Biomes.BEACH;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaBeach(BiomeConfig config) {
+    public RealisticBiomeVanillaBeach() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VILLAGES.set(false);
+        this.getConfig().addProperty(this.getConfig().ALLOW_PALM_TREES).set(true);
     }
 
     @Override
@@ -160,6 +167,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         palmTrees.treeConditionNoise = -0.2f;
         palmTrees.treeConditionChance = 12;
         palmTrees.maxY = 68;
-        this.addDeco(palmTrees, this.config._boolean(BiomeConfigVanillaBeach.decorationPalmTreesId));
+        this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
     }
 }

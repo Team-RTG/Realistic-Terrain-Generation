@@ -13,8 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLushDesert;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -30,9 +29,15 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.lush_desert.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPLushDesert(BiomeConfig config) {
+    public RealisticBiomeBOPLushDesert() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -206,7 +211,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG2.getStateFromMeta(1), BOPBlocks.log_3.getStateFromMeta(2), Blocks.LOG.getDefaultState()};
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 5;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLushDesert.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
         decoJungleCacti.strengthFactor = 8f;

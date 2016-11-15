@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWPalms;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,9 +22,16 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMWPalms(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWPalms(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -77,8 +83,7 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config, BiomeConfigMWPalms.surfaceMixBlockId,
-                BiomeConfigMWPalms.surfaceMixBlockMetaId, mixTop);
+            blockMixTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;

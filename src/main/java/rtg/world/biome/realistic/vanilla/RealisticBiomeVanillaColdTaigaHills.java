@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaColdTaigaHills;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -24,11 +23,17 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     public static Biome biome = Biomes.COLD_TAIGA_HILLS;
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeVanillaColdTaigaHills(BiomeConfig config) {
+    public RealisticBiomeVanillaColdTaigaHills() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -168,6 +173,6 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfigVanillaColdTaigaHills.decorationLogsId), 8f));
+        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig().ALLOW_LOGS.get(), 8f));
     }
 }

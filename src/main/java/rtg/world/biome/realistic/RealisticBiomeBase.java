@@ -1,5 +1,6 @@
 package rtg.world.biome.realistic;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,8 +11,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+import net.minecraftforge.common.config.Configuration;
+
+import rtg.RTG;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
+import rtg.config.property.*;
 import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -36,6 +41,7 @@ public abstract class RealisticBiomeBase {
     public final Biome riverBiome;
     public final Biome beachBiome;
     public BiomeConfig config;
+    public String configPath;
     public TerrainBase terrain;
     public SurfaceBase surface;
     public SurfaceBase surfaceGeneric;
@@ -71,13 +77,13 @@ public abstract class RealisticBiomeBase {
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
 
-    public RealisticBiomeBase(BiomeConfig config, Biome biome, Biome river) {
+    public RealisticBiomeBase(Biome biome, Biome river) {
 
-        if (config == null) throw new RuntimeException("Biome config cannot be NULL when instantiating a realistic biome.");
-        this.config = config;
         arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
+
         baseBiome = biome;
         riverBiome = river;
+        this.config = new BiomeConfig(this);
         beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);
@@ -117,17 +123,22 @@ public abstract class RealisticBiomeBase {
     }
 
     private void init() {
+        initConfig();
+        setBiomeConfigsFromUserConfigs();
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
         initDecos();
     }
 
+    public abstract void initConfig();
     public abstract TerrainBase initTerrain();
-
     public abstract SurfaceBase initSurface();
-
     public abstract void initDecos();
+
+    public BiomeConfig getConfig() {
+        return this.config;
+    }
 
     public static RealisticBiomeBase getBiome(int id) {
         return arrRealisticBiomeIds[id];
@@ -145,7 +156,7 @@ public abstract class RealisticBiomeBase {
     protected Biome beachBiome(Biome preferredBeach) {
 
         Biome beach;
-        int configBeachId = this.config._int(BiomeConfig.beachBiomeId);
+        int configBeachId = this.getConfig().BEACH_BIOME.get();
 
         if (configBeachId > -1 && configBeachId < 256) {
             beach = Biome.getBiome(configBeachId, preferredBeach);
@@ -181,11 +192,11 @@ public abstract class RealisticBiomeBase {
             realisticBiome = biomePatcher.getPatchedRealisticBiome(
                 "NULL biome (" + biomeId + ") found when mapping volcanoes.");
         }
-        if (!realisticBiome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
+        if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = realisticBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : realisticBiome.config._int(BiomeConfig.volcanoChanceId);
+        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? ConfigRTG.volcanoChance : realisticBiome.getConfig().VOLCANO_CHANCE.get();
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
@@ -314,7 +325,7 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
         }
@@ -328,7 +339,7 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
 
@@ -551,5 +562,105 @@ public abstract class RealisticBiomeBase {
         }
 
         return true;
+    }
+
+    public String configPath() {
+        return RTG.configPath + "biomes/" + this.modSlug() + "/" + this.biomeSlug() + ".cfg";
+    }
+
+    public String modSlug() {
+        throw new RuntimeException("Realistic biomes need a mod slug.");
+    }
+
+    public String biomeSlug() {
+        return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
+    }
+
+    public void setBiomeConfigsFromUserConfigs() {
+
+        Configuration config = new Configuration(new File(this.configPath()));
+
+        try {
+            config.load();
+
+            String categoryName = "biome." + this.modSlug() + "." + this.biomeSlug();
+            ArrayList<ConfigProperty> properties = this.config.getProperties();
+
+            for (int j = 0; j < properties.size(); j++) {
+
+                ConfigProperty prop = properties.get(j);
+
+                switch (prop.type) {
+
+                    case INTEGER:
+
+                        ConfigPropertyInt propInt = (ConfigPropertyInt)properties.get(j);
+
+                        propInt.set(config.getInt(
+                            propInt.name,
+                            categoryName,
+                            propInt.valueInt,
+                            propInt.minValueInt,
+                            propInt.maxValueInt,
+                            prop.description
+                        ));
+
+                        break;
+
+                    case FLOAT:
+
+                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat)properties.get(j);
+
+                        propFloat.set(config.getFloat(
+                            propFloat.name,
+                            categoryName,
+                            propFloat.valueFloat,
+                            propFloat.minValueFloat,
+                            propFloat.maxValueFloat,
+                            propFloat.description
+                        ));
+
+                        break;
+
+                    case BOOLEAN:
+
+                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)properties.get(j);
+
+                        propBool.set(config.getBoolean(
+                            propBool.name,
+                            categoryName,
+                            propBool.valueBoolean,
+                            propBool.description
+                        ));
+
+                        break;
+
+                    case STRING:
+
+                        ConfigPropertyString propString = (ConfigPropertyString)properties.get(j);
+
+                        propString.set(config.getString(
+                            propString.name,
+                            categoryName,
+                            propString.valueString,
+                            propString.description
+                        ));
+
+                        break;
+
+                    default:
+                        throw new RuntimeException("ConfigProperty type not supported.");
+                }
+            }
+
+        }
+        catch (Exception e) {
+            Logger.error("RTG had a problem loading " + this.modSlug() + "/" + this.biomeSlug() + " configuration.");
+        }
+        finally {
+            if (config.hasChanged()) {
+                config.save();
+            }
+        }
     }
 }

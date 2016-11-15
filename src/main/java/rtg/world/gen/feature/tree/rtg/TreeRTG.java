@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.WorldUtil;
 

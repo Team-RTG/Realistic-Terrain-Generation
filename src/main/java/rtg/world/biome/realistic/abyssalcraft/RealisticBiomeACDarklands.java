@@ -13,9 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.abyssalcraft.config.BiomeConfigACDarklands;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaForestHills;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -30,9 +28,18 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklands(BiomeConfig config) {
+    public RealisticBiomeACDarklands() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -93,7 +100,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaForestHills.surfaceMixBlockId, BiomeConfigVanillaForestHills.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -179,7 +186,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
         decoFallenTree.minSize = 2;
         decoFallenTree.maxSize = 3;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigACDarklands.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();

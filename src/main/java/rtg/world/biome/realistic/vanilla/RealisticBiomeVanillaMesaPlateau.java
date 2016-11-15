@@ -11,7 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.*;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
@@ -23,13 +23,16 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public static Biome biome = Biomes.MESA_CLEAR_ROCK;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMesaPlateau(BiomeConfig config) {
+    public RealisticBiomeVanillaMesaPlateau() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.waterSurfaceLakeChance = 30;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,13 +23,16 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBYGMushroomMountains(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGMushroomMountains(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

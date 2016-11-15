@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaIceMountains;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -24,11 +23,20 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     public static Biome biome = Biomes.ICE_MOUNTAINS;
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeVanillaIceMountains(BiomeConfig config) {
+    public RealisticBiomeVanillaIceMountains() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -79,13 +87,8 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixBlockId,
-                BiomeConfigVanillaIceMountains.surfaceMixBlockMetaId,
-                mixTop);
-
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaIceMountains.surfaceMixFillerBlockId,
-                BiomeConfigVanillaIceMountains.surfaceMixFillerBlockMetaId,
-                mixFill);
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
 
             cliffBlock1 = cliff1;
             cliffBlock2 = cliff2;

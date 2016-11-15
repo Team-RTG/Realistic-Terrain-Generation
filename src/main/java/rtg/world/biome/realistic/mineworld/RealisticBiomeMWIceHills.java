@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWIceHills;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -23,9 +22,18 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
 
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeMWIceHills(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWIceHills(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -83,13 +91,8 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigMWIceHills.surfaceMixBlockId,
-                BiomeConfigMWIceHills.surfaceMixBlockMetaId,
-                mixTop);
-
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigMWIceHills.surfaceMixFillerBlockId,
-                BiomeConfigMWIceHills.surfaceMixFillerBlockMetaId,
-                mixFill);
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
 
             cliffBlock1 = cliff1;
             cliffBlock2 = cliff2;

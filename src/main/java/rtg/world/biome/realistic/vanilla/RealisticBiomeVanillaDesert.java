@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionDesert;
@@ -24,12 +24,19 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.DESERT;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaDesert(BiomeConfig config) {
+    public RealisticBiomeVanillaDesert() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
+        this.getConfig().SURFACE_FILLER_BLOCK_META.set(0);
     }
 
     @Override
@@ -116,14 +123,14 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
                             primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else if (depth == 0) {
-                            primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? Blocks.SAND.getDefaultState() : Blocks.SANDSTONE.getDefaultState());
+                            primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? topBlock : Blocks.SANDSTONE.getDefaultState());
                         }
                     }
-                    else if (depth > -1 && depth < 9) {
-                        primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
-                        if (depth == 0 && k > 61 && k < 254) {
-                            ;
-                        }
+                    else if (depth > -1 && depth < 5) {
+                        primer.setBlockState(x, k, y, topBlock);
+                    }
+                    else if (depth < 8) {
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

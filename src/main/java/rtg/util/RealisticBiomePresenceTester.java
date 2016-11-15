@@ -32,7 +32,7 @@ public class RealisticBiomePresenceTester {
 
                     try {
                         RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(biomeId);
-                        String rBiomeName = rBiome.config.biomeSlug;
+                        String rBiomeName = rBiome.biomeSlug();
 
                         Logger.info("Found biome (%d) %s from %s with a %s beach.", biomeId, biomeName, biomeClass, rBiome.beachBiome().getBiomeName());
                     }

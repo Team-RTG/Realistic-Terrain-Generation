@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -24,9 +24,15 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.COLD_BEACH;
     public static Biome river = Biomes.FROZEN_RIVER;
 
-    public RealisticBiomeVanillaColdBeach(BiomeConfig config) {
+    public RealisticBiomeVanillaColdBeach() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

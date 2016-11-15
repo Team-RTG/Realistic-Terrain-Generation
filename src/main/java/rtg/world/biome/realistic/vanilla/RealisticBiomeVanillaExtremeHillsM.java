@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHillsM;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -24,13 +23,22 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     public static Biome biome = Biomes.MUTATED_EXTREME_HILLS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaExtremeHillsM(BiomeConfig config) {
+    public RealisticBiomeVanillaExtremeHillsM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.generatesEmeralds = true;
         this.generatesSilverfish = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -81,13 +89,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixBlockId,
-                BiomeConfigVanillaExtremeHillsM.surfaceMixBlockMetaId,
-                mixTop);
-
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockId,
-                BiomeConfigVanillaExtremeHillsM.surfaceMixFillerBlockMetaId,
-                mixFill);
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
 
             width = mixWidth;
             height = mixHeight;

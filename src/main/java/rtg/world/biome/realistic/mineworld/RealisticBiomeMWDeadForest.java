@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMWDeadForest;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -28,9 +27,18 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
 
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeMWDeadForest(Biome biome, BiomeConfig config) {
+    public RealisticBiomeMWDeadForest(Biome biome) {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -94,8 +102,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config, BiomeConfigMWDeadForest.surfaceMixBlockId,
-                BiomeConfigMWDeadForest.surfaceMixBlockMetaId, mixTop);
+            blockMixTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;
@@ -202,7 +209,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{12, 8};
-        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfigMWDeadForest.decorationLogsId));
+        this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

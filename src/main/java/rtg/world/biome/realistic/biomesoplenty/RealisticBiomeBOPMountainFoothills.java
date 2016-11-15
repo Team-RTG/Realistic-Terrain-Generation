@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,9 +26,15 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.mountain_foothills.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPMountainFoothills(BiomeConfig config) {
+    public RealisticBiomeBOPMountainFoothills() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override

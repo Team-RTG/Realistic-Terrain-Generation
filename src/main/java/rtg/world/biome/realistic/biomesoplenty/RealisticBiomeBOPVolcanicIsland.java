@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -25,14 +25,21 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.volcanic_island.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPVolcanicIsland(BiomeConfig config) {
+    public RealisticBiomeBOPVolcanicIsland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(-1);
     }
 
     @Override

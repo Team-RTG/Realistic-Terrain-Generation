@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -29,9 +28,18 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.PLAINS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaPlains(BiomeConfig config) {
+    public RealisticBiomeVanillaPlains() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_WHEAT).set(true);
+        this.getConfig().addProperty(this.getConfig().WHEAT_CHANCE).set(50);
+        this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(63);
+        this.getConfig().addProperty(this.getConfig().WHEAT_MAX_Y).set(255);
     }
 
     @Override
@@ -117,12 +125,12 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoCrop decoCropWheat = new DecoCrop();
         decoCropWheat.size = 8;
         decoCropWheat.density = 5;
-        decoCropWheat.chance = this.config._int(BiomeConfigVanillaPlains.decorationWheatChanceId);
+        decoCropWheat.chance = this.getConfig().WHEAT_CHANCE.get();
         decoCropWheat.type = 3;
         decoCropWheat.water = false;
-        decoCropWheat.minY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMinYId);
-        decoCropWheat.maxY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMaxYId);
-        this.addDeco(decoCropWheat, this.config._boolean(BiomeConfigVanillaPlains.decorationWheatId));
+        decoCropWheat.minY = this.getConfig().WHEAT_MIN_Y.get();
+        decoCropWheat.maxY = this.getConfig().WHEAT_MAX_Y.get();
+        this.addDeco(decoCropWheat, this.getConfig().ALLOW_WHEAT.get());
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();

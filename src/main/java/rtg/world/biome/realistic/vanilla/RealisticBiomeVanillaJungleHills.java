@@ -11,8 +11,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleHills;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -30,12 +30,22 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     public static Biome biome = Biomes.JUNGLE_HILLS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaJungleHills(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleHills() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 3;
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(ConfigRTG.volcanoChance * 2);
     }
 
     @Override
@@ -230,7 +240,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleHills.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -261,7 +271,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         decoJungleCacti.sandOnly = false;
         decoJungleCacti.extraHeight = 7;
         decoJungleCacti.sandMeta = (byte) 1;
-        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigVanillaJungleHills.decorationCactusId));
+        this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();

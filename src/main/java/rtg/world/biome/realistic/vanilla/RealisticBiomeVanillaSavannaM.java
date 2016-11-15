@@ -10,8 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaSavannaM;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -26,11 +25,20 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MUTATED_SAVANNA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaSavannaM(BiomeConfig config) {
+    public RealisticBiomeVanillaSavannaM() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -85,8 +93,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfigVanillaSavannaM.surfaceMixBlockId,
-                BiomeConfigVanillaSavannaM.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
         }
 
         @Override
@@ -184,6 +191,6 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public void initDecos() {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
-        this.addDecoCollection(new DecoCollectionSavanna(this.config._boolean(BiomeConfigVanillaSavannaM.decorationLogsId)));
+        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig().ALLOW_LOGS.get()));
     }
 }

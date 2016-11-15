@@ -12,8 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPLandOfLakes;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -31,9 +30,15 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.land_of_lakes.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPLandOfLakes(BiomeConfig config) {
+    public RealisticBiomeBOPLandOfLakes() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -222,7 +227,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1), BlockUtil.getStateLog(2)};
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 12;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPLandOfLakes.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;

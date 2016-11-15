@@ -12,8 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaExtremeHills;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,12 +25,21 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
     public static Biome biome = ACBiomes.darklands_hills;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsHighland(BiomeConfig config) {
+    public RealisticBiomeACDarklandsHighland() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noLakes = true;
         this.noWaterFeatures = true;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -83,9 +91,8 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixBlockId, BiomeConfigVanillaExtremeHills.surfaceMixBlockMetaId, mixTop);
-
-            mixBlockFill = this.getConfigBlock(config, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockId, BiomeConfigVanillaExtremeHills.surfaceMixFillerBlockMetaId, mixFill);
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
 
             width = mixWidth;
             height = mixHeight;

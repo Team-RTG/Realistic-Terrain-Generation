@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.*;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
@@ -26,12 +26,15 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.MESA;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaMesa(BiomeConfig config) {
+    public RealisticBiomeVanillaMesa() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 20;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

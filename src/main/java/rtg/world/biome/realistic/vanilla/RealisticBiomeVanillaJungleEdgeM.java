@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungleEdgeM;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -26,9 +26,18 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     public static Biome biome = Biomes.MUTATED_JUNGLE_EDGE;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaJungleEdgeM(BiomeConfig config) {
+    public RealisticBiomeVanillaJungleEdgeM() {
 
-        super(config, biome, river);
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(ConfigRTG.volcanoChance * 2);
     }
 
     @Override
@@ -123,6 +132,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungleEdgeM.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

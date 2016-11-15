@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
@@ -101,50 +101,36 @@ public abstract class SurfaceBase {
 
     private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
 
-        String userTopBlock = config._string(BiomeConfig.surfaceTopBlockId);
-        String userTopBlockMeta = config._string(BiomeConfig.surfaceTopBlockMetaId);
-        try {
-            if (Block.getBlockFromName(userTopBlock) != null) {
-                topBlock = Block.getBlockFromName(userTopBlock).getStateFromMeta(Byte.valueOf(userTopBlockMeta));
-            }
-            else {
-                topBlock = top;
-            }
-        }
-        catch (Exception e) {
-            topBlock = top;
-        }
-
-        String userFillerBlock = config._string(BiomeConfig.surfaceFillerBlockId);
-        String userFillerBlockMeta = config._string(BiomeConfig.surfaceFillerBlockMetaId);
-        try {
-            if (Block.getBlockFromName(userFillerBlock) != null) {
-                fillerBlock = Block.getBlockFromName(userFillerBlock).getStateFromMeta(Integer.parseInt(userFillerBlockMeta));
-            }
-            else {
-                fillerBlock = fill;
-            }
-        }
-        catch (Exception e) {
-            fillerBlock = fill;
-        }
+        topBlock = getConfigBlock(config.SURFACE_TOP_BLOCK.get(), config.SURFACE_TOP_BLOCK_META.get(), top);
+        fillerBlock = getConfigBlock(config.SURFACE_FILLER_BLOCK.get(), config.SURFACE_FILLER_BLOCK_META.get(), fill);
     }
 
-    protected IBlockState getConfigBlock(BiomeConfig config, String propertyId, String propertyMeta, IBlockState blockDefault) {
+    protected IBlockState getConfigBlock(String userBlockId, int userBlockMeta, IBlockState blockDefault) {
 
-        IBlockState blockReturn = blockDefault;
-        String userBlockId = config._string(propertyId);
-        String userBlockMeta = config._string(propertyMeta);
+        IBlockState blockReturn;
 
         try {
-            if (Block.getBlockFromName(userBlockId) != null) {
-                blockReturn = Block.getBlockFromName(userBlockId).getStateFromMeta(Integer.parseInt(userBlockMeta));
+
+            Block blockConfig = Block.getBlockFromName(userBlockId);
+
+            if (blockConfig != null) {
+
+                if (userBlockMeta == 0) {
+
+                    blockReturn = blockConfig.getDefaultState();
+                }
+                else {
+
+                    blockReturn = blockConfig.getStateFromMeta(userBlockMeta);
+                }
             }
             else {
+
                 blockReturn = blockDefault;
             }
         }
         catch (Exception e) {
+
             blockReturn = blockDefault;
         }
 

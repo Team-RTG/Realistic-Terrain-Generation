@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
@@ -21,12 +21,18 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.RIVER;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaRiver(BiomeConfig config) {
+    public RealisticBiomeVanillaRiver() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

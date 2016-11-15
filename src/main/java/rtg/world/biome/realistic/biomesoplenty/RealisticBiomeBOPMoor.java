@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -26,12 +26,15 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.moor.get();
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeBOPMoor(BiomeConfig config) {
+    public RealisticBiomeBOPMoor() {
 
-        super(config, biome, river);
+        super(biome, river);
 
         this.noWaterFeatures = true;
     }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public TerrainBase initTerrain() {

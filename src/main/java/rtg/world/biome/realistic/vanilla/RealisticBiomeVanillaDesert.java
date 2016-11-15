@@ -33,7 +33,11 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+
+        this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
+        this.getConfig().SURFACE_FILLER_BLOCK_META.set(0);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -119,14 +123,14 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
                             primer.setBlockState(x, k, y, fillerBlock);
                         }
                         else if (depth == 0) {
-                            primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? Blocks.SAND.getDefaultState() : Blocks.SANDSTONE.getDefaultState());
+                            primer.setBlockState(x, k, y, rand.nextInt(2) == 0 ? topBlock : Blocks.SANDSTONE.getDefaultState());
                         }
                     }
-                    else if (depth > -1 && depth < 9) {
-                        primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
-                        if (depth == 0 && k > 61 && k < 254) {
-                            ;
-                        }
+                    else if (depth > -1 && depth < 5) {
+                        primer.setBlockState(x, k, y, topBlock);
+                    }
+                    else if (depth < 8) {
+                        primer.setBlockState(x, k, y, fillerBlock);
                     }
                 }
             }

@@ -11,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -33,7 +32,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -175,7 +174,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         decoFallenTree.leavesBlock = Blocks.LOG.getDefaultState();
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoCrop decoWheat = new DecoCrop();
         decoWheat.type = 3;

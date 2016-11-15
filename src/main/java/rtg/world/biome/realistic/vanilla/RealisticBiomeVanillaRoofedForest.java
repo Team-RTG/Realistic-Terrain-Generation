@@ -11,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -41,11 +40,11 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationCobwebsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationCobwebsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().ALLOW_COBWEBS).set(true);
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", "0"));
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -98,8 +97,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId,
-                mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+
             mixHeight = mixSize;
         }
 
@@ -254,7 +253,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf2(1);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub darkOakShrub = new DecoShrub();
         darkOakShrub.logBlock = BlockUtil.getStateLog2(1);
@@ -284,7 +283,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoCobwebs.strengthFactor = 24f;
         decoCobwebs.adjacentBlock = BlockUtil.getStateLog2(1);
         decoCobwebs.minAdjacents = 2;
-        this.addDeco(decoCobwebs, this.config._boolean(BiomeConfig.decorationCobwebsId));
+        this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.notEqualsZeroChance = 2;

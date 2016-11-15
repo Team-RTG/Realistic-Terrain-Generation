@@ -6,7 +6,6 @@ import net.minecraftforge.fml.common.Loader;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import rtg.config.BiomeConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
@@ -25,7 +24,7 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
 
-        this.config.setPropertyValueById(BiomeConfig.allowVillagesId, false);
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

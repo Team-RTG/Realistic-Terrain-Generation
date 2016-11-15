@@ -19,8 +19,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVolcanoesId;
-import static rtg.config.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
@@ -40,8 +38,8 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     @Override
     public void initConfig() {
 
-        this.config.setPropertyValueById(allowVolcanoesId, true);
-        this.config.setPropertyValueById(volcanoChanceId, -1);
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(-1);
     }
 
     @Override

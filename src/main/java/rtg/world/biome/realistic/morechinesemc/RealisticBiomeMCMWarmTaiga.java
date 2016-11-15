@@ -11,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -35,10 +34,10 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", "0"));
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -100,10 +99,7 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config,
-                BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId,
-                mixTop
-            );
+            blockMixTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;
@@ -183,7 +179,7 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.logBlock = BlockUtil.getStateLog(1);

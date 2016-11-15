@@ -38,7 +38,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -193,7 +193,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 14;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

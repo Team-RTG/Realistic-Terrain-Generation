@@ -14,7 +14,6 @@ import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
@@ -37,15 +36,10 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(
-            BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true
-        ));
-        this.config.addProperty(new BiomeConfigProperty(
-            BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""
-        ));
-        this.config.addProperty(new BiomeConfigProperty(
-            BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", ""
-        ));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -106,7 +100,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId, BiomeConfig.surfaceMixBlockMetaId, mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -192,7 +186,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
         decoFallenTree.minSize = 2;
         decoFallenTree.maxSize = 3;
-        this.addDeco(decoFallenTree, this.config._boolean(this.config.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();

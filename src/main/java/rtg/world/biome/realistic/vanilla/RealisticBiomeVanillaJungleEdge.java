@@ -22,8 +22,6 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVolcanoesId;
-import static rtg.config.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
 
@@ -38,10 +36,10 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
-        this.config.setPropertyValueById(allowVolcanoesId, true);
-        this.config.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(ConfigRTG.volcanoChance * 2);
     }
 
     @Override
@@ -138,6 +136,6 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

@@ -16,111 +16,86 @@ public class BiomeConfig {
     /*
      * GLOBAL CONFIGS
      */
-    public static final String allowVillagesId = "allowVillages";
-    public static final String allowVillagesName = "Allow Villages";
 
-    public static final String allowVolcanoesId = "allowVolcanoes";
-    public static final String allowVolcanoesName = "Allow Volcanoes";
-
-    public static final String volcanoChanceId = "volcanoChance";
-    public static final String volcanoChanceName = "Volcano Chance";
-
-    public static final String useRTGDecorationsId = "useRTGDecorations";
-    public static final String useRTGDecorationsName = "Use RTG Decorations";
-
-    public static final String useRTGSurfacesId = "useRTGSurfaces";
-    public static final String useRTGSurfacesName = "Use RTG Surfaces";
-
-    public static final String surfaceTopBlockId = "surfaceTopBlock";
-    public static final String surfaceTopBlockName = "RTG Surface: Top Block";
-
-    public static final String surfaceTopBlockMetaId = "surfaceTopBlockMeta";
-    public static final String surfaceTopBlockMetaName = "RTG Surface: Top Block Meta";
-
-    public static final String surfaceFillerBlockId = "surfaceFillerBlock";
-    public static final String surfaceFillerBlockName = "RTG Surface: Filler Block";
-
-    public static final String surfaceFillerBlockMetaId = "surfaceFillerBlockMeta";
-    public static final String surfaceFillerBlockMetaName = "RTG Surface: Filler Block Meta";
-
-    public static final String caveDensityId = "caveDensity";
-    public static final String caveDensityName = "Cave Density";
-
-    public static final String caveFrequencyId = "caveFrequency";
-    public static final String caveFrequencyName = "Cave Frequency";
-
-    public static final String ravineFrequencyId = "ravineFrequency";
-    public static final String ravineFrequencyName = "Ravine Frequency";
-
-    public static final String beachBiomeId = "beachBiome";
-    public static final String beachBiomeName = "Beach Biome";
-
-    public static final String treeDensityMultiplierId = "treeDensityMultiplier";
-    public static final String treeDensityMultiplierName = "RTG Tree Density Multiplier";
+    public final BiomeConfigPropertyBoolean ALLOW_VILLAGES;
+    public final BiomeConfigPropertyBoolean ALLOW_VOLCANOES;
+    public final BiomeConfigPropertyInt VOLCANO_CHANCE;
+    public final BiomeConfigPropertyBoolean USE_RTG_DECORATIONS;
+    public final BiomeConfigPropertyBoolean USE_RTG_SURFACES;
+    public final BiomeConfigPropertyString SURFACE_TOP_BLOCK;
+    public final BiomeConfigPropertyInt SURFACE_TOP_BLOCK_META;
+    public final BiomeConfigPropertyString SURFACE_FILLER_BLOCK;
+    public final BiomeConfigPropertyInt SURFACE_FILLER_BLOCK_META;
+    public final BiomeConfigPropertyInt CAVE_DENSITY;
+    public final BiomeConfigPropertyInt CAVE_FREQUENCY;
+    public final BiomeConfigPropertyInt RAVINE_FREQUENCY;
+    public final BiomeConfigPropertyInt BEACH_BIOME;
+    public final BiomeConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
 
     /*
      * OPTIONAL CONFIGS
      */
 
-    public static final String decorationLogsId = "decorationLogs";
-    public static final String decorationLogsName = "RTG Decoration: Logs";
-
-    public static final String surfaceMixBlockId = "surfaceMixBlock";
-    public static final String surfaceMixBlockName = "RTG Surface: Mix Block";
-
-    public static final String surfaceMixBlockMetaId = "surfaceMixBlockMeta";
-    public static final String surfaceMixBlockMetaName = "RTG Surface: Mix Block Meta";
-
-    public static final String surfaceMixFillerBlockId = "surfaceMixFillerBlock";
-    public static final String surfaceMixFillerBlockName = "RTG Surface: Mix Filler Block";
-
-    public static final String surfaceMixFillerBlockMetaId = "surfaceMixFillerBlockMeta";
-    public static final String surfaceMixFillerBlockMetaName = "RTG Surface: Mix Filler Block Meta";
-
-    public static final String decorationPalmTreesId = "decorationPalmTrees";
-    public static final String decorationPalmTreesName = "RTG Decoration: Palm Trees";
-
-    public static final String decorationCactusId = "decorationCactus";
-    public static final String decorationCactusName = "RTG Decoration: Cactus";
-
-    public static final String decorationCobwebsId = "decorationCobwebs";
-    public static final String decorationCobwebsName = "RTG Decoration: Cobwebs";
-
-    public static final String decorationWheatId = "decorationWheat";
-    public static final String decorationWheatName = "RTG Decoration: Wheat";
-
-    public static final String decorationWheatChanceId = "decorationWheatChance";
-    public static final String decorationWheatChanceName = "RTG Decoration: Wheat (Chance)";
-
-    public static final String decorationWheatMinYId = "decorationWheatMinY";
-    public static final String decorationWheatMinYName = "RTG Decoration: Wheat (Min Y)";
-
-    public static final String decorationWheatMaxYId = "decorationWheatMaxY";
-    public static final String decorationWheatMaxYName = "RTG Decoration: Wheat (Max Y)";
+    public final BiomeConfigPropertyBoolean ALLOW_LOGS;
+    public final BiomeConfigPropertyString SURFACE_MIX_BLOCK;
+    public final BiomeConfigPropertyInt SURFACE_MIX_BLOCK_META;
+    public final BiomeConfigPropertyString SURFACE_MIX_FILLER_BLOCK;
+    public final BiomeConfigPropertyInt SURFACE_MIX_FILLER_BLOCK_META;
+    public final BiomeConfigPropertyBoolean ALLOW_PALM_TREES;
+    public final BiomeConfigPropertyBoolean ALLOW_CACTUS;
+    public final BiomeConfigPropertyBoolean ALLOW_COBWEBS;
+    public final BiomeConfigPropertyBoolean ALLOW_WHEAT;
+    public final BiomeConfigPropertyInt WHEAT_CHANCE;
+    public final BiomeConfigPropertyInt WHEAT_MIN_Y;
+    public final BiomeConfigPropertyInt WHEAT_MAX_Y;
 
     public BiomeConfig(RealisticBiomeBase realisticBiome) {
 
         this.realisticBiome = realisticBiome;
         this.properties = new ArrayList<BiomeConfigProperty>();
 
-        this.addProperty(new BiomeConfigProperty(allowVillagesId, Type.BOOLEAN, allowVillagesName, "", true));
+        /*
+         * GLOBAL CONFIGS
+         */
 
-        this.addProperty(new BiomeConfigProperty(allowVolcanoesId, Type.BOOLEAN, allowVolcanoesName, "", false));
-        this.addProperty(new BiomeConfigProperty(volcanoChanceId, Type.INTEGER, volcanoChanceName, "1/x chance that a volcano will generate if this biome has volcanoes enabled." + Configuration.NEW_LINE + "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable volcanoes for this biome." + Configuration.NEW_LINE, -1, -1, Integer.MAX_VALUE));
+        ALLOW_VILLAGES = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "Allow Villages", "", true);
+        this.addProperty(ALLOW_VILLAGES);
 
-        this.addProperty(new BiomeConfigProperty(useRTGDecorationsId, Type.BOOLEAN, useRTGDecorationsName, "", true));
+        ALLOW_VOLCANOES = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "Allow Volcanoes", "", false);
+        this.addProperty(ALLOW_VOLCANOES);
 
-        this.addProperty(new BiomeConfigProperty(useRTGSurfacesId, Type.BOOLEAN, useRTGSurfacesName, "", true));
-        this.addProperty(new BiomeConfigProperty(surfaceTopBlockId, Type.STRING, surfaceTopBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(surfaceTopBlockMetaId, Type.STRING, surfaceTopBlockMetaName, "", "0"));
-        this.addProperty(new BiomeConfigProperty(surfaceFillerBlockId, Type.STRING, surfaceFillerBlockName, "", ""));
-        this.addProperty(new BiomeConfigProperty(surfaceFillerBlockMetaId, Type.STRING, surfaceFillerBlockMetaName, "", "0"));
-        this.addProperty(new BiomeConfigProperty(caveDensityId, Type.INTEGER, caveDensityName, "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40));
-        this.addProperty(new BiomeConfigProperty(caveFrequencyId, Type.INTEGER, caveFrequencyName, "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40));
-        this.addProperty(new BiomeConfigProperty(ravineFrequencyId, Type.INTEGER, ravineFrequencyName, "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome." + Configuration.NEW_LINE, -1, -1, 100));
+        VOLCANO_CHANCE = new BiomeConfigPropertyInt(Type.INTEGER, "Volcano Chance", "1/x chance that a volcano will generate if this biome has volcanoes enabled." + Configuration.NEW_LINE + "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable volcanoes for this biome." + Configuration.NEW_LINE, -1, -1, Integer.MAX_VALUE);
+        this.addProperty(VOLCANO_CHANCE);
 
-        this.addProperty(new BiomeConfigProperty(
-            beachBiomeId, Type.INTEGER, beachBiomeName,
+        USE_RTG_DECORATIONS = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "Use RTG Decorations", "", true);
+        this.addProperty(USE_RTG_DECORATIONS);
+
+        USE_RTG_SURFACES = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "Use RTG Surfaces", "", true);
+        this.addProperty(USE_RTG_SURFACES);
+
+        SURFACE_TOP_BLOCK = new BiomeConfigPropertyString(Type.STRING, "RTG Surface: Top Block", "", "");
+        this.addProperty(SURFACE_TOP_BLOCK);
+
+        SURFACE_TOP_BLOCK_META = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Surface: Top Block Meta", "", 0, 0, 15);
+        this.addProperty(SURFACE_TOP_BLOCK_META);
+
+        SURFACE_FILLER_BLOCK = new BiomeConfigPropertyString(Type.STRING, "RTG Surface: Filler Block", "", "");
+        this.addProperty(SURFACE_FILLER_BLOCK);
+
+        SURFACE_FILLER_BLOCK_META = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Surface: Filler Block Meta", "", 0, 0, 15);
+        this.addProperty(SURFACE_FILLER_BLOCK_META);
+
+        CAVE_DENSITY = new BiomeConfigPropertyInt(Type.INTEGER, "Cave Density", "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40);
+        this.addProperty(CAVE_DENSITY);
+
+        CAVE_FREQUENCY = new BiomeConfigPropertyInt(Type.INTEGER, "Cave Frequency", "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40);
+        this.addProperty(CAVE_FREQUENCY);
+
+        RAVINE_FREQUENCY = new BiomeConfigPropertyInt(Type.INTEGER, "Ravine Frequency", "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome." + Configuration.NEW_LINE, -1, -1, 100);
+        this.addProperty(RAVINE_FREQUENCY);
+
+        BEACH_BIOME = new BiomeConfigPropertyInt(
+            Type.INTEGER, "Beach Biome",
             "Biome ID to use for this biome's beach."
                 + Configuration.NEW_LINE
                 + "The only 'officially supported' values for this setting are:"
@@ -140,12 +115,12 @@ public class BiomeConfig {
                 + "Note: If this biome has been hardcoded by RTG to use a specific beach, this setting will have no effect."
                 + Configuration.NEW_LINE,
             -1, -1, 255
-        ));
+        );
+        this.addProperty(BEACH_BIOME);
 
-        this.addProperty(new BiomeConfigProperty(
-            treeDensityMultiplierId,
+        TREE_DENSITY_MULTIPLIER = new BiomeConfigPropertyFloat(
             Type.FLOAT,
-            treeDensityMultiplierName,
+            "RTG Tree Density Multiplier",
             "This setting allows you to increase/decrease the number of RTG trees that generate in this biome."
                 + Configuration.NEW_LINE +
                 "This setting overrides the global setting (see /.minecraft/config/RTG/rtg.cfg) and only affects trees generated by RTG."
@@ -157,15 +132,33 @@ public class BiomeConfig {
                 "1.0 = Default tree generation; 2.0 = Twice as many trees; 0.5 = half as many trees; 0 = No trees"
                 + Configuration.NEW_LINE,
             -1.0f, -1.0f, 5.0f
-        ));
+        );
+        this.addProperty(TREE_DENSITY_MULTIPLIER);
+
+        /*
+         * OPTIONAL CONFIGS
+         */
+
+        ALLOW_LOGS = new BiomeConfigPropertyBoolean(BiomeConfigProperty.Type.BOOLEAN, "RTG Decoration: Logs", "", true);
+        SURFACE_MIX_BLOCK = new BiomeConfigPropertyString(Type.STRING, "RTG Surface: Mix Block", "", "");
+        SURFACE_MIX_BLOCK_META = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Surface: Mix Block Meta", "", 0, 0, 15);
+        SURFACE_MIX_FILLER_BLOCK = new BiomeConfigPropertyString(Type.STRING, "RTG Surface: Mix Filler Block", "", "");
+        SURFACE_MIX_FILLER_BLOCK_META = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Surface: Mix Filler Block Meta", "", 0, 0, 15);
+        ALLOW_PALM_TREES = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "RTG Decoration: Palm Trees", "", true);
+        ALLOW_CACTUS = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "RTG Decoration: Cactus", "", true);
+        ALLOW_COBWEBS = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "RTG Decoration: Cobwebs", "", true);
+        ALLOW_WHEAT = new BiomeConfigPropertyBoolean(Type.BOOLEAN, "RTG Decoration: Wheat", "", true);
+        WHEAT_CHANCE = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Decoration: Wheat (Chance)", "", 0, 0, Integer.MAX_VALUE);
+        WHEAT_MIN_Y = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Decoration: Wheat (Min Y)", "", 0, 0, Integer.MAX_VALUE);
+        WHEAT_MAX_Y = new BiomeConfigPropertyInt(Type.INTEGER, "RTG Decoration: Wheat (Max Y)", "", 0, 0, Integer.MAX_VALUE);
     }
 
-    public void addProperty(BiomeConfigProperty property) {
+    protected void addProp(BiomeConfigProperty property) {
 
         for (int i = 0; i < this.properties.size(); i++) {
 
-            if (this.properties.get(i).id.contentEquals(property.id)) {
-                removeProperty(property.id);
+            if (this.properties.get(i).name.contentEquals(property.name)) {
+                removeProp(property.name);
                 break;
             }
         }
@@ -173,99 +166,40 @@ public class BiomeConfig {
         this.properties.add(property);
     }
 
-    public void removeProperty(String id) {
+    protected void removeProp(String name) {
 
         for (int i = 0; i < this.properties.size(); i++) {
 
-            if (this.properties.get(i).id.contentEquals(id)) {
+            if (this.properties.get(i).name.contentEquals(name)) {
                 this.properties.remove(i);
                 return;
             }
         }
     }
 
+    public BiomeConfigPropertyBoolean addProperty(BiomeConfigPropertyBoolean property) {
+        this.addProp(property);
+        return property;
+    }
+
+    public BiomeConfigPropertyFloat addProperty(BiomeConfigPropertyFloat property) {
+        this.addProp(property);
+        return property;
+    }
+
+    public BiomeConfigPropertyInt addProperty(BiomeConfigPropertyInt property) {
+        this.addProp(property);
+        return property;
+    }
+
+    public BiomeConfigPropertyString addProperty(BiomeConfigPropertyString property) {
+        this.addProp(property);
+        return property;
+    }
+
     public ArrayList<BiomeConfigProperty> getProperties() {
 
         return this.properties;
-    }
-
-    public BiomeConfigProperty getPropertyById(String id) {
-
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).id.contentEquals(id)) {
-                return this.properties.get(i);
-            }
-        }
-        return null;
-    }
-
-    public void setPropertyValueById(String id, boolean value) {
-
-        getPropertyById(id).valueBoolean = value;
-    }
-
-    public void setPropertyValueById(String id, int value) {
-
-        getPropertyById(id).valueInt = value;
-    }
-
-    public void setPropertyValueById(String id, float value) {
-
-        getPropertyById(id).valueFloat = value;
-    }
-
-    public void setPropertyValueById(String id, String value) {
-
-        getPropertyById(id).valueString = value;
-    }
-
-    public boolean _boolean(String id) {
-
-        try {
-
-            return getPropertyById(id).valueBoolean;
-        }
-        catch (Exception e) {
-
-            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
-        }
-    }
-
-    public int _int(String id) {
-
-        try {
-
-            return getPropertyById(id).valueInt;
-        }
-        catch (Exception e) {
-
-            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
-        }
-    }
-
-    public float _float(String id) {
-
-        try {
-
-            return getPropertyById(id).valueFloat;
-        }
-        catch (Exception e) {
-
-            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
-        }
-    }
-
-    public String _string(String id) {
-
-        try {
-
-            return getPropertyById(id).valueString;
-        }
-        catch (Exception e) {
-
-            throw new RuntimeException("Biome config property (" + realisticBiome.modSlug() + "." + realisticBiome.biomeSlug() + "." + id + ") could not be found. Reason: " + e.getMessage());
-        }
     }
 
     public static String formatSlug(String s) {

@@ -11,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -36,11 +35,8 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
 
-        this.config.setPropertyValueById(BiomeConfig.allowVillagesId, false);
-
-        this.config.addProperty(new BiomeConfigProperty(
-            BiomeConfig.decorationPalmTreesId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationPalmTreesName, "", true
-        ));
+        this.getConfig().ALLOW_VILLAGES.set(false);
+        this.getConfig().addProperty(this.getConfig().ALLOW_PALM_TREES).set(true);
     }
 
     @Override
@@ -171,6 +167,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         palmTrees.treeConditionNoise = -0.2f;
         palmTrees.treeConditionChance = 12;
         palmTrees.maxY = 68;
-        this.addDeco(palmTrees, this.config._boolean(BiomeConfig.decorationPalmTreesId));
+        this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
     }
 }

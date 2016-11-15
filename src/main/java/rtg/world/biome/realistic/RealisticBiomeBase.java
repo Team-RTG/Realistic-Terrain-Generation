@@ -14,9 +14,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.RTG;
-import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
-import rtg.config.ConfigRTG;
+import rtg.config.*;
 import rtg.util.*;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -136,6 +134,10 @@ public abstract class RealisticBiomeBase {
     public abstract SurfaceBase initSurface();
     public abstract void initDecos();
 
+    public BiomeConfig getConfig() {
+        return this.config;
+    }
+
     public static RealisticBiomeBase getBiome(int id) {
         return arrRealisticBiomeIds[id];
     }
@@ -152,7 +154,7 @@ public abstract class RealisticBiomeBase {
     protected Biome beachBiome(Biome preferredBeach) {
 
         Biome beach;
-        int configBeachId = this.config._int(BiomeConfig.beachBiomeId);
+        int configBeachId = this.getConfig().BEACH_BIOME.get();
 
         if (configBeachId > -1 && configBeachId < 256) {
             beach = Biome.getBiome(configBeachId, preferredBeach);
@@ -188,11 +190,11 @@ public abstract class RealisticBiomeBase {
             realisticBiome = biomePatcher.getPatchedRealisticBiome(
                 "NULL biome (" + biomeId + ") found when mapping volcanoes.");
         }
-        if (!realisticBiome.config._boolean(BiomeConfig.allowVolcanoesId)) return;
+        if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = realisticBiome.config._int(BiomeConfig.volcanoChanceId) == -1 ? ConfigRTG.volcanoChance : realisticBiome.config._int(BiomeConfig.volcanoChanceId);
+        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? ConfigRTG.volcanoChance : realisticBiome.getConfig().VOLCANO_CHANCE.get();
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
@@ -321,7 +323,7 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
         }
@@ -335,7 +337,7 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.config._boolean(BiomeConfig.useRTGSurfacesId)) {
+        if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
 
@@ -590,49 +592,57 @@ public abstract class RealisticBiomeBase {
 
                     case INTEGER:
 
-                        prop.valueInt = config.getInt(
-                            prop.name,
+                        BiomeConfigPropertyInt propInt = (BiomeConfigPropertyInt)properties.get(j);
+
+                        propInt.set(config.getInt(
+                            propInt.name,
                             categoryName,
-                            prop.valueInt,
-                            prop.minValueInt,
-                            prop.maxValueInt,
+                            propInt.valueInt,
+                            propInt.minValueInt,
+                            propInt.maxValueInt,
                             prop.description
-                        );
+                        ));
 
                         break;
 
                     case FLOAT:
 
-                        prop.valueFloat = config.getFloat(
-                            prop.name,
+                        BiomeConfigPropertyFloat propFloat = (BiomeConfigPropertyFloat)properties.get(j);
+
+                        propFloat.set(config.getFloat(
+                            propFloat.name,
                             categoryName,
-                            prop.valueFloat,
-                            prop.minValueFloat,
-                            prop.maxValueFloat,
-                            prop.description
-                        );
+                            propFloat.valueFloat,
+                            propFloat.minValueFloat,
+                            propFloat.maxValueFloat,
+                            propFloat.description
+                        ));
 
                         break;
 
                     case BOOLEAN:
 
-                        prop.valueBoolean = config.getBoolean(
-                            prop.name,
+                        BiomeConfigPropertyBoolean propBool = (BiomeConfigPropertyBoolean)properties.get(j);
+
+                        propBool.set(config.getBoolean(
+                            propBool.name,
                             categoryName,
-                            prop.valueBoolean,
-                            prop.description
-                        );
+                            propBool.valueBoolean,
+                            propBool.description
+                        ));
 
                         break;
 
                     case STRING:
 
-                        prop.valueString = config.getString(
-                            prop.name,
+                        BiomeConfigPropertyString propString = (BiomeConfigPropertyString)properties.get(j);
+
+                        propString.set(config.getString(
+                            propString.name,
                             categoryName,
-                            prop.valueString,
-                            prop.description
-                        );
+                            propString.valueString,
+                            propString.description
+                        ));
 
                         break;
 

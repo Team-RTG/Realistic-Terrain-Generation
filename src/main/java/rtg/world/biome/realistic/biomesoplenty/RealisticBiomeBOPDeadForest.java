@@ -40,7 +40,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{12, 1};
-        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

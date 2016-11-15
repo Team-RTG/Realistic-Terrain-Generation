@@ -18,7 +18,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
@@ -33,7 +32,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
 
-        this.config.setPropertyValueById(allowVillagesId, false);
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

@@ -11,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
@@ -20,8 +19,6 @@ import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionMegaTaiga;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVolcanoesId;
-import static rtg.config.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBase {
 
@@ -38,10 +35,10 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
-        this.config.setPropertyValueById(allowVolcanoesId, true);
-        this.config.setPropertyValueById(volcanoChanceId, -1);
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(-1);
     }
 
     @Override
@@ -203,7 +200,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 100;

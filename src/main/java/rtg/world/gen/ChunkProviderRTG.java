@@ -35,7 +35,6 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
@@ -686,7 +685,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
+                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }

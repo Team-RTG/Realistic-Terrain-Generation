@@ -39,7 +39,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -167,6 +167,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree2.maxSize = 4;
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
-        this.addDeco(decoHelperHelper5050, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());
     }
 }

@@ -39,7 +39,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -228,7 +228,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoFallenTree.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1), BlockUtil.getStateLog(2)};
         decoFallenTree.minSize = 8;
         decoFallenTree.maxSize = 12;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.maxY = 110;

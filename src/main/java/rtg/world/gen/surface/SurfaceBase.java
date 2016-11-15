@@ -101,20 +101,13 @@ public abstract class SurfaceBase {
 
     private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
 
-        topBlock = getConfigBlock(
-            config, BiomeConfig.surfaceTopBlockId, BiomeConfig.surfaceTopBlockMetaId, top
-        );
-
-        fillerBlock = getConfigBlock(
-            config, BiomeConfig.surfaceFillerBlockId, BiomeConfig.surfaceFillerBlockMetaId, fill
-        );
+        topBlock = getConfigBlock(config.SURFACE_TOP_BLOCK.get(), config.SURFACE_TOP_BLOCK_META.get(), top);
+        fillerBlock = getConfigBlock(config.SURFACE_FILLER_BLOCK.get(), config.SURFACE_FILLER_BLOCK_META.get(), fill);
     }
 
-    protected IBlockState getConfigBlock(BiomeConfig config, String propertyBlockId, String propertyBlockMeta, IBlockState blockDefault) {
+    protected IBlockState getConfigBlock(String userBlockId, int userBlockMeta, IBlockState blockDefault) {
 
         IBlockState blockReturn;
-        String userBlockId = config._string(propertyBlockId);
-        String userBlockMeta = config._string(propertyBlockMeta);
 
         try {
 
@@ -122,13 +115,13 @@ public abstract class SurfaceBase {
 
             if (blockConfig != null) {
 
-                if (userBlockMeta.equals("") || userBlockMeta.equals("0")) {
+                if (userBlockMeta == 0) {
 
                     blockReturn = blockConfig.getDefaultState();
                 }
                 else {
 
-                    blockReturn = blockConfig.getStateFromMeta(Byte.valueOf(userBlockMeta));
+                    blockReturn = blockConfig.getStateFromMeta(userBlockMeta);
                 }
             }
             else {

@@ -19,7 +19,6 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
@@ -37,7 +36,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
 
-        this.config.setPropertyValueById(allowVillagesId, false);
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

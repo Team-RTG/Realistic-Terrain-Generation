@@ -34,7 +34,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoFallenTree.leavesBlock = sugiLeavesBlock;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubSugi = new DecoShrub();
         decoShrubSugi.logBlock = sugiLogBlock;

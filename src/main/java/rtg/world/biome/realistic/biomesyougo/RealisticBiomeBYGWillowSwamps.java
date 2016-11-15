@@ -40,7 +40,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         decoFallenTree.maxY = 76;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
         deadWillowTree.logBlock = Blocks.LOG.getDefaultState();

@@ -35,7 +35,7 @@ public class RealisticBiomeARCoralReef extends RealisticBiomeARBase {
     @Override
     public void initConfig() {
 
-        this.config.setPropertyValueById(BiomeConfig.allowVillagesId, false);
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

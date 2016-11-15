@@ -34,7 +34,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override
@@ -174,6 +174,6 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.config._boolean(BiomeConfig.decorationLogsId), 8f));
+        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig().ALLOW_LOGS.get(), 8f));
     }
 }

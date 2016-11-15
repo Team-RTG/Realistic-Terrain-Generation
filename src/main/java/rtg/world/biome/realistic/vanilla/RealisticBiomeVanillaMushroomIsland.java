@@ -17,7 +17,6 @@ import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVillagesId;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
@@ -34,7 +33,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     @Override
     public void initConfig() {
 
-        this.config.setPropertyValueById(allowVillagesId, false);
+        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     @Override

@@ -17,7 +17,6 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
-import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
@@ -87,7 +86,7 @@ public class MapGenVillageRTG extends MapGenVillage
                 //Why are we flipping XZ here? No idea, but it works. - Pink
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
 
-                if (realisticBiome.config.getPropertyById(BiomeConfig.allowVillagesId).valueBoolean) {
+                if (realisticBiome.getConfig().ALLOW_VILLAGES.get()) {
                     canSpawnVillage = true;
                     Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
                 }

@@ -12,7 +12,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
 import rtg.config.BiomeConfig;
-import rtg.config.BiomeConfigProperty;
 import rtg.config.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
@@ -25,8 +24,6 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.config.BiomeConfig.allowVolcanoesId;
-import static rtg.config.BiomeConfig.volcanoChanceId;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
 
@@ -43,14 +40,14 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationLogsId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationLogsName, "", true));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.decorationCactusId, BiomeConfigProperty.Type.BOOLEAN, BiomeConfig.decorationCactusName, "", true));
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
 
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockName, "", ""));
-        this.config.addProperty(new BiomeConfigProperty(BiomeConfig.surfaceMixBlockMetaId, BiomeConfigProperty.Type.STRING, BiomeConfig.surfaceMixBlockMetaName, "", "0"));
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
 
-        this.config.setPropertyValueById(allowVolcanoesId, true);
-        this.config.setPropertyValueById(volcanoChanceId, (ConfigRTG.volcanoChance * 2));
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(ConfigRTG.volcanoChance * 2);
     }
 
     @Override
@@ -100,9 +97,8 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config, BiomeConfig.surfaceMixBlockId,
-                BiomeConfig.surfaceMixBlockMetaId,
-                mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+
             mixHeight = mixSize;
         }
 
@@ -248,7 +244,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfig.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -279,7 +275,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoJungleCacti.sandOnly = false;
         decoJungleCacti.extraHeight = 7;
         decoJungleCacti.sandMeta = (byte) 1;
-        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfig.decorationCactusId));
+        this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();

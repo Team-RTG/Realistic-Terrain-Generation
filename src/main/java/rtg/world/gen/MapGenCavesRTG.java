@@ -14,7 +14,6 @@ import net.minecraft.world.gen.MapGenCaves;
 
 import com.google.common.base.Objects;
 
-import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -190,8 +189,8 @@ public class MapGenCavesRTG extends MapGenCaves
         RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
 
         if (realisticBiome != null) {
-            caveDensity = (realisticBiome.config._int(BiomeConfig.caveDensityId) > -1) ? realisticBiome.config._int(BiomeConfig.caveDensityId) : caveDensity;
-            caveFrequency = (realisticBiome.config._int(BiomeConfig.caveFrequencyId) > -1) ? realisticBiome.config._int(BiomeConfig.caveFrequencyId) : caveFrequency;
+            caveDensity = (realisticBiome.getConfig().CAVE_DENSITY.get() > -1) ? realisticBiome.getConfig().CAVE_DENSITY.get() : caveDensity;
+            caveFrequency = (realisticBiome.getConfig().CAVE_FREQUENCY.get() > -1) ? realisticBiome.getConfig().CAVE_FREQUENCY.get() : caveFrequency;
         }
 
         // Return early if caves are disabled.

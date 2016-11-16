@@ -1,5 +1,5 @@
 generator.RTG=Realistico
-generator.RTG.info=Realistic WorldType from Realistic Terrain Generation
+generator.RTG.info=Realistico world type from Realistic Terrain Generation
 
 warning.rtgStartup1=Realistico Terreno generazione utilizza un tipo di mondo personalizzato.
 warning.rtgStartup2=Se si desidera terreno realistico, continuare a fare clic sul pulsante 'Tipo Mondiale'

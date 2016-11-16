@@ -1,5 +1,5 @@
 generator.RTG=Valósághű
-generator.RTG.info=Realistic WorldType from Realistic Terrain Generation
+generator.RTG.info=Valósághű world type from Realistic Terrain Generation
 
 warning.rtgStartup1= A Realistic Terrain Generation egy egyéni világbeállítást használ.
 warning.rtgStartup2=Ha valósághű domborzatot szeretnél, nyomd meg a 'Világ típusa' gombot

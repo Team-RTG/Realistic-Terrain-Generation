@@ -1,5 +1,5 @@
 generator.RTG=Realistisk
-generator.RTG.info=Realistic WorldType from Realistic Terrain Generation
+generator.RTG.info=Realistisk world type from Realistic Terrain Generation
 
 warning.rtgStartup1=Realistisk Terrain Generation bruger et tilpasset verden type.
 warning.rtgStartup2=Hvis du vil have realistiske terræn, holde klikke på knappen World Type

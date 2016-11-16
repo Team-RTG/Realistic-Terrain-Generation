@@ -1,5 +1,5 @@
 generator.RTG=真实世界生成
-generator.RTG.info=Realistic WorldType from Realistic Terrain Generation
+generator.RTG.info=真实世界生成 world type from Realistic Terrain Generation
 
 warning.rtgStartup1=真实感地形生成使用自定义的世界类型。
 warning.rtgStartup2=如果你想真实的地形，继续点击下“更多的世

@@ -2,7 +2,6 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -99,12 +98,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
         int y = pos.getY();
         int z = pos.getZ();
 
-        try {
-            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
-        }
-        catch (Exception e) {
-            this.trunkLog = this.logBlock;
-        }
+        this.trunkLog = this.getTrunkLog(this.logBlock);
 
         if (this.trunkSize > 0) {
             for (int k = 0; k < 3; k++) {

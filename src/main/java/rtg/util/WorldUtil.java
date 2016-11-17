@@ -11,10 +11,13 @@ import net.minecraft.world.World;
 public class WorldUtil {
 
     private World world;
+    private boolean appalachia;
 
     public WorldUtil(World world) {
 
         this.world = world;
+        ModPresenceTester apl = new ModPresenceTester("appalachia");
+        this.appalachia = apl.present();
     }
 
     /**
@@ -136,6 +139,21 @@ public class WorldUtil {
 
     public void setDoublePlant(BlockPos lowerPos, IBlockState doublePlant) {
         this.setDoublePlant(lowerPos, doublePlant, 2);
+    }
+
+    public boolean canSnowAt(BlockPos pos, boolean checkLight) {
+
+        if (!this.world.canSnowAt(pos, true)) {
+            return false;
+        }
+
+        if (this.appalachia) {
+            if (!AppalachiaUtil.canSnowAt(this.world, pos)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public enum SurroundCheckType {

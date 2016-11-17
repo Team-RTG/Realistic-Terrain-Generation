@@ -6,10 +6,7 @@ import net.minecraftforge.fml.common.Loader;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOP;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
 
@@ -78,205 +75,210 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
     public static RealisticBiomeBase bopXericShrubland;
 
 
-    public RealisticBiomeBOPBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeBOPBase(Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(b, riverbiome);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public String modSlug() {
+        return "biomesoplenty";
     }
 
     public static void addBiomes() {
 
         if (Loader.isModLoaded("BiomesOPlenty")) {
             if (BOPBiomes.alps.isPresent()) {
-                bopAlps = new RealisticBiomeBOPAlps(BiomeConfigBOP.biomeConfigBOPAlps);
+                bopAlps = new RealisticBiomeBOPAlps();
             }
             if (BOPBiomes.bamboo_forest.isPresent()) {
-                bopBambooForest = new RealisticBiomeBOPBambooForest(BiomeConfigBOP.biomeConfigBOPBambooForest);
+                bopBambooForest = new RealisticBiomeBOPBambooForest();
             }
             if (BOPBiomes.bayou.isPresent()) {
-                bopBayou = new RealisticBiomeBOPBayou(BiomeConfigBOP.biomeConfigBOPBayou);
+                bopBayou = new RealisticBiomeBOPBayou();
             }
             if (BOPBiomes.bog.isPresent()) {
-                bopBog = new RealisticBiomeBOPBog(BiomeConfigBOP.biomeConfigBOPBog);
+                bopBog = new RealisticBiomeBOPBog();
             }
             if (BOPBiomes.boreal_forest.isPresent()) {
-                bopBorealForest = new RealisticBiomeBOPBorealForest(BiomeConfigBOP.biomeConfigBOPBorealForest);
+                bopBorealForest = new RealisticBiomeBOPBorealForest();
             }
             if (BOPBiomes.brushland.isPresent()) {
-                bopBrushland = new RealisticBiomeBOPBrushland(BiomeConfigBOP.biomeConfigBOPBrushland);
+                bopBrushland = new RealisticBiomeBOPBrushland();
             }
             if (BOPBiomes.chaparral.isPresent()) {
-                bopChaparral = new RealisticBiomeBOPChaparral(BiomeConfigBOP.biomeConfigBOPChaparral);
+                bopChaparral = new RealisticBiomeBOPChaparral();
             }
             if (BOPBiomes.cherry_blossom_grove.isPresent()) {
-                bopCherryBlossomGrove = new RealisticBiomeBOPCherryBlossomGrove(BiomeConfigBOP.biomeConfigBOPCherryBlossomGrove);
+                bopCherryBlossomGrove = new RealisticBiomeBOPCherryBlossomGrove();
             }
             if (BOPBiomes.cold_desert.isPresent()) {
-                bopColdDesert = new RealisticBiomeBOPColdDesert(BiomeConfigBOP.biomeConfigBOPColdDesert);
+                bopColdDesert = new RealisticBiomeBOPColdDesert();
             }
             if (BOPBiomes.coniferous_forest.isPresent()) {
-                bopConiferousForest = new RealisticBiomeBOPConiferousForest(BiomeConfigBOP.biomeConfigBOPConiferousForest);
+                bopConiferousForest = new RealisticBiomeBOPConiferousForest();
             }
             if (BOPBiomes.coral_reef.isPresent()) {
-                bopCoralReef = new RealisticBiomeBOPCoralReef(BiomeConfigBOP.biomeConfigBOPCoralReef);
+                bopCoralReef = new RealisticBiomeBOPCoralReef();
             }
             if (BOPBiomes.crag.isPresent()) {
-                bopCrag = new RealisticBiomeBOPCrag(BiomeConfigBOP.biomeConfigBOPCrag);
+                bopCrag = new RealisticBiomeBOPCrag();
             }
             if (BOPBiomes.dead_forest.isPresent()) {
-                bopDeadForest = new RealisticBiomeBOPDeadForest(BiomeConfigBOP.biomeConfigBOPDeadForest);
+                bopDeadForest = new RealisticBiomeBOPDeadForest();
             }
             if (BOPBiomes.dead_swamp.isPresent()) {
-                bopDeadSwamp = new RealisticBiomeBOPDeadSwamp(BiomeConfigBOP.biomeConfigBOPDeadSwamp);
+                bopDeadSwamp = new RealisticBiomeBOPDeadSwamp();
             }
             if (BOPBiomes.eucalyptus_forest.isPresent()) {
-                bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest(BiomeConfigBOP.biomeConfigBOPEucalyptusForest);
+                bopEucalyptusForest = new RealisticBiomeBOPEucalyptusForest();
             }
             if (BOPBiomes.fen.isPresent()) {
-                bopFen = new RealisticBiomeBOPFen(BiomeConfigBOP.biomeConfigBOPFen);
+                bopFen = new RealisticBiomeBOPFen();
             }
             if (BOPBiomes.flower_field.isPresent()) {
-                bopFlowerField = new RealisticBiomeBOPFlowerField(BiomeConfigBOP.biomeConfigBOPFlowerField);
+                bopFlowerField = new RealisticBiomeBOPFlowerField();
             }
             if (BOPBiomes.flower_island.isPresent()) {
-                bopFlowerIsland = new RealisticBiomeBOPFlowerIsland(BiomeConfigBOP.biomeConfigBOPFlowerIsland);
+                bopFlowerIsland = new RealisticBiomeBOPFlowerIsland();
             }
             if (BOPBiomes.glacier.isPresent()) {
-                bopGlacier = new RealisticBiomeBOPGlacier(BiomeConfigBOP.biomeConfigBOPGlacier);
+                bopGlacier = new RealisticBiomeBOPGlacier();
             }
             if (BOPBiomes.grassland.isPresent()) {
-                bopGrassland = new RealisticBiomeBOPGrassland(BiomeConfigBOP.biomeConfigBOPGrassland);
+                bopGrassland = new RealisticBiomeBOPGrassland();
             }
             if (BOPBiomes.gravel_beach.isPresent()) {
-                bopGravelBeach = new RealisticBiomeBOPGravelBeach(BiomeConfigBOP.biomeConfigBOPGravelBeach);
+                bopGravelBeach = new RealisticBiomeBOPGravelBeach();
             }
             if (BOPBiomes.grove.isPresent()) {
-                bopGrove = new RealisticBiomeBOPGrove(BiomeConfigBOP.biomeConfigBOPGrove);
+                bopGrove = new RealisticBiomeBOPGrove();
             }
             if (BOPBiomes.heathland.isPresent()) {
-                bopHeathland = new RealisticBiomeBOPHeathland(BiomeConfigBOP.biomeConfigBOPHeathland);
+                bopHeathland = new RealisticBiomeBOPHeathland();
             }
             if (BOPBiomes.highland.isPresent()) {
-                bopHighland = new RealisticBiomeBOPHighland(BiomeConfigBOP.biomeConfigBOPHighland);
+                bopHighland = new RealisticBiomeBOPHighland();
             }
             if (BOPBiomes.kelp_forest.isPresent()) {
-                bopKelpForest = new RealisticBiomeBOPKelpForest(BiomeConfigBOP.biomeConfigBOPKelpForest);
+                bopKelpForest = new RealisticBiomeBOPKelpForest();
             }
             if (BOPBiomes.land_of_lakes.isPresent()) {
-                bopLandOfLakes = new RealisticBiomeBOPLandOfLakes(BiomeConfigBOP.biomeConfigBOPLandOfLakes);
+                bopLandOfLakes = new RealisticBiomeBOPLandOfLakes();
             }
             if (BOPBiomes.lavender_fields.isPresent()) {
-                bopLavenderFields = new RealisticBiomeBOPLavenderFields(BiomeConfigBOP.biomeConfigBOPLavenderFields);
+                bopLavenderFields = new RealisticBiomeBOPLavenderFields();
             }
             if (BOPBiomes.lush_desert.isPresent()) {
-                bopLushDesert = new RealisticBiomeBOPLushDesert(BiomeConfigBOP.biomeConfigBOPLushDesert);
+                bopLushDesert = new RealisticBiomeBOPLushDesert();
             }
             if (BOPBiomes.lush_swamp.isPresent()) {
-                bopLushSwamp = new RealisticBiomeBOPLushSwamp(BiomeConfigBOP.biomeConfigBOPLushSwamp);
+                bopLushSwamp = new RealisticBiomeBOPLushSwamp();
             }
             if (BOPBiomes.mangrove.isPresent()) {
-                bopMangrove = new RealisticBiomeBOPMangrove(BiomeConfigBOP.biomeConfigBOPMangrove);
+                bopMangrove = new RealisticBiomeBOPMangrove();
             }
             if (BOPBiomes.maple_woods.isPresent()) {
-                bopMapleWoods = new RealisticBiomeBOPMapleWoods(BiomeConfigBOP.biomeConfigBOPMapleWoods);
+                bopMapleWoods = new RealisticBiomeBOPMapleWoods();
             }
             if (BOPBiomes.marsh.isPresent()) {
-                bopMarsh = new RealisticBiomeBOPMarsh(BiomeConfigBOP.biomeConfigBOPMarsh);
+                bopMarsh = new RealisticBiomeBOPMarsh();
             }
             if (BOPBiomes.meadow.isPresent()) {
-                bopMeadow = new RealisticBiomeBOPMeadow(BiomeConfigBOP.biomeConfigBOPMeadow);
+                bopMeadow = new RealisticBiomeBOPMeadow();
             }
             if (BOPBiomes.moor.isPresent()) {
-                bopMoor = new RealisticBiomeBOPMoor(BiomeConfigBOP.biomeConfigBOPMoor);
+                bopMoor = new RealisticBiomeBOPMoor();
             }
             if (BOPBiomes.mountain.isPresent()) {
-                bopMountain = new RealisticBiomeBOPMountainPeaks(BiomeConfigBOP.biomeConfigBOPMountainPeaks);
+                bopMountain = new RealisticBiomeBOPMountainPeaks();
             }
             if (BOPBiomes.mountain_foothills.isPresent()) {
-                bopMountainFoothills = new RealisticBiomeBOPMountainFoothills(BiomeConfigBOP.biomeConfigBOPMountainFoothills);
+                bopMountainFoothills = new RealisticBiomeBOPMountainFoothills();
             }
             if (BOPBiomes.mystic_grove.isPresent()) {
-                bopMysticGrove = new RealisticBiomeBOPMysticGrove(BiomeConfigBOP.biomeConfigBOPMysticGrove);
+                bopMysticGrove = new RealisticBiomeBOPMysticGrove();
             }
             if (BOPBiomes.oasis.isPresent()) {
-                bopOasis = new RealisticBiomeBOPOasis(BiomeConfigBOP.biomeConfigBOPOasis);
+                bopOasis = new RealisticBiomeBOPOasis();
             }
             if (BOPBiomes.ominous_woods.isPresent()) {
-                bopOminousWoods = new RealisticBiomeBOPOminousWoods(BiomeConfigBOP.biomeConfigBOPOminousWoods);
+                bopOminousWoods = new RealisticBiomeBOPOminousWoods();
             }
             if (BOPBiomes.orchard.isPresent()) {
-                bopOrchard = new RealisticBiomeBOPOrchard(BiomeConfigBOP.biomeConfigBOPOrchard);
+                bopOrchard = new RealisticBiomeBOPOrchard();
             }
             if (BOPBiomes.origin_island.isPresent()) {
-                bopOriginIsland = new RealisticBiomeBOPOriginIsland(BiomeConfigBOP.biomeConfigBOPOriginIsland);
+                bopOriginIsland = new RealisticBiomeBOPOriginIsland();
             }
             if (BOPBiomes.outback.isPresent()) {
-                bopOutback = new RealisticBiomeBOPOutback(BiomeConfigBOP.biomeConfigBOPOutback);
+                bopOutback = new RealisticBiomeBOPOutback();
             }
             if (BOPBiomes.overgrown_cliffs.isPresent()) {
-                bopOvergrownCliffs = new RealisticBiomeBOPOvergrownCliffs(BiomeConfigBOP.biomeConfigBOPOvergrownCliffs);
+                bopOvergrownCliffs = new RealisticBiomeBOPOvergrownCliffs();
             }
             if (BOPBiomes.prairie.isPresent()) {
-                bopPrairie = new RealisticBiomeBOPPrairie(BiomeConfigBOP.biomeConfigBOPPrairie);
+                bopPrairie = new RealisticBiomeBOPPrairie();
             }
             if (BOPBiomes.quagmire.isPresent()) {
-                bopQuagmire = new RealisticBiomeBOPQuagmire(BiomeConfigBOP.biomeConfigBOPQuagmire);
+                bopQuagmire = new RealisticBiomeBOPQuagmire();
             }
             if (BOPBiomes.rainforest.isPresent()) {
-                bopRainforest = new RealisticBiomeBOPRainforest(BiomeConfigBOP.biomeConfigBOPRainforest);
+                bopRainforest = new RealisticBiomeBOPRainforest();
             }
             if (BOPBiomes.redwood_forest.isPresent()) {
-                bopRedwoodForest = new RealisticBiomeBOPRedwoodForest(BiomeConfigBOP.biomeConfigBOPRedwoodForest);
+                bopRedwoodForest = new RealisticBiomeBOPRedwoodForest();
             }
             if (BOPBiomes.sacred_springs.isPresent()) {
-                bopSacredSprings = new RealisticBiomeBOPSacredSprings(BiomeConfigBOP.biomeConfigBOPSacredSprings);
+                bopSacredSprings = new RealisticBiomeBOPSacredSprings();
             }
             if (BOPBiomes.seasonal_forest.isPresent()) {
-                bopSeasonalForest = new RealisticBiomeBOPSeasonalForest(BiomeConfigBOP.biomeConfigBOPSeasonalForest);
+                bopSeasonalForest = new RealisticBiomeBOPSeasonalForest();
             }
             if (BOPBiomes.shield.isPresent()) {
-                bopShield = new RealisticBiomeBOPShield(BiomeConfigBOP.biomeConfigBOPShield);
+                bopShield = new RealisticBiomeBOPShield();
             }
             if (BOPBiomes.shrubland.isPresent()) {
-                bopShrubland = new RealisticBiomeBOPShrubland(BiomeConfigBOP.biomeConfigBOPShrubland);
+                bopShrubland = new RealisticBiomeBOPShrubland();
             }
             if (BOPBiomes.snowy_coniferous_forest.isPresent()) {
-                bopSnowyConiferousForest = new RealisticBiomeBOPSnowyConiferousForest(BiomeConfigBOP.biomeConfigBOPSnowyConiferousForest);
+                bopSnowyConiferousForest = new RealisticBiomeBOPSnowyConiferousForest();
             }
             if (BOPBiomes.snowy_forest.isPresent()) {
-                bopSnowyForest = new RealisticBiomeBOPSnowyForest(BiomeConfigBOP.biomeConfigBOPSnowyForest);
+                bopSnowyForest = new RealisticBiomeBOPSnowyForest();
             }
             if (BOPBiomes.steppe.isPresent()) {
-                bopSteppe = new RealisticBiomeBOPSteppe(BiomeConfigBOP.biomeConfigBOPSteppe);
+                bopSteppe = new RealisticBiomeBOPSteppe();
             }
             if (BOPBiomes.temperate_rainforest.isPresent()) {
-                bopTemperateRainforest = new RealisticBiomeBOPTemperateRainforest(BiomeConfigBOP.biomeConfigBOPTemperateRainforest);
+                bopTemperateRainforest = new RealisticBiomeBOPTemperateRainforest();
             }
             if (BOPBiomes.tropical_island.isPresent()) {
-                bopTropicalIsland = new RealisticBiomeBOPTropicalIsland(BiomeConfigBOP.biomeConfigBOPTropicalIsland);
+                bopTropicalIsland = new RealisticBiomeBOPTropicalIsland();
             }
             if (BOPBiomes.tropical_rainforest.isPresent()) {
-                bopTropicalRainforest = new RealisticBiomeBOPTropicalRainforest(BiomeConfigBOP.biomeConfigBOPTropicalRainforest);
+                bopTropicalRainforest = new RealisticBiomeBOPTropicalRainforest();
             }
             if (BOPBiomes.tundra.isPresent()) {
-                bopTundra = new RealisticBiomeBOPTundra(BiomeConfigBOP.biomeConfigBOPTundra);
+                bopTundra = new RealisticBiomeBOPTundra();
             }
             if (BOPBiomes.volcanic_island.isPresent()) {
-                bopVolcanicIsland = new RealisticBiomeBOPVolcanicIsland(BiomeConfigBOP.biomeConfigBOPVolcanicIsland);
+                bopVolcanicIsland = new RealisticBiomeBOPVolcanicIsland();
             }
             if (BOPBiomes.wasteland.isPresent()) {
-                bopWasteland = new RealisticBiomeBOPWasteland(BiomeConfigBOP.biomeConfigBOPWasteland);
+                bopWasteland = new RealisticBiomeBOPWasteland();
             }
             if (BOPBiomes.wetland.isPresent()) {
-                bopWetland = new RealisticBiomeBOPWetland(BiomeConfigBOP.biomeConfigBOPWetland);
+                bopWetland = new RealisticBiomeBOPWetland();
             }
             if (BOPBiomes.woodland.isPresent()) {
-                bopWoodland = new RealisticBiomeBOPWoodland(BiomeConfigBOP.biomeConfigBOPWoodland);
+                bopWoodland = new RealisticBiomeBOPWoodland();
             }
             if (BOPBiomes.xeric_shrubland.isPresent()) {
-                bopXericShrubland = new RealisticBiomeBOPXericShrubland(BiomeConfigBOP.biomeConfigBOPXericShrubland);
+                bopXericShrubland = new RealisticBiomeBOPXericShrubland();
             }
         }
     }

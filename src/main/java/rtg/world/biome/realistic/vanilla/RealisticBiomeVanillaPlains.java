@@ -1,19 +1,25 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaPlains;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaPlains;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -22,22 +28,109 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.PLAINS;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaPlains(BiomeConfig config) {
+    public RealisticBiomeVanillaPlains() {
 
-        super(config, biome, river,
-            new SurfaceVanillaPlains(config, biome.topBlock, biome.fillerBlock)
-        );
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_WHEAT).set(true);
+        this.getConfig().addProperty(this.getConfig().WHEAT_CHANCE).set(50);
+        this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(63);
+        this.getConfig().addProperty(this.getConfig().WHEAT_MAX_Y).set(255);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaPlains();
+    }
+
+    public class TerrainVanillaPlains extends TerrainBase {
+
+        private GroundEffect groundEffect = new GroundEffect(4f);
+
+        public TerrainVanillaPlains() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+        }
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaPlains(config, biome.topBlock, biome.fillerBlock);
+    }
+
+    public class SurfaceVanillaPlains extends SurfaceBase {
+
+        public SurfaceVanillaPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
+
+            super(config, top, filler);
+        }
+
+        @Override
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+
+            float c = CliffCalculator.calc(x, y, noise);
+            boolean cliff = c > 1.4f ? true : false;
+
+            for (int k = 255; k > -1; k--) {
+                Block b = primer.getBlockState(x, k, y).getBlock();
+                if (b == Blocks.AIR) {
+                    depth = -1;
+                }
+                else if (b == Blocks.STONE) {
+                    depth++;
+
+                    if (cliff) {
+                        if (depth > -1 && depth < 2) {
+                            if (rand.nextInt(3) == 0) {
+
+                                primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            }
+                            else {
+
+                                primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            }
+                        }
+                        else if (depth < 10) {
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        }
+                    }
+                    else {
+                        if (depth == 0 && k > 61) {
+                            primer.setBlockState(x, k, y, topBlock);
+                        }
+                        else if (depth < 4) {
+                            primer.setBlockState(x, k, y, fillerBlock);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initDecos() {
 
         //Sparse wheat
         DecoCrop decoCropWheat = new DecoCrop();
         decoCropWheat.size = 8;
         decoCropWheat.density = 5;
-        decoCropWheat.chance = this.config._int(BiomeConfigVanillaPlains.decorationWheatChanceId);
+        decoCropWheat.chance = this.getConfig().WHEAT_CHANCE.get();
         decoCropWheat.type = 3;
         decoCropWheat.water = false;
-        decoCropWheat.minY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMinYId);
-        decoCropWheat.maxY = this.config._int(BiomeConfigVanillaPlains.decorationWheatMaxYId);
-        this.addDeco(decoCropWheat, this.config._boolean(BiomeConfigVanillaPlains.decorationWheatId));
+        decoCropWheat.minY = this.getConfig().WHEAT_MIN_Y.get();
+        decoCropWheat.maxY = this.getConfig().WHEAT_MAX_Y.get();
+        this.addDeco(decoCropWheat, this.getConfig().ALLOW_WHEAT.get());
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();
@@ -101,26 +194,5 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // Vanilla trees look awful in this biome, so let's make sure they don't generate.
         //DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         //this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public TerrainBase initTerrain() {
-
-        return new TerrainVanillaPlains();
-    }
-
-    public class TerrainVanillaPlains extends TerrainBase {
-
-        private GroundEffect groundEffect = new GroundEffect(4f);
-
-        public TerrainVanillaPlains() {
-
-        }
-
-        @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
-            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
-        }
     }
 }

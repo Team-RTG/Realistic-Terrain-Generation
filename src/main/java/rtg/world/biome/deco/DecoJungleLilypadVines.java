@@ -11,7 +11,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;

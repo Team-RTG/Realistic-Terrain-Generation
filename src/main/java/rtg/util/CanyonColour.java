@@ -6,7 +6,7 @@ import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 
 /**
  *

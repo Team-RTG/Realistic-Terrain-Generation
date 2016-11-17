@@ -4,11 +4,8 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.mineworld.BiomeConfigMW;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
@@ -20,12 +17,17 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
     public static RealisticBiomeBase mwPalms;
     public static RealisticBiomeBase mwVolcano;
 
-    public RealisticBiomeMWBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeMWBase(Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(b, riverbiome);
 
         this.waterSurfaceLakeChance = 30;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public String modSlug() {
+        return "mineworld";
     }
 
     public static void addBiomes() {
@@ -43,22 +45,22 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
                 String biomeClass = biome.getBiomeClass().getName();
 
                 if (biomeName.equals("Apple Forest") && biomeClass.equals("com.mineworld.world.biomes.BiomeGenAppleForest")) {
-                    mwAppleForest = new RealisticBiomeMWAppleForest(biome, BiomeConfigMW.biomeConfigMWAppleForest);
+                    mwAppleForest = new RealisticBiomeMWAppleForest(biome);
                 }
                 else if (biomeName.equals("Arctic") && biomeClass.equals("com.mineworld.world.biomes.BiomeGenArctic")) {
-                    mwArctic = new RealisticBiomeMWArctic(biome, BiomeConfigMW.biomeConfigMWArctic);
+                    mwArctic = new RealisticBiomeMWArctic(biome);
                 }
                 else if (biomeName.equals("Dead Forest") && biomeClass.equals("com.mineworld.world.biomes.BiomeGenDeadForest")) {
-                    mwDeadForest = new RealisticBiomeMWDeadForest(biome, BiomeConfigMW.biomeConfigMWDeadForest);
+                    mwDeadForest = new RealisticBiomeMWDeadForest(biome);
                 }
                 else if (biomeName.equals("Ice Hills") && biomeClass.equals("com.mineworld.world.biomes.BiomeGenIceHills")) {
-                    mwIceHills = new RealisticBiomeMWIceHills(biome, BiomeConfigMW.biomeConfigMWIceHills);
+                    mwIceHills = new RealisticBiomeMWIceHills(biome);
                 }
                 else if (biomeName.equals("Palms") && biomeClass.equals("com.mineworld.world.biomes.BiomeGenPalms")) {
-                    mwPalms = new RealisticBiomeMWPalms(biome, BiomeConfigMW.biomeConfigMWPalms);
+                    mwPalms = new RealisticBiomeMWPalms(biome);
                 }
                 else if (biomeName.equals("Volcano") && biomeClass.equals("com.mineworld.world.biomes.BiomeGenVolcano")) {
-                    mwVolcano = new RealisticBiomeMWVolcano(biome, BiomeConfigMW.biomeConfigMWVolcano);
+                    mwVolcano = new RealisticBiomeMWVolcano(biome);
                 }
             }
         }

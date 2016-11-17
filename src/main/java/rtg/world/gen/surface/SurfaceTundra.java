@@ -1,18 +1,19 @@
 package rtg.world.gen.surface;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.biome.BiomeConfig;
+
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
-
-import java.util.Random;
 
 public class SurfaceTundra extends SurfaceBase {
 

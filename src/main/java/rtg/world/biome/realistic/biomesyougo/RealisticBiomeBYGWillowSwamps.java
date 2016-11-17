@@ -1,15 +1,19 @@
 package rtg.world.biome.realistic.biomesyougo;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesyougo.config.BiomeConfigBYGWillowSwamps;
+import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
@@ -17,7 +21,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
-import rtg.world.gen.surface.biomesyougo.SurfaceBYGWillowSwamps;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
@@ -27,11 +31,93 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
     private static IBlockState willowLogBlock = Block.getBlockFromName("BiomesYouGo:WillowLog").getDefaultState();
     private static IBlockState willowLeavesBlock = Block.getBlockFromName("BiomesYouGo:WillowLeaves").getDefaultState();
 
-    public RealisticBiomeBYGWillowSwamps(Biome biome, BiomeConfig config) {
+    public RealisticBiomeBYGWillowSwamps(Biome biome) {
 
-        super(config, biome, river,
-            new SurfaceBYGWillowSwamps(config, biome.topBlock, biome.fillerBlock)
-        );
+        super(biome, river);
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBYGWillowSwamps();
+    }
+
+    public class TerrainBYGWillowSwamps extends TerrainBase {
+
+        public TerrainBYGWillowSwamps() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainMarsh(x, y, simplex, 61.5f);
+        }
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBYGWillowSwamps(config, this.baseBiome.topBlock, this.baseBiome.fillerBlock);
+    }
+
+    public class SurfaceBYGWillowSwamps extends SurfaceBase {
+
+        public SurfaceBYGWillowSwamps(BiomeConfig config, IBlockState top, IBlockState filler) {
+
+            super(config, top, filler);
+        }
+
+        @Override
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+
+            float c = CliffCalculator.calc(x, y, noise);
+            boolean cliff = c > 1.4f ? true : false;
+
+            for (int k = 255; k > -1; k--) {
+                Block b = primer.getBlockState(x, k, y).getBlock();
+                if (b == Blocks.AIR) {
+                    depth = -1;
+                }
+                else if (b == Blocks.STONE) {
+                    depth++;
+
+                    if (cliff && k > 64) {
+                        if (depth > -1 && depth < 2) {
+                            if (rand.nextInt(3) == 0) {
+
+                                primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            }
+                            else {
+
+                                primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            }
+                        }
+                        else if (depth < 10) {
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        }
+                    }
+                    else {
+                        if (depth == 0 && k > 61) {
+                            primer.setBlockState(x, k, y, topBlock);
+                        }
+                        else if (depth < 4) {
+                            primer.setBlockState(x, k, y, fillerBlock);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initDecos() {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.maxY = 82;
@@ -65,7 +151,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
         decoFallenTree.maxY = 76;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBYGWillowSwamps.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
         deadWillowTree.logBlock = Blocks.LOG.getDefaultState();
@@ -91,24 +177,5 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoShrubBYG.maxY = 88;
         decoShrubBYG.strengthFactor = 3f;
         this.addDeco(decoShrubBYG);
-    }
-
-    @Override
-    public TerrainBase initTerrain() {
-
-        return new TerrainBYGWillowSwamps();
-    }
-
-    public class TerrainBYGWillowSwamps extends TerrainBase {
-
-        public TerrainBYGWillowSwamps() {
-
-        }
-
-        @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-
-            return terrainMarsh(x, y, simplex, 61.5f);
-        }
     }
 }

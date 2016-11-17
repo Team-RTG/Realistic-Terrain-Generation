@@ -4,11 +4,8 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.flowercraft.config.BiomeConfigFC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceBase;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -16,12 +13,17 @@ public abstract class RealisticBiomeFCBase extends RealisticBiomeBase {
 
     public static RealisticBiomeBase fcPhantasia;
 
-    public RealisticBiomeFCBase(BiomeConfig config, Biome b, Biome riverbiome, SurfaceBase s) {
+    public RealisticBiomeFCBase(Biome b, Biome riverbiome) {
 
-        super(config, b, riverbiome, s);
+        super(b, riverbiome);
 
         this.waterSurfaceLakeChance = 0;
         this.lavaSurfaceLakeChance = 0;
+    }
+
+    @Override
+    public String modSlug() {
+        return "flowercraft";
     }
 
     public static void addBiomes() {
@@ -39,7 +41,7 @@ public abstract class RealisticBiomeFCBase extends RealisticBiomeBase {
                 String biomeClass = biome.getBiomeClass().getName();
 
                 if (biomeName.equals("Phantasia") && biomeClass.equals("flowercraftmod.world.biome.BiomeGenFCPhantasia")) {
-                    fcPhantasia = new RealisticBiomeFCPhantasia(biome, BiomeConfigFC.biomeConfigFCPhantasia);
+                    fcPhantasia = new RealisticBiomeFCPhantasia(biome);
                 }
             }
         }

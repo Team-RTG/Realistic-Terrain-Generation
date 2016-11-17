@@ -6,7 +6,7 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;

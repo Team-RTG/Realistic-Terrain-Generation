@@ -1,4 +1,5 @@
 generator.RTG=현실적인 바이옴
+generator.RTG.info=현실적인 바이옴 world type from Realistic Terrain Generation
 
 warning.rtgStartup1=현실적인 지형 생성 사용자 지정 세계 유형을 사용합니다.
 warning.rtgStartup2=당신이 실제 지형을 원한다면, 그것은 '현실'이 표시 될 때까지

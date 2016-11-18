@@ -148,7 +148,9 @@ public class WorldUtil {
         }
 
         if (this.appalachia) {
-            if (!AppalachiaUtil.canSnowAt(this.world, pos)) {
+            BlockPos groundPos = pos.down();
+            String groundBlockName = this.world.getBlockState(groundPos).getBlock().getUnlocalizedName().toLowerCase();
+            if (groundBlockName.contains("fallen") && groundBlockName.contains("leaves")) {
                 return false;
             }
         }

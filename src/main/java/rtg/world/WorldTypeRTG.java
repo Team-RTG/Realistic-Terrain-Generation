@@ -8,6 +8,8 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import rtg.RTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkProviderRTG;
@@ -17,10 +19,18 @@ public class WorldTypeRTG extends WorldType
 
     private static BiomeProviderRTG biomeProvider;
     public static ChunkProviderRTG chunkProvider;
+    private final boolean hasNotificationData;
 
     public WorldTypeRTG(String name)
     {
         super(name);
+        this.hasNotificationData = true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean showWorldInfoNotice() {
+        return this.hasNotificationData;
     }
 
     @Override @Nonnull

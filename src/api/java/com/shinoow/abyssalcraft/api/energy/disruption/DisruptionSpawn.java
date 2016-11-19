@@ -59,7 +59,7 @@ public class DisruptionSpawn extends DisruptionEntry {
 			if(entityliving != null){
 				entityliving.setLocationAndAngles(pos.getX(), pos.getY() + 1, pos.getZ(), entityliving.rotationYaw, entityliving.rotationPitch);
 				((EntityLiving) entityliving).onInitialSpawn(world.getDifficultyForLocation(pos.up()), (IEntityLivingData)null);
-				world.spawnEntityInWorld(entityliving);
+				world.spawnEntity(entityliving);
 			}
 		}
 	}

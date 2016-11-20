@@ -73,6 +73,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private Random rand;
     private Random mapRand;
     private World worldObj;
+    private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
@@ -111,6 +112,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     public ChunkProviderRTG(World world, long l) {
         worldObj = world;
+        worldUtil = new WorldUtil(world);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
@@ -744,7 +746,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                         this.worldObj.setBlockState(icePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(snowPos, true)) {
+                    if (ConfigRTG.enableSnowLayers && this.worldUtil.canSnowAt(snowPos, true)) {
                         this.worldObj.setBlockState(snowPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }

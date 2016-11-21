@@ -1,10 +1,10 @@
 package rtg.world.gen.terrain;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 
-public class TerrainBase {
+public abstract class TerrainBase {
 
     public static final float minimumOceanFloor = 30.01f; // The lowest Y coord an ocean floor is allowed to be.
     public static final float minimumDuneHeight = 21f; // The strength factor to which the dune height config option is added.

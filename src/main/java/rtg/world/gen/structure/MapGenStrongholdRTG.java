@@ -17,7 +17,7 @@ import net.minecraft.world.gen.structure.StructureStrongholdPieces;
 
 import com.google.common.collect.Lists;
 
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 
 public class MapGenStrongholdRTG extends MapGenStronghold
 {

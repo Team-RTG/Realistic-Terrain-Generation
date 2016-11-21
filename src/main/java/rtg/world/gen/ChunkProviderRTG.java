@@ -35,8 +35,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.config.rtg.ConfigRTG;
+import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
@@ -74,6 +73,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private Random rand;
     private Random mapRand;
     private World worldObj;
+    private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
@@ -112,6 +112,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     public ChunkProviderRTG(World world, long l) {
         worldObj = world;
+        worldUtil = new WorldUtil(world);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
@@ -686,7 +687,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.config._boolean(BiomeConfig.useRTGDecorationsId)) {
+                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
                     realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
@@ -745,7 +746,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                         this.worldObj.setBlockState(icePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldObj.canSnowAt(snowPos, true)) {
+                    if (ConfigRTG.enableSnowLayers && this.worldUtil.canSnowAt(snowPos, true)) {
                         this.worldObj.setBlockState(snowPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }

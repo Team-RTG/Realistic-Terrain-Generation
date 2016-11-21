@@ -1,21 +1,28 @@
 package rtg.world.biome.realistic.vanilla;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.vanilla.config.BiomeConfigVanillaJungle;
+import rtg.config.BiomeConfig;
+import rtg.config.ConfigRTG;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
-import rtg.world.gen.surface.vanilla.SurfaceVanillaJungle;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
@@ -23,13 +30,152 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     public static Biome biome = Biomes.JUNGLE;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeVanillaJungle(BiomeConfig config) {
+    public RealisticBiomeVanillaJungle() {
 
-        super(config, biome, river,
-            new SurfaceVanillaJungle(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.09f)
-        );
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 3;
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+
+        this.getConfig().ALLOW_VOLCANOES.set(true);
+        this.getConfig().VOLCANO_CHANCE.set(ConfigRTG.volcanoChance * 2);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainVanillaJungle();
+    }
+
+    public class TerrainVanillaJungle extends TerrainBase {
+
+        public TerrainVanillaJungle() {
+
+        }
+
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainFlatLakes(x, y, simplex, river, 3f, 66f);
+        }
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaJungle(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.09f);
+    }
+
+    public class SurfaceVanillaJungle extends SurfaceBase {
+
+        private float min;
+
+        private float sCliff = 1.5f;
+        private float sHeight = 60f;
+        private float sStrength = 65f;
+        private float cCliff = 1.5f;
+
+        private IBlockState mixBlock;
+        private float mixHeight;
+
+        public SurfaceVanillaJungle(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+
+            super(config, top, fill);
+            min = minCliff;
+
+            sCliff = stoneCliff;
+            sHeight = stoneHeight;
+            sStrength = stoneStrength;
+            cCliff = clayCliff;
+
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+
+            mixHeight = mixSize;
+        }
+
+        @Override
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                                 OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+
+            float c = CliffCalculator.calc(x, y, noise);
+            int cliff = 0;
+            boolean m = false;
+
+            Block b;
+            for (int k = 255; k > -1; k--) {
+                b = primer.getBlockState(x, k, y).getBlock();
+                if (b == Blocks.AIR) {
+                    depth = -1;
+                }
+                else if (b == Blocks.STONE) {
+                    depth++;
+
+                    if (depth == 0) {
+
+                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
+                            cliff = 1;
+                        }
+                        if (c > cCliff) {
+                            cliff = 2;
+                        }
+
+                        if (cliff == 1) {
+                            if (rand.nextInt(3) == 0) {
+
+                                primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            }
+                            else {
+
+                                primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            }
+                        }
+                        else if (cliff == 2) {
+                            primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        }
+                        else if (k < 63) {
+                            if (k < 62) {
+                                primer.setBlockState(x, k, y, fillerBlock);
+                            }
+                            else {
+                                primer.setBlockState(x, k, y, topBlock);
+                            }
+                        }
+                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                            primer.setBlockState(x, k, y, mixBlock);
+                            m = true;
+                        }
+                        else {
+                            primer.setBlockState(x, k, y, topBlock);
+                        }
+                    }
+                    else if (depth < 6) {
+                        if (cliff == 1) {
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        }
+                        else if (cliff == 2) {
+                            primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        }
+                        else {
+                            primer.setBlockState(x, k, y, fillerBlock);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initDecos() {
 
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
@@ -98,7 +244,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
         decoFallenTree.minSize = 4;
         decoFallenTree.maxSize = 9;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigVanillaJungle.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -129,7 +275,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoJungleCacti.sandOnly = false;
         decoJungleCacti.extraHeight = 7;
         decoJungleCacti.sandMeta = (byte) 1;
-        this.addDeco(decoJungleCacti, this.config._boolean(BiomeConfigVanillaJungle.decorationCactusId));
+        this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
@@ -144,23 +290,5 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoGrass.maxY = 128;
         decoGrass.strengthFactor = 12f;
         this.addDeco(decoGrass);
-    }
-
-    @Override
-    public TerrainBase initTerrain() {
-
-        return new TerrainVanillaJungle();
-    }
-
-    public class TerrainVanillaJungle extends TerrainBase {
-
-        public TerrainVanillaJungle() {
-
-        }
-
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-
-            return terrainFlatLakes(x, y, simplex, river, 3f, 66f);
-        }
     }
 }

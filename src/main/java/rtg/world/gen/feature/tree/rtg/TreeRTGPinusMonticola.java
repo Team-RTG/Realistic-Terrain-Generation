@@ -3,7 +3,6 @@ package rtg.world.gen.feature.tree.rtg;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -61,12 +60,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
         int y = pos.getY();
         int z = pos.getZ();
 
-        try {
-            this.trunkLog = this.logBlock.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
-        }
-        catch (Exception e) {
-            this.trunkLog = this.logBlock;
-        }
+        this.trunkLog = this.getTrunkLog(this.logBlock);
 
         this.height = this.trunkSize + this.crownSize;
 

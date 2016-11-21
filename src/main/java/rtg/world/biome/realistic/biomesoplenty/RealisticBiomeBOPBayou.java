@@ -1,19 +1,25 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPBayou;
+import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
+import rtg.util.CliffCalculator;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.deco.*;
-import rtg.world.gen.surface.biomesoplenty.SurfaceBOPBayou;
+import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
@@ -28,13 +34,148 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         .withProperty(BlockLeaves.CHECK_DECAY, false)
         .withProperty(BlockLeaves.DECAYABLE, false);
 
-    public RealisticBiomeBOPBayou(BiomeConfig config) {
+    public RealisticBiomeBOPBayou() {
 
-        super(config, biome, river,
-            new SurfaceBOPBayou(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f)
-        );
+        super(biome, river);
 
         this.waterSurfaceLakeChance = 0; // We want RTG ponds, not Mojang lakes.
+    }
+
+    @Override
+    public void initConfig() {
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPBayou();
+    }
+
+    public class TerrainBOPBayou extends TerrainBase {
+
+        public TerrainBOPBayou() {
+
+        }
+
+        @Override
+        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+            return terrainPlains(x, y, simplex, river, 80f, 1f, 40f, 20f, 62f);
+        }
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPBayou(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+    }
+
+    public class SurfaceBOPBayou extends SurfaceBase {
+
+        private float min;
+
+        private float sCliff = 1.5f;
+        private float sHeight = 60f;
+        private float sStrength = 65f;
+        private float cCliff = 1.5f;
+
+        private IBlockState mixBlock;
+        private float mixHeight;
+
+        public SurfaceBOPBayou(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                               float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+
+            super(config, top, fill);
+            min = minCliff;
+
+            sCliff = stoneCliff;
+            sHeight = stoneHeight;
+            sStrength = stoneStrength;
+            cCliff = clayCliff;
+
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixHeight = mixSize;
+        }
+
+        @Override
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
+                                 OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+
+            float c = CliffCalculator.calc(x, y, noise);
+            int cliff = 0;
+            boolean m = false;
+
+            Block b;
+            for (int k = 255; k > -1; k--) {
+                b = primer.getBlockState(x, k, y).getBlock();
+                if (b == Blocks.AIR) {
+                    depth = -1;
+                }
+                else if (b == Blocks.STONE) {
+                    depth++;
+
+                    if (depth == 0) {
+
+                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
+                            cliff = 1;
+                        }
+                        if (c > cCliff) {
+                            cliff = 2;
+                        }
+
+                        if (cliff == 1) {
+                            if (rand.nextInt(3) == 0) {
+
+                                primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            }
+                            else {
+
+                                primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            }
+                        }
+                        else if (cliff == 2) {
+                            primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        }
+                        else if (k < 63) {
+                            if (k < 62) {
+                                primer.setBlockState(x, k, y, fillerBlock);
+                            }
+                            else {
+                                primer.setBlockState(x, k, y, topBlock);
+                            }
+                        }
+                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                            primer.setBlockState(x, k, y, mixBlock);
+                            m = true;
+                        }
+                        else {
+                            primer.setBlockState(x, k, y, topBlock);
+                        }
+                    }
+                    else if (depth < 6) {
+                        if (cliff == 1) {
+                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        }
+                        else if (cliff == 2) {
+                            primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        }
+                        else {
+                            primer.setBlockState(x, k, y, fillerBlock);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initDecos() {
 
         DecoPond decoPond = new DecoPond();
         decoPond.chunksPerPond = 1;
@@ -101,7 +242,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoFallenTree.leavesBlock = leavesBlock;
         decoFallenTree.minSize = 3;
         decoFallenTree.maxSize = 6;
-        this.addDeco(decoFallenTree, this.config._boolean(BiomeConfigBOPBayou.decorationLogsId));
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
         this.addDeco(decoJungleLilypadVines);
@@ -122,24 +263,5 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoMushrooms.maxY = 90;
         decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
         this.addDeco(decoMushrooms);
-    }
-
-    @Override
-    public TerrainBase initTerrain() {
-
-        return new TerrainBOPBayou();
-    }
-
-    public class TerrainBOPBayou extends TerrainBase {
-
-        public TerrainBOPBayou() {
-
-        }
-
-        @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-
-            return terrainPlains(x, y, simplex, river, 80f, 1f, 40f, 20f, 62f);
-        }
     }
 }

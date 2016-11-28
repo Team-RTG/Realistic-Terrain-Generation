@@ -1,19 +1,15 @@
 package rtg.world.gen.surface;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
-import rtg.api.util.noise.CellNoise;
 import rtg.util.ModPresenceTester;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
 
 public abstract class SurfaceBase {
@@ -51,11 +47,11 @@ public abstract class SurfaceBase {
         this.assignUserConfigs(config, top, fill);
     }
 
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
     }
 
-    protected IBlockState getShadowStoneBlock(World world, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCStoneShadowing) {
 
@@ -67,7 +63,7 @@ public abstract class SurfaceBase {
         }
     }
 
-    protected IBlockState getShadowDesertBlock(World world, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
 
@@ -79,12 +75,12 @@ public abstract class SurfaceBase {
         }
     }
 
-    protected IBlockState hcStone(World world, int i, int j, int x, int y, int k) {
+    protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         return Blocks.STONE.getDefaultState();
     }
 
-    protected IBlockState hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+    protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
         return Blocks.COBBLESTONE.getDefaultState();
     }

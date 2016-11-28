@@ -17,7 +17,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  *
  * @author WhichOnesPink
  */
-public class DecoBase {
+public abstract class DecoBase {
 
     /**
      * If false, the deco won't get generated during chunk decoration.

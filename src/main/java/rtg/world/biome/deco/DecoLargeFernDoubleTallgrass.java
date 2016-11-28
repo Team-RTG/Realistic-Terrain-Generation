@@ -10,8 +10,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 
@@ -47,20 +47,24 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), GRASS)) {
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+
+            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
                 WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(GRASS_META), GRASS_META);
                 WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(FERN_META), FERN_META);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
                 for (int i = 0; i < this.loops; i++) {
-                    int intX = chunkX + rand.nextInt(16) + 8;
+                    int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.maxY);
-                    int intZ = chunkY + rand.nextInt(16) + 8;
+                    int intZ = worldZ + rand.nextInt(16) + 8;
 
                     if (intY <= this.maxY) {
 

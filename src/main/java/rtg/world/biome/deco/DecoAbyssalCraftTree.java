@@ -12,8 +12,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.abyssalcraft.WorldGenTreeACDarkwood;
 
@@ -58,21 +58,25 @@ public class DecoAbyssalCraftTree extends DecoTree {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), TREE)) {
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
 
-                float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), TREE)) {
+
+                float noise = simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
 
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
-                    int intX = chunkX + rand.nextInt(16) + 8;
-                    int intZ = chunkY + rand.nextInt(16) + 8;
+                    int intX = worldX + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16);// + 8;
                     int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     switch (this.treeType) {

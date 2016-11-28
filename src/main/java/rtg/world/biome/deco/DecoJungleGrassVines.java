@@ -10,8 +10,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
 import rtg.world.gen.feature.WorldGenVinesRTG;
@@ -44,16 +44,20 @@ public class DecoJungleGrassVines extends DecoBase {
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int worldX, int worldY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldY), GRASS)) {
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+
+            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
                 for (int l14 = 0; l14 < 16f * strength; l14++) {
                     int l19 = worldX + rand.nextInt(16);// + 8;
                     int k22 = rand.nextInt(128);
-                    int j24 = worldY + rand.nextInt(16);// + 8;
+                    int j24 = worldZ + rand.nextInt(16);// + 8;
 
                     if (rand.nextInt(8) == 0) {
                         if (rand.nextBoolean()) {
@@ -72,7 +76,7 @@ public class DecoJungleGrassVines extends DecoBase {
                 for (int l14 = 0; l14 < 12f * strength; l14++) {
                     int l19 = worldX + rand.nextInt(16);// + 8;
                     int k22 = rand.nextInt(128);
-                    int j24 = worldY + rand.nextInt(16);// + 8;
+                    int j24 = worldZ + rand.nextInt(16);// + 8;
 
                     if (rand.nextInt(5) == 0) {
                         if (rand.nextBoolean()) {
@@ -87,7 +91,7 @@ public class DecoJungleGrassVines extends DecoBase {
                 for (int l14 = 0; l14 < 16f * strength; l14++) {
                     int l19 = worldX + rand.nextInt(16);// + 8;
                     int k22 = rand.nextInt(128);
-                    int j24 = worldY + rand.nextInt(16);// + 8;
+                    int j24 = worldZ + rand.nextInt(16);// + 8;
 
                     if (rand.nextInt(8) == 0) {
                         if (rand.nextBoolean()) {

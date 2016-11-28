@@ -7,8 +7,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.util.WorldUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenCrops;
@@ -50,9 +50,13 @@ public class DecoCrop extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
+
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             WorldUtil worldUtil = new WorldUtil(world);
             WorldGenerator worldGenerator = new WorldGenCrops(type, size, density, height, water);
@@ -62,8 +66,8 @@ public class DecoCrop extends DecoBase {
             }
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
-                int i1 = chunkX + rand.nextInt(16);// + 8;
-                int j1 = chunkY + rand.nextInt(16);// + 8;
+                int i1 = worldX + rand.nextInt(16);// + 8;
+                int j1 = worldZ + rand.nextInt(16);// + 8;
                 int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
 
                 if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {

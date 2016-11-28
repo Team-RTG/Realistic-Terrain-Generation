@@ -18,10 +18,12 @@ import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.config.property.*;
-import rtg.util.*;
+import rtg.util.Logger;
+import rtg.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
@@ -385,13 +387,10 @@ public abstract class RealisticBiomeBase {
 
     public static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
 
-    public void rDecorate(
-        World world, Random rand, int chunkX, int chunkZ,
-        OpenSimplexNoise simplex, CellNoise cell,
-        float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void rDecorate(RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         for (DecoBase deco : this.decos) {
-            decoStack.add(new ChunkDecoration(new ChunkPos(chunkX, chunkZ), deco));
+            decoStack.add(new ChunkDecoration(new ChunkPos(worldX, worldZ), deco));
             if (decoStack.size() > 20) {
                 String problem = "";
                 for (ChunkDecoration inStack : decoStack) {
@@ -399,8 +398,8 @@ public abstract class RealisticBiomeBase {
                 }
                 throw new RuntimeException(problem);
             }
-            if (deco.preGenerate(this, world, rand, chunkX, chunkZ, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
-                deco.generate(this, world, rand, chunkX, chunkZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
+            if (deco.preGenerate(this, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks)) {
+                deco.generate(this, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
             }
             decoStack.remove(decoStack.size() - 1);
         }

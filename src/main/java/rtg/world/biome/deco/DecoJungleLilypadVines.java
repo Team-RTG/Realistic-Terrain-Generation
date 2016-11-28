@@ -11,9 +11,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
 
-import rtg.config.ConfigRTG;
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
+import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenVinesRTG;
 
@@ -38,19 +38,23 @@ public class DecoJungleLilypadVines extends DecoBase {
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int blockX, int blockY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(blockX, 0, blockY), LILYPAD)) {
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+
+            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), LILYPAD)) {
 
                 WorldGenerator worldgeneratorLilypads = new WorldGenWaterlily();
                 WorldGenerator worldgeneratorVines = new WorldGenVinesRTG();
                 Block vb;
 
                 for (int b33 = 0; b33 < 5; b33++) {
-                    int j6 = blockX + rand.nextInt(16) + 8;
-                    int k10 = blockY + rand.nextInt(16) + 8;
+                    int j6 = worldX + rand.nextInt(16) + 8;
+                    int k10 = worldZ + rand.nextInt(16) + 8;
                     int z52 = world.getHeight(new BlockPos(j6, 0, k10)).getY();
 
                     for (int h44 = 0; h44 < 8; h44++) {

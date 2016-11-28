@@ -1,11 +1,6 @@
 package rtg.world.biome.deco.helper;
 
-import java.util.Random;
-
-import net.minecraft.world.World;
-
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -33,20 +28,22 @@ public class DecoHelperBorder extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (strength < noneBelow) {
-            return; // border is too low
-        }
-        if (strength >= allAbove) {
-            // call with border 1
-            adjusted.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
-        }
-        else {
-            // call with interpolated border
-            float adjustedStrength = (strength - noneBelow) / (allAbove - noneBelow);
-            adjusted.generate(biome, world, rand, chunkX, chunkY, simplex, cell, adjustedStrength, river, hasPlacedVillageBlocks);
-        }
+        if (this.allowed) {
 
+            if (strength < noneBelow) {
+                return; // border is too low
+            }
+            if (strength >= allAbove) {
+                // call with border 1
+                adjusted.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
+            }
+            else {
+                // call with interpolated border
+                float adjustedStrength = (strength - noneBelow) / (allAbove - noneBelow);
+                adjusted.generate(biome, rtgWorld, worldX, worldZ, adjustedStrength, river, hasPlacedVillageBlocks);
+            }
+        }
     }
 }

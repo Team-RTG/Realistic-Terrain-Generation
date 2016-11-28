@@ -1,11 +1,6 @@
 package rtg.world.biome.deco.helper;
 
-import java.util.Random;
-
-import net.minecraft.world.World;
-
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -32,15 +27,15 @@ public class DecoHelper5050 extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (rand.nextBoolean()) {
-                this.deco1.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+            if (rtgWorld.rand.nextBoolean()) {
+                this.deco1.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
             }
             else {
-                this.deco2.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                this.deco2.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
             }
         }
     }

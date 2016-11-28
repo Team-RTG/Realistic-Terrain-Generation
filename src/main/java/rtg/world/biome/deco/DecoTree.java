@@ -12,10 +12,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
-import rtg.util.*;
+import rtg.util.DecoUtil;
+import rtg.util.RandomUtil;
+import rtg.util.WorldUtil;
 import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -143,16 +145,20 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
+
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             /*
              * Determine how many trees we're going to try to generate (loopCount).
              * The actual number of trees that end up being generated could be *less* than this value,
              * depending on environmental conditions.
              */
-            float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            float noise = simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
             int loopCount = this.loops;
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
@@ -181,7 +187,7 @@ public class DecoTree extends DecoBase {
              * the additional context.
              */
             DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(
-                world, rand, new BlockPos(chunkX, 0, chunkZ), TREE, loopCount
+                world, rand, new BlockPos(worldX, 0, worldZ), TREE, loopCount
             );
             MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
@@ -197,8 +203,8 @@ public class DecoTree extends DecoBase {
                 DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
-                    int intX = scatter.get(rand, chunkX); // + 8;
-                    int intZ = scatter.get(rand, chunkZ); // + 8;
+                    int intX = scatter.get(rand, worldX); // + 8;
+                    int intZ = scatter.get(rand, worldZ); // + 8;
                     int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {

@@ -7,8 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenDesertWells;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -38,9 +38,13 @@ public class DecoDesertWell extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
+
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             WorldGenerator worldGenerator = new WorldGenDesertWells();
 
@@ -48,9 +52,9 @@ public class DecoDesertWell extends DecoBase {
             for (int i = 0; i < this.loops; i++) {
                 if (rand.nextInt(this.chance) == 0) {
 
-                    int intX = chunkX + rand.nextInt(16) + 8;
+                    int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.maxY);
-                    int intZ = chunkY + rand.nextInt(16) + 8;
+                    int intZ = worldZ + rand.nextInt(16) + 8;
 
                     if (intY <= this.maxY) {
                         worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));

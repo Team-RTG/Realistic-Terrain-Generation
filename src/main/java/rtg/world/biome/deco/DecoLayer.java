@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.util.WorldUtil;
 import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -58,9 +58,13 @@ public class DecoLayer extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
+
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             WorldUtil worldUtil = new WorldUtil(world);
             WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
@@ -68,8 +72,8 @@ public class DecoLayer extends DecoBase {
             int loopCount = this.loops;
             loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
-                int intX = chunkX + rand.nextInt(16);// + 8;
-                int intZ = chunkY + rand.nextInt(16);// + 8;
+                int intX = worldX + rand.nextInt(16);// + 8;
+                int intZ = worldZ + rand.nextInt(16);// + 8;
                 int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                 if (this.notEqualsZerochance > 1) {

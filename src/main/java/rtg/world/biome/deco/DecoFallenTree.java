@@ -8,8 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.util.WorldUtil;
 import rtg.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -72,11 +72,15 @@ public class DecoFallenTree extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+
+            float noise = simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
             WorldUtil worldUtil = new WorldUtil(world);
 
             //Do we want to choose a random log?
@@ -100,8 +104,8 @@ public class DecoFallenTree extends DecoBase {
 
             for (int i = 0; i < this.loops; i++) {
                 if (isValidLogCondition(noise, strength, rand)) {
-                    int x22 = chunkX + rand.nextInt(16);// + 8;
-                    int z22 = chunkY + rand.nextInt(16);// + 8;
+                    int x22 = worldX + rand.nextInt(16);// + 8;
+                    int z22 = worldZ + rand.nextInt(16);// + 8;
                     int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
 
                     if (y22 <= this.maxY) {

@@ -10,8 +10,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -41,20 +41,24 @@ public class DecoDeadBush extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), DEAD_BUSH)) {
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+
+            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), DEAD_BUSH)) {
 
                 WorldGenerator worldGenerator = new WorldGenDeadBush();
 
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
-                    int intX = chunkX + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(this.maxY);
-                    int intZ = chunkY + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16);// + 8;
 
                     if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
                         worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));

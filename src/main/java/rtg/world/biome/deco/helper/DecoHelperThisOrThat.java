@@ -6,12 +6,7 @@ package rtg.world.biome.deco.helper;
  * @author Zeno410
  */
 
-import java.util.Random;
-
-import net.minecraft.world.World;
-
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -39,29 +34,29 @@ public class DecoHelperThisOrThat extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
             switch (this.chanceType) {
                 case EQUALS_ZERO:
 
-                    if (rand.nextInt(this.chance) == 0) {
-                        this.decoThis.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                    if (rtgWorld.rand.nextInt(this.chance) == 0) {
+                        this.decoThis.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
                     }
                     else {
-                        this.decoThat.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                        this.decoThat.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
                     }
 
                     break;
 
                 case NOT_EQUALS_ZERO:
 
-                    if (rand.nextInt(this.chance) != 0) {
-                        this.decoThis.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                    if (rtgWorld.rand.nextInt(this.chance) != 0) {
+                        this.decoThis.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
                     }
                     else {
-                        this.decoThat.generate(biome, world, rand, chunkX, chunkY, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                        this.decoThat.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
                     }
 
                     break;

@@ -38,6 +38,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
+import rtg.api.world.RTGWorld;
 import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;
@@ -75,7 +76,8 @@ public class ChunkProviderRTG implements IChunkGenerator
     private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
     private Random rand;
     private Random mapRand;
-    private World worldObj;
+    public final World worldObj;
+    public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
     private OpenSimplexNoise simplex;
@@ -116,6 +118,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     public ChunkProviderRTG(World world, long l) {
         worldObj = world;
         worldUtil = new WorldUtil(world);
+        rtgWorld = new RTGWorld(worldObj);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
@@ -692,7 +695,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
-                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                    realisticBiome.rDecorate(this.rtgWorld, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
 
@@ -702,7 +705,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     catch (Exception e) {
 
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                        realisticBiome.rDecorate(this.rtgWorld, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
             /*

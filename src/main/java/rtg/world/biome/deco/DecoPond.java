@@ -7,9 +7,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.config.ConfigRTG;
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
+import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenPond;
 
@@ -26,15 +26,19 @@ public class DecoPond extends DecoBase {
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed && ConfigRTG.waterSurfaceLakeChance > 0) {
+
+            World world = rtgWorld.world;
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             //Surface lakes.
             for (int i = 0; i < this.loops; i++) {
 
-                int i2 = chunkX + rand.nextInt(16);// + 8;
-                int i8 = chunkY + rand.nextInt(16);// + 8;
+                int i2 = worldX + rand.nextInt(16);// + 8;
+                int i8 = worldZ + rand.nextInt(16);// + 8;
                 int l4 = world.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 if (rand.nextInt(this.chunksPerPond) == 0) {

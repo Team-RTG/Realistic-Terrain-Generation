@@ -22,11 +22,9 @@
  * libnoiseforjava.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package rtg.util;
+package rtg.api.util.noise;
 
 import java.util.Random;
-
-import rtg.api.util.noise.CellOctave;
 
 /**
  * This is a Voronoi noise generator, originally from https://github.com/TJHJava/libnoiseforjava

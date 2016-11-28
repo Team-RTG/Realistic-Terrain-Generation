@@ -1,8 +1,6 @@
 
 package rtg.api.util.noise;
 
-import rtg.util.VoronoiCellOctave;
-
 /**
  *
  * @author Zeno410

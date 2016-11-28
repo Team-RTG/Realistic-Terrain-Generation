@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
@@ -53,19 +52,19 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
             float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
 
-            duneHeight *= (1f + simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+            duneHeight *= (1f + rtgWorld.simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 
             float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
             float stFactor = duneHeight;
             float hPitch = 70;    // Dune scale
             float hDivisor = 40;
 
-            return terrainPolar(x, y, simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
-                groundNoise(x, y, 1f, simplex);
+            return terrainPolar(x, y, rtgWorld.simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
+                groundNoise(x, y, 1f, rtgWorld.simplex);
         }
     }
 

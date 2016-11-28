@@ -15,6 +15,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import rtg.RTG;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexOctave;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.config.property.*;

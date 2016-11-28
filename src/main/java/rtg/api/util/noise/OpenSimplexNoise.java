@@ -6,8 +6,6 @@
  
 package rtg.api.util.noise;
 
-import rtg.util.SimplexOctave;
-
 /**
  * @author Zeno410
  * @version $Revision: 1.3$

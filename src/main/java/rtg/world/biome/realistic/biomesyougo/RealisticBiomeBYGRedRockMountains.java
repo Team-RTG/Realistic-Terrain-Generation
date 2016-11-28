@@ -11,6 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexOctave;
 import rtg.config.BiomeConfig;
 import rtg.util.*;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;

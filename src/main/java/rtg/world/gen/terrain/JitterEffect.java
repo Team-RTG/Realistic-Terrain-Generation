@@ -2,7 +2,7 @@ package rtg.world.gen.terrain;
 
 import rtg.util.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.util.SimplexOctave;
+import rtg.api.util.noise.SimplexOctave;
 
 /**
  * This class returns a height effect with a jitter on the position.

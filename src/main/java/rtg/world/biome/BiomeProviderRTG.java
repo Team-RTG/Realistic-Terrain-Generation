@@ -18,6 +18,7 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.config.ConfigRTG;
 import rtg.util.*;

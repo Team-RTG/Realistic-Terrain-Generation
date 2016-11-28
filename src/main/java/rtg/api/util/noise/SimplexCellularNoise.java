@@ -1,6 +1,6 @@
-package rtg.util;
+package rtg.api.util.noise;
 
-import rtg.api.util.noise.CellNoise;
+import rtg.util.SimplexCellularOctave;
 
 /**
  * @author KdotJPG
@@ -27,7 +27,7 @@ import rtg.api.util.noise.CellNoise;
 
 public class SimplexCellularNoise implements CellNoise {
 
-    private SimplexCellularOctave [] octaves = new SimplexCellularOctave [5];
+    private SimplexCellularOctave[] octaves = new SimplexCellularOctave [5];
     public final int OCTAVE_COUNT = 5;
 
     public SimplexCellularNoise(long seed) {

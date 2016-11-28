@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;

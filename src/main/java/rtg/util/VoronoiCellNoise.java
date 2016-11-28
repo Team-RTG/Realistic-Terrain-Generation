@@ -1,11 +1,13 @@
 
 package rtg.util;
 
+import rtg.api.util.noise.CellNoise;
+
 /**
  *
  * @author Zeno410
  */
-public class VoronoiCellNoise implements CellNoise 
+public class VoronoiCellNoise implements CellNoise
 {
 
     private VoronoiCellOctave [] octaves = new VoronoiCellOctave [5];

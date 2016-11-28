@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
-import rtg.util.CellNoise;
+import rtg.api.util.noise.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.util.UBColumnCache;

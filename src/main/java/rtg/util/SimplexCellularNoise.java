@@ -1,5 +1,7 @@
 package rtg.util;
 
+import rtg.api.util.noise.CellNoise;
+
 /**
  * @author KdotJPG
  * 

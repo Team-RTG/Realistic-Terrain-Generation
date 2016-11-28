@@ -14,6 +14,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.RTG;
+import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.config.BiomeConfig;

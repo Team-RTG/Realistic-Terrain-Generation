@@ -1,6 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
+import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 
 public class TerrainHighland extends TerrainBase {

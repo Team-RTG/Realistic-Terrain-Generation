@@ -14,7 +14,7 @@ import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.config.BiomeConfig;
-import rtg.util.CellNoise;
+import rtg.api.util.noise.CellNoise;
 import rtg.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;

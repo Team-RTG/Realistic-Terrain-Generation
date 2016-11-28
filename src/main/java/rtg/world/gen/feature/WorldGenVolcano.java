@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.ConfigRTG;
-import rtg.util.CellNoise;
+import rtg.api.util.noise.CellNoise;
 import rtg.util.Logger;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.util.TerrainMath;

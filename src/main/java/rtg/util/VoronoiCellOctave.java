@@ -26,6 +26,8 @@ package rtg.util;
 
 import java.util.Random;
 
+import rtg.api.util.noise.CellOctave;
+
 /**
  * This is a Voronoi noise generator, originally from https://github.com/TJHJava/libnoiseforjava
  * It was modified to work in a similar way to the bukkit noise generators, and to support

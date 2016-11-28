@@ -123,7 +123,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         rand = new Random(l);
         simplex = new OpenSimplexNoise(l);
         cell = new SimplexCellularNoise(l);
-        landscapeGenerator = new LandscapeGenerator(simplex, cell);
+        landscapeGenerator = new LandscapeGenerator(rtgWorld);
         mapRand = new Random(l);
         worldSeed = l;
         Map<String, String> m = new HashMap<>();

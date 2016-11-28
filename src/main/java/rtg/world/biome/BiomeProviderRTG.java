@@ -17,6 +17,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.util.noise.*;
+import rtg.api.world.RTGWorld;
 import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
@@ -30,6 +31,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private List<Biome> biomesToSpawnIn;
+    private RTGWorld rtgWorld;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
     //private SimplexCellularNoise simplexCell;
@@ -45,6 +47,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         super(world.getWorldInfo());
 
+        this.rtgWorld = new RTGWorld(world);
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
@@ -271,7 +274,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         float river = getRiverStrength(x, y) + 1f;
         if (river < 0.5f) return 59f;
-        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
+        return getBiomeDataAt(x, y).rNoise(this.rtgWorld, x, y, 1f, river);
     }
 
     @Override

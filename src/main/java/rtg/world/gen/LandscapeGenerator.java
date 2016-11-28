@@ -5,6 +5,7 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.util.TimeTracker;
 import rtg.util.TimedHashMap;
 import rtg.world.biome.BiomeAnalyzer;
@@ -22,6 +23,7 @@ class LandscapeGenerator {
     private final int sampleArraySize;
     private final int[] biomeData;
     private float[] [] weightings;
+    private final RTGWorld rtgWorld;
     private final OpenSimplexNoise simplex;
     private final CellNoise cell;
     private float [] weightedBiomes = new float [256];
@@ -29,11 +31,12 @@ class LandscapeGenerator {
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
     private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
 
-    LandscapeGenerator(OpenSimplexNoise simplex, CellNoise cell) {
+    LandscapeGenerator(RTGWorld rtgWorld) {
+        this.rtgWorld = rtgWorld;
         sampleArraySize = sampleSize * 2 + 5;
         biomeData = new int[sampleArraySize * sampleArraySize];
-        this.simplex = simplex;
-        this.cell = cell;
+        this.simplex = rtgWorld.simplex;
+        this.cell = rtgWorld.cell;
         setWeightings();
     }
 
@@ -144,7 +147,7 @@ class LandscapeGenerator {
                                 "NULL biome (" + k + ") found when getting newer noise.");
                         }
 
-                        landscape.noise[i * 16 + j] += realisticBiome.rNoise(simplex, cell, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
+                        landscape.noise[i * 16 + j] += realisticBiome.rNoise(this.rtgWorld, cx + i, cz + j, weightedBiomes[k], river + 1f) * weightedBiomes[k];
 
                         // 0 for the next column
                         weightedBiomes[k] = 0f;

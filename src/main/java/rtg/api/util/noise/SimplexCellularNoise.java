@@ -1,7 +1,5 @@
 package rtg.api.util.noise;
 
-import rtg.util.SimplexCellularOctave;
-
 /**
  * @author KdotJPG
  * 

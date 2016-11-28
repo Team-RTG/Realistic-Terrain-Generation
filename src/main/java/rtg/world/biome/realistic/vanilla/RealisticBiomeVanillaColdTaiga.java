@@ -6,15 +6,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.util.noise.CellNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
-import rtg.api.util.noise.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.collection.DecoCollectionTaiga;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -66,9 +66,10 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand,
-                                 OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
             float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
@@ -97,15 +98,15 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(world, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(world, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                             }
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(world, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                         }
                         else if (cliff == 3) {
                             primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
@@ -119,10 +120,10 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                     }
                     else if (depth < 6) {
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, z, hcStone(world, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(world, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                         }
                         else if (cliff == 3) {
                             primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());

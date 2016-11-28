@@ -6,14 +6,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.config.BiomeConfig;
 import rtg.api.util.noise.CellNoise;
-import rtg.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
+import rtg.config.BiomeConfig;
+import rtg.util.CliffCalculator;
 import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
@@ -69,9 +69,9 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        this.rReplaceRiverSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.rReplaceRiverSurface(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
 
     @Override
@@ -105,14 +105,16 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            float c = CliffCalculator.calc(x, y, noise);
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+            float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
 
             Block b;
             for (int k = 255; k > -1; k--) {
-                b = primer.getBlockState(x, k, y).getBlock();
+                b = primer.getBlockState(x, k, z).getBlock();
                 if (b == Blocks.AIR) {
                     depth = -1;
                 }
@@ -130,32 +132,32 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
                         }
 
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
+                            primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, y, getShadowDesertBlock(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
                         }
                         else if (k < 63) {
                             if (k < 62) {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, z, topBlock);
                             }
                         }
                         else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, z, topBlock);
                         }
                     }
                     else if (depth < 6) {
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, y, Blocks.SAND.getDefaultState());
+                            primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, y, getShadowDesertBlock(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
                         }
                         else {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, z, fillerBlock);
                         }
                     }
                 }

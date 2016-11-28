@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
@@ -62,25 +61,25 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-        {
-            simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            rtgWorld.simplex.riverJitter().evaluateNoise((float)x / wavelength, (float)y / wavelength, jitter);
             float pX = (float)((float)x + jitter.deltax() * amplitude);
             float pY = (float)((float)y + jitter.deltay() * amplitude);
 
-            float h = simplex.noise2(pX / 19f, pY / 19f);
+            float h = rtgWorld.simplex.noise2(pX / 19f, pY / 19f);
             h = h*h*2f;
-            float h2 = simplex.noise2(pX / 13f, pY / 13f);
+            float h2 = rtgWorld.simplex.noise2(pX / 13f, pY / 13f);
             h2 = h2 * h2 * 1.3f;
             h = Math.max(h, h2);
             h += h2;
-            float h3 = simplex.noise2( pX / 53f, pY /53f);
+            float h3 = rtgWorld.simplex.noise2( pX / 53f, pY /53f);
             h3= h3*h3*5f;
             h+= h3;
 
-            float m = unsignedPower(simplex.noise2(pX / width, pY / width),1.4f) * strength * river;
+            float m = unsignedPower(rtgWorld.simplex.noise2(pX / width, pY / width),1.4f) * strength * river;
             // invert y and x for complexity
-            float m2 = unsignedPower(simplex.noise2(pY / (width*1.5f), pX / (width*1.5f)),1.4f) * strength * river;
+            float m2 = unsignedPower(rtgWorld.simplex.noise2(pY / (width*1.5f), pX / (width*1.5f)),1.4f) * strength * river;
 
             m = Math.max(m, m2);
 

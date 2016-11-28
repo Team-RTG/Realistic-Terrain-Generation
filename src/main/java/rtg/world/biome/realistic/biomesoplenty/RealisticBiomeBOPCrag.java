@@ -11,8 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
@@ -59,11 +57,11 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             // need a little jitter to the points
             SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
-            simplex.riverJitter().evaluateNoise((float) x / 20.0, (float) y / 20.0, jitter);
+            rtgWorld.simplex.riverJitter().evaluateNoise((float) x / 20.0, (float) y / 20.0, jitter);
             double pX = x + jitter.deltax() * 1f;
             double pY = y + jitter.deltay() * 1f;
 
@@ -75,7 +73,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             if (multiplier > 1) {
                 multiplier = 1;
             }
-            double[] points = cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
+            double[] points = rtgWorld.cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
             float raise = (float) ((points[1] - points[0]) / points[1]);
             raise = raise * 3f;
             raise -= 0.2f;
@@ -86,7 +84,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                 raise = 1;
             }
             float topHeight = (float) (pointHeight +
-                pointHeightVariation * simplex.noise((float) x / pointHeightWavelength, (float) y / pointHeightWavelength));
+                pointHeightVariation * rtgWorld.simplex.noise((float) x / pointHeightWavelength, (float) y / pointHeightWavelength));
 
             float p = raise * topHeight;
             if (border >= 1f) {

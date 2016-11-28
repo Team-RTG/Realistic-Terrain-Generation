@@ -11,8 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.util.CliffCalculator;
@@ -46,9 +44,9 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, simplex, 61.5f);
+            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
         }
     }
 

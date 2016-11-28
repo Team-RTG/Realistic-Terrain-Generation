@@ -13,7 +13,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
@@ -63,9 +62,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, simplex, river, 80f, 1f, 40f, 20f, 62f);
+            return terrainPlains(x, y, rtgWorld.simplex, river, 80f, 1f, 40f, 20f, 62f);
         }
     }
 

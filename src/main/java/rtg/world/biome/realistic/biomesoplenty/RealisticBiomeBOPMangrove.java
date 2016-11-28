@@ -11,8 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.util.CliffCalculator;
@@ -46,9 +44,8 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 		}
 
 		@Override
-		public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-		{
-			return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
+		public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+			return terrainBeach(x, y, rtgWorld.simplex, river, 180f, 35f, 60f);
 		}
 	}
 

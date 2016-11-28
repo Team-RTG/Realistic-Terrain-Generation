@@ -11,8 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.util.CliffCalculator;
@@ -60,10 +58,10 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            float added = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-            added += hills.added(simplex, cell, x, y);
+            float added = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
+            added += hills.added(rtgWorld, x, y);
             return riverized(baseHeight + added, river);
         }
     }

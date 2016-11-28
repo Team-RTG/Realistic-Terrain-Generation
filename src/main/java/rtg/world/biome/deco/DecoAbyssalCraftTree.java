@@ -13,7 +13,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.abyssalcraft.WorldGenTreeACDarkwood;
 

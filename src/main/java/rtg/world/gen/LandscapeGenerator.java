@@ -4,7 +4,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.util.TimeTracker;
 import rtg.util.TimedHashMap;
 import rtg.world.biome.BiomeAnalyzer;

@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.World;
 
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**

@@ -13,7 +13,7 @@ import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
 
 public abstract class SurfaceBase {

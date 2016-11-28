@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.config.BiomeConfig;
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.util.SnowHeightCalculator;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;

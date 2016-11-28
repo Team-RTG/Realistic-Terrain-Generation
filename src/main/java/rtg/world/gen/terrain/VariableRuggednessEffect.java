@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain;
 
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 
 /**
  * This provides a standard "ruggedness switch" between a rugged terrain and a smooth one

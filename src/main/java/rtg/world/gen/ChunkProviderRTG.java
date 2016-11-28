@@ -35,6 +35,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.WorldTypeRTG;

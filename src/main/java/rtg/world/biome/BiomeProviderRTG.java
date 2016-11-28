@@ -16,6 +16,7 @@ import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.config.ConfigRTG;
 import rtg.util.*;
 import rtg.world.biome.realistic.RealisticBiomeBase;

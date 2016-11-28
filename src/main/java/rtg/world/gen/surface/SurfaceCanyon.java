@@ -13,7 +13,7 @@ import rtg.config.BiomeConfig;
 import rtg.util.CanyonColour;
 import rtg.util.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 
 public class SurfaceCanyon extends SurfaceBase {
 

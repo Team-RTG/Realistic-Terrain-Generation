@@ -1,7 +1,7 @@
 package rtg.world.gen.terrain;
 
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 
 public class TerrainSwampMountain extends TerrainBase {
 

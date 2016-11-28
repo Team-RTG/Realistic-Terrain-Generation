@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
 import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 
 public class SurfaceDuneValley extends SurfaceBase {
 

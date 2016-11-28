@@ -4,7 +4,9 @@
  * SimplexOctave should be OpenSimplexNoise
  */
  
-package rtg.util;
+package rtg.api.util.noise;
+
+import rtg.util.SimplexOctave;
 
 /**
  * @author Zeno410

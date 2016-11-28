@@ -1,8 +1,7 @@
 package rtg.world.gen.terrain;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.ConfigRTG;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 
 public class TerrainDunes extends TerrainBase {
 
@@ -10,12 +9,13 @@ public class TerrainDunes extends TerrainBase {
 
     }
 
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    @Override
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minDuneHeight + (float) ConfigRTG.duneHeight);
+        float st = (rtgWorld.simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minDuneHeight + (float) ConfigRTG.duneHeight);
         st = st < 0.2f ? 0.2f : st;
 
-        float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
+        float h = rtgWorld.simplex.noise2(x / 60f, y / 60f) * st * 2f;
         h = h > 0f ? -h : h;
         h += st;
         h *= h / 50f;
@@ -24,9 +24,9 @@ public class TerrainDunes extends TerrainBase {
         if (h < 10f) {
             float d = (h - 10f) / 2f;
             d = d > 4f ? 4f : d;
-            h += cell.noise(x / 25D, y / 25D, 1D) * d;
-            h += simplex.noise2(x / 30f, y / 30f) * d;
-            h += simplex.noise2(x / 14f, y / 14f) * d * 0.5f;
+            h += rtgWorld.cell.noise(x / 25D, y / 25D, 1D) * d;
+            h += rtgWorld.simplex.noise2(x / 30f, y / 30f) * d;
+            h += rtgWorld.simplex.noise2(x / 14f, y / 14f) * d * 0.5f;
         }
 
         return 70f + (h * river);

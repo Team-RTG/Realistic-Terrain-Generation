@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 public class TerrainHighland extends TerrainBase {
 
@@ -18,8 +17,8 @@ public class TerrainHighland extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        return terrainHighland(x, y, simplex, cell, river, start, width, height, base - 62f);
+        return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, base - 62f);
     }
 }

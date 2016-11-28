@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -18,9 +17,10 @@ public class HillockEffect extends HeightEffect {
     //usually numbers above 0 are often preferred to avoid dead basins
     public int octave;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(octave).noise2(x / wavelength, y / wavelength);
+        float noise = rtgWorld.simplex.octave(octave).noise2(x / wavelength, y / wavelength);
         if (noise < minimumSimplex) {
             noise = 0;
         }

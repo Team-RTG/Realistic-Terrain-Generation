@@ -4,15 +4,14 @@
 
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
  */
 public abstract class HeightEffect {
 
-    public abstract float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y);
+    public abstract float added(RTGWorld rtgWorld, float x, float y);
 
     public HeightEffect plus(HeightEffect added) {
 
@@ -31,9 +30,9 @@ public abstract class HeightEffect {
         }
 
         @Override
-        public float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+        public float added(RTGWorld rtgWorld, float x, float y) {
 
-            return one.added(simplex, cell, x, y) + two.added(simplex, cell, x, y);
+            return one.added(rtgWorld, x, y) + two.added(rtgWorld, x, y);
         }
     }
 }

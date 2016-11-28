@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -23,13 +22,14 @@ public class MountainsWithPassesEffect extends HeightEffect {
     public int spikeOctave = 2;//
     private float adjustedBottom = TerrainBase.blendedHillHeight(0, .2f);
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
+        float noise = rtgWorld.simplex.octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, 0.2f);
         noise = 1f - (1f - noise) / (1f - adjustedBottom);
-        float spikeNoise = simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
+        float spikeNoise = rtgWorld.simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
         spikeNoise = Math.abs(noise);
         spikeNoise = TerrainBase.blendedHillHeight(noise, 0.1f);
         spikeNoise *= spikeNoise;

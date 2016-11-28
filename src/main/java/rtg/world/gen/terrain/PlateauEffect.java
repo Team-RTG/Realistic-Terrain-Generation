@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -22,9 +21,10 @@ public class PlateauEffect extends HeightEffect {
     public int octave;
     public HeightEffect subordinate;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(octave).noise2(x / wavelength, y / wavelength);
+        float noise = rtgWorld.simplex.octave(octave).noise2(x / wavelength, y / wavelength);
         if (noise > topSimplexValue) {
             noise = 1f;
         }
@@ -37,7 +37,7 @@ public class PlateauEffect extends HeightEffect {
         if (subordinate == null) {
             return noise * height;
         }
-        float added = subordinate.added(simplex, cell, x, y);
+        float added = subordinate.added(rtgWorld, x, y);
         return noise * (height + added);
     }
 }

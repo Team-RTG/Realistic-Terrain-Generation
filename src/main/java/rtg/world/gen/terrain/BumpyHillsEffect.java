@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * This creates an effect of scattered hills with irregular surfaces
@@ -25,11 +24,12 @@ public class BumpyHillsEffect extends HeightEffect {
     public int hillOctave = 0;//
     public int spikeOctave = 2;//
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(hillOctave).noise2(x / hillWavelength, y / hillWavelength);
+        float noise = rtgWorld.simplex.octave(hillOctave).noise2(x / hillWavelength, y / hillWavelength);
         noise = TerrainBase.blendedHillHeight(noise);
-        float spikeNoise = simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
+        float spikeNoise = rtgWorld.simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
         spikeNoise = TerrainBase.blendedHillHeight(spikeNoise * noise);
         return noise * hillHeight + spikeNoise * spikeHeight;
     }

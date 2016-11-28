@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -19,9 +18,10 @@ public class AdjustableSpikeEffect extends HeightEffect {
     public int octave;
     public float power = 1.6f;// usually a range of 1 to 2
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
+        float noise = rtgWorld.simplex.octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
         if (noise < minimumSimplex) {
             noise = minimumSimplex;
         }

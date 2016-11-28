@@ -6,17 +6,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
+import rtg.api.util.noise.CellNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
-import rtg.api.util.noise.CellNoise;
 import rtg.util.CliffCalculator;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -88,9 +88,10 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand,
-                                 OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f ? true : false;
             boolean dirt = false;

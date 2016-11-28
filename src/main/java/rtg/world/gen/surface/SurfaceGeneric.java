@@ -5,13 +5,11 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 
 public class SurfaceGeneric extends SurfaceBase {
 
@@ -21,10 +19,12 @@ public class SurfaceGeneric extends SurfaceBase {
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+
+        Random rand = rtgWorld.rand;
 
         for (int k = 255; k > -1; k--) {
-            Block b = primer.getBlockState(x, k, y).getBlock();
+            Block b = primer.getBlockState(x, k, z).getBlock();
 
             if (b == Blocks.AIR) {
                 depth = -1;
@@ -33,10 +33,10 @@ public class SurfaceGeneric extends SurfaceBase {
                 depth++;
 
                 if (depth == 0 && k > 61) {
-                    primer.setBlockState(x, k, y, topBlock);
+                    primer.setBlockState(x, k, z, topBlock);
                 }
                 else if (depth < 4) {
-                    primer.setBlockState(x, k, y, fillerBlock);
+                    primer.setBlockState(x, k, z, fillerBlock);
                 }
             }
         }

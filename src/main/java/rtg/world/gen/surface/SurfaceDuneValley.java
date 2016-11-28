@@ -5,14 +5,13 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.util.BlockUtil;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 
 public class SurfaceDuneValley extends SurfaceBase {
 
@@ -30,8 +29,10 @@ public class SurfaceDuneValley extends SurfaceBase {
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
+        Random rand = rtgWorld.rand;
+        OpenSimplexNoise simplex = rtgWorld.simplex;
         float h = (simplex.noise2(i / valley, j / valley) + 0.25f) * 65f;
         h = h < 1f ? 1f : h;
         float m = simplex.noise2(i / 12f, j / 12f);
@@ -49,7 +50,7 @@ public class SurfaceDuneValley extends SurfaceBase {
                 if (depth == 0) {
                     if (k > 90f + simplex.noise2(i / 24f, j / 24f) * 10f - h || (m < -0.28f && mix)) {
                         primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
-                        //base[x * 16 + y] = RealisticBiomeVanillaBase.vanillaDesert;
+                        //base[x * 16 + z] = RealisticBiomeVanillaBase.vanillaDesert;
                         sand = true;
                     }
                     else if (dirt && m < 0.22f || k < 62) {

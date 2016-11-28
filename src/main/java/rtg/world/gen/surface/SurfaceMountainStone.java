@@ -5,14 +5,13 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.config.BiomeConfig;
-import rtg.api.util.noise.CellNoise;
-import rtg.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
+import rtg.config.BiomeConfig;
+import rtg.util.CliffCalculator;
 
 public class SurfaceMountainStone extends SurfaceBase {
 
@@ -40,14 +39,16 @@ public class SurfaceMountainStone extends SurfaceBase {
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float c = CliffCalculator.calc(x, y, noise);
+        Random rand = rtgWorld.rand;
+        OpenSimplexNoise simplex = rtgWorld.simplex;
+        float c = CliffCalculator.calc(x, z, noise);
         int cliff = 0;
 
         Block b;
         for (int k = 255; k > -1; k--) {
-            b = primer.getBlockState(x, k, y).getBlock();
+            b = primer.getBlockState(x, k, z).getBlock();
             if (b == Blocks.AIR) {
                 depth = -1;
             }
@@ -67,37 +68,37 @@ public class SurfaceMountainStone extends SurfaceBase {
                     if (cliff == 1) {
                         if (rand.nextInt(3) == 0) {
 
-                            primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
                         }
                         else {
 
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                         }
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                     }
                     else if (k < 63) {
                         if (k < 62) {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, z, fillerBlock);
                         }
                         else {
-                            primer.setBlockState(x, k, y, topBlock);
+                            primer.setBlockState(x, k, z, topBlock);
                         }
                     }
                     else {
-                        primer.setBlockState(x, k, y, topBlock);
+                        primer.setBlockState(x, k, z, topBlock);
                     }
                 }
                 else if (depth < 6) {
                     if (cliff == 1) {
-                        primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                     }
                     else if (cliff == 2) {
-                        primer.setBlockState(x, k, y, getShadowStoneBlock(world, i, j, x, y, k));
+                        primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                     }
                     else {
-                        primer.setBlockState(x, k, y, fillerBlock);
+                        primer.setBlockState(x, k, z, fillerBlock);
                     }
                 }
             }

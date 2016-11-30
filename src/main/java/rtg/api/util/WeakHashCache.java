@@ -1,8 +1,10 @@
 
-package rtg.util;
+package rtg.api.util;
 
 import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
+
+import rtg.api.util.Converter;
 
 /**
  * NOT CURRENTLY FUNCTIONAL

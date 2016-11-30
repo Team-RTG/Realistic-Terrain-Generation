@@ -13,8 +13,8 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.util.BlockUtil;
-import rtg.util.CliffCalculator;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;

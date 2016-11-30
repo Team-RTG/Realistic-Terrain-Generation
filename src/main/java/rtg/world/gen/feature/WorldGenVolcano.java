@@ -10,9 +10,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.config.ConfigRTG;
 import rtg.api.util.noise.CellNoise;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.util.TerrainMath;
+import rtg.api.util.TerrainMath;
 
 
 public class WorldGenVolcano {

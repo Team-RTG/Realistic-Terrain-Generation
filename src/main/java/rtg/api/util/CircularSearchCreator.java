@@ -1,5 +1,5 @@
 
-package rtg.util;
+package rtg.api.util;
 
 /**
  * This routine creates a 16x16 array for an ordered circular search

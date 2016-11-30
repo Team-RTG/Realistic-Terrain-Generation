@@ -2,7 +2,7 @@ package rtg.world.biome.deco.collection;
 
 import net.minecraft.init.Blocks;
 
-import rtg.util.BlockUtil;
+import rtg.api.util.BlockUtil;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.biome.deco.DecoTree.TreeCondition;

@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 import rtg.config.ConfigRTG;
-import rtg.util.BlockUtil;
-import rtg.util.WorldUtil;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.WorldUtil;
 
 /**
  * The base class for all RTG trees.

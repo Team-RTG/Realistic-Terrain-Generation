@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.util.SnowHeightCalculator;
+import rtg.api.util.SnowHeightCalculator;
 
 public class SurfacePolar extends SurfaceBase {
 

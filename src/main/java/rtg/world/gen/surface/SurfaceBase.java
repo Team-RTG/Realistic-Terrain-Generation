@@ -9,8 +9,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
-import rtg.util.ModPresenceTester;
-import rtg.util.UBColumnCache;
+import rtg.api.util.ModPresenceTester;
+import rtg.api.util.UBColumnCache;
 
 public abstract class SurfaceBase {
 

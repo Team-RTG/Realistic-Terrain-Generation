@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.api.util;
 
 import rtg.config.ConfigRTG;
 import rtg.world.biome.deco.DecoBase;

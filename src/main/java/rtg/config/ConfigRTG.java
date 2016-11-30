@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.Loader;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 
 public class ConfigRTG {
 

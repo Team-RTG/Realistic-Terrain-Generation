@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.api.util;
 
 import net.minecraft.block.BlockSnow;
 import net.minecraft.init.Blocks;

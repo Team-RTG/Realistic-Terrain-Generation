@@ -4,8 +4,8 @@ import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerRiverMix;
 import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
 
-import rtg.util.Accessor;
-import rtg.util.Logger;
+import rtg.api.util.Accessor;
+import rtg.api.util.Logger;
 
 /**
  * @author Zeno410

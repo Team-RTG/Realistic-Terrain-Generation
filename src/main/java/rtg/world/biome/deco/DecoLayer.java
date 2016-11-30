@@ -11,8 +11,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.util.WorldUtil;
-import rtg.util.WorldUtil.SurroundCheckType;
+import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLayers;
 

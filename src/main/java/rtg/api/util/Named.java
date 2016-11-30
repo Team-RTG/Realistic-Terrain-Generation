@@ -1,5 +1,5 @@
 
-package rtg.util;
+package rtg.api.util;
 
 import java.io.DataInput;
 import java.io.DataOutput;

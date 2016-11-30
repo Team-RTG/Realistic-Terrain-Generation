@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.util.BlockUtil;
+import rtg.api.util.BlockUtil;
 
 public class WorldGenWaterGrass extends WorldGenerator {
 

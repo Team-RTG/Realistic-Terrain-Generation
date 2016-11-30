@@ -1,5 +1,5 @@
 
-package rtg.util;
+package rtg.api.util;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Zeno410
  */
 public class Compass {
-    private Direction [] directions = new Direction [8];
+    private Direction[] directions = new Direction [8];
     
     public Compass() {
         directions[0] = Direction.UP;

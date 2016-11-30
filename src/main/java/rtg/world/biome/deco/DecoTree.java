@@ -15,10 +15,10 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
-import rtg.util.DecoUtil;
-import rtg.util.RandomUtil;
-import rtg.util.WorldUtil;
-import rtg.util.WorldUtil.SurroundCheckType;
+import rtg.api.util.DecoUtil;
+import rtg.api.util.RandomUtil;
+import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.SurroundCheckType;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 

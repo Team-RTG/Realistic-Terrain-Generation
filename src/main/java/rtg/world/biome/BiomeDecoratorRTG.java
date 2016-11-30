@@ -23,7 +23,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.config.ConfigRTG;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.util.RandomUtil;
+import rtg.api.util.RandomUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class BiomeDecoratorRTG

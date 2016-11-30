@@ -36,9 +36,6 @@ import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import rtg.api.util.*;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.ConfigRTG;
 import rtg.world.WorldTypeRTG;
@@ -80,8 +77,6 @@ public class ChunkProviderRTG implements IChunkGenerator
     public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
-    private OpenSimplexNoise simplex;
-    private CellNoise cell;
     private Biome[] baseBiomesList;
     private boolean[] biomesGeneratedInChunk;
     private float[] borderNoise;
@@ -121,8 +116,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         rtgWorld = new RTGWorld(worldObj);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
-        simplex = new OpenSimplexNoise(l);
-        cell = new SimplexCellularNoise(l);
         landscapeGenerator = new LandscapeGenerator(rtgWorld);
         mapRand = new Random(l);
         worldSeed = l;
@@ -296,7 +289,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                         "NULL biome (" + k + ") found when providing chunk.");
                 }
 
-                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
+                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
                 biomesGeneratedInChunk[k] = false;
             }
 

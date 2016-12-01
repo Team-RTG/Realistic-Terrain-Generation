@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -14,9 +13,10 @@ public class HeightVariation extends HeightEffect {
     public float wavelength = 0;
     public int octave = -1;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        return simplex.octave(octave).noise2(x / wavelength, y / wavelength) * height;
+        return rtgWorld.simplex.octave(octave).noise2(x / wavelength, y / wavelength) * height;
     }
 
 }

@@ -22,9 +22,9 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
 
 import rtg.config.ConfigRTG;
-import rtg.util.Acceptor;
+import rtg.api.util.Acceptor;
 import rtg.util.Logger;
-import rtg.util.RandomUtil;
+import rtg.api.util.RandomUtil;
 import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;

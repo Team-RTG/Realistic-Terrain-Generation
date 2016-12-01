@@ -3,10 +3,8 @@ package rtg.world.biome.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -60,7 +58,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
@@ -68,40 +66,40 @@ public class DecoBaseBiomeDecorations extends DecoBase {
 
                 int intX = worldX + rand.nextInt(16);// + 8;
                 int intZ = worldZ + rand.nextInt(16);// + 8;
-                int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                 if (intY >= this.minY && intY <= this.maxY) {
 
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biome.rDecorator.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river);
+                            biome.rDecorator.rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
                         }
                         else {
-                            biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                            biome.rDecorator.decorateOres(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river, hasPlacedVillageBlocks);
                         }
                     }
                     else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biome.rDecorator.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river);
+                            biome.rDecorator.rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
                         }
                         else {
-                            biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                            biome.rDecorator.decorateOres(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river, hasPlacedVillageBlocks);
                         }
                     }
                     else {
 
-                        biome.rDecorator.rDecorateSeedBiome(world, rand, worldX, worldZ, simplex, cell, strength, river);
+                        biome.rDecorator.rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
                     }
                 }
                 else {
-                    biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
+                    biome.rDecorator.decorateOres(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river, hasPlacedVillageBlocks);
                 }
             }
         }
         else {
-            biome.rDecorator.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
+            biome.rDecorator.decorateOres(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river, hasPlacedVillageBlocks);
         }
     }
 }

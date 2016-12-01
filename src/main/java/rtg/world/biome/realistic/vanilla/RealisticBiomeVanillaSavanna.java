@@ -6,14 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.biome.deco.collection.DecoCollectionSavanna;
 import rtg.world.gen.surface.SurfaceBase;
@@ -54,9 +53,9 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 100f, 66f);
-            return riverized(65f + groundEffect.added(simplex, cell, x, y), river);
+            return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
     }
 
@@ -88,14 +87,15 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                                 OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            float c = CliffCalculator.calc(x, y, noise);
+            Random rand = rtgWorld.rand;
+            OpenSimplexNoise simplex = rtgWorld.simplex;
+            float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
-                Block b = primer.getBlockState(x, k, y).getBlock();
+                Block b = primer.getBlockState(x, k, z).getBlock();
                 if (b == Blocks.AIR) {
                     depth = -1;
                 }
@@ -106,29 +106,29 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
                         if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
                             }
                             else {
 
-                                primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                             }
                         }
                         else if (depth < 10) {
-                            primer.setBlockState(x, k, y, hcStone(world, i, j, x, y, k));
+                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                         }
                     }
                     else {
                         if (depth == 0 && k > 61) {
                             if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
                             {
-                                primer.setBlockState(x, k, y, mixBlock);
+                                primer.setBlockState(x, k, z, mixBlock);
                             }
                             else {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, z, topBlock);
                             }
                         }
                         else if (depth < 4) {
-                            primer.setBlockState(x, k, y, fillerBlock);
+                            primer.setBlockState(x, k, z, fillerBlock);
                         }
                     }
                 }

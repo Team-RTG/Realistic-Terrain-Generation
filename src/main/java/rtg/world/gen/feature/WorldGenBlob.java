@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.config.ConfigRTG;
-import rtg.util.BoulderUtil;
-import rtg.util.RandomUtil;
+import rtg.api.util.BoulderUtil;
+import rtg.api.util.RandomUtil;
 
 
 public class WorldGenBlob extends WorldGenerator {

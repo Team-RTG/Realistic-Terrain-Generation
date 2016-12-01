@@ -6,13 +6,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.util.*;
+import rtg.api.util.BlockUtil;
+import rtg.util.CanyonColour;
+import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
@@ -82,9 +84,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 100f, false);
+            return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 100f, false);
         }
     }
 
@@ -95,9 +97,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        this.rReplaceRiverSurface(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+        this.rReplaceRiverSurface(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
 
     @Override
@@ -122,8 +124,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
+            Random rand = rtgWorld.rand;
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;

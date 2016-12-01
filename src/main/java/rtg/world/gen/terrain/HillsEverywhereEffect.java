@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -21,15 +20,16 @@ public class HillsEverywhereEffect extends HeightEffect {
     public int octave;
     public HeightEffect modified;
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(octave).noise2(x / wavelength, y / wavelength);
+        float noise = rtgWorld.simplex.octave(octave).noise2(x / wavelength, y / wavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, hillBottomSimplexValue);
         if (modified == null) {
             return noise * height;
         }
-        return noise * (height + modified.added(simplex, cell, x, y));
+        return noise * (height + modified.added(rtgWorld, x, y));
     }
 
 }

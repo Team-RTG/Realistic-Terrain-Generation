@@ -5,13 +5,10 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.WorldUtil;
-import rtg.util.WorldUtil.SurroundCheckType;
+import rtg.api.util.WorldUtil;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLog;
 
@@ -72,12 +69,12 @@ public class DecoFallenTree extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            float noise = simplex.noise2(chunkX / this.distribution.noiseDivisor, chunkY / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            WorldUtil worldUtil = new WorldUtil(world);
+            float noise = rtgWorld.simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
 
             //Do we want to choose a random log?
             if (this.randomLogBlocks.length > 0) {
@@ -100,20 +97,20 @@ public class DecoFallenTree extends DecoBase {
 
             for (int i = 0; i < this.loops; i++) {
                 if (isValidLogCondition(noise, strength, rand)) {
-                    int x22 = chunkX + rand.nextInt(16);// + 8;
-                    int z22 = chunkY + rand.nextInt(16);// + 8;
-                    int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
+                    int x22 = worldX + rand.nextInt(16);// + 8;
+                    int z22 = worldZ + rand.nextInt(16);// + 8;
+                    int y22 = rtgWorld.world.getHeight(new BlockPos(x22, 0, z22)).getY();
 
                     if (y22 <= this.maxY) {
 
                         // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
-                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), finalSize, SurroundCheckType.CARDINAL, rand, x22, y22, z22)) {
+                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), finalSize, WorldUtil.SurroundCheckType.CARDINAL, rand, x22, y22, z22)) {
                                 return;
                             }
                         }
 
-                        worldGenerator.generate(world, rand, new BlockPos(x22, y22, z22));
+                        worldGenerator.generate(rtgWorld.world, rand, new BlockPos(x22, y22, z22));
                     }
                 }
             }

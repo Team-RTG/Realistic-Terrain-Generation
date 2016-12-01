@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * // just adds a constant increase
@@ -18,7 +17,8 @@ public class RaiseEffect extends HeightEffect {
         this.height = height;
     }
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
         return height;
     }

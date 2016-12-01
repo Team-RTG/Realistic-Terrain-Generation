@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 public class TerrainMountainRiver extends TerrainBase {
 
@@ -10,8 +9,8 @@ public class TerrainMountainRiver extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
+        return terrainMountainRiver(x, y, rtgWorld.simplex, rtgWorld.cell, river, 300f, 67f);
     }
 }

@@ -6,13 +6,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
-import rtg.util.*;
+import rtg.api.util.BlockUtil;
+import rtg.util.CanyonColour;
+import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -87,9 +89,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, simplex, river, height, border, strength, heightLength, 50f, true);
+            return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 50f, true);
         }
     }
 
@@ -115,8 +117,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
+            Random rand = rtgWorld.rand;
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
@@ -139,15 +142,15 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
                             if (depth > -1 && depth < 2) {
                                 if (rand.nextInt(3) == 0) {
 
-                                    primer.setBlockState(x, k, z, hcCobble(world, i, j, x, z, k));
+                                    primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
                                 }
                                 else {
 
-                                    primer.setBlockState(x, k, z, hcStone(world, i, j, x, z, k));
+                                    primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                                 }
                             }
                             else if (depth < 10) {
-                                primer.setBlockState(x, k, z, hcStone(world, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
                             }
                         }
                     }

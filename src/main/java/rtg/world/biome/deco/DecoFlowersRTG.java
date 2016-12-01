@@ -3,15 +3,13 @@ package rtg.world.biome.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.RandomUtil;
+import rtg.api.util.RandomUtil;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenFlowersRTG;
 
@@ -69,19 +67,19 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), FLOWERS)) {
+            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), FLOWERS)) {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
                 this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
 
                 for (int i = 0; i < this.loops * 16; i++) {
-                    int intX = chunkX + rand.nextInt(16);// + 8;
-                    int intZ = chunkY + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16);// + 8;
 
                     int intY;
                     switch (this.heightType) {
@@ -90,7 +88,7 @@ public class DecoFlowersRTG extends DecoBase {
                             break;
 
                         case GET_HEIGHT_VALUE:
-                            intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                            intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
                             break;
 
                         default:
@@ -103,14 +101,14 @@ public class DecoFlowersRTG extends DecoBase {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
 
-                            worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
+                            worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                     else {
 
                         if (rand.nextInt(this.chance) == 0) {
 
-                            worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
+                            worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                 }

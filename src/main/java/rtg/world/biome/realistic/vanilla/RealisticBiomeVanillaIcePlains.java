@@ -6,15 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.util.BlockUtil;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
@@ -50,9 +48,9 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		}
 
 		@Override
-		public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+		public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-			return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
+			return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 200f, 65f);
 		}
 	}
 
@@ -76,13 +74,14 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		}
 
 		@Override
-		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-			float c = CliffCalculator.calc(x, y, noise);
+			Random rand = rtgWorld.rand;
+			float c = CliffCalculator.calc(x, z, noise);
 			boolean cliff = c > 1.4f ? true : false;
 
 			for (int k = 255; k > -1; k--) {
-				Block b = primer.getBlockState(x, k, y).getBlock();
+				Block b = primer.getBlockState(x, k, z).getBlock();
 				if (b == Blocks.AIR) {
 					depth = -1;
 				}
@@ -93,22 +92,22 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 					{
 						if(depth > -1 && depth < 2)
 						{
-							primer.setBlockState(x, k, y, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
+							primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
 						}
 						else if (depth < 10)
 						{
-							primer.setBlockState(x, k, y, cliffBlock1);
+							primer.setBlockState(x, k, z, cliffBlock1);
 						}
 					}
 					else
 					{
 						if(depth == 0 && k > 61)
 						{
-							primer.setBlockState(x, k, y, topBlock);
+							primer.setBlockState(x, k, z, topBlock);
 						}
 						else if(depth < 4)
 						{
-							primer.setBlockState(x, k, y, fillerBlock);
+							primer.setBlockState(x, k, z, fillerBlock);
 						}
 					}
 				}

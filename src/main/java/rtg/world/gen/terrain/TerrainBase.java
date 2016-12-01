@@ -1,8 +1,9 @@
 package rtg.world.gen.terrain;
 
+import rtg.api.world.RTGWorld;
 import rtg.config.ConfigRTG;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.util.noise.CellNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
 
 public abstract class TerrainBase {
 
@@ -766,8 +767,5 @@ public abstract class TerrainBase {
         return baseHeight + h * border;
     }
 
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
-
-        return 70f;
-    }
+    public abstract float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 }

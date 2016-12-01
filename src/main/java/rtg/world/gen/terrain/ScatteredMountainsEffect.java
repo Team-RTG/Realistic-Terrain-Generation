@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * This creates steep mountains in ranges, leaving most land minimally affected
@@ -25,11 +24,12 @@ public class ScatteredMountainsEffect extends HeightEffect {
     public int spikeOctave = 2;//
     private float adjustedBottom = TerrainBase.blendedHillHeight(0, 0f);
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = simplex.octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
+        float noise = rtgWorld.simplex.octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
         noise = TerrainBase.blendedHillHeight(noise, 0f);
-        float spikeNoise = simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
+        float spikeNoise = rtgWorld.simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
         spikeNoise = Math.abs(noise);
         spikeNoise = TerrainBase.blendedHillHeight(noise, 0f);
         spikeNoise *= spikeNoise;

@@ -14,10 +14,16 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.RTG;
+import rtg.api.util.noise.CellNoise;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexCellularNoise;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.config.property.*;
-import rtg.util.*;
+import rtg.util.Logger;
+import rtg.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
@@ -234,15 +240,15 @@ public abstract class RealisticBiomeBase {
         }
     }
 
-    public float rNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
         if (noWaterFeatures) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
             river = 1f - (1f-borderForRiver)*(1f-river);
-            return terrain.generateNoise(simplex, cell, x, y, border, river);
+            return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
-        float lakeStrength = lakePressure(simplex,cell,x,y,border);
+        float lakeStrength = lakePressure(rtgWorld, x, y, border);
         float lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
         // we add some flattening to the rivers. The lakes are pre-flattened.
         float riverFlattening = river*1.25f-0.25f;
@@ -261,15 +267,13 @@ public abstract class RealisticBiomeBase {
         }
         else if (lakeFlattening < river) river = lakeFlattening;
         // flatten terrain to set up for the water features
-        float terrainNoise = terrain.generateNoise(simplex, cell, x, y, border, riverFlattening);
+        float terrainNoise = terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
         // place water features
-        return this.erodedNoise(simplex, cell, x, y, river, border, terrainNoise,lakeFlattening);
+        return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise, lakeFlattening);
     }
 
     public static final float actualRiverProportion = 300f/1600f;
-    public float erodedNoise(
-        OpenSimplexNoise simplex, CellNoise simplexCell, int x, int y, float river,
-        float border, float biomeHeight, double lakeFlattening) {
+    public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight, double lakeFlattening) {
 
         float r;
         // put a flat spot in the middle of the river
@@ -283,30 +287,30 @@ public abstract class RealisticBiomeBase {
 
         //if (1>0) return 62f+r*10f;
         if ((r < 1f && biomeHeight > 57f)) {
-            return (biomeHeight * (r)) + ((57f + simplex.noise2(x / 12f, y / 12f) *
-                2f + simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
+            return (biomeHeight * (r)) + ((57f + rtgWorld.simplex.noise2(x / 12f, y / 12f) *
+                2f + rtgWorld.simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
         }
         else return biomeHeight;
     }
 
-    public float lakeFlattening(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
-        return lakeFlattening(lakePressure(simplex, simplexCell, x, y, border), lakeWaterLevel, lakeDepressionLevel);
+    public float lakeFlattening(RTGWorld rtgWorld,int x, int y, float border) {
+        return lakeFlattening(lakePressure(rtgWorld, x, y, border), lakeWaterLevel, lakeDepressionLevel);
     }
 
-    public float lakePressure(OpenSimplexNoise simplex, CellNoise simplexCell,int x, int y, float border) {
+    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border) {
         if (noLakes) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
+        rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
         double pY = y + jitter.deltay() * largeBendSize;
-        simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+        rtgWorld.simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
         pX += jitter.deltax() * mediumBendSize;
         pY += jitter.deltay() * mediumBendSize;
-        simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
+        rtgWorld.simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
         pX += jitter.deltax() * smallBendSize;
         pY += jitter.deltay() * smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = simplexCell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+        double [] lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
         float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
         if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
         if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
@@ -321,37 +325,37 @@ public abstract class RealisticBiomeBase {
         return (float)Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),1.0);
     }
 
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
 
-            this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
         else {
 
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
     }
 
-    protected void rReplaceRiverSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+    protected void rReplaceRiverSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
         if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
 
-            this.surface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
 
             if (ConfigRTG.enableLushRiverBankSurfacesInHotBiomes) {
 
                 SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-                riverSurface.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+                riverSurface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
             }
         }
         else {
 
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, world, rand, simplex, cell, noise, riverRegion, base);
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
     }
 
@@ -381,13 +385,10 @@ public abstract class RealisticBiomeBase {
 
     public static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
 
-    public void rDecorate(
-        World world, Random rand, int chunkX, int chunkZ,
-        OpenSimplexNoise simplex, CellNoise cell,
-        float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void rDecorate(RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         for (DecoBase deco : this.decos) {
-            decoStack.add(new ChunkDecoration(new ChunkPos(chunkX, chunkZ), deco));
+            decoStack.add(new ChunkDecoration(new ChunkPos(worldX, worldZ), deco));
             if (decoStack.size() > 20) {
                 String problem = "";
                 for (ChunkDecoration inStack : decoStack) {
@@ -395,8 +396,8 @@ public abstract class RealisticBiomeBase {
                 }
                 throw new RuntimeException(problem);
             }
-            if (deco.preGenerate(this, world, rand, chunkX, chunkZ, simplex, cell, strength, river, hasPlacedVillageBlocks)) {
-                deco.generate(this, world, rand, chunkX, chunkZ, simplex, cell, strength, river, hasPlacedVillageBlocks);
+            if (deco.preGenerate(this, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks)) {
+                deco.generate(this, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
             }
             decoStack.remove(decoStack.size() - 1);
         }
@@ -534,7 +535,7 @@ public abstract class RealisticBiomeBase {
         return 80;
     }
 
-    public boolean compareTerrain(TerrainBase oldTerrain) {
+    public boolean compareTerrain(RTGWorld rtgWorld, TerrainBase oldTerrain) {
 
         OpenSimplexNoise simplex = new OpenSimplexNoise(4444);
         SimplexCellularNoise cell = new SimplexCellularNoise(4444);
@@ -548,8 +549,8 @@ public abstract class RealisticBiomeBase {
         for (int x = -64; x <= 64; x++) {
             for (int z = -64; z <= 64; z++) {
 
-                oldNoise = oldTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
-                newNoise = newTerrain.generateNoise(simplex, cell, x, z, 0.5f, 0.5f);
+                oldNoise = oldTerrain.generateNoise(rtgWorld, x, z, 0.5f, 0.5f);
+                newNoise = newTerrain.generateNoise(rtgWorld, x, z, 0.5f, 0.5f);
 
                 //Logger.info("%s (%d) = oldNoise = %f | newNoise = %f", this.baseBiome.getBiomeName(), Biome.getIdForBiome(this.baseBiome), oldNoise, newNoise);
 

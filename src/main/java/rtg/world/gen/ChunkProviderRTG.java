@@ -35,8 +35,12 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import rtg.api.util.*;
+import rtg.api.world.RTGWorld;
 import rtg.config.ConfigRTG;
-import rtg.util.*;
+import rtg.util.CanyonColour;
+import rtg.util.Logger;
+import rtg.util.TimeTracker;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
@@ -72,11 +76,10 @@ public class ChunkProviderRTG implements IChunkGenerator
     private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
     private Random rand;
     private Random mapRand;
-    private World worldObj;
+    public final World worldObj;
+    public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
-    private OpenSimplexNoise simplex;
-    private CellNoise cell;
     private Biome[] baseBiomesList;
     private boolean[] biomesGeneratedInChunk;
     private float[] borderNoise;
@@ -113,11 +116,10 @@ public class ChunkProviderRTG implements IChunkGenerator
     public ChunkProviderRTG(World world, long l) {
         worldObj = world;
         worldUtil = new WorldUtil(world);
+        rtgWorld = new RTGWorld(worldObj);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(l);
-        simplex = new OpenSimplexNoise(l);
-        cell = new SimplexCellularNoise(l);
-        landscapeGenerator = new LandscapeGenerator(simplex, cell);
+        landscapeGenerator = new LandscapeGenerator(rtgWorld);
         mapRand = new Random(l);
         worldSeed = l;
         Map<String, String> m = new HashMap<>();
@@ -290,7 +292,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                         "NULL biome (" + k + ") found when providing chunk.");
                 }
 
-                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, simplex, cell, landscape.noise);
+                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
                 biomesGeneratedInChunk[k] = false;
             }
 
@@ -457,7 +459,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 river = -cmr.getRiverStrength(cx * 16 + i, cz * 16 + j);
                 depth = -1;
 
-                biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, worldObj, rand, simplex, cell, n, river, base);
+                biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, rtgWorld, n, river, base);
 
                 int rough;
                 int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
@@ -689,7 +691,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  */
                 if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
-                    realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                    realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
 
@@ -699,7 +701,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     catch (Exception e) {
 
-                        realisticBiome.rDecorate(this.worldObj, this.rand, worldX, worldZ, simplex, cell, borderNoise[bn], river, hasPlacedVillageBlocks);
+                        realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
             /*

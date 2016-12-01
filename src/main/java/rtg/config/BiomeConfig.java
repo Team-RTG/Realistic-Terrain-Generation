@@ -1,7 +1,5 @@
 package rtg.config;
 
-import java.util.ArrayList;
-
 import net.minecraftforge.common.config.Configuration;
 
 import rtg.config.property.*;
@@ -9,10 +7,9 @@ import rtg.config.property.ConfigProperty.Type;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class BiomeConfig {
+public class BiomeConfig extends Config {
 
     public RealisticBiomeBase realisticBiome;
-    public ArrayList<ConfigProperty> properties;
 
     /*
      * GLOBAL CONFIGS
@@ -53,7 +50,6 @@ public class BiomeConfig {
     public BiomeConfig(RealisticBiomeBase realisticBiome) {
 
         this.realisticBiome = realisticBiome;
-        this.properties = new ArrayList<ConfigProperty>();
 
         /*
          * GLOBAL CONFIGS
@@ -152,55 +148,6 @@ public class BiomeConfig {
         WHEAT_CHANCE = new ConfigPropertyInt(Type.INTEGER, "RTG Decoration: Wheat (Chance)", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MIN_Y = new ConfigPropertyInt(Type.INTEGER, "RTG Decoration: Wheat (Min Y)", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MAX_Y = new ConfigPropertyInt(Type.INTEGER, "RTG Decoration: Wheat (Max Y)", "", 0, 0, Integer.MAX_VALUE);
-    }
-
-    protected void addProp(ConfigProperty property) {
-
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).name.contentEquals(property.name)) {
-                removeProp(property.name);
-                break;
-            }
-        }
-
-        this.properties.add(property);
-    }
-
-    protected void removeProp(String name) {
-
-        for (int i = 0; i < this.properties.size(); i++) {
-
-            if (this.properties.get(i).name.contentEquals(name)) {
-                this.properties.remove(i);
-                return;
-            }
-        }
-    }
-
-    public ConfigPropertyBoolean addProperty(ConfigPropertyBoolean property) {
-        this.addProp(property);
-        return property;
-    }
-
-    public ConfigPropertyFloat addProperty(ConfigPropertyFloat property) {
-        this.addProp(property);
-        return property;
-    }
-
-    public ConfigPropertyInt addProperty(ConfigPropertyInt property) {
-        this.addProp(property);
-        return property;
-    }
-
-    public ConfigPropertyString addProperty(ConfigPropertyString property) {
-        this.addProp(property);
-        return property;
-    }
-
-    public ArrayList<ConfigProperty> getProperties() {
-
-        return this.properties;
     }
 
     public static String formatSlug(String s) {

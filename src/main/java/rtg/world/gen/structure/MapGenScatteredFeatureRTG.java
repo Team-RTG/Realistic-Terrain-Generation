@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.google.common.collect.Lists;
 
 import rtg.config.ConfigRTG;
-import rtg.api.util.Logger;
+import rtg.util.Logger;
 
 /**
  * Author: Choonster (https://github.com/Choonster)

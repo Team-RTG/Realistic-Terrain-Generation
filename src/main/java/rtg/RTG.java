@@ -22,7 +22,7 @@ import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.ClientProxy;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
-import rtg.api.util.RealisticBiomePresenceTester;
+import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;

@@ -6,7 +6,7 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.util.TimeTracker;
+import rtg.util.TimeTracker;
 import rtg.api.util.TimedHashMap;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.IBiomeProviderRTG;

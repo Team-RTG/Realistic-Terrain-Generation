@@ -11,7 +11,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.api.util.DecoUtil;
+import rtg.util.DecoUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;

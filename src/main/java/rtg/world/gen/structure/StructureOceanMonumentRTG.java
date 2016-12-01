@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import rtg.config.ConfigRTG;
-import rtg.api.util.Logger;
+import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 

@@ -1,4 +1,4 @@
-package rtg.api.util;
+package rtg.util;
 
 import java.util.HashMap;
 import java.util.Map;

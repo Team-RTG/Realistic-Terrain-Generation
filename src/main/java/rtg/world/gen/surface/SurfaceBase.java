@@ -10,7 +10,7 @@ import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.config.ConfigRTG;
 import rtg.api.util.ModPresenceTester;
-import rtg.api.util.UBColumnCache;
+import rtg.util.UBColumnCache;
 
 public abstract class SurfaceBase {
 

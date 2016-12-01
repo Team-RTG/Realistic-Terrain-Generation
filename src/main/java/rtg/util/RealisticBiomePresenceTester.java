@@ -1,8 +1,7 @@
-package rtg.api.util;
+package rtg.util;
 
 import net.minecraft.world.biome.Biome;
 
-import rtg.api.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**

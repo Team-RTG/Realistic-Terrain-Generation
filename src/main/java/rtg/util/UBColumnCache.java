@@ -1,4 +1,4 @@
-package rtg.api.util;
+package rtg.util;
 
 /**
  * @author Zeno410

@@ -1,5 +1,5 @@
 
-package rtg.api.util;
+package rtg.util;
 
 import java.io.BufferedWriter;
 import java.io.File;

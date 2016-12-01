@@ -1,4 +1,4 @@
-package rtg.api.util;
+package rtg.util;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.util.ReportedException;

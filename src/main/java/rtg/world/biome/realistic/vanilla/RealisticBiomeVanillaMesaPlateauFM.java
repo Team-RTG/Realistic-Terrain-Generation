@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CanyonColour;
+import rtg.util.CanyonColour;
 import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;

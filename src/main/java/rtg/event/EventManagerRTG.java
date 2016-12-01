@@ -23,9 +23,9 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import rtg.config.ConfigRTG;
 import rtg.api.util.Acceptor;
-import rtg.api.util.Logger;
+import rtg.util.Logger;
 import rtg.api.util.RandomUtil;
-import rtg.api.util.SaplingUtil;
+import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;

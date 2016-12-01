@@ -1,6 +1,7 @@
 package rtg.world.biome.deco;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
@@ -44,8 +45,17 @@ public abstract class DecoBase {
 
     /**
      * Performs pre-generation checks to determine if the deco is allowed to generate.
+     *
+     * @param biome
+     * @param rtgWorld
+     * @param rand
+     * @param worldX
+     * @param worldZ
+     * @param strength
+     * @param river
+     * @param hasPlacedVillageBlocks
      */
-    public boolean preGenerate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public boolean preGenerate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.checkRiver) {
 
@@ -60,13 +70,24 @@ public abstract class DecoBase {
     /**
      * Generates the decoration.
      * This method should be overridden in the individual deco objects.
+     *
+     * @param biome
+     * @param rtgWorld
+     * @param rand
+     * @param worldX
+     * @param worldZ
+     * @param strength
+     * @param river
+     * @param hasPlacedVillageBlocks
      */
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
     }
 
     /**
      * Adds one or more deco types.
+     *
+     * @param decos
      */
     public void addDecoTypes(DecoType... decos) {
 
@@ -77,6 +98,8 @@ public abstract class DecoBase {
 
     /**
      * Enum to classify the various decos.
+     *
+     * @author WhichOnesPink
      */
     public enum DecoType {
         BASE_BIOME_DECORATION,

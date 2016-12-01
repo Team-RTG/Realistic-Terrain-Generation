@@ -6,6 +6,8 @@ package rtg.world.biome.deco.helper;
  * @author Zeno410
  */
 
+import java.util.Random;
+
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -24,13 +26,13 @@ public class DecoHelperOneIn extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (rtgWorld.rand.nextInt(this.chances) == 0) {
+            if (rand.nextInt(this.chances) == 0) {
 
-                this.deco.generate(biome, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
+                this.deco.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
             }
         }
     }

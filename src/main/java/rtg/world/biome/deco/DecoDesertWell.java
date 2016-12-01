@@ -3,11 +3,9 @@ package rtg.world.biome.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenDesertWells;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -38,13 +36,9 @@ public class DecoDesertWell extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
-
-            World world = rtgWorld.world;
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             WorldGenerator worldGenerator = new WorldGenDesertWells();
 
@@ -57,7 +51,7 @@ public class DecoDesertWell extends DecoBase {
                     int intZ = worldZ + rand.nextInt(16) + 8;
 
                     if (intY <= this.maxY) {
-                        worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
+                        worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }

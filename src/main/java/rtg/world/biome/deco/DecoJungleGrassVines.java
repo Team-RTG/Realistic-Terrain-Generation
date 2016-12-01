@@ -4,13 +4,11 @@ import java.util.Random;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenGrass;
@@ -44,15 +42,11 @@ public class DecoJungleGrassVines extends DecoBase {
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            World world = rtgWorld.world;
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
-
-            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
+            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
                 for (int l14 = 0; l14 < 16f * strength; l14++) {
                     int l19 = worldX + rand.nextInt(16);// + 8;
@@ -61,15 +55,15 @@ public class DecoJungleGrassVines extends DecoBase {
 
                     if (rand.nextInt(8) == 0) {
                         if (rand.nextBoolean()) {
-                            this.worldgeneratorGrass.generate(world, rand, new BlockPos(l19, k22, j24));
+                            this.worldgeneratorGrass.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                         else {
-                            this.worldgeneratorFern.generate(world, rand, new BlockPos(l19, k22, j24));
+                            this.worldgeneratorFern.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                     }
 
                     for (int h44 = 0; h44 < 4 && k22 > 63; h44++) {
-                        worldgeneratorVines.generate(world, rand, new BlockPos(l19, k22, j24));
+                        worldgeneratorVines.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                     }
                 }
 
@@ -80,10 +74,10 @@ public class DecoJungleGrassVines extends DecoBase {
 
                     if (rand.nextInt(5) == 0) {
                         if (rand.nextBoolean()) {
-                            this.worldgeneratorDoubleTallgrass.generate(world, rand, new BlockPos(l19, k22, j24));
+                            this.worldgeneratorDoubleTallgrass.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                         else {
-                            this.worldgeneratorLargeFern.generate(world, rand, new BlockPos(l19, k22, j24));
+                            this.worldgeneratorLargeFern.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                     }
                 }
@@ -95,17 +89,17 @@ public class DecoJungleGrassVines extends DecoBase {
 
                     if (rand.nextInt(8) == 0) {
                         if (rand.nextBoolean()) {
-                            this.worldgeneratorGrass.generate(world, rand, new BlockPos(l19, k22, j24));
+                            this.worldgeneratorGrass.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                         else {
-                            this.worldgeneratorFern.generate(world, rand, new BlockPos(l19, k22, j24));
+                            this.worldgeneratorFern.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                     }
 
                     if (k22 > 63) {
 
                         for (int h44 = 0; h44 < 8; h44++) {
-                            worldgeneratorVines.generate(world, rand, new BlockPos(l19, k22, j24));
+                            worldgeneratorVines.generate(rtgWorld.world, rand, new BlockPos(l19, k22, j24));
                         }
                     }
                 }

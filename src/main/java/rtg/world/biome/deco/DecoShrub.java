@@ -8,11 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
-import rtg.api.util.WorldUtil.SurroundCheckType;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenShrubRTG;
 
@@ -71,13 +69,9 @@ public class DecoShrub extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
-
-            World world = rtgWorld.world;
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             DecoBase.tweakShrubLeaves(this, false, true);
 
@@ -97,7 +91,7 @@ public class DecoShrub extends DecoBase {
                 this.leavesBlock = this.randomLeavesBlocks[rnd];
             }
 
-            WorldUtil worldUtil = new WorldUtil(world);
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
             WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.Sand);
 
             int loopCount = this.loops;
@@ -105,18 +99,18 @@ public class DecoShrub extends DecoBase {
             for (int i = 0; i < loopCount; i++) {
                 int intX = worldX + rand.nextInt(16);// + 8;
                 int intZ = worldZ + rand.nextInt(16);// + 8;
-                int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                 if (this.notEqualsZerochance > 1) {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
                 else {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
             }
@@ -126,7 +120,7 @@ public class DecoShrub extends DecoBase {
     private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
         // If we're in a village, check to make sure the shrub has extra room to grow to avoid corrupting the village.
         if (hasPlacedVillageBlocks) {
-            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, x, y, z)) {
+            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, x, y, z)) {
                 return false;
             }
         }

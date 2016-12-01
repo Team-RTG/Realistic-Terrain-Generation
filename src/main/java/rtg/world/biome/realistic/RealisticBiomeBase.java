@@ -385,7 +385,7 @@ public abstract class RealisticBiomeBase {
 
     public static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
 
-    public void rDecorate(RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void rDecorate(RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         for (DecoBase deco : this.decos) {
             decoStack.add(new ChunkDecoration(new ChunkPos(worldX, worldZ), deco));
@@ -396,8 +396,8 @@ public abstract class RealisticBiomeBase {
                 }
                 throw new RuntimeException(problem);
             }
-            if (deco.preGenerate(this, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks)) {
-                deco.generate(this, rtgWorld, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
+            if (deco.preGenerate(this, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks)) {
+                deco.generate(this, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
             }
             decoStack.remove(decoStack.size() - 1);
         }

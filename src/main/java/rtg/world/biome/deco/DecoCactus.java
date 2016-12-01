@@ -5,13 +5,11 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
 
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
@@ -47,15 +45,11 @@ public class DecoCactus extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            World world = rtgWorld.world;
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
-
-            if (TerrainGen.decorate(world, rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
+            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
 
                 WorldGenerator worldGenerator = new WorldGenCacti(this.sandOnly, 0, this.soilBlock);
 
@@ -67,7 +61,7 @@ public class DecoCactus extends DecoBase {
                     int intZ = worldZ + rand.nextInt(16);// + 8;
 
                     if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
+                        worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }

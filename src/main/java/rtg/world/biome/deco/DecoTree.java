@@ -5,20 +5,17 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.event.terraingen.DecorateBiomeEventRTG;
 import rtg.api.util.DecoUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
-import rtg.api.util.WorldUtil.SurroundCheckType;
+import rtg.api.world.RTGWorld;
+import rtg.event.terraingen.DecorateBiomeEventRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -145,20 +142,16 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
-
-            World world = rtgWorld.world;
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
 
             /*
              * Determine how many trees we're going to try to generate (loopCount).
              * The actual number of trees that end up being generated could be *less* than this value,
              * depending on environmental conditions.
              */
-            float noise = simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            float noise = rtgWorld.simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
             int loopCount = this.loops;
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
@@ -187,7 +180,7 @@ public class DecoTree extends DecoBase {
              * the additional context.
              */
             DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(
-                world, rand, new BlockPos(worldX, 0, worldZ), TREE, loopCount
+                rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), TREE, loopCount
             );
             MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
@@ -199,19 +192,19 @@ public class DecoTree extends DecoBase {
                     return;
                 }
 
-                WorldUtil worldUtil = new WorldUtil(world);
+                WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
                 DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
                     int intX = scatter.get(rand, worldX); // + 8;
                     int intZ = scatter.get(rand, worldZ); // + 8;
-                    int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                    int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
                         // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
-                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
+                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
                                 return;
                             }
                         }
@@ -225,14 +218,14 @@ public class DecoTree extends DecoBase {
                                 this.tree.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
                                 this.tree.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
                                 this.tree.setNoLeaves(this.noLeaves);
-                                this.tree.generate(world, rand, new BlockPos(intX, intY, intZ));
+                                this.tree.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
 
                                 break;
 
                             case WORLDGEN:
 
                                 WorldGenerator worldgenerator = this.worldGen;
-                                worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
+                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
 
                                 break;
 

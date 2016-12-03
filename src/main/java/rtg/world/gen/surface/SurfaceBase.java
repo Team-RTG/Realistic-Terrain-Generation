@@ -139,14 +139,14 @@ public abstract class SurfaceBase {
             this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().shadowStoneBlockId.get()).getStateFromMeta(RTG.instance.getConfig().shadowStoneBlockByte.get());
         }
         catch (Exception e) {
-            this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().defaultShadowStoneBlockId).getStateFromMeta(RTG.instance.getConfig().defaultShadowStoneBlockByte);
+            this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().DEFAULT_SHADOW_STONE_BLOCK_ID).getStateFromMeta(RTG.instance.getConfig().DEFAULT_SHADOW_STONE_BLOCK_META);
         }
 
         try {
             this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().shadowDesertBlockId.get()).getStateFromMeta(RTG.instance.getConfig().shadowDesertBlockByte.get());
         }
         catch (Exception e) {
-            this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().defaultShadowDesertBlockId).getStateFromMeta(RTG.instance.getConfig().defaultShadowDesertBlockByte);
+            this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().DEFAULT_SHADOW_DESERT_BLOCK_ID).getStateFromMeta(RTG.instance.getConfig().DEFAULT_SHADOW_DESERT_BLOCK_META);
         }
     }
 }

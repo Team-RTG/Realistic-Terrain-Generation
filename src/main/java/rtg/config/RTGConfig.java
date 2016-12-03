@@ -13,18 +13,18 @@ import rtg.config.property.*;
 
 public class RTGConfig extends Config {
 
-    public static String defaultShadowStoneBlockId = "minecraft:stained_hardened_clay";
-    public static int defaultShadowStoneBlockByte = 9;
-    public static String defaultShadowDesertBlockId = "minecraft:stained_hardened_clay";
-    public static int defaultShadowDesertBlockByte = 0;
+    public static String DEFAULT_SHADOW_STONE_BLOCK_ID = "minecraft:stained_hardened_clay";
+    public static int DEFAULT_SHADOW_STONE_BLOCK_META = 9;
+    public static String DEFAULT_SHADOW_DESERT_BLOCK_ID = "minecraft:stained_hardened_clay";
+    public static int DEFAULT_SHADOW_DESERT_BLOCK_META = 0;
 
     public static final float MAX_TREE_DENSITY = 5f;
 
     // These constants are used as fallbacks when generating volcanoes, in case the user enters an invalid block ID.
-    public static final IBlockState volcanoBlock = Blocks.OBSIDIAN.getDefaultState();
-    public static final IBlockState volcanoMix1Block = Blocks.COBBLESTONE.getDefaultState();
-    public static final IBlockState volcanoMix2Block = Blocks.GRAVEL.getDefaultState();
-    public static final IBlockState volcanoMix3Block = Blocks.COAL_BLOCK.getDefaultState();
+    public static final IBlockState DEFAULT_VOLCANO_BLOCK = Blocks.OBSIDIAN.getDefaultState();
+    public static final IBlockState DEFAULT_VOLCANO_MIX1_BLOCK = Blocks.COBBLESTONE.getDefaultState();
+    public static final IBlockState DEFAULT_VOLCANO_MIX2_BLOCK = Blocks.GRAVEL.getDefaultState();
+    public static final IBlockState DEFAULT_VOLCANO_MIX3_BLOCK = Blocks.COAL_BLOCK.getDefaultState();
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1070,7 +1070,7 @@ public class RTGConfig extends Config {
             "Stone shadow block ID",
             "Terrain shadowing",
             "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains. Defaults to stained hardened clay.",
-            defaultShadowStoneBlockId
+            DEFAULT_SHADOW_STONE_BLOCK_ID
         );
         this.addProperty(shadowStoneBlockId);
 
@@ -1078,8 +1078,8 @@ public class RTGConfig extends Config {
             ConfigProperty.Type.INTEGER,
             "Stone shadow block meta value",
             "Terrain shadowing",
-            "The meta value of the shadow block for stone cliffs. Defaults to " + defaultShadowStoneBlockByte + " (cyan).",
-            defaultShadowStoneBlockByte, 0, 15
+            "The meta value of the shadow block for stone cliffs. Defaults to " + DEFAULT_SHADOW_STONE_BLOCK_META + " (cyan).",
+            DEFAULT_SHADOW_STONE_BLOCK_META, 0, 15
         );
         this.addProperty(shadowStoneBlockByte);
 
@@ -1088,7 +1088,7 @@ public class RTGConfig extends Config {
             "Desert shadow block ID",
             "Terrain shadowing",
             "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains. Defaults to stained hardened clay.",
-            defaultShadowDesertBlockId
+            DEFAULT_SHADOW_DESERT_BLOCK_ID
         );
         this.addProperty(shadowDesertBlockId);
 
@@ -1096,8 +1096,8 @@ public class RTGConfig extends Config {
             ConfigProperty.Type.INTEGER,
             "Desert shadow block meta value",
             "Terrain shadowing",
-            "The meta value of the shadow block for desert cliffs. Defaults to " + defaultShadowDesertBlockByte + " (white).",
-            defaultShadowDesertBlockByte, 0, 15
+            "The meta value of the shadow block for desert cliffs. Defaults to " + DEFAULT_SHADOW_DESERT_BLOCK_META + " (white).",
+            DEFAULT_SHADOW_DESERT_BLOCK_META, 0, 15
         );
         this.addProperty(shadowDesertBlockByte);
 

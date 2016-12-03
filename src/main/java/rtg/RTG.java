@@ -83,7 +83,7 @@ public class RTG {
         eventMgr.registerEventHandlers();
 
         // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
-        if (this.getConfig().enableWorldTypeNotificationScreen.get()) {
+        if (this.getConfig().ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN.get()) {
             MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
         }
     }
@@ -117,19 +117,19 @@ public class RTG {
 
     private void registerStructures() {
 
-        if (this.getConfig().enableScatteredFeatureModifications.get()) {
+        if (this.getConfig().ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         }
 
-        if (this.getConfig().enableVillageModifications.get()) {
+        if (this.getConfig().ENABLE_VILLAGE_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
         }
 
-        if (this.getConfig().enableOceanMonumentModifications.get()) {
+        if (this.getConfig().ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
         }
 
-        if (this.getConfig().enableStrongholdModifications.get()) {
+        if (this.getConfig().ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
         }
     }

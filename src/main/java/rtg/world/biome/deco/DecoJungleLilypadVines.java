@@ -20,10 +20,10 @@ import rtg.world.gen.feature.WorldGenVinesRTG;
  */
 public class DecoJungleLilypadVines extends DecoBase {
 
-    private static final Block volcanoBlock = Block.getBlockFromName(RTG.instance.getConfig().volcanoBlockId.get());
-    private static final Block volcanoMix1Block = Block.getBlockFromName(RTG.instance.getConfig().volcanoMix1BlockId.get());
-    private static final Block volcanoMix2Block = Block.getBlockFromName(RTG.instance.getConfig().volcanoMix2BlockId.get());
-    private static final Block volcanoMix3Block = Block.getBlockFromName(RTG.instance.getConfig().volcanoMix3BlockId.get());
+    private static final Block volcanoBlock = Block.getBlockFromName(RTG.instance.getConfig().VOLCANO_BLOCK_ID.get());
+    private static final Block volcanoMix1Block = Block.getBlockFromName(RTG.instance.getConfig().VOLCANO_MIX1_BLOCK_ID.get());
+    private static final Block volcanoMix2Block = Block.getBlockFromName(RTG.instance.getConfig().VOLCANO_MIX2_BLOCK_ID.get());
+    private static final Block volcanoMix3Block = Block.getBlockFromName(RTG.instance.getConfig().VOLCANO_MIX3_BLOCK_ID.get());
 
     public DecoJungleLilypadVines() {
 

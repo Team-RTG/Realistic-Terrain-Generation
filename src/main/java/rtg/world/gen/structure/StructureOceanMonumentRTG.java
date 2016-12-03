@@ -43,8 +43,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
     public StructureOceanMonumentRTG()
     {
-        this.spacing = RTG.instance.getConfig().oceanMonumentSpacing.get(); // Vanilla = 32
-        this.separation = RTG.instance.getConfig().oceanMonumentSeparation.get(); // Vanilla = 5
+        this.spacing = RTG.instance.getConfig().OCEAN_MONUMENT_SPACING.get(); // Vanilla = 32
+        this.separation = RTG.instance.getConfig().OCEAN_MONUMENT_SEPARATION.get(); // Vanilla = 5
     }
 
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_)

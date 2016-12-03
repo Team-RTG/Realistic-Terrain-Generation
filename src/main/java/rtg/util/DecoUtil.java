@@ -15,7 +15,7 @@ public class DecoUtil {
 
     public int calculateLoopCountFromTreeDensity(int loopCount, RealisticBiomeBase biome) {
 
-        float multiplier = RTG.instance.getConfig().treeDensityMultiplier.get();
+        float multiplier = RTG.instance.getConfig().TREE_DENSITY_MULTIPLIER.get();
         float biomeMultiplier = biome.getConfig().TREE_DENSITY_MULTIPLIER.get();
 
         if (biomeMultiplier >= 0f) {

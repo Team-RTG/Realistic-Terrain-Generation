@@ -26,7 +26,7 @@ public class DecoPond extends DecoBase {
     @Override
     public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed && RTG.instance.getConfig().waterSurfaceLakeChance.get() > 0) {
+        if (this.allowed && RTG.instance.getConfig().WATER_SURFACE_LAKE_CHANCE.get() > 0) {
 
             //Surface lakes.
             for (int i = 0; i < this.loops; i++) {

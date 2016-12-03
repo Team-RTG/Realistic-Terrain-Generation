@@ -53,7 +53,7 @@ public abstract class SurfaceBase {
 
     protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        if ((undergroundBiomesMod.present()) && RTG.instance.getConfig().enableUBCStoneShadowing.get()) {
+        if ((undergroundBiomesMod.present()) && RTG.instance.getConfig().ENABLE_UBC_STONE_SHADOWING.get()) {
 
             return Blocks.STONE.getDefaultState();
         }
@@ -65,7 +65,7 @@ public abstract class SurfaceBase {
 
     protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        if ((undergroundBiomesMod.present()) && RTG.instance.getConfig().enableUBCDesertShadowing.get()) {
+        if ((undergroundBiomesMod.present()) && RTG.instance.getConfig().ENABLE_UBC_DESERT_SHADOWING.get()) {
 
             return Blocks.STONE.getDefaultState();
         }
@@ -136,14 +136,14 @@ public abstract class SurfaceBase {
     protected void initShadowBlocks() {
 
         try {
-            this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().shadowStoneBlockId.get()).getStateFromMeta(RTG.instance.getConfig().shadowStoneBlockByte.get());
+            this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().SHADOW_STONE_BLOCK_ID.get()).getStateFromMeta(RTG.instance.getConfig().SHADOW_STONE_BLOCK_META.get());
         }
         catch (Exception e) {
             this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().DEFAULT_SHADOW_STONE_BLOCK_ID).getStateFromMeta(RTG.instance.getConfig().DEFAULT_SHADOW_STONE_BLOCK_META);
         }
 
         try {
-            this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().shadowDesertBlockId.get()).getStateFromMeta(RTG.instance.getConfig().shadowDesertBlockByte.get());
+            this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().SHADOW_DESERT_BLOCK_ID.get()).getStateFromMeta(RTG.instance.getConfig().SHADOW_DESERT_BLOCK_META.get());
         }
         catch (Exception e) {
             this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().DEFAULT_SHADOW_DESERT_BLOCK_ID).getStateFromMeta(RTG.instance.getConfig().DEFAULT_SHADOW_DESERT_BLOCK_META);

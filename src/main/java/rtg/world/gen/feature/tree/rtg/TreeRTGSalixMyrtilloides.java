@@ -48,7 +48,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
-        if (!this.isGroundValid(world, pos, RTG.instance.getConfig().allowTreesToGenerateOnSand.get())) {
+        if (!this.isGroundValid(world, pos, RTG.instance.getConfig().ALLOW_TREES_TO_GENERATE_ON_SAND.get())) {
             return false;
         }
 

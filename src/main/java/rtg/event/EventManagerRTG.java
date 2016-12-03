@@ -89,67 +89,67 @@ public class EventManagerRTG {
             // No switch statements allowed! - Pink
 
             if (eventType == ANDESITE) {
-                if (!RTG.instance.getConfig().generateOreAndesite.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_ANDESITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == COAL) {
-                if (!RTG.instance.getConfig().generateOreCoal.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_COAL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIAMOND) {
-                if (!RTG.instance.getConfig().generateOreDiamond.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_DIAMOND.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIORITE) {
-                if (!RTG.instance.getConfig().generateOreDiorite.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_DIORITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIRT) {
-                if (!RTG.instance.getConfig().generateOreDirt.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_DIRT.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == EMERALD) {
-                if (!RTG.instance.getConfig().generateOreEmerald.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_EMERALD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GOLD) {
-                if (!RTG.instance.getConfig().generateOreGold.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_GOLD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRANITE) {
-                if (!RTG.instance.getConfig().generateOreGranite.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_GRANITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRAVEL) {
-                if (!RTG.instance.getConfig().generateOreGravel.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_GRAVEL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == IRON) {
-                if (!RTG.instance.getConfig().generateOreIron.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_IRON.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == LAPIS) {
-                if (!RTG.instance.getConfig().generateOreLapis.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_LAPIS.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == REDSTONE) {
-                if (!RTG.instance.getConfig().generateOreRedstone.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_REDSTONE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == SILVERFISH) {
-                if (!RTG.instance.getConfig().generateOreSilverfish.get()) {
+                if (!RTG.instance.getConfig().GENERATE_ORE_SILVERFISH.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
@@ -187,7 +187,7 @@ public class EventManagerRTG {
         public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
 
             // Are RTG saplings enabled?
-            if (!RTG.instance.getConfig().enableRTGSaplings.get()) {
+            if (!RTG.instance.getConfig().ENABLE_RTG_SAPLINGS.get()) {
                 return;
             }
 
@@ -198,7 +198,7 @@ public class EventManagerRTG {
             }
 
             // Should we generate a vanilla tree instead?
-            if (event.getRand().nextInt(RTG.instance.getConfig().rtgTreeChance.get()) != 0) {
+            if (event.getRand().nextInt(RTG.instance.getConfig().RTG_TREE_CHANCE.get()) != 0) {
 
                 Logger.debug("Skipping RTG tree generation.");
                 return;
@@ -353,7 +353,7 @@ public class EventManagerRTG {
 
             // Are flowing liquid modifications enabled?
             // Note: This will need to move to the switch statement below if we add more case statements.
-            if (!RTG.instance.getConfig().enableFlowingLiquidModifications.get()) {
+            if (!RTG.instance.getConfig().ENABLE_FLOWING_LIQUID_MODIFICATIONS.get()) {
                 return;
             }
 

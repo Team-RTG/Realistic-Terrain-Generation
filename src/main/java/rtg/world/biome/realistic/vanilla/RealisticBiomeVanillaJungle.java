@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
-        this.getConfig().VOLCANO_CHANCE.set(RTG.instance.getConfig().volcanoChance.get() * 2);
+        this.getConfig().VOLCANO_CHANCE.set(RTG.instance.getConfig().VOLCANO_CHANCE.get() * 2);
     }
 
     @Override

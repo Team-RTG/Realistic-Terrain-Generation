@@ -195,12 +195,12 @@ public class MapGenRavineRTG extends MapGenRavine
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn)
     {
         // Return early if ravines are disabled.
-        if (!RTG.instance.getConfig().enableRavines.get()) {
+        if (!RTG.instance.getConfig().ENABLE_RAVINES.get()) {
             return;
         }
 
         // Use the global settings by default.
-        ravineFrequency = RTG.instance.getConfig().ravineFrequency.get();
+        ravineFrequency = RTG.instance.getConfig().RAVINE_FREQUENCY.get();
 
         // If the user has set biome-specific settings, let's use those instead.
         Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));

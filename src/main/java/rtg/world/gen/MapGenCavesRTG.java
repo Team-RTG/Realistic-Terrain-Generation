@@ -177,11 +177,11 @@ public class MapGenCavesRTG extends MapGenCaves
 
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
         // Return early if caves are disabled.
-        if (!RTG.instance.getConfig().enableCaves.get()) return;
+        if (!RTG.instance.getConfig().ENABLE_CAVES.get()) return;
 
         // Use the global settings by default.
-        int caveDensity = RTG.instance.getConfig().caveDensity.get();
-        int caveFrequency = RTG.instance.getConfig().caveFrequency.get();
+        int caveDensity = RTG.instance.getConfig().CAVE_DENSITY.get();
+        int caveFrequency = RTG.instance.getConfig().CAVE_FREQUENCY.get();
 
         // If the user has set biome-specific settings, let's use those instead.
         Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));

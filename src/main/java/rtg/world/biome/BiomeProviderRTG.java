@@ -51,10 +51,10 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
-        this.riverSeparation /= RTG.instance.getConfig().riverFrequencyMultiplier.get();
+        this.riverSeparation /= RTG.instance.getConfig().RIVER_FREQUENCY_MULTIPLIER.get();
         this.riverValleyLevel *= RTG.instance.getConfig().riverSizeMultiplier();
-        this.largeBendSize *= RTG.instance.getConfig().riverBendinessMultiplier.get();
-        this.smallBendSize *= RTG.instance.getConfig().riverBendinessMultiplier.get();
+        this.largeBendSize *= RTG.instance.getConfig().RIVER_BENDINESS_MULTIPLIER.get();
+        this.smallBendSize *= RTG.instance.getConfig().RIVER_BENDINESS_MULTIPLIER.get();
 
         long seed = world.getSeed();
         if (world.provider.getDimension() != 0) throw new RuntimeException();

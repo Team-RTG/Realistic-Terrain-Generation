@@ -50,7 +50,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
-            float duneHeight = (minDuneHeight + (float) RTG.instance.getConfig().duneHeight.get());
+            float duneHeight = (minDuneHeight + (float) RTG.instance.getConfig().DUNE_HEIGHT.get());
 
             duneHeight *= (1f + rtgWorld.simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 

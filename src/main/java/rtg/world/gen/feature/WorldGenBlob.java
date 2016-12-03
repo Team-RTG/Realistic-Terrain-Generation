@@ -32,7 +32,7 @@ public class WorldGenBlob extends WorldGenerator {
         this.boulderUtil = new BoulderUtil();
 
         if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
-            if (!RTG.instance.getConfig().enableCobblestoneBoulders.get()) {
+            if (!RTG.instance.getConfig().ENABLE_COBBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             }
             else {
@@ -51,7 +51,7 @@ public class WorldGenBlob extends WorldGenerator {
 
     public static boolean shouldGenerateCobblestoneBoulder(Random rand) {
 
-        int chance = RTG.instance.getConfig().cobblestoneBoulderChance.get();
+        int chance = RTG.instance.getConfig().COBBLESTONE_BOULDER_CHANCE.get();
         chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
 
         int random = RandomUtil.getRandomInt(rand, 1, chance);
@@ -68,7 +68,7 @@ public class WorldGenBlob extends WorldGenerator {
         if (honourConfig) {
             booShouldGenerate = true;
 
-            if (!RTG.instance.getConfig().enableCobblestoneBoulders.get()) {
+            if (!RTG.instance.getConfig().ENABLE_COBBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             }
             else {

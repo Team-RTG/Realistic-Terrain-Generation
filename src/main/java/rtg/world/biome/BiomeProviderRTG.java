@@ -16,9 +16,9 @@ import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
+import rtg.RTG;
 import rtg.api.util.noise.*;
 import rtg.api.world.RTGWorld;
-import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -51,10 +51,10 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
-        this.riverSeparation /= ConfigRTG.riverFrequencyMultiplier;
-        this.riverValleyLevel *= ConfigRTG.riverSizeMultiplier();
-        this.largeBendSize *= ConfigRTG.riverBendinessMultiplier;
-        this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
+        this.riverSeparation /= RTG.instance.getConfig().riverFrequencyMultiplier.get();
+        this.riverValleyLevel *= RTG.instance.getConfig().riverSizeMultiplier();
+        this.largeBendSize *= RTG.instance.getConfig().riverBendinessMultiplier.get();
+        this.smallBendSize *= RTG.instance.getConfig().riverBendinessMultiplier.get();
 
         long seed = world.getSeed();
         if (world.provider.getDimension() != 0) throw new RuntimeException();

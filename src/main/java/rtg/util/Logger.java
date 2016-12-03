@@ -7,13 +7,14 @@ import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
+
 
 public class Logger {
 
     public static void debug(String format, Object... data) {
 
-        if (ConfigRTG.enableDebugging) {
+        if (RTG.instance.getConfig().enableDebugging.get()) {
             FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
         }
     }

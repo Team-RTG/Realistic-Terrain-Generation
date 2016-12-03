@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.api.util.BoulderUtil;
 import rtg.api.util.RandomUtil;
 
@@ -32,7 +32,7 @@ public class WorldGenBlob extends WorldGenerator {
         this.boulderUtil = new BoulderUtil();
 
         if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
-            if (!ConfigRTG.enableCobblestoneBoulders) {
+            if (!RTG.instance.getConfig().enableCobblestoneBoulders.get()) {
                 booShouldGenerate = false;
             }
             else {
@@ -51,7 +51,7 @@ public class WorldGenBlob extends WorldGenerator {
 
     public static boolean shouldGenerateCobblestoneBoulder(Random rand) {
 
-        int chance = ConfigRTG.cobblestoneBoulderChance;
+        int chance = RTG.instance.getConfig().cobblestoneBoulderChance.get();
         chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
 
         int random = RandomUtil.getRandomInt(rand, 1, chance);
@@ -68,7 +68,7 @@ public class WorldGenBlob extends WorldGenerator {
         if (honourConfig) {
             booShouldGenerate = true;
 
-            if (!ConfigRTG.enableCobblestoneBoulders) {
+            if (!RTG.instance.getConfig().enableCobblestoneBoulders.get()) {
                 booShouldGenerate = false;
             }
             else {

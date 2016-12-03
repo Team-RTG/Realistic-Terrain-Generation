@@ -15,8 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
-import rtg.config.ConfigManager;
-import rtg.config.ConfigRTG;
+import rtg.config.RTGConfig;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.ClientProxy;
@@ -54,7 +53,7 @@ public class RTG {
     public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-    private ConfigManager configManager = new ConfigManager();
+    private RTGConfig rtgConfig = new RTGConfig();
     private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
@@ -72,7 +71,7 @@ public class RTG {
         worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
 
         configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
-        ConfigManager.init(configPath);
+        rtgConfig.load(configPath + "rtg.cfg");
 
         this.registerStructures();
     }
@@ -84,7 +83,7 @@ public class RTG {
         eventMgr.registerEventHandlers();
 
         // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
-        if (ConfigRTG.enableWorldTypeNotificationScreen) {
+        if (this.getConfig().enableWorldTypeNotificationScreen.get()) {
             MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
         }
     }
@@ -118,19 +117,19 @@ public class RTG {
 
     private void registerStructures() {
 
-        if (ConfigRTG.enableScatteredFeatureModifications) {
+        if (this.getConfig().enableScatteredFeatureModifications.get()) {
             MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         }
 
-        if (ConfigRTG.enableVillageModifications) {
+        if (this.getConfig().enableVillageModifications.get()) {
             MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
         }
 
-        if (ConfigRTG.enableOceanMonumentModifications) {
+        if (this.getConfig().enableOceanMonumentModifications.get()) {
             MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
         }
 
-        if (ConfigRTG.enableStrongholdModifications) {
+        if (this.getConfig().enableStrongholdModifications.get()) {
             MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
         }
     }
@@ -147,7 +146,11 @@ public class RTG {
      * This method is currently unused, but we're leaving it here for when we start
      * supporting multiple dimensions.
      */
-    public ConfigManager configManager(int dimension) {
-        return configManager;
+    public RTGConfig getConfig(int dimension) {
+        return this.rtgConfig;
+    }
+
+    public RTGConfig getConfig() {
+        return this.getConfig(0);
     }
 }

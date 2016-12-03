@@ -17,7 +17,8 @@ import net.minecraft.world.gen.structure.StructureStrongholdPieces;
 
 import com.google.common.collect.Lists;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
+
 
 public class MapGenStrongholdRTG extends MapGenStronghold
 {
@@ -29,9 +30,9 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
     public MapGenStrongholdRTG()
     {
-        int strongholdCount = ConfigRTG.strongholdCount;
-        double strongholdDistance = (double)ConfigRTG.strongholdDistance;
-        int strongholdSpread = ConfigRTG.strongholdSpread;
+        int strongholdCount = RTG.instance.getConfig().strongholdCount.get();
+        double strongholdDistance = (double)RTG.instance.getConfig().strongholdDistance.get();
+        int strongholdSpread = RTG.instance.getConfig().strongholdSpread.get();
 
         this.structureCoords = new ChunkPos[strongholdCount]; // Count (Vanilla = 128)
         this.distance = strongholdDistance; // Distance (Vanilla = 32.0D)

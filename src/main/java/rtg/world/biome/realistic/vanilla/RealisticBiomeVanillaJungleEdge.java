@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
+import rtg.config.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaJungleEdge extends RealisticBiomeVanillaBase {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
-        this.getConfig().VOLCANO_CHANCE.set(ConfigRTG.volcanoChance * 2);
+        this.getConfig().VOLCANO_CHANCE.set(RTG.instance.getConfig().volcanoChance.get() * 2);
     }
 
     @Override

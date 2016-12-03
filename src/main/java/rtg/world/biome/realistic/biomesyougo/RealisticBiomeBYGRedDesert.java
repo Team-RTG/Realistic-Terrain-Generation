@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.RTG;
+import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.config.ConfigRTG;
-import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
@@ -50,7 +50,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
-            float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+            float duneHeight = (minDuneHeight + (float) RTG.instance.getConfig().duneHeight.get());
 
             duneHeight *= (1f + rtgWorld.simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 

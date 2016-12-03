@@ -14,7 +14,7 @@ import net.minecraft.world.gen.MapGenCaves;
 
 import com.google.common.base.Objects;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings({"NullableProblems", "WeakerAccess", "unused"})
@@ -177,11 +177,11 @@ public class MapGenCavesRTG extends MapGenCaves
 
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
         // Return early if caves are disabled.
-        if (!ConfigRTG.enableCaves) return;
+        if (!RTG.instance.getConfig().enableCaves.get()) return;
 
         // Use the global settings by default.
-        int caveDensity = ConfigRTG.caveDensity;
-        int caveFrequency = ConfigRTG.caveFrequency;
+        int caveDensity = RTG.instance.getConfig().caveDensity.get();
+        int caveFrequency = RTG.instance.getConfig().caveFrequency.get();
 
         // If the user has set biome-specific settings, let's use those instead.
         Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));

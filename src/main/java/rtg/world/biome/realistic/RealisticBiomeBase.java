@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,8 +10,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import net.minecraftforge.common.config.Configuration;
-
 import rtg.RTG;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
@@ -20,9 +17,6 @@ import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.config.ConfigRTG;
-import rtg.config.property.*;
-import rtg.util.Logger;
 import rtg.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -116,21 +110,21 @@ public abstract class RealisticBiomeBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
-        this.lakeInterval *= ConfigRTG.lakeFrequencyMultiplier;
-        this.lakeWaterLevel *= ConfigRTG.lakeSizeMultiplier();
-        this.lakeShoreLevel *= ConfigRTG.lakeSizeMultiplier();
-        this.lakeDepressionLevel *= ConfigRTG.lakeSizeMultiplier();
+        this.lakeInterval *= RTG.instance.getConfig().lakeFrequencyMultiplier.get();
+        this.lakeWaterLevel *= RTG.instance.getConfig().lakeSizeMultiplier();
+        this.lakeShoreLevel *= RTG.instance.getConfig().lakeSizeMultiplier();
+        this.lakeDepressionLevel *= RTG.instance.getConfig().lakeSizeMultiplier();
 
-        this.largeBendSize *= ConfigRTG.lakeFrequencyMultiplier;
-        this.mediumBendSize *= ConfigRTG.lakeFrequencyMultiplier;
-        this.smallBendSize *= ConfigRTG.lakeFrequencyMultiplier;
+        this.largeBendSize *= RTG.instance.getConfig().lakeFrequencyMultiplier.get();
+        this.mediumBendSize *= RTG.instance.getConfig().lakeFrequencyMultiplier.get();
+        this.smallBendSize *= RTG.instance.getConfig().lakeFrequencyMultiplier.get();
 
         this.init();
     }
 
     private void init() {
         initConfig();
-        setBiomeConfigsFromUserConfigs();
+        this.getConfig().load(this.configPath());
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
@@ -187,7 +181,7 @@ public abstract class RealisticBiomeBase {
         OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         // Have volcanoes been disabled in the global config?
-        if (!ConfigRTG.enableVolcanoes) return;
+        if (!RTG.instance.getConfig().enableVolcanoes.get()) return;
 
         // Have volcanoes been disabled in the biome config?
         int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
@@ -202,7 +196,7 @@ public abstract class RealisticBiomeBase {
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? ConfigRTG.volcanoChance : realisticBiome.getConfig().VOLCANO_CHANCE.get();
+        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? RTG.instance.getConfig().volcanoChance.get() : realisticBiome.getConfig().VOLCANO_CHANCE.get();
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
@@ -222,7 +216,7 @@ public abstract class RealisticBiomeBase {
     public void generateMapGen(ChunkPrimer primer, Long seed, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         // Have volcanoes been disabled in the global config?
-        if (!ConfigRTG.enableVolcanoes) return;
+        if (!RTG.instance.getConfig().enableVolcanoes.get()) return;
 
         final int mapGenRadius = 5;
         final int volcanoGenRadius = 15;
@@ -329,7 +323,7 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
+        if (RTG.instance.getConfig().enableRTGBiomeSurfaces.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
@@ -343,11 +337,11 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (ConfigRTG.enableRTGBiomeSurfaces && this.getConfig().USE_RTG_SURFACES.get()) {
+        if (RTG.instance.getConfig().enableRTGBiomeSurfaces.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
 
-            if (ConfigRTG.enableLushRiverBankSurfacesInHotBiomes) {
+            if (RTG.instance.getConfig().enableLushRiverBankSurfacesInHotBiomes.get()) {
 
                 SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
                 riverSurface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
@@ -445,7 +439,7 @@ public abstract class RealisticBiomeBase {
 
         // Don't add the desert river deco collection if the user has disabled it.
         if (decoCollection instanceof DecoCollectionDesertRiver) {
-            if (!ConfigRTG.enableLushRiverBankDecorationsInHotBiomes) {
+            if (!RTG.instance.getConfig().enableLushRiverBankDecorationsInHotBiomes.get()) {
                 return;
             }
         }
@@ -575,93 +569,5 @@ public abstract class RealisticBiomeBase {
 
     public String biomeSlug() {
         return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
-    }
-
-    public void setBiomeConfigsFromUserConfigs() {
-
-        Configuration config = new Configuration(new File(this.configPath()));
-
-        try {
-            config.load();
-
-            String categoryName = "biome." + this.modSlug() + "." + this.biomeSlug();
-            ArrayList<ConfigProperty> properties = this.config.getProperties();
-
-            for (int j = 0; j < properties.size(); j++) {
-
-                ConfigProperty prop = properties.get(j);
-
-                switch (prop.type) {
-
-                    case INTEGER:
-
-                        ConfigPropertyInt propInt = (ConfigPropertyInt)properties.get(j);
-
-                        propInt.set(config.getInt(
-                            propInt.name,
-                            categoryName,
-                            propInt.valueInt,
-                            propInt.minValueInt,
-                            propInt.maxValueInt,
-                            prop.description
-                        ));
-
-                        break;
-
-                    case FLOAT:
-
-                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat)properties.get(j);
-
-                        propFloat.set(config.getFloat(
-                            propFloat.name,
-                            categoryName,
-                            propFloat.valueFloat,
-                            propFloat.minValueFloat,
-                            propFloat.maxValueFloat,
-                            propFloat.description
-                        ));
-
-                        break;
-
-                    case BOOLEAN:
-
-                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)properties.get(j);
-
-                        propBool.set(config.getBoolean(
-                            propBool.name,
-                            categoryName,
-                            propBool.valueBoolean,
-                            propBool.description
-                        ));
-
-                        break;
-
-                    case STRING:
-
-                        ConfigPropertyString propString = (ConfigPropertyString)properties.get(j);
-
-                        propString.set(config.getString(
-                            propString.name,
-                            categoryName,
-                            propString.valueString,
-                            propString.description
-                        ));
-
-                        break;
-
-                    default:
-                        throw new RuntimeException("ConfigProperty type not supported.");
-                }
-            }
-
-        }
-        catch (Exception e) {
-            Logger.error("RTG had a problem loading " + this.modSlug() + "/" + this.biomeSlug() + " configuration.");
-        }
-        finally {
-            if (config.hasChanged()) {
-                config.save();
-            }
-        }
     }
 }

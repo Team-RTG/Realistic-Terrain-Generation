@@ -6,10 +6,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.RTG;
+import rtg.api.util.ModPresenceTester;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.config.ConfigRTG;
-import rtg.api.util.ModPresenceTester;
 import rtg.util.UBColumnCache;
 
 public abstract class SurfaceBase {
@@ -53,7 +53,7 @@ public abstract class SurfaceBase {
 
     protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCStoneShadowing) {
+        if ((undergroundBiomesMod.present()) && RTG.instance.getConfig().enableUBCStoneShadowing.get()) {
 
             return Blocks.STONE.getDefaultState();
         }
@@ -65,7 +65,7 @@ public abstract class SurfaceBase {
 
     protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        if ((undergroundBiomesMod.present()) && ConfigRTG.enableUBCDesertShadowing) {
+        if ((undergroundBiomesMod.present()) && RTG.instance.getConfig().enableUBCDesertShadowing.get()) {
 
             return Blocks.STONE.getDefaultState();
         }
@@ -136,17 +136,17 @@ public abstract class SurfaceBase {
     protected void initShadowBlocks() {
 
         try {
-            this.shadowStoneBlock = Block.getBlockFromName(ConfigRTG.shadowStoneBlockId).getStateFromMeta(ConfigRTG.shadowStoneBlockByte);
+            this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().shadowStoneBlockId.get()).getStateFromMeta(RTG.instance.getConfig().shadowStoneBlockByte.get());
         }
         catch (Exception e) {
-            this.shadowStoneBlock = Block.getBlockFromName(ConfigRTG.defaultShadowStoneBlockId).getStateFromMeta(ConfigRTG.defaultShadowStoneBlockByte);
+            this.shadowStoneBlock = Block.getBlockFromName(RTG.instance.getConfig().defaultShadowStoneBlockId).getStateFromMeta(RTG.instance.getConfig().defaultShadowStoneBlockByte);
         }
 
         try {
-            this.shadowDesertBlock = Block.getBlockFromName(ConfigRTG.shadowDesertBlockId).getStateFromMeta(ConfigRTG.shadowDesertBlockByte);
+            this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().shadowDesertBlockId.get()).getStateFromMeta(RTG.instance.getConfig().shadowDesertBlockByte.get());
         }
         catch (Exception e) {
-            this.shadowDesertBlock = Block.getBlockFromName(ConfigRTG.defaultShadowDesertBlockId).getStateFromMeta(ConfigRTG.defaultShadowDesertBlockByte);
+            this.shadowDesertBlock = Block.getBlockFromName(RTG.instance.getConfig().defaultShadowDesertBlockId).getStateFromMeta(RTG.instance.getConfig().defaultShadowDesertBlockByte);
         }
     }
 }

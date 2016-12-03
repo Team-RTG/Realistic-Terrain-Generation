@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 
@@ -78,7 +78,7 @@ public class TreeRTG extends WorldGenAbstractTree {
             BlockUtil.getStateSand(1)
         ));
 
-        this.allowBarkCoveredLogs = ConfigRTG.allowBarkCoveredLogs;
+        this.allowBarkCoveredLogs = RTG.instance.getConfig().allowBarkCoveredLogs.get();
     }
 
     @Override
@@ -138,7 +138,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     protected boolean isGroundValid(World world, BlockPos trunkPos) {
 
-        return this.isGroundValid(world, trunkPos, ConfigRTG.allowTreesToGenerateOnSand);
+        return this.isGroundValid(world, trunkPos, RTG.instance.getConfig().allowTreesToGenerateOnSand.get());
     }
 
     protected boolean isGroundValid(World world, BlockPos trunkPos, boolean sandAllowed) {

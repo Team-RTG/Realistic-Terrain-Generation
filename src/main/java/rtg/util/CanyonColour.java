@@ -6,8 +6,9 @@ import java.util.Map;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 
+import rtg.RTG;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.config.ConfigRTG;
+import rtg.config.RTGConfig;
 
 /**
  *
@@ -16,16 +17,16 @@ import rtg.config.ConfigRTG;
  */
 public enum CanyonColour {
 
-    MESA(ConfigRTG.mesaPlateauBlockMetas),
-    MESA_BRYCE(ConfigRTG.mesaBrycePlateauBlockMetas),
-    SAVANNA(ConfigRTG.savannaPlateauBlockMetas);
+    MESA(RTGConfig.getPlateauGradientBlockMetasFromConfigString(RTG.instance.getConfig().mesaGradientString.get())),
+    MESA_BRYCE(RTGConfig.getPlateauGradientBlockMetasFromConfigString(RTG.instance.getConfig().mesaBryceGradientString.get())),
+    SAVANNA(RTGConfig.getPlateauGradientBlockMetasFromConfigString(RTG.instance.getConfig().savannaGradientString.get()));
 
     private static Map<CanyonColour, IBlockState[]> colourBlocks = new HashMap<CanyonColour, IBlockState[]>();
     private static OpenSimplexNoise simplex;
     private byte[] bytes;
 
-    private static IBlockState plateauBlock = Block.getBlockFromName(ConfigRTG.plateauBlockId).getStateFromMeta(ConfigRTG.plateauBlockByte);
-    private static Block plateauGradientBlock = Block.getBlockFromName(ConfigRTG.plateauGradientBlockId);
+    private static IBlockState plateauBlock = Block.getBlockFromName(RTG.instance.getConfig().plateauBlockId.get()).getStateFromMeta(RTG.instance.getConfig().plateauBlockByte.get());
+    private static Block plateauGradientBlock = Block.getBlockFromName(RTG.instance.getConfig().plateauGradientBlockId.get());
 
     CanyonColour(byte[] bytes) {
         this.bytes = bytes;

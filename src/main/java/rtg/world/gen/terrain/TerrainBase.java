@@ -1,9 +1,9 @@
 package rtg.world.gen.terrain;
 
-import rtg.api.world.RTGWorld;
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 public abstract class TerrainBase {
 
@@ -227,7 +227,7 @@ public abstract class TerrainBase {
 
     public static float terrainDunes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river) {
 
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) ConfigRTG.duneHeight);
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) RTG.instance.getConfig().duneHeight.get());
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
@@ -659,7 +659,7 @@ public abstract class TerrainBase {
 
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river) {
 
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) ConfigRTG.duneHeight) * river;
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) RTG.instance.getConfig().duneHeight.get()) * river;
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;

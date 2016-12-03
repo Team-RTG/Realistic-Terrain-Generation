@@ -6,8 +6,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.RTG;
 import rtg.api.world.RTGWorld;
-import rtg.config.ConfigRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenPond;
 
@@ -26,7 +26,7 @@ public class DecoPond extends DecoBase {
     @Override
     public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed && ConfigRTG.waterSurfaceLakeChance > 0) {
+        if (this.allowed && RTG.instance.getConfig().waterSurfaceLakeChance.get() > 0) {
 
             //Surface lakes.
             for (int i = 0; i < this.loops; i++) {

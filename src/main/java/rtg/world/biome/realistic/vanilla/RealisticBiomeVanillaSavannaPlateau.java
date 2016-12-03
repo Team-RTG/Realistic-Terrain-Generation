@@ -9,12 +9,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.RTG;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.config.ConfigRTG;
-import rtg.api.util.BlockUtil;
 import rtg.util.CanyonColour;
-import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -135,7 +135,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
                     depth++;
 
                     if (cliff) {
-                        if (!ConfigRTG.stoneSavannas) {
+                        if (!RTG.instance.getConfig().stoneSavannas.get()) {
                             primer.setBlockState(x, k, z, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
                         }
                         else {

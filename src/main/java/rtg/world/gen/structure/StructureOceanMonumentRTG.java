@@ -27,7 +27,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
@@ -43,8 +43,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
     public StructureOceanMonumentRTG()
     {
-        this.spacing = ConfigRTG.oceanMonumentSpacing; // Vanilla = 32
-        this.separation = ConfigRTG.oceanMonumentSeparation; // Vanilla = 5
+        this.spacing = RTG.instance.getConfig().oceanMonumentSpacing.get(); // Vanilla = 32
+        this.separation = RTG.instance.getConfig().oceanMonumentSeparation.get(); // Vanilla = 5
     }
 
     public StructureOceanMonumentRTG(Map<String, String> p_i45608_1_)

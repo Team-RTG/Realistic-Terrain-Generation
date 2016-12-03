@@ -1,8 +1,12 @@
 package rtg.config;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import net.minecraftforge.common.config.Configuration;
+
 import rtg.config.property.*;
+import rtg.util.Logger;
 
 
 public abstract class Config {
@@ -56,5 +60,92 @@ public abstract class Config {
     public ConfigPropertyString addProperty(ConfigPropertyString property) {
         this.addProp(property);
         return property;
+    }
+
+    public void load(String configFile) {
+
+        Configuration config = new Configuration(new File(configFile));
+
+        try {
+            config.load();
+
+            ArrayList<ConfigProperty> properties = this.getProperties();
+
+            for (int j = 0; j < properties.size(); j++) {
+
+                ConfigProperty prop = properties.get(j);
+
+                switch (prop.type) {
+
+                    case INTEGER:
+
+                        ConfigPropertyInt propInt = (ConfigPropertyInt)properties.get(j);
+
+                        propInt.set(config.getInt(
+                            propInt.name,
+                            propInt.category,
+                            propInt.valueInt,
+                            propInt.minValueInt,
+                            propInt.maxValueInt,
+                            prop.description
+                        ));
+
+                        break;
+
+                    case FLOAT:
+
+                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat)properties.get(j);
+
+                        propFloat.set(config.getFloat(
+                            propFloat.name,
+                            propFloat.category,
+                            propFloat.valueFloat,
+                            propFloat.minValueFloat,
+                            propFloat.maxValueFloat,
+                            propFloat.description
+                        ));
+
+                        break;
+
+                    case BOOLEAN:
+
+                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)properties.get(j);
+
+                        propBool.set(config.getBoolean(
+                            propBool.name,
+                            propBool.category,
+                            propBool.valueBoolean,
+                            propBool.description
+                        ));
+
+                        break;
+
+                    case STRING:
+
+                        ConfigPropertyString propString = (ConfigPropertyString)properties.get(j);
+
+                        propString.set(config.getString(
+                            propString.name,
+                            propString.category,
+                            propString.valueString,
+                            propString.description
+                        ));
+
+                        break;
+
+                    default:
+                        throw new RuntimeException("ConfigProperty type not supported.");
+                }
+            }
+
+        }
+        catch (Exception e) {
+            Logger.error("RTG had a problem loading config: " + configFile);
+        }
+        finally {
+            if (config.hasChanged()) {
+                config.save();
+            }
+        }
     }
 }

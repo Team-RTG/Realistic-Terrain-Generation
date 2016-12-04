@@ -53,6 +53,7 @@ public class RTGConfig extends Config {
 
     public final ConfigPropertyBoolean ENABLE_COBBLESTONE_BOULDERS;
     public final ConfigPropertyInt COBBLESTONE_BOULDER_CHANCE;
+    public final ConfigPropertyBoolean ENABLE_UBC_BOULDERS;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Caves
@@ -358,6 +359,17 @@ public class RTGConfig extends Config {
             1, 1, 100
         );
         this.addProperty(COBBLESTONE_BOULDER_CHANCE);
+
+        ENABLE_UBC_BOULDERS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable UBC Boulders",
+            "Boulders",
+            "Set this to TRUE to allow UBC to override cobblestone boulders."
+                + Configuration.NEW_LINE +
+                "This setting doesn't have any effect if UBC is not installed.",
+            true
+        );
+        this.addProperty(ENABLE_UBC_BOULDERS);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Caves

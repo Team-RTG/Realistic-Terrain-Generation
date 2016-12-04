@@ -15,8 +15,8 @@ import rtg.util.UBColumnCache;
 
 public abstract class SurfaceBase {
 
-    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
-    // create UBColumnCache only if UB is present
+    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("undergroundbiomes");
+    // Create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
@@ -84,7 +84,14 @@ public abstract class SurfaceBase {
 
     protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
-        return Blocks.COBBLESTONE.getDefaultState();
+        if ((undergroundBiomesMod.present())) {
+
+            return ubColumnCache.column(worldX, worldZ).cobblestone(worldY);
+        }
+        else {
+
+            return Blocks.COBBLESTONE.getDefaultState();
+        }
     }
 
     public IBlockState getTopBlock() {

@@ -14,12 +14,14 @@ import rtg.api.config.property.*;
 
 public class RTGConfig extends Config {
 
-    public static String DEFAULT_SHADOW_STONE_BLOCK_ID = "minecraft:stained_hardened_clay";
-    public static int DEFAULT_SHADOW_STONE_BLOCK_META = 9;
-    public static String DEFAULT_SHADOW_DESERT_BLOCK_ID = "minecraft:stained_hardened_clay";
-    public static int DEFAULT_SHADOW_DESERT_BLOCK_META = 0;
-
+    // Maximum tree density.
     public static final float MAX_TREE_DENSITY = 5f;
+
+    // These constants are used as fallbacks during terrain shadowing, in case the user enters an invalid block ID.
+    public static final String DEFAULT_SHADOW_STONE_BLOCK_ID = "minecraft:stained_hardened_clay";
+    public static final int DEFAULT_SHADOW_STONE_BLOCK_META = 9;
+    public static final String DEFAULT_SHADOW_DESERT_BLOCK_ID = "minecraft:stained_hardened_clay";
+    public static final int DEFAULT_SHADOW_DESERT_BLOCK_META = 0;
 
     // These constants are used as fallbacks when generating volcanoes, in case the user enters an invalid block ID.
     public static final IBlockState DEFAULT_VOLCANO_BLOCK = Blocks.OBSIDIAN.getDefaultState();

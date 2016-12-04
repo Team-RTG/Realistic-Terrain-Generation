@@ -46,6 +46,7 @@ public abstract class RealisticBiomeBase {
     public String configPath;
     public TerrainBase terrain;
     public SurfaceBase surface;
+    public SurfaceBase surfaceRiver;
     public SurfaceBase surfaceGeneric;
     public BiomeDecoratorRTG rDecorator;
 
@@ -117,9 +118,9 @@ public abstract class RealisticBiomeBase {
         this.lakeShoreLevel *= rtgConfig.lakeSizeMultiplier();
         this.lakeDepressionLevel *= rtgConfig.lakeSizeMultiplier();
 
-        this.largeBendSize *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
-        this.mediumBendSize *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
-        this.smallBendSize *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
+        this.largeBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
+        this.mediumBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
+        this.smallBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
 
         this.init();
     }
@@ -129,6 +130,7 @@ public abstract class RealisticBiomeBase {
         this.getConfig().load(this.configPath());
         this.terrain = initTerrain();
         this.surface = initSurface();
+        this.surfaceRiver = new SurfaceRiverOasis(config);
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
         initDecos();
     }
@@ -335,7 +337,7 @@ public abstract class RealisticBiomeBase {
         }
     }
 
-    protected void rReplaceRiverSurface(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
@@ -345,8 +347,7 @@ public abstract class RealisticBiomeBase {
 
             if (rtgConfig.ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES.get()) {
 
-                SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-                riverSurface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+                this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
             }
         }
         else {

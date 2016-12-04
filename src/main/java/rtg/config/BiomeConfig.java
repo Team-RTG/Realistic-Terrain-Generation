@@ -61,7 +61,7 @@ public class BiomeConfig extends Config {
         ALLOW_VOLCANOES = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Volcanoes", "Volcanoes", "", false);
         this.addProperty(ALLOW_VOLCANOES);
 
-        VOLCANO_CHANCE = new ConfigPropertyInt(Type.INTEGER, "Volcano Chance", "Volcanoes", "1/x chance that a volcano will generate if this biome has volcanoes enabled." + Configuration.NEW_LINE + "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable volcanoes for this biome." + Configuration.NEW_LINE, -1, -1, Integer.MAX_VALUE);
+        VOLCANO_CHANCE = new ConfigPropertyInt(Type.INTEGER, "Volcano Chance", "Volcanoes", "1/x chance that a volcano will generate if this biome has volcanoes enabled." + Configuration.NEW_LINE + "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable volcanoes for this biome.", -1, -1, Integer.MAX_VALUE);
         this.addProperty(VOLCANO_CHANCE);
 
         USE_RTG_DECORATIONS = new ConfigPropertyBoolean(Type.BOOLEAN, "Use RTG Decorations", "Decorations", "", true);
@@ -82,13 +82,13 @@ public class BiomeConfig extends Config {
         SURFACE_FILLER_BLOCK_META = new ConfigPropertyInt(Type.INTEGER, "RTG Surface: Filler Block Meta", "Surfaces", "", 0, 0, 15);
         this.addProperty(SURFACE_FILLER_BLOCK_META);
 
-        CAVE_DENSITY = new ConfigPropertyInt(Type.INTEGER, "Cave Density", "Caves", "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40);
+        CAVE_DENSITY = new ConfigPropertyInt(Type.INTEGER, "Cave Density", "Caves", "This setting controls the size of caves." + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.", -1, -1, 40);
         this.addProperty(CAVE_DENSITY);
 
-        CAVE_FREQUENCY = new ConfigPropertyInt(Type.INTEGER, "Cave Frequency", "Caves", "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome." + Configuration.NEW_LINE, -1, -1, 40);
+        CAVE_FREQUENCY = new ConfigPropertyInt(Type.INTEGER, "Cave Frequency", "Caves", "This setting controls the number of caves that generate." + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.", -1, -1, 40);
         this.addProperty(CAVE_FREQUENCY);
 
-        RAVINE_FREQUENCY = new ConfigPropertyInt(Type.INTEGER, "Ravine Frequency", "Ravines", "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome." + Configuration.NEW_LINE, -1, -1, 100);
+        RAVINE_FREQUENCY = new ConfigPropertyInt(Type.INTEGER, "Ravine Frequency", "Ravines", "This setting controls the number of ravines that generate." + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)" + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome.", -1, -1, 100);
         this.addProperty(RAVINE_FREQUENCY);
 
         BEACH_BIOME = new ConfigPropertyInt(
@@ -109,8 +109,7 @@ public class BiomeConfig extends Config {
                 + Configuration.NEW_LINE
                 + "Other biome IDs are allowed, but they have not been tested, may yield undesirable results, and will not be supported."
                 + Configuration.NEW_LINE
-                + "Note: If this biome has been hardcoded by RTG to use a specific beach, this setting will have no effect."
-                + Configuration.NEW_LINE,
+                + "Note: If this biome has been hardcoded by RTG to use a specific beach, this setting will have no effect.",
             -1, -1, 255
         );
         this.addProperty(BEACH_BIOME);
@@ -127,8 +126,7 @@ public class BiomeConfig extends Config {
                 + Configuration.NEW_LINE +
                 "Set to -1.0 to use the global setting."
                 + Configuration.NEW_LINE +
-                "1.0 = Default tree generation; 2.0 = Twice as many trees; 0.5 = half as many trees; 0 = No trees"
-                + Configuration.NEW_LINE,
+                "1.0 = Default tree generation; 2.0 = Twice as many trees; 0.5 = half as many trees; 0 = No trees",
             -1.0f, -1.0f, 5.0f
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);

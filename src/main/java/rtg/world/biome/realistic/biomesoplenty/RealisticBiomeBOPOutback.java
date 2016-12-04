@@ -93,7 +93,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
     public SurfaceBase initSurface() {
 
         return new SurfaceBOPOutback(config,
-            Blocks.GRASS.getDefaultState(), //Block top
+            biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,

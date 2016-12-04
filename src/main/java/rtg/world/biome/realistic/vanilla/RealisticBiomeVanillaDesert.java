@@ -12,7 +12,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
-import rtg.config.ConfigRTG;
 import rtg.world.biome.deco.collection.DecoCollectionDesert;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
@@ -54,7 +53,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
-            float duneHeight = (minDuneHeight + (float) ConfigRTG.duneHeight);
+            float duneHeight = (minDuneHeight + (float) rtgConfig.DUNE_HEIGHT.get());
 
             duneHeight *= (1f + rtgWorld.simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 
@@ -77,7 +76,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        this.rReplaceRiverSurface(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
+        this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
 
     @Override

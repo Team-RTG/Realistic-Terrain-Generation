@@ -1,4 +1,4 @@
-package rtg.config.property;
+package rtg.api.config.property;
 
 
 public class ConfigPropertyInt extends ConfigProperty {
@@ -7,13 +7,15 @@ public class ConfigPropertyInt extends ConfigProperty {
     public int maxValueInt;
     public int valueInt;
 
-    public ConfigPropertyInt(Type type, String name, String description, int defaultValue, int minValueInt, int maxValueInt) {
+    public ConfigPropertyInt(Type type, String name, String category, String description, int defaultValue, int minValueInt, int maxValueInt) {
 
-        super(type, name, description);
+        super(type, name, category, description);
 
         this.valueInt = defaultValue;
         this.minValueInt = minValueInt;
         this.maxValueInt = maxValueInt;
+
+        this.formatDescription();
     }
 
     public int get() {

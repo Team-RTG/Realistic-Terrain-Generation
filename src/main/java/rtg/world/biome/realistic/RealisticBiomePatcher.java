@@ -2,17 +2,20 @@ package rtg.world.biome.realistic;
 
 import net.minecraft.world.biome.Biome;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
+import rtg.config.RTGConfig;
+
 
 public class RealisticBiomePatcher {
 
     private int patchBiomeId;
     private RealisticBiomeBase realisticBiome;
     private Biome baseBiome;
+    private RTGConfig rtgConfig = RTG.config();
 
     public RealisticBiomePatcher() {
 
-        this.patchBiomeId = ConfigRTG.patchBiomeId;
+        this.patchBiomeId = rtgConfig.PATCH_BIOME_ID.get();
 
         if (this.patchBiomeId > -1) {
 

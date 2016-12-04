@@ -21,8 +21,9 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
 import rtg.api.util.Acceptor;
+import rtg.config.RTGConfig;
 import rtg.util.Logger;
 import rtg.api.util.RandomUtil;
 import rtg.util.SaplingUtil;
@@ -47,9 +48,11 @@ public class EventManagerRTG {
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
+    private RTGConfig rtgConfig;
 
     public EventManagerRTG() {
 
+        rtgConfig = RTG.config();
     }
 
     public class LoadChunkRTG {
@@ -89,67 +92,67 @@ public class EventManagerRTG {
             // No switch statements allowed! - Pink
 
             if (eventType == ANDESITE) {
-                if (!ConfigRTG.generateOreAndesite) {
+                if (!rtgConfig.GENERATE_ORE_ANDESITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == COAL) {
-                if (!ConfigRTG.generateOreCoal) {
+                if (!rtgConfig.GENERATE_ORE_COAL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIAMOND) {
-                if (!ConfigRTG.generateOreDiamond) {
+                if (!rtgConfig.GENERATE_ORE_DIAMOND.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIORITE) {
-                if (!ConfigRTG.generateOreDiorite) {
+                if (!rtgConfig.GENERATE_ORE_DIORITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIRT) {
-                if (!ConfigRTG.generateOreDirt) {
+                if (!rtgConfig.GENERATE_ORE_DIRT.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == EMERALD) {
-                if (!ConfigRTG.generateOreEmerald) {
+                if (!rtgConfig.GENERATE_ORE_EMERALD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GOLD) {
-                if (!ConfigRTG.generateOreGold) {
+                if (!rtgConfig.GENERATE_ORE_GOLD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRANITE) {
-                if (!ConfigRTG.generateOreGranite) {
+                if (!rtgConfig.GENERATE_ORE_GRANITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRAVEL) {
-                if (!ConfigRTG.generateOreGravel) {
+                if (!rtgConfig.GENERATE_ORE_GRAVEL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == IRON) {
-                if (!ConfigRTG.generateOreIron) {
+                if (!rtgConfig.GENERATE_ORE_IRON.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == LAPIS) {
-                if (!ConfigRTG.generateOreLapis) {
+                if (!rtgConfig.GENERATE_ORE_LAPIS.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == REDSTONE) {
-                if (!ConfigRTG.generateOreRedstone) {
+                if (!rtgConfig.GENERATE_ORE_REDSTONE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == SILVERFISH) {
-                if (!ConfigRTG.generateOreSilverfish) {
+                if (!rtgConfig.GENERATE_ORE_SILVERFISH.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
@@ -187,7 +190,7 @@ public class EventManagerRTG {
         public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
 
             // Are RTG saplings enabled?
-            if (!ConfigRTG.enableRTGSaplings) {
+            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get()) {
                 return;
             }
 
@@ -198,7 +201,7 @@ public class EventManagerRTG {
             }
 
             // Should we generate a vanilla tree instead?
-            if (event.getRand().nextInt(ConfigRTG.rtgTreeChance) != 0) {
+            if (event.getRand().nextInt(rtgConfig.RTG_TREE_CHANCE.get()) != 0) {
 
                 Logger.debug("Skipping RTG tree generation.");
                 return;
@@ -353,7 +356,7 @@ public class EventManagerRTG {
 
             // Are flowing liquid modifications enabled?
             // Note: This will need to move to the switch statement below if we add more case statements.
-            if (!ConfigRTG.enableFlowingLiquidModifications) {
+            if (!rtgConfig.ENABLE_FLOWING_LIQUID_MODIFICATIONS.get()) {
                 return;
             }
 

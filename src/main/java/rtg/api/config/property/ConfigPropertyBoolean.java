@@ -1,15 +1,17 @@
-package rtg.config.property;
+package rtg.api.config.property;
 
 
 public class ConfigPropertyBoolean extends ConfigProperty {
 
     public boolean valueBoolean;
 
-    public ConfigPropertyBoolean(Type type, String name, String description, boolean defaultValue) {
+    public ConfigPropertyBoolean(Type type, String name, String category, String description, boolean defaultValue) {
 
-        super(type, name, description);
+        super(type, name, category, description);
 
         this.valueBoolean = defaultValue;
+
+        this.formatDescription();
     }
 
     public boolean get() {

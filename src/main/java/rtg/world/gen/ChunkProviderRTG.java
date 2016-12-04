@@ -35,9 +35,10 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import rtg.RTG;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
-import rtg.config.ConfigRTG;
+import rtg.config.RTGConfig;
 import rtg.util.CanyonColour;
 import rtg.util.Logger;
 import rtg.util.TimeTracker;
@@ -57,6 +58,7 @@ import rtg.world.gen.structure.StructureOceanMonumentRTG;
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
+    private RTGConfig rtgConfig = RTG.config();
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -72,8 +74,8 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final LimitedMap<ChunkPos, Chunk> availableChunks;
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
     private boolean mapFeaturesEnabled;
-    private Block bedrockBlock = Block.getBlockFromName(ConfigRTG.bedrockBlockId);
-    private byte bedrockByte = (byte) ConfigRTG.bedrockBlockByte;
+    private Block bedrockBlock = Block.getBlockFromName(rtgConfig.BEDROCK_BLOCK_ID.get());
+    private byte bedrockByte = (byte) rtgConfig.BEDROCK_BLOCK_BYTE.get();
     private Random rand;
     private Random mapRand;
     public final World worldObj;
@@ -129,28 +131,28 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         boolean isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
 
-        if (isRTGWorld && ConfigRTG.enableCaveModifications) {
+        if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
         else {
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
-        if (isRTGWorld && ConfigRTG.enableRavineModifications) {
+        if (isRTGWorld && rtgConfig.ENABLE_RAVINE_MODIFICATIONS.get()) {
             ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
         else {
             ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
-        if (isRTGWorld && ConfigRTG.enableVillageModifications) {
+        if (isRTGWorld && rtgConfig.ENABLE_VILLAGE_MODIFICATIONS.get()) {
             villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(), EventType.VILLAGE);
         }
         else {
             villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
         }
 
-        if (isRTGWorld && ConfigRTG.enableStrongholdModifications) {
+        if (isRTGWorld && rtgConfig.ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
             strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStrongholdRTG(), EventType.STRONGHOLD);
         }
         else {
@@ -159,14 +161,14 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), EventType.MINESHAFT);
 
-        if (isRTGWorld && ConfigRTG.enableScatteredFeatureModifications) {
+        if (isRTGWorld && rtgConfig.ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) {
             scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeatureRTG(), EventType.SCATTERED_FEATURE);
         }
         else {
             scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
         }
 
-        if (isRTGWorld && ConfigRTG.enableOceanMonumentModifications) {
+        if (isRTGWorld && rtgConfig.ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) {
             oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonumentRTG(), EventType.OCEAN_MONUMENT);
         }
         else {
@@ -311,12 +313,12 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         if (mapFeaturesEnabled) {
 
-            if (ConfigRTG.generateMineshafts) {
+            if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
                     mineshaftGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -325,12 +327,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateStrongholds) {
+            if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
                 try {
                     strongholdGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -339,12 +341,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateVillages) {
+            if (rtgConfig.GENERATE_VILLAGES.get()) {
                 try {
                     villageGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -353,12 +355,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateScatteredFeatures) {
+            if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
                 try {
                     scatteredFeatureGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -367,12 +369,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateOceanMonuments) {
+            if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
                 try {
                     oceanMonumentGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -462,7 +464,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, rtgWorld, n, river, base);
 
                 int rough;
-                int flatBedrockLayers = ConfigRTG.flatBedrockLayers;
+                int flatBedrockLayers = rtgConfig.FLAT_BEDROCK_LAYERS.get();
                 flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
 
                 if (flatBedrockLayers > 0) {
@@ -554,12 +556,12 @@ public class ChunkProviderRTG implements IChunkGenerator
         if (mapFeaturesEnabled) {
 
             TimeTracker.manager.start("Mineshafts");
-            if (ConfigRTG.generateMineshafts) {
+            if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
                     mineshaftGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -570,12 +572,12 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Mineshafts");
 
             TimeTracker.manager.start("Strongholds");
-            if (ConfigRTG.generateStrongholds) {
+            if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
                 try {
                     strongholdGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -586,13 +588,13 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Strongholds");
 
             TimeTracker.manager.start("Villages");
-            if (ConfigRTG.generateVillages) {
+            if (rtgConfig.GENERATE_VILLAGES.get()) {
                 try {
                     hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
                     hasPlacedVillageBlocks = false;
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -603,12 +605,12 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Villages");
 
             TimeTracker.manager.start("Scattered");
-            if (ConfigRTG.generateScatteredFeatures) {
+            if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
                 try {
                     scatteredFeatureGenerator.generateStructure(worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -619,12 +621,12 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Scattered");
 
             TimeTracker.manager.start("Monuments");
-            if (ConfigRTG.generateOceanMonuments) {
+            if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
                 try {
                     oceanMonumentGenerator.generateStructure(this.worldObj, rand, chunkPos);
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -689,7 +691,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  */
-                if (ConfigRTG.enableRTGBiomeDecorations && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
+                if (rtgConfig.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
                     realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
@@ -748,7 +750,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                         this.worldObj.setBlockState(icePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    if (ConfigRTG.enableSnowLayers && this.worldUtil.canSnowAt(snowPos, true)) {
+                    if (rtgConfig.ENABLE_SNOW_LAYERS.get() && this.worldUtil.canSnowAt(snowPos, true)) {
                         this.worldObj.setBlockState(snowPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
                     }
                 }
@@ -799,7 +801,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     public boolean generateStructures(@Nonnull Chunk chunkIn, int x, int z) {
         boolean flag = false;
 
-        if (ConfigRTG.generateOceanMonuments && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
+        if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
             flag = this.oceanMonumentGenerator.generateStructure(this.worldObj, this.rand, new ChunkPos(x, z));
         }
         return flag;
@@ -815,7 +817,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 
-            if (creatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
+            if (creatureType == EnumCreatureType.MONSTER && rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
                 return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
         }
@@ -825,7 +827,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     @Override
     public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
 
-        if (!ConfigRTG.generateStrongholds) return null;
+        if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
     }
 
@@ -833,12 +835,12 @@ public class ChunkProviderRTG implements IChunkGenerator
     public void recreateStructures(@Nonnull Chunk chunk, int par1, int par2) {
 
         if (mapFeaturesEnabled) {
-            if (ConfigRTG.generateMineshafts) {
+            if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
                     mineshaftGenerator.generate(worldObj, par1, par2, new ChunkPrimer());
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -847,12 +849,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateStrongholds) {
+            if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
                 try {
                     strongholdGenerator.generate(worldObj, par1, par2, new ChunkPrimer());
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -861,12 +863,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateVillages) {
+            if (rtgConfig.GENERATE_VILLAGES.get()) {
                 try {
                     villageGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -875,12 +877,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateScatteredFeatures) {
+            if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
                 try {
                     scatteredFeatureGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
@@ -889,12 +891,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
 
-            if (ConfigRTG.generateOceanMonuments) {
+            if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
                 try {
                     oceanMonumentGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
                 }
                 catch (Exception e) {
-                    if (ConfigRTG.crashOnStructureExceptions) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
                         throw new RuntimeException(e.getMessage());
                     }
                     else {

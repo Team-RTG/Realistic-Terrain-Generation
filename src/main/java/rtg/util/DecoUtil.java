@@ -1,12 +1,14 @@
 package rtg.util;
 
-import rtg.config.ConfigRTG;
+import rtg.RTG;
+import rtg.config.RTGConfig;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class DecoUtil {
 
     private DecoBase deco;
+    private RTGConfig rtgConfig = RTG.config();
 
     public DecoUtil(DecoBase deco) {
 
@@ -15,11 +17,11 @@ public class DecoUtil {
 
     public int calculateLoopCountFromTreeDensity(int loopCount, RealisticBiomeBase biome) {
 
-        float multiplier = ConfigRTG.treeDensityMultiplier;
+        float multiplier = rtgConfig.TREE_DENSITY_MULTIPLIER.get();
         float biomeMultiplier = biome.getConfig().TREE_DENSITY_MULTIPLIER.get();
 
         if (biomeMultiplier >= 0f) {
-            multiplier = (biomeMultiplier > ConfigRTG.MAX_TREE_DENSITY) ? ConfigRTG.MAX_TREE_DENSITY : biomeMultiplier;
+            multiplier = (biomeMultiplier > rtgConfig.MAX_TREE_DENSITY) ? RTG.config().MAX_TREE_DENSITY : biomeMultiplier;
         }
 
         loopCount = (int)((float)loopCount * multiplier);

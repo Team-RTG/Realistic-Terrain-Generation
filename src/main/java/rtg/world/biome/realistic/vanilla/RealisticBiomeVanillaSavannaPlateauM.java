@@ -127,7 +127,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                     depth++;
 
                     if (cliff) {
-//                    if (!ConfigRTG.stoneSavannas) {
+//                    if (!rtgConfig.STONE_SAVANNAS.get()) {
                         primer.setBlockState(x, k, z, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
 //                    }
 //                    else {

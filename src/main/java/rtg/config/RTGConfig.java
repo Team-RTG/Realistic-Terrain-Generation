@@ -9,7 +9,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import rtg.config.property.*;
+import rtg.api.config.property.*;
 
 public class RTGConfig extends Config {
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
 
-import rtg.config.property.*;
+import rtg.api.config.property.*;
 import rtg.util.Logger;
 
 

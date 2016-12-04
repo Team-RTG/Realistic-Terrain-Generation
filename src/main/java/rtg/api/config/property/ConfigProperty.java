@@ -1,5 +1,4 @@
-package rtg.config.property;
-
+package rtg.api.config.property;
 
 import net.minecraftforge.common.config.Configuration;
 

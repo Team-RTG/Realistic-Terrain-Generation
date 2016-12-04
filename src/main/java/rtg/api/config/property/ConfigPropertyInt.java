@@ -1,4 +1,4 @@
-package rtg.config.property;
+package rtg.api.config.property;
 
 
 public class ConfigPropertyInt extends ConfigProperty {

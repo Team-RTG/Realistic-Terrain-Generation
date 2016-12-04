@@ -2,8 +2,8 @@ package rtg.config;
 
 import net.minecraftforge.common.config.Configuration;
 
-import rtg.config.property.*;
-import rtg.config.property.ConfigProperty.Type;
+import rtg.api.config.property.*;
+import rtg.api.config.property.ConfigProperty.Type;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 

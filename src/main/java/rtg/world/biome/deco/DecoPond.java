@@ -23,7 +23,7 @@ public class DecoPond extends DecoBase {
     public int loops = 1;
 
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
 
     @Override
     public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {

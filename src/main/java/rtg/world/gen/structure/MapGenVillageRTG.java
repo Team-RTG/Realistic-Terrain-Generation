@@ -32,9 +32,9 @@ public class MapGenVillageRTG extends MapGenVillage
     private final int minTownSeparation;
 
     public MapGenVillageRTG() {
-        this.size = RTG.instance.getConfig().VILLAGE_SIZE.get(); // Vanilla = 0
-        this.distance = RTG.instance.getConfig().MAX_DISTANCE_VILLAGES.get(); // Vanille = 32
-        this.minTownSeparation = RTG.instance.getConfig().MIN_DISTANCE_VILLAGES.get(); // Vanilla = 8
+        this.size = RTG.config().VILLAGE_SIZE.get(); // Vanilla = 0
+        this.distance = RTG.config().MAX_DISTANCE_VILLAGES.get(); // Vanille = 32
+        this.minTownSeparation = RTG.config().MIN_DISTANCE_VILLAGES.get(); // Vanilla = 8
     }
 
     public MapGenVillageRTG(Map<String, String> map) {

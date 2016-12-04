@@ -30,9 +30,9 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
     public MapGenStrongholdRTG()
     {
-        int strongholdCount = RTG.instance.getConfig().STRONGHOLD_COUNT.get();
-        double strongholdDistance = (double)RTG.instance.getConfig().STRONGHOLD_DISTANCE.get();
-        int strongholdSpread = RTG.instance.getConfig().STRONGHOLD_SPREAD.get();
+        int strongholdCount = RTG.config().STRONGHOLD_COUNT.get();
+        double strongholdDistance = (double)RTG.config().STRONGHOLD_DISTANCE.get();
+        int strongholdSpread = RTG.config().STRONGHOLD_SPREAD.get();
 
         this.structureCoords = new ChunkPos[strongholdCount]; // Count (Vanilla = 128)
         this.distance = strongholdDistance; // Distance (Vanilla = 32.0D)

@@ -21,7 +21,7 @@ public class MapGenRavineRTG extends MapGenRavine
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     private final float[] rs = new float[1024];
 
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
     private boolean enableRavines;
     private int ravineFrequency;
 

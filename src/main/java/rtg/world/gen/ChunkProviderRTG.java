@@ -58,7 +58,7 @@ import rtg.world.gen.structure.StructureOceanMonumentRTG;
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;

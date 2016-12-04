@@ -19,7 +19,7 @@ public class WorldGenShrubRTG extends WorldGenerator {
     private IBlockState logBlock;
     private IBlockState leaveBlock;
     private boolean varSand;
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
 
     public WorldGenShrubRTG(int size, IBlockState log, IBlockState leav, boolean sand) {
 

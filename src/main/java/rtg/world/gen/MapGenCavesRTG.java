@@ -25,7 +25,7 @@ public class MapGenCavesRTG extends MapGenCaves
     protected static final IBlockState BLK_AIR = Blocks.AIR.getDefaultState();
     protected static final IBlockState BLK_SANDSTONE = Blocks.SANDSTONE.getDefaultState();
     protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
     private boolean enableCaves;
 
     protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_,

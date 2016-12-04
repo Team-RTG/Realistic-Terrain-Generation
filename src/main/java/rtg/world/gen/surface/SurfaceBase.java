@@ -20,7 +20,7 @@ public abstract class SurfaceBase {
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
-    protected RTGConfig rtgConfig = RTG.instance.getConfig();
+    protected RTGConfig rtgConfig = RTG.config();
     protected BiomeConfig biomeConfig;
 
     public IBlockState shadowStoneBlock;

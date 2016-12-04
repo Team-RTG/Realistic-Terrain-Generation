@@ -17,8 +17,8 @@ public abstract class TerrainBase {
     protected final float rollingHillsMaxHeight;
     protected float base; // added as most terrains have this;
     protected float groundNoise;
-    protected RTGConfig rtgConfig = RTG.instance.getConfig();
-    protected static RTGConfig configRTG = RTG.instance.getConfig();
+    protected RTGConfig rtgConfig = RTG.config();
+    protected static RTGConfig configRTG = RTG.config();
 
     public TerrainBase() {
 

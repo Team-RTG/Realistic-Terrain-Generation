@@ -26,7 +26,7 @@ import rtg.config.RTGConfig;
  */
 public class TreeRTG extends WorldGenAbstractTree {
 
-    protected RTGConfig rtgConfig = RTG.instance.getConfig();
+    protected RTGConfig rtgConfig = RTG.config();
     public IBlockState logBlock;
     public IBlockState leavesBlock;
     public int trunkSize;

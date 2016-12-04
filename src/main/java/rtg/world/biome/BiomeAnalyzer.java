@@ -23,8 +23,8 @@ public class BiomeAnalyzer {
     private boolean [] landBiome;
     private int [] preferredBeach;
     private RealisticBiomeBase [] savedJittered;
-    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(RTG.instance.getConfig().SCENIC_LAKE_BIOME_ID.get());
-    private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(RTG.instance.getConfig().SCENIC_FROZEN_LAKE_BIOME_ID.get());
+    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(RTG.config().SCENIC_LAKE_BIOME_ID.get());
+    private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(RTG.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
     private SmoothingSearchStatus beachSearch;
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;

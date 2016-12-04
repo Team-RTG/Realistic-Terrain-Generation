@@ -52,7 +52,7 @@ public class EventManagerRTG {
 
     public EventManagerRTG() {
 
-        rtgConfig = RTG.instance.getConfig();
+        rtgConfig = RTG.config();
     }
 
     public class LoadChunkRTG {

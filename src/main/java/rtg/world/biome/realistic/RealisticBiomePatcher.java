@@ -11,7 +11,7 @@ public class RealisticBiomePatcher {
     private int patchBiomeId;
     private RealisticBiomeBase realisticBiome;
     private Biome baseBiome;
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
 
     public RealisticBiomePatcher() {
 

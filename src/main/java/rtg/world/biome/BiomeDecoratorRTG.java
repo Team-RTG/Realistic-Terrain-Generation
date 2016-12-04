@@ -38,7 +38,7 @@ public class BiomeDecoratorRTG
 
         this.rbb = rbb;
         this.biome = rbb.baseBiome;
-        this.rtgConfig = RTG.instance.getConfig();
+        this.rtgConfig = RTG.config();
     }
 
     /*

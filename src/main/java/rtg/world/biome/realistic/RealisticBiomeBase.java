@@ -36,7 +36,7 @@ import rtg.world.gen.terrain.TerrainBase;
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase {
 
-    protected RTGConfig rtgConfig = RTG.instance.getConfig();
+    protected RTGConfig rtgConfig = RTG.config();
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
 
     public final Biome baseBiome;

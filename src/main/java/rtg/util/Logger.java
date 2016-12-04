@@ -14,7 +14,7 @@ public class Logger {
 
     public static void debug(String format, Object... data) {
 
-        if (RTG.instance.getConfig().ENABLE_DEBUGGING.get()) {
+        if (RTG.config().ENABLE_DEBUGGING.get()) {
             FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
         }
     }

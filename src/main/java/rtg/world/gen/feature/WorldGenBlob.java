@@ -22,7 +22,7 @@ public class WorldGenBlob extends WorldGenerator {
     private IBlockState blobBlock;
     private int blobSize;
     private boolean booShouldGenerate;
-    private RTGConfig rtgConfig = RTG.instance.getConfig();
+    private RTGConfig rtgConfig = RTG.config();
 
     public WorldGenBlob(IBlockState b, int s, Random rand) {
 

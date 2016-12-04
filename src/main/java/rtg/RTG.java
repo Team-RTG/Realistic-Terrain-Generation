@@ -83,7 +83,7 @@ public class RTG {
         eventMgr.registerEventHandlers();
 
         // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
-        if (this.getConfig().ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN.get()) {
+        if (config().ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN.get()) {
             MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
         }
     }
@@ -117,19 +117,19 @@ public class RTG {
 
     private void registerStructures() {
 
-        if (this.getConfig().ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) {
+        if (config().ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         }
 
-        if (this.getConfig().ENABLE_VILLAGE_MODIFICATIONS.get()) {
+        if (config().ENABLE_VILLAGE_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
         }
 
-        if (this.getConfig().ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) {
+        if (config().ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
         }
 
-        if (this.getConfig().ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
+        if (config().ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
         }
     }
@@ -146,11 +146,11 @@ public class RTG {
      * This method is currently unused, but we're leaving it here for when we start
      * supporting multiple dimensions.
      */
-    public RTGConfig getConfig(int dimension) {
-        return this.rtgConfig;
+    public static RTGConfig config(int dimension) {
+        return RTG.instance.rtgConfig;
     }
 
-    public RTGConfig getConfig() {
-        return this.getConfig(0);
+    public static RTGConfig config() {
+        return config(0);
     }
 }

@@ -13,10 +13,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
-import rtg.config.RTGConfig;
 
 /**
  * The base class for all RTG trees.
@@ -26,7 +26,7 @@ import rtg.config.RTGConfig;
  */
 public class TreeRTG extends WorldGenAbstractTree {
 
-    protected RTGConfig rtgConfig = RTG.config();
+    protected RTGConfig rtgConfig = RTGAPI.config();
     public IBlockState logBlock;
     public IBlockState leavesBlock;
     public int trunkSize;

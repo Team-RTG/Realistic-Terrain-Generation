@@ -1,10 +1,10 @@
 package rtg.world.gen.terrain;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.config.RTGConfig;
 
 public abstract class TerrainBase {
 
@@ -17,8 +17,8 @@ public abstract class TerrainBase {
     protected final float rollingHillsMaxHeight;
     protected float base; // added as most terrains have this;
     protected float groundNoise;
-    protected RTGConfig rtgConfig = RTG.config();
-    protected static RTGConfig configRTG = RTG.config();
+    protected RTGConfig rtgConfig = RTGAPI.config();
+    protected static RTGConfig configRTG = RTGAPI.config();
 
     public TerrainBase() {
 

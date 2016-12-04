@@ -7,10 +7,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
 
 public class SurfaceRiverOasis extends SurfaceBase {
 
@@ -23,8 +23,8 @@ public class SurfaceRiverOasis extends SurfaceBase {
 
         super(config, Blocks.GRASS, (byte) 0, Blocks.DIRT, (byte) 0);
 
-        this.cutOffScale = RTG.config().RIVER_CUT_OFF_SCALE.get();
-        this.cutOffAmplitude = RTG.config().RIVER_CUT_OFF_AMPLITUDE.get();
+        this.cutOffScale = RTGAPI.config().RIVER_CUT_OFF_SCALE.get();
+        this.cutOffAmplitude = RTGAPI.config().RIVER_CUT_OFF_AMPLITUDE.get();
     }
 
     @Override

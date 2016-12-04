@@ -21,11 +21,11 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.Acceptor;
-import rtg.config.RTGConfig;
-import rtg.util.Logger;
 import rtg.api.util.RandomUtil;
+import rtg.util.Logger;
 import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
@@ -52,7 +52,7 @@ public class EventManagerRTG {
 
     public EventManagerRTG() {
 
-        rtgConfig = RTG.config();
+        rtgConfig = RTGAPI.config();
     }
 
     public class LoadChunkRTG {

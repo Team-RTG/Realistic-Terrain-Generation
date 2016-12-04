@@ -18,7 +18,7 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.google.common.collect.Lists;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
 import rtg.util.Logger;
 
 /**
@@ -47,8 +47,8 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
     public MapGenScatteredFeatureRTG()
     {
-        int minDistance = RTG.config().MIN_DISTANCE_SCATTERED_FEATURES.get();
-        int maxDistance = RTG.config().MAX_DISTANCE_SCATTERED_FEATURES.get();
+        int minDistance = RTGAPI.config().MIN_DISTANCE_SCATTERED_FEATURES.get();
+        int maxDistance = RTGAPI.config().MAX_DISTANCE_SCATTERED_FEATURES.get();
 
         if (minDistance > maxDistance) {
             minDistance = 8;

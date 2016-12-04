@@ -10,7 +10,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 
 public class SurfaceMountainStoneMix1 extends SurfaceBase {

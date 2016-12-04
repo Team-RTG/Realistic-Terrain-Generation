@@ -14,7 +14,7 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;

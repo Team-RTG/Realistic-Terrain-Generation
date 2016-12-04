@@ -6,14 +6,14 @@ import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.logging.log4j.Level;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
 
 
 public class Logger {
 
     public static void debug(String format, Object... data) {
 
-        if (RTG.config().ENABLE_DEBUGGING.get()) {
+        if (RTGAPI.config().ENABLE_DEBUGGING.get()) {
             FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
         }
     }

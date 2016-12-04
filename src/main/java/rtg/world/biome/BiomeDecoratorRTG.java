@@ -20,11 +20,11 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.config.RTGConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class BiomeDecoratorRTG
@@ -38,7 +38,7 @@ public class BiomeDecoratorRTG
 
         this.rbb = rbb;
         this.biome = rbb.baseBiome;
-        this.rtgConfig = RTG.config();
+        this.rtgConfig = RTGAPI.config();
     }
 
     /*

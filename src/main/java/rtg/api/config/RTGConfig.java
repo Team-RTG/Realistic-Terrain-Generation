@@ -1,4 +1,4 @@
-package rtg.config;
+package rtg.api.config;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import rtg.api.config.Config;
 import rtg.api.config.property.*;
 
 public class RTGConfig extends Config {

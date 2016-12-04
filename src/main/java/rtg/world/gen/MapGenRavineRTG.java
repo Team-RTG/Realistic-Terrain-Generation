@@ -11,8 +11,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenRavine;
 
-import rtg.RTG;
-import rtg.config.RTGConfig;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class MapGenRavineRTG extends MapGenRavine
@@ -21,7 +21,7 @@ public class MapGenRavineRTG extends MapGenRavine
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     private final float[] rs = new float[1024];
 
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
     private boolean enableRavines;
     private int ravineFrequency;
 

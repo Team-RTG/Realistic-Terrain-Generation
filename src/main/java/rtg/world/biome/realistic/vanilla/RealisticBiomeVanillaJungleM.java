@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
+import rtg.api.config.BiomeConfig;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;

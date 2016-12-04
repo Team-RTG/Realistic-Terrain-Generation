@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LILYPAD;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenVinesRTG;
@@ -20,10 +20,10 @@ import rtg.world.gen.feature.WorldGenVinesRTG;
  */
 public class DecoJungleLilypadVines extends DecoBase {
 
-    private static final Block volcanoBlock = Block.getBlockFromName(RTG.config().VOLCANO_BLOCK_ID.get());
-    private static final Block volcanoMix1Block = Block.getBlockFromName(RTG.config().VOLCANO_MIX1_BLOCK_ID.get());
-    private static final Block volcanoMix2Block = Block.getBlockFromName(RTG.config().VOLCANO_MIX2_BLOCK_ID.get());
-    private static final Block volcanoMix3Block = Block.getBlockFromName(RTG.config().VOLCANO_MIX3_BLOCK_ID.get());
+    private static final Block volcanoBlock = Block.getBlockFromName(RTGAPI.config().VOLCANO_BLOCK_ID.get());
+    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK_ID.get());
+    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK_ID.get());
+    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK_ID.get());
 
     public DecoJungleLilypadVines() {
 

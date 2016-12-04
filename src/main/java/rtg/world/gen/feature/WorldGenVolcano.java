@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
 import rtg.api.util.TerrainMath;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
@@ -20,13 +20,13 @@ public class WorldGenVolcano {
     // How much stretched the vent/mouth is
     private static final float ventEccentricity = 8f;
     private static final float ventRadius = 7f;
-    private static final int lavaHeight = 138 + 3 + (RTG.config().ENABLE_VOLCANO_ERUPTIONS.get() ? 5 : 0);    // + 3 to account for lava cone tip
+    private static final int lavaHeight = 138 + 3 + (RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? 5 : 0);    // + 3 to account for lava cone tip
     private static final int baseVolcanoHeight = 142 + 8;
-    private static IBlockState volcanoBlock = getVolcanoBlock(RTG.config().VOLCANO_BLOCK_ID.get(), RTG.config().VOLCANO_BLOCK_META.get(), RTG.config().DEFAULT_VOLCANO_BLOCK);
-    private static IBlockState volcanoPatchBlock = getVolcanoBlock(RTG.config().VOLCANO_MIX1_BLOCK_ID.get(), RTG.config().VOLCANO_MIX1_BLOCK_META.get(), RTG.config().DEFAULT_VOLCANO_MIX1_BLOCK);
-    private static IBlockState volcanoPatchBlock2 = getVolcanoBlock(RTG.config().VOLCANO_MIX2_BLOCK_ID.get(), RTG.config().VOLCANO_MIX2_BLOCK_META.get(), RTG.config().DEFAULT_VOLCANO_MIX2_BLOCK);
-    private static IBlockState volcanoPatchBlock3 = getVolcanoBlock(RTG.config().VOLCANO_MIX3_BLOCK_ID.get(), RTG.config().VOLCANO_MIX3_BLOCK_META.get(), RTG.config().DEFAULT_VOLCANO_MIX3_BLOCK);
-    private static IBlockState lavaBlock = RTG.config().ENABLE_VOLCANO_ERUPTIONS.get() ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
+    private static IBlockState volcanoBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_BLOCK_ID.get(), RTGAPI.config().VOLCANO_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_BLOCK);
+    private static IBlockState volcanoPatchBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX1_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX1_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX1_BLOCK);
+    private static IBlockState volcanoPatchBlock2 = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX2_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX2_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX2_BLOCK);
+    private static IBlockState volcanoPatchBlock3 = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX3_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX3_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX3_BLOCK);
+    private static IBlockState lavaBlock = RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
 
     public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
 

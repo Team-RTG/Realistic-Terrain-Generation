@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.util.CanyonColour;
 import rtg.api.util.CliffCalculator;

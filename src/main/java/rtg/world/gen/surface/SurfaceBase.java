@@ -6,11 +6,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.ModPresenceTester;
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
-import rtg.config.RTGConfig;
 import rtg.util.UBColumnCache;
 
 public abstract class SurfaceBase {
@@ -20,7 +20,7 @@ public abstract class SurfaceBase {
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
-    protected RTGConfig rtgConfig = RTG.config();
+    protected RTGConfig rtgConfig = RTGAPI.config();
     protected BiomeConfig biomeConfig;
 
     public IBlockState shadowStoneBlock;

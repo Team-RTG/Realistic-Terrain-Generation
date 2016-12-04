@@ -6,9 +6,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.world.RTGWorld;
-import rtg.config.RTGConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenPond;
 
@@ -23,7 +23,7 @@ public class DecoPond extends DecoBase {
     public int loops = 1;
 
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
 
     @Override
     public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {

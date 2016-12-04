@@ -9,10 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.BoulderUtil;
 import rtg.api.util.RandomUtil;
-import rtg.config.RTGConfig;
 
 
 public class WorldGenBlob extends WorldGenerator {
@@ -22,7 +22,7 @@ public class WorldGenBlob extends WorldGenerator {
     private IBlockState blobBlock;
     private int blobSize;
     private boolean booShouldGenerate;
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
 
     public WorldGenBlob(IBlockState b, int s, Random rand) {
 

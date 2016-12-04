@@ -1,14 +1,14 @@
 package rtg.util;
 
-import rtg.RTG;
-import rtg.config.RTGConfig;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class DecoUtil {
 
     private DecoBase deco;
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
 
     public DecoUtil(DecoBase deco) {
 
@@ -21,7 +21,7 @@ public class DecoUtil {
         float biomeMultiplier = biome.getConfig().TREE_DENSITY_MULTIPLIER.get();
 
         if (biomeMultiplier >= 0f) {
-            multiplier = (biomeMultiplier > rtgConfig.MAX_TREE_DENSITY) ? RTG.config().MAX_TREE_DENSITY : biomeMultiplier;
+            multiplier = (biomeMultiplier > rtgConfig.MAX_TREE_DENSITY) ? rtgConfig.MAX_TREE_DENSITY : biomeMultiplier;
         }
 
         loopCount = (int)((float)loopCount * multiplier);

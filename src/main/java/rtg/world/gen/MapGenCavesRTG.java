@@ -14,8 +14,8 @@ import net.minecraft.world.gen.MapGenCaves;
 
 import com.google.common.base.Objects;
 
-import rtg.RTG;
-import rtg.config.RTGConfig;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings({"NullableProblems", "WeakerAccess", "unused"})
@@ -25,7 +25,7 @@ public class MapGenCavesRTG extends MapGenCaves
     protected static final IBlockState BLK_AIR = Blocks.AIR.getDefaultState();
     protected static final IBlockState BLK_SANDSTONE = Blocks.SANDSTONE.getDefaultState();
     protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
     private boolean enableCaves;
 
     protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_,

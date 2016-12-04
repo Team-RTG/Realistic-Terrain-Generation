@@ -11,13 +11,14 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.BiomeConfig;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.config.BiomeConfig;
-import rtg.config.RTGConfig;
 import rtg.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -36,7 +37,7 @@ import rtg.world.gen.terrain.TerrainBase;
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase {
 
-    protected RTGConfig rtgConfig = RTG.config();
+    protected RTGConfig rtgConfig = RTGAPI.config();
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
 
     public final Biome baseBiome;

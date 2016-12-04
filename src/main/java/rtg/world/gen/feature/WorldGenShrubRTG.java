@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.RTG;
-import rtg.config.RTGConfig;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 
 
 public class WorldGenShrubRTG extends WorldGenerator {
@@ -19,7 +19,7 @@ public class WorldGenShrubRTG extends WorldGenerator {
     private IBlockState logBlock;
     private IBlockState leaveBlock;
     private boolean varSand;
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
 
     public WorldGenShrubRTG(int size, IBlockState log, IBlockState leav, boolean sand) {
 

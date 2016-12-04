@@ -35,10 +35,10 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
-import rtg.config.RTGConfig;
 import rtg.util.CanyonColour;
 import rtg.util.Logger;
 import rtg.util.TimeTracker;
@@ -58,7 +58,7 @@ import rtg.world.gen.structure.StructureOceanMonumentRTG;
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
-    private RTGConfig rtgConfig = RTG.config();
+    private RTGConfig rtgConfig = RTGAPI.config();
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;

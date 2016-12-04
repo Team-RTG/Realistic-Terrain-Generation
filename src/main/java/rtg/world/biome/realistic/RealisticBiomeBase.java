@@ -86,7 +86,7 @@ public abstract class RealisticBiomeBase {
 
         baseBiome = biome;
         riverBiome = river;
-        this.config = new BiomeConfig(this);
+        this.config = new BiomeConfig();
         beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);

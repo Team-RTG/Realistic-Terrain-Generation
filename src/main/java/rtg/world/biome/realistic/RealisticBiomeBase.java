@@ -17,6 +17,7 @@ import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.config.BiomeConfig;
+import rtg.config.RTGConfig;
 import rtg.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -35,6 +36,7 @@ import rtg.world.gen.terrain.TerrainBase;
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase {
 
+    protected RTGConfig rtgConfig = RTG.instance.getConfig();
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
 
     public final Biome baseBiome;
@@ -110,14 +112,14 @@ public abstract class RealisticBiomeBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
-        this.lakeInterval *= RTG.instance.getConfig().LAKE_FREQUENCY_MULTIPLIER.get();
-        this.lakeWaterLevel *= RTG.instance.getConfig().lakeSizeMultiplier();
-        this.lakeShoreLevel *= RTG.instance.getConfig().lakeSizeMultiplier();
-        this.lakeDepressionLevel *= RTG.instance.getConfig().lakeSizeMultiplier();
+        this.lakeInterval *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
+        this.lakeWaterLevel *= rtgConfig.lakeSizeMultiplier();
+        this.lakeShoreLevel *= rtgConfig.lakeSizeMultiplier();
+        this.lakeDepressionLevel *= rtgConfig.lakeSizeMultiplier();
 
-        this.largeBendSize *= RTG.instance.getConfig().LAKE_FREQUENCY_MULTIPLIER.get();
-        this.mediumBendSize *= RTG.instance.getConfig().LAKE_FREQUENCY_MULTIPLIER.get();
-        this.smallBendSize *= RTG.instance.getConfig().LAKE_FREQUENCY_MULTIPLIER.get();
+        this.largeBendSize *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
+        this.mediumBendSize *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
+        this.smallBendSize *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
 
         this.init();
     }
@@ -181,7 +183,7 @@ public abstract class RealisticBiomeBase {
         OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         // Have volcanoes been disabled in the global config?
-        if (!RTG.instance.getConfig().ENABLE_VOLCANOES.get()) return;
+        if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
 
         // Have volcanoes been disabled in the biome config?
         int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
@@ -196,7 +198,7 @@ public abstract class RealisticBiomeBase {
 
         // Have volcanoes been disabled via frequency?
         // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? RTG.instance.getConfig().VOLCANO_CHANCE.get() : realisticBiome.getConfig().VOLCANO_CHANCE.get();
+        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? rtgConfig.VOLCANO_CHANCE.get() : realisticBiome.getConfig().VOLCANO_CHANCE.get();
         if (chance < 1) return;
 
         // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
@@ -216,7 +218,7 @@ public abstract class RealisticBiomeBase {
     public void generateMapGen(ChunkPrimer primer, Long seed, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
 
         // Have volcanoes been disabled in the global config?
-        if (!RTG.instance.getConfig().ENABLE_VOLCANOES.get()) return;
+        if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
 
         final int mapGenRadius = 5;
         final int volcanoGenRadius = 15;
@@ -323,7 +325,7 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (RTG.instance.getConfig().ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
+        if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
@@ -337,11 +339,11 @@ public abstract class RealisticBiomeBase {
 
         float riverRegion = this.noWaterFeatures ? 0f : river;
 
-        if (RTG.instance.getConfig().ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
+        if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
 
-            if (RTG.instance.getConfig().ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES.get()) {
+            if (rtgConfig.ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES.get()) {
 
                 SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
                 riverSurface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
@@ -439,7 +441,7 @@ public abstract class RealisticBiomeBase {
 
         // Don't add the desert river deco collection if the user has disabled it.
         if (decoCollection instanceof DecoCollectionDesertRiver) {
-            if (!RTG.instance.getConfig().ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES.get()) {
+            if (!rtgConfig.ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES.get()) {
                 return;
             }
         }

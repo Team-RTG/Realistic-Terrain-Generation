@@ -4,6 +4,7 @@ import rtg.RTG;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.config.RTGConfig;
 
 public abstract class TerrainBase {
 
@@ -16,6 +17,8 @@ public abstract class TerrainBase {
     protected final float rollingHillsMaxHeight;
     protected float base; // added as most terrains have this;
     protected float groundNoise;
+    protected RTGConfig rtgConfig = RTG.instance.getConfig();
+    protected static RTGConfig configRTG = RTG.instance.getConfig();
 
     public TerrainBase() {
 
@@ -227,7 +230,7 @@ public abstract class TerrainBase {
 
     public static float terrainDunes(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float river) {
 
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) RTG.instance.getConfig().DUNE_HEIGHT.get());
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) configRTG.DUNE_HEIGHT.get());
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;
@@ -659,7 +662,7 @@ public abstract class TerrainBase {
 
     public static float terrainPolar(int x, int y, OpenSimplexNoise simplex, float river) {
 
-        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) RTG.instance.getConfig().DUNE_HEIGHT.get()) * river;
+        float st = (simplex.noise2(x / 160f, y / 160f) + 0.38f) * (minimumDuneHeight + (float) configRTG.DUNE_HEIGHT.get()) * river;
         st = st < 0.2f ? 0.2f : st;
 
         float h = simplex.noise2(x / 60f, y / 60f) * st * 2f;

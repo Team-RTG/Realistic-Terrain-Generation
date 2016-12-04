@@ -10,7 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
-import rtg.RTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
@@ -44,7 +43,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
-        this.getConfig().VOLCANO_CHANCE.set(RTG.instance.getConfig().VOLCANO_CHANCE.get() * 2);
+        this.getConfig().VOLCANO_CHANCE.set(rtgConfig.VOLCANO_CHANCE.get() * 2);
     }
 
     @Override

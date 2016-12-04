@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.RTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
@@ -135,7 +134,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
                     depth++;
 
                     if (cliff) {
-                        if (!RTG.instance.getConfig().STONE_SAVANNAS.get()) {
+                        if (!rtgConfig.STONE_SAVANNAS.get()) {
                             primer.setBlockState(x, k, z, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
                         }
                         else {

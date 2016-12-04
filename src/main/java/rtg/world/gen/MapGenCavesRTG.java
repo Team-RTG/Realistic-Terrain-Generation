@@ -15,6 +15,7 @@ import net.minecraft.world.gen.MapGenCaves;
 import com.google.common.base.Objects;
 
 import rtg.RTG;
+import rtg.config.RTGConfig;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings({"NullableProblems", "WeakerAccess", "unused"})
@@ -24,6 +25,7 @@ public class MapGenCavesRTG extends MapGenCaves
     protected static final IBlockState BLK_AIR = Blocks.AIR.getDefaultState();
     protected static final IBlockState BLK_SANDSTONE = Blocks.SANDSTONE.getDefaultState();
     protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
+    private RTGConfig rtgConfig = RTG.instance.getConfig();
     private boolean enableCaves;
 
     protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_,
@@ -177,11 +179,11 @@ public class MapGenCavesRTG extends MapGenCaves
 
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
         // Return early if caves are disabled.
-        if (!RTG.instance.getConfig().ENABLE_CAVES.get()) return;
+        if (!rtgConfig.ENABLE_CAVES.get()) return;
 
         // Use the global settings by default.
-        int caveDensity = RTG.instance.getConfig().CAVE_DENSITY.get();
-        int caveFrequency = RTG.instance.getConfig().CAVE_FREQUENCY.get();
+        int caveDensity = rtgConfig.CAVE_DENSITY.get();
+        int caveFrequency = rtgConfig.CAVE_FREQUENCY.get();
 
         // If the user has set biome-specific settings, let's use those instead.
         Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));

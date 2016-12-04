@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.RTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
@@ -35,7 +34,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
-        this.getConfig().VOLCANO_CHANCE.set(RTG.instance.getConfig().VOLCANO_CHANCE.get() * 2);
+        this.getConfig().VOLCANO_CHANCE.set(rtgConfig.VOLCANO_CHANCE.get() * 2);
     }
 
     @Override

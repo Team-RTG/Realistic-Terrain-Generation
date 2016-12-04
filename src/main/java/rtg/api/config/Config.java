@@ -1,12 +1,14 @@
-package rtg.config;
+package rtg.api.config;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLLog;
+
+import org.apache.logging.log4j.Level;
 
 import rtg.api.config.property.*;
-import rtg.util.Logger;
 
 
 public abstract class Config {
@@ -140,7 +142,7 @@ public abstract class Config {
 
         }
         catch (Exception e) {
-            Logger.error("RTG had a problem loading config: " + configFile);
+            FMLLog.log(Level.ERROR, "[RTG-ERROR] RTG had a problem loading config: %s", configFile);
         }
         finally {
             if (config.hasChanged()) {

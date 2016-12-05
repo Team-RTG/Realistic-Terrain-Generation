@@ -118,7 +118,7 @@ public class BiomeConfig extends Config {
                 + Configuration.NEW_LINE +
                 "For example, if you want to use red wool for this biome's top block, you would enter minecraft:wool for the Top Block ID,"
                 + Configuration.NEW_LINE +
-                "and you would enter 6 here, because red rool has a data value of 6. (For most blocks, this value will be 0.)"
+                "and you would enter 6 here, because red wool has a data value of 6. (For most blocks, this value will be 0.)"
                 + Configuration.NEW_LINE +
                 "For more info, visit http://minecraft.gamepedia.com/Data_values",
             0, 0, 15
@@ -144,7 +144,7 @@ public class BiomeConfig extends Config {
                 + Configuration.NEW_LINE +
                 "For example, if you want to use red wool for this biome's filler block, you would enter minecraft:wool for the Filler Block ID,"
                 + Configuration.NEW_LINE +
-                "and you would enter 6 here, because red rool has a data value of 6. (For most blocks, this value will be 0.)"
+                "and you would enter 6 here, because red wool has a data value of 6. (For most blocks, this value will be 0.)"
                 + Configuration.NEW_LINE +
                 "For more info, visit http://minecraft.gamepedia.com/Data_values",
             0, 0, 15

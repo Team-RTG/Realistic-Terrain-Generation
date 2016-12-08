@@ -23,6 +23,7 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
         this.lavaSurfaceLakeChance = 0;
     }
 
+    //TODO 1.11: refactor everything 'CookingPlus' to 'AgriculturalRevolution'
     @Override
     public String modSlug() {
         return "cookingplus";
@@ -30,7 +31,7 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("CookingPlus")) {
+        if (Loader.isModLoaded("CookingPlus") || Loader.isModLoaded("agriculturalrevolution")) {
 
             for (Biome biome : Biome.REGISTRY) {
 

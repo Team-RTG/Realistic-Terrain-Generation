@@ -26,7 +26,7 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
     //TODO 1.11: refactor everything 'CookingPlus' to 'AgriculturalRevolution'
     @Override
     public String modSlug() {
-        return "cookingplus";
+        return Loader.isModLoaded("agriculturalrevolution") ? "agriculturalrevolution" : "cookingplus";
     }
 
     public static void addBiomes() {

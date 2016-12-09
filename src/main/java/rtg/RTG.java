@@ -24,11 +24,11 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.RealisticBiomeFaker;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
-import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.mineworld.RealisticBiomeMWBase;
 import rtg.world.biome.realistic.mithwoodforest.RealisticBiomeMFBase;
@@ -99,13 +99,15 @@ public class RTG {
         RealisticBiomeARBase.addBiomes();
         RealisticBiomeBABase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
-        RealisticBiomeBYGBase.addBiomes();
+        //RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
         RealisticBiomeMCMBase.addBiomes();
         RealisticBiomeMFBase.addBiomes();
         RealisticBiomeMWBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
-        
+
+        RealisticBiomeFaker.initFakeBiomes();
+
         RealisticBiomePresenceTester.doBiomeCheck();
     }
 

@@ -461,7 +461,14 @@ public class ChunkProviderRTG implements IChunkGenerator
                 river = -cmr.getRiverStrength(cx * 16 + i, cz * 16 + j);
                 depth = -1;
 
-                biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, rtgWorld, n, river, base);
+                if (rtgWorld.biomeFaker.isFakeBiome(Biome.getIdForBiome(biome.baseBiome))) {
+
+                    rtgWorld.biomeFaker.fakeSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome);
+                }
+                else {
+
+                    biome.rReplace(primer, cx * 16 + i, cz * 16 + j, i, j, depth, rtgWorld, n, river, base);
+                }
 
                 int rough;
                 int flatBedrockLayers = rtgConfig.FLAT_BEDROCK_LAYERS.get();

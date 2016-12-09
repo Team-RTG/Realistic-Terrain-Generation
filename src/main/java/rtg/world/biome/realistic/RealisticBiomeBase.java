@@ -568,7 +568,7 @@ public abstract class RealisticBiomeBase {
     }
 
     public String modSlug() {
-        throw new RuntimeException("Realistic biomes need a mod slug.");
+        return BiomeConfig.formatSlug(this.baseBiome.getBiomeClass().getName());
     }
 
     public String biomeSlug() {

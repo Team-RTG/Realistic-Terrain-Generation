@@ -107,7 +107,6 @@ public class OrganicBiomeGenerator {
     }
 
     public void organicSurface(int bx, int bz, ChunkPrimer primer, Biome biome) {
-        //For some really messed up reason these need to be flipped... see BGB#300
-        biome.genTerrainBlocks(rtgWorld.world, rtgWorld.rand, primer, bz, bx, this.surfaceNoise.getValue(bx, bz));
+        biome.genTerrainBlocks(rtgWorld.world, rtgWorld.rand, primer, bx, bz, this.surfaceNoise.getValue(bx, bz));
     }
 }

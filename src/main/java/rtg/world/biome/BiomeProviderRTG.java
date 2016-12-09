@@ -229,11 +229,10 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     }
 
     @Override
-    @Nonnull
-    public Biome[] getBiomesForGeneration(@Nonnull Biome[] biomes, int x, int z, int width, int height) {
+    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
         IntCache.resetIntCache();
 
-        if (biomes.length < width * height) {
+        if (biomes == null || biomes.length < width * height) {
             biomes = new Biome[width * height];
         }
 

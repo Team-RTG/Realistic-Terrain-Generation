@@ -26,6 +26,11 @@ public class FakedRTGBiome extends RealisticBiomeBase {
     }
 
     @Override
+    public boolean hasConfig() {
+        return false;
+    }
+
+    @Override
     public TerrainBase initTerrain() {
         return new TerrainFake();
     }

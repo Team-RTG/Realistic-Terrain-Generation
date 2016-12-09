@@ -127,12 +127,18 @@ public abstract class RealisticBiomeBase {
     }
 
     private void init() {
+
         initConfig();
-        this.getConfig().load(this.configPath());
+
+        if (this.hasConfig()) {
+            this.getConfig().load(this.configPath());
+        }
+
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
+
         initDecos();
     }
 
@@ -143,6 +149,10 @@ public abstract class RealisticBiomeBase {
 
     public BiomeConfig getConfig() {
         return this.config;
+    }
+
+    public boolean hasConfig() {
+        return true;
     }
 
     public static RealisticBiomeBase getBiome(int id) {

@@ -95,7 +95,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
     private TimedHashSet<ChunkPos> chunkMade = new TimedHashSet<>(5 * 1000);
     private boolean populating = false;
-    private boolean fakeGenerator = false;
+    private boolean pseudoGenerator = false;
     private LimitedSet<ChunkPos> alreadyDecorated = new LimitedSet<>(1000);
     private AnvilChunkLoader chunkLoader;
 
@@ -218,9 +218,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         return (biomeMapCoordinate - sampleSize) * 8;
     }
 
-    public void isFakeGenerator() {
+    public void isPseudoGenerator() {
 
-        this.fakeGenerator = true;
+        this.pseudoGenerator = true;
         this.mapFeaturesEnabled = false;
     }
 
@@ -502,7 +502,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     @Override
     public void populate(int x, int z) {
         // check if this is the master provider
-        if (this.fakeGenerator) return;
+        if (this.pseudoGenerator) return;
         //if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
         if (this.neighborsDone(x, z)) {
             this.doPopulate(x, z);

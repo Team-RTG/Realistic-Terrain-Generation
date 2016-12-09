@@ -1,4 +1,4 @@
-package rtg.world.biome.realistic;
+package rtg.world.biome.organic;
 
 import java.lang.reflect.Field;
 
@@ -14,37 +14,38 @@ import rtg.api.util.LimitedMap;
 import rtg.api.util.PlaneLocation;
 import rtg.api.world.RTGWorld;
 import rtg.util.Logger;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.api.util.MathUtils.globalToChunk;
 import static rtg.api.util.MathUtils.globalToLocal;
 
 /**
  * @author topisani
  */
-public class RealisticBiomeFaker {
+public class OrganicBiomeGenerator {
 
-    public static boolean[] fakeBiomes = new boolean[256];
-    private final ChunkProviderOverworld fakeProvider;
+    public static boolean[] organicBiomes = new boolean[256];
+    private final ChunkProviderOverworld organicProvider;
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
     private RTGWorld rtgWorld;
     private NoiseGeneratorPerlin surfaceNoise;
 
-    public RealisticBiomeFaker(RTGWorld rtgWorld) {
+    public OrganicBiomeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
-        fakeProvider = new ChunkProviderOverworld(rtgWorld.world, rtgWorld.world.getSeed(), rtgWorld.world.getWorldInfo().isMapFeaturesEnabled(), rtgWorld.world.getWorldInfo().getGeneratorOptions());
+        organicProvider = new ChunkProviderOverworld(rtgWorld.world, rtgWorld.world.getSeed(), rtgWorld.world.getWorldInfo().isMapFeaturesEnabled(), rtgWorld.world.getWorldInfo().getGeneratorOptions());
 
         Field field;
         try {
             // Obf name
-            field = fakeProvider.getClass().getDeclaredField("field_185994_m");
+            field = organicProvider.getClass().getDeclaredField("field_185994_m");
             field.setAccessible(true);
-            this.surfaceNoise = (NoiseGeneratorPerlin) field.get(fakeProvider);
+            this.surfaceNoise = (NoiseGeneratorPerlin) field.get(organicProvider);
         } catch (Exception e) {
             // Either we are in a dev environment or something is very wrong
             try {
                 // Deobf name
-                field = fakeProvider.getClass().getDeclaredField("surfaceNoise");
+                field = organicProvider.getClass().getDeclaredField("surfaceNoise");
                 field.setAccessible(true);
-                this.surfaceNoise = (NoiseGeneratorPerlin) field.get(fakeProvider);
+                this.surfaceNoise = (NoiseGeneratorPerlin) field.get(organicProvider);
             } catch (Exception e2) {
                 Logger.fatal(
                     "Failed to access private field 'surfaceNoise' in ChunkProviderOverworld. Are you in a deobfuscated environment with other mappings?",
@@ -54,22 +55,22 @@ public class RealisticBiomeFaker {
         }
     }
 
-    public static void initFakeBiomes() {
+    public static void initOrganicBiomes() {
         Biome[] b = BiomeUtils.getRegisteredBiomes();
         for (Biome biome : b) {
             if (biome != null) {
                 try {
                     RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome)).baseBiome.getBiomeName();
                 } catch (Exception e) {
-                    RealisticBiomeBase fakedBiome = new FakedRTGBiome(biome);
-                    fakeBiomes[Biome.getIdForBiome(biome)] = true;
+                    RealisticBiomeBase organicBiome = new OrganicBiome(biome);
+                    organicBiomes[Biome.getIdForBiome(biome)] = true;
                 }
             }
         }
     }
 
-    public boolean isFakeBiome(int id) {
-        return fakeBiomes[id];
+    public boolean isOrganicBiome(int id) {
+        return organicBiomes[id];
     }
 
     public int getHeightAt(int x, int z) {
@@ -82,13 +83,13 @@ public class RealisticBiomeFaker {
         for (PlaneLocation.Invariant location : chunkHeights.keySet()) {
             if (location.equals(inLoc)) heights = chunkHeights.get(location);
         }
-        if (heights == null) heights = this.fakeTerrain(cx, cz);
+        if (heights == null) heights = this.organicTerrain(cx, cz);
         return heights;
     }
 
-    public int[] fakeTerrain(int cx, int cz) {
+    public int[] organicTerrain(int cx, int cz) {
         ChunkPrimer primer = new ChunkPrimer();
-        fakeProvider.setBlocksInChunk(cx, cz, primer);
+        organicProvider.setBlocksInChunk(cx, cz, primer);
         int[] heights = new int[256];
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
@@ -105,7 +106,7 @@ public class RealisticBiomeFaker {
         return heights;
     }
 
-    public void fakeSurface(int bx, int bz, ChunkPrimer primer, Biome biome) {
+    public void organicSurface(int bx, int bz, ChunkPrimer primer, Biome biome) {
         //For some really messed up reason these need to be flipped... see BGB#300
         biome.genTerrainBlocks(rtgWorld.world, rtgWorld.rand, primer, bz, bx, this.surfaceNoise.getValue(bx, bz));
     }

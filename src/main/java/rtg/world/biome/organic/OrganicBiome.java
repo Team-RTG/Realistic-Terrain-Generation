@@ -1,21 +1,22 @@
-package rtg.world.biome.realistic;
+package rtg.world.biome.organic;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
+import rtg.world.gen.surface.SurfaceOrganic;
 import rtg.world.gen.terrain.TerrainBase;
-import rtg.world.gen.terrain.TerrainFake;
+import rtg.world.gen.terrain.TerrainOrganic;
 
 /**
  * @author topisani
  */
-public class FakedRTGBiome extends RealisticBiomeBase {
+public class OrganicBiome extends RealisticBiomeBase {
 
 
-    public FakedRTGBiome(Biome biome) {
+    public OrganicBiome(Biome biome) {
         super(biome, biome.getTemperature() < 0.15f ? Biomes.FROZEN_RIVER : Biomes.RIVER);
     }
 
@@ -32,12 +33,12 @@ public class FakedRTGBiome extends RealisticBiomeBase {
 
     @Override
     public TerrainBase initTerrain() {
-        return new TerrainFake();
+        return new TerrainOrganic();
     }
 
     @Override
     public SurfaceBase initSurface() {
-        return new SurfaceGeneric(this.config, this.baseBiome.topBlock, this.baseBiome.fillerBlock);
+        return new SurfaceOrganic(this.config, this.baseBiome.topBlock, this.baseBiome.fillerBlock);
     }
 
     @Override

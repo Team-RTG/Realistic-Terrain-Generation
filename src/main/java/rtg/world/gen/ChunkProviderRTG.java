@@ -461,9 +461,9 @@ public class ChunkProviderRTG implements IChunkGenerator
                 river = -cmr.getRiverStrength(cx * 16 + i, cz * 16 + j);
                 depth = -1;
 
-                if (rtgWorld.biomeFaker.isFakeBiome(Biome.getIdForBiome(biome.baseBiome))) {
+                if (rtgWorld.organicBiomeGenerator.isOrganicBiome(Biome.getIdForBiome(biome.baseBiome))) {
 
-                    rtgWorld.biomeFaker.fakeSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome);
+                    rtgWorld.organicBiomeGenerator.organicSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome);
                 }
                 else {
 

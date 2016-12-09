@@ -24,7 +24,7 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.realistic.RealisticBiomeFaker;
+import rtg.world.biome.organic.OrganicBiomeGenerator;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase;
@@ -106,7 +106,7 @@ public class RTG {
         RealisticBiomeMWBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
 
-        RealisticBiomeFaker.initFakeBiomes();
+        OrganicBiomeGenerator.initOrganicBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

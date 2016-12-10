@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import rtg.util.BlockUtil;
+import rtg.api.util.BlockUtil;
 
 /**
  * Picea Sitchensis (Sitka Spruce)

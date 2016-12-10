@@ -4,6 +4,9 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
+import rtg.api.util.BlockUtil;
+
+
 public class SaplingUtil {
 
     public static int getMetaFromState(IBlockState state) {

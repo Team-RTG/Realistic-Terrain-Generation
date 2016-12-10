@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 public class TerrainMesa extends TerrainBase {
 
@@ -10,8 +9,8 @@ public class TerrainMesa extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        return terrainMesa(x, y, simplex, river, border);
+        return terrainMesa(x, y, rtgWorld.simplex, river, border);
     }
 }

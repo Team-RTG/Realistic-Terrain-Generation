@@ -17,7 +17,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
-import rtg.config.ConfigRTG;
+import rtg.api.RTGAPI;
 import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
@@ -32,9 +32,9 @@ public class MapGenVillageRTG extends MapGenVillage
     private final int minTownSeparation;
 
     public MapGenVillageRTG() {
-        this.size = ConfigRTG.villageSize; // Vanilla = 0
-        this.distance = ConfigRTG.maxDistanceVillages; // Vanille = 32
-        this.minTownSeparation = ConfigRTG.minDistanceVillages; // Vanilla = 8
+        this.size = RTGAPI.config().VILLAGE_SIZE.get(); // Vanilla = 0
+        this.distance = RTGAPI.config().MAX_DISTANCE_VILLAGES.get(); // Vanille = 32
+        this.minTownSeparation = RTGAPI.config().MIN_DISTANCE_VILLAGES.get(); // Vanilla = 8
     }
 
     public MapGenVillageRTG(Map<String, String> map) {

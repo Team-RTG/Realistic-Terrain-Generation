@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import rtg.util.BlockUtil;
+import rtg.api.util.BlockUtil;
 
 /**
  * Cocos Nucifera (Coconut Palm)

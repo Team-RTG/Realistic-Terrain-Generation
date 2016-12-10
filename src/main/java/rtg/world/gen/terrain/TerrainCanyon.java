@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 public class TerrainCanyon extends TerrainBase {
 
@@ -49,16 +48,17 @@ public class TerrainCanyon extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
         //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
         //b *= b / cStrength;
         river *= 1.3f;
         river = river > 1f ? 1f : river;
-        float r = simplex.noise2(x / 100f, y / 100f) * 50f;
+        float r = rtgWorld.simplex.noise2(x / 100f, y / 100f) * 50f;
         r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
         float b = (17f + r) * river;
 
-        float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
+        float hn = rtgWorld.simplex.noise2(x / 12f, y / 12f) * 0.5f;
         float sb = 0f;
         if (b > 0f) {
             sb = b;
@@ -90,7 +90,7 @@ public class TerrainCanyon extends TerrainBase {
             }
         }
         else if (b < 5f) {
-            bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+            bn = (rtgWorld.simplex.noise2(x / 7f, y / 7f) * 1.3f + rtgWorld.simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
         }
 
         b += cTotal - bn;

@@ -16,8 +16,9 @@ import net.minecraft.world.gen.layer.IntCache;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
-import rtg.config.ConfigRTG;
-import rtg.util.*;
+import rtg.api.RTGAPI;
+import rtg.api.util.noise.*;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -30,6 +31,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private List<Biome> biomesToSpawnIn;
+    private RTGWorld rtgWorld;
     private OpenSimplexNoise simplex;
     private CellNoise cell;
     //private SimplexCellularNoise simplexCell;
@@ -45,13 +47,14 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         super(world.getWorldInfo());
 
+        this.rtgWorld = new RTGWorld(world);
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
-        this.riverSeparation /= ConfigRTG.riverFrequencyMultiplier;
-        this.riverValleyLevel *= ConfigRTG.riverSizeMultiplier();
-        this.largeBendSize *= ConfigRTG.riverBendinessMultiplier;
-        this.smallBendSize *= ConfigRTG.riverBendinessMultiplier;
+        this.riverSeparation /= RTGAPI.config().RIVER_FREQUENCY_MULTIPLIER.get();
+        this.riverValleyLevel *= RTGAPI.config().riverSizeMultiplier();
+        this.largeBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
+        this.smallBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
 
         long seed = world.getSeed();
         if (world.provider.getDimension() != 0) throw new RuntimeException();
@@ -271,7 +274,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         float river = getRiverStrength(x, y) + 1f;
         if (river < 0.5f) return 59f;
-        return getBiomeDataAt(x, y).rNoise(simplex, cell, x, y, 1f, river);
+        return getBiomeDataAt(x, y).rNoise(this.rtgWorld, x, y, 1f, river);
     }
 
     @Override

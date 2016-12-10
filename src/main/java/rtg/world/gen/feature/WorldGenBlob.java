@@ -9,9 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.config.ConfigRTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
 import rtg.util.BoulderUtil;
-import rtg.util.RandomUtil;
+import rtg.api.util.RandomUtil;
 
 
 public class WorldGenBlob extends WorldGenerator {
@@ -21,6 +22,7 @@ public class WorldGenBlob extends WorldGenerator {
     private IBlockState blobBlock;
     private int blobSize;
     private boolean booShouldGenerate;
+    private RTGConfig rtgConfig = RTGAPI.config();
 
     public WorldGenBlob(IBlockState b, int s, Random rand) {
 
@@ -32,7 +34,7 @@ public class WorldGenBlob extends WorldGenerator {
         this.boulderUtil = new BoulderUtil();
 
         if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
-            if (!ConfigRTG.enableCobblestoneBoulders) {
+            if (!rtgConfig.ENABLE_COBBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             }
             else {
@@ -49,9 +51,9 @@ public class WorldGenBlob extends WorldGenerator {
         this.water = water;
     }
 
-    public static boolean shouldGenerateCobblestoneBoulder(Random rand) {
+    public boolean shouldGenerateCobblestoneBoulder(Random rand) {
 
-        int chance = ConfigRTG.cobblestoneBoulderChance;
+        int chance = rtgConfig.COBBLESTONE_BOULDER_CHANCE.get();
         chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
 
         int random = RandomUtil.getRandomInt(rand, 1, chance);
@@ -68,7 +70,7 @@ public class WorldGenBlob extends WorldGenerator {
         if (honourConfig) {
             booShouldGenerate = true;
 
-            if (!ConfigRTG.enableCobblestoneBoulders) {
+            if (!rtgConfig.ENABLE_COBBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
             }
             else {

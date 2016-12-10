@@ -9,7 +9,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.config.ConfigRTG;
+import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
+
 
 public class WorldGenShrubRTG extends WorldGenerator {
 
@@ -17,6 +19,7 @@ public class WorldGenShrubRTG extends WorldGenerator {
     private IBlockState logBlock;
     private IBlockState leaveBlock;
     private boolean varSand;
+    private RTGConfig rtgConfig = RTGAPI.config();
 
     public WorldGenShrubRTG(int size, IBlockState log, IBlockState leav, boolean sand) {
 
@@ -60,13 +63,13 @@ public class WorldGenShrubRTG extends WorldGenerator {
         IBlockState b = world.getBlockState(new BlockPos(x, y - 2, z));
         IBlockState b1 = world.getBlockState(new BlockPos(x, y - 1, z));
 
-        if ((b == Blocks.SAND.getDefaultState() || b1 == Blocks.SAND.getDefaultState()) && !ConfigRTG.allowTreesToGenerateOnSand) {
+        if ((b == Blocks.SAND.getDefaultState() || b1 == Blocks.SAND.getDefaultState()) && !rtgConfig.ALLOW_TREES_TO_GENERATE_ON_SAND.get()) {
             return;
         }
 
         if (b.getMaterial() == Material.GRASS || b.getMaterial() == Material.GROUND || (varSand && b.getMaterial() == Material.SAND)) {
             if (b1 != Blocks.WATER.getDefaultState()) {
-                if (!ConfigRTG.allowShrubsToGenerateBelowSurface) {
+                if (!rtgConfig.ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE.get()) {
 
                     if (b1.getMaterial() != Material.AIR &&
                         b1.getMaterial() != Material.VINE &&
@@ -93,6 +96,12 @@ public class WorldGenShrubRTG extends WorldGenerator {
     public void buildBlock(World world, int x, int y, int z, IBlockState block) {
 
         IBlockState b = world.getBlockState(new BlockPos(x, y, z));
+
+        // We don't want shrubs generating in the middle of sugarcane, so let's add a special check for that here.
+        if (b.getBlock() == Blocks.REEDS) {
+            return;
+        }
+
         if (b.getMaterial() == Material.AIR || b.getMaterial() == Material.VINE || b.getMaterial() == Material.PLANTS || b == Blocks.SNOW_LAYER) {
             world.setBlockState(new BlockPos(x, y, z), block, 0);
         }

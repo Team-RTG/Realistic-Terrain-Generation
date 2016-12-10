@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * This provides a standard "ruggedness switch" between a rugged terrain and a smooth one
@@ -43,18 +42,19 @@ public class VariableRuggednessEffect extends HeightEffect {
 
     }
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float choice = simplex.octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
+        float choice = rtgWorld.simplex.octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
         if (choice <= startTransition) {
-            return smoothTerrain.added(simplex, cell, x, y);
+            return smoothTerrain.added(rtgWorld, x, y);
         }
         if (choice >= startTransition + transitionWidth) {
-            return ruggedTerrain.added(simplex, cell, x, y);
+            return ruggedTerrain.added(rtgWorld, x, y);
         }
         // otherwise in the transition zone;
-        float smooth = smoothTerrain.added(simplex, cell, x, y);
-        float rugged = ruggedTerrain.added(simplex, cell, x, y);
+        float smooth = smoothTerrain.added(rtgWorld, x, y);
+        float rugged = ruggedTerrain.added(rtgWorld, x, y);
         return ((choice - startTransition) * rugged + (startTransition + transitionWidth - choice) * smooth) /
             transitionWidth;
     }

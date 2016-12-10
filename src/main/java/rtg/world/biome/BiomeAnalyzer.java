@@ -6,8 +6,8 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import rtg.config.ConfigRTG;
-import rtg.util.CircularSearchCreator;
+import rtg.api.RTGAPI;
+import rtg.api.util.CircularSearchCreator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -23,8 +23,8 @@ public class BiomeAnalyzer {
     private boolean [] landBiome;
     private int [] preferredBeach;
     private RealisticBiomeBase [] savedJittered;
-    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(ConfigRTG.scenicLakeBiome);
-    private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(ConfigRTG.scenicFrozenLakeBiome);
+    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
+    private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
     private SmoothingSearchStatus beachSearch;
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;

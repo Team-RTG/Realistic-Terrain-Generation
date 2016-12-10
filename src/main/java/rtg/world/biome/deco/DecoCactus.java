@@ -5,14 +5,12 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenCacti;
 
@@ -47,23 +45,23 @@ public class DecoCactus extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(world, rand, new BlockPos(chunkX, 0, chunkY), CACTUS)) {
+            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
 
                 WorldGenerator worldGenerator = new WorldGenCacti(this.sandOnly, 0, this.soilBlock);
 
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
                 for (int i = 0; i < loopCount * 10; i++) {
-                    int intX = chunkX + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(this.maxY);
-                    int intZ = chunkY + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16);// + 8;
 
                     if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        worldGenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
+                        worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }

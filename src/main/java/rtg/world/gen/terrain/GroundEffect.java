@@ -1,7 +1,6 @@
 package rtg.world.gen.terrain;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -16,9 +15,10 @@ public class GroundEffect extends HeightEffect {
         this.amplitude = amplitude;
     }
 
-    public final float added(OpenSimplexNoise simplex, CellNoise cell, float x, float y) {
+    @Override
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        return TerrainBase.groundNoise(x, y, amplitude, simplex);
+        return TerrainBase.groundNoise(x, y, amplitude, rtgWorld.simplex);
     }
 
 }

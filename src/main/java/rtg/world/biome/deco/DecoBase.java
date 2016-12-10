@@ -5,10 +5,8 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.world.World;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -17,7 +15,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  *
  * @author WhichOnesPink
  */
-public class DecoBase {
+public abstract class DecoBase {
 
     /**
      * If false, the deco won't get generated during chunk decoration.
@@ -49,17 +47,15 @@ public class DecoBase {
      * Performs pre-generation checks to determine if the deco is allowed to generate.
      *
      * @param biome
-     * @param world
+     * @param rtgWorld
      * @param rand
-     * @param chunkX
-     * @param chunkY
-     * @param simplex
-     * @param cell
+     * @param worldX
+     * @param worldZ
      * @param strength
      * @param river
      * @param hasPlacedVillageBlocks
      */
-    public boolean preGenerate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public boolean preGenerate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.checkRiver) {
 
@@ -76,17 +72,15 @@ public class DecoBase {
      * This method should be overridden in the individual deco objects.
      *
      * @param biome
-     * @param world
+     * @param rtgWorld
      * @param rand
-     * @param chunkX
-     * @param chunkY
-     * @param simplex
-     * @param cell
+     * @param worldX
+     * @param worldZ
      * @param strength
      * @param river
      * @param hasPlacedVillageBlocks
      */
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
     }
 

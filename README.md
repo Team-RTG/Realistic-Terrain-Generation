@@ -24,7 +24,7 @@ Check out the **[Wiki](https://github.com/Team-RTG/Realistic-Terrain-Generation/
 
 ## Development
 
-Want to contribute? Great! Please read our [contribution guidelines](../../tree/master/.github/CONTRIBUTING.md) before getting started.
+Want to contribute? Great! Please read our [contribution guidelines](https://github.com/Team-RTG/Realistic-Terrain-Generation/blob/1.10.2-master/.github/CONTRIBUTING.md) before getting started.
 
 * We currently have 5 mods under our belt, but RTG is the main focus, and the 1.7.10 version specifically is what we are currently need to be concentrating on and then forward-porting features to 1.8.9/1.9 (although we've strayed several times to work on the 1.9 version because it's new and exciting!)
 
@@ -43,4 +43,4 @@ RTG is brought to you by [Team RTG](https://github.com/Team-RTG) and contains a 
 
 ### License
 
-[GNU General Public License (version 3)](https://github.com/Team-RTG/Realistic-Terrain-Generation/blob/master/LICENSE.txt)
+[GNU General Public License (version 3)](https://github.com/Team-RTG/Realistic-Terrain-Generation/blob/1.10.2-master/LICENSE.txt)

@@ -6,17 +6,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.config.BiomeConfig;
-import rtg.util.CellNoise;
-import rtg.util.CliffCalculator;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.SimplexOctave;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.world.RTGWorld;
+import rtg.api.config.BiomeConfig;
+import rtg.api.util.CliffCalculator;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoPond;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
@@ -59,11 +57,11 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             // need a little jitter to the points
             SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
-            simplex.riverJitter().evaluateNoise((float) x / 20.0, (float) y / 20.0, jitter);
+            rtgWorld.simplex.riverJitter().evaluateNoise((float) x / 20.0, (float) y / 20.0, jitter);
             double pX = x + jitter.deltax() * 1f;
             double pY = y + jitter.deltay() * 1f;
 
@@ -75,7 +73,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             if (multiplier > 1) {
                 multiplier = 1;
             }
-            double[] points = cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
+            double[] points = rtgWorld.cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
             float raise = (float) ((points[1] - points[0]) / points[1]);
             raise = raise * 3f;
             raise -= 0.2f;
@@ -86,7 +84,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                 raise = 1;
             }
             float topHeight = (float) (pointHeight +
-                pointHeightVariation * simplex.noise((float) x / pointHeightWavelength, (float) y / pointHeightWavelength));
+                pointHeightVariation * rtgWorld.simplex.noise((float) x / pointHeightWavelength, (float) y / pointHeightWavelength));
 
             float p = raise * topHeight;
             if (border >= 1f) {
@@ -124,14 +122,14 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int y, int depth, World world, Random rand,
-                                 OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            float c = CliffCalculator.calc(x, y, noise);
+            Random rand = rtgWorld.rand;
+            float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
-                Block b = primer.getBlockState(x, k, y).getBlock();
+                Block b = primer.getBlockState(x, k, z).getBlock();
                 if (b == Blocks.AIR) {
                     depth = -1;
                 }
@@ -144,29 +142,29 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                             if (depth > -1 && depth < 2) {
                                 if (rand.nextInt(3) == 0) {
 
-                                    primer.setBlockState(x, k, y, cliffBlock1);
+                                    primer.setBlockState(x, k, z, cliffBlock1);
                                 }
                                 else {
 
-                                    primer.setBlockState(x, k, y, hcCobble(world, i, j, x, y, k));
+                                    primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
                                 }
                             }
                             else if (depth < 10) {
-                                primer.setBlockState(x, k, y, cliffBlock1);
+                                primer.setBlockState(x, k, z, cliffBlock1);
                             }
                             else {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, z, topBlock);
                             }
                         }
                         else {
                             if (depth == 0 && k > 61) {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, z, topBlock);
                             }
                             else if (depth < 4) {
-                                primer.setBlockState(x, k, y, fillerBlock);
+                                primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {
-                                primer.setBlockState(x, k, y, topBlock);
+                                primer.setBlockState(x, k, z, topBlock);
                             }
                         }
                     }

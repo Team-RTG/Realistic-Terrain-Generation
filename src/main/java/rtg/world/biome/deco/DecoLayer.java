@@ -9,10 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.util.WorldUtil;
-import rtg.util.WorldUtil.SurroundCheckType;
+import rtg.api.util.WorldUtil;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.WorldGenLayers;
 
@@ -58,30 +56,30 @@ public class DecoLayer extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            WorldUtil worldUtil = new WorldUtil(world);
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
             WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
 
             int loopCount = this.loops;
             loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
-                int intX = chunkX + rand.nextInt(16);// + 8;
-                int intZ = chunkY + rand.nextInt(16);// + 8;
-                int intY = world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                int intX = worldX + rand.nextInt(16);// + 8;
+                int intZ = worldZ + rand.nextInt(16);// + 8;
+                int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                 if (this.notEqualsZerochance > 1) {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
                 else {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
             }
@@ -91,7 +89,7 @@ public class DecoLayer extends DecoBase {
     private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
         // If we're in a village, check to make sure the layer has extra room to avoid corrupting the village.
         if (hasPlacedVillageBlocks) {
-            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, SurroundCheckType.CARDINAL, rand, x, y, z)) {
+            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, x, y, z)) {
                 return false;
             }
         }

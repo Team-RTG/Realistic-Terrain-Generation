@@ -8,8 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.util.BlockUtil;
-import rtg.util.WorldUtil;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.WorldUtil;
 
 public class WorldGenFlowersRTG extends WorldGenerator {
 

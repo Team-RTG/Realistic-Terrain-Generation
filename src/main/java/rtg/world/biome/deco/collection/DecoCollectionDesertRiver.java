@@ -60,7 +60,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         decoReed.checkRiver = true;
         decoReed.minRiver = 0.7f;
         decoReed.maxY = 68;
-        decoReed.strengthFactor = 2f;
+        decoReed.loops = 3;
         this.addDeco(decoReed);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();

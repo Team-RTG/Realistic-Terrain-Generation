@@ -9,6 +9,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.ModPresenceTester;
 import rtg.api.world.RTGWorld;
 import rtg.util.UBColumnCache;
@@ -20,6 +21,8 @@ public abstract class SurfaceBase {
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
+    protected IBlockState cliffStoneBlock;
+    protected IBlockState cliffCobbleBlock;
     protected RTGConfig rtgConfig = RTGAPI.config();
     protected BiomeConfig biomeConfig;
 
@@ -45,6 +48,7 @@ public abstract class SurfaceBase {
         biomeConfig = config;
         topBlock = top;
         fillerBlock = fill;
+        this.initCliffBlocks();
         this.initShadowBlocks();
         this.assignUserConfigs(config, top, fill);
     }
@@ -79,7 +83,7 @@ public abstract class SurfaceBase {
 
     protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        return Blocks.STONE.getDefaultState();
+        return cliffStoneBlock;
     }
 
     protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
@@ -90,7 +94,7 @@ public abstract class SurfaceBase {
         }
         else {
 
-            return Blocks.COBBLESTONE.getDefaultState();
+            return cliffCobbleBlock;
         }
     }
 
@@ -119,43 +123,51 @@ public abstract class SurfaceBase {
             Block blockConfig = Block.getBlockFromName(userBlockId);
 
             if (blockConfig != null) {
-
                 if (userBlockMeta == 0) {
-
                     blockReturn = blockConfig.getDefaultState();
                 }
                 else {
-
                     blockReturn = blockConfig.getStateFromMeta(userBlockMeta);
                 }
             }
             else {
-
                 blockReturn = blockDefault;
             }
         }
         catch (Exception e) {
-
             blockReturn = blockDefault;
         }
 
         return blockReturn;
     }
 
+    protected void initCliffBlocks() {
+
+        cliffStoneBlock = getConfigBlock(
+            biomeConfig.SURFACE_CLIFF_STONE_BLOCK.get(),
+            biomeConfig.SURFACE_CLIFF_STONE_BLOCK_META.get(),
+            Blocks.STONE.getDefaultState()
+        );
+
+        cliffCobbleBlock = getConfigBlock(
+            biomeConfig.SURFACE_CLIFF_COBBLE_BLOCK.get(),
+            biomeConfig.SURFACE_CLIFF_COBBLE_BLOCK_META.get(),
+            Blocks.COBBLESTONE.getDefaultState()
+        );
+    }
+
     protected void initShadowBlocks() {
 
-        try {
-            this.shadowStoneBlock = Block.getBlockFromName(rtgConfig.SHADOW_STONE_BLOCK_ID.get()).getStateFromMeta(rtgConfig.SHADOW_STONE_BLOCK_META.get());
-        }
-        catch (Exception e) {
-            this.shadowStoneBlock = Block.getBlockFromName(rtgConfig.DEFAULT_SHADOW_STONE_BLOCK_ID).getStateFromMeta(rtgConfig.DEFAULT_SHADOW_STONE_BLOCK_META);
-        }
+        shadowStoneBlock = getConfigBlock(
+            rtgConfig.SHADOW_STONE_BLOCK_ID.get(),
+            rtgConfig.SHADOW_STONE_BLOCK_META.get(),
+            BlockUtil.getStateClay(9)
+        );
 
-        try {
-            this.shadowDesertBlock = Block.getBlockFromName(rtgConfig.SHADOW_DESERT_BLOCK_ID.get()).getStateFromMeta(rtgConfig.SHADOW_DESERT_BLOCK_META.get());
-        }
-        catch (Exception e) {
-            this.shadowDesertBlock = Block.getBlockFromName(rtgConfig.DEFAULT_SHADOW_DESERT_BLOCK_ID).getStateFromMeta(rtgConfig.DEFAULT_SHADOW_DESERT_BLOCK_META);
-        }
+        shadowDesertBlock = getConfigBlock(
+            rtgConfig.SHADOW_DESERT_BLOCK_ID.get(),
+            rtgConfig.SHADOW_DESERT_BLOCK_META.get(),
+            BlockUtil.getStateClay(0)
+        );
     }
 }

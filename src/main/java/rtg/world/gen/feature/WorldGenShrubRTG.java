@@ -96,6 +96,12 @@ public class WorldGenShrubRTG extends WorldGenerator {
     public void buildBlock(World world, int x, int y, int z, IBlockState block) {
 
         IBlockState b = world.getBlockState(new BlockPos(x, y, z));
+
+        // We don't want shrubs generating in the middle of sugarcane, so let's add a special check for that here.
+        if (b.getBlock() == Blocks.REEDS) {
+            return;
+        }
+
         if (b.getMaterial() == Material.AIR || b.getMaterial() == Material.VINE || b.getMaterial() == Material.PLANTS || b == Blocks.SNOW_LAYER) {
             world.setBlockState(new BlockPos(x, y, z), block, 0);
         }

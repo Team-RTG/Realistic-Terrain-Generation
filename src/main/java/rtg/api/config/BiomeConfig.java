@@ -21,6 +21,10 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_TOP_BLOCK_META;
     public final ConfigPropertyString SURFACE_FILLER_BLOCK;
     public final ConfigPropertyInt SURFACE_FILLER_BLOCK_META;
+    public final ConfigPropertyString SURFACE_CLIFF_STONE_BLOCK;
+    public final ConfigPropertyInt SURFACE_CLIFF_STONE_BLOCK_META;
+    public final ConfigPropertyString SURFACE_CLIFF_COBBLE_BLOCK;
+    public final ConfigPropertyInt SURFACE_CLIFF_COBBLE_BLOCK_META;
     public final ConfigPropertyInt CAVE_DENSITY;
     public final ConfigPropertyInt CAVE_FREQUENCY;
     public final ConfigPropertyInt RAVINE_FREQUENCY;
@@ -150,6 +154,62 @@ public class BiomeConfig extends Config {
             0, 0, 15
         );
         this.addProperty(SURFACE_FILLER_BLOCK_META);
+
+        SURFACE_CLIFF_STONE_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Cliff Stone Block ID",
+            "Surfaces.Cliff Stone Block",
+            "Cliff blocks are the blocks that are used on the cliffs of mountains (usually a blend of stone & cobblestone)."
+                + Configuration.NEW_LINE +
+                "If you want to change this biome's cliff stone block, enter a valid block ID here (e.g. minecraft:stone)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+        this.addProperty(SURFACE_CLIFF_STONE_BLOCK);
+
+        SURFACE_CLIFF_STONE_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Cliff Stone Block Meta (Data Value)",
+            "Surfaces.Cliff Stone Block",
+            "If you're using a custom cliff stone block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use red wool for this biome's cliff stone block, you would enter minecraft:wool for the Cliff Stone Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 6 here, because red wool has a data value of 6. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+        this.addProperty(SURFACE_CLIFF_STONE_BLOCK_META);
+
+        SURFACE_CLIFF_COBBLE_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Cliff Cobble Block ID",
+            "Surfaces.Cliff Cobble Block",
+            "Cliff blocks are the blocks that are used on the cliffs of mountains (usually a blend of stone & cobblestone)."
+                + Configuration.NEW_LINE +
+                "If you want to change this biome's cliff cobble block, enter a valid block ID here (e.g. minecraft:cobblestone)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+        this.addProperty(SURFACE_CLIFF_COBBLE_BLOCK);
+
+        SURFACE_CLIFF_COBBLE_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Cliff Cobble Block Meta (Data Value)",
+            "Surfaces.Cliff Cobble Block",
+            "If you're using a custom cliff cobble block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use red wool for this biome's cliff cobble block, you would enter minecraft:wool for the Cliff Cobble Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 6 here, because red wool has a data value of 6. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+        this.addProperty(SURFACE_CLIFF_COBBLE_BLOCK_META);
 
         CAVE_DENSITY = new ConfigPropertyInt(
             Type.INTEGER,

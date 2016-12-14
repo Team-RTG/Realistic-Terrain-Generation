@@ -94,9 +94,11 @@ public class DecoTree extends DecoBase {
         this.strengthNoiseFactorXForLoops = source.strengthNoiseFactorXForLoops;
         this.treeType = source.treeType;
         this.tree = source.tree;
+        this.worldGen = source.worldGen;
         this.distribution = source.distribution;
         this.treeCondition = source.treeCondition;
         this.treeConditionNoise = source.treeConditionNoise;
+        this.treeConditionFloat = source.treeConditionFloat;
         this.treeConditionChance = source.treeConditionChance;
         this.minY = source.minY;
         this.maxY = source.maxY;

@@ -11,11 +11,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.util.DecoUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
+import rtg.util.DecoUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -34,6 +34,7 @@ public class DecoTree extends DecoBase {
     public DecoTree.Distribution distribution; // Parameter object for noise calculations.
     public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
     public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
+    public float treeConditionNoise2; // Only applies to a noise-related TreeCondition.
     public int treeConditionChance; // Only applies to a chance-related TreeCondition.
     public float treeConditionFloat; // Multi-purpose float.
     public int minY; // Lower height restriction.
@@ -67,6 +68,7 @@ public class DecoTree extends DecoBase {
         this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
         this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
         this.treeConditionNoise = 0f;
+        this.treeConditionNoise2 = 0f;
         this.treeConditionFloat = 0f;
         this.treeConditionChance = 1;
         this.minY = 63; // No underwater trees by default.
@@ -98,6 +100,7 @@ public class DecoTree extends DecoBase {
         this.distribution = source.distribution;
         this.treeCondition = source.treeCondition;
         this.treeConditionNoise = source.treeConditionNoise;
+        this.treeConditionNoise2 = source.treeConditionNoise2;
         this.treeConditionFloat = source.treeConditionFloat;
         this.treeConditionChance = source.treeConditionChance;
         this.minY = source.minY;
@@ -198,9 +201,12 @@ public class DecoTree extends DecoBase {
                 DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
+
                     int intX = scatter.get(rand, worldX); // + 8;
                     int intZ = scatter.get(rand, worldZ); // + 8;
                     int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+
+                    //Logger.info("noise = %f", noise);
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
@@ -214,6 +220,8 @@ public class DecoTree extends DecoBase {
                         switch (this.treeType) {
 
                             case RTG_TREE:
+
+                                //this.logBlock = strength < 0.2f ? BlockUtil.getStateLog(2) : this.logBlock;
 
                                 this.tree.setLogBlock(this.logBlock);
                                 this.tree.setLeavesBlock(this.leavesBlock);
@@ -255,6 +263,9 @@ public class DecoTree extends DecoBase {
             case NOISE_LESSER_AND_RANDOM_CHANCE:
                 return (noise < this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
 
+            case NOISE_BETWEEN_AND_RANDOM_CHANCE:
+                return (noise > this.treeConditionNoise && noise < this.treeConditionNoise2 && rand.nextInt(this.treeConditionChance) == 0);
+
             case RANDOM_CHANCE:
                 return rand.nextInt(this.treeConditionChance) == 0;
 
@@ -275,6 +286,7 @@ public class DecoTree extends DecoBase {
         ALWAYS_GENERATE,
         NOISE_GREATER_AND_RANDOM_CHANCE,
         NOISE_LESSER_AND_RANDOM_CHANCE,
+        NOISE_BETWEEN_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
         X_DIVIDED_BY_STRENGTH;
     }

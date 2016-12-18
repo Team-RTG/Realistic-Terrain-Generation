@@ -18,8 +18,6 @@ import rtg.world.gen.feature.WorldGenGrass;
  */
 public class DecoGrass extends DecoBase {
 
-    protected static final int MAX_LOOPS = 10;
-
     public float strengthFactor;
     public int minY;
     public int maxY;
@@ -28,7 +26,10 @@ public class DecoGrass extends DecoBase {
     public int notEqualsZerochance;
     public IBlockState[] randomGrassBlocks;
     public byte[] randomGrassMetas;
+
     protected boolean useRandomGrass;
+    protected static final int MAX_LOOPS = 10;
+
     private IBlockState block;
     private int meta;
     private WorldGenGrass grassGenerator;
@@ -118,5 +119,93 @@ public class DecoGrass extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoGrass setStrengthFactor(float strengthFactor) {
+
+        this.strengthFactor = strengthFactor;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoGrass setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoGrass setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoGrass setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoGrass setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public int getNotEqualsZerochance() {
+
+        return notEqualsZerochance;
+    }
+
+    public DecoGrass setNotEqualsZerochance(int notEqualsZerochance) {
+
+        this.notEqualsZerochance = notEqualsZerochance;
+        return this;
+    }
+
+    public IBlockState[] getRandomGrassBlocks() {
+
+        return randomGrassBlocks;
+    }
+
+    public DecoGrass setRandomGrassBlocks(IBlockState[] randomGrassBlocks) {
+
+        this.randomGrassBlocks = randomGrassBlocks;
+        return this;
+    }
+
+    public byte[] getRandomGrassMetas() {
+
+        return randomGrassMetas;
+    }
+
+    public DecoGrass setRandomGrassMetas(byte[] randomGrassMetas) {
+
+        this.randomGrassMetas = randomGrassMetas;
+        return this;
     }
 }

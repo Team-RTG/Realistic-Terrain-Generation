@@ -332,4 +332,279 @@ public class DecoTree extends DecoBase {
             this.noiseAddend = noiseAddend;
         }
     }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoTree setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public float getStrengthFactorForLoops() {
+
+        return strengthFactorForLoops;
+    }
+
+    public DecoTree setStrengthFactorForLoops(float strengthFactorForLoops) {
+
+        this.strengthFactorForLoops = strengthFactorForLoops;
+        return this;
+    }
+
+    public boolean isStrengthNoiseFactorForLoops() {
+
+        return strengthNoiseFactorForLoops;
+    }
+
+    public DecoTree setStrengthNoiseFactorForLoops(boolean strengthNoiseFactorForLoops) {
+
+        this.strengthNoiseFactorForLoops = strengthNoiseFactorForLoops;
+        return this;
+    }
+
+    public boolean isStrengthNoiseFactorXForLoops() {
+
+        return strengthNoiseFactorXForLoops;
+    }
+
+    public DecoTree setStrengthNoiseFactorXForLoops(boolean strengthNoiseFactorXForLoops) {
+
+        this.strengthNoiseFactorXForLoops = strengthNoiseFactorXForLoops;
+        return this;
+    }
+
+    public TreeType getTreeType() {
+
+        return treeType;
+    }
+
+    public DecoTree setTreeType(TreeType treeType) {
+
+        this.treeType = treeType;
+        return this;
+    }
+
+    public TreeRTG getTree() {
+
+        return tree;
+    }
+
+    public DecoTree setTree(TreeRTG tree) {
+
+        this.tree = tree;
+        return this;
+    }
+
+    public WorldGenerator getWorldGen() {
+
+        return worldGen;
+    }
+
+    public DecoTree setWorldGen(WorldGenerator worldGen) {
+
+        this.worldGen = worldGen;
+        return this;
+    }
+
+    public Distribution getDistribution() {
+
+        return distribution;
+    }
+
+    public DecoTree setDistribution(Distribution distribution) {
+
+        this.distribution = distribution;
+        return this;
+    }
+
+    public TreeCondition getTreeCondition() {
+
+        return treeCondition;
+    }
+
+    public DecoTree setTreeCondition(TreeCondition treeCondition) {
+
+        this.treeCondition = treeCondition;
+        return this;
+    }
+
+    public float getTreeConditionNoise() {
+
+        return treeConditionNoise;
+    }
+
+    public DecoTree setTreeConditionNoise(float treeConditionNoise) {
+
+        this.treeConditionNoise = treeConditionNoise;
+        return this;
+    }
+
+    public float getTreeConditionNoise2() {
+
+        return treeConditionNoise2;
+    }
+
+    public DecoTree setTreeConditionNoise2(float treeConditionNoise2) {
+
+        this.treeConditionNoise2 = treeConditionNoise2;
+        return this;
+    }
+
+    public int getTreeConditionChance() {
+
+        return treeConditionChance;
+    }
+
+    public DecoTree setTreeConditionChance(int treeConditionChance) {
+
+        this.treeConditionChance = treeConditionChance;
+        return this;
+    }
+
+    public float getTreeConditionFloat() {
+
+        return treeConditionFloat;
+    }
+
+    public DecoTree setTreeConditionFloat(float treeConditionFloat) {
+
+        this.treeConditionFloat = treeConditionFloat;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoTree setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoTree setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public DecoTree setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public DecoTree setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
+    }
+
+    public int getMinSize() {
+
+        return minSize;
+    }
+
+    public DecoTree setMinSize(int minSize) {
+
+        this.minSize = minSize;
+        return this;
+    }
+
+    public int getMaxSize() {
+
+        return maxSize;
+    }
+
+    public DecoTree setMaxSize(int maxSize) {
+
+        this.maxSize = maxSize;
+        return this;
+    }
+
+    public int getMinTrunkSize() {
+
+        return minTrunkSize;
+    }
+
+    public DecoTree setMinTrunkSize(int minTrunkSize) {
+
+        this.minTrunkSize = minTrunkSize;
+        return this;
+    }
+
+    public int getMaxTrunkSize() {
+
+        return maxTrunkSize;
+    }
+
+    public DecoTree setMaxTrunkSize(int maxTrunkSize) {
+
+        this.maxTrunkSize = maxTrunkSize;
+        return this;
+    }
+
+    public int getMinCrownSize() {
+
+        return minCrownSize;
+    }
+
+    public DecoTree setMinCrownSize(int minCrownSize) {
+
+        this.minCrownSize = minCrownSize;
+        return this;
+    }
+
+    public int getMaxCrownSize() {
+
+        return maxCrownSize;
+    }
+
+    public DecoTree setMaxCrownSize(int maxCrownSize) {
+
+        this.maxCrownSize = maxCrownSize;
+        return this;
+    }
+
+    public boolean isNoLeaves() {
+
+        return noLeaves;
+    }
+
+    public DecoTree setNoLeaves(boolean noLeaves) {
+
+        this.noLeaves = noLeaves;
+        return this;
+    }
+
+    public Scatter getScatter() {
+
+        return scatter;
+    }
+
+    public DecoTree setScatter(Scatter scatter) {
+
+        this.scatter = scatter;
+        return this;
+    }
 }

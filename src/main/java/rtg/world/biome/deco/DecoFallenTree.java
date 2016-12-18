@@ -174,4 +174,125 @@ public class DecoFallenTree extends DecoBase {
             this.noiseAddend = noiseAddend;
         }
     }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoFallenTree setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public Distribution getDistribution() {
+
+        return distribution;
+    }
+
+    public DecoFallenTree setDistribution(Distribution distribution) {
+
+        this.distribution = distribution;
+        return this;
+    }
+
+    public LogCondition getLogCondition() {
+
+        return logCondition;
+    }
+
+    public DecoFallenTree setLogCondition(LogCondition logCondition) {
+
+        this.logCondition = logCondition;
+        return this;
+    }
+
+    public float getLogConditionNoise() {
+
+        return logConditionNoise;
+    }
+
+    public DecoFallenTree setLogConditionNoise(float logConditionNoise) {
+
+        this.logConditionNoise = logConditionNoise;
+        return this;
+    }
+
+    public int getLogConditionChance() {
+
+        return logConditionChance;
+    }
+
+    public DecoFallenTree setLogConditionChance(int logConditionChance) {
+
+        this.logConditionChance = logConditionChance;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoFallenTree setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public DecoFallenTree setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public DecoFallenTree setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
+    }
+
+    public int getMinSize() {
+
+        return minSize;
+    }
+
+    public DecoFallenTree setMinSize(int minSize) {
+
+        this.minSize = minSize;
+        return this;
+    }
+
+    public int getMaxSize() {
+
+        return maxSize;
+    }
+
+    public DecoFallenTree setMaxSize(int maxSize) {
+
+        this.maxSize = maxSize;
+        return this;
+    }
+
+    public IBlockState[] getRandomLogBlocks() {
+
+        return randomLogBlocks;
+    }
+
+    public DecoFallenTree setRandomLogBlocks(IBlockState[] randomLogBlocks) {
+
+        this.randomLogBlocks = randomLogBlocks;
+        return this;
+    }
 }

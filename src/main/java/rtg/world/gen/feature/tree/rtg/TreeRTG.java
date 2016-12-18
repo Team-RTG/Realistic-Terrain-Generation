@@ -26,7 +26,6 @@ import rtg.api.util.WorldUtil;
  */
 public class TreeRTG extends WorldGenAbstractTree {
 
-    protected RTGConfig rtgConfig = RTGAPI.config();
     public IBlockState logBlock;
     public IBlockState leavesBlock;
     public int trunkSize;
@@ -42,9 +41,10 @@ public class TreeRTG extends WorldGenAbstractTree {
     public int minCrownSize;
     public int maxCrownSize;
 
-    public boolean allowBarkCoveredLogs;
-
     public ArrayList<IBlockState> validGroundBlocks;
+
+    protected RTGConfig rtgConfig = RTGAPI.config();
+    private boolean allowBarkCoveredLogs;
 
     public TreeRTG(boolean notify) {
 
@@ -108,36 +108,6 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     }
 
-    public TreeRTG setLogBlock(IBlockState logBlock) {
-
-        this.logBlock = logBlock;
-        return this;
-    }
-
-    public TreeRTG setLeavesBlock(IBlockState leavesBlock) {
-
-        this.leavesBlock = leavesBlock;
-        return this;
-    }
-
-    public TreeRTG setTrunkSize(int trunkSize) {
-
-        this.trunkSize = trunkSize;
-        return this;
-    }
-
-    public TreeRTG setCrownSize(int crownSize) {
-
-        this.crownSize = crownSize;
-        return this;
-    }
-
-    public TreeRTG setNoLeaves(boolean noLeaves) {
-
-        this.noLeaves = noLeaves;
-        return this;
-    }
-
     protected boolean isGroundValid(World world, BlockPos trunkPos) {
 
         return this.isGroundValid(world, trunkPos, rtgConfig.ALLOW_TREES_TO_GENERATE_ON_SAND.get());
@@ -190,8 +160,8 @@ public class TreeRTG extends WorldGenAbstractTree {
     }
 
     @Override
-    public boolean isReplaceable(World world, BlockPos pos)
-    {
+    public boolean isReplaceable(World world, BlockPos pos) {
+
         IBlockState state = world.getBlockState(pos);
 
         return state.getBlock().isAir(state, world, pos)
@@ -201,8 +171,8 @@ public class TreeRTG extends WorldGenAbstractTree {
     }
 
     @Override
-    protected boolean canGrowInto(Block blockType)
-    {
+    protected boolean canGrowInto(Block blockType) {
+
         Material material = blockType.getDefaultState().getMaterial();
 
         return material == Material.AIR
@@ -214,6 +184,7 @@ public class TreeRTG extends WorldGenAbstractTree {
             || material == Material.VINE
             || material == Material.SNOW;
     }
+
     public boolean hasSpaceToGrow(World world, Random rand, BlockPos pos, int treeHeight) {
 
         WorldUtil worldUtil = new WorldUtil(world);
@@ -251,5 +222,148 @@ public class TreeRTG extends WorldGenAbstractTree {
         }
 
         return trunkLog;
+    }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public TreeRTG setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public TreeRTG setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
+    }
+
+    public int getTrunkSize() {
+
+        return trunkSize;
+    }
+
+    public TreeRTG setTrunkSize(int trunkSize) {
+
+        this.trunkSize = trunkSize;
+        return this;
+    }
+
+    public int getCrownSize() {
+
+        return crownSize;
+    }
+
+    public TreeRTG setCrownSize(int crownSize) {
+
+        this.crownSize = crownSize;
+        return this;
+    }
+
+    public boolean getNoLeaves() {
+
+        return noLeaves;
+    }
+
+    public TreeRTG setNoLeaves(boolean noLeaves) {
+
+        this.noLeaves = noLeaves;
+        return this;
+    }
+
+    public IBlockState getSaplingBlock() {
+
+        return saplingBlock;
+    }
+
+    public TreeRTG setSaplingBlock(IBlockState saplingBlock) {
+
+        this.saplingBlock = saplingBlock;
+        return this;
+    }
+
+    public int getGenerateFlag() {
+
+        return generateFlag;
+    }
+
+    public TreeRTG setGenerateFlag(int generateFlag) {
+
+        this.generateFlag = generateFlag;
+        return this;
+    }
+
+    public int getMinTrunkSize() {
+
+        return minTrunkSize;
+    }
+
+    public TreeRTG setMinTrunkSize(int minTrunkSize) {
+
+        this.minTrunkSize = minTrunkSize;
+        return this;
+    }
+
+    public int getMaxTrunkSize() {
+
+        return maxTrunkSize;
+    }
+
+    public TreeRTG setMaxTrunkSize(int maxTrunkSize) {
+
+        this.maxTrunkSize = maxTrunkSize;
+        return this;
+    }
+
+    public int getMinCrownSize() {
+
+        return minCrownSize;
+    }
+
+    public TreeRTG setMinCrownSize(int minCrownSize) {
+
+        this.minCrownSize = minCrownSize;
+        return this;
+    }
+
+    public int getMaxCrownSize() {
+
+        return maxCrownSize;
+    }
+
+    public TreeRTG setMaxCrownSize(int maxCrownSize) {
+
+        this.maxCrownSize = maxCrownSize;
+        return this;
+    }
+
+    public boolean isAllowBarkCoveredLogs() {
+
+        return allowBarkCoveredLogs;
+    }
+
+    public TreeRTG setAllowBarkCoveredLogs(boolean allowBarkCoveredLogs) {
+
+        this.allowBarkCoveredLogs = allowBarkCoveredLogs;
+        return this;
+    }
+
+    public ArrayList<IBlockState> getValidGroundBlocks() {
+
+        return validGroundBlocks;
+    }
+
+    public TreeRTG setValidGroundBlocks(ArrayList<IBlockState> validGroundBlocks) {
+
+        this.validGroundBlocks = validGroundBlocks;
+        return this;
     }
 }

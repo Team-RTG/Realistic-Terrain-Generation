@@ -120,4 +120,92 @@ public class DecoFlowersRTG extends DecoBase {
         NEXT_INT,
         GET_HEIGHT_VALUE;
     }
+
+    public int[] getFlowers() {
+
+        return flowers;
+    }
+
+    public DecoFlowersRTG setFlowers(int[] flowers) {
+
+        this.flowers = flowers;
+        return this;
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
+
+        this.strengthFactor = strengthFactor;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoFlowersRTG setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoFlowersRTG setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public HeightType getHeightType() {
+
+        return heightType;
+    }
+
+    public DecoFlowersRTG setHeightType(HeightType heightType) {
+
+        this.heightType = heightType;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoFlowersRTG setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public int getNotEqualsZeroChance() {
+
+        return notEqualsZeroChance;
+    }
+
+    public DecoFlowersRTG setNotEqualsZeroChance(int notEqualsZeroChance) {
+
+        this.notEqualsZeroChance = notEqualsZeroChance;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoFlowersRTG setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
 }

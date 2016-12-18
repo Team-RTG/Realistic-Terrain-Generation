@@ -246,9 +246,9 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         this.addDeco(decoPumpkin);
 
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11};
-        decoFlowersRTG.maxY = 128;
-        decoFlowersRTG.loops = 3;
+        decoFlowersRTG.setFlowers(new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11});
+        decoFlowersRTG.setMaxY(128);
+        decoFlowersRTG.setLoops(3);
         this.addDeco(decoFlowersRTG);
 
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();

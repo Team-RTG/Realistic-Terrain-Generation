@@ -216,9 +216,9 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         this.addDeco(decoHelperHelper50502);
 
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-        decoFlowersRTG.maxY = 128;
-        decoFlowersRTG.strengthFactor = 2f;
+        decoFlowersRTG.setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11});
+        decoFlowersRTG.setMaxY(128);
+        decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         DecoGrass decoGrass = new DecoGrass();

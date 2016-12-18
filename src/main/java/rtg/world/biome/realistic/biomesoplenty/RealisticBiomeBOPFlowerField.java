@@ -172,16 +172,16 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
         // Flowers are the most aesthetically important feature of this biome, so let's add those next.
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
-        decoFlowers1.flowers = new int[]{0, 1, 2, 3, 8, 9}; //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
-        decoFlowers1.strengthFactor = 12f; // Lots and lots of flowers!
-        decoFlowers1.heightType = DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
+        decoFlowers1.setFlowers(new int[]{0, 1, 2, 3, 8, 9}); //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
+        decoFlowers1.setStrengthFactor(12f); // Lots and lots of flowers!
+        decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-        decoFlowers2.flowers = new int[]{10, 11, 14, 15}; //Only 2-block-tall flowers.
-        decoFlowers2.strengthFactor = 2f; // Not as many of these.
-        decoFlowers2.chance = 3;
-        decoFlowers2.heightType = DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE; // We're only bothered about surface flowers here.
+        decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
+        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
+        decoFlowers2.setChance(3);
+        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers2);
 
         // Not much free space left, so let's give some space to the base biome.

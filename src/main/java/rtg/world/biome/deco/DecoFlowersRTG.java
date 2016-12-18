@@ -18,14 +18,14 @@ import rtg.world.gen.feature.WorldGenFlowersRTG;
  */
 public class DecoFlowersRTG extends DecoBase {
 
-    public int[] flowers; // Integer array of flower IDs.
-    public float strengthFactor; // Higher = more flowers.
-    public int minY; // Height restriction.
-    public int maxY; // Height restriction.
-    public HeightType heightType; // How we determine the Y coord.
-    public int chance; // Higher = more rare.
-    public int notEqualsZeroChance;
-    public int loops;
+    private int[] flowers; // Integer array of flower IDs.
+    private float strengthFactor; // Higher = more flowers.
+    private int minY; // Height restriction.
+    private int maxY; // Height restriction.
+    private HeightType heightType; // How we determine the Y coord.
+    private int chance; // Higher = more rare.
+    private int notEqualsZeroChance;
+    private int loops;
 
     /*
      * FLOWER LIST:

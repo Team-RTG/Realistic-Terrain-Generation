@@ -183,9 +183,9 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[]{3, 6};
-        decoFlowersRTG.maxY = 128;
-        decoFlowersRTG.strengthFactor = 12f;
+        decoFlowersRTG.setFlowers(new int[]{3, 6});
+        decoFlowersRTG.setMaxY(128);
+        decoFlowersRTG.setStrengthFactor(12f);
         this.addDeco(decoFlowersRTG);
 
         DecoGrass decoGrass = new DecoGrass();

@@ -257,10 +257,10 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
         // Flowers.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[]{5}; // Only orange tulips fit in with the colour scheme.
-        decoFlowersRTG.chance = 4;
-        decoFlowersRTG.maxY = 120;
-        decoFlowersRTG.strengthFactor = 2f;
+        decoFlowersRTG.setFlowers(new int[]{5}); // Only orange tulips fit in with the colour scheme.
+        decoFlowersRTG.setChance(4);
+        decoFlowersRTG.setMaxY(120);
+        decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         // Tall cacti on red sand - matches the colour scheme nicely.

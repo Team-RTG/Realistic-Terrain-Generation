@@ -30,6 +30,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
         this.generatesEmeralds = true;
         this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

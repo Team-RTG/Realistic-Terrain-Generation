@@ -26,6 +26,9 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPTropicalRainforest() {
 
         super(biome, river);
+
+        this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

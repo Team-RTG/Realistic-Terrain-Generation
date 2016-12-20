@@ -1048,7 +1048,7 @@ public class RTGConfig extends Config {
             "Strongholds",
             "This setting is the number of strongholds that exist per world."
                 + Configuration.NEW_LINE +
-                "HIGHER values = MORE strongholds & MORE lag. (3 = Vanilla)",
+                "HIGHER values = MORE strongholds & MORE lag. (128 = Vanilla)",
             128, 1, Integer.MAX_VALUE
         );
         this.addProperty(STRONGHOLD_COUNT);

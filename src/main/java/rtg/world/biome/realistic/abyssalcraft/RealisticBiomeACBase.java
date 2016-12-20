@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import net.minecraft.world.biome.Biome;
 
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.Loader;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
@@ -36,22 +37,22 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
         if (Loader.isModLoaded("abyssalcraft")) {
 
-            if (null != ACBiomes.coralium_infested_swamp) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.coralium_infested_swamp)) {
                 acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp();
             }
-            if (null != ACBiomes.darklands) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands)) {
                 acDarklands = new RealisticBiomeACDarklands();
             }
-            if (null != ACBiomes.darklands_forest) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_forest)) {
                 acDarklandsForest = new RealisticBiomeACDarklandsForest();
             }
-            if (null != ACBiomes.darklands_hills) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_hills)) {
                 acDarklandsHighland = new RealisticBiomeACDarklandsHighland();
             }
-            if (null != ACBiomes.darklands_mountains) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_mountains)) {
                 acDarklandsMountains = new RealisticBiomeACDarklandsMountains();
             }
-            if (null != ACBiomes.darklands_plains) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_plains)) {
                 acDarklandsPlains = new RealisticBiomeACDarklandsPlains();
             }
         }

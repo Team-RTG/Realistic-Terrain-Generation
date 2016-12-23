@@ -55,13 +55,13 @@ public class DecoFlowersRTG extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.flowers = new int[]{0, 9}; // Only roses and dandelions by default.
-        this.chance = 1; // 100% chance of generating by default.
-        this.notEqualsZeroChance = 1;
-        this.minY = 1; // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
-        this.maxY = 253; // 2 below max build height to account for 2-block tall flowers.
+        this.setChance(1); // 100% chance of generating by default.
+        this.setNotEqualsZeroChance(1);
+        this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
+        this.setMaxY(253); // 2 below max build height to account for 2-block tall flowers.
         this.heightType = HeightType.NEXT_INT;
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
 
         this.addDecoTypes(DecoType.FLOWER);
     }
@@ -75,7 +75,7 @@ public class DecoFlowersRTG extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
 
                 for (int i = 0; i < this.loops * 16; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -139,7 +139,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
 
-        this.strengthFactor = strengthFactor;
+        this.setStrengthFactor(strengthFactor);
         return this;
     }
 
@@ -150,7 +150,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setMinY(int minY) {
 
-        this.minY = minY;
+        this.setMinY(minY);
         return this;
     }
 
@@ -161,7 +161,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setMaxY(int maxY) {
 
-        this.maxY = maxY;
+        this.setMaxY(maxY);
         return this;
     }
 
@@ -183,7 +183,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setChance(int chance) {
 
-        this.chance = chance;
+        this.setChance(chance);
         return this;
     }
 
@@ -194,7 +194,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setNotEqualsZeroChance(int notEqualsZeroChance) {
 
-        this.notEqualsZeroChance = notEqualsZeroChance;
+        this.setNotEqualsZeroChance(notEqualsZeroChance);
         return this;
     }
 
@@ -205,7 +205,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setLoops(int loops) {
 
-        this.loops = loops;
+        this.setLoops(loops);
         return this;
     }
 }

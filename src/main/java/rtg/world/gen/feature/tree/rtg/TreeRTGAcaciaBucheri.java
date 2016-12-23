@@ -18,26 +18,26 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, <s>crownSize</s>, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGAcaciaBucheri());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.LOG2;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG2);<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.LEAVES2;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES2);<br>
      * decoTree.leavesMeta = (byte)0;<br>
-     * decoTree.minTrunkSize = 6;<br>
-     * decoTree.maxTrunkSize = 16;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(6);<br>
+     * decoTree.setMaxTrunkSize(16);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGAcaciaBucheri() {
 
         super();
 
-        this.logBlock = Blocks.LOG2.getDefaultState();
-        this.leavesBlock = Blocks.LEAVES2.getDefaultState();
+        this.setLogBlock(Blocks.LOG2.getDefaultState());
+        this.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         this.trunkSize = 10;
     }
 

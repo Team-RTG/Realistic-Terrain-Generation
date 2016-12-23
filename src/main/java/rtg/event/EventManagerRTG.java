@@ -240,12 +240,12 @@ public class EventManagerRTG {
                 for (int i = 0; i < biomeTrees.size(); i++) {
 
                     Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
-                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getBlock().getLocalizedName());
-                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).saplingBlock));
+                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
+                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
 
-                    if (saplingBlock.getBlock() == biomeTrees.get(i).saplingBlock.getBlock()) {
+                    if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) {
 
-                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).saplingBlock)) {
+                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
 
                             validTrees.add(biomeTrees.get(i));
                             Logger.debug("Valid tree found!");
@@ -265,18 +265,18 @@ public class EventManagerRTG {
                     Logger.debug("Tree = %s", tree.getClass().getName());
 
                     // Set the trunk size if min/max values have been set.
-                    if (tree.minTrunkSize > 0 && tree.maxTrunkSize > tree.minTrunkSize) {
+                    if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) {
 
-                        tree.trunkSize = RandomUtil.getRandomInt(event.getRand(), tree.minTrunkSize, tree.maxTrunkSize);
+                        tree.setTrunkSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
                     }
 
                     // Set the crown size if min/max values have been set.
-                    if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
+                    if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) {
 
-                        tree.crownSize = RandomUtil.getRandomInt(event.getRand(), tree.minCrownSize, tree.maxCrownSize);
+                        tree.setCrownSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinCrownSize(), tree.getMaxCrownSize()));
                     }
 
-                    int treeHeight = tree.trunkSize + tree.crownSize;
+                    int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
                     if (treeHeight < 1) {
                         Logger.debug("Unable to grow RTG tree with no height.");
                         return;
@@ -293,10 +293,10 @@ public class EventManagerRTG {
                      *
                      * TODO: Does this affect the generation of normal RTG trees? - Pink
                      */
-                    int oldFlag = tree.generateFlag;
-                    tree.generateFlag = 3;
+                    int oldFlag = tree.getGenerateFlag();
+                    tree.setGenerateFlag(3);
                     boolean generated = tree.generate(event.getWorld(), event.getRand(), event.getPos());
-                    tree.generateFlag = oldFlag;
+                    tree.setGenerateFlag(oldFlag);
 
                     if (generated) {
 

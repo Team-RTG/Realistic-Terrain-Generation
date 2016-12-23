@@ -59,12 +59,12 @@ public class DecoCollectionForest extends DecoCollectionBase {
     private DecoTree tallPineTrees(IBlockState log, IBlockState leaves, float noiseMin, float noiseMax) {
 
         TreeRTG pinusPonderosa = new TreeRTGPinusPonderosa();
-        pinusPonderosa.logBlock = log;
-        pinusPonderosa.leavesBlock = leaves;
-        pinusPonderosa.minTrunkSize = 11;
-        pinusPonderosa.maxTrunkSize = 21;
-        pinusPonderosa.minCrownSize = 15;
-        pinusPonderosa.maxCrownSize = 29;
+        pinusPonderosa.setLogBlock(log);
+        pinusPonderosa.setLeavesBlock(leaves);
+        pinusPonderosa.setMinTrunkSize(11);
+        pinusPonderosa.setMaxTrunkSize(21);
+        pinusPonderosa.setMinCrownSize(15);
+        pinusPonderosa.setMaxCrownSize(29);
 
         this.addTree(pinusPonderosa);
 

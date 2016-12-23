@@ -12,11 +12,11 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
@@ -24,6 +24,7 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
@@ -173,39 +174,39 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 1f;
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(16);
+        decoBoulder.setMaxY(95);
+        decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
-        decoFallenTree1.loops = 1;
-        decoFallenTree1.distribution.noiseDivisor = 100f;
-        decoFallenTree1.distribution.noiseFactor = 6f;
-        decoFallenTree1.distribution.noiseAddend = 0.8f;
-        decoFallenTree1.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree1.logConditionNoise = 0f;
-        decoFallenTree1.logConditionChance = 10;
-        decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = BOPBlocks.log_3.getStateFromMeta(2);
-        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree1.minSize = 3;
-        decoFallenTree1.maxSize = 5;
+        decoFallenTree1.setLoops(1);
+        decoFallenTree1.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree1.getDistribution().setNoiseFactor(6f);
+        decoFallenTree1.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree1.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree1.setLogConditionNoise(0f);
+        decoFallenTree1.setLogConditionChance(10);
+        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.setLogBlock(BOPBlocks.log_3.getStateFromMeta(2));
+        decoFallenTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree1.setMinSize(3);
+        decoFallenTree1.setMaxSize(5);
 
         DecoFallenTree decoFallenTree2 = new DecoFallenTree();
-        decoFallenTree2.loops = 1;
-        decoFallenTree2.distribution.noiseDivisor = 100f;
-        decoFallenTree2.distribution.noiseFactor = 6f;
-        decoFallenTree2.distribution.noiseAddend = 0.8f;
-        decoFallenTree2.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree2.logConditionNoise = 0f;
-        decoFallenTree2.logConditionChance = 10;
-        decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = BlockUtil.getStateLog(1);
-        decoFallenTree2.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenTree2.minSize = 3;
-        decoFallenTree2.maxSize = 5;
+        decoFallenTree2.setLoops(1);
+        decoFallenTree2.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree2.getDistribution().setNoiseFactor(6f);
+        decoFallenTree2.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree2.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree2.setLogConditionNoise(0f);
+        decoFallenTree2.setLogConditionChance(10);
+        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(1));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree2.setMinSize(3);
+        decoFallenTree2.setMaxSize(5);
 
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};

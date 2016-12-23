@@ -14,10 +14,10 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  */
 public class DecoDesertWell extends DecoBase {
 
-    public float strengthFactor;
-    public int maxY;
-    public int loops;
-    public int chance;
+    private float strengthFactor;
+    private int maxY;
+    private int loops;
+    private int chance;
 
     public DecoDesertWell() {
 
@@ -27,10 +27,10 @@ public class DecoDesertWell extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
-        this.chance = 1;
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
+        this.setChance(1);
 
         this.addDecoTypes(DecoType.DESERT_WELL);
     }
@@ -42,7 +42,7 @@ public class DecoDesertWell extends DecoBase {
 
             WorldGenerator worldGenerator = new WorldGenDesertWells();
 
-            this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+            this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
             for (int i = 0; i < this.loops; i++) {
                 if (rand.nextInt(this.chance) == 0) {
 
@@ -56,5 +56,49 @@ public class DecoDesertWell extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoDesertWell setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoDesertWell setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoDesertWell setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoDesertWell setChance(int chance) {
+
+        this.setChance(chance);
+        return this;
     }
 }

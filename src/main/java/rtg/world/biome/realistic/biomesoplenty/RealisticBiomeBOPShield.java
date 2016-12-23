@@ -12,16 +12,17 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
@@ -131,37 +132,37 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 80;
-        decoBoulder.chance = 16;
-        decoBoulder.strengthFactor = 1f;
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
-        decoFallenTree1.distribution.noiseDivisor = 80f;
-        decoFallenTree1.distribution.noiseFactor = 60f;
-        decoFallenTree1.distribution.noiseAddend = -15f;
-        decoFallenTree1.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree1.logConditionNoise = 0f;
-        decoFallenTree1.logConditionChance = 6;
-        decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = BOPBlocks.log_2.getStateFromMeta(6);
-        decoFallenTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree1.minSize = 3;
-        decoFallenTree1.maxSize = 4;
+        decoFallenTree1.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree1.getDistribution().setNoiseFactor(60f);
+        decoFallenTree1.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree1.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree1.setLogConditionNoise(0f);
+        decoFallenTree1.setLogConditionChance(6);
+        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
+        decoFallenTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree1.setMinSize(3);
+        decoFallenTree1.setMaxSize(4);
 
         DecoFallenTree decoFallenTree2 = new DecoFallenTree();
-        decoFallenTree2.distribution.noiseDivisor = 80f;
-        decoFallenTree2.distribution.noiseFactor = 60f;
-        decoFallenTree2.distribution.noiseAddend = -15f;
-        decoFallenTree2.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree2.logConditionNoise = 0f;
-        decoFallenTree2.logConditionChance = 6;
-        decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = BlockUtil.getStateLog(1);
-        decoFallenTree2.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenTree2.minSize = 3;
-        decoFallenTree2.maxSize = 4;
+        decoFallenTree2.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree2.getDistribution().setNoiseFactor(60f);
+        decoFallenTree2.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree2.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree2.setLogConditionNoise(0f);
+        decoFallenTree2.setLogConditionChance(6);
+        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(1));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree2.setMinSize(3);
+        decoFallenTree2.setMaxSize(4);
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
         this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());

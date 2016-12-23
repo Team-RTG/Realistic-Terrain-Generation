@@ -17,9 +17,9 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  */
 public class DecoReed extends DecoBase {
 
-    public float strengthFactor;
-    public int maxY;
-    public int loops;
+    private float strengthFactor;
+    private int maxY;
+    private int loops;
 
     public DecoReed() {
 
@@ -29,9 +29,9 @@ public class DecoReed extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
 
         this.addDecoTypes(DecoType.REED);
     }
@@ -45,7 +45,7 @@ public class DecoReed extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenReed();
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.maxY);
@@ -57,5 +57,38 @@ public class DecoReed extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoReed setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoReed setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoReed setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
     }
 }

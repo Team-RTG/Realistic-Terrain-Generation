@@ -24,7 +24,7 @@ public class WorldGenVinesRTG extends WorldGenerator {
     public WorldGenVinesRTG() {
 
         this.vineBlock = Blocks.VINE;
-        this.maxY = 254;
+        this.setMaxY(254);
         this.propNorth = BlockVine.NORTH;
         this.propEast = BlockVine.EAST;
         this.propSouth = BlockVine.SOUTH;
@@ -36,7 +36,7 @@ public class WorldGenVinesRTG extends WorldGenerator {
         this();
 
         this.vineBlock = vineBlock;
-        this.maxY = maxY;
+        this.setMaxY(maxY);
         this.propNorth = propNorth;
         this.propEast = propEast;
         this.propSouth = propSouth;
@@ -84,5 +84,71 @@ public class WorldGenVinesRTG extends WorldGenerator {
             this.setBlockAndNotifyAdequately(worldIn, pos, iblockstate);
             pos = pos.down();
         }
+    }
+
+    public Block getVineBlock() {
+
+        return vineBlock;
+    }
+
+    public WorldGenVinesRTG setVineBlock(Block vineBlock) {
+
+        this.vineBlock = vineBlock;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public WorldGenVinesRTG setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public PropertyBool getPropNorth() {
+
+        return propNorth;
+    }
+
+    public WorldGenVinesRTG setPropNorth(PropertyBool propNorth) {
+
+        this.propNorth = propNorth;
+        return this;
+    }
+
+    public PropertyBool getPropEast() {
+
+        return propEast;
+    }
+
+    public WorldGenVinesRTG setPropEast(PropertyBool propEast) {
+
+        this.propEast = propEast;
+        return this;
+    }
+
+    public PropertyBool getPropSouth() {
+
+        return propSouth;
+    }
+
+    public WorldGenVinesRTG setPropSouth(PropertyBool propSouth) {
+
+        this.propSouth = propSouth;
+        return this;
+    }
+
+    public PropertyBool getPropWest() {
+
+        return propWest;
+    }
+
+    public WorldGenVinesRTG setPropWest(PropertyBool propWest) {
+
+        this.propWest = propWest;
+        return this;
     }
 }

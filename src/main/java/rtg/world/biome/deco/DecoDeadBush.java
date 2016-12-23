@@ -17,10 +17,10 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  */
 public class DecoDeadBush extends DecoBase {
 
-    public float strengthFactor;
-    public int maxY;
-    public int chance;
-    public int loops;
+    private float strengthFactor;
+    private int maxY;
+    private int chance;
+    private int loops;
 
     public DecoDeadBush() {
 
@@ -30,10 +30,10 @@ public class DecoDeadBush extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // The higher the value, the more there will be.
-        this.chance = 1;
-        this.loops = 1;
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // The higher the value, the more there will be.
+        this.setChance(1);
+        this.setLoops(1);
 
         this.addDecoTypes(DecoType.DEAD_BUSH);
     }
@@ -60,5 +60,49 @@ public class DecoDeadBush extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoDeadBush setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoDeadBush setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoDeadBush setChance(int chance) {
+
+        this.setChance(chance);
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoDeadBush setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
     }
 }

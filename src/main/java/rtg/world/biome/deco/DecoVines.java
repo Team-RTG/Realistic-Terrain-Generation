@@ -22,15 +22,15 @@ import rtg.world.gen.feature.WorldGenVinesRTG;
  */
 public class DecoVines extends DecoBase {
 
-    public int loops;
-    public float strengthFactor;
-    public Block vineBlock;
-    public int minY;
-    public int maxY;
-    public PropertyBool propNorth;
-    public PropertyBool propEast;
-    public PropertyBool propSouth;
-    public PropertyBool propWest;
+    private int loops;
+    private float strengthFactor;
+    private Block vineBlock;
+    private int minY;
+    private int maxY;
+    private PropertyBool propNorth;
+    private PropertyBool propEast;
+    private PropertyBool propSouth;
+    private PropertyBool propWest;
 
     protected WorldGenerator worldGenerator;
 
@@ -38,10 +38,10 @@ public class DecoVines extends DecoBase {
 
         super();
 
-        this.loops = 1;
-        this.strengthFactor = 0f;
-        this.minY = 63;
-        this.maxY = 200;
+        this.setLoops(1);
+        this.setStrengthFactor(0f);
+        this.setMinY(63);
+        this.setMaxY(200);
         this.vineBlock = Blocks.VINE;
         this.propNorth = BlockVine.NORTH;
         this.propEast = BlockVine.EAST;
@@ -77,7 +77,7 @@ public class DecoVines extends DecoBase {
 
                 this.worldGenerator = new WorldGenVinesRTG(this.vineBlock, this.maxY, this.propNorth, this.propEast, this.propSouth, this.propWest);
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
 
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -97,7 +97,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setLoops(int loops) {
 
-        this.loops = loops;
+        this.setLoops(loops);
         return this;
     }
 
@@ -108,7 +108,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setStrengthFactor(float strengthFactor) {
 
-        this.strengthFactor = strengthFactor;
+        this.setStrengthFactor(strengthFactor);
         return this;
     }
 
@@ -130,7 +130,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setMinY(int minY) {
 
-        this.minY = minY;
+        this.setMinY(minY);
         return this;
     }
 
@@ -141,7 +141,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setMaxY(int maxY) {
 
-        this.maxY = maxY;
+        this.setMaxY(maxY);
         return this;
     }
 

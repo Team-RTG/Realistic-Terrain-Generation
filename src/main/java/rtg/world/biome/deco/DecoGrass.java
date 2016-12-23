@@ -18,17 +18,17 @@ import rtg.world.gen.feature.WorldGenGrass;
  */
 public class DecoGrass extends DecoBase {
 
-    public float strengthFactor;
-    public int minY;
-    public int maxY;
-    public int loops;
-    public int chance;
-    public int notEqualsZerochance;
-    public IBlockState[] randomGrassBlocks;
-    public byte[] randomGrassMetas;
+    private float strengthFactor;
+    private int minY;
+    private int maxY;
+    private int loops;
+    private int chance;
+    private int notEqualsZeroChance;
+    private IBlockState[] randomGrassBlocks;
+    private byte[] randomGrassMetas;
 
-    protected boolean useRandomGrass;
-    protected static final int MAX_LOOPS = 10;
+    private boolean useRandomGrass;
+    private static final int MAX_LOOPS = 10;
 
     private IBlockState block;
     private int meta;
@@ -42,12 +42,12 @@ public class DecoGrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.minY = 1; // No height limit by default.
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
-        this.chance = 1;
-        this.notEqualsZerochance = 1;
+        this.setMinY(1); // No height limit by default.
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
+        this.setChance(1);
+        this.notEqualsZeroChance = 1;
         this.block = Blocks.TALLGRASS.getStateFromMeta(1);
         this.meta = 1;
         this.randomGrassBlocks = new IBlockState[]{};
@@ -90,8 +90,8 @@ public class DecoGrass extends DecoBase {
 
             if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
-                this.loops = (this.loops > this.MAX_LOOPS) ? this.MAX_LOOPS : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
+                this.setLoops((this.loops > this.MAX_LOOPS) ? this.MAX_LOOPS : this.loops);
                 for (int i = 0; i < this.loops * 64; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = this.minY + (rand.nextInt(this.maxY - this.minY) + 1);
@@ -104,9 +104,9 @@ public class DecoGrass extends DecoBase {
                         //this.meta = this.randomGrassMetas[rand.nextInt(this.randomGrassMetas.length)];
                     }
 
-                    if (this.notEqualsZerochance > 1) {
+                    if (this.notEqualsZeroChance > 1) {
 
-                        if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+                        if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
                             grassGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
                         }
                     }
@@ -128,7 +128,7 @@ public class DecoGrass extends DecoBase {
 
     public DecoGrass setStrengthFactor(float strengthFactor) {
 
-        this.strengthFactor = strengthFactor;
+        this.setStrengthFactor(strengthFactor);
         return this;
     }
 
@@ -172,18 +172,18 @@ public class DecoGrass extends DecoBase {
 
     public DecoGrass setChance(int chance) {
 
-        this.chance = chance;
+        this.setChance(chance);
         return this;
     }
 
     public int getNotEqualsZerochance() {
 
-        return notEqualsZerochance;
+        return notEqualsZeroChance;
     }
 
-    public DecoGrass setNotEqualsZerochance(int notEqualsZerochance) {
+    public DecoGrass setNotEqualsZerochance(int notEqualsZeroChance) {
 
-        this.notEqualsZerochance = notEqualsZerochance;
+        this.notEqualsZeroChance = notEqualsZeroChance;
         return this;
     }
 

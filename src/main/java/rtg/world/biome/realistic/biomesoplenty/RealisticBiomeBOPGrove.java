@@ -11,15 +11,16 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
 
 public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
@@ -174,44 +175,44 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
-        decoFallenTree1.distribution.noiseDivisor = 80f;
-        decoFallenTree1.distribution.noiseFactor = 60f;
-        decoFallenTree1.distribution.noiseAddend = -15f;
-        decoFallenTree1.logCondition = DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
-        decoFallenTree1.logConditionNoise = 8f;
-        decoFallenTree1.logConditionChance = 1;
-        decoFallenTree1.maxY = 100;
-        decoFallenTree1.logBlock = BlockUtil.getStateLog(2);
-        decoFallenTree1.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoFallenTree1.minSize = 3;
-        decoFallenTree1.maxSize = 6;
+        decoFallenTree1.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree1.getDistribution().setNoiseFactor(60f);
+        decoFallenTree1.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree1.setLogCondition(X_DIVIDED_BY_STRENGTH);
+        decoFallenTree1.setLogConditionNoise(8f);
+        decoFallenTree1.setLogConditionChance(1);
+        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.setLogBlock(BlockUtil.getStateLog(2));
+        decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoFallenTree1.setMinSize(3);
+        decoFallenTree1.setMaxSize(6);
 
         DecoFallenTree decoFallenTree2 = new DecoFallenTree();
-        decoFallenTree2.distribution.noiseDivisor = 80f;
-        decoFallenTree2.distribution.noiseFactor = 60f;
-        decoFallenTree2.distribution.noiseAddend = -15f;
-        decoFallenTree2.logCondition = DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
-        decoFallenTree2.logConditionNoise = 8f;
-        decoFallenTree2.logConditionChance = 1;
-        decoFallenTree2.maxY = 100;
-        decoFallenTree2.logBlock = BlockUtil.getStateLog2(1);
-        decoFallenTree2.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenTree2.minSize = 3;
-        decoFallenTree2.maxSize = 6;
+        decoFallenTree2.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree2.getDistribution().setNoiseFactor(60f);
+        decoFallenTree2.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree2.setLogCondition(X_DIVIDED_BY_STRENGTH);
+        decoFallenTree2.setLogConditionNoise(8f);
+        decoFallenTree2.setLogConditionChance(1);
+        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog2(1));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree2.setMinSize(3);
+        decoFallenTree2.setMaxSize(6);
 
         DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
         this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.logBlock = BlockUtil.getStateLog(2);
-        decoShrubCustom.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoShrubCustom.maxY = 110;
-        decoShrubCustom.strengthFactor = 2f;
+        decoShrubCustom.setLogBlock(BlockUtil.getStateLog(2));
+        decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoShrubCustom.setMaxY(110);
+        decoShrubCustom.setStrengthFactor(2f);
         DecoShrub decoShrubCustom2 = new DecoShrub();
-        decoShrubCustom2.logBlock = BlockUtil.getStateLog2(1);
-        decoShrubCustom2.leavesBlock = BlockUtil.getStateLeaf2(1);
-        decoShrubCustom2.maxY = 110;
-        decoShrubCustom2.strengthFactor = 2f;
+        decoShrubCustom2.setLogBlock(BlockUtil.getStateLog2(1));
+        decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        decoShrubCustom2.setMaxY(110);
+        decoShrubCustom2.setStrengthFactor(2f);
         DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
         this.addDeco(decoHelperHelper50502);
 
@@ -222,8 +223,8 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         this.addDeco(decoFlowersRTG);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 12f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

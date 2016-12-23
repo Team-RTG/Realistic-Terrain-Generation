@@ -9,10 +9,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -122,22 +122,22 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
         //Sparse wheat
         DecoCrop decoCropWheat = new DecoCrop();
-        decoCropWheat.size = 8;
-        decoCropWheat.density = 5;
-        decoCropWheat.chance = this.getConfig().WHEAT_CHANCE.get();
-        decoCropWheat.type = 3;
-        decoCropWheat.water = false;
-        decoCropWheat.minY = this.getConfig().WHEAT_MIN_Y.get();
-        decoCropWheat.maxY = this.getConfig().WHEAT_MAX_Y.get();
+        decoCropWheat.setSize(8);
+        decoCropWheat.setDensity(5);
+        decoCropWheat.setChance(this.getConfig().WHEAT_CHANCE.get());
+        decoCropWheat.setType(3);
+        decoCropWheat.setWater(false);
+        decoCropWheat.setMinY(this.getConfig().WHEAT_MIN_Y.get());
+        decoCropWheat.setMaxY(this.getConfig().WHEAT_MAX_Y.get());
         this.addDeco(decoCropWheat, this.getConfig().ALLOW_WHEAT.get());
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.logBlock = Blocks.LOG.getDefaultState();
-        decoShrubOak.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoShrubOak.maxY = 110;
-        decoShrubOak.loops = 1;
-        decoShrubOak.chance = 36;
+        decoShrubOak.setLogBlock(Blocks.LOG.getDefaultState());
+        decoShrubOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoShrubOak.setMaxY(110);
+        decoShrubOak.setLoops(1);
+        decoShrubOak.setChance(36);
         this.addDeco(decoShrubOak);
 
         // The occasional flower.
@@ -149,44 +149,44 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
         // Lots of grass, but not as much as vanilla.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 60;
-        decoGrass.maxY = 128;
-        decoGrass.loops = 6;
+        decoGrass.setMinY(60);
+        decoGrass.setMaxY(128);
+        decoGrass.setLoops(6);
         this.addDeco(decoGrass);
 
         // Very rare fat oak/birch trees.
 
         TreeRTG roburTree1 = new TreeRTGQuercusRobur();
-        roburTree1.logBlock = Blocks.LOG.getDefaultState();
-        roburTree1.leavesBlock = Blocks.LEAVES.getDefaultState();
-        roburTree1.minTrunkSize = 3;
-        roburTree1.maxTrunkSize = 5;
-        roburTree1.minCrownSize = 7;
-        roburTree1.maxCrownSize = 9;
+        roburTree1.setLogBlock(Blocks.LOG.getDefaultState());
+        roburTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        roburTree1.setMinTrunkSize(3);
+        roburTree1.setMaxTrunkSize(5);
+        roburTree1.setMinCrownSize(7);
+        roburTree1.setMaxCrownSize(9);
         this.addTree(roburTree1);
 
         DecoTree oakTrees = new DecoTree(roburTree1);
-        oakTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        oakTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        oakTrees.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);
-        oakTrees.treeConditionNoise = 0.4f;
-        oakTrees.treeConditionChance = 48;
+        oakTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        oakTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        oakTrees.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));
+        oakTrees.setTreeConditionNoise(0.4f);
+        oakTrees.setTreeConditionChance(48);
 
         TreeRTG roburTree2 = new TreeRTGQuercusRobur();
-        roburTree2.logBlock = BlockUtil.getStateLog(2);
-        roburTree2.leavesBlock = BlockUtil.getStateLeaf(2);
-        roburTree2.minTrunkSize = 3;
-        roburTree2.maxTrunkSize = 5;
-        roburTree2.minCrownSize = 7;
-        roburTree2.maxCrownSize = 9;
+        roburTree2.setLogBlock(BlockUtil.getStateLog(2));
+        roburTree2.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        roburTree2.setMinTrunkSize(3);
+        roburTree2.setMaxTrunkSize(5);
+        roburTree2.setMinCrownSize(7);
+        roburTree2.setMaxCrownSize(9);
         this.addTree(roburTree2);
 
         DecoTree birchTrees = new DecoTree(roburTree2);
-        birchTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        birchTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        birchTrees.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);
-        birchTrees.treeConditionNoise = 0.4f;
-        birchTrees.treeConditionChance = 48;
+        birchTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        birchTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        birchTrees.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));
+        birchTrees.setTreeConditionNoise(0.4f);
+        birchTrees.setTreeConditionChance(48);
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
 

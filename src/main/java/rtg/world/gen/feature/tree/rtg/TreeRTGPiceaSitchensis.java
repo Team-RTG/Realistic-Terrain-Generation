@@ -18,31 +18,31 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGPiceaSitchensis());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.LOG;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)1;<br>
-     * decoTree.leavesBlock = Blocks.LEAVES;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)1;<br>
-     * decoTree.minTrunkSize = 4;<br>
-     * decoTree.maxTrunkSize = 9;<br>
-     * decoTree.minCrownSize = 5;<br>
-     * decoTree.maxCrownSize = 14;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(4);<br>
+     * decoTree.setMaxTrunkSize(9);<br>
+     * decoTree.setMinCrownSize(5);<br>
+     * decoTree.setMaxCrownSize(14);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGPiceaSitchensis() {
 
         super();
 
-        this.logBlock = BlockUtil.getStateLog(1);
-        this.leavesBlock = BlockUtil.getStateLeaf(1);
+        this.setLogBlock(BlockUtil.getStateLog(1));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(1));
         this.trunkSize = 8;
         this.crownSize = 10;
-        this.noLeaves = false;
+        this.setNoLeaves(false);
     }
 
     @Override

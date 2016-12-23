@@ -18,28 +18,28 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGBetulaPapyrifera());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.LOG;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)2;<br>
-     * decoTree.leavesBlock = Blocks.LEAVES;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)2;<br>
-     * decoTree.minTrunkSize = 6;<br>
-     * decoTree.maxTrunkSize = 8;<br>
-     * decoTree.minCrownSize = 8;<br>
-     * decoTree.maxCrownSize = 24;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(6);<br>
+     * decoTree.setMaxTrunkSize(8);<br>
+     * decoTree.setMinCrownSize(8);<br>
+     * decoTree.setMaxCrownSize(24);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGBetulaPapyrifera() {
 
         super();
 
-        this.logBlock = BlockUtil.getStateLog(2);
-        this.leavesBlock = BlockUtil.getStateLeaf(2);
+        this.setLogBlock(BlockUtil.getStateLog(2));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(2));
     }
 
     @Override

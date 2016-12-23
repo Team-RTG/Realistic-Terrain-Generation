@@ -18,11 +18,11 @@ import rtg.world.gen.feature.WorldGenGrass;
  */
 public class DecoGrassDoubleTallgrass extends DecoBase {
 
-    public float strengthFactor;
-    public int maxY;
-    public int loops;
-    public int grassChance;
-    public int doubleGrassChance;
+    private float strengthFactor;
+    private int maxY;
+    private int loops;
+    private int grassChance;
+    private int doubleGrassChance;
 
     public DecoGrassDoubleTallgrass() {
 
@@ -32,11 +32,11 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
         this.grassChance = 0; // 50% chance for both grass & double grass by default.
-        this.doubleGrassChance = 0; // 50% chance for both grass & double grass by default. (If set, overrides grass chance.)
+        this.setDoubleGrassChance(0); // 50% chance for both grass & double grass by default. (If set, overrides grass chance.)
 
         this.addDecoTypes(DecoType.GRASS, DecoType.GRASS_DOUBLE);
     }
@@ -83,7 +83,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
                     }
                 }
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.maxY);
@@ -96,5 +96,60 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoGrassDoubleTallgrass setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoGrassDoubleTallgrass setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoGrassDoubleTallgrass setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public int getGrassChance() {
+
+        return grassChance;
+    }
+
+    public DecoGrassDoubleTallgrass setGrassChance(int grassChance) {
+
+        this.grassChance = grassChance;
+        return this;
+    }
+
+    public int getDoubleGrassChance() {
+
+        return doubleGrassChance;
+    }
+
+    public DecoGrassDoubleTallgrass setDoubleGrassChance(int doubleGrassChance) {
+
+        this.setDoubleGrassChance(doubleGrassChance);
+        return this;
     }
 }

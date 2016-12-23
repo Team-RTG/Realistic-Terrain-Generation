@@ -14,8 +14,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public class DecoHelperThisOrThat extends DecoBase {
 
-    public int chance;
-    public ChanceType chanceType;
+    private int chance;
+    private ChanceType chanceType;
     private DecoBase decoThis;
     private DecoBase decoThat;
 
@@ -23,7 +23,7 @@ public class DecoHelperThisOrThat extends DecoBase {
 
         super();
 
-        this.chance = chance;
+        this.setChance(chance);
         this.chanceType = chanceType;
         this.decoThis = decoThis;
         this.decoThat = decoThat;
@@ -73,5 +73,27 @@ public class DecoHelperThisOrThat extends DecoBase {
     public enum ChanceType {
         EQUALS_ZERO,
         NOT_EQUALS_ZERO;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoHelperThisOrThat setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public ChanceType getChanceType() {
+
+        return chanceType;
+    }
+
+    public DecoHelperThisOrThat setChanceType(ChanceType chanceType) {
+
+        this.chanceType = chanceType;
+        return this;
     }
 }

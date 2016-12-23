@@ -9,17 +9,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
 
@@ -169,23 +170,23 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
     public void initDecos() {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 2;
-        decoFallenTree.maxSize = 4;
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(24);
+        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(2);
+        decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(24);
+        decoBoulder.setMaxY(80);
+        decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -193,9 +194,9 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 63;
-        decoGrass.maxY = 105;
-        decoGrass.loops = 1;
+        decoGrass.setMinY(63);
+        decoGrass.setMaxY(105);
+        decoGrass.setLoops(1);
         this.addDeco(decoGrass);
     }
 }

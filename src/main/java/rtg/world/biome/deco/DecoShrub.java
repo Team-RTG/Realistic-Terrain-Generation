@@ -19,21 +19,21 @@ import rtg.world.gen.feature.WorldGenShrubRTG;
  */
 public class DecoShrub extends DecoBase {
 
-    public int size;
-    public boolean useDefaultRandom;
-    public boolean Sand;
-    public IBlockState[] randomLogBlocks;
-    public IBlockState[] randomLeavesBlocks;
-    public float strengthFactor; // Higher = more/bigger shrubs.
-    public int minY; // Height restriction.
-    public int maxY; // Height restriction.
-    public int chance; // Higher = more rare.
-    public int notEqualsZerochance;
-    public int loops;
-    public int minSize;
-    public int maxSize;
-    public IBlockState logBlock;
-    public IBlockState leavesBlock;
+    private int size;
+    private boolean useDefaultRandom;
+    private boolean Sand;
+    private IBlockState[] randomLogBlocks;
+    private IBlockState[] randomLeavesBlocks;
+    private float strengthFactor; // Higher = more/bigger shrubs.
+    private int minY; // Height restriction.
+    private int maxY; // Height restriction.
+    private int chance; // Higher = more rare.
+    private int notEqualsZeroChance;
+    private int loops;
+    private int minSize;
+    private int maxSize;
+    private IBlockState logBlock;
+    private IBlockState leavesBlock;
 
     public DecoShrub() {
 
@@ -48,16 +48,16 @@ public class DecoShrub extends DecoBase {
         this.Sand = true; //Whether shrubs generate on sand
         this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
-        this.strengthFactor = 3f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.minY = 1; // No height limit by default.
-        this.maxY = 255; // No height limit by default.
-        this.chance = 1; // 100% chance of generating by default.
-        this.notEqualsZerochance = 1;
-        this.loops = 1;
-        this.minSize = 3;
-        this.maxSize = 4;
-        this.logBlock = Blocks.LOG.getDefaultState();
-        this.leavesBlock = Blocks.LEAVES.getDefaultState();
+        this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setMinY(1); // No height limit by default.
+        this.setMaxY(255); // No height limit by default.
+        this.setChance(1); // 100% chance of generating by default.
+        this.notEqualsZeroChance = 1;
+        this.setLoops(1);
+        this.setMinSize(3);
+        this.setMaxSize(4);
+        this.setLogBlock(Blocks.LOG.getDefaultState());
+        this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
 
         this.addDecoTypes(DecoType.SHRUB);
     }
@@ -87,8 +87,8 @@ public class DecoShrub extends DecoBase {
                 this.randomLogBlocks.length == this.randomLeavesBlocks.length) {
                 int rnd = rand.nextInt(this.randomLogBlocks.length);
 
-                this.logBlock = this.randomLogBlocks[rnd];
-                this.leavesBlock = this.randomLeavesBlocks[rnd];
+                this.setLogBlock(this.randomLogBlocks[rnd]);
+                this.setLeavesBlock(this.randomLeavesBlocks[rnd]);
             }
 
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
@@ -101,9 +101,9 @@ public class DecoShrub extends DecoBase {
                 int intZ = worldZ + rand.nextInt(16);// + 8;
                 int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
-                if (this.notEqualsZerochance > 1) {
+                if (this.notEqualsZeroChance > 1) {
 
-                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
                         generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
@@ -190,7 +190,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setStrengthFactor(float strengthFactor) {
 
-        this.strengthFactor = strengthFactor;
+        this.setStrengthFactor(strengthFactor);
         return this;
     }
 
@@ -201,7 +201,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMinY(int minY) {
 
-        this.minY = minY;
+        this.setMinY(minY);
         return this;
     }
 
@@ -212,7 +212,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMaxY(int maxY) {
 
-        this.maxY = maxY;
+        this.setMaxY(maxY);
         return this;
     }
 
@@ -223,18 +223,18 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setChance(int chance) {
 
-        this.chance = chance;
+        this.setChance(chance);
         return this;
     }
 
-    public int getNotEqualsZerochance() {
+    public int getNotEqualsZeroChance() {
 
-        return notEqualsZerochance;
+        return notEqualsZeroChance;
     }
 
-    public DecoShrub setNotEqualsZerochance(int notEqualsZerochance) {
+    public DecoShrub setNotEqualsZeroChance(int notEqualsZeroChance) {
 
-        this.notEqualsZerochance = notEqualsZerochance;
+        this.notEqualsZeroChance = notEqualsZeroChance;
         return this;
     }
 
@@ -245,7 +245,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setLoops(int loops) {
 
-        this.loops = loops;
+        this.setLoops(loops);
         return this;
     }
 
@@ -256,7 +256,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMinSize(int minSize) {
 
-        this.minSize = minSize;
+        this.setMinSize(minSize);
         return this;
     }
 
@@ -267,7 +267,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMaxSize(int maxSize) {
 
-        this.maxSize = maxSize;
+        this.setMaxSize(maxSize);
         return this;
     }
 
@@ -278,7 +278,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setLogBlock(IBlockState logBlock) {
 
-        this.logBlock = logBlock;
+        this.setLogBlock(logBlock);
         return this;
     }
 
@@ -289,7 +289,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setLeavesBlock(IBlockState leavesBlock) {
 
-        this.leavesBlock = leavesBlock;
+        this.setLeavesBlock(leavesBlock);
         return this;
     }
 }

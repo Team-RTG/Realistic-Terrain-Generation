@@ -11,14 +11,15 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
 
 public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
 
@@ -119,22 +120,22 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 80;
-        decoBoulder.chance = 16;
-        decoBoulder.strengthFactor = 1f;
+        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.ALWAYS_GENERATE;
-        decoFallenTree.logConditionChance = 4;
-        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 4;
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(ALWAYS_GENERATE);
+        decoFallenTree.setLogConditionChance(4);
+        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

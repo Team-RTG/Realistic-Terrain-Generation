@@ -35,9 +35,9 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
         this.grassChance = 0; // 50% chance for both grass & ferns by default.
         this.fernChance = 0; // 50% chance for both grass & ferns by default. (If set, overrides grass chance.)
 
@@ -54,7 +54,7 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
                 WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(GRASS_META), GRASS_META);
                 WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(FERN_META), FERN_META);
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.maxY);
@@ -99,5 +99,60 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoLargeFernDoubleTallgrass setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoLargeFernDoubleTallgrass setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoLargeFernDoubleTallgrass setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public int getGrassChance() {
+
+        return grassChance;
+    }
+
+    public DecoLargeFernDoubleTallgrass setGrassChance(int grassChance) {
+
+        this.grassChance = grassChance;
+        return this;
+    }
+
+    public int getFernChance() {
+
+        return fernChance;
+    }
+
+    public DecoLargeFernDoubleTallgrass setFernChance(int fernChance) {
+
+        this.fernChance = fernChance;
+        return this;
     }
 }

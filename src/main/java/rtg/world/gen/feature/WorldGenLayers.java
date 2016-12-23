@@ -31,7 +31,7 @@ public class WorldGenLayers extends WorldGenerator {
         this.layerProperty = prop;
         this.dropHeight = dropHeight;
         this.layerRange = range;
-        this.scatter = scatter < 1 ? 1 : scatter;
+        this.setScatter(scatter < 1 ? 1 : scatter);
 
         this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(
             Blocks.GRASS.getDefaultState(),
@@ -45,7 +45,7 @@ public class WorldGenLayers extends WorldGenerator {
 
         this(block, prop, dropHeight, range, scatter);
 
-        this.validGroundBlocks = validGroundBlocks;
+        this.setValidGroundBlocks(validGroundBlocks);
     }
 
     @Override
@@ -93,5 +93,71 @@ public class WorldGenLayers extends WorldGenerator {
         }
 
         return true;
+    }
+
+    public IBlockState getLayerBlock() {
+
+        return layerBlock;
+    }
+
+    public WorldGenLayers setLayerBlock(IBlockState layerBlock) {
+
+        this.layerBlock = layerBlock;
+        return this;
+    }
+
+    public PropertyInteger getLayerProperty() {
+
+        return layerProperty;
+    }
+
+    public WorldGenLayers setLayerProperty(PropertyInteger layerProperty) {
+
+        this.layerProperty = layerProperty;
+        return this;
+    }
+
+    public int getDropHeight() {
+
+        return dropHeight;
+    }
+
+    public WorldGenLayers setDropHeight(int dropHeight) {
+
+        this.dropHeight = dropHeight;
+        return this;
+    }
+
+    public int getLayerRange() {
+
+        return layerRange;
+    }
+
+    public WorldGenLayers setLayerRange(int layerRange) {
+
+        this.layerRange = layerRange;
+        return this;
+    }
+
+    public int getScatter() {
+
+        return scatter;
+    }
+
+    public WorldGenLayers setScatter(int scatter) {
+
+        this.scatter = scatter;
+        return this;
+    }
+
+    public ArrayList<IBlockState> getValidGroundBlocks() {
+
+        return validGroundBlocks;
+    }
+
+    public WorldGenLayers setValidGroundBlocks(ArrayList<IBlockState> validGroundBlocks) {
+
+        this.validGroundBlocks = validGroundBlocks;
+        return this;
     }
 }

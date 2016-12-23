@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
@@ -21,6 +21,7 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
 
@@ -171,9 +172,9 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 4f;
-        decoShrub.chance = 3;
+        decoShrub.setMaxY(110);
+        decoShrub.setStrengthFactor(4f);
+        decoShrub.setChance(3);
         this.addDeco(decoShrub);
 
         // Flowers are the most aesthetically important feature of this biome, so let's add those next.
@@ -193,44 +194,44 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         // Trees first.
 
         TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
-        ponderosaOakTree.logBlock = Blocks.LOG.getDefaultState();
-        ponderosaOakTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        ponderosaOakTree.minTrunkSize = 11;
-        ponderosaOakTree.maxTrunkSize = 21;
-        ponderosaOakTree.minCrownSize = 15;
-        ponderosaOakTree.maxCrownSize = 29;
+        ponderosaOakTree.setLogBlock(Blocks.LOG.getDefaultState());
+        ponderosaOakTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        ponderosaOakTree.setMinTrunkSize(11);
+        ponderosaOakTree.setMaxTrunkSize(21);
+        ponderosaOakTree.setMinCrownSize(15);
+        ponderosaOakTree.setMaxCrownSize(29);
         this.addTree(ponderosaOakTree);
 
         DecoTree oakPines = new DecoTree(ponderosaOakTree);
-        oakPines.strengthNoiseFactorForLoops = true;
-        oakPines.treeType = DecoTree.TreeType.RTG_TREE;
-        oakPines.distribution.noiseDivisor = 80f;
-        oakPines.distribution.noiseFactor = 60f;
-        oakPines.distribution.noiseAddend = -15f;
-        oakPines.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
-        oakPines.treeConditionNoise = 0f;
-        oakPines.treeConditionChance = 1;
-        oakPines.maxY = 140;
+        oakPines.setStrengthNoiseFactorForLoops(true);
+        oakPines.setTreeType(DecoTree.TreeType.RTG_TREE);
+        oakPines.getDistribution().setNoiseDivisor(80f);
+        oakPines.getDistribution().setNoiseFactor(60f);
+        oakPines.getDistribution().setNoiseAddend(-15f);
+        oakPines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+        oakPines.setTreeConditionNoise(0f);
+        oakPines.setTreeConditionChance(1);
+        oakPines.setMaxY(140);
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = BlockUtil.getStateLog(1);
-        ponderosaSpruceTree.leavesBlock = BlockUtil.getStateLeaf(1);
-        ponderosaSpruceTree.minTrunkSize = 11;
-        ponderosaSpruceTree.maxTrunkSize = 21;
-        ponderosaSpruceTree.minCrownSize = 15;
-        ponderosaSpruceTree.maxCrownSize = 29;
+        ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(1));
+        ponderosaSpruceTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        ponderosaSpruceTree.setMinTrunkSize(11);
+        ponderosaSpruceTree.setMaxTrunkSize(21);
+        ponderosaSpruceTree.setMinCrownSize(15);
+        ponderosaSpruceTree.setMaxCrownSize(29);
         this.addTree(ponderosaSpruceTree);
 
         DecoTree sprucePines = new DecoTree(ponderosaSpruceTree);
-        sprucePines.strengthNoiseFactorForLoops = true;
-        sprucePines.treeType = DecoTree.TreeType.RTG_TREE;
-        sprucePines.distribution.noiseDivisor = 80f;
-        sprucePines.distribution.noiseFactor = 60f;
-        sprucePines.distribution.noiseAddend = -15f;
-        sprucePines.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
-        sprucePines.treeConditionNoise = 0f;
-        sprucePines.treeConditionChance = 1;
-        sprucePines.maxY = 140;
+        sprucePines.setStrengthNoiseFactorForLoops(true);
+        sprucePines.setTreeType(DecoTree.TreeType.RTG_TREE);
+        sprucePines.getDistribution().setNoiseDivisor(80f);
+        sprucePines.getDistribution().setNoiseFactor(60f);
+        sprucePines.getDistribution().setNoiseAddend(-15f);
+        sprucePines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+        sprucePines.setTreeConditionNoise(0f);
+        sprucePines.setTreeConditionChance(1);
+        sprucePines.setMaxY(140);
 
         DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
         this.addDeco(decoPines);
@@ -240,33 +241,33 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // Not much free space left, so let's give some space to the base biome.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Add some fallen trees of the oak and spruce variety (50/50 distribution).
         DecoFallenTree decoFallenOak = new DecoFallenTree();
-        decoFallenOak.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenOak.logConditionChance = 8;
-        decoFallenOak.maxY = 100;
-        decoFallenOak.logBlock = Blocks.LOG.getDefaultState();
-        decoFallenOak.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenOak.minSize = 3;
-        decoFallenOak.maxSize = 6;
+        decoFallenOak.setLogCondition(RANDOM_CHANCE);
+        decoFallenOak.setLogConditionChance(8);
+        decoFallenOak.setMaxY(100);
+        decoFallenOak.setLogBlock(Blocks.LOG.getDefaultState());
+        decoFallenOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenOak.setMinSize(3);
+        decoFallenOak.setMaxSize(6);
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
-        decoFallenSpruce.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenSpruce.logConditionChance = 8;
-        decoFallenSpruce.maxY = 100;
-        decoFallenSpruce.logBlock = BlockUtil.getStateLog(1);
-        decoFallenSpruce.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenSpruce.minSize = 3;
-        decoFallenSpruce.maxSize = 6;
+        decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
+        decoFallenSpruce.setLogConditionChance(8);
+        decoFallenSpruce.setMaxY(100);
+        decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
+        decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenSpruce.setMinSize(3);
+        decoFallenSpruce.setMaxSize(6);
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 24f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(24f);
         this.addDeco(decoGrass);
     }
 }

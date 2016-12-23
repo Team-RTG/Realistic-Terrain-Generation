@@ -21,24 +21,24 @@ public class DecoBaseBiomeDecorations extends DecoBase {
      * This optional setting is useful when you want the base biome to decorate a majority of the biome's chunks.
      * Only used if greater than 0
      */
-    public int equalsZeroChance;
+    private int equalsZeroChance;
 
     /**
      * This optional setting is useful when you want the base biome to decorate a minority of the biome's chunks.
      * Only used if greater than 0
      */
-    public int notEqualsZeroChance;
+    private int notEqualsZeroChance;
 
     /**
      * How many times per chunk do we want the base biome to decorate itself? (Usually only once)
      */
-    public int loops;
+    private int loops;
 
     /**
      * Height restriction.
      */
-    public int minY;
-    public int maxY;
+    private int minY;
+    private int maxY;
 
     public DecoBaseBiomeDecorations() {
 
@@ -48,11 +48,11 @@ public class DecoBaseBiomeDecorations extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.equalsZeroChance = 0; // Only used if greater than 0
-        this.notEqualsZeroChance = 0; // Only used if greater than 0
-        this.loops = 1; // You almost always want to loop only once.
-        this.minY = 1; // No height limit by default.
-        this.maxY = 255; // No height limit by default.
+        this.setEqualsZeroChance(0); // Only used if greater than 0
+        this.setNotEqualsZeroChance(0); // Only used if greater than 0
+        this.setLoops(1); // You almost always want to loop only once.
+        this.setMinY(1); // No height limit by default.
+        this.setMaxY(255); // No height limit by default.
 
         this.addDecoTypes(DecoType.BASE_BIOME_DECORATION);
     }
@@ -101,5 +101,60 @@ public class DecoBaseBiomeDecorations extends DecoBase {
         else {
             biome.rDecorator.decorateOres(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river, hasPlacedVillageBlocks);
         }
+    }
+
+    public int getEqualsZeroChance() {
+
+        return equalsZeroChance;
+    }
+
+    public DecoBaseBiomeDecorations setEqualsZeroChance(int equalsZeroChance) {
+
+        this.setEqualsZeroChance(equalsZeroChance);
+        return this;
+    }
+
+    public int getNotEqualsZeroChance() {
+
+        return notEqualsZeroChance;
+    }
+
+    public DecoBaseBiomeDecorations setNotEqualsZeroChance(int notEqualsZeroChance) {
+
+        this.setNotEqualsZeroChance(notEqualsZeroChance);
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoBaseBiomeDecorations setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoBaseBiomeDecorations setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoBaseBiomeDecorations setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
     }
 }

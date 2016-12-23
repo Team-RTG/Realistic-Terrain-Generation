@@ -11,10 +11,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
@@ -163,14 +163,14 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.chance = 10;
-        decoShrub.strengthFactor = 4f;
+        decoShrub.setMaxY(110);
+        decoShrub.setChance(10);
+        decoShrub.setStrengthFactor(4f);
         this.addDeco(decoShrub);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 6f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(6f);
         this.addDeco(decoGrass);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

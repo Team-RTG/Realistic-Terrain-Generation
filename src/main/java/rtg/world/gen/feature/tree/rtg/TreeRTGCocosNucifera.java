@@ -79,28 +79,28 @@ public class TreeRTGCocosNucifera extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGCocosNucifera());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.LOG;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)3;<br>
-     * decoTree.leavesBlock = Blocks.LEAVES;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)3;<br>
-     * decoTree.minTrunkSize = 7;<br>
-     * decoTree.maxTrunkSize = 8;<br>
-     * decoTree.minCrownSize = 7;<br>
-     * decoTree.maxCrownSize = 10;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(7);<br>
+     * decoTree.setMaxTrunkSize(8);<br>
+     * decoTree.setMinCrownSize(7);<br>
+     * decoTree.setMaxCrownSize(10);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGCocosNucifera() {
 
         super();
 
-        this.logBlock = BlockUtil.getStateLog(3);
-        this.leavesBlock = BlockUtil.getStateLeaf(3);
+        this.setLogBlock(BlockUtil.getStateLog(3));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(3));
         this.trunkSize = 8;
         this.crownSize = 7;
     }

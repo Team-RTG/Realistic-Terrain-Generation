@@ -27,8 +27,8 @@ public class WorldGenLog extends WorldGenerator {
      */
     public WorldGenLog(IBlockState logBlock, IBlockState leavesBlock, int logLength) {
 
-        this.logBlock = logBlock;
-        this.leavesBlock = leavesBlock;
+        this.setLogBlock(logBlock);
+        this.setLeavesBlock(leavesBlock);
         this.logLength = logLength;
 
         this.generateLeaves = false;
@@ -165,5 +165,27 @@ public class WorldGenLog extends WorldGenerator {
         if ((b.getMaterial() == Material.AIR || b.getMaterial() == Material.VINE || b.getMaterial() == Material.PLANTS) && rand.nextInt(3) == 0) {
             world.setBlockState(new BlockPos(x, y + 1, z), leavesBlock, 2);
         }
+    }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public WorldGenLog setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public WorldGenLog setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
     }
 }

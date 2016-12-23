@@ -18,12 +18,12 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  */
 public class DecoMushrooms extends DecoBase {
 
-    public float strengthFactor;
-    public int maxY;
-    public float randomFloat;
-    public RandomType randomType;
-    public int chance;
-    public int loops;
+    private float strengthFactor;
+    private int maxY;
+    private float randomFloat;
+    private RandomType randomType;
+    private int chance;
+    private int loops;
 
     public DecoMushrooms() {
 
@@ -33,12 +33,12 @@ public class DecoMushrooms extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // The higher the value, the more there will be. Disabled by default.
-        this.randomType = RandomType.USE_CHANCE_VALUE;
-        this.randomFloat = 1f;
-        this.chance = 1;
-        this.loops = 1;
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // The higher the value, the more there will be. Disabled by default.
+        this.setRandomType(RandomType.USE_CHANCE_VALUE);
+        this.setRandomFloat(1f);
+        this.setChance(1);
+        this.setLoops(1);
 
         this.addDecoTypes(DecoType.MUSHROOM);
     }
@@ -53,14 +53,14 @@ public class DecoMushrooms extends DecoBase {
                 // Let's figure out what the rand.nextInt() argument should be.
                 switch (this.randomType) {
                     case ALWAYS_GENERATE:
-                        this.chance = 1;
+                        this.setChance(1);
                         break;
 
                     case USE_CHANCE_VALUE:
                         break;
 
                     case X_DIVIDED_BY_STRENGTH:
-                        this.chance = (int) (this.randomFloat / strength);
+                        this.setChance((int) (this.randomFloat / strength));
                         break;
 
                     default:
@@ -70,7 +70,7 @@ public class DecoMushrooms extends DecoBase {
                 WorldGenerator worldGeneratorBrownShrooms = new WorldGenBush(Blocks.BROWN_MUSHROOM);
                 WorldGenerator worldGeneratorRedShrooms = new WorldGenBush(Blocks.RED_MUSHROOM);
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
                     if (rand.nextInt(this.chance) == 0) {
 
@@ -97,5 +97,71 @@ public class DecoMushrooms extends DecoBase {
         ALWAYS_GENERATE,
         USE_CHANCE_VALUE,
         X_DIVIDED_BY_STRENGTH
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoMushrooms setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoMushrooms setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public float getRandomFloat() {
+
+        return randomFloat;
+    }
+
+    public DecoMushrooms setRandomFloat(float randomFloat) {
+
+        this.setRandomFloat(randomFloat);
+        return this;
+    }
+
+    public RandomType getRandomType() {
+
+        return randomType;
+    }
+
+    public DecoMushrooms setRandomType(RandomType randomType) {
+
+        this.setRandomType(randomType);
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoMushrooms setChance(int chance) {
+
+        this.setChance(chance);
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoMushrooms setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
     }
 }

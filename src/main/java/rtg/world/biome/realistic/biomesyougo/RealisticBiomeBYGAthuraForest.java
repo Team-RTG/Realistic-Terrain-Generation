@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoGrass;
@@ -172,18 +172,18 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
     public void initDecos() {
 
         DecoShrub decoShrubAthura = new DecoShrub();
-        decoShrubAthura.logBlock = athuraLogBlock;
-        decoShrubAthura.leavesBlock = athuraLeavesBlock;
-        decoShrubAthura.maxY = 90;
-        decoShrubAthura.strengthFactor = 4f;
-        decoShrubAthura.chance = 8;
+        decoShrubAthura.setLogBlock(athuraLogBlock);
+        decoShrubAthura.setLeavesBlock(athuraLeavesBlock);
+        decoShrubAthura.setMaxY(90);
+        decoShrubAthura.setStrengthFactor(4f);
+        decoShrubAthura.setChance(8);
         this.addDeco(decoShrubAthura);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 2f;
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(24);
+        decoBoulder.setMaxY(80);
+        decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -191,9 +191,9 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 63;
-        decoGrass.maxY = 105;
-        decoGrass.loops = 1;
+        decoGrass.setMinY(63);
+        decoGrass.setMaxY(105);
+        decoGrass.setLoops(1);
         this.addDeco(decoGrass);
     }
 }

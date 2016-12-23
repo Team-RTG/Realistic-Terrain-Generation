@@ -11,10 +11,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
@@ -165,9 +165,9 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
         // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 4f;
-        decoShrub.chance = 3;
+        decoShrub.setMaxY(110);
+        decoShrub.setStrengthFactor(4f);
+        decoShrub.setChance(3);
         this.addDeco(decoShrub);
 
         // Flowers are the most aesthetically important feature of this biome, so let's add those next.
@@ -186,13 +186,13 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
         // Not much free space left, so let's give some space to the base biome.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 24f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(24f);
         this.addDeco(decoGrass);
     }
 }

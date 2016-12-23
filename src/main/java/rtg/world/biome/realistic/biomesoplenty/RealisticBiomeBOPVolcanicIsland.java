@@ -11,10 +11,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -160,9 +160,9 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.maxY = 128;
+        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
+        decoGrassDoubleTallgrass.setLoops(15);
+        decoGrassDoubleTallgrass.setMaxY(128);
         this.addDeco(decoGrassDoubleTallgrass);
     }
 }

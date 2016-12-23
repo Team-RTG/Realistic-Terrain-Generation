@@ -17,11 +17,11 @@ import rtg.world.gen.feature.WorldGenJungleCacti;
  */
 public class DecoJungleCacti extends DecoBase {
 
-    public float strengthFactor;
-    public int maxY;
-    public boolean sandOnly;
-    public int extraHeight;
-    public byte sandMeta;
+    private float strengthFactor;
+    private int maxY;
+    private boolean sandOnly;
+    private int extraHeight;
+    private byte sandMeta;
 
     public DecoJungleCacti() {
 
@@ -31,11 +31,11 @@ public class DecoJungleCacti extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.strengthFactor = 8f;
-        this.maxY = 255; // No height limit by default.
-        this.sandOnly = false;
-        this.extraHeight = 7;
-        this.sandMeta = (byte) 1;
+        this.setStrengthFactor(8f);
+        this.setMaxY(255); // No height limit by default.
+        this.setSandOnly(false);
+        this.setExtraHeight(7);
+        this.setSandMeta((byte) 1);
 
         this.addDecoTypes(DecoType.CACTUS);
     }
@@ -60,5 +60,60 @@ public class DecoJungleCacti extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoJungleCacti setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoJungleCacti setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public boolean isSandOnly() {
+
+        return sandOnly;
+    }
+
+    public DecoJungleCacti setSandOnly(boolean sandOnly) {
+
+        this.setSandOnly(sandOnly);
+        return this;
+    }
+
+    public int getExtraHeight() {
+
+        return extraHeight;
+    }
+
+    public DecoJungleCacti setExtraHeight(int extraHeight) {
+
+        this.setExtraHeight(extraHeight);
+        return this;
+    }
+
+    public byte getSandMeta() {
+
+        return sandMeta;
+    }
+
+    public DecoJungleCacti setSandMeta(byte sandMeta) {
+
+        this.setSandMeta(sandMeta);
+        return this;
     }
 }

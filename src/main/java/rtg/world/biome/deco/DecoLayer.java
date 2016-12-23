@@ -19,18 +19,18 @@ import rtg.world.gen.feature.WorldGenLayers;
  */
 public class DecoLayer extends DecoBase {
 
-    public IBlockState layerBlock;
-    public PropertyInteger layerProperty;
-    public int dropHeight;
-    public int layerRange;
-    public int layerScatter;
+    private IBlockState layerBlock;
+    private PropertyInteger layerProperty;
+    private int dropHeight;
+    private int layerRange;
+    private int layerScatter;
 
-    public float strengthFactor; // Higher = more/bigger shrubs.
-    public int minY; // Height restriction.
-    public int maxY; // Height restriction.
-    public int chance; // Higher = more rare.
-    public int notEqualsZerochance;
-    public int loops;
+    private float strengthFactor; // Higher = more/bigger shrubs.
+    private int minY; // Height restriction.
+    private int maxY; // Height restriction.
+    private int chance; // Higher = more rare.
+    private int notEqualsZeroChance;
+    private int loops;
 
     public DecoLayer(IBlockState layerBlock, PropertyInteger layerProperty) {
 
@@ -45,12 +45,12 @@ public class DecoLayer extends DecoBase {
         this.dropHeight = 2;
         this.layerRange = 4;
         this.layerScatter = 3;
-        this.strengthFactor = 2f;
-        this.minY = 63; // Sensible height limit by default.
-        this.maxY = 255; // No height limit by default.
-        this.chance = 1; // 100% chance of generating by default.
-        this.notEqualsZerochance = 1;
-        this.loops = 1;
+        this.setStrengthFactor(2f);
+        this.setMinY(63); // Sensible height limit by default.
+        this.setMaxY(255); // No height limit by default.
+        this.setChance(1); // 100% chance of generating by default.
+        this.notEqualsZeroChance = 1;
+        this.setLoops(1);
 
         this.addDecoTypes(DecoType.LAYER, DecoType.LEAVES, DecoType.FALLEN_LEAVES);
     }
@@ -70,9 +70,9 @@ public class DecoLayer extends DecoBase {
                 int intZ = worldZ + rand.nextInt(16);// + 8;
                 int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
 
-                if (this.notEqualsZerochance > 1) {
+                if (this.notEqualsZeroChance > 1) {
 
-                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZerochance) != 0) {
+                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
                         generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
@@ -95,5 +95,126 @@ public class DecoLayer extends DecoBase {
         }
 
         return worldGenerator.generate(world, rand, new BlockPos(x, y, z));
+    }
+
+    public IBlockState getLayerBlock() {
+
+        return layerBlock;
+    }
+
+    public DecoLayer setLayerBlock(IBlockState layerBlock) {
+
+        this.layerBlock = layerBlock;
+        return this;
+    }
+
+    public PropertyInteger getLayerProperty() {
+
+        return layerProperty;
+    }
+
+    public DecoLayer setLayerProperty(PropertyInteger layerProperty) {
+
+        this.layerProperty = layerProperty;
+        return this;
+    }
+
+    public int getDropHeight() {
+
+        return dropHeight;
+    }
+
+    public DecoLayer setDropHeight(int dropHeight) {
+
+        this.dropHeight = dropHeight;
+        return this;
+    }
+
+    public int getLayerRange() {
+
+        return layerRange;
+    }
+
+    public DecoLayer setLayerRange(int layerRange) {
+
+        this.layerRange = layerRange;
+        return this;
+    }
+
+    public int getLayerScatter() {
+
+        return layerScatter;
+    }
+
+    public DecoLayer setLayerScatter(int layerScatter) {
+
+        this.layerScatter = layerScatter;
+        return this;
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoLayer setStrengthFactor(float strengthFactor) {
+
+        this.setStrengthFactor(strengthFactor);
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoLayer setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoLayer setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoLayer setChance(int chance) {
+
+        this.setChance(chance);
+        return this;
+    }
+
+    public int getNotEqualsZerochance() {
+
+        return notEqualsZeroChance;
+    }
+
+    public DecoLayer setNotEqualsZerochance(int notEqualsZeroChance) {
+
+        this.notEqualsZeroChance = notEqualsZeroChance;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoLayer setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
     }
 }

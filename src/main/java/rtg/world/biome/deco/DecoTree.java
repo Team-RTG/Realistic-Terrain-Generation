@@ -102,7 +102,7 @@ public class DecoTree extends DecoBase {
         this.setTreeConditionNoise(source.treeConditionNoise);
         this.setTreeConditionNoise2(source.treeConditionNoise2);
         this.setTreeConditionFloat(source.treeConditionFloat);
-        this.treeConditionChance = source.treeConditionChance;
+        this.setTreeConditionChance(source.treeConditionChance);
         this.setMinY(source.minY);
         this.setMaxY(source.maxY);
         this.setLogBlock(source.logBlock);
@@ -335,13 +335,13 @@ public class DecoTree extends DecoBase {
         public float getNoiseDivisor() {
 
             return noiseDivisor;
-        }
+    }
 
         public Distribution setNoiseDivisor(float noiseDivisor) {
 
             this.noiseDivisor = noiseDivisor;
             return this;
-        }
+}
 
         public float getNoiseFactor() {
 

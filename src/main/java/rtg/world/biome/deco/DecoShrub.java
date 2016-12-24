@@ -21,7 +21,7 @@ public class DecoShrub extends DecoBase {
 
     private int size;
     private boolean useDefaultRandom;
-    private boolean Sand;
+    private boolean sand;
     private IBlockState[] randomLogBlocks;
     private IBlockState[] randomLeavesBlocks;
     private float strengthFactor; // Higher = more/bigger shrubs.
@@ -45,7 +45,7 @@ public class DecoShrub extends DecoBase {
          */
         this.size = -1;
         this.useDefaultRandom = false;
-        this.Sand = true; //Whether shrubs generate on sand
+        this.sand = true; //Whether shrubs generate on sand
         this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
         this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
@@ -92,7 +92,7 @@ public class DecoShrub extends DecoBase {
             }
 
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
-            WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.Sand);
+            WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand);
 
             int loopCount = this.loops;
             loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
@@ -152,12 +152,12 @@ public class DecoShrub extends DecoBase {
 
     public boolean isSand() {
 
-        return Sand;
+        return sand;
     }
 
     public DecoShrub setSand(boolean sand) {
 
-        Sand = sand;
+        this.sand = sand;
         return this;
     }
 
@@ -190,7 +190,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -201,7 +201,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMinY(int minY) {
 
-        this.setMinY(minY);
+        this.minY = minY;
         return this;
     }
 
@@ -212,7 +212,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMaxY(int maxY) {
 
-        this.setMaxY(maxY);
+        this.maxY = maxY;
         return this;
     }
 
@@ -223,7 +223,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 
@@ -245,7 +245,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setLoops(int loops) {
 
-        this.setLoops(loops);
+        this.loops = loops;
         return this;
     }
 
@@ -256,7 +256,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMinSize(int minSize) {
 
-        this.setMinSize(minSize);
+        this.minSize = minSize;
         return this;
     }
 
@@ -267,7 +267,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setMaxSize(int maxSize) {
 
-        this.setMaxSize(maxSize);
+        this.maxSize = maxSize;
         return this;
     }
 
@@ -278,7 +278,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setLogBlock(IBlockState logBlock) {
 
-        this.setLogBlock(logBlock);
+        this.logBlock = logBlock;
         return this;
     }
 
@@ -289,7 +289,7 @@ public class DecoShrub extends DecoBase {
 
     public DecoShrub setLeavesBlock(IBlockState leavesBlock) {
 
-        this.setLeavesBlock(leavesBlock);
+        this.leavesBlock = leavesBlock;
         return this;
     }
 }

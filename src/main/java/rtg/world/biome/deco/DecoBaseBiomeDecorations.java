@@ -110,7 +110,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
 
     public DecoBaseBiomeDecorations setEqualsZeroChance(int equalsZeroChance) {
 
-        this.setEqualsZeroChance(equalsZeroChance);
+        this.equalsZeroChance = equalsZeroChance;
         return this;
     }
 
@@ -121,7 +121,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
 
     public DecoBaseBiomeDecorations setNotEqualsZeroChance(int notEqualsZeroChance) {
 
-        this.setNotEqualsZeroChance(notEqualsZeroChance);
+        this.notEqualsZeroChance = notEqualsZeroChance;
         return this;
     }
 

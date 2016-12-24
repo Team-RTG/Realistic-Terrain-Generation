@@ -139,7 +139,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -150,7 +150,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setMinY(int minY) {
 
-        this.setMinY(minY);
+        this.minY = minY;
         return this;
     }
 
@@ -161,7 +161,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setMaxY(int maxY) {
 
-        this.setMaxY(maxY);
+        this.maxY = maxY;
         return this;
     }
 
@@ -183,7 +183,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 
@@ -194,7 +194,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setNotEqualsZeroChance(int notEqualsZeroChance) {
 
-        this.setNotEqualsZeroChance(notEqualsZeroChance);
+        this.notEqualsZeroChance = notEqualsZeroChance;
         return this;
     }
 
@@ -205,7 +205,7 @@ public class DecoFlowersRTG extends DecoBase {
 
     public DecoFlowersRTG setLoops(int loops) {
 
-        this.setLoops(loops);
+        this.loops = loops;
         return this;
     }
 }

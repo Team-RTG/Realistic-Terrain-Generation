@@ -97,7 +97,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setLoops(int loops) {
 
-        this.setLoops(loops);
+        this.loops = loops;
         return this;
     }
 
@@ -108,7 +108,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -130,7 +130,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setMinY(int minY) {
 
-        this.setMinY(minY);
+        this.minY = minY;
         return this;
     }
 
@@ -141,7 +141,7 @@ public class DecoVines extends DecoBase {
 
     public DecoVines setMaxY(int maxY) {
 
-        this.setMaxY(maxY);
+        this.maxY = maxY;
         return this;
     }
 

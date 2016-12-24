@@ -27,8 +27,8 @@ public class WorldGenLog extends WorldGenerator {
      */
     public WorldGenLog(IBlockState logBlock, IBlockState leavesBlock, int logLength) {
 
-        this.setLogBlock(logBlock);
-        this.setLeavesBlock(leavesBlock);
+        this.logBlock = logBlock;
+        this.leavesBlock = leavesBlock;
         this.logLength = logLength;
 
         this.generateLeaves = false;

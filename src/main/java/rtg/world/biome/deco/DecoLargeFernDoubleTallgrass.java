@@ -108,7 +108,7 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
 
     public DecoLargeFernDoubleTallgrass setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 

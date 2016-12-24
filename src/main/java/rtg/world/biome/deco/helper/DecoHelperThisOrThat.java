@@ -23,7 +23,7 @@ public class DecoHelperThisOrThat extends DecoBase {
 
         super();
 
-        this.setChance(chance);
+        this.chance = chance;
         this.chanceType = chanceType;
         this.decoThis = decoThis;
         this.decoThat = decoThat;

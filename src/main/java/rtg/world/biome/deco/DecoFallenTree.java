@@ -215,7 +215,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setLoops(int loops) {
 
-        this.setLoops(loops);
+        this.loops = loops;
         return this;
     }
 
@@ -226,7 +226,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setDistribution(Distribution distribution) {
 
-        this.setDistribution(distribution);
+        this.distribution = distribution;
         return this;
     }
 
@@ -237,7 +237,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setLogCondition(LogCondition logCondition) {
 
-        this.setLogCondition(logCondition);
+        this.logCondition = logCondition;
         return this;
     }
 
@@ -248,7 +248,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setLogConditionNoise(float logConditionNoise) {
 
-        this.setLogConditionNoise(logConditionNoise);
+        this.logConditionNoise = logConditionNoise;
         return this;
     }
 
@@ -259,7 +259,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setLogConditionChance(int logConditionChance) {
 
-        this.setLogConditionChance(logConditionChance);
+        this.logConditionChance = logConditionChance;
         return this;
     }
 
@@ -270,7 +270,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setMaxY(int maxY) {
 
-        this.setMaxY(maxY);
+        this.maxY = maxY;
         return this;
     }
 
@@ -281,7 +281,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setLogBlock(IBlockState logBlock) {
 
-        this.setLogBlock(logBlock);
+        this.logBlock = logBlock;
         return this;
     }
 
@@ -292,7 +292,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setLeavesBlock(IBlockState leavesBlock) {
 
-        this.setLeavesBlock(leavesBlock);
+        this.leavesBlock = leavesBlock;
         return this;
     }
 
@@ -303,7 +303,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setMinSize(int minSize) {
 
-        this.setMinSize(minSize);
+        this.minSize = minSize;
         return this;
     }
 
@@ -314,7 +314,7 @@ public class DecoFallenTree extends DecoBase {
 
     public DecoFallenTree setMaxSize(int maxSize) {
 
-        this.setMaxSize(maxSize);
+        this.maxSize = maxSize;
         return this;
     }
 

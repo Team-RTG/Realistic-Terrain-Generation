@@ -77,7 +77,7 @@ public class DecoBoulder extends DecoBase {
 
     public DecoBoulder setBoulderBlock(IBlockState boulderBlock) {
 
-        this.setBoulderBlock(boulderBlock);
+        this.boulderBlock = boulderBlock;
         return this;
     }
 
@@ -88,7 +88,7 @@ public class DecoBoulder extends DecoBase {
 
     public DecoBoulder setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -121,7 +121,7 @@ public class DecoBoulder extends DecoBase {
 
     public DecoBoulder setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

@@ -128,7 +128,7 @@ public class DecoGrass extends DecoBase {
 
     public DecoGrass setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -172,7 +172,7 @@ public class DecoGrass extends DecoBase {
 
     public DecoGrass setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

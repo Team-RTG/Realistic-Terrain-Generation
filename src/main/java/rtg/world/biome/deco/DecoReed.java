@@ -66,7 +66,7 @@ public class DecoReed extends DecoBase {
 
     public DecoReed setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 

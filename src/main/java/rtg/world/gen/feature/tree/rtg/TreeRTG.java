@@ -231,7 +231,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setLogBlock(IBlockState logBlock) {
 
-        this.setLogBlock(logBlock);
+        this.logBlock = logBlock;
         return this;
     }
 
@@ -242,7 +242,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setLeavesBlock(IBlockState leavesBlock) {
 
-        this.setLeavesBlock(leavesBlock);
+        this.leavesBlock = leavesBlock;
         return this;
     }
 
@@ -275,7 +275,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setNoLeaves(boolean noLeaves) {
 
-        this.setNoLeaves(noLeaves);
+        this.noLeaves = noLeaves;
         return this;
     }
 
@@ -308,7 +308,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setMinTrunkSize(int minTrunkSize) {
 
-        this.setMinTrunkSize(minTrunkSize);
+        this.minTrunkSize = minTrunkSize;
         return this;
     }
 
@@ -319,7 +319,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setMaxTrunkSize(int maxTrunkSize) {
 
-        this.setMaxTrunkSize(maxTrunkSize);
+        this.maxTrunkSize = maxTrunkSize;
         return this;
     }
 
@@ -330,7 +330,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setMinCrownSize(int minCrownSize) {
 
-        this.setMinCrownSize(minCrownSize);
+        this.minCrownSize = minCrownSize;
         return this;
     }
 
@@ -341,7 +341,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setMaxCrownSize(int maxCrownSize) {
 
-        this.setMaxCrownSize(maxCrownSize);
+        this.maxCrownSize = maxCrownSize;
         return this;
     }
 
@@ -352,7 +352,7 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     public TreeRTG setValidGroundBlocks(ArrayList<IBlockState> validGroundBlocks) {
 
-        this.setValidGroundBlocks(validGroundBlocks);
+        this.validGroundBlocks = validGroundBlocks;
         return this;
     }
 }

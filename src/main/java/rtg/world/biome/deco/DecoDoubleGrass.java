@@ -67,7 +67,7 @@ public class DecoDoubleGrass extends DecoBase {
 
     public DecoDoubleGrass setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 

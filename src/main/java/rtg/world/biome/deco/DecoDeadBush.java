@@ -69,7 +69,7 @@ public class DecoDeadBush extends DecoBase {
 
     public DecoDeadBush setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -91,7 +91,7 @@ public class DecoDeadBush extends DecoBase {
 
     public DecoDeadBush setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

@@ -36,7 +36,7 @@ public class WorldGenVinesRTG extends WorldGenerator {
         this();
 
         this.vineBlock = vineBlock;
-        this.setMaxY(maxY);
+        this.maxY = maxY;
         this.propNorth = propNorth;
         this.propEast = propEast;
         this.propSouth = propSouth;

@@ -65,7 +65,7 @@ public class DecoDesertWell extends DecoBase {
 
     public DecoDesertWell setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -98,7 +98,7 @@ public class DecoDesertWell extends DecoBase {
 
     public DecoDesertWell setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 }

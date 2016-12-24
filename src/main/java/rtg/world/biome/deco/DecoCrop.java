@@ -130,7 +130,7 @@ public class DecoCrop extends DecoBase {
 
     public DecoCrop setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -163,7 +163,7 @@ public class DecoCrop extends DecoBase {
 
     public DecoCrop setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

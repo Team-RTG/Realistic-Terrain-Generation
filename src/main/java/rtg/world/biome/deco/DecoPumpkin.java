@@ -98,7 +98,7 @@ public class DecoPumpkin extends DecoBase {
 
     public DecoPumpkin setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -120,7 +120,7 @@ public class DecoPumpkin extends DecoBase {
 
     public DecoPumpkin setRandomFloat(float randomFloat) {
 
-        this.setRandomFloat(randomFloat);
+        this.randomFloat = randomFloat;
         return this;
     }
 
@@ -131,7 +131,7 @@ public class DecoPumpkin extends DecoBase {
 
     public DecoPumpkin setRandomType(RandomType randomType) {
 
-        this.setRandomType(randomType);
+        this.randomType = randomType;
         return this;
     }
 
@@ -142,7 +142,7 @@ public class DecoPumpkin extends DecoBase {
 
     public DecoPumpkin setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

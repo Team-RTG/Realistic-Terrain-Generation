@@ -105,7 +105,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
 
     public DecoGrassDoubleTallgrass setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -149,7 +149,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
 
     public DecoGrassDoubleTallgrass setDoubleGrassChance(int doubleGrassChance) {
 
-        this.setDoubleGrassChance(doubleGrassChance);
+        this.doubleGrassChance = doubleGrassChance;
         return this;
     }
 }

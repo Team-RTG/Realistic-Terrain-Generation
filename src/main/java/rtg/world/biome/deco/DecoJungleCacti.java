@@ -69,7 +69,7 @@ public class DecoJungleCacti extends DecoBase {
 
     public DecoJungleCacti setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -91,7 +91,7 @@ public class DecoJungleCacti extends DecoBase {
 
     public DecoJungleCacti setSandOnly(boolean sandOnly) {
 
-        this.setSandOnly(sandOnly);
+        this.sandOnly = sandOnly;
         return this;
     }
 
@@ -102,7 +102,7 @@ public class DecoJungleCacti extends DecoBase {
 
     public DecoJungleCacti setExtraHeight(int extraHeight) {
 
-        this.setExtraHeight(extraHeight);
+        this.extraHeight = extraHeight;
         return this;
     }
 
@@ -113,7 +113,7 @@ public class DecoJungleCacti extends DecoBase {
 
     public DecoJungleCacti setSandMeta(byte sandMeta) {
 
-        this.setSandMeta(sandMeta);
+        this.sandMeta = sandMeta;
         return this;
     }
 }

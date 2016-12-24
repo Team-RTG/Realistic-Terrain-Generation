@@ -68,7 +68,7 @@ public class DecoCobwebs extends DecoBase {
 
     public DecoCobwebs setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -101,7 +101,7 @@ public class DecoCobwebs extends DecoBase {
 
     public DecoCobwebs setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 
@@ -112,7 +112,7 @@ public class DecoCobwebs extends DecoBase {
 
     public DecoCobwebs setAdjacentBlock(IBlockState adjacentBlock) {
 
-        this.setAdjacentBlock(adjacentBlock);
+        this.adjacentBlock = adjacentBlock;
         return this;
     }
 
@@ -123,7 +123,7 @@ public class DecoCobwebs extends DecoBase {
 
     public DecoCobwebs setMinAdjacents(int minAdjacents) {
 
-        this.setMinAdjacents(minAdjacents);
+        this.minAdjacents = minAdjacents;
         return this;
     }
 }

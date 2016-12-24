@@ -86,7 +86,7 @@ public class DecoCactus extends DecoBase {
 
     public DecoCactus setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 
@@ -97,7 +97,7 @@ public class DecoCactus extends DecoBase {
 
     public DecoCactus setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -119,7 +119,7 @@ public class DecoCactus extends DecoBase {
 
     public DecoCactus setSandOnly(boolean sandOnly) {
 
-        this.setSandOnly(sandOnly);
+        this.sandOnly = sandOnly;
         return this;
     }
 
@@ -130,7 +130,7 @@ public class DecoCactus extends DecoBase {
 
     public DecoCactus setSoilBlock(IBlockState soilBlock) {
 
-        this.setSoilBlock(soilBlock);
+        this.soilBlock = soilBlock;
         return this;
     }
 }

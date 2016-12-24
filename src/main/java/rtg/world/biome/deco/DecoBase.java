@@ -198,7 +198,7 @@ public abstract class DecoBase {
 
     public DecoBase setMaxRiver(float maxRiver) {
 
-        this.setMaxRiver(maxRiver);
+        this.maxRiver = maxRiver;
         return this;
     }
 }

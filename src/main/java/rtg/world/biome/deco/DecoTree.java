@@ -373,7 +373,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setLoops(int loops) {
 
-        this.setLoops(loops);
+        this.loops = loops;
         return this;
     }
 
@@ -384,7 +384,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setStrengthFactorForLoops(float strengthFactorForLoops) {
 
-        this.setStrengthFactorForLoops(strengthFactorForLoops);
+        this.strengthFactorForLoops = strengthFactorForLoops;
         return this;
     }
 
@@ -395,7 +395,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setStrengthNoiseFactorForLoops(boolean strengthNoiseFactorForLoops) {
 
-        this.setStrengthNoiseFactorForLoops(strengthNoiseFactorForLoops);
+        this.strengthNoiseFactorForLoops = strengthNoiseFactorForLoops;
         return this;
     }
 
@@ -406,7 +406,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setStrengthNoiseFactorXForLoops(boolean strengthNoiseFactorXForLoops) {
 
-        this.setStrengthNoiseFactorXForLoops(strengthNoiseFactorXForLoops);
+        this.strengthNoiseFactorXForLoops = strengthNoiseFactorXForLoops;
         return this;
     }
 
@@ -417,7 +417,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setTreeType(TreeType treeType) {
 
-        this.setTreeType(treeType);
+        this.treeType = treeType;
         return this;
     }
 
@@ -450,7 +450,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setDistribution(Distribution distribution) {
 
-        this.setDistribution(distribution);
+        this.distribution = distribution;
         return this;
     }
 
@@ -461,7 +461,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setTreeCondition(TreeCondition treeCondition) {
 
-        this.setTreeCondition(treeCondition);
+        this.treeCondition = treeCondition;
         return this;
     }
 
@@ -472,7 +472,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setTreeConditionNoise(float treeConditionNoise) {
 
-        this.setTreeConditionNoise(treeConditionNoise);
+        this.treeConditionNoise = treeConditionNoise;
         return this;
     }
 
@@ -483,7 +483,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setTreeConditionNoise2(float treeConditionNoise2) {
 
-        this.setTreeConditionNoise2(treeConditionNoise2);
+        this.treeConditionNoise2 = treeConditionNoise2;
         return this;
     }
 
@@ -505,7 +505,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setTreeConditionFloat(float treeConditionFloat) {
 
-        this.setTreeConditionFloat(treeConditionFloat);
+        this.treeConditionFloat = treeConditionFloat;
         return this;
     }
 
@@ -516,7 +516,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMinY(int minY) {
 
-        this.setMinY(minY);
+        this.minY = minY;
         return this;
     }
 
@@ -527,7 +527,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMaxY(int maxY) {
 
-        this.setMaxY(maxY);
+        this.maxY = maxY;
         return this;
     }
 
@@ -538,7 +538,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setLogBlock(IBlockState logBlock) {
 
-        this.setLogBlock(logBlock);
+        this.logBlock = logBlock;
         return this;
     }
 
@@ -549,7 +549,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setLeavesBlock(IBlockState leavesBlock) {
 
-        this.setLeavesBlock(leavesBlock);
+        this.leavesBlock = leavesBlock;
         return this;
     }
 
@@ -560,7 +560,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMinSize(int minSize) {
 
-        this.setMinSize(minSize);
+        this.minSize = minSize;
         return this;
     }
 
@@ -571,7 +571,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMaxSize(int maxSize) {
 
-        this.setMaxSize(maxSize);
+        this.maxSize = maxSize;
         return this;
     }
 
@@ -582,7 +582,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMinTrunkSize(int minTrunkSize) {
 
-        this.setMinTrunkSize(minTrunkSize);
+        this.minTrunkSize = minTrunkSize;
         return this;
     }
 
@@ -593,7 +593,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMaxTrunkSize(int maxTrunkSize) {
 
-        this.setMaxTrunkSize(maxTrunkSize);
+        this.maxTrunkSize = maxTrunkSize;
         return this;
     }
 
@@ -604,7 +604,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMinCrownSize(int minCrownSize) {
 
-        this.setMinCrownSize(minCrownSize);
+        this.minCrownSize = minCrownSize;
         return this;
     }
 
@@ -615,7 +615,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setMaxCrownSize(int maxCrownSize) {
 
-        this.setMaxCrownSize(maxCrownSize);
+        this.maxCrownSize = maxCrownSize;
         return this;
     }
 
@@ -626,7 +626,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setNoLeaves(boolean noLeaves) {
 
-        this.setNoLeaves(noLeaves);
+        this.noLeaves = noLeaves;
         return this;
     }
 
@@ -637,7 +637,7 @@ public class DecoTree extends DecoBase {
 
     public DecoTree setScatter(Scatter scatter) {
 
-        this.setScatter(scatter);
+        this.scatter = scatter;
         return this;
     }
 }

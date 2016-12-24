@@ -159,7 +159,7 @@ public class DecoLayer extends DecoBase {
 
     public DecoLayer setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -192,7 +192,7 @@ public class DecoLayer extends DecoBase {
 
     public DecoLayer setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

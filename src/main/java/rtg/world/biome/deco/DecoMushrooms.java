@@ -106,7 +106,7 @@ public class DecoMushrooms extends DecoBase {
 
     public DecoMushrooms setStrengthFactor(float strengthFactor) {
 
-        this.setStrengthFactor(strengthFactor);
+        this.strengthFactor = strengthFactor;
         return this;
     }
 
@@ -128,7 +128,7 @@ public class DecoMushrooms extends DecoBase {
 
     public DecoMushrooms setRandomFloat(float randomFloat) {
 
-        this.setRandomFloat(randomFloat);
+        this.randomFloat = randomFloat;
         return this;
     }
 
@@ -139,7 +139,7 @@ public class DecoMushrooms extends DecoBase {
 
     public DecoMushrooms setRandomType(RandomType randomType) {
 
-        this.setRandomType(randomType);
+        this.randomType = randomType;
         return this;
     }
 
@@ -150,7 +150,7 @@ public class DecoMushrooms extends DecoBase {
 
     public DecoMushrooms setChance(int chance) {
 
-        this.setChance(chance);
+        this.chance = chance;
         return this;
     }
 

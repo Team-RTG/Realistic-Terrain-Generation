@@ -86,75 +86,91 @@ public class EventManagerRTG {
                 return;
             }
 
+            String eventName = null;
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
 
             // No switch statements allowed! - Pink
 
             if (eventType == ANDESITE) {
+                eventName = "ANDESITE";
                 if (!rtgConfig.GENERATE_ORE_ANDESITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == COAL) {
+                eventName = "COAL";
                 if (!rtgConfig.GENERATE_ORE_COAL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIAMOND) {
+                eventName = "DIAMOND";
                 if (!rtgConfig.GENERATE_ORE_DIAMOND.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIORITE) {
+                eventName = "DIORITE";
                 if (!rtgConfig.GENERATE_ORE_DIORITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIRT) {
+                eventName = "DIRT";
                 if (!rtgConfig.GENERATE_ORE_DIRT.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == EMERALD) {
+                eventName = "EMERALD";
                 if (!rtgConfig.GENERATE_ORE_EMERALD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GOLD) {
+                eventName = "GOLD";
                 if (!rtgConfig.GENERATE_ORE_GOLD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRANITE) {
+                eventName = "GRANITE";
                 if (!rtgConfig.GENERATE_ORE_GRANITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRAVEL) {
+                eventName = "GRAVEL";
                 if (!rtgConfig.GENERATE_ORE_GRAVEL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == IRON) {
+                eventName = "IRON";
                 if (!rtgConfig.GENERATE_ORE_IRON.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == LAPIS) {
+                eventName = "LAPIS";
                 if (!rtgConfig.GENERATE_ORE_LAPIS.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == REDSTONE) {
+                eventName = "REDSTONE";
                 if (!rtgConfig.GENERATE_ORE_REDSTONE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == SILVERFISH) {
+                eventName = "SILVERFISH";
                 if (!rtgConfig.GENERATE_ORE_SILVERFISH.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
+
+            //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), (event.getPos().getX() / 16), (event.getPos().getZ() / 16));
         }
     }
 

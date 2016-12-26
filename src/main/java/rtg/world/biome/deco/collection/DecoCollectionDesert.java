@@ -15,21 +15,21 @@ public class DecoCollectionDesert extends DecoCollectionBase {
         super();
 
         DecoDesertWell decoDesertWell = new DecoDesertWell();
-        decoDesertWell.maxY = 80;
-        decoDesertWell.strengthFactor = 1f;
-        decoDesertWell.chance = 160;
+        decoDesertWell.setMaxY(80);
+        decoDesertWell.setStrengthFactor(1f);
+        decoDesertWell.setChance(160);
         this.addDeco(decoDesertWell);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.maxY = 90;
-        decoCactus.strengthFactor = 3f;
-        decoCactus.chance = 2;
+        decoCactus.setMaxY(90);
+        decoCactus.setStrengthFactor(3f);
+        decoCactus.setChance(2);
         this.addDeco(decoCactus);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.maxY = 128;
-        decoDeadBush.strengthFactor = 2f;
-        decoDeadBush.chance = 3;
+        decoDeadBush.setMaxY(128);
+        decoDeadBush.setStrengthFactor(2f);
+        decoDeadBush.setChance(3);
         this.addDeco(decoDeadBush);
     }
 }

@@ -20,27 +20,27 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
     public DecoCollectionSmallPineTreesForest() {
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.LOG.getDefaultState();
-        sitchensisTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        sitchensisTree.minTrunkSize = 4;
-        sitchensisTree.maxTrunkSize = 10;
-        sitchensisTree.minCrownSize = 6;
-        sitchensisTree.maxCrownSize = 14;
+        sitchensisTree.setLogBlock(Blocks.LOG.getDefaultState());
+        sitchensisTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(10);
+        sitchensisTree.setMinCrownSize(6);
+        sitchensisTree.setMaxCrownSize(14);
         this.addTree(sitchensisTree);
 
         DecoTree oakPine = new DecoTree(sitchensisTree);
-        oakPine.strengthFactorForLoops = 3f;
-        oakPine.treeType = TreeType.RTG_TREE;
-        oakPine.treeCondition = TreeCondition.RANDOM_CHANCE;
-        oakPine.treeConditionChance = 4;
-        oakPine.maxY = 110;
+        oakPine.setStrengthFactorForLoops(3f);
+        oakPine.setTreeType(TreeType.RTG_TREE);
+        oakPine.setTreeCondition(TreeCondition.RANDOM_CHANCE);
+        oakPine.setTreeConditionChance(4);
+        oakPine.setMaxY(110);
 
         DecoTree vanillaTrees = new DecoTree(new WorldGenTrees(false));
-        vanillaTrees.strengthFactorForLoops = 3f;
-        vanillaTrees.treeType = TreeType.WORLDGEN;
-        vanillaTrees.treeCondition = TreeCondition.RANDOM_CHANCE;
-        vanillaTrees.treeConditionChance = 4;
-        vanillaTrees.maxY = 110;
+        vanillaTrees.setStrengthFactorForLoops(3f);
+        vanillaTrees.setTreeType(TreeType.WORLDGEN);
+        vanillaTrees.setTreeCondition(TreeCondition.RANDOM_CHANCE);
+        vanillaTrees.setTreeConditionChance(4);
+        vanillaTrees.setMaxY(110);
 
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees};

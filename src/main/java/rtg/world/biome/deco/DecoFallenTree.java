@@ -17,17 +17,17 @@ import rtg.world.gen.feature.WorldGenLog;
  */
 public class DecoFallenTree extends DecoBase {
 
-    public int loops;
-    public DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
-    public LogCondition logCondition; // Enum for the various conditions/chances for log gen.
-    public float logConditionNoise; // Only applies to a noise-related LogCondition.
-    public int logConditionChance; // Only applies to a chance-related LogCondition.
-    public int maxY; // Height restriction.
-    public IBlockState logBlock;
-    public IBlockState leavesBlock;
-    public int minSize; // Min log height (only used with certain log presets)
-    public int maxSize; // Max log height (only used with certain log presets)
-    public IBlockState[] randomLogBlocks;
+    private int loops;
+    private DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
+    private LogCondition logCondition; // Enum for the various conditions/chances for log gen.
+    private float logConditionNoise; // Only applies to a noise-related LogCondition.
+    private int logConditionChance; // Only applies to a chance-related LogCondition.
+    private int maxY; // Height restriction.
+    private IBlockState logBlock;
+    private IBlockState leavesBlock;
+    private int minSize; // Min log height (only used with certain log presets)
+    private int maxSize; // Max log height (only used with certain log presets)
+    private IBlockState[] randomLogBlocks;
 
     public DecoFallenTree() {
 
@@ -37,16 +37,16 @@ public class DecoFallenTree extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.loops = 1;
-        this.distribution = new DecoFallenTree.Distribution(100f, 5f, 0.8f);
-        this.logCondition = LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        this.logConditionNoise = 0f;
-        this.logConditionChance = 1;
-        this.maxY = 80;
-        this.logBlock = Blocks.LOG.getDefaultState();
-        this.leavesBlock = Blocks.LEAVES.getDefaultState();
-        this.minSize = 2;
-        this.maxSize = 4;
+        this.setLoops(1);
+        this.setDistribution(new DecoFallenTree.Distribution(100f, 5f, 0.8f));
+        this.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        this.setLogConditionNoise(0f);
+        this.setLogConditionChance(1);
+        this.setMaxY(80);
+        this.setLogBlock(Blocks.LOG.getDefaultState());
+        this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        this.setMinSize(2);
+        this.setMaxSize(4);
         this.randomLogBlocks = new IBlockState[]{};
 
         this.addDecoTypes(DecoType.FALLEN_TREE);
@@ -55,16 +55,16 @@ public class DecoFallenTree extends DecoBase {
     public DecoFallenTree(DecoFallenTree source) {
 
         this();
-        this.loops = source.loops;
-        this.distribution = source.distribution;
-        this.logCondition = source.logCondition;
-        this.logConditionNoise = source.logConditionNoise;
-        this.logConditionChance = source.logConditionChance;
-        this.maxY = source.maxY;
-        this.logBlock = source.logBlock;
-        this.leavesBlock = source.leavesBlock;
-        this.minSize = source.minSize;
-        this.maxSize = source.maxSize;
+        this.setLoops(source.loops);
+        this.setDistribution(source.distribution);
+        this.setLogCondition(source.logCondition);
+        this.setLogConditionNoise(source.logConditionNoise);
+        this.setLogConditionChance(source.logConditionChance);
+        this.setMaxY(source.maxY);
+        this.setLogBlock(source.logBlock);
+        this.setLeavesBlock(source.leavesBlock);
+        this.setMinSize(source.minSize);
+        this.setMaxSize(source.maxSize);
         this.randomLogBlocks = source.randomLogBlocks;
     }
 
@@ -78,7 +78,7 @@ public class DecoFallenTree extends DecoBase {
 
             //Do we want to choose a random log?
             if (this.randomLogBlocks.length > 0) {
-                this.logBlock = this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)];
+                this.setLogBlock(this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)]);
             }
 
             WorldGenerator worldGenerator = null;
@@ -163,9 +163,9 @@ public class DecoFallenTree extends DecoBase {
      */
     public static class Distribution {
 
-        public float noiseDivisor;
-        public float noiseFactor;
-        public float noiseAddend;
+        private float noiseDivisor;
+        private float noiseFactor;
+        private float noiseAddend;
 
         public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
 
@@ -173,5 +173,159 @@ public class DecoFallenTree extends DecoBase {
             this.noiseFactor = noiseFactor;
             this.noiseAddend = noiseAddend;
         }
+
+        public float getNoiseDivisor() {
+
+            return noiseDivisor;
+        }
+
+        public Distribution setNoiseDivisor(float noiseDivisor) {
+
+            this.noiseDivisor = noiseDivisor;
+            return this;
+        }
+
+        public float getNoiseFactor() {
+
+            return noiseFactor;
+        }
+
+        public Distribution setNoiseFactor(float noiseFactor) {
+
+            this.noiseFactor = noiseFactor;
+            return this;
+        }
+
+        public float getNoiseAddend() {
+
+            return noiseAddend;
+        }
+
+        public Distribution setNoiseAddend(float noiseAddend) {
+
+            this.noiseAddend = noiseAddend;
+            return this;
+        }
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoFallenTree setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public Distribution getDistribution() {
+
+        return distribution;
+    }
+
+    public DecoFallenTree setDistribution(Distribution distribution) {
+
+        this.distribution = distribution;
+        return this;
+    }
+
+    public LogCondition getLogCondition() {
+
+        return logCondition;
+    }
+
+    public DecoFallenTree setLogCondition(LogCondition logCondition) {
+
+        this.logCondition = logCondition;
+        return this;
+    }
+
+    public float getLogConditionNoise() {
+
+        return logConditionNoise;
+    }
+
+    public DecoFallenTree setLogConditionNoise(float logConditionNoise) {
+
+        this.logConditionNoise = logConditionNoise;
+        return this;
+    }
+
+    public int getLogConditionChance() {
+
+        return logConditionChance;
+    }
+
+    public DecoFallenTree setLogConditionChance(int logConditionChance) {
+
+        this.logConditionChance = logConditionChance;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoFallenTree setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public DecoFallenTree setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public DecoFallenTree setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
+    }
+
+    public int getMinSize() {
+
+        return minSize;
+    }
+
+    public DecoFallenTree setMinSize(int minSize) {
+
+        this.minSize = minSize;
+        return this;
+    }
+
+    public int getMaxSize() {
+
+        return maxSize;
+    }
+
+    public DecoFallenTree setMaxSize(int maxSize) {
+
+        this.maxSize = maxSize;
+        return this;
+    }
+
+    public IBlockState[] getRandomLogBlocks() {
+
+        return randomLogBlocks;
+    }
+
+    public DecoFallenTree setRandomLogBlocks(IBlockState[] randomLogBlocks) {
+
+        this.randomLogBlocks = randomLogBlocks;
+        return this;
     }
 }

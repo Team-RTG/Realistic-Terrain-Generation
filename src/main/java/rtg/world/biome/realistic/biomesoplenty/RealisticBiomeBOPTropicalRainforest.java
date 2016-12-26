@@ -11,9 +11,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
@@ -26,6 +26,9 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPTropicalRainforest() {
 
         super(biome, river);
+
+        this.noLakes = true;
+        this.noWaterFeatures = true;
     }
 
     @Override

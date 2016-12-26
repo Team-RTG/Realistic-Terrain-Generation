@@ -20,8 +20,8 @@ public class WorldGenBlock extends WorldGenerator {
 
         this.placeBlock = placeBlock;
         this.replaceBlock = replaceBlock;
-        this.adjacentBlock = adjacentBlock;
-        this.minAdjacents = minAdjacents;
+        this.setAdjacentBlock(adjacentBlock);
+        this.setMinAdjacents(minAdjacents);
     }
 
     @Override
@@ -78,5 +78,49 @@ public class WorldGenBlock extends WorldGenerator {
         }
 
         return (adjacentCount > 0 && adjacentCount >= this.minAdjacents);
+    }
+
+    public IBlockState getPlaceBlock() {
+
+        return placeBlock;
+    }
+
+    public WorldGenBlock setPlaceBlock(IBlockState placeBlock) {
+
+        this.placeBlock = placeBlock;
+        return this;
+    }
+
+    public IBlockState getReplaceBlock() {
+
+        return replaceBlock;
+    }
+
+    public WorldGenBlock setReplaceBlock(IBlockState replaceBlock) {
+
+        this.replaceBlock = replaceBlock;
+        return this;
+    }
+
+    public IBlockState getAdjacentBlock() {
+
+        return adjacentBlock;
+    }
+
+    public WorldGenBlock setAdjacentBlock(IBlockState adjacentBlock) {
+
+        this.adjacentBlock = adjacentBlock;
+        return this;
+    }
+
+    public int getMinAdjacents() {
+
+        return minAdjacents;
+    }
+
+    public WorldGenBlock setMinAdjacents(int minAdjacents) {
+
+        this.minAdjacents = minAdjacents;
+        return this;
     }
 }

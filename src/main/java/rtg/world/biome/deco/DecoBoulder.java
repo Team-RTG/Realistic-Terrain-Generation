@@ -17,12 +17,12 @@ import rtg.world.gen.feature.WorldGenBlob;
  */
 public class DecoBoulder extends DecoBase {
 
-    public IBlockState boulderBlock; // This can be any block.
-    public float strengthFactor; // Higher = more/bigger boulders.
-    public int minY; // Lower height restriction.
-    public int maxY; // Upper height restriction.
-    public int chance; // Higher = more rare.
-    public boolean water;
+    private IBlockState boulderBlock; // This can be any block.
+    private float strengthFactor; // Higher = more/bigger boulders.
+    private int minY; // Lower height restriction.
+    private int maxY; // Upper height restriction.
+    private int chance; // Higher = more rare.
+    private boolean water;
 
     public DecoBoulder() {
 
@@ -32,11 +32,11 @@ public class DecoBoulder extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        this.strengthFactor = 2f;
-        this.minY = 60; // Sensible lower height limit by default.
-        this.maxY = 255; // No upper height limit by default.
-        this.chance = 10;
+        this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        this.setStrengthFactor(2f);
+        this.setMinY(60); // Sensible lower height limit by default.
+        this.setMaxY(255); // No upper height limit by default.
+        this.setChance(10);
         this.water = true;
 
         this.addDecoTypes(DecoType.BOULDER);
@@ -68,5 +68,71 @@ public class DecoBoulder extends DecoBase {
                 }
             }
         }
+    }
+
+    public IBlockState getBoulderBlock() {
+
+        return boulderBlock;
+    }
+
+    public DecoBoulder setBoulderBlock(IBlockState boulderBlock) {
+
+        this.boulderBlock = boulderBlock;
+        return this;
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoBoulder setStrengthFactor(float strengthFactor) {
+
+        this.strengthFactor = strengthFactor;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoBoulder setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoBoulder setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoBoulder setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public boolean isWater() {
+
+        return water;
+    }
+
+    public DecoBoulder setWater(boolean water) {
+
+        this.water = water;
+        return this;
     }
 }

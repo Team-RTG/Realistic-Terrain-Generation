@@ -9,16 +9,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
 
@@ -163,66 +164,66 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     public void initDecos() {
 
         TreeRTG nigraTree = new TreeRTGPinusNigra();
-        nigraTree.logBlock = Blocks.LOG.getDefaultState();
-        nigraTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        nigraTree.minTrunkSize = 18;
-        nigraTree.maxTrunkSize = 27;
-        nigraTree.minCrownSize = 7;
-        nigraTree.maxCrownSize = 10;
+        nigraTree.setLogBlock(Blocks.LOG.getDefaultState());
+        nigraTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        nigraTree.setMinTrunkSize(18);
+        nigraTree.setMaxTrunkSize(27);
+        nigraTree.setMinCrownSize(7);
+        nigraTree.setMaxCrownSize(10);
         this.addTree(nigraTree);
 
         DecoTree decoTrees = new DecoTree(nigraTree);
-        decoTrees.strengthFactorForLoops = 4f;
-        decoTrees.strengthNoiseFactorXForLoops = true;
-        decoTrees.distribution.noiseDivisor = 100f;
-        decoTrees.distribution.noiseFactor = 6f;
-        decoTrees.distribution.noiseAddend = 0.8f;
-        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        decoTrees.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-        decoTrees.treeConditionChance = 24;
-        decoTrees.maxY = 100;
+        decoTrees.setStrengthFactorForLoops(4f);
+        decoTrees.setStrengthNoiseFactorXForLoops(true);
+        decoTrees.getDistribution().setNoiseDivisor(100f);
+        decoTrees.getDistribution().setNoiseFactor(6f);
+        decoTrees.getDistribution().setNoiseAddend(0.8f);
+        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        decoTrees.setTreeConditionChance(24);
+        decoTrees.setMaxY(100);
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(1);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(6);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(1));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 100;
-        decoShrub.strengthFactor = 2f;
+        decoShrub.setMaxY(100);
+        decoShrub.setStrengthFactor(2f);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 12;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 2f;
+        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(12);
+        decoBoulder.setMaxY(95);
+        decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH;
-        decoMushrooms.randomFloat = 3f;
+        decoMushrooms.setMaxY(90);
+        decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
+        decoMushrooms.setRandomFloat(3f);
         this.addDeco(decoMushrooms);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.maxY = 90;
-        decoPumpkin.randomType = rtg.world.biome.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH;
-        decoPumpkin.randomFloat = 20f;
+        decoPumpkin.setMaxY(90);
+        decoPumpkin.setRandomType(rtg.world.biome.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
+        decoPumpkin.setRandomFloat(20f);
         this.addDeco(decoPumpkin);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 10f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
     }
 }

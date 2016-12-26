@@ -13,13 +13,14 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
@@ -178,23 +179,23 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoPond decoPond = new DecoPond();
-        decoPond.chunksPerPond = 1;
-        decoPond.maxY = 67;
-        decoPond.loops = 8;
+        decoPond.setChunksPerPond(1);
+        decoPond.setMaxY(67);
+        decoPond.setLoops(8);
         this.addDeco(decoPond);
 
 //        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
-//        myrtilloidesTree.logBlock = logBlock;
-//        myrtilloidesTree.leavesBlock = leavesBlock;
+//        myrtilloidesTree.setLogBlock(logBlock);
+//        myrtilloidesTree.setLeavesBlock(leavesBlock);
 //        myrtilloidesTree.validGroundBlocks.add(mudBlock);
 //        this.addTree(myrtilloidesTree);
 //        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
-//        decoTrees.treeType = DecoTree.TreeType.RTG_TREE;
-//        decoTrees.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-//        decoTrees.treeConditionChance = 4;
-//        decoTrees.logBlock = logBlock;
-//        decoTrees.leavesBlock = leavesBlock;
-//        decoTrees.maxY = 90;
+//        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+//        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+//        decoTrees.setTreeConditionChance(4);
+//        decoTrees.setLogBlock(logBlock);
+//        decoTrees.setLeavesBlock(leavesBlock);
+//        decoTrees.setMaxY(90);
 //        this.addDeco(decoTrees);
 
         /*
@@ -203,65 +204,65 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
          */
 
 //        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
-//        roseaTree.logBlock = logBlock;
-//        roseaTree.leavesBlock = leavesBlock;
+//        roseaTree.setLogBlock(logBlock);
+//        roseaTree.setLeavesBlock(leavesBlock);
 //        roseaTree.validGroundBlocks.add(mudBlock);
-//        roseaTree.minTrunkSize = 2;
-//        roseaTree.maxTrunkSize = 3;
-//        roseaTree.minCrownSize = 10;
-//        roseaTree.maxCrownSize = 18;
-//        roseaTree.noLeaves = false;
+//        roseaTree.setMinTrunkSize(2);
+//        roseaTree.setMaxTrunkSize(3);
+//        roseaTree.setMinCrownSize(10);
+//        roseaTree.setMaxCrownSize(18);
+//        roseaTree.setNoLeaves(false);
 //        this.addTree(roseaTree);
 //        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
-//        ceibaRoseaTree.treeType = DecoTree.TreeType.RTG_TREE;
-//        ceibaRoseaTree.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-//        ceibaRoseaTree.treeConditionChance = 4;
-//        ceibaRoseaTree.maxY = 90;
-//        ceibaRoseaTree.scatter = new DecoTree.Scatter(16, 0);
+//        ceibaRoseaTree.setTreeType(DecoTree.TreeType.RTG_TREE);
+//        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+//        ceibaRoseaTree.setTreeConditionChance(4);
+//        ceibaRoseaTree.setMaxY(90);
+//        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
 //        this.addDeco(ceibaRoseaTree);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 4;
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.maxY = 90;
-        decoShrubOak.strengthFactor = 4f;
-        decoShrubOak.chance = 3;
+        decoShrubOak.setMaxY(90);
+        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.setChance(3);
         this.addDeco(decoShrubOak);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 80f;
-        decoFallenTree.distribution.noiseFactor = 60f;
-        decoFallenTree.distribution.noiseAddend = -15f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = -0.2f;
-        decoFallenTree.logConditionChance = 4;
-        decoFallenTree.logBlock = logBlock;
-        decoFallenTree.leavesBlock = leavesBlock;
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(-0.2f);
+        decoFallenTree.setLogConditionChance(4);
+        decoFallenTree.setLogBlock(logBlock);
+        decoFallenTree.setLeavesBlock(leavesBlock);
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
         this.addDeco(decoJungleLilypadVines);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.maxY = 90;
-        decoGrassDoubleTallgrass.strengthFactor = 4f;
-        decoGrassDoubleTallgrass.doubleGrassChance = 8;
+        decoGrassDoubleTallgrass.setMaxY(90);
+        decoGrassDoubleTallgrass.setStrengthFactor(4f);
+        decoGrassDoubleTallgrass.setDoubleGrassChance(8);
         this.addDeco(decoGrassDoubleTallgrass);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 90;
-        decoGrass.strengthFactor = 4f;
-        decoGrass.chance = 2;
+        decoGrass.setMaxY(90);
+        decoGrass.setStrengthFactor(4f);
+        decoGrass.setChance(2);
         this.addDeco(decoGrass);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.maxY = 90;
-        decoMushrooms.randomType = rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE;
+        decoMushrooms.setMaxY(90);
+        decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
     }
 }

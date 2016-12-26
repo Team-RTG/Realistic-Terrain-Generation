@@ -10,11 +10,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.config.BiomeConfig;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
@@ -22,6 +22,7 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
 
@@ -175,33 +176,33 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f);
-        mucronataTree.logBlock = BlockUtil.getStateLog(3);
-        mucronataTree.leavesBlock = BlockUtil.getStateLeaf(3);
-        mucronataTree.minTrunkSize = 3;
-        mucronataTree.maxTrunkSize = 4;
-        mucronataTree.minCrownSize = 10;
-        mucronataTree.maxCrownSize = 27;
+        mucronataTree.setLogBlock(BlockUtil.getStateLog(3));
+        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        mucronataTree.setMinTrunkSize(3);
+        mucronataTree.setMaxTrunkSize(4);
+        mucronataTree.setMinCrownSize(10);
+        mucronataTree.setMaxCrownSize(27);
         this.addTree(mucronataTree);
 
         DecoTree mangroves = new DecoTree(mucronataTree);
-        mangroves.loops = 3;
-        mangroves.treeType = DecoTree.TreeType.RTG_TREE;
-        mangroves.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-        mangroves.treeConditionChance = 2;
-        mangroves.maxY = 160;
+        mangroves.setLoops(3);
+        mangroves.setTreeType(DecoTree.TreeType.RTG_TREE);
+        mangroves.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        mangroves.setTreeConditionChance(2);
+        mangroves.setMaxY(160);
 
         DecoTree megaJungle = new DecoTree(new WorldGenMegaJungle(false, 10, 27, BlockUtil.getStateLog(3), BlockUtil.getStateLeaf(3)));
-        megaJungle.logBlock = BlockUtil.getStateLog(3);
-        megaJungle.leavesBlock = BlockUtil.getStateLeaf(3);
-        megaJungle.minTrunkSize = 3;
-        megaJungle.maxTrunkSize = 4;
-        megaJungle.minCrownSize = 10;
-        megaJungle.maxCrownSize = 27;
-        megaJungle.loops = 3;
-        megaJungle.treeType = DecoTree.TreeType.WORLDGEN;
-        megaJungle.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-        megaJungle.treeConditionChance = 2;
-        megaJungle.maxY = 160;
+        megaJungle.setLogBlock(BlockUtil.getStateLog(3));
+        megaJungle.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        megaJungle.setMinTrunkSize(3);
+        megaJungle.setMaxTrunkSize(4);
+        megaJungle.setMinCrownSize(10);
+        megaJungle.setMaxCrownSize(27);
+        megaJungle.setLoops(3);
+        megaJungle.setTreeType(DecoTree.TreeType.WORLDGEN);
+        megaJungle.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        megaJungle.setTreeConditionChance(2);
+        megaJungle.setMaxY(160);
 
         DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(3, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, megaJungle, mangroves);
         this.addDeco(decoHelperThisOrThat);
@@ -209,18 +210,18 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         // Add some palm trees for variety.
 
         TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
-        nuciferaTree.minTrunkSize = 7;
-        nuciferaTree.maxTrunkSize = 9;
-        nuciferaTree.minCrownSize = 6;
-        nuciferaTree.maxCrownSize = 8;
+        nuciferaTree.setMinTrunkSize(7);
+        nuciferaTree.setMaxTrunkSize(9);
+        nuciferaTree.setMinCrownSize(6);
+        nuciferaTree.setMaxCrownSize(8);
         this.addTree(nuciferaTree);
 
         DecoTree palmCustom = new DecoTree(nuciferaTree);
-        palmCustom.loops = 1;
-        palmCustom.treeType = DecoTree.TreeType.RTG_TREE;
-        palmCustom.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-        palmCustom.treeConditionChance = 3;
-        palmCustom.maxY = 160;
+        palmCustom.setLoops(1);
+        palmCustom.setTreeType(DecoTree.TreeType.RTG_TREE);
+        palmCustom.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        palmCustom.setTreeConditionChance(3);
+        palmCustom.setMaxY(160);
         this.addDeco(palmCustom);
 
         // Another pass of the WorldGenMegaJungle collection for extra jungleness.
@@ -228,23 +229,23 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
         // Jungle logs.
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.loops = 1;
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 5f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 3;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(3);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(3);
-        decoFallenTree.minSize = 4;
-        decoFallenTree.maxSize = 9;
+        decoFallenTree.setLoops(1);
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(5f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(3);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(3));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        decoFallenTree.setMinSize(4);
+        decoFallenTree.setMaxSize(9);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.notEqualsZeroChance = 6;
-        decoBaseBiomeDecorations.loops = 1;
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(6);
+        decoBaseBiomeDecorations.setLoops(1);
         this.addDeco(decoBaseBiomeDecorations);
 
         // A combo-deal of lilypads and vines. (This could probably be pulled out into individual decos.)
@@ -257,33 +258,33 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
         // Flowers.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.flowers = new int[]{5}; // Only orange tulips fit in with the colour scheme.
-        decoFlowersRTG.chance = 4;
-        decoFlowersRTG.maxY = 120;
-        decoFlowersRTG.strengthFactor = 2f;
+        decoFlowersRTG.setFlowers(new int[]{5}); // Only orange tulips fit in with the colour scheme.
+        decoFlowersRTG.setChance(4);
+        decoFlowersRTG.setMaxY(120);
+        decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         // Tall cacti on red sand - matches the colour scheme nicely.
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
-        decoJungleCacti.strengthFactor = 8f;
-        decoJungleCacti.maxY = 120;
-        decoJungleCacti.sandOnly = false;
-        decoJungleCacti.extraHeight = 7;
-        decoJungleCacti.sandMeta = (byte) 1;
+        decoJungleCacti.setStrengthFactor(8f);
+        decoJungleCacti.setMaxY(120);
+        decoJungleCacti.setSandOnly(false);
+        decoJungleCacti.setExtraHeight(7);
+        decoJungleCacti.setSandMeta((byte) 1);
         this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.MOSSY_COBBLESTONE.getDefaultState();
-        decoBoulder.chance = 16;
-        decoBoulder.maxY = 95;
-        decoBoulder.strengthFactor = 2f;
+        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(16);
+        decoBoulder.setMaxY(95);
+        decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 12f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
     }
 }

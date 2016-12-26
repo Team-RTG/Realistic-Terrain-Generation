@@ -17,12 +17,12 @@ import rtg.world.gen.feature.WorldGenBlock;
  */
 public class DecoCobwebs extends DecoBase {
 
-    public float strengthFactor; // Higher = more/bigger boulders.
-    public int minY; // Lower height restriction.
-    public int maxY; // Upper height restriction.
-    public int chance; // Higher = more rare.
-    public IBlockState adjacentBlock;
-    public int minAdjacents;
+    private float strengthFactor; // Higher = more/bigger boulders.
+    private int minY; // Lower height restriction.
+    private int maxY; // Upper height restriction.
+    private int chance; // Higher = more rare.
+    private IBlockState adjacentBlock;
+    private int minAdjacents;
 
     public DecoCobwebs() {
 
@@ -32,12 +32,12 @@ public class DecoCobwebs extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.strengthFactor = 2f;
-        this.minY = 1; // No lower height limit by default.
-        this.maxY = 255; // No upper height limit by default.
-        this.chance = 10;
-        this.adjacentBlock = Blocks.AIR.getDefaultState();
-        this.minAdjacents = 1;
+        this.setStrengthFactor(2f);
+        this.setMinY(1); // No lower height limit by default.
+        this.setMaxY(255); // No upper height limit by default.
+        this.setChance(10);
+        this.setAdjacentBlock(Blocks.AIR.getDefaultState());
+        this.setMinAdjacents(1);
 
         this.addDecoTypes(DecoType.COBWEB);
     }
@@ -59,5 +59,71 @@ public class DecoCobwebs extends DecoBase {
                 }
             }
         }
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoCobwebs setStrengthFactor(float strengthFactor) {
+
+        this.strengthFactor = strengthFactor;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoCobwebs setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoCobwebs setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoCobwebs setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public IBlockState getAdjacentBlock() {
+
+        return adjacentBlock;
+    }
+
+    public DecoCobwebs setAdjacentBlock(IBlockState adjacentBlock) {
+
+        this.adjacentBlock = adjacentBlock;
+        return this;
+    }
+
+    public int getMinAdjacents() {
+
+        return minAdjacents;
+    }
+
+    public DecoCobwebs setMinAdjacents(int minAdjacents) {
+
+        this.minAdjacents = minAdjacents;
+        return this;
     }
 }

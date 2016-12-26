@@ -19,12 +19,12 @@ import rtg.world.gen.feature.WorldGenCacti;
  */
 public class DecoCactus extends DecoBase {
 
-    public int loops;
-    public int chance;
-    public float strengthFactor;
-    public int maxY;
-    public boolean sandOnly;
-    public IBlockState soilBlock;
+    private int loops;
+    private int chance;
+    private float strengthFactor;
+    private int maxY;
+    private boolean sandOnly;
+    private IBlockState soilBlock;
 
     public DecoCactus() {
 
@@ -34,12 +34,12 @@ public class DecoCactus extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.loops = 1;
-        this.chance = 1;
-        this.maxY = 255; // No height limit by default.
-        this.strengthFactor = 0f; // The higher the value, the more there will be.
-        this.sandOnly = false;
-        this.soilBlock = Blocks.SAND.getDefaultState();
+        this.setLoops(1);
+        this.setChance(1);
+        this.setMaxY(255); // No height limit by default.
+        this.setStrengthFactor(0f); // The higher the value, the more there will be.
+        this.setSandOnly(false);
+        this.setSoilBlock(Blocks.SAND.getDefaultState());
 
         this.addDecoTypes(DecoType.CACTUS);
     }
@@ -66,5 +66,71 @@ public class DecoCactus extends DecoBase {
                 }
             }
         }
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoCactus setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoCactus setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoCactus setStrengthFactor(float strengthFactor) {
+
+        this.strengthFactor = strengthFactor;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoCactus setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public boolean isSandOnly() {
+
+        return sandOnly;
+    }
+
+    public DecoCactus setSandOnly(boolean sandOnly) {
+
+        this.sandOnly = sandOnly;
+        return this;
+    }
+
+    public IBlockState getSoilBlock() {
+
+        return soilBlock;
+    }
+
+    public DecoCactus setSoilBlock(IBlockState soilBlock) {
+
+        this.soilBlock = soilBlock;
+        return this;
     }
 }

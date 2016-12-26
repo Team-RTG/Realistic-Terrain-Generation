@@ -166,4 +166,26 @@ public class WorldGenLog extends WorldGenerator {
             world.setBlockState(new BlockPos(x, y + 1, z), leavesBlock, 2);
         }
     }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public WorldGenLog setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public WorldGenLog setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
+    }
 }

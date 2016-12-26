@@ -18,14 +18,14 @@ import rtg.world.gen.feature.WorldGenFlowersRTG;
  */
 public class DecoFlowersRTG extends DecoBase {
 
-    public int[] flowers; // Integer array of flower IDs.
-    public float strengthFactor; // Higher = more flowers.
-    public int minY; // Height restriction.
-    public int maxY; // Height restriction.
-    public HeightType heightType; // How we determine the Y coord.
-    public int chance; // Higher = more rare.
-    public int notEqualsZeroChance;
-    public int loops;
+    private int[] flowers; // Integer array of flower IDs.
+    private float strengthFactor; // Higher = more flowers.
+    private int minY; // Height restriction.
+    private int maxY; // Height restriction.
+    private HeightType heightType; // How we determine the Y coord.
+    private int chance; // Higher = more rare.
+    private int notEqualsZeroChance;
+    private int loops;
 
     /*
      * FLOWER LIST:
@@ -55,13 +55,13 @@ public class DecoFlowersRTG extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.flowers = new int[]{0, 9}; // Only roses and dandelions by default.
-        this.chance = 1; // 100% chance of generating by default.
-        this.notEqualsZeroChance = 1;
-        this.minY = 1; // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
-        this.maxY = 253; // 2 below max build height to account for 2-block tall flowers.
+        this.setChance(1); // 100% chance of generating by default.
+        this.setNotEqualsZeroChance(1);
+        this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
+        this.setMaxY(253); // 2 below max build height to account for 2-block tall flowers.
         this.heightType = HeightType.NEXT_INT;
-        this.strengthFactor = 0f; // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.loops = 1;
+        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoops(1);
 
         this.addDecoTypes(DecoType.FLOWER);
     }
@@ -75,7 +75,7 @@ public class DecoFlowersRTG extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
-                this.loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
 
                 for (int i = 0; i < this.loops * 16; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -119,5 +119,93 @@ public class DecoFlowersRTG extends DecoBase {
     public enum HeightType {
         NEXT_INT,
         GET_HEIGHT_VALUE;
+    }
+
+    public int[] getFlowers() {
+
+        return flowers;
+    }
+
+    public DecoFlowersRTG setFlowers(int[] flowers) {
+
+        this.flowers = flowers;
+        return this;
+    }
+
+    public float getStrengthFactor() {
+
+        return strengthFactor;
+    }
+
+    public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
+
+        this.strengthFactor = strengthFactor;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoFlowersRTG setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoFlowersRTG setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public HeightType getHeightType() {
+
+        return heightType;
+    }
+
+    public DecoFlowersRTG setHeightType(HeightType heightType) {
+
+        this.heightType = heightType;
+        return this;
+    }
+
+    public int getChance() {
+
+        return chance;
+    }
+
+    public DecoFlowersRTG setChance(int chance) {
+
+        this.chance = chance;
+        return this;
+    }
+
+    public int getNotEqualsZeroChance() {
+
+        return notEqualsZeroChance;
+    }
+
+    public DecoFlowersRTG setNotEqualsZeroChance(int notEqualsZeroChance) {
+
+        this.notEqualsZeroChance = notEqualsZeroChance;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoFlowersRTG setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
     }
 }

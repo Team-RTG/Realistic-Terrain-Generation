@@ -11,11 +11,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
-import rtg.util.DecoUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
+import rtg.util.DecoUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -24,30 +24,31 @@ import rtg.world.gen.feature.tree.rtg.TreeRTG;
  */
 public class DecoTree extends DecoBase {
 
-    public int loops;
-    public float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
-    public boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
-    public boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
-    public TreeType treeType; // Enum for the various tree presets.
-    public TreeRTG tree;
-    public WorldGenerator worldGen;
-    public DecoTree.Distribution distribution; // Parameter object for noise calculations.
-    public TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
-    public float treeConditionNoise; // Only applies to a noise-related TreeCondition.
-    public int treeConditionChance; // Only applies to a chance-related TreeCondition.
-    public float treeConditionFloat; // Multi-purpose float.
-    public int minY; // Lower height restriction.
-    public int maxY; // Upper height restriction.
-    public IBlockState logBlock;
-    public IBlockState leavesBlock;
-    public int minSize; // Min tree height (only used with certain tree presets)
-    public int maxSize; // Max tree height (only used with certain tree presets)
-    public int minTrunkSize; // Min tree height (only used with certain tree presets)
-    public int maxTrunkSize; // Max tree height (only used with certain tree presets)
-    public int minCrownSize; // Min tree height (only used with certain tree presets)
-    public int maxCrownSize; // Max tree height (only used with certain tree presets)
-    public boolean noLeaves;
-    public Scatter scatter;
+    protected int loops;
+    protected float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
+    protected boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
+    protected boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
+    protected TreeType treeType; // Enum for the various tree presets.
+    protected TreeRTG tree;
+    protected WorldGenerator worldGen;
+    protected DecoTree.Distribution distribution; // Parameter object for noise calculations.
+    protected TreeCondition treeCondition; // Enum for the various conditions/chances for tree gen.
+    protected float treeConditionNoise; // Only applies to a noise-related TreeCondition.
+    protected float treeConditionNoise2; // Only applies to a noise-related TreeCondition.
+    protected int treeConditionChance; // Only applies to a chance-related TreeCondition.
+    protected float treeConditionFloat; // Multi-purpose float.
+    protected int minY; // Lower height restriction.
+    protected int maxY; // Upper height restriction.
+    protected IBlockState logBlock;
+    protected IBlockState leavesBlock;
+    protected int minSize; // Min tree height (only used with certain tree presets)
+    protected int maxSize; // Max tree height (only used with certain tree presets)
+    protected int minTrunkSize; // Min tree height (only used with certain tree presets)
+    protected int maxTrunkSize; // Max tree height (only used with certain tree presets)
+    protected int minCrownSize; // Min tree height (only used with certain tree presets)
+    protected int maxCrownSize; // Max tree height (only used with certain tree presets)
+    protected boolean noLeaves;
+    protected Scatter scatter;
 
     public DecoTree() {
 
@@ -57,30 +58,31 @@ public class DecoTree extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.loops = 1;
-        this.strengthFactorForLoops = 0f;
-        this.strengthNoiseFactorForLoops = false;
-        this.strengthNoiseFactorXForLoops = false;
-        this.treeType = TreeType.RTG_TREE;
+        this.setLoops(1);
+        this.setStrengthFactorForLoops(0f);
+        this.setStrengthNoiseFactorForLoops(false);
+        this.setStrengthNoiseFactorXForLoops(false);
+        this.setTreeType(TreeType.RTG_TREE);
         this.tree = null;
         this.worldGen = null;
-        this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
-        this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        this.treeConditionNoise = 0f;
-        this.treeConditionFloat = 0f;
-        this.treeConditionChance = 1;
-        this.minY = 63; // No underwater trees by default.
-        this.maxY = 230; // Sensible upper height limit by default.
-        this.logBlock = Blocks.LOG.getDefaultState();
-        this.leavesBlock = Blocks.LEAVES.getDefaultState();
-        this.minSize = 2;
-        this.maxSize = 4;
-        this.minTrunkSize = 2;
-        this.maxTrunkSize = 4;
-        this.minCrownSize = 2;
-        this.maxCrownSize = 4;
-        this.noLeaves = false;
-        this.scatter = new Scatter(16, 0);
+        this.setDistribution(new DecoTree.Distribution(100f, 5f, 0.8f));
+        this.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        this.setTreeConditionNoise(0f);
+        this.setTreeConditionNoise2(0f);
+        this.setTreeConditionFloat(0f);
+        this.setTreeConditionChance(1);
+        this.setMinY(63); // No underwater trees by default.
+        this.setMaxY(230); // Sensible upper height limit by default.
+        this.setLogBlock(Blocks.LOG.getDefaultState());
+        this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        this.setMinSize(2);
+        this.setMaxSize(4);
+        this.setMinTrunkSize(2);
+        this.setMaxTrunkSize(4);
+        this.setMinCrownSize(2);
+        this.setMaxCrownSize(4);
+        this.setNoLeaves(false);
+        this.setScatter(new Scatter(16, 0));
 
         this.addDecoTypes(DecoType.TREE);
     }
@@ -88,43 +90,44 @@ public class DecoTree extends DecoBase {
     public DecoTree(DecoTree source) {
 
         this();
-        this.loops = source.loops;
-        this.strengthFactorForLoops = source.strengthFactorForLoops;
-        this.strengthNoiseFactorForLoops = source.strengthNoiseFactorForLoops;
-        this.strengthNoiseFactorXForLoops = source.strengthNoiseFactorXForLoops;
-        this.treeType = source.treeType;
+        this.setLoops(source.loops);
+        this.setStrengthFactorForLoops(source.strengthFactorForLoops);
+        this.setStrengthNoiseFactorForLoops(source.strengthNoiseFactorForLoops);
+        this.setStrengthNoiseFactorXForLoops(source.strengthNoiseFactorXForLoops);
+        this.setTreeType(source.treeType);
         this.tree = source.tree;
         this.worldGen = source.worldGen;
-        this.distribution = source.distribution;
-        this.treeCondition = source.treeCondition;
-        this.treeConditionNoise = source.treeConditionNoise;
-        this.treeConditionFloat = source.treeConditionFloat;
-        this.treeConditionChance = source.treeConditionChance;
-        this.minY = source.minY;
-        this.maxY = source.maxY;
-        this.logBlock = source.logBlock;
-        this.leavesBlock = source.leavesBlock;
-        this.minSize = source.minSize;
-        this.maxSize = source.maxSize;
-        this.minTrunkSize = source.minTrunkSize;
-        this.maxTrunkSize = source.maxTrunkSize;
-        this.minCrownSize = source.minCrownSize;
-        this.maxCrownSize = source.maxCrownSize;
-        this.noLeaves = source.noLeaves;
-        this.scatter = source.scatter;
+        this.setDistribution(source.distribution);
+        this.setTreeCondition(source.treeCondition);
+        this.setTreeConditionNoise(source.treeConditionNoise);
+        this.setTreeConditionNoise2(source.treeConditionNoise2);
+        this.setTreeConditionFloat(source.treeConditionFloat);
+        this.setTreeConditionChance(source.treeConditionChance);
+        this.setMinY(source.minY);
+        this.setMaxY(source.maxY);
+        this.setLogBlock(source.logBlock);
+        this.setLeavesBlock(source.leavesBlock);
+        this.setMinSize(source.minSize);
+        this.setMaxSize(source.maxSize);
+        this.setMinTrunkSize(source.minTrunkSize);
+        this.setMaxTrunkSize(source.maxTrunkSize);
+        this.setMinCrownSize(source.minCrownSize);
+        this.setMaxCrownSize(source.maxCrownSize);
+        this.setNoLeaves(source.noLeaves);
+        this.setScatter(source.scatter);
     }
 
     public DecoTree(TreeRTG tree) {
 
         this();
         this.tree = tree;
-        this.logBlock = tree.logBlock;
-        this.leavesBlock = tree.leavesBlock;
-        this.minTrunkSize = tree.minTrunkSize;
-        this.maxTrunkSize = tree.maxTrunkSize;
-        this.minCrownSize = tree.minCrownSize;
-        this.maxCrownSize = tree.maxCrownSize;
-        this.noLeaves = tree.noLeaves;
+        this.setLogBlock(tree.getLogBlock());
+        this.setLeavesBlock(tree.getLeavesBlock());
+        this.setMinTrunkSize(tree.getMinTrunkSize());
+        this.setMaxTrunkSize(tree.getMaxTrunkSize());
+        this.setMinCrownSize(tree.getMinCrownSize());
+        this.setMaxCrownSize(tree.getMaxCrownSize());
+        this.setNoLeaves(tree.getNoLeaves());
     }
 
     public DecoTree(WorldGenerator worldGen) {
@@ -198,9 +201,12 @@ public class DecoTree extends DecoBase {
                 DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
+
                     int intX = scatter.get(rand, worldX); // + 8;
                     int intZ = scatter.get(rand, worldZ); // + 8;
                     int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+
+                    //Logger.info("noise = %f", noise);
 
                     if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
@@ -214,6 +220,8 @@ public class DecoTree extends DecoBase {
                         switch (this.treeType) {
 
                             case RTG_TREE:
+
+                                //this.setLogBlock(strength < 0.2f ? BlockUtil.getStateLog(2) : this.logBlock);
 
                                 this.tree.setLogBlock(this.logBlock);
                                 this.tree.setLeavesBlock(this.leavesBlock);
@@ -255,6 +263,9 @@ public class DecoTree extends DecoBase {
             case NOISE_LESSER_AND_RANDOM_CHANCE:
                 return (noise < this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
 
+            case NOISE_BETWEEN_AND_RANDOM_CHANCE:
+                return (noise > this.treeConditionNoise && noise < this.treeConditionNoise2 && rand.nextInt(this.treeConditionChance) == 0);
+
             case RANDOM_CHANCE:
                 return rand.nextInt(this.treeConditionChance) == 0;
 
@@ -275,6 +286,7 @@ public class DecoTree extends DecoBase {
         ALWAYS_GENERATE,
         NOISE_GREATER_AND_RANDOM_CHANCE,
         NOISE_LESSER_AND_RANDOM_CHANCE,
+        NOISE_BETWEEN_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
         X_DIVIDED_BY_STRENGTH;
     }
@@ -309,9 +321,9 @@ public class DecoTree extends DecoBase {
      */
     public static class Distribution {
 
-        public float noiseDivisor;
-        public float noiseFactor;
-        public float noiseAddend;
+        protected float noiseDivisor;
+        protected float noiseFactor;
+        protected float noiseAddend;
 
         public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
 
@@ -319,5 +331,313 @@ public class DecoTree extends DecoBase {
             this.noiseFactor = noiseFactor;
             this.noiseAddend = noiseAddend;
         }
+
+        public float getNoiseDivisor() {
+
+            return noiseDivisor;
+    }
+
+        public Distribution setNoiseDivisor(float noiseDivisor) {
+
+            this.noiseDivisor = noiseDivisor;
+            return this;
+}
+
+        public float getNoiseFactor() {
+
+            return noiseFactor;
+        }
+
+        public Distribution setNoiseFactor(float noiseFactor) {
+
+            this.noiseFactor = noiseFactor;
+            return this;
+        }
+
+        public float getNoiseAddend() {
+
+            return noiseAddend;
+        }
+
+        public Distribution setNoiseAddend(float noiseAddend) {
+
+            this.noiseAddend = noiseAddend;
+            return this;
+        }
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoTree setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
+    }
+
+    public float getStrengthFactorForLoops() {
+
+        return strengthFactorForLoops;
+    }
+
+    public DecoTree setStrengthFactorForLoops(float strengthFactorForLoops) {
+
+        this.strengthFactorForLoops = strengthFactorForLoops;
+        return this;
+    }
+
+    public boolean isStrengthNoiseFactorForLoops() {
+
+        return strengthNoiseFactorForLoops;
+    }
+
+    public DecoTree setStrengthNoiseFactorForLoops(boolean strengthNoiseFactorForLoops) {
+
+        this.strengthNoiseFactorForLoops = strengthNoiseFactorForLoops;
+        return this;
+    }
+
+    public boolean isStrengthNoiseFactorXForLoops() {
+
+        return strengthNoiseFactorXForLoops;
+    }
+
+    public DecoTree setStrengthNoiseFactorXForLoops(boolean strengthNoiseFactorXForLoops) {
+
+        this.strengthNoiseFactorXForLoops = strengthNoiseFactorXForLoops;
+        return this;
+    }
+
+    public TreeType getTreeType() {
+
+        return treeType;
+    }
+
+    public DecoTree setTreeType(TreeType treeType) {
+
+        this.treeType = treeType;
+        return this;
+    }
+
+    public TreeRTG getTree() {
+
+        return tree;
+    }
+
+    public DecoTree setTree(TreeRTG tree) {
+
+        this.tree = tree;
+        return this;
+    }
+
+    public WorldGenerator getWorldGen() {
+
+        return worldGen;
+    }
+
+    public DecoTree setWorldGen(WorldGenerator worldGen) {
+
+        this.worldGen = worldGen;
+        return this;
+    }
+
+    public Distribution getDistribution() {
+
+        return distribution;
+    }
+
+    public DecoTree setDistribution(Distribution distribution) {
+
+        this.distribution = distribution;
+        return this;
+    }
+
+    public TreeCondition getTreeCondition() {
+
+        return treeCondition;
+    }
+
+    public DecoTree setTreeCondition(TreeCondition treeCondition) {
+
+        this.treeCondition = treeCondition;
+        return this;
+    }
+
+    public float getTreeConditionNoise() {
+
+        return treeConditionNoise;
+    }
+
+    public DecoTree setTreeConditionNoise(float treeConditionNoise) {
+
+        this.treeConditionNoise = treeConditionNoise;
+        return this;
+    }
+
+    public float getTreeConditionNoise2() {
+
+        return treeConditionNoise2;
+    }
+
+    public DecoTree setTreeConditionNoise2(float treeConditionNoise2) {
+
+        this.treeConditionNoise2 = treeConditionNoise2;
+        return this;
+    }
+
+    public int getTreeConditionChance() {
+
+        return treeConditionChance;
+    }
+
+    public DecoTree setTreeConditionChance(int treeConditionChance) {
+
+        this.treeConditionChance = treeConditionChance;
+        return this;
+    }
+
+    public float getTreeConditionFloat() {
+
+        return treeConditionFloat;
+    }
+
+    public DecoTree setTreeConditionFloat(float treeConditionFloat) {
+
+        this.treeConditionFloat = treeConditionFloat;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoTree setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoTree setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public IBlockState getLogBlock() {
+
+        return logBlock;
+    }
+
+    public DecoTree setLogBlock(IBlockState logBlock) {
+
+        this.logBlock = logBlock;
+        return this;
+    }
+
+    public IBlockState getLeavesBlock() {
+
+        return leavesBlock;
+    }
+
+    public DecoTree setLeavesBlock(IBlockState leavesBlock) {
+
+        this.leavesBlock = leavesBlock;
+        return this;
+    }
+
+    public int getMinSize() {
+
+        return minSize;
+    }
+
+    public DecoTree setMinSize(int minSize) {
+
+        this.minSize = minSize;
+        return this;
+    }
+
+    public int getMaxSize() {
+
+        return maxSize;
+    }
+
+    public DecoTree setMaxSize(int maxSize) {
+
+        this.maxSize = maxSize;
+        return this;
+    }
+
+    public int getMinTrunkSize() {
+
+        return minTrunkSize;
+    }
+
+    public DecoTree setMinTrunkSize(int minTrunkSize) {
+
+        this.minTrunkSize = minTrunkSize;
+        return this;
+    }
+
+    public int getMaxTrunkSize() {
+
+        return maxTrunkSize;
+    }
+
+    public DecoTree setMaxTrunkSize(int maxTrunkSize) {
+
+        this.maxTrunkSize = maxTrunkSize;
+        return this;
+    }
+
+    public int getMinCrownSize() {
+
+        return minCrownSize;
+    }
+
+    public DecoTree setMinCrownSize(int minCrownSize) {
+
+        this.minCrownSize = minCrownSize;
+        return this;
+    }
+
+    public int getMaxCrownSize() {
+
+        return maxCrownSize;
+    }
+
+    public DecoTree setMaxCrownSize(int maxCrownSize) {
+
+        this.maxCrownSize = maxCrownSize;
+        return this;
+    }
+
+    public boolean isNoLeaves() {
+
+        return noLeaves;
+    }
+
+    public DecoTree setNoLeaves(boolean noLeaves) {
+
+        this.noLeaves = noLeaves;
+        return this;
+    }
+
+    public Scatter getScatter() {
+
+        return scatter;
+    }
+
+    public DecoTree setScatter(Scatter scatter) {
+
+        this.scatter = scatter;
+        return this;
     }
 }

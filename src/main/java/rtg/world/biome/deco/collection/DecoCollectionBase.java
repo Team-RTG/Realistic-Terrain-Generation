@@ -19,15 +19,16 @@ public class DecoCollectionBase {
         this.rtgTrees = new ArrayList<TreeRTG>();
     }
 
-    public void addDeco(DecoBase deco) {
+    public DecoCollectionBase addDeco(DecoBase deco) {
 
         if (!deco.properlyDefined()) {
             throw new RuntimeException();
         }
         this.decos.add(deco);
+        return this;
     }
 
-    public void addDeco(DecoBase deco, boolean allowed) {
+    public DecoCollectionBase addDeco(DecoBase deco, boolean allowed) {
 
         if (allowed) {
             if (!deco.properlyDefined()) {
@@ -35,6 +36,7 @@ public class DecoCollectionBase {
             }
             this.decos.add(deco);
         }
+        return this;
     }
 
     /**

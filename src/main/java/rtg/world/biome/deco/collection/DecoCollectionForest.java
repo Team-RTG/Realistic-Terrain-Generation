@@ -37,7 +37,6 @@ public class DecoCollectionForest extends DecoCollectionBase {
 
         this
             .addDeco(tallTrees(tallMin, tallMax)) // Tall trees first.
-            .addDeco(vines()) // Some vines.
             .addDeco(shortTrees(short1Min, short1Max)) // Short trees next.
             .addDeco(shortTrees(short2Min, short2Max)) // More short trees (on the other 'side' of the noise spectrum).
             .addDeco(randomTrees()) // More trees.
@@ -145,11 +144,6 @@ public class DecoCollectionForest extends DecoCollectionBase {
             .setTreeCondition(TreeCondition.RANDOM_CHANCE)
             .setTreeConditionChance(3)
             .setMaxY(120);
-    }
-
-    private DecoVines vines() {
-        return new DecoVines()
-            .setStrengthFactor(6f);
     }
 
     private DecoHelper5050 logs() {

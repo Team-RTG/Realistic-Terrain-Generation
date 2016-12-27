@@ -1,7 +1,5 @@
 package rtg.util;
 
-import net.minecraft.crash.CrashReport;
-
 import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.logging.log4j.Level;
@@ -14,7 +12,7 @@ public class Logger {
     public static void debug(String format, Object... data) {
 
         if (RTGAPI.config().ENABLE_DEBUGGING.get()) {
-            FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
+            FMLLog.log(Level.WARN, "[RTG-DEBUG] " + format, data);
         }
     }
 
@@ -33,9 +31,8 @@ public class Logger {
         FMLLog.log(Level.ERROR, "[RTG-ERROR] " + format, data);
     }
 
-    public static void fatal(String message, Throwable throwable, Object... data) {
+    public static void fatal(String format, Object... data) {
 
-        CrashReport crashreport = CrashReport.makeCrashReport(throwable, message);
-        FMLLog.bigWarning("[RTG-FATAL] " + crashreport.getCompleteReport(), data);
+        FMLLog.log(Level.FATAL, "[RTG-FATAL] " + format, data);
     }
 }

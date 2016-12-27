@@ -12,13 +12,14 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
@@ -176,37 +177,37 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     public void initDecos() {
 
         DecoAbyssalCraftTree decoTrees = new DecoAbyssalCraftTree();
-        decoTrees.strengthNoiseFactorXForLoops = true;
-        decoTrees.distribution.noiseDivisor = 80f;
-        decoTrees.distribution.noiseFactor = 60f;
-        decoTrees.distribution.noiseAddend = -15f;
-        decoTrees.treeType = DecoAbyssalCraftTree.TreeType.DARKWOOD;
-        decoTrees.treeCondition = DecoTree.TreeCondition.RANDOM_CHANCE;
-        decoTrees.treeConditionChance = 3;
-        decoTrees.maxY = 110;
+        decoTrees.setStrengthNoiseFactorXForLoops(true);
+        decoTrees.getDistribution().setNoiseDivisor(80f);
+        decoTrees.getDistribution().setNoiseFactor(60f);
+        decoTrees.getDistribution().setNoiseAddend(-15f);
+        decoTrees.setTreeType(DecoAbyssalCraftTree.TreeType.DARKWOOD);
+        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        decoTrees.setTreeConditionChance(3);
+        decoTrees.setMaxY(110);
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 12;
-        decoFallenTree.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
-        decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
-        decoFallenTree.minSize = 2;
-        decoFallenTree.maxSize = 3;
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(12);
+        decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
+        decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
+        decoFallenTree.setMinSize(2);
+        decoFallenTree.setMaxSize(3);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
-        decoShrubCustom.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
-        decoShrubCustom.maxY = 110;
-        decoShrubCustom.notEqualsZerochance = 3;
-        decoShrubCustom.strengthFactor = 3f;
+        decoShrubCustom.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
+        decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
+        decoShrubCustom.setMaxY(110);
+        decoShrubCustom.setNotEqualsZeroChance(3);
+        decoShrubCustom.setStrengthFactor(3f);
         this.addDeco(decoShrubCustom);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 8f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(8f);
         this.addDeco(decoGrass);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

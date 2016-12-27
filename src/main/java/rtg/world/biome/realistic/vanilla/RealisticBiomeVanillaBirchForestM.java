@@ -9,16 +9,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
 
@@ -170,47 +171,47 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     public void initDecos() {
 
         TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
-        tallBirch.logBlock = BlockUtil.getStateLog(2);
-        tallBirch.leavesBlock = BlockUtil.getStateLeaf(2);
-        tallBirch.minTrunkSize = 16;
-        tallBirch.maxTrunkSize = 23;
-        tallBirch.minCrownSize = 4;
-        tallBirch.maxCrownSize = 11;
+        tallBirch.setLogBlock(BlockUtil.getStateLog(2));
+        tallBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        tallBirch.setMinTrunkSize(16);
+        tallBirch.setMaxTrunkSize(23);
+        tallBirch.setMinCrownSize(4);
+        tallBirch.setMaxCrownSize(11);
         this.addTree(tallBirch);
 
         DecoTree superTallBirch = new DecoTree(tallBirch);
-        superTallBirch.strengthFactorForLoops = 16f;
-        superTallBirch.strengthNoiseFactorForLoops = true;
-        superTallBirch.treeType = DecoTree.TreeType.RTG_TREE;
-        superTallBirch.distribution.noiseDivisor = 80f;
-        superTallBirch.distribution.noiseFactor = 60f;
-        superTallBirch.distribution.noiseAddend = -15f;
-        superTallBirch.treeCondition = DecoTree.TreeCondition.ALWAYS_GENERATE;
-        superTallBirch.maxY = 100;
+        superTallBirch.setStrengthFactorForLoops(16f);
+        superTallBirch.setStrengthNoiseFactorForLoops(true);
+        superTallBirch.setTreeType(DecoTree.TreeType.RTG_TREE);
+        superTallBirch.getDistribution().setNoiseDivisor(80f);
+        superTallBirch.getDistribution().setNoiseFactor(60f);
+        superTallBirch.getDistribution().setNoiseAddend(-15f);
+        superTallBirch.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+        superTallBirch.setMaxY(100);
         this.addDeco(superTallBirch);
 
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.maxY = 128;
-        decoDoublePlants.strengthFactor = 8f;
+        decoDoublePlants.setMaxY(128);
+        decoDoublePlants.setStrengthFactor(8f);
         this.addDeco(decoDoublePlants);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 24f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(24f);
         this.addDeco(decoGrass);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 20;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
+        decoFallenTree.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree.setLogConditionChance(20);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(2));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 2f;
+        decoShrub.setMaxY(110);
+        decoShrub.setStrengthFactor(2f);
         this.addDeco(decoShrub);
     }
 }

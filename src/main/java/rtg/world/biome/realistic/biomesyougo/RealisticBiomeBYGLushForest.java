@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoGrass;
@@ -21,6 +21,7 @@ import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
 
@@ -178,33 +179,33 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
     public void initDecos() {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = BlockUtil.getStateLog(2);
-        decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(24);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(2));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.maxY = 100;
+        decoBaseBiomeDecorations.setMaxY(100);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoShrub decoShrubBirch = new DecoShrub();
-        decoShrubBirch.logBlock = BlockUtil.getStateLog(2);
-        decoShrubBirch.leavesBlock = BlockUtil.getStateLeaf(2);
-        decoShrubBirch.maxY = 90;
-        decoShrubBirch.strengthFactor = 6f;
-        decoShrubBirch.chance = 4;
+        decoShrubBirch.setLogBlock(BlockUtil.getStateLog(2));
+        decoShrubBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoShrubBirch.setMaxY(90);
+        decoShrubBirch.setStrengthFactor(6f);
+        decoShrubBirch.setChance(4);
         this.addDeco(decoShrubBirch);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 100;
-        decoGrass.strengthFactor = 6f;
+        decoGrass.setMaxY(100);
+        decoGrass.setStrengthFactor(6f);
         this.addDeco(decoGrass);
     }
 }

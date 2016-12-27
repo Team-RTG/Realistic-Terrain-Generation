@@ -12,16 +12,17 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.HeightEffect;
 import rtg.world.gen.terrain.JitterEffect;
 import rtg.world.gen.terrain.MountainsWithPassesEffect;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
@@ -191,34 +192,34 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 90;
-        decoBoulder.chance = 16;
-        decoBoulder.strengthFactor = 3f;
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(90);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(3f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 6;
-        decoFallenTree.logBlock = BOPBlocks.log_2.getStateFromMeta(6);
-        decoFallenTree.leavesBlock = Blocks.LEAVES.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(6);
+        decoFallenTree.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.maxY = 110;
-        decoShrub.strengthFactor = 2f;
-        decoShrub.chance = 10;
+        decoShrub.setMaxY(110);
+        decoShrub.setStrengthFactor(2f);
+        decoShrub.setChance(10);
         this.addDeco(decoShrub);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.maxY = 128;
-        decoGrass.strengthFactor = 3f;
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(3f);
         this.addDeco(decoGrass);
     }
 }

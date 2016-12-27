@@ -9,9 +9,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;

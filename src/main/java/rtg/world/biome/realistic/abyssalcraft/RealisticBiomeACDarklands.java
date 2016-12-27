@@ -12,15 +12,16 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
 
@@ -180,20 +181,20 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
     public void initDecos() {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.RANDOM_CHANCE;
-        decoFallenTree.logConditionChance = 8;
-        decoFallenTree.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
-        decoFallenTree.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
-        decoFallenTree.minSize = 2;
-        decoFallenTree.maxSize = 3;
+        decoFallenTree.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree.setLogConditionChance(8);
+        decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
+        decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
+        decoFallenTree.setMinSize(2);
+        decoFallenTree.setMaxSize(3);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.logBlock = ACBlocks.darklands_oak_wood.getDefaultState();
-        decoShrubCustom.leavesBlock = ACBlocks.darklands_oak_leaves.getDefaultState();
-        decoShrubCustom.maxY = 110;
-        decoShrubCustom.notEqualsZerochance = 3;
-        decoShrubCustom.strengthFactor = 2f;
+        decoShrubCustom.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
+        decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
+        decoShrubCustom.setMaxY(110);
+        decoShrubCustom.setNotEqualsZeroChance(3);
+        decoShrubCustom.setStrengthFactor(2f);
         this.addDeco(decoShrubCustom);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

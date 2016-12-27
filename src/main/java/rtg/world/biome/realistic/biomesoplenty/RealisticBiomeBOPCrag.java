@@ -11,10 +11,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 
-import rtg.api.util.noise.SimplexOctave;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoPond;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
@@ -177,7 +177,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoPond decoPond = new DecoPond();
-        decoPond.chunksPerPond = 3;// very high because most are blocked by topography
+        decoPond.setChunksPerPond(3);// very high because most are blocked by topography
         DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
         this.addDeco(borderedPond);
 

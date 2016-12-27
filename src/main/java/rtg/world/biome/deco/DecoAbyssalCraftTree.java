@@ -20,7 +20,7 @@ import rtg.world.gen.feature.tree.abyssalcraft.WorldGenTreeACDarkwood;
  */
 public class DecoAbyssalCraftTree extends DecoTree {
 
-    public TreeType treeType;
+    private TreeType treeType;
 
     public DecoAbyssalCraftTree() {
 
@@ -30,21 +30,21 @@ public class DecoAbyssalCraftTree extends DecoTree {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.loops = 1;
-        this.strengthFactorForLoops = 0f;
-        this.strengthNoiseFactorForLoops = false;
-        this.strengthNoiseFactorXForLoops = false;
-        this.treeType = TreeType.DARKWOOD;
-        this.distribution = new DecoTree.Distribution(100f, 5f, 0.8f);
-        this.treeCondition = TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        this.treeConditionNoise = 0f;
-        this.treeConditionChance = 1;
-        this.minY = 63; // No underwater trees by default.
-        this.maxY = 230; // Sensible upper height limit by default.
-        this.logBlock = Blocks.LOG.getDefaultState();
-        this.leavesBlock = Blocks.LEAVES.getDefaultState();
-        this.minSize = 2;
-        this.maxSize = 4;
+        this.setLoops(1);
+        this.setStrengthFactorForLoops(0f);
+        this.setStrengthNoiseFactorForLoops(false);
+        this.setStrengthNoiseFactorXForLoops(false);
+        this.setTreeType(TreeType.DARKWOOD);
+        this.setDistribution(new DecoTree.Distribution(100f, 5f, 0.8f));
+        this.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        this.setTreeConditionNoise(0f);
+        this.setTreeConditionChance(1);
+        this.setMinY(63); // No underwater trees by default.
+        this.setMaxY(230); // Sensible upper height limit by default.
+        this.setLogBlock(Blocks.LOG.getDefaultState());
+        this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        this.setMinSize(2);
+        this.setMaxSize(4);
 
         this.addDecoTypes(DecoType.TREE);
     }
@@ -95,5 +95,11 @@ public class DecoAbyssalCraftTree extends DecoTree {
 
     public enum TreeType {
         DARKWOOD;
+    }
+
+    public DecoAbyssalCraftTree setTreeType(TreeType treeType) {
+
+        this.treeType = treeType;
+        return this;
     }
 }

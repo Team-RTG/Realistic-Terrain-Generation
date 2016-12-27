@@ -28,7 +28,7 @@ public class WorldGenCacti extends WorldGenerator {
 
         sand = sandOnly;
         eHeight = extraHeight;
-        this.soilBlock = soilBlock;
+        this.setSoilBlock(soilBlock);
     }
 
     @Override
@@ -62,5 +62,16 @@ public class WorldGenCacti extends WorldGenerator {
         }
 
         return true;
+    }
+
+    public IBlockState getSoilBlock() {
+
+        return soilBlock;
+    }
+
+    public WorldGenCacti setSoilBlock(IBlockState soilBlock) {
+
+        this.soilBlock = soilBlock;
+        return this;
     }
 }

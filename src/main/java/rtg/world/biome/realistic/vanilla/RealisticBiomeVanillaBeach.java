@@ -9,10 +9,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoTree;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
@@ -152,20 +152,20 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         // Scattered palm trees.
 
         TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
-        nuciferaTree.minTrunkSize = 7;
-        nuciferaTree.maxTrunkSize = 9;
-        nuciferaTree.minCrownSize = 6;
-        nuciferaTree.maxCrownSize = 8;
-        nuciferaTree.validGroundBlocks.clear();
-        nuciferaTree.validGroundBlocks.add(Blocks.SAND.getDefaultState());
+        nuciferaTree.setMinTrunkSize(7);
+        nuciferaTree.setMaxTrunkSize(9);
+        nuciferaTree.setMinCrownSize(6);
+        nuciferaTree.setMaxCrownSize(8);
+        nuciferaTree.getValidGroundBlocks().clear();
+        nuciferaTree.getValidGroundBlocks().add(Blocks.SAND.getDefaultState());
         this.addTree(nuciferaTree);
 
         DecoTree palmTrees = new DecoTree(nuciferaTree);
-        palmTrees.treeType = DecoTree.TreeType.RTG_TREE;
-        palmTrees.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        palmTrees.treeConditionNoise = -0.2f;
-        palmTrees.treeConditionChance = 12;
-        palmTrees.maxY = 68;
+        palmTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        palmTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        palmTrees.setTreeConditionNoise(-0.2f);
+        palmTrees.setTreeConditionChance(12);
+        palmTrees.setMaxY(68);
         this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
     }
 }

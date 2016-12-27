@@ -12,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.api.RTGAPI;
+
 public class WorldGenVinesRTG extends WorldGenerator {
 
     protected Block vineBlock;
@@ -20,6 +22,11 @@ public class WorldGenVinesRTG extends WorldGenerator {
     protected PropertyBool propEast;
     protected PropertyBool propSouth;
     protected PropertyBool propWest;
+
+    private static final Block volcanoBlock = Block.getBlockFromName(RTGAPI.config().VOLCANO_BLOCK_ID.get());
+    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK_ID.get());
+    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK_ID.get());
+    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK_ID.get());
 
     public WorldGenVinesRTG() {
 
@@ -49,6 +56,19 @@ public class WorldGenVinesRTG extends WorldGenerator {
         for (; position.getY() < this.maxY; position = position.up()) {
 
             if (worldIn.isAirBlock(position)) {
+
+                Block north = worldIn.getBlockState(position.north()).getBlock();
+                Block south = worldIn.getBlockState(position.south()).getBlock();
+                Block east = worldIn.getBlockState(position.east()).getBlock();
+                Block west = worldIn.getBlockState(position.west()).getBlock();
+
+                // No vines on volcanoes.
+                if (north == volcanoBlock || north == volcanoMix1Block || north == volcanoMix2Block || north == volcanoMix3Block
+                    || south == volcanoBlock || south == volcanoMix1Block || south == volcanoMix2Block || south == volcanoMix3Block
+                    || east == volcanoBlock || east == volcanoMix1Block || east == volcanoMix2Block || east == volcanoMix3Block
+                    || west == volcanoBlock || west == volcanoMix1Block || west == volcanoMix2Block || west == volcanoMix3Block) {
+                    return false;
+                }
 
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings()) {
 

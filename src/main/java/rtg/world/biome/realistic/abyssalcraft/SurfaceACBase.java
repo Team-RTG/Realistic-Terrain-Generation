@@ -4,8 +4,8 @@ import net.minecraft.block.state.IBlockState;
 
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
+import rtg.api.world.RTGWorld;
 import rtg.world.gen.surface.SurfaceBase;
 
 public abstract class SurfaceACBase extends SurfaceBase {

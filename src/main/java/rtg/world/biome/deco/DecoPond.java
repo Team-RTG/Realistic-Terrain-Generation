@@ -17,10 +17,10 @@ import rtg.world.gen.feature.WorldGenPond;
  */
 public class DecoPond extends DecoBase {
 
-    public int chunksPerPond = 8;
-    public int minY = 64;
-    public int maxY = 240;
-    public int loops = 1;
+    private int chunksPerPond = 8;
+    private int minY = 64;
+    private int maxY = 240;
+    private int loops = 1;
 
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
     private RTGConfig rtgConfig = RTGAPI.config();
@@ -46,5 +46,49 @@ public class DecoPond extends DecoBase {
                 }
             }
         }
+    }
+
+    public int getChunksPerPond() {
+
+        return chunksPerPond;
+    }
+
+    public DecoPond setChunksPerPond(int chunksPerPond) {
+
+        this.chunksPerPond = chunksPerPond;
+        return this;
+    }
+
+    public int getMinY() {
+
+        return minY;
+    }
+
+    public DecoPond setMinY(int minY) {
+
+        this.minY = minY;
+        return this;
+    }
+
+    public int getMaxY() {
+
+        return maxY;
+    }
+
+    public DecoPond setMaxY(int maxY) {
+
+        this.maxY = maxY;
+        return this;
+    }
+
+    public int getLoops() {
+
+        return loops;
+    }
+
+    public DecoPond setLoops(int loops) {
+
+        this.loops = loops;
+        return this;
     }
 }

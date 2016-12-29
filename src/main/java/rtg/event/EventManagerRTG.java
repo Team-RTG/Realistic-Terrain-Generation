@@ -30,7 +30,6 @@ import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 
@@ -87,75 +86,91 @@ public class EventManagerRTG {
                 return;
             }
 
+            String eventName = null;
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
 
             // No switch statements allowed! - Pink
 
             if (eventType == ANDESITE) {
+                eventName = "ANDESITE";
                 if (!rtgConfig.GENERATE_ORE_ANDESITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == COAL) {
+                eventName = "COAL";
                 if (!rtgConfig.GENERATE_ORE_COAL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIAMOND) {
+                eventName = "DIAMOND";
                 if (!rtgConfig.GENERATE_ORE_DIAMOND.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIORITE) {
+                eventName = "DIORITE";
                 if (!rtgConfig.GENERATE_ORE_DIORITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIRT) {
+                eventName = "DIRT";
                 if (!rtgConfig.GENERATE_ORE_DIRT.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == EMERALD) {
+                eventName = "EMERALD";
                 if (!rtgConfig.GENERATE_ORE_EMERALD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GOLD) {
+                eventName = "GOLD";
                 if (!rtgConfig.GENERATE_ORE_GOLD.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRANITE) {
+                eventName = "GRANITE";
                 if (!rtgConfig.GENERATE_ORE_GRANITE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRAVEL) {
+                eventName = "GRAVEL";
                 if (!rtgConfig.GENERATE_ORE_GRAVEL.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == IRON) {
+                eventName = "IRON";
                 if (!rtgConfig.GENERATE_ORE_IRON.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == LAPIS) {
+                eventName = "LAPIS";
                 if (!rtgConfig.GENERATE_ORE_LAPIS.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == REDSTONE) {
+                eventName = "REDSTONE";
                 if (!rtgConfig.GENERATE_ORE_REDSTONE.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == SILVERFISH) {
+                eventName = "SILVERFISH";
                 if (!rtgConfig.GENERATE_ORE_SILVERFISH.get()) {
                     event.setResult(Event.Result.DENY);
                 }
             }
+
+            //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), (event.getPos().getX() / 16), (event.getPos().getZ() / 16));
         }
     }
 
@@ -220,11 +235,10 @@ public class EventManagerRTG {
             Biome bgg = event.getWorld().getBiome(event.getPos());
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(Biome.getIdForBiome(bgg));
 
-            // Do we need to patch the biome?
+            // Instead of patching the biome, we should just return early here to allow vanilla logic to kick in.
             if (rb == null) {
-                RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
-                rb = biomePatcher.getPatchedRealisticBiome(
-                    "NULL biome (" + Biome.getIdForBiome(bgg) + ") found when growing an RTG sapling.");
+                Logger.debug("NULL biome (%d) found when trying to grow an RTG tree from a sapling.", Biome.getIdForBiome(bgg));
+                return;
             }
 
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
@@ -242,12 +256,12 @@ public class EventManagerRTG {
                 for (int i = 0; i < biomeTrees.size(); i++) {
 
                     Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
-                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).saplingBlock.getBlock().getLocalizedName());
-                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).saplingBlock));
+                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
+                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
 
-                    if (saplingBlock.getBlock() == biomeTrees.get(i).saplingBlock.getBlock()) {
+                    if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) {
 
-                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).saplingBlock)) {
+                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
 
                             validTrees.add(biomeTrees.get(i));
                             Logger.debug("Valid tree found!");
@@ -267,18 +281,18 @@ public class EventManagerRTG {
                     Logger.debug("Tree = %s", tree.getClass().getName());
 
                     // Set the trunk size if min/max values have been set.
-                    if (tree.minTrunkSize > 0 && tree.maxTrunkSize > tree.minTrunkSize) {
+                    if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) {
 
-                        tree.trunkSize = RandomUtil.getRandomInt(event.getRand(), tree.minTrunkSize, tree.maxTrunkSize);
+                        tree.setTrunkSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
                     }
 
                     // Set the crown size if min/max values have been set.
-                    if (tree.minCrownSize > 0 && tree.maxCrownSize > tree.minCrownSize) {
+                    if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) {
 
-                        tree.crownSize = RandomUtil.getRandomInt(event.getRand(), tree.minCrownSize, tree.maxCrownSize);
+                        tree.setCrownSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinCrownSize(), tree.getMaxCrownSize()));
                     }
 
-                    int treeHeight = tree.trunkSize + tree.crownSize;
+                    int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
                     if (treeHeight < 1) {
                         Logger.debug("Unable to grow RTG tree with no height.");
                         return;
@@ -295,10 +309,10 @@ public class EventManagerRTG {
                      *
                      * TODO: Does this affect the generation of normal RTG trees? - Pink
                      */
-                    int oldFlag = tree.generateFlag;
-                    tree.generateFlag = 3;
+                    int oldFlag = tree.getGenerateFlag();
+                    tree.setGenerateFlag(3);
                     boolean generated = tree.generate(event.getWorld(), event.getRand(), event.getPos());
-                    tree.generateFlag = oldFlag;
+                    tree.setGenerateFlag(oldFlag);
 
                     if (generated) {
 

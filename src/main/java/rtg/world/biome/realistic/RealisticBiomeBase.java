@@ -110,7 +110,7 @@ public abstract class RealisticBiomeBase {
          *  This also needs to be here so that ores get generated.
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.allowed = false;
+        decoBaseBiomeDecorations.setAllowed(false);
         this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
@@ -485,15 +485,15 @@ public abstract class RealisticBiomeBase {
         if (allowed) {
 
             // Set the sapling data for this tree before we add it to the list.
-            tree.saplingBlock = SaplingUtil.getSaplingFromLeaves(tree.leavesBlock);
+            tree.setSaplingBlock(SaplingUtil.getSaplingFromLeaves(tree.getLeavesBlock()));
 
             /*
              * Make sure all leaves delay their decay to prevent insta-despawning of leaves (e.g. Swamp Willow)
              * The try/catch is a safeguard against trees that use leaves which aren't an instance of BlockLeaves.
              */
             try {
-                IBlockState leaves = tree.leavesBlock.withProperty(BlockLeaves.CHECK_DECAY, false);
-                tree.leavesBlock = leaves;
+                IBlockState leaves = tree.getLeavesBlock().withProperty(BlockLeaves.CHECK_DECAY, false);
+                tree.setLeavesBlock(leaves);
             }
             catch (Exception e) {
                 // Do nothing.

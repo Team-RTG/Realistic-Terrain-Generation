@@ -60,4 +60,26 @@ public class DecoHelperRandomSplit extends DecoBase {
             }
         }
     }
+
+    public DecoBase[] getDecos() {
+
+        return decos;
+    }
+
+    public DecoHelperRandomSplit setDecos(DecoBase[] decos) {
+
+        this.decos = decos;
+        return this;
+    }
+
+    public int[] getChances() {
+
+        return chances;
+    }
+
+    public DecoHelperRandomSplit setChances(int[] chances) {
+
+        this.chances = chances;
+        return this;
+    }
 }

@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.util.CanyonColour;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
+import rtg.util.CanyonColour;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoReed;
@@ -185,19 +185,19 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
         this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.strengthFactor = 25f;
-        decoCactus.soilBlock = BlockUtil.getStateClay(1);
-        decoCactus.sandOnly = false;
-        decoCactus.maxRiver = 0.8f;
+        decoCactus.setStrengthFactor(25f);
+        decoCactus.setSoilBlock(BlockUtil.getStateClay(1));
+        decoCactus.setSandOnly(false);
+        decoCactus.setMaxRiver(0.8f);
         addDeco(decoCactus);
 
         DecoReed decoReed = new DecoReed();
-        decoReed.loops = 5;
-        decoReed.maxRiver = 0.8f;
+        decoReed.setLoops(5);
+        decoReed.setMaxRiver(0.8f);
         addDeco(decoReed);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.strengthFactor = 5f;
+        decoDeadBush.setStrengthFactor(5f);
         addDeco(decoDeadBush);
     }
 }

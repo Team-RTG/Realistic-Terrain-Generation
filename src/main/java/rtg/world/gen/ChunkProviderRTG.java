@@ -319,10 +319,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in mineshaftGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in mineshaftGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -333,10 +335,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in strongholdGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in strongholdGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -347,10 +351,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in villageGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in villageGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -361,10 +367,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in scatteredFeatureGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in scatteredFeatureGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -375,10 +383,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in oceanMonumentGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in oceanMonumentGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -569,10 +579,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in mineshaftGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in mineshaftGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -585,10 +597,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in strongholdGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in strongholdGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -602,10 +616,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 catch (Exception e) {
                     hasPlacedVillageBlocks = false;
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in villageGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in villageGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -618,10 +634,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in scatteredFeatureGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in scatteredFeatureGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -634,10 +652,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in oceanMonumentGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in oceanMonumentGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -848,10 +868,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in mineshaftGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in mineshaftGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -862,10 +884,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in strongholdGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in strongholdGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -876,10 +900,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in villageGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in villageGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -890,10 +916,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in scatteredFeatureGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in scatteredFeatureGenerator");
+                        e.printStackTrace();
                     }
                 }
             }
@@ -904,10 +932,12 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in oceanMonumentGenerator");
                         throw new RuntimeException(e.getMessage());
                     }
                     else {
-                        Logger.fatal(e.getMessage(), e);
+                        Logger.error("Exception in oceanMonumentGenerator");
+                        e.printStackTrace();
                     }
                 }
             }

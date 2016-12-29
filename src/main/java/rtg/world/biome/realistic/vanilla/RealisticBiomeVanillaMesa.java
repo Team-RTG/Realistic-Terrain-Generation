@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.util.CanyonColour;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
+import rtg.util.CanyonColour;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
@@ -158,24 +158,24 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         this.addDecoCollection(new DecoCollectionDesertRiver());
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-        decoBoulder.maxY = 83;
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(83);
         this.addDeco(decoBoulder);
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.loops = 3;
-        decoShrub.maxY = 90;
+        decoShrub.setLoops(3);
+        decoShrub.setMaxY(90);
         addDeco(decoShrub);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.maxY = 100;
-        decoDeadBush.loops = 3;
+        decoDeadBush.setMaxY(100);
+        decoDeadBush.setLoops(3);
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.soilBlock = BlockUtil.getStateSand(1);
-        decoCactus.loops = 18;
-        decoCactus.maxY = 100;
+        decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
+        decoCactus.setLoops(18);
+        decoCactus.setMaxY(100);
         this.addDeco(decoCactus);
     }
 }

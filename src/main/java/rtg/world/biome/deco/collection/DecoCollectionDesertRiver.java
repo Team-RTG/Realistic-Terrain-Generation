@@ -21,54 +21,54 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         super();
 
         TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
-        acaciaTree.logBlock = Blocks.LOG2.getDefaultState();
-        acaciaTree.leavesBlock = Blocks.LEAVES2.getDefaultState();
-        acaciaTree.minTrunkSize = 12;
-        acaciaTree.maxTrunkSize = 16;
+        acaciaTree.setLogBlock(Blocks.LOG2.getDefaultState());
+        acaciaTree.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
+        acaciaTree.setMinTrunkSize(12);
+        acaciaTree.setMaxTrunkSize(16);
         this.addTree(acaciaTree);
 
         DecoTree acaciaTrees = new DecoTree(acaciaTree);
-        acaciaTrees.checkRiver = true;
-        acaciaTrees.minRiver = 0.86f;
-        acaciaTrees.loops = 1;
-        acaciaTrees.treeType = TreeType.RTG_TREE;
-        acaciaTrees.treeCondition = TreeCondition.ALWAYS_GENERATE;
-        acaciaTrees.maxY = 65;
+        acaciaTrees.setCheckRiver(true);
+        acaciaTrees.setMinRiver(0.86f);
+        acaciaTrees.setLoops(1);
+        acaciaTrees.setTreeType(TreeType.RTG_TREE);
+        acaciaTrees.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
+        acaciaTrees.setMaxY(65);
         this.addDeco(acaciaTrees);
 
         DecoShrub acaciaShrub = new DecoShrub();
-        acaciaShrub.checkRiver = true;
-        acaciaShrub.minRiver = 0.86f;
-        acaciaShrub.logBlock = Blocks.LOG2.getDefaultState();
-        acaciaShrub.leavesBlock = Blocks.LEAVES2.getDefaultState();
-        acaciaShrub.maxY = 65;
-        acaciaShrub.loops = 1;
-        acaciaShrub.chance = 1;
+        acaciaShrub.setCheckRiver(true);
+        acaciaShrub.setMinRiver(0.86f);
+        acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
+        acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
+        acaciaShrub.setMaxY(65);
+        acaciaShrub.setLoops(1);
+        acaciaShrub.setChance(1);
         this.addDeco(acaciaShrub);
 
         DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, acaciaShrub, acaciaTrees);
         this.addDeco(decoHelperThisOrThat);
 
         DecoCactus decoRiverCactus = new DecoCactus();
-        decoRiverCactus.checkRiver = true;
-        decoRiverCactus.minRiver = 0.7f;
-        decoRiverCactus.maxY = 80;
-        decoRiverCactus.strengthFactor = 12f;
+        decoRiverCactus.setCheckRiver(true);
+        decoRiverCactus.setMinRiver(0.7f);
+        decoRiverCactus.setMaxY(80);
+        decoRiverCactus.setStrengthFactor(12f);
         this.addDeco(decoRiverCactus);
 
         DecoReed decoReed = new DecoReed();
-        decoReed.checkRiver = true;
-        decoReed.minRiver = 0.7f;
-        decoReed.maxY = 68;
-        decoReed.strengthFactor = 2f;
+        decoReed.setCheckRiver(true);
+        decoReed.setMinRiver(0.7f);
+        decoReed.setMaxY(68);
+        decoReed.setLoops(3);
         this.addDeco(decoReed);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.checkRiver = true;
-        decoGrassDoubleTallgrass.minRiver = 0.7f;
-        decoGrassDoubleTallgrass.maxY = 128;
-        decoGrassDoubleTallgrass.loops = 15;
-        decoGrassDoubleTallgrass.doubleGrassChance = 3;
+        decoGrassDoubleTallgrass.setCheckRiver(true);
+        decoGrassDoubleTallgrass.setMinRiver(0.7f);
+        decoGrassDoubleTallgrass.setMaxY(128);
+        decoGrassDoubleTallgrass.setLoops(15);
+        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
         this.addDeco(decoGrassDoubleTallgrass);
     }
 }

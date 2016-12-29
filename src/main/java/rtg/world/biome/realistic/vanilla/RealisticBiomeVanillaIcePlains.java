@@ -9,15 +9,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
@@ -122,21 +123,21 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		this.addDeco(decoBaseBiomeDecorations);
 
 		DecoBoulder decoBoulder = new DecoBoulder();
-		decoBoulder.checkRiver = true;
-		decoBoulder.minRiver = 0.87f;
-		decoBoulder.boulderBlock = Blocks.COBBLESTONE.getDefaultState();
-		decoBoulder.chance = 16;
-		decoBoulder.maxY = 95;
-		decoBoulder.strengthFactor = 5f;
+		decoBoulder.setCheckRiver(true);
+		decoBoulder.setMinRiver(0.87f);
+		decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+		decoBoulder.setChance(16);
+		decoBoulder.setMaxY(95);
+		decoBoulder.setStrengthFactor(5f);
 		this.addDeco(decoBoulder);
 
 		DecoFallenTree decoFallenTree = new DecoFallenTree();
-		decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-		decoFallenTree.logConditionChance = 24;
-		decoFallenTree.logBlock = BlockUtil.getStateLog(1);
-		decoFallenTree.leavesBlock = BlockUtil.getStateLeaf(1);
-		decoFallenTree.minSize = 1;
-		decoFallenTree.maxSize = 5;
+		decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+		decoFallenTree.setLogConditionChance(24);
+		decoFallenTree.setLogBlock(BlockUtil.getStateLog(1));
+		decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+		decoFallenTree.setMinSize(1);
+		decoFallenTree.setMaxSize(5);
 		this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 	}
 }

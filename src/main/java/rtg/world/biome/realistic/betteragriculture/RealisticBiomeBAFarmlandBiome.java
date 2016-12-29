@@ -9,14 +9,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
+import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
 class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase {
@@ -164,81 +165,81 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
     public void initDecos() {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.distribution.noiseDivisor = 100f;
-        decoFallenTree.distribution.noiseFactor = 6f;
-        decoFallenTree.distribution.noiseAddend = 0.8f;
-        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-        decoFallenTree.logConditionNoise = 0f;
-        decoFallenTree.logConditionChance = 24;
-        decoFallenTree.logBlock = Blocks.LOG.getDefaultState();
-        decoFallenTree.leavesBlock = Blocks.LOG.getDefaultState();
-        decoFallenTree.minSize = 3;
-        decoFallenTree.maxSize = 6;
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(24);
+        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
+        decoFallenTree.setLeavesBlock(Blocks.LOG.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoCrop decoWheat = new DecoCrop();
-        decoWheat.type = 3;
-        decoWheat.chance = 80;
-        decoWheat.strengthFactor = 15f;
-        decoWheat.maxY = 255;
-        decoWheat.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoWheat.density = 600;
-        decoWheat.height = 5;
+        decoWheat.setType(3);
+        decoWheat.setChance(80);
+        decoWheat.setStrengthFactor(15f);
+        decoWheat.setMaxY(255);
+        decoWheat.setSize(30);//DO NOT PUT HIGHER THAN 30
+        decoWheat.setDensity(600);
+        decoWheat.setHeight(5);
         this.addDeco(decoWheat);
 
         DecoCrop decoBeet = new DecoCrop();
-        decoBeet.type = 2;
-        decoBeet.chance = 80;
-        decoBeet.strengthFactor = 12f;
-        decoBeet.maxY = 255;
-        decoBeet.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoBeet.density = 500;
-        decoBeet.height = 5;
+        decoBeet.setType(2);
+        decoBeet.setChance(80);
+        decoBeet.setStrengthFactor(12f);
+        decoBeet.setMaxY(255);
+        decoBeet.setSize(30);//DO NOT PUT HIGHER THAN 30
+        decoBeet.setDensity(500);
+        decoBeet.setHeight(5);
         this.addDeco(decoBeet);
 
         DecoCrop decoCarrot = new DecoCrop();
-        decoCarrot.type = 1;
-        decoCarrot.chance = 80;
-        decoCarrot.strengthFactor = 12f;
-        decoCarrot.maxY = 255;
-        decoCarrot.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoCarrot.density = 500;
-        decoCarrot.height = 5;
+        decoCarrot.setType(1);
+        decoCarrot.setChance(80);
+        decoCarrot.setStrengthFactor(12f);
+        decoCarrot.setMaxY(255);
+        decoCarrot.setSize(30);//DO NOT PUT HIGHER THAN 30
+        decoCarrot.setDensity(500);
+        decoCarrot.setHeight(5);
         this.addDeco(decoCarrot);
 
         DecoCrop decoPotato = new DecoCrop();
-        decoPotato.type = 0;
-        decoPotato.chance = 80;
-        decoPotato.strengthFactor = 12f;
-        decoPotato.maxY = 255;
-        decoPotato.size = 30;//DO NOT PUT HIGHER THAN 30
-        decoPotato.density = 500;
-        decoPotato.height = 5;
+        decoPotato.setType(0);
+        decoPotato.setChance(80);
+        decoPotato.setStrengthFactor(12f);
+        decoPotato.setMaxY(255);
+        decoPotato.setSize(30);//DO NOT PUT HIGHER THAN 30
+        decoPotato.setDensity(500);
+        decoPotato.setHeight(5);
         this.addDeco(decoPotato);
 
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.maxY = 90;
-        decoShrubOak.strengthFactor = 2f;
-        decoShrubOak.chance = 4;
+        decoShrubOak.setMaxY(90);
+        decoShrubOak.setStrengthFactor(2f);
+        decoShrubOak.setChance(4);
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.boulderBlock = BlockUtil.getStateDirt(2);
-        decoBoulder.chance = 24;
-        decoBoulder.maxY = 80;
-        decoBoulder.strengthFactor = 4f;
+        decoBoulder.setBoulderBlock(BlockUtil.getStateDirt(2));
+        decoBoulder.setChance(24);
+        decoBoulder.setMaxY(80);
+        decoBoulder.setStrengthFactor(4f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.maxY = 105;
-        decoBaseBiomeDecorations.notEqualsZeroChance = 8;
+        decoBaseBiomeDecorations.setMaxY(105);
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.minY = 63;
-        decoGrass.maxY = 100;
-        decoGrass.loops = 1;
+        decoGrass.setMinY(63);
+        decoGrass.setMaxY(100);
+        decoGrass.setLoops(1);
         this.addDeco(decoGrass);
     }
 }

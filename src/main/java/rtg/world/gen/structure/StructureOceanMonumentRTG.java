@@ -122,7 +122,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
         // Are we in an RTG world?
-        if (!(this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+        if (!(this.worldObj.getWorldType() instanceof WorldTypeRTG)) {
             //Logger.debug("Could not generate ocean monument. This is not an RTG world.");
             return false;
         }

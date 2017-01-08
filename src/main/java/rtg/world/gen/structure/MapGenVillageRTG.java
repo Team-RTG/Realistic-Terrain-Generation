@@ -74,7 +74,7 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (i == k && j == l) {
 
-            boolean booRTGWorld = worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
+            boolean booRTGWorld = worldObj.getWorldType() instanceof WorldTypeRTG;
             boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof BiomeProviderRTG;
 
             int worldX = i * 16 + 8;

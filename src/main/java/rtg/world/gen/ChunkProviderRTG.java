@@ -689,7 +689,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         // Ore gen.
-        this.generateOres(new BlockPos(worldX, 0, worldZ));
+        this.generateOres(biome, new BlockPos(worldX, 0, worldZ));
 
         //Initialise variables.
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
@@ -1028,7 +1028,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    private void generateOres(BlockPos pos) {
+    private void generateOres(RealisticBiomeBase rb, BlockPos pos) {
 
         int x = pos.getX();
         int z = pos.getZ();
@@ -1039,9 +1039,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             return;
         }
 
-        Biome bgg = this.worldObj.getBiome(pos);
-        RealisticBiomeBase oreBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(bgg));
-        oreBiome.rDecorator.decorateOres(this.worldObj, this.rand, x, z);
+        rb.rDecorator.decorateOres(this.worldObj, this.rand, x, z);
         chunkOreGenTracker.addOreChunk(pos);
     }
 

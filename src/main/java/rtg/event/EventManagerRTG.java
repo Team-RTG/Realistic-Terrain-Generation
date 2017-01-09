@@ -7,7 +7,6 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -33,7 +32,6 @@ import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.ChunkProviderRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 
@@ -85,15 +83,12 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
-            World world = event.getWorld();
-
             // Are we in an RTG world?
-            if (!(world.getWorldType() instanceof WorldTypeRTG)) {
+            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
                 return;
             }
 
-            ChunkProviderRTG cprtg = WorldTypeRTG.chunkProvider;
-            ChunkOreGenTracker chunkOreGenTracker = cprtg.getChunkOreGenTracker();
+            ChunkOreGenTracker chunkOreGenTracker = WorldTypeRTG.chunkProvider.getChunkOreGenTracker();
             BlockPos eventPos = event.getPos();
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
             String eventName = null;

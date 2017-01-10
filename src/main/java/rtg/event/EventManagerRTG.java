@@ -6,6 +6,7 @@ import java.util.WeakHashMap;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -24,6 +25,7 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.Acceptor;
+import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.RandomUtil;
 import rtg.util.Logger;
 import rtg.util.SaplingUtil;
@@ -65,7 +67,7 @@ public class EventManagerRTG {
         public void loadChunkRTG(ChunkEvent.Load event) {
 
             // Are we in an RTG world?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
                 return;
             }
 
@@ -82,95 +84,97 @@ public class EventManagerRTG {
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
+            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
                 return;
             }
 
-            String eventName = null;
+            ChunkOreGenTracker chunkOreGenTracker = WorldTypeRTG.chunkProvider.getChunkOreGenTracker();
+            BlockPos eventPos = event.getPos();
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
+            String eventName = null;
 
             // No switch statements allowed! - Pink
 
             if (eventType == ANDESITE) {
                 eventName = "ANDESITE";
-                if (!rtgConfig.GENERATE_ORE_ANDESITE.get()) {
+                if (!rtgConfig.GENERATE_ORE_ANDESITE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == COAL) {
                 eventName = "COAL";
-                if (!rtgConfig.GENERATE_ORE_COAL.get()) {
+                if (!rtgConfig.GENERATE_ORE_COAL.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIAMOND) {
                 eventName = "DIAMOND";
-                if (!rtgConfig.GENERATE_ORE_DIAMOND.get()) {
+                if (!rtgConfig.GENERATE_ORE_DIAMOND.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIORITE) {
                 eventName = "DIORITE";
-                if (!rtgConfig.GENERATE_ORE_DIORITE.get()) {
+                if (!rtgConfig.GENERATE_ORE_DIORITE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIRT) {
                 eventName = "DIRT";
-                if (!rtgConfig.GENERATE_ORE_DIRT.get()) {
+                if (!rtgConfig.GENERATE_ORE_DIRT.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == EMERALD) {
                 eventName = "EMERALD";
-                if (!rtgConfig.GENERATE_ORE_EMERALD.get()) {
+                if (!rtgConfig.GENERATE_ORE_EMERALD.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GOLD) {
                 eventName = "GOLD";
-                if (!rtgConfig.GENERATE_ORE_GOLD.get()) {
+                if (!rtgConfig.GENERATE_ORE_GOLD.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRANITE) {
                 eventName = "GRANITE";
-                if (!rtgConfig.GENERATE_ORE_GRANITE.get()) {
+                if (!rtgConfig.GENERATE_ORE_GRANITE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRAVEL) {
                 eventName = "GRAVEL";
-                if (!rtgConfig.GENERATE_ORE_GRAVEL.get()) {
+                if (!rtgConfig.GENERATE_ORE_GRAVEL.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == IRON) {
                 eventName = "IRON";
-                if (!rtgConfig.GENERATE_ORE_IRON.get()) {
+                if (!rtgConfig.GENERATE_ORE_IRON.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == LAPIS) {
                 eventName = "LAPIS";
-                if (!rtgConfig.GENERATE_ORE_LAPIS.get()) {
+                if (!rtgConfig.GENERATE_ORE_LAPIS.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == REDSTONE) {
                 eventName = "REDSTONE";
-                if (!rtgConfig.GENERATE_ORE_REDSTONE.get()) {
+                if (!rtgConfig.GENERATE_ORE_REDSTONE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == SILVERFISH) {
                 eventName = "SILVERFISH";
-                if (!rtgConfig.GENERATE_ORE_SILVERFISH.get()) {
+                if (!rtgConfig.GENERATE_ORE_SILVERFISH.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
 
-            //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), (event.getPos().getX() / 16), (event.getPos().getZ() / 16));
+            //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, eventPos.getX(), eventPos.getY(), eventPos.getZ(), (eventPos.getX() / 16), (eventPos.getZ() / 16));
         }
     }
 
@@ -210,7 +214,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
+            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
                 return;
             }
@@ -375,7 +379,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldInfo().getTerrainType() instanceof WorldTypeRTG) ||
+            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
                 return;
             }

@@ -74,7 +74,7 @@ public class TimedHashSet<Type> implements Set<Type> {
     }
 
     private synchronized void clearEntries() {
-        link.clear();;
+        link.clear();
     }
 
     private abstract class LinkEntry {

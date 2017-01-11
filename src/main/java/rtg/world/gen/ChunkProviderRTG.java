@@ -97,6 +97,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private boolean populating = false;
     private boolean pseudoGenerator = false;
     private LimitedSet<ChunkPos> alreadyDecorated = new LimitedSet<>(1000);
+    private ChunkOreGenTracker chunkOreGenTracker = new ChunkOreGenTracker();
     private AnvilChunkLoader chunkLoader;
 
     // we have to store this callback because it's a WeakReference in the event manager
@@ -129,7 +130,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         m.put("distance", "24");
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        boolean isRTGWorld = world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG;
+        boolean isRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
 
         if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
@@ -694,6 +695,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start("Decorations");
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
+        // Ore gen.
+        this.generateOres(biome, new BlockPos(worldX, 0, worldZ));
+
         //Initialise variables.
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
 
@@ -1029,5 +1033,24 @@ public class ChunkProviderRTG implements IChunkGenerator
         synchronized (toDecorate) {
             toDecorate.remove(toAdd);
         }
+    }
+
+    private void generateOres(RealisticBiomeBase rb, BlockPos pos) {
+
+        int x = pos.getX();
+        int z = pos.getZ();
+
+        // Have we already generated ores for this chunk?
+        if (chunkOreGenTracker.hasGeneratedOres(pos)) {
+            Logger.debug("Already generated ores for %d %d", x, z);
+            return;
+        }
+
+        rb.rDecorator.decorateOres(this.worldObj, this.rand, x, z);
+        chunkOreGenTracker.addOreChunk(pos);
+    }
+
+    public ChunkOreGenTracker getChunkOreGenTracker() {
+        return this.chunkOreGenTracker;
     }
 }

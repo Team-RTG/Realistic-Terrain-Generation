@@ -167,7 +167,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setLogBlock(BOPBlocks.log_2.getStateFromMeta(3));
+        decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(7));
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(4);

@@ -42,9 +42,11 @@ public class BiomeDecoratorRTG
     }
 
     /*
-     * This method should only be called by DecoBaseBiomeDecorations or rDecorateSeedBiome().
+     * This method should only be called by ChunkProviderRTG#generateOres.
      */
-    public void decorateOres(World worldIn, Random random, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float border, float river, boolean hasPlacedVillageBlocks) {
+    public void decorateOres(World worldIn, Random random, int worldX, int worldZ) {
+
+        //Logger.debug("Started generating ores in %s (%d %d)", this.biome.getBiomeName(), worldX, worldZ);
 
         BiomeDecorator biomeDecorator = biome.theBiomeDecorator;
 
@@ -116,6 +118,8 @@ public class BiomeDecoratorRTG
             this.genStandardOre1(worldIn, random, rbb.getExtraGoldGenCount(), biomeDecorator.goldGen, rbb.getExtraGoldGenMinHeight(), rbb.getExtraGoldGenMaxHeight());
         }
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldIn, random, pos));
+
+        //Logger.debug("Finished generating ores in %s (%d %d)", this.biome.getBiomeName(), worldX, worldZ);
     }
 
     public void genStandardOre1(World worldIn, Random random, int blockCount, WorldGenerator generator, int minHeight, int maxHeight)
@@ -208,15 +212,11 @@ public class BiomeDecoratorRTG
     /**
      * When manually decorating biomes, sometimes you want the biome to partially decorate itself.
      * That's what this method does... it calls the biome's decorate() method.
-     * If the conditions for decoration aren't met, we still need to generate ores.
      */
     public void rDecorateSeedBiome(World world, Random rand, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         if (strength > 0.3f) {
             this.biome.decorate(world, rand, new BlockPos(worldX, 0, worldZ));
-        }
-        else {
-            this.decorateOres(world, rand, worldX, worldZ, simplex, cell, strength, river, false);
         }
     }
 

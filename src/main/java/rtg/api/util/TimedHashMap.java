@@ -79,7 +79,7 @@ public class TimedHashMap<Key,Value> implements Map<Key,Value> {
     }
 
     private synchronized void clearEntries() {
-        link.clear();;
+        link.clear();
     }
 
     abstract class LinkEntry {

@@ -92,84 +92,85 @@ public class EventManagerRTG {
             BlockPos eventPos = event.getPos();
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
             String eventName = null;
+            boolean allowCancel = rtgConfig.ALLOW_ORE_GEN_EVENT_CANCELLATION.get();
 
             // No switch statements allowed! - Pink
 
             if (eventType == ANDESITE) {
                 eventName = "ANDESITE";
-                if (!rtgConfig.GENERATE_ORE_ANDESITE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_ANDESITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == COAL) {
                 eventName = "COAL";
-                if (!rtgConfig.GENERATE_ORE_COAL.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_COAL.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIAMOND) {
                 eventName = "DIAMOND";
-                if (!rtgConfig.GENERATE_ORE_DIAMOND.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_DIAMOND.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIORITE) {
                 eventName = "DIORITE";
-                if (!rtgConfig.GENERATE_ORE_DIORITE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_DIORITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == DIRT) {
                 eventName = "DIRT";
-                if (!rtgConfig.GENERATE_ORE_DIRT.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_DIRT.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == EMERALD) {
                 eventName = "EMERALD";
-                if (!rtgConfig.GENERATE_ORE_EMERALD.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_EMERALD.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GOLD) {
                 eventName = "GOLD";
-                if (!rtgConfig.GENERATE_ORE_GOLD.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_GOLD.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRANITE) {
                 eventName = "GRANITE";
-                if (!rtgConfig.GENERATE_ORE_GRANITE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_GRANITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == GRAVEL) {
                 eventName = "GRAVEL";
-                if (!rtgConfig.GENERATE_ORE_GRAVEL.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_GRAVEL.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == IRON) {
                 eventName = "IRON";
-                if (!rtgConfig.GENERATE_ORE_IRON.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_IRON.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == LAPIS) {
                 eventName = "LAPIS";
-                if (!rtgConfig.GENERATE_ORE_LAPIS.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_LAPIS.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == REDSTONE) {
                 eventName = "REDSTONE";
-                if (!rtgConfig.GENERATE_ORE_REDSTONE.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_REDSTONE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }
             else if (eventType == SILVERFISH) {
                 eventName = "SILVERFISH";
-                if (!rtgConfig.GENERATE_ORE_SILVERFISH.get() || chunkOreGenTracker.hasGeneratedOres(eventPos)) {
+                if (!rtgConfig.GENERATE_ORE_SILVERFISH.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
                     event.setResult(Event.Result.DENY);
                 }
             }

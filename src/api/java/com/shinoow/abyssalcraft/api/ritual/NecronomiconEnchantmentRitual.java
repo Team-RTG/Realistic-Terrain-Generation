@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -95,7 +95,7 @@ public class NecronomiconEnchantmentRitual extends NecronomiconRitual {
 		altar.writeToNBT(compound);
 		NBTTagCompound nbtItem = compound.getCompoundTag("Item");
 
-		return canEnchant(ItemStack.loadItemStackFromNBT(nbtItem));
+		return canEnchant(new ItemStack(nbtItem));
 	}
 
 	private boolean canEnchant(ItemStack stack){
@@ -118,8 +118,8 @@ public class NecronomiconEnchantmentRitual extends NecronomiconRitual {
 		altar.writeToNBT(compound);
 		NBTTagCompound nbtItem = compound.getCompoundTag("Item");
 
-		if(canEnchant(ItemStack.loadItemStackFromNBT(nbtItem))){
-			ItemStack item = ItemStack.loadItemStackFromNBT(nbtItem);
+		if(canEnchant(new ItemStack(nbtItem))){
+			ItemStack item = new ItemStack(nbtItem);
 			item.addEnchantment(enchantment.enchantmentobj, enchantment.enchantmentLevel);
 			item.writeToNBT(nbtItem);
 			compound.setTag("Item", nbtItem);
@@ -135,8 +135,8 @@ public class NecronomiconEnchantmentRitual extends NecronomiconRitual {
 		altar.writeToNBT(compound);
 		NBTTagCompound nbtItem = compound.getCompoundTag("Item");
 
-		if(canEnchant(ItemStack.loadItemStackFromNBT(nbtItem))){
-			ItemStack item = ItemStack.loadItemStackFromNBT(nbtItem);
+		if(canEnchant(new ItemStack(nbtItem))){
+			ItemStack item = new ItemStack(nbtItem);
 			item.addEnchantment(enchantment.enchantmentobj, enchantment.enchantmentLevel);
 			item.writeToNBT(nbtItem);
 			compound.setTag("Item", nbtItem);

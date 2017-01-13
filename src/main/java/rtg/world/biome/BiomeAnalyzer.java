@@ -84,7 +84,7 @@ public class BiomeAnalyzer {
         private final int [] quadrantBiome = new int[4];
         private final float [] quadrantBiomeWeighting = new float [4];
         private int biomeCount;
-        private int [] xyinverted = xyinverted();
+//      private int [] xyinverted = xyinverted(); //no longer used here
 
         SmoothingSearchStatus(boolean[] desired) { this.desired = desired; }
 
@@ -318,7 +318,7 @@ public class BiomeAnalyzer {
         }
 
         // Snowy biomes should always use cold beach; otherwise, the transition looks too abrupt.
-        if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY)) {
+        if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
             beach = Biomes.COLD_BEACH;
         }
 
@@ -326,10 +326,10 @@ public class BiomeAnalyzer {
     }
 
     private static boolean isTaigaBiome(Biome biome) {
-        return BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.COLD)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.CONIFEROUS)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FOREST)
-            && !BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY);
+        return BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD)
+            && BiomeDictionary.hasType(biome, BiomeDictionary.Type.CONIFEROUS)
+            && BiomeDictionary.hasType(biome, BiomeDictionary.Type.FOREST)
+            && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY);
     }
 
     /* HUNTING

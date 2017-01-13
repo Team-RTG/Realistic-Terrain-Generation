@@ -2,7 +2,9 @@ package rtg.world.gen;
 
 import java.util.*;
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.Entity;
@@ -54,7 +56,9 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
-@SuppressWarnings({"UnusedParameters", "deprecation"})
+//@SuppressWarnings({"UnusedParameters", "deprecation"})
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
@@ -78,7 +82,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private byte bedrockByte = (byte) rtgConfig.BEDROCK_BLOCK_BYTE.get();
     private Random rand;
     private Random mapRand;
-    public final World worldObj;
+    private final World worldObj;
     public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
@@ -105,7 +109,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         @Override
         public void accept(ChunkEvent.Load event) {
             if (event.isCanceled()) return;
-            ChunkPos pos = event.getChunk().getChunkCoordIntPair();
+            ChunkPos pos = event.getChunk().getPos();
 
             if (!toCheck.contains(pos)) return;
             toCheck.remove(pos);
@@ -116,15 +120,15 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     };
 
-    public ChunkProviderRTG(World world, long l) {
+    public ChunkProviderRTG(World world, long seed) {
         worldObj = world;
         worldUtil = new WorldUtil(world);
         rtgWorld = new RTGWorld(worldObj);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
-        rand = new Random(l);
+        rand = new Random(seed);
         landscapeGenerator = new LandscapeGenerator(rtgWorld);
-        mapRand = new Random(l);
-        worldSeed = l;
+        mapRand = new Random(seed);
+        worldSeed = seed;
         Map<String, String> m = new HashMap<>();
         m.put("size", "0");
         m.put("distance", "24");
@@ -133,17 +137,17 @@ public class ChunkProviderRTG implements IChunkGenerator
         boolean isRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
 
         if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
-            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
         else {
-            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
+            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
         if (isRTGWorld && rtgConfig.ENABLE_RAVINE_MODIFICATIONS.get()) {
-            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
         else {
-            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
+            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
         if (isRTGWorld && rtgConfig.ENABLE_VILLAGE_MODIFICATIONS.get()) {
@@ -176,7 +180,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
         }
 
-        CanyonColour.init(l);
+        CanyonColour.init(seed);
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];
         biomesGeneratedInChunk = new boolean[256];
@@ -186,9 +190,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         // set up the cache of available chunks
         availableChunks = new LimitedMap<>(1000);
         setWeightings();
-
-        // check for bogus world
-        if (worldObj == null) throw new RuntimeException("Attempt to create chunk provider without a world");
     }
 
     private void setWeightings() {
@@ -225,7 +226,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         this.mapFeaturesEnabled = false;
     }
 
-    @Nonnull
     public Chunk provideChunk(final int cx, final int cz) {
         final ChunkPos pos = new ChunkPos(cx, cz);
         if (inGeneration.containsKey(pos)) return inGeneration.get(pos);
@@ -832,7 +832,6 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    @Nonnull
     public List<Biome.SpawnListEntry> getPossibleCreatures(@Nonnull EnumCreatureType creatureType, @Nonnull BlockPos pos) {
         Biome biome = this.worldObj.getBiome(pos);
 
@@ -849,10 +848,13 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
+    public BlockPos getStrongholdGen(
+        World par1World, String par2Str, BlockPos blockPos, boolean findUnexplored) {
 
         if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
-        return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
+        return "Stronghold".equals(par2Str) && (this.strongholdGenerator != null)
+            ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos, findUnexplored)
+            : null;
     }
 
     @Override

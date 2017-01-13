@@ -1,10 +1,12 @@
 package rtg.world.gen.structure;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -20,9 +22,13 @@ import com.google.common.collect.Lists;
 import rtg.api.RTGAPI;
 
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("unused")
+// TODO: Update this to comply with 1.11 vanilla
 public class MapGenStrongholdRTG extends MapGenStronghold
 {
-    public final List<Biome> allowedBiomes;
+    private final List<Biome> allowedBiomes;
     private boolean ranBiomeCheck;
     private ChunkPos[] structureCoords;
     private double distance;
@@ -37,7 +43,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         this.structureCoords = new ChunkPos[strongholdCount]; // Count (Vanilla = 128)
         this.distance = strongholdDistance; // Distance (Vanilla = 32.0D)
         this.spread = strongholdSpread; // Spread (Vanilla = 3)
-        this.allowedBiomes = Lists.<Biome>newArrayList();
+        this.allowedBiomes = Lists.newArrayList();
 
         for (Biome biome : Biome.REGISTRY)
         {
@@ -62,17 +68,17 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
         for (Entry<String, String> entry : p_i2068_1_.entrySet())
         {
-            if (((String)entry.getKey()).equals("distance"))
+            if (entry.getKey().equals("distance"))
             {
-                this.distance = MathHelper.parseDoubleWithDefaultAndMax((String)entry.getValue(), this.distance, 1.0D);
+                this.distance = MathHelper.getDouble(entry.getValue(), this.distance, 1.0D);
             }
-            else if (((String)entry.getKey()).equals("count"))
+            else if (entry.getKey().equals("count"))
             {
-                this.structureCoords = new ChunkPos[MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.structureCoords.length, 1)];
+                this.structureCoords = new ChunkPos[MathHelper.getInt(entry.getValue(), this.structureCoords.length, 1)];
             }
-            else if (((String)entry.getKey()).equals("spread"))
+            else if (entry.getKey().equals("spread"))
             {
-                this.spread = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.spread, 1);
+                this.spread = MathHelper.getInt(entry.getValue(), this.spread, 1);
             }
         }
     }
@@ -135,7 +141,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
     private void generatePositions()
     {
-        this.initializeStructureData(this.worldObj);
+        this.initializeStructureData(this.world);
         int i = 0;
 
         for (StructureStart structurestart : this.structureMap.values())
@@ -147,7 +153,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         }
 
         Random random = new Random();
-        random.setSeed(this.worldObj.getSeed());
+        random.setSeed(this.world.getSeed());
         double d1 = random.nextDouble() * Math.PI * 2.0D;
         int j = 0;
         int k = 0;
@@ -160,7 +166,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
                 double d0 = 4.0D * this.distance + this.distance * (double)j * 6.0D + (random.nextDouble() - 0.5D) * this.distance * 2.5D;
                 int j1 = (int)Math.round(Math.cos(d1) * d0);
                 int k1 = (int)Math.round(Math.sin(d1) * d0);
-                BlockPos blockpos = this.worldObj.getBiomeProvider().findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, this.allowedBiomes, random);
+                BlockPos blockpos = this.world.getBiomeProvider().findBiomePosition((j1 << 4) + 8, (k1 << 4) + 8, 112, this.allowedBiomes, random);
 
                 if (blockpos != null)
                 {
@@ -188,28 +194,12 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         }
     }
 
-    protected List<BlockPos> getCoordList()
-    {
-        List<BlockPos> list = Lists.<BlockPos>newArrayList();
-
-        for (ChunkPos chunkpos : this.structureCoords)
-        {
-            if (chunkpos != null)
-            {
-                list.add(chunkpos.getCenterBlock(64));
-            }
-        }
-
-        return list;
-    }
-
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
         MapGenStronghold.Start mapgenstronghold$start;
 
-        for (mapgenstronghold$start = new MapGenStronghold.Start(this.worldObj, this.rand, chunkX, chunkZ); mapgenstronghold$start.getComponents().isEmpty() || ((StructureStrongholdPieces.Stairs2)mapgenstronghold$start.getComponents().get(0)).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(this.worldObj, this.rand, chunkX, chunkZ))
+        for (mapgenstronghold$start = new MapGenStronghold.Start(this.world, this.rand, chunkX, chunkZ); mapgenstronghold$start.getComponents().isEmpty() || ((StructureStrongholdPieces.Stairs2)mapgenstronghold$start.getComponents().get(0)).strongholdPortalRoom == null; mapgenstronghold$start = new MapGenStronghold.Start(this.world, this.rand, chunkX, chunkZ))
         {
-            ;
         }
 
         return mapgenstronghold$start;
@@ -233,7 +223,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
             while (!list.isEmpty())
             {
                 int i = random.nextInt(list.size());
-                StructureComponent structurecomponent = (StructureComponent)list.remove(i);
+                StructureComponent structurecomponent = list.remove(i);
                 structurecomponent.buildComponent(structurestrongholdpieces$stairs2, this.components, random);
             }
 

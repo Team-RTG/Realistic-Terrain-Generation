@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -99,7 +99,7 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 		if(entityliving != null){
 			entityliving.setLocationAndAngles(pos.getX(), pos.getY() + 1, pos.getZ(), entityliving.rotationYaw, entityliving.rotationPitch);
 			((EntityLiving) entityliving).onInitialSpawn(world.getDifficultyForLocation(pos.up()), (IEntityLivingData)null);
-			world.spawnEntityInWorld(entityliving);
+			world.spawnEntity(entityliving);
 		}
 	}
 
@@ -113,7 +113,7 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
-		if(entityliving == null) player.addChatMessage(new TextComponentString("The Entity could not be summoned."));
+		if(entityliving == null) player.sendMessage(new TextComponentString("The Entity could not be summoned."));
 
 	}
 }

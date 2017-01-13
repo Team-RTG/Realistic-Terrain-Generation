@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -52,6 +52,13 @@ public interface IInternalNecroDataHandler {
 	 * @param chapteridentifier String representing the Chapter
 	 */
 	public void removePage(int pageNum, String necroidentifier, String chapteridentifier);
+
+	/**
+	 * Utility for verifying an image fetched from a URL.<br>
+	 * Used to cache any URL-based images.
+	 * @param url URL String to check
+	 */
+	public void verifyImageURL(String url);
 
 	/**
 	 * Adds the internal pages to the internal NecroDatas.<br>

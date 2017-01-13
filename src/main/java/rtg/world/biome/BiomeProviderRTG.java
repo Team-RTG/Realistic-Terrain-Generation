@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -63,7 +64,8 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         cell = new SimplexCellularNoise(seed);
         //simplexCell = new SimplexCellularNoise(seed);
         river = new VoronoiCellNoise(seed);
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(
+            seed, worldType, ChunkProviderSettings.Factory.jsonToFactory("").build());
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];

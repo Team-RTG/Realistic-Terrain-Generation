@@ -4,7 +4,6 @@ import java.util.*;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.Entity;
@@ -36,6 +35,8 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+
+import mcp.MethodsReturnNonnullByDefault;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
@@ -137,17 +138,17 @@ public class ChunkProviderRTG implements IChunkGenerator
         boolean isRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
 
         if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
+            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
         else {
-            caveGenerator = TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
+            caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
         if (isRTGWorld && rtgConfig.ENABLE_RAVINE_MODIFICATIONS.get()) {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
+            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
         else {
-            ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
+            ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
         if (isRTGWorld && rtgConfig.ENABLE_VILLAGE_MODIFICATIONS.get()) {
@@ -190,6 +191,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         // set up the cache of available chunks
         availableChunks = new LimitedMap<>(1000);
         setWeightings();
+
+        // check for bogus world
+        if (worldObj == null) throw new RuntimeException("Attempt to create chunk provider without a world");
     }
 
     private void setWeightings() {
@@ -848,13 +852,9 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    public BlockPos getStrongholdGen(
-        World par1World, String par2Str, BlockPos blockPos, boolean findUnexplored) {
-
+    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
         if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
-        return "Stronghold".equals(par2Str) && (this.strongholdGenerator != null)
-            ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos, findUnexplored)
-            : null;
+        return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : null;
     }
 
     @Override

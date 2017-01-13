@@ -41,9 +41,9 @@ dependencies {
 }
 
 minecraft {
-    version 		 = (ref.mcf_suffix!='') ? ref.mcf_version + '-' + ref.mcf_suffix : ref.mcf_version
-    mappings 		 = ref.mcp_mappings
-    runDir 			 = "run"
+    version          = (ref.mcf_suffix!='') ? ref.mcf_version + '-' + ref.mcf_suffix : ref.mcf_version
+    mappings         = ref.mcp_mappings
+    runDir           = "run"
     makeObfSourceJar = false
     replace '@MOD_VERSION@', project.version
     replace '0.0-MCF+MINVER', ref.mcf_minver
@@ -56,9 +56,9 @@ minecraft {
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-		expand (['version':ref.mod_version, 'mcversion':ref.mc_version,])
-	}
-	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
+        expand (['version':ref.mod_version, 'mcversion':ref.mc_version,])
+    }
+    from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
 }
 
 sourceJar {classifier = 'src'}

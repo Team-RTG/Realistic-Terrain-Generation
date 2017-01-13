@@ -65,7 +65,8 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         //simplexCell = new SimplexCellularNoise(seed);
         river = new VoronoiCellNoise(seed);
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(
-            seed, worldType, ChunkProviderSettings.Factory.jsonToFactory("").build());
+            seed, worldType, ChunkProviderSettings.Factory.jsonToFactory("").build()
+        );
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];

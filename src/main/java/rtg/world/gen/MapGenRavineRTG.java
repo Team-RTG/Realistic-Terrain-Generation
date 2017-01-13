@@ -25,6 +25,7 @@ public class MapGenRavineRTG extends MapGenRavine
     private boolean enableRavines;
     private int ravineFrequency;
 
+    @Override
     protected void addTunnel(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_)
     {
         Random random = new Random(p_180707_1_);
@@ -194,7 +195,8 @@ public class MapGenRavineRTG extends MapGenRavine
         }
     }
 
-    protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn)
+    @Override
+    protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn)
     {
         // Return early if ravines are disabled.
         if (!rtgConfig.ENABLE_RAVINES.get()) {
@@ -233,10 +235,12 @@ public class MapGenRavineRTG extends MapGenRavine
                 float f = this.rand.nextFloat() * ((float)Math.PI * 2F);
                 float f1 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float f2 = (this.rand.nextFloat() * 2.0F + this.rand.nextFloat()) * 2.0F;
-                this.addTunnel(this.rand.nextLong(), p_180701_4_, p_180701_5_, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+                this.addTunnel(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
             }
         }
     }
+
+    @Override
     protected boolean isOceanBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ)
     {
         net.minecraft.block.Block block = data.getBlockState(x, y, z).getBlock();
@@ -244,11 +248,13 @@ public class MapGenRavineRTG extends MapGenRavine
     }
 
     //Exception biomes to make sure we generate like vanilla
-    private boolean isExceptionBiome(net.minecraft.world.biome.Biome biome) {
-        return biome == net.minecraft.init.Biomes.BEACH ||
-               biome == net.minecraft.init.Biomes.DESERT ||
-               biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND ||
-               biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND_SHORE;
+    private boolean isExceptionBiome(net.minecraft.world.biome.Biome biome)
+    {
+        if (biome == net.minecraft.init.Biomes.BEACH) return true;
+        if (biome == net.minecraft.init.Biomes.DESERT) return true;
+        if (biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND) return true;
+        if (biome == net.minecraft.init.Biomes.MUSHROOM_ISLAND_SHORE) return true;
+        return false;
     }
 
     //Determine if the block at the specified location is the top block for the biome, we take into account
@@ -274,6 +280,7 @@ public class MapGenRavineRTG extends MapGenRavine
      * @param chunkZ Chunk Y position
      * @param foundTop True if we've encountered the biome's top block. Ideally if we've broken the surface.
      */
+    @Override
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop)
     {
         net.minecraft.world.biome.Biome biome = world.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));

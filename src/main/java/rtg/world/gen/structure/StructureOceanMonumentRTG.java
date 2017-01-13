@@ -2,8 +2,6 @@ package rtg.world.gen.structure;
 
 import java.util.*;
 import java.util.Map.Entry;
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -32,14 +30,13 @@ import rtg.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class StructureOceanMonumentRTG extends StructureOceanMonument
 {
     private int spacing;
     private int separation;
-    public static final List<Biome> WATER_BIOMES = Arrays.asList(Biomes.OCEAN, Biomes.DEEP_OCEAN);
-    public static final List<Biome> SPAWN_BIOMES = Collections.singletonList(Biomes.DEEP_OCEAN);
-    private static final List<Biome.SpawnListEntry> MONUMENT_ENEMIES = Lists.newArrayList();
+    public static final List<Biome> WATER_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.RIVER, Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER});
+    public static final List<Biome> SPAWN_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.DEEP_OCEAN});
+    private static final List<Biome.SpawnListEntry> MONUMENT_ENEMIES = Lists.<Biome.SpawnListEntry>newArrayList();
 
     public StructureOceanMonumentRTG()
     {
@@ -53,23 +50,24 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
         for (Entry<String, String> entry : p_i45608_1_.entrySet())
         {
-            if (entry.getKey().equals("spacing"))
+            if (((String)entry.getKey()).equals("spacing"))
             {
-                this.spacing = MathHelper.getInt(entry.getValue(), this.spacing, 1);
+                this.spacing = MathHelper.getInt((String)entry.getValue(), this.spacing, 1);
             }
-            else if (entry.getKey().equals("separation"))
+            else if (((String)entry.getKey()).equals("separation"))
             {
-                this.separation = MathHelper.getInt(entry.getValue(), this.separation, 1);
+                this.separation = MathHelper.getInt((String)entry.getValue(), this.separation, 1);
             }
         }
     }
 
-    @Override @Nonnull
+    @Override
     public String getStructureName()
     {
         return "Monument";
     }
 
+    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
         int i = chunkX;
@@ -164,21 +162,28 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Layer");
             crashreportcategory.addCrashSection("Layer", Arrays.toString(aint));
-            crashreportcategory.addCrashSection("x", x);
-            crashreportcategory.addCrashSection("z", z);
-            crashreportcategory.addCrashSection("radius", radius);
+            crashreportcategory.addCrashSection("x", Integer.valueOf(x));
+            crashreportcategory.addCrashSection("z", Integer.valueOf(z));
+            crashreportcategory.addCrashSection("radius", Integer.valueOf(radius));
             crashreportcategory.addCrashSection("allowed", allowed);
             throw new ReportedException(crashreport);
         }
     }
 
-    @Override @Nonnull
+    @Override
+    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
+    {
+        this.world = worldIn;
+        return findNearestStructurePosBySpacing(worldIn, this, pos, this.spacing, this.separation, 10387313, true, 100, findUnexplored);
+    }
+
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
         return new StructureOceanMonumentRTG.StartMonument(this.world, this.rand, chunkX, chunkZ);
     }
 
-    @Override @Nonnull
+    @Override
     public List<Biome.SpawnListEntry> getScatteredFeatureSpawnList()
     {
         return MONUMENT_ENEMIES;
@@ -191,10 +196,12 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
     public static class StartMonument extends StructureStart
     {
-        private final Set<ChunkPos> processed = Sets.newHashSet();
+        private final Set<ChunkPos> processed = Sets.<ChunkPos>newHashSet();
         private boolean wasCreated;
 
-        public StartMonument() {}
+        public StartMonument()
+        {
+        }
 
         public StartMonument(World worldIn, Random random, int chunkX, int chunkZ)
         {
@@ -218,7 +225,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             this.wasCreated = true;
         }
 
-        @Override @ParametersAreNonnullByDefault
+        @Override
         public void generateStructure(World worldIn, Random rand, StructureBoundingBox structurebb)
         {
             if (!this.wasCreated)
@@ -230,17 +237,20 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             super.generateStructure(worldIn, rand, structurebb);
         }
 
+        @Override
         public boolean isValidForPostProcess(ChunkPos pair)
         {
-            return !this.processed.contains(pair) && super.isValidForPostProcess(pair);
+            return this.processed.contains(pair) ? false : super.isValidForPostProcess(pair);
         }
 
+        @Override
         public void notifyPostProcessAt(ChunkPos pair)
         {
             super.notifyPostProcessAt(pair);
             this.processed.add(pair);
         }
 
+        @Override
         public void writeToNBT(NBTTagCompound tagCompound)
         {
             super.writeToNBT(tagCompound);
@@ -257,6 +267,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             tagCompound.setTag("Processed", nbttaglist);
         }
 
+        @Override
         public void readFromNBT(NBTTagCompound tagCompound)
         {
             super.readFromNBT(tagCompound);

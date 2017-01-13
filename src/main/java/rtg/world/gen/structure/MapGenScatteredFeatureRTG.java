@@ -139,6 +139,13 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
+    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
+    {
+        this.world = worldIn;
+        return findNearestStructurePosBySpacing(worldIn, this, pos, this.maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
+    }
+
+    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
         return new MapGenScatteredFeatureRTG.Start(this.world, this.rand, chunkX, chunkZ);

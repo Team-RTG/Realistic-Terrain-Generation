@@ -411,8 +411,8 @@ public class BiomeAnalyzer {
         landSearch.absent = false;
         landSearch.notHunted = true;
         for (int i = 0; i < 256; i++) {
-            if (landSearch.absent) break; //no point
-            // this block isn't above beach level
+            if (landSearch.absent&&beachSearch.absent) break; //no point
+            // skip if this block isn't above beach level, adjusted for river effect to prevent abrupt beach stops
             if (noise[i] < riverAdjusted(beachTop, riverStrength[i])) continue;
             int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
             // already land
@@ -421,6 +421,14 @@ public class BiomeAnalyzer {
             if (swampBiome[biomeID]) continue;
             if (landSearch.notHunted) landSearch.hunt(biomeNeighborhood);
             int foundBiome = landSearch.biomes[i];
+            
+            if (foundBiome == NO_BIOME) {
+                // no land found; try for a beach
+                if (beachSearch.notHunted) {
+                    beachSearch.hunt(biomeNeighborhood);
+                }
+                foundBiome = beachSearch.biomes[i];
+            }
 
             if (foundBiome != NO_BIOME) {
 

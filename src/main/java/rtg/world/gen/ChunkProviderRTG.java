@@ -2,6 +2,7 @@ package rtg.world.gen;
 
 import java.util.*;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.block.Block;
@@ -20,10 +21,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
-import net.minecraft.world.gen.ChunkProviderServer;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.MapGenCaves;
-import net.minecraft.world.gen.MapGenRavine;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.structure.*;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -51,16 +49,13 @@ import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
-import rtg.world.gen.structure.MapGenStrongholdRTG;
-import rtg.world.gen.structure.MapGenVillageRTG;
-import rtg.world.gen.structure.StructureOceanMonumentRTG;
+import rtg.world.gen.structure.*;
 
 
 //@SuppressWarnings({"UnusedParameters", "deprecation"})
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class ChunkProviderRTG implements IChunkGenerator
+public class ChunkProviderRTG extends ChunkProviderOverworld implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
     private RTGConfig rtgConfig = RTGAPI.config();
@@ -71,6 +66,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     private final StructureOceanMonument oceanMonumentGenerator;
+    private final WoodlandMansion woodlandMansionGenerator;
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
@@ -122,6 +118,9 @@ public class ChunkProviderRTG implements IChunkGenerator
     };
 
     public ChunkProviderRTG(World world, long seed) {
+
+        super(world, seed, world.getWorldInfo().isMapFeaturesEnabled(), "");
+
         worldObj = world;
         worldUtil = new WorldUtil(world);
         rtgWorld = new RTGWorld(worldObj);
@@ -179,6 +178,13 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
         else {
             oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
+        }
+
+        if (isRTGWorld && rtgConfig.ENABLE_WOODLAND_MANSION_MODIFICATIONS.get()) {
+            woodlandMansionGenerator = (WoodlandMansion) TerrainGen.getModdedMapGen(new WoodlandMansionRTG(this), EventType.CUSTOM);
+        }
+        else {
+            woodlandMansionGenerator = (WoodlandMansion) TerrainGen.getModdedMapGen(new WoodlandMansion(this), EventType.CUSTOM);
         }
 
         CanyonColour.init(seed);
@@ -393,6 +399,22 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     else {
                         Logger.error("Exception in oceanMonumentGenerator");
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (rtgConfig.GENERATE_WOODLAND_MANSIONS.get()) {
+                try {
+                    woodlandMansionGenerator.generate(this.worldObj, cx, cz, primer);
+                }
+                catch (Exception e) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in woodlandMansionGenerator");
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.error("Exception in woodlandMansionGenerator");
                         e.printStackTrace();
                     }
                 }
@@ -660,6 +682,24 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
             TimeTracker.manager.stop("Monuments");
+
+            TimeTracker.manager.start("Mansions");
+            if (rtgConfig.GENERATE_WOODLAND_MANSIONS.get()) {
+                try {
+                    woodlandMansionGenerator.generateStructure(this.worldObj, rand, chunkPos);
+                }
+                catch (Exception e) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in woodlandMansionGenerator");
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.error("Exception in woodlandMansionGenerator");
+                        e.printStackTrace();
+                    }
+                }
+            }
+            TimeTracker.manager.stop("Mansions");
         }
 
         TimeTracker.manager.start("Pools");
@@ -852,9 +892,11 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
+    @Nullable
+    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored)
+    {
         if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
-        return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : null;
+        return !this.mapFeaturesEnabled ? null : ("Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null ? this.woodlandMansionGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : ("Monument".equals(structureName) && this.oceanMonumentGenerator != null ? this.oceanMonumentGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : ("Village".equals(structureName) && this.villageGenerator != null ? this.villageGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null ? this.mineshaftGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null ? this.scatteredFeatureGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : null))))));
     }
 
     @Override
@@ -936,6 +978,22 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     else {
                         Logger.error("Exception in oceanMonumentGenerator");
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (rtgConfig.GENERATE_WOODLAND_MANSIONS.get()) {
+                try {
+                    woodlandMansionGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
+                }
+                catch (Exception e) {
+                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+                        Logger.fatal("Exception in woodlandMansionGenerator");
+                        throw new RuntimeException(e.getMessage());
+                    }
+                    else {
+                        Logger.error("Exception in woodlandMansionGenerator");
                         e.printStackTrace();
                     }
                 }
@@ -1047,5 +1105,17 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     public ChunkOreGenTracker getChunkOreGenTracker() {
         return this.chunkOreGenTracker;
+    }
+
+    @Override
+    public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
+
+        super.setBlocksInChunk(x, z, primer);
+    }
+
+    @Override
+    public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesIn) {
+
+        super.replaceBiomeBlocks(x, z, primer, biomesIn);
     }
 }

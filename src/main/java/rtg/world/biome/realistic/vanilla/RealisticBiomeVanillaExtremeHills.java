@@ -10,21 +10,17 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.*;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.JitterEffect;
-import rtg.world.gen.terrain.RaiseEffect;
-import rtg.world.gen.terrain.SpikeEverywhereEffect;
-import rtg.world.gen.terrain.VoronoiBorderEffect;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
@@ -239,44 +235,16 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
 
-        TreeRTG nigraTree = new TreeRTGPinusNigra();
-        nigraTree.setLogBlock(Blocks.LOG.getDefaultState());
-        nigraTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        nigraTree.setMinTrunkSize(18);
-        nigraTree.setMaxTrunkSize(27);
-        nigraTree.setMinCrownSize(7);
-        nigraTree.setMaxCrownSize(10);
-        this.addTree(nigraTree);
+        // Trees.
+        this.addDeco(nigraDecos());
 
-        DecoTree decoTrees = new DecoTree(nigraTree);
-        decoTrees.setStrengthFactorForLoops(4f);
-        decoTrees.setStrengthNoiseFactorXForLoops(true);
-        decoTrees.getDistribution().setNoiseDivisor(100f);
-        decoTrees.getDistribution().setNoiseFactor(6f);
-        decoTrees.getDistribution().setNoiseAddend(0.8f);
-        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
-        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        decoTrees.setTreeConditionChance(24);
-        decoTrees.setMaxY(100);
-        this.addDeco(decoTrees);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
-        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree.setMinSize(4);
-        decoFallenTree.setMaxSize(7);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+        // Logs.
+        this.addDeco(logDecos(), this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(4);
+        decoShrub.setStrengthFactor(4f);
+        decoShrub.setChance(2);
+        decoShrub.setMaxY(110);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
@@ -287,7 +255,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         this.addDeco(decoBoulder);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.setMaxY(80);
         decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(3f);
         this.addDeco(decoMushrooms);
@@ -302,5 +270,62 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
+    }
+
+    private DecoTree nigraTrees(IBlockState log, IBlockState leaves) {
+
+        TreeRTG nigraTree = new TreeRTGPinusNigra();
+        nigraTree.setLogBlock(log);
+        nigraTree.setLeavesBlock(leaves);
+        nigraTree.setMinTrunkSize(12);
+        nigraTree.setMaxTrunkSize(14);
+        nigraTree.setMinCrownSize(10);
+        nigraTree.setMaxCrownSize(12);
+        this.addTree(nigraTree);
+
+        DecoTree nigraDeco = new DecoTree(nigraTree);
+        nigraDeco.setStrengthFactorForLoops(4f);
+        nigraDeco.setStrengthNoiseFactorXForLoops(true);
+        nigraDeco.getDistribution().setNoiseDivisor(100f);
+        nigraDeco.getDistribution().setNoiseFactor(6f);
+        nigraDeco.getDistribution().setNoiseAddend(0.8f);
+        nigraDeco.setTreeType(DecoTree.TreeType.RTG_TREE);
+        nigraDeco.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        nigraDeco.setTreeConditionChance(24);
+        nigraDeco.setMaxY(80);
+
+        return nigraDeco;
+    }
+
+    private DecoHelper5050 nigraDecos() {
+        return new DecoHelper5050(
+            nigraTrees(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState()),
+            nigraTrees(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1))
+        );
+    }
+
+    private DecoFallenTree logs(IBlockState log, IBlockState leaves) {
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(16);
+        decoFallenTree.setLogBlock(log);
+        decoFallenTree.setLeavesBlock(leaves);
+        decoFallenTree.setMinSize(4);
+        decoFallenTree.setMaxSize(7);
+        decoFallenTree.setMaxY(75);
+
+        return decoFallenTree;
+    }
+
+    private DecoHelper5050 logDecos() {
+        return new DecoHelper5050(
+            logs(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState()),
+            logs(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1))
+        );
     }
 }

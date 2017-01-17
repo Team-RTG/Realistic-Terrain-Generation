@@ -19,6 +19,12 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.world.gen.terrain.GroundEffect;
+import rtg.world.gen.terrain.HeightEffect;
+import rtg.world.gen.terrain.JitterEffect;
+import rtg.world.gen.terrain.RaiseEffect;
+import rtg.world.gen.terrain.SpikeEverywhereEffect;
+import rtg.world.gen.terrain.VoronoiBorderEffect;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
@@ -48,8 +54,80 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 
     @Override
     public TerrainBase initTerrain() {
-
-        return new TerrainVanillaExtremeHills(10f, 120f, 10f, 200f);
+       return new RidgedExtremeHills(150f, 67f, 200f);
+        //return new TerrainVanillaExtremeHills(10f, 120f, 10f, 200f);
+    }
+    
+    public static class RidgedExtremeHills extends TerrainBase {
+        private float height;
+        private float width;
+        private float ridgeWidth = 300f;
+        private float valleyFloor = -0.2f;
+        
+        private final HeightEffect heightIncrease;
+        private final HeightEffect multiplier;
+        private final HeightEffect groundEffect;
+        
+        public RidgedExtremeHills(float landHeight, float baseHeight, float hillWidth) {
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+            
+            SpikeEverywhereEffect baseHills = new SpikeEverywhereEffect();
+            baseHills.spiked = new RaiseEffect(height*2f/3f);
+            baseHills.wavelength = width;
+            baseHills.minimumSimplex = -0.2f;
+            baseHills.octave = 3;
+            baseHills.power = 1.9f;
+            
+            SpikeEverywhereEffect additionalHeight = new SpikeEverywhereEffect();
+            additionalHeight.spiked = new RaiseEffect(height/3f);
+            additionalHeight.wavelength = width/3f;
+            additionalHeight.minimumSimplex = -0.2f;
+            additionalHeight.octave = 4;
+            additionalHeight.power = 1.9f;
+            
+            SpikeEverywhereEffect roughening = new SpikeEverywhereEffect();
+            roughening.spiked = new RaiseEffect(height/8f);
+            roughening.wavelength = width/10f;
+            roughening.minimumSimplex = -0.2f;
+            roughening.octave = 5;
+            roughening.power = 1.9f;
+            
+            JitterEffect hillJitter = new JitterEffect();
+            hillJitter.amplitude = 15f;
+            hillJitter.wavelength = 50f;
+            hillJitter.jittered = baseHills.plus(additionalHeight).plus(roughening);
+            heightIncrease = hillJitter;
+            
+            
+            VoronoiBorderEffect ridging = new VoronoiBorderEffect();
+            ridging.pointWavelength = ridgeWidth;
+            ridging.floor = valleyFloor;
+            ridging.minimumDivisor = .2f;
+            
+            JitterEffect ridgeJitter = new JitterEffect();
+            ridgeJitter.amplitude = 15f;
+            ridgeJitter.wavelength = 50f;
+            ridgeJitter.jittered = ridging;
+            
+            JitterEffect ridgeJitterrette = new JitterEffect();
+            ridgeJitterrette.amplitude = 5f;
+            ridgeJitterrette.wavelength = 20f;
+            ridgeJitterrette.jittered = ridgeJitter;
+            multiplier = ridgeJitterrette;
+            
+            groundEffect = new GroundEffect(6);
+        }
+        
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+             // ground effect is increased by the multiplier
+            float groundEffectLevel = groundEffect.added(rtgWorld, (float)x, (float)y);
+            float result = base + multiplier.added(rtgWorld, (float)x, (float )y) * (groundEffectLevel + heightIncrease.added(rtgWorld, (float)x, (float )y)) 
+                    + groundEffectLevel;
+            return TerrainBase.mountainCap(result);
+        }
     }
 
     public class TerrainVanillaExtremeHills extends TerrainBase {

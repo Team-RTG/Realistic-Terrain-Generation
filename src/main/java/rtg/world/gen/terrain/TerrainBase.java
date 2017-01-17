@@ -139,7 +139,19 @@ public abstract class TerrainBase {
 
         return 62f + 6f * river;
     }
+    
+    public static float mountainCap(float m) {
+        // heights can "blow through the ceiling" so pull more extreme values down a bit
 
+        if (m > 160) {
+            m = 160 + (m - 160) * .75f;
+            if (m > 180) {
+                m = 180 + (m - 180f) * .75f;
+            }
+        }
+        return m;
+    }
+    
     public static float riverized(float height, float river) {
 
         if (height < 62.95f) {

@@ -404,11 +404,8 @@ public abstract class RealisticBiomeBase {
     /**
      * Adds a deco object to the list of biome decos.
      * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
-     *
-     * @param deco
-     * @param allowed
      */
-    public void addDeco(DecoBase deco, boolean allowed) {
+    public RealisticBiomeBase addDeco(DecoBase deco, boolean allowed) {
 
         if (allowed) {
             if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
@@ -427,16 +424,17 @@ public abstract class RealisticBiomeBase {
 
             this.decos.add(deco);
         }
+
+        return this;
     }
 
     /**
      * Convenience method for addDeco() where 'allowed' is assumed to be true.
-     *
-     * @param deco
      */
-    public void addDeco(DecoBase deco) {
+    public RealisticBiomeBase addDeco(DecoBase deco) {
         if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
         this.addDeco(deco, true);
+        return this;
     }
 
     public void addDecoCollection(DecoCollectionBase decoCollection) {

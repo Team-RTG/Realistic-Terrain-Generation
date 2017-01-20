@@ -13,11 +13,12 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 /**
  * @author WhichOnesPink
  */
-public class DecoCollectionExtremeHills extends DecoCollectionBase {
+public class DecoCollectionExtremeHillsPlus extends DecoCollectionBase {
 
-    public DecoCollectionExtremeHills() {
+    public DecoCollectionExtremeHillsPlus() {
 
-        this.addDeco(nigraDecos(85, 12, 18, 10, 14)); // Small- to medium-size trees.
+        this.addDeco(nigraDecos(85, 14, 20, 10, 14)) // Lower, taller trees.
+            .addDeco(nigraDecos(95, 10, 14, 8, 10)); // Higher, shorter trees.
     }
 
     private DecoTree nigraTrees(IBlockState log, IBlockState leaves, int maxY, int minTrunkSize, int maxTrunkSize, int minCrownSize, int maxCrownSize) {
@@ -33,14 +34,14 @@ public class DecoCollectionExtremeHills extends DecoCollectionBase {
         this.addTree(nigraTree);
 
         DecoTree nigraDeco = new DecoTree(nigraTree);
-        nigraDeco.setStrengthFactorForLoops(3f);
+        nigraDeco.setStrengthFactorForLoops(4f);
         nigraDeco.setStrengthNoiseFactorXForLoops(true);
         nigraDeco.getDistribution().setNoiseDivisor(100f);
         nigraDeco.getDistribution().setNoiseFactor(6f);
         nigraDeco.getDistribution().setNoiseAddend(0.8f);
         nigraDeco.setTreeType(DecoTree.TreeType.RTG_TREE);
         nigraDeco.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        nigraDeco.setTreeConditionChance(20);
+        nigraDeco.setTreeConditionChance(12);
         nigraDeco.setMaxY(maxY);
 
         return nigraDeco;

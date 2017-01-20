@@ -14,6 +14,7 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHills;
+import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.*;
 
@@ -229,6 +230,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionExtremeHills(24, this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionExtremeHills());
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
     }
 }

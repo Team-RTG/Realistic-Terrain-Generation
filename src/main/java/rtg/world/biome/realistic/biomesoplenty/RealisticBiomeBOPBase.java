@@ -90,7 +90,7 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("BiomesOPlenty")) {
+        if (Loader.isModLoaded("biomesoplenty")) {
             if (BOPBiomes.alps.isPresent()) {
                 bopAlps = new RealisticBiomeBOPAlps();
             }

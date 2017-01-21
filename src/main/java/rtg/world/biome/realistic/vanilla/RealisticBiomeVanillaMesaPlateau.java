@@ -80,7 +80,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
              */
             strength = 10f;
             heightLength = height.length;
-            base = 69f;
+            base = baseHeight;
         }
 
         @Override

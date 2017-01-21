@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -31,6 +31,9 @@ public class DummyNecroDataHandler implements IInternalNecroDataHandler {
 
 	@Override
 	public void removePage(int pageNum, String necroidentifier, String chapteridentifier) {}
+
+	@Override
+	public void verifyImageURL(String url) {}
 
 	@Override
 	public void registerInternalPages() {}

@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -32,6 +32,7 @@ public abstract class NecronomiconRitual {
 	private String unlocalizedName;
 	private float requiredEnergy;
 	protected Object sacrifice;
+	private boolean nbtSensitive;
 
 	/**
 	 * A Necronomicon Ritual
@@ -77,6 +78,14 @@ public abstract class NecronomiconRitual {
 	 */
 	public NecronomiconRitual(String unlocalizedName, int bookType, float requiredEnergy, Object...offerings){
 		this(unlocalizedName, bookType, -1, requiredEnergy, offerings);
+	}
+
+	/**
+	 * Sets the ritual to require specific NBT values on the offerings
+	 */
+	public NecronomiconRitual setNBTSensitive(){
+		nbtSensitive = true;
+		return this;
 	}
 
 	/**
@@ -152,6 +161,14 @@ public abstract class NecronomiconRitual {
 	 */
 	public boolean requiresItemSacrifice(){
 		return false;
+	}
+
+	/**
+	 * Determines if the ritual should check for identical NBT tag compounds while<br>
+	 * checking if the offerings are correct (so a stricter Item match).
+	 */
+	public boolean isNBTSensitive(){
+		return nbtSensitive;
 	}
 
 	/**

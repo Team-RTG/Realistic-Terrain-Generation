@@ -44,7 +44,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     public class TerrainBOPAlps extends TerrainBase {
 
-        // the BoP version has steep slopes and a flat area on top. The RTG version will
+        // the BoP version has steep slopes and a flat area on top. The RTG version will mimic that.
         private float start = 0f;// this puts a minimum on "ruggedness" on the top. We want to allow flats
         private float height = 40f; // sets the variability range
         private float width = 80f; // width of irregularity noise on top. We want low, for a lot of features.

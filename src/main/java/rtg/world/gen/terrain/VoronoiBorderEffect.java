@@ -1,0 +1,26 @@
+package rtg.world.gen.terrain;
+
+import rtg.api.world.RTGWorld;
+
+/**
+ * This returns a value generally between just below 0 and 1 depending on the distance from a voronoi cell border
+ * 0 is on the border
+ * @author Zeno410
+ */
+public class VoronoiBorderEffect extends HeightEffect {
+
+    public float pointWavelength = 0;
+    public float floor = Float.MAX_VALUE;
+    public float minimumDivisor = 0;//low divisors can produce excessive rates of change
+    
+    @Override
+    public float added(RTGWorld rtgWorld, float x, float y) {
+         double[] points = rtgWorld.cell.octave(1).eval((float) x / pointWavelength, (float) y / pointWavelength);      
+         double divisor = Math.max(minimumDivisor, points[1]);
+         float raise = (float) ((points[1] - points[0]) / divisor);
+         raise = 1.0f-raise;
+         raise = TerrainBase.blendedHillHeight(raise, floor);
+         return raise;
+    }
+
+}

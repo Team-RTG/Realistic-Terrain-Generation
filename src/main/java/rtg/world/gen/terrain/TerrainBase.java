@@ -8,7 +8,7 @@ import rtg.api.world.RTGWorld;
 
 public abstract class TerrainBase {
 
-    public static final float minimumOceanFloor = 30.01f; // The lowest Y coord an ocean floor is allowed to be.
+    public static final float minimumOceanFloor = 20.01f; // The lowest Y coord an ocean floor is allowed to be.
     public static final float minimumDuneHeight = 21f; // The strength factor to which the dune height config option is added.
     protected final float minOceanFloor; // The lowest Y coord an ocean floor is allowed to be.
     protected final float minDuneHeight; // The strength factor to which the dune height config option is added.
@@ -139,7 +139,19 @@ public abstract class TerrainBase {
 
         return 62f + 6f * river;
     }
+    
+    public static float mountainCap(float m) {
+        // heights can "blow through the ceiling" so pull more extreme values down a bit
 
+        if (m > 160) {
+            m = 160 + (m - 160) * .75f;
+            if (m > 180) {
+                m = 180 + (m - 180f) * .75f;
+            }
+        }
+        return m;
+    }
+    
     public static float riverized(float height, float river) {
 
         if (height < 62.95f) {
@@ -149,19 +161,7 @@ public abstract class TerrainBase {
     }
 
     public static float terrainBeach(int x, int y, OpenSimplexNoise simplex, float river, float pitch1, float pitch2, float baseHeight) {
-
-        float h = simplex.noise2(x / pitch1, y / pitch1) * 40f * river;
-        h *= h / pitch2;
-
-        if (h < 1f) {
-            h = 1f;
-        }
-
-        if (h < 4f) {
-            h += (simplex.noise2(x / 50f, y / 50f) + simplex.noise2(x / 15f, y / 15f)) * (4f - h);
-        }
-
-        return baseHeight + h;
+        return riverized(baseHeight + TerrainBase.groundNoise(x, y, 4f, simplex),river);
     }
 
     public static float terrainBryce(int x, int y, OpenSimplexNoise simplex, float river, float height, float border) {
@@ -538,10 +538,10 @@ public abstract class TerrainBase {
 
     public static float terrainOcean(int x, int y, OpenSimplexNoise simplex, float river, float averageFloor) {
 
-        float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
-        h = h > 3f ? 3f : h;
-        h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
-        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;
+        float h = simplex.noise2(x / 300f, y / 300f) * 8f * river;
+        //h = h > 3f ? 3f : h;
+        h += simplex.noise2(x / 50f, y / 50f) * 2f;
+        h += simplex.noise2(x / 15f, y / 15f) * 1f;
 
         float floNoise = averageFloor + h;
         floNoise = floNoise < minimumOceanFloor ? minimumOceanFloor : floNoise;

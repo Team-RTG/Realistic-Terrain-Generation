@@ -40,6 +40,8 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_MIX_BLOCK_META;
     public final ConfigPropertyString SURFACE_MIX_FILLER_BLOCK;
     public final ConfigPropertyInt SURFACE_MIX_FILLER_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_2_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_2_BLOCK_META;
     public final ConfigPropertyBoolean ALLOW_PALM_TREES;
     public final ConfigPropertyBoolean ALLOW_CACTUS;
     public final ConfigPropertyBoolean ALLOW_COBWEBS;
@@ -331,6 +333,30 @@ public class BiomeConfig extends Config {
             "If you're using a custom mix filler block, enter its numeric data value here."
                 + Configuration.NEW_LINE +
                 "For example, if you want to use podzol for this biome's mix filler block, you would enter minecraft:dirt for the Mix Filler Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        SURFACE_MIX_2_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 2 Block ID",
+            "Surfaces.Mix 2 Top Block",
+            "If you want to change this biome's 2nd mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_2_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 2 Block Meta (Data Value)",
+            "Surfaces.Mix 2 Top Block",
+            "If you're using a custom 2nd mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 2nd mix block, you would enter minecraft:dirt for the Mix 2 Block ID,"
                 + Configuration.NEW_LINE +
                 "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
                 + Configuration.NEW_LINE +

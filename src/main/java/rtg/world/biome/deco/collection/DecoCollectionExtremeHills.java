@@ -20,7 +20,7 @@ public class DecoCollectionExtremeHills extends DecoCollectionBase {
         this.addDeco(nigraDecos(85, 12, 18, 10, 14)); // Small- to medium-size trees.
     }
 
-    private DecoTree nigraTrees(IBlockState log, IBlockState leaves, int maxY, int minTrunkSize, int maxTrunkSize, int minCrownSize, int maxCrownSize) {
+    protected DecoTree nigraTrees(IBlockState log, IBlockState leaves, int maxY, int minTrunkSize, int maxTrunkSize, int minCrownSize, int maxCrownSize) {
 
         TreeRTG nigraTree = new TreeRTGPinusNigra();
         nigraTree.setLogBlock(log);
@@ -46,7 +46,7 @@ public class DecoCollectionExtremeHills extends DecoCollectionBase {
         return nigraDeco;
     }
 
-    private DecoHelper5050 nigraDecos(int maxY, int minTrunkSize, int maxTrunkSize, int minCrownSize, int maxCrownSize) {
+    protected DecoHelper5050 nigraDecos(int maxY, int minTrunkSize, int maxTrunkSize, int minCrownSize, int maxCrownSize) {
         return new DecoHelper5050(
             nigraTrees(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState(), maxY, minTrunkSize, maxTrunkSize, minCrownSize, maxCrownSize),
             nigraTrees(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1), maxY, minTrunkSize, maxTrunkSize, minCrownSize, maxCrownSize)

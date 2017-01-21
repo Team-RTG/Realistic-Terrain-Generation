@@ -148,7 +148,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         deadPineTree.setTreeType(DecoTree.TreeType.RTG_TREE);
         deadPineTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         deadPineTree.setTreeConditionChance(18);
-        deadPineTree.setMaxY(100);
+        deadPineTree.setMaxY(90);
         this.addDeco(deadPineTree);
 
         DecoShrub decoShrub = new DecoShrub();
@@ -170,6 +170,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.setMaxY(90);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
@@ -179,7 +180,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         this.addDeco(decoPumpkin);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY(100);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
     }

@@ -10,19 +10,16 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
+import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsPlus;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.HeightEffect;
 import rtg.world.gen.terrain.JitterEffect;
 import rtg.world.gen.terrain.MountainsWithPassesEffect;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
@@ -88,7 +85,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f);
+        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.65f);
     }
 
     public class SurfaceVanillaExtremeHillsPlus extends SurfaceBase {
@@ -125,7 +122,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             OpenSimplexNoise simplex = rtgWorld.simplex;
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
-            boolean m = false;
 
             Block b;
             for (int k = 255; k > -1; k--) {
@@ -139,6 +135,10 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                     if (depth == 0) {
 
                         float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float mixNoise = simplex.noise2(i / 12f, j / 12f);
+
+                        //Logger.debug("%f", mixNoise);
+
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -167,9 +167,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        else if (mixNoise > mixHeight) {
                             primer.setBlockState(x, k, z, mixBlock);
-                            m = true;
                         }
                         else {
                             primer.setBlockState(x, k, z, topBlock);
@@ -193,69 +192,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
     @Override
     public void initDecos() {
-
-        TreeRTG nigraTree = new TreeRTGPinusNigra();
-        nigraTree.setLogBlock(Blocks.LOG.getDefaultState());
-        nigraTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        nigraTree.setMinTrunkSize(18);
-        nigraTree.setMaxTrunkSize(27);
-        nigraTree.setMinCrownSize(7);
-        nigraTree.setMaxCrownSize(10);
-        this.addTree(nigraTree);
-
-        DecoTree decoTrees = new DecoTree(nigraTree);
-        decoTrees.setStrengthFactorForLoops(4f);
-        decoTrees.setStrengthNoiseFactorXForLoops(true);
-        decoTrees.getDistribution().setNoiseDivisor(100f);
-        decoTrees.getDistribution().setNoiseFactor(6f);
-        decoTrees.getDistribution().setNoiseAddend(0.8f);
-        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
-        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        decoTrees.setTreeConditionChance(24);
-        decoTrees.setMaxY(100);
-        this.addDeco(decoTrees);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
-        this.addDeco(decoShrub);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(12);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(2f);
-        this.addDeco(decoBoulder);
-
-        DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(rtg.world.biome.deco.DecoPumpkin.RandomType.USE_CHANCE_VALUE);
-        decoPumpkin.setChance(28);
-        this.addDeco(decoPumpkin);
-
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.setFlowers(new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11});
-        decoFlowersRTG.setMaxY(128);
-        decoFlowersRTG.setLoops(3);
-        this.addDeco(decoFlowersRTG);
-
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
-        this.addDeco(decoDoublePlants);
+        this.addDecoCollection(new DecoCollectionExtremeHillsPlus());
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
     }
 }

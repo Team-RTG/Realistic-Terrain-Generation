@@ -10,10 +10,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsPlusM;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -37,6 +39,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
     }
 
     @Override
@@ -67,7 +71,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsPlusM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f);
+        return new SurfaceVanillaExtremeHillsPlusM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), -0.8f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), BlockUtil.getStateDirt(1), -0.5f, -0.7f);
     }
 
     public class SurfaceVanillaExtremeHillsPlusM extends SurfaceBase {
@@ -80,10 +84,12 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
         private float cCliff = 1.5f;
 
         private IBlockState mixBlock;
+        private IBlockState mix2Block;
         private float mixHeight;
+        private float mix2Height;
 
         public SurfaceVanillaExtremeHillsPlusM(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                               float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+                                           float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, IBlockState mix2, float mixSize, float mix2Size) {
 
             super(config, top, fill);
             min = minCliff;
@@ -94,7 +100,9 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
             cCliff = clayCliff;
 
             mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mix2Block = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), mix2);
             mixHeight = mixSize;
+            mix2Height = mix2Size;
         }
 
         @Override
@@ -104,7 +112,6 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
             OpenSimplexNoise simplex = rtgWorld.simplex;
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
-            boolean m = false;
 
             Block b;
             for (int k = 255; k > -1; k--) {
@@ -118,6 +125,10 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
                     if (depth == 0) {
 
                         float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float mixNoise = simplex.noise2(i / 12f, j / 12f);
+
+                        //Logger.debug("%f", mixNoise);
+
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -146,12 +157,16 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        else if (mixNoise > mixHeight) {
                             primer.setBlockState(x, k, z, mixBlock);
-                            m = true;
                         }
                         else {
-                            primer.setBlockState(x, k, z, topBlock);
+                            if (mixNoise > mix2Height) {
+                                primer.setBlockState(x, k, z, mix2Block);
+                            }
+                            else {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
                         }
                     }
                     else if (depth < 6) {
@@ -172,8 +187,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        this.addDecoCollection(new DecoCollectionExtremeHillsPlusM());
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
     }
 }

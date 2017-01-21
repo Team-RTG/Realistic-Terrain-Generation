@@ -13,7 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.util.Logger;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsPlus;
 import rtg.world.gen.surface.SurfaceBase;
@@ -138,7 +137,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                         float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
                         float mixNoise = simplex.noise2(i / 12f, j / 12f);
 
-                        Logger.debug("%f", mixNoise);
+                        //Logger.debug("%f", mixNoise);
 
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;

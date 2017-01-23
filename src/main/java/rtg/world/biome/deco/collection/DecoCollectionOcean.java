@@ -4,9 +4,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 import rtg.api.util.BlockUtil;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoSponge;
 import rtg.world.biome.deco.helper.DecoHelper5050;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
 /**
@@ -14,43 +16,14 @@ import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND
  */
 public class DecoCollectionOcean extends DecoCollectionBase {
 
-    private int maxY = 60;
+    private int maxY = 58;
 
-    public DecoCollectionOcean(boolean fallenTrees) {
+    public DecoCollectionOcean() {
 
-        this.addDeco(logDecos(), fallenTrees) // Logs.
-            .addDeco(shrubDecos()) // Shrubs.
+        this.addDeco(shrubDecos()) // Shrubs.
             .addDeco(boulderDecos()) // Mossy & non-mossy boulders.
             .addDeco(sponge()) // Rare, wet sponge (only in deeper waters).
-            .addDeco(flowers()) // Flowers.
-            .addDeco(doublePlants()) // Ferns & double tall grass.
-            .addDeco(grass()) // Grass.
             .addDeco(baseBiomeDecorations()); // Base biome decorations.
-    }
-
-    private DecoFallenTree logs(IBlockState log, IBlockState leaves) {
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogBlock(log);
-        decoFallenTree.setLeavesBlock(leaves);
-        decoFallenTree.setMinSize(4);
-        decoFallenTree.setMaxSize(7);
-        decoFallenTree.setMaxY(maxY);
-
-        return decoFallenTree;
-    }
-
-    private DecoHelper5050 logDecos() {
-        return new DecoHelper5050(
-            logs(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState()),
-            logs(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1))
-        );
     }
 
     private DecoShrub shrubs(IBlockState log, IBlockState leaves) {
@@ -88,42 +61,18 @@ public class DecoCollectionOcean extends DecoCollectionBase {
         return decoBoulder;
     }
 
-    private DecoFlowersRTG flowers() {
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.setFlowers(new int[]{12, 12, 12, 12});
-        decoFlowersRTG.setMaxY(maxY);
-        decoFlowersRTG.setLoops(3);
-        return decoFlowersRTG;
-    }
-
-    private DecoLargeFernDoubleTallgrass doublePlants() {
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(maxY);
-        decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
-        return decoDoublePlants;
-    }
-
-    private DecoGrass grass() {
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(maxY);
-        decoGrass.setStrengthFactor(4f);
-        return decoGrass;
+    private DecoSponge sponge() {
+        DecoSponge decoSponge = new DecoSponge();
+        decoSponge.setBoulderBlock(BlockUtil.getSponge(1));
+        decoSponge.setChance(4);
+        decoSponge.setMinY(22);
+        decoSponge.setMaxY(32);
+        decoSponge.setHeightType(DecoSponge.HeightType.NEXT_INT);
+        decoSponge.setStrengthFactor(4f);
+        return decoSponge;
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {
         return new DecoBaseBiomeDecorations();
-    }
-
-    private DecoBoulder sponge() {
-        DecoBoulder decoBoulder = new DecoBoulder();
-        //decoBoulder.setBoulderBlock(BlockUtil.getSponge(1));
-        decoBoulder.setBoulderBlock(Blocks.REEDS.getDefaultState());
-        decoBoulder.setChance(4);
-        decoBoulder.setMinY(22);
-        decoBoulder.setMaxY(32);
-        decoBoulder.setHeightType(DecoBoulder.HeightType.NEXT_INT);
-        decoBoulder.setStrengthFactor(4f);
-        return decoBoulder;
     }
 }

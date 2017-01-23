@@ -123,6 +123,7 @@ public abstract class DecoBase {
         REED,
         ROCK_SPIRE,
         SHRUB,
+        SPONGE,
         TEST,
         TREE,
         VINE,

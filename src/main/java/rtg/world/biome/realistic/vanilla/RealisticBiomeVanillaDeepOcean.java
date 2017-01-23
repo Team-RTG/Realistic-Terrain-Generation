@@ -178,6 +178,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionOcean(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionOcean());
     }
 }

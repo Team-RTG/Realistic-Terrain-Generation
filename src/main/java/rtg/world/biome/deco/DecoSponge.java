@@ -14,14 +14,14 @@ import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.feature.WorldGenSponge;
 
 /**
  * @author WhichOnesPink
  */
-public class DecoBoulder extends DecoBase {
+public class DecoSponge extends DecoBase {
 
-    private IBlockState boulderBlock; // This can be any block.
+    private IBlockState spongeBlock; // This can be any block.
     private float strengthFactor; // Higher = more/bigger boulders.
     private int minY; // Lower height restriction.
     private int maxY; // Upper height restriction.
@@ -30,7 +30,7 @@ public class DecoBoulder extends DecoBase {
     private boolean water;
     protected ArrayList<Block> validGroundBlocks;
 
-    public DecoBoulder() {
+    public DecoSponge() {
 
         super();
 
@@ -38,10 +38,10 @@ public class DecoBoulder extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        this.setSpongeBlock(Blocks.COBBLESTONE.getDefaultState());
         this.setStrengthFactor(2f);
-        this.setMinY(60); // Sensible lower height limit by default.
-        this.setMaxY(255); // No upper height limit by default.
+        this.setMinY(20); // Sensible lower height limit by default.
+        this.setMaxY(50); // No upper height limit by default.
         this.setHeightType(HeightType.GET_HEIGHT_VALUE);
         this.setChance(10);
         this.water = true;
@@ -55,7 +55,7 @@ public class DecoBoulder extends DecoBase {
             Blocks.SAND
         ));
 
-        this.addDecoTypes(DecoType.BOULDER);
+        this.addDecoTypes(DecoType.SPONGE);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class DecoBoulder extends DecoBase {
         if (this.allowed) {
 
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
-            WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
+            WorldGenerator worldGenerator = new WorldGenSponge(spongeBlock, 0, rand, validGroundBlocks);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
 
@@ -89,14 +89,6 @@ public class DecoBoulder extends DecoBase {
                 }
 
                 if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
-
-                    // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
-                    if (hasPlacedVillageBlocks) {
-                        if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, i1, k1, j1)) {
-                            return;
-                        }
-                    }
-
                     worldGenerator.generate(rtgWorld.world, rand, new BlockPos(i1, k1, j1));
                 }
             }
@@ -108,14 +100,14 @@ public class DecoBoulder extends DecoBase {
         GET_HEIGHT_VALUE;
     }
 
-    public IBlockState getBoulderBlock() {
+    public IBlockState getSpongeBlock() {
 
-        return boulderBlock;
+        return spongeBlock;
     }
 
-    public DecoBoulder setBoulderBlock(IBlockState boulderBlock) {
+    public DecoSponge setSpongeBlock(IBlockState spongeBlock) {
 
-        this.boulderBlock = boulderBlock;
+        this.spongeBlock = spongeBlock;
         return this;
     }
 
@@ -124,7 +116,7 @@ public class DecoBoulder extends DecoBase {
         return strengthFactor;
     }
 
-    public DecoBoulder setStrengthFactor(float strengthFactor) {
+    public DecoSponge setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
         return this;
@@ -135,7 +127,7 @@ public class DecoBoulder extends DecoBase {
         return minY;
     }
 
-    public DecoBoulder setMinY(int minY) {
+    public DecoSponge setMinY(int minY) {
 
         this.minY = minY;
         return this;
@@ -146,7 +138,7 @@ public class DecoBoulder extends DecoBase {
         return maxY;
     }
 
-    public DecoBoulder setMaxY(int maxY) {
+    public DecoSponge setMaxY(int maxY) {
 
         this.maxY = maxY;
         return this;
@@ -157,7 +149,7 @@ public class DecoBoulder extends DecoBase {
         return chance;
     }
 
-    public DecoBoulder setChance(int chance) {
+    public DecoSponge setChance(int chance) {
 
         this.chance = chance;
         return this;
@@ -168,7 +160,7 @@ public class DecoBoulder extends DecoBase {
         return water;
     }
 
-    public DecoBoulder setWater(boolean water) {
+    public DecoSponge setWater(boolean water) {
 
         this.water = water;
         return this;
@@ -179,7 +171,7 @@ public class DecoBoulder extends DecoBase {
         return heightType;
     }
 
-    public DecoBoulder setHeightType(HeightType heightType) {
+    public DecoSponge setHeightType(HeightType heightType) {
 
         this.heightType = heightType;
         return this;
@@ -190,7 +182,7 @@ public class DecoBoulder extends DecoBase {
         return validGroundBlocks;
     }
 
-    public DecoBoulder setValidGroundBlocks(ArrayList<Block> validGroundBlocks) {
+    public DecoSponge setValidGroundBlocks(ArrayList<Block> validGroundBlocks) {
 
         this.validGroundBlocks = validGroundBlocks;
         return this;

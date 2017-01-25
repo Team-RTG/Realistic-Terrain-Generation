@@ -12,15 +12,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.collection.DecoCollectionOcean;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.HeightVariation;
-import rtg.world.gen.terrain.PlateauEffect;
-import rtg.world.gen.terrain.RaiseEffect;
-import rtg.world.gen.terrain.SpikeEffect;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.gen.terrain.TerrainBase.terrainPlateau;
+import rtg.world.gen.terrain.*;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
@@ -124,7 +118,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaDeepOcean(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f);
+        return new SurfaceVanillaDeepOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.44f);
     }
 
     public class SurfaceVanillaDeepOcean extends SurfaceBase {
@@ -161,7 +155,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                     if (depth == 0 && k > 0 && k < 63) {
                         mixCheck = simplex.noise2(i / width, j / width);
 
-                        if (mixCheck > height) {
+                        if (mixCheck > height) // > 0.27f, i / 12f
+                        {
                             primer.setBlockState(x, k, z, mixBlock);
                         }
                         else {
@@ -171,6 +166,11 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                     else if (depth < 4 && k < 63) {
                         primer.setBlockState(x, k, z, fillerBlock);
                     }
+
+                    else if (depth == 0 && k < 69) {
+                        primer.setBlockState(x, k, z, topBlock);
+
+                    }
                 }
             }
         }
@@ -178,8 +178,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        this.addDecoCollection(new DecoCollectionOcean());
     }
 }

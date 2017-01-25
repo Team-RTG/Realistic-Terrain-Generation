@@ -1,7 +1,10 @@
 package rtg.world.gen.feature;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -19,6 +22,7 @@ public class WorldGenBlob extends WorldGenerator {
 
     protected boolean water;
     protected BoulderUtil boulderUtil;
+    protected ArrayList<Block> validGroundBlocks;
     private IBlockState blobBlock;
     private int blobSize;
     private boolean booShouldGenerate;
@@ -32,6 +36,15 @@ public class WorldGenBlob extends WorldGenerator {
         booShouldGenerate = true;
         this.water = true;
         this.boulderUtil = new BoulderUtil();
+
+        this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(
+            Blocks.GRASS,
+            Blocks.DIRT,
+            Blocks.STONE,
+            Blocks.GRAVEL,
+            Blocks.CLAY,
+            Blocks.SAND
+        ));
 
         if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
             if (!rtgConfig.ENABLE_COBBLESTONE_BOULDERS.get()) {
@@ -49,6 +62,12 @@ public class WorldGenBlob extends WorldGenerator {
 
         this(b, s, rand);
         this.water = water;
+    }
+
+    public WorldGenBlob(IBlockState b, int s, Random rand, boolean water, ArrayList<Block> validGroundBlocks) {
+
+        this(b, s, rand, water);
+        this.validGroundBlocks = validGroundBlocks;
     }
 
     public boolean shouldGenerateCobblestoneBoulder(Random rand) {
@@ -135,11 +154,7 @@ public class WorldGenBlob extends WorldGenerator {
                             }
                         }
 
-                        if (block.getBlock() == Blocks.GRASS
-                            || block.getBlock() == Blocks.DIRT
-                            || block.getBlock() == Blocks.STONE
-                            || block.getBlock() == Blocks.GRAVEL
-                            || block.getBlock() == Blocks.SAND) {
+                        if (validGroundBlocks.contains(block.getBlock())) {
                             break label63;
                         }
                     }

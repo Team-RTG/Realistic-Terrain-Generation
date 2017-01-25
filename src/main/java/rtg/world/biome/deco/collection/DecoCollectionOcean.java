@@ -20,6 +20,8 @@ public class DecoCollectionOcean extends DecoCollectionBase {
 
     public DecoCollectionOcean() {
 
+        super();
+
         this.addDeco(boulderDecos()) // Mossy, non-mossy & prismarine boulders.
             .addDeco(sponge()) // Rare, wet sponge (only in deeper waters).
             .addDeco(baseBiomeDecorations()); // Base biome decorations.

@@ -17,6 +17,8 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
 
     public DecoCollectionSavanna(boolean fallenTrees) {
 
+        super();
+
         DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());

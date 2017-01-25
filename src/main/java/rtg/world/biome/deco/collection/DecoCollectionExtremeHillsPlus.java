@@ -17,6 +17,8 @@ public class DecoCollectionExtremeHillsPlus extends DecoCollectionBase {
 
     public DecoCollectionExtremeHillsPlus() {
 
+        super();
+
         this.addDeco(nigraDecos(85, 14, 20, 10, 14)) // Lower, taller trees.
             .addDeco(nigraDecos(95, 10, 14, 8, 10)); // Higher, shorter trees.
     }

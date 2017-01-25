@@ -10,10 +10,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.collection.DecoCollectionOcean;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -63,12 +62,11 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f);
+        return new SurfaceVanillaOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.44f);
     }
 
     public class SurfaceVanillaOcean extends SurfaceBase {
 
-        private final int sandMetadata = 0;
         private IBlockState mixBlock;
         private float width;
         private float height;
@@ -114,7 +112,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
                     }
 
                     else if (depth == 0 && k < 69) {
-                        primer.setBlockState(x, k, z, BlockUtil.getStateSand(sandMetadata));
+                        primer.setBlockState(x, k, z, topBlock);
 
                     }
                 }
@@ -124,8 +122,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        this.addDecoCollection(new DecoCollectionOcean());
     }
 }

@@ -37,7 +37,7 @@ public class VolcanoGenerator {
             l = (mapRand.nextLong() / 2L) * 2L + 1L;
             l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
     }
-    public void generateMapGen(ChunkPrimer primer, Long unusedSeed, World world, IBiomeProviderRTG cmr, Random unusedMapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void generateMapGen(ChunkPrimer primer, Long unusedSeed, World world, IBiomeProviderRTG cmr, Random unusedMapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[], RealisticBiomeBase biome) {
 
         // Have volcanoes been disabled in the global config?
         if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
@@ -57,7 +57,7 @@ public class VolcanoGenerator {
                 if (noVolcano.contains(probe)) continue;
                 noVolcano.add(probe);
                 mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapVolcanoes(primer, world, cmr, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                rMapVolcanoes(primer, world, cmr, baseX, baseY, chunkX, chunkY, simplex, cell, noise, biome);
             }
         }
     }
@@ -65,19 +65,18 @@ public class VolcanoGenerator {
     public void rMapVolcanoes(
         ChunkPrimer primer, World world, IBiomeProviderRTG cmr, 
             int baseX, int baseY, int chunkX, int chunkY,
-        OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+        OpenSimplexNoise simplex, CellNoise cell, float noise[], RealisticBiomeBase realisticBiome) {
 
         // Have volcanoes been disabled in the global config?
         if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
 
         // Have volcanoes been disabled in the biome config?
-        int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
-        RealisticBiomeBase realisticBiome = getBiome(biomeId);
+
         // Do we need to patch the biome?
         if (realisticBiome == null) {
             RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
             realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                "NULL biome (" + biomeId + ") found when mapping volcanoes.");
+                "NULL biome found when mapping volcanoes.");
         }
         if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
 

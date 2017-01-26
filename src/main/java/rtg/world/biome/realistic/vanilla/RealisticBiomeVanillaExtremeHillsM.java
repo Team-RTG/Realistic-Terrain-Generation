@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     @Override
     public TerrainBase initTerrain() {
 
-       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
+         return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsM extends TerrainBase {

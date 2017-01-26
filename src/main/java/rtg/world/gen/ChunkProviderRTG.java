@@ -89,7 +89,6 @@ public class ChunkProviderRTG implements IChunkGenerator
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
     private Biome[] baseBiomesList;
-    private boolean[] biomesGeneratedInChunk;
     private float[] borderNoise;
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
@@ -105,6 +104,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private LimitedSet<ChunkPos> alreadyDecorated = new LimitedSet<>(1000);
     private ChunkOreGenTracker chunkOreGenTracker = new ChunkOreGenTracker();
     private AnvilChunkLoader chunkLoader;
+    private VolcanoGenerator volcanoGenerator;
 
     // we have to store this callback because it's a WeakReference in the event manager
     public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
@@ -131,6 +131,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         landscapeGenerator = new LandscapeGenerator(rtgWorld);
         mapRand = new Random(seed);
         worldSeed = seed;
+        volcanoGenerator = new VolcanoGenerator(seed);
         Map<String, String> m = new HashMap<>();
         m.put("size", "0");
         m.put("distance", "24");
@@ -185,7 +186,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         CanyonColour.init(seed);
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];
-        biomesGeneratedInChunk = new boolean[256];
         borderNoise = new float[256];
         biomePatcher = new RealisticBiomePatcher();
 
@@ -268,7 +268,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         rand.setSeed((long) cx * 0x4f9939f508L + (long) cz * 0x1ef1565bd5L);
         ChunkPrimer primer = new ChunkPrimer();
         int k;
-        RealisticBiomeBase realisticBiome;
 
         ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx * 16, cz * 16);
 
@@ -276,33 +275,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         // that routine can change the blocks.
         //get standard biome Data
 
-        for (int ci = 0; ci < 256; ci++) {
-
-            realisticBiome = landscape.biome[ci];
-
-            // Do we need to patch the biome?
-            if (realisticBiome == null) {
-                realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                    "NULL biome (" + ci + ") found when providing chunk.");
-            }
-
-            biomesGeneratedInChunk[Biome.getIdForBiome(realisticBiome.baseBiome)] = true;
-        }
-
         for (k = 0; k < 256; k++) {
-            if (biomesGeneratedInChunk[k]) {
-
-                realisticBiome = RealisticBiomeBase.getBiome(k);
-
-                // Do we need to patch the biome?
-                if (realisticBiome == null) {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + k + ") found when providing chunk.");
-                }
-
-                realisticBiome.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
-                biomesGeneratedInChunk[k] = false;
-            }
 
             try {
                 baseBiomesList[k] = landscape.biome[k].baseBiome;
@@ -311,7 +284,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                 baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome));
             }
         }
-
+        volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
+        
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
 
         caveGenerator.generate(worldObj, cx, cz, primer);

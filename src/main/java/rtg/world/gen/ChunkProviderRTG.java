@@ -201,7 +201,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         float[][] weightings = new float[sampleArraySize * sampleArraySize][256];
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                TimeTracker.manager.start("Weighting");
                 float limit = (float) Math.pow((56f * 56f), .7);
                 // float limit = 56f;
 
@@ -269,12 +268,20 @@ public class ChunkProviderRTG implements IChunkGenerator
         ChunkPrimer primer = new ChunkPrimer();
         int k;
 
+        String landscaping = "RTG Landscape";
+        TimeTracker.manager.start(landscaping);
         ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx * 16, cz * 16);
 
+        TimeTracker.manager.stop(landscaping);
+        
+        String fill = "RTG Fill";
+        TimeTracker.manager.start(fill);
         generateTerrain(cmr, cx, cz, primer, landscape.biome, landscape.noise);
+        TimeTracker.manager.stop(fill);
         // that routine can change the blocks.
         //get standard biome Data
-
+        String volcanos = "Volcanos";
+        TimeTracker.manager.start(volcanos);
         for (k = 0; k < 256; k++) {
 
             try {
@@ -284,9 +291,13 @@ public class ChunkProviderRTG implements IChunkGenerator
                 baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome));
             }
         }
-        volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
+        volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise, landscape.biome[0]);
+        TimeTracker.manager.stop(volcanos);
         
+        String replace = "RTG Replace";
+        TimeTracker.manager.start(replace);
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
+        TimeTracker.manager.stop(replace);
 
         caveGenerator.generate(worldObj, cx, cz, primer);
         ravineGenerator.generate(worldObj, cx, cz, primer);

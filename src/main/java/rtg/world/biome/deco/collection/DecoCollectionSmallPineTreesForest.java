@@ -19,6 +19,8 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
 
     public DecoCollectionSmallPineTreesForest() {
 
+        super();
+
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
         sitchensisTree.setLogBlock(Blocks.LOG.getDefaultState());
         sitchensisTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());

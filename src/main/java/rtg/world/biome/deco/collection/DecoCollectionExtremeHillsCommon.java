@@ -16,6 +16,8 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
     public DecoCollectionExtremeHillsCommon(boolean fallenTrees) {
 
+        super();
+
         this.addDeco(logDecos(), fallenTrees) // Logs.
             .addDeco(shrubDecos()) // Shrubs.
             .addDeco(boulders()) // Boulders.

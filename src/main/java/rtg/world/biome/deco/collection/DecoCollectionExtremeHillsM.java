@@ -13,6 +13,8 @@ public class DecoCollectionExtremeHillsM extends DecoCollectionExtremeHills {
 
     public DecoCollectionExtremeHillsM() {
 
+        super();
+
         this.addDeco(nigraDecos(85, 10, 18, 10, 18)); // Taller trees lower down.
         this.addDeco(nigraDecos(95, 10, 12, 10, 12)); // Shorter trees both lower down & higher up.
     }

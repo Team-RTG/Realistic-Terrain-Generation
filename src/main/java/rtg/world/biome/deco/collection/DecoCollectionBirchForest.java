@@ -19,6 +19,8 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
 
     public DecoCollectionBirchForest(boolean fallenTrees) {
 
+        super();
+
         this
             .addDeco(tallBirchTrees())
             .addDeco(randomTrees())

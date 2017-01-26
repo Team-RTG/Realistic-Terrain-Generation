@@ -17,6 +17,8 @@ public class DecoCollectionExtremeHills extends DecoCollectionBase {
 
     public DecoCollectionExtremeHills() {
 
+        super();
+
         this.addDeco(nigraDecos(85, 12, 18, 10, 14)); // Small- to medium-size trees.
     }
 

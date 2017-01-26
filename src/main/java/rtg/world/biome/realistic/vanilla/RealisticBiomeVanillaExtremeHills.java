@@ -72,19 +72,29 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
             baseHills.octave = 3;
             baseHills.power = 1.9f;
             
-            SpikeEverywhereEffect additionalHeight = new SpikeEverywhereEffect();
-            additionalHeight.spiked = new RaiseEffect(height/3f);
-            additionalHeight.wavelength = width/3f;
-            additionalHeight.minimumSimplex = -0.2f;
-            additionalHeight.octave = 4;
-            additionalHeight.power = 1.9f;
+            SpikeEverywhereEffect additionalHeightSpikes = new SpikeEverywhereEffect();
+            additionalHeightSpikes.spiked = new RaiseEffect(height/3f);
+            additionalHeightSpikes.wavelength = width/3f;
+            additionalHeightSpikes.minimumSimplex = -0.2f;
+            additionalHeightSpikes.octave = 4;
+            additionalHeightSpikes.power = 1.9f;
             
-            SpikeEverywhereEffect roughening = new SpikeEverywhereEffect();
-            roughening.spiked = new RaiseEffect(height/8f);
-            roughening.wavelength = width/10f;
-            roughening.minimumSimplex = -0.2f;
-            roughening.octave = 5;
-            roughening.power = 1.9f;
+            JitterEffect additionalHeight = new JitterEffect();
+            additionalHeight.amplitude = additionalHeightSpikes.wavelength/3;
+            additionalHeight.wavelength = additionalHeightSpikes.wavelength/2;
+            additionalHeight.jittered = additionalHeightSpikes;
+            
+            SpikeEverywhereEffect rougheningSpikes = new SpikeEverywhereEffect();
+            rougheningSpikes.spiked = new RaiseEffect(height/8f);
+            rougheningSpikes.wavelength = width/10f;
+            rougheningSpikes.minimumSimplex = -0.2f;
+            rougheningSpikes.octave = 5;
+            rougheningSpikes.power = 1.9f;
+            
+            JitterEffect roughening = new JitterEffect();
+            roughening.amplitude = rougheningSpikes.wavelength/3;
+            roughening.wavelength = rougheningSpikes.wavelength/2;
+            roughening.jittered = rougheningSpikes;
             
             JitterEffect hillJitter = new JitterEffect();
             hillJitter.amplitude = 15f;

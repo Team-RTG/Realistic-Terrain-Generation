@@ -8,6 +8,8 @@ import rtg.api.util.BlockUtil;
 import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
+import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.feature.tree.rtg.TreeRTGPinusMonticola;
 
 /**
@@ -36,13 +38,46 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         monticolaDeco.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         monticolaDeco.setTreeConditionNoise(0f);
         monticolaDeco.setTreeConditionChance(2);
-        monticolaDeco.setMaxY(110);
+        monticolaDeco.setMaxY(100);
         this.addDeco(monticolaDeco);
+
+        TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+        sitchensisTree.setLogBlock(BlockUtil.getStateLog(1));
+        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(9);
+        sitchensisTree.setMinCrownSize(5);
+        sitchensisTree.setMaxCrownSize(14);
+        this.addTree(sitchensisTree);
+        DecoTree sitchensisDeco = new DecoTree(sitchensisTree);
+        sitchensisDeco.setStrengthFactorForLoops(4f);
+        sitchensisDeco.setTreeType(DecoTree.TreeType.RTG_TREE);
+        sitchensisDeco.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        sitchensisDeco.setTreeConditionChance(3);
+        sitchensisDeco.setMaxY(100);
+
+        TreeRTG pungensTree = new TreeRTGPiceaPungens();
+        pungensTree.setLogBlock(BlockUtil.getStateLog(1));
+        pungensTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        pungensTree.setMinTrunkSize(2);
+        pungensTree.setMaxTrunkSize(7);
+        pungensTree.setMinCrownSize(6);
+        pungensTree.setMaxCrownSize(17);
+        this.addTree(pungensTree);
+        DecoTree pungensDeco = new DecoTree(pungensTree);
+        pungensDeco.setStrengthFactorForLoops(4f);
+        pungensDeco.setTreeType(DecoTree.TreeType.RTG_TREE);
+        pungensDeco.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        pungensDeco.setTreeConditionChance(3);
+        pungensDeco.setMaxY(100);
+
+        DecoHelper5050 mediumTrees = new DecoHelper5050(sitchensisDeco, pungensDeco);
+        this.addDeco(mediumTrees);
 
         DecoTree vanillaTaigaPine = new DecoTree();
         vanillaTaigaPine.setWorldGen(new WorldGenTaiga1());
         vanillaTaigaPine.setTreeType(DecoTree.TreeType.WORLDGEN);
-        vanillaTaigaPine.setLoops(5);
+        vanillaTaigaPine.setLoops(3);
         vanillaTaigaPine.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         vanillaTaigaPine.setTreeConditionChance(1);
         vanillaTaigaPine.setMaxY(110);
@@ -50,7 +85,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         DecoTree vanillaTaigaSpruce = new DecoTree();
         vanillaTaigaSpruce.setWorldGen(new WorldGenTaiga2(false));
         vanillaTaigaSpruce.setTreeType(DecoTree.TreeType.WORLDGEN);
-        vanillaTaigaSpruce.setLoops(5);
+        vanillaTaigaSpruce.setLoops(3);
         vanillaTaigaSpruce.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         vanillaTaigaSpruce.setTreeConditionChance(1);
         vanillaTaigaSpruce.setMaxY(110);

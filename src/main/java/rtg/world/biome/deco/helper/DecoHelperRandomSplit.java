@@ -24,6 +24,12 @@ public class DecoHelperRandomSplit extends DecoBase {
         this.chances = new int[]{};
     }
 
+    public DecoHelperRandomSplit(DecoBase[] decos, int[] chances) {
+        this();
+        this.decos = decos;
+        this.chances = chances;
+    }
+
     public boolean properlyDefined() {
 
         for (int i = 0; i < decos.length; i++) {

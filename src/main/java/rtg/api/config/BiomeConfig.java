@@ -47,6 +47,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_CACTUS;
     public final ConfigPropertyBoolean ALLOW_COBWEBS;
     public final ConfigPropertyBoolean ALLOW_WHEAT;
+    public final ConfigPropertyBoolean ALLOW_PONDS_WATER;
     public final ConfigPropertyInt WHEAT_CHANCE;
     public final ConfigPropertyInt WHEAT_MIN_Y;
     public final ConfigPropertyInt WHEAT_MAX_Y;
@@ -385,6 +386,7 @@ public class BiomeConfig extends Config {
         ALLOW_CACTUS = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Cactus", "Decorations.Cactus", "", true);
         ALLOW_COBWEBS = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Cobwebs", "Decorations.Cobwebs", "", true);
         ALLOW_WHEAT = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Wheat", "Decorations.Wheat", "", true);
+        ALLOW_PONDS_WATER = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Ponds (Water)", "Decorations.Ponds", "", true);
         WHEAT_CHANCE = new ConfigPropertyInt(Type.INTEGER, "Wheat (Chance)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MIN_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Min Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MAX_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Max Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);

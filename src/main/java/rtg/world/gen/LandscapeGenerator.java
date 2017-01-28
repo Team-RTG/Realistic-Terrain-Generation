@@ -1,5 +1,6 @@
 package rtg.world.gen;
 
+import java.util.WeakHashMap;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 
@@ -30,6 +31,7 @@ class LandscapeGenerator {
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
     private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+    private final WeakHashMap<ChunkLandscape,float[]> cache = new WeakHashMap();
 
     LandscapeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
@@ -167,6 +169,28 @@ class LandscapeGenerator {
             }
         }
         TimeTracker.manager.stop("Biome Layout");
-        TimeTracker.manager.stop("RTG Noise");
+    }
+    
+    public float [] noiseFor(IBiomeProviderRTG cmr, int worldX, int worldZ) {
+        ChunkPos location = new ChunkPos(worldX,worldZ);
+        ChunkLandscape landscape = storage.get(location);
+        float [] result = cache.get(landscape);
+        if (result != null) return result;
+        // not found; we have to make it;
+        
+        result = new float[256];
+        final int adjust = 24;// seems off? but decorations aren't matching their chunks.
+
+        TimeTracker.manager.start("Biome Layout");
+        for (int bx = -4; bx <= 4; bx++) {
+
+            for (int bz = -4; bz <= 4; bz++) {
+                result[getBiomeDataAt(cmr, worldX + adjust + bx * 4, worldZ + adjust + bz * 4)] += 0.01234569f;
+            }
+        }
+        TimeTracker.manager.stop("Biome Layout");
+        TimeTracker.manager.stop("Features"); 
+        cache.put(landscape, result);
+        return result;
     }
 }

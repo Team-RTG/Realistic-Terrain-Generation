@@ -186,7 +186,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         CanyonColour.init(seed);
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];
-        borderNoise = new float[256];
         biomePatcher = new RealisticBiomePatcher();
 
         // set up the cache of available chunks
@@ -296,6 +295,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
+        
+        borderNoise = landscapeGenerator.noiseFor(cmr, cx * 16, cz * 16);
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
         TimeTracker.manager.stop(replace);
         caveGenerator.generate(worldObj, cx, cz, primer);
@@ -655,17 +656,7 @@ public class ChunkProviderRTG implements IChunkGenerator
          * Answer: building a frequency table of nearby biomes - Zeno.
          */
 
-        final int adjust = 24;// seems off? but decorations aren't matching their chunks.
-
-        TimeTracker.manager.start("Biome Layout");
-        for (int bx = -4; bx <= 4; bx++) {
-
-            for (int bz = -4; bz <= 4; bz++) {
-                borderNoise[landscapeGenerator.getBiomeDataAt(cmr, worldX + adjust + bx * 4, worldZ + adjust + bz * 4)] += 0.01234569f;
-            }
-        }
-        TimeTracker.manager.stop("Biome Layout");
-        TimeTracker.manager.stop("Features");
+        borderNoise = landscapeGenerator.noiseFor(cmr, worldX, worldZ);
 
         /*
          * ########################################################################

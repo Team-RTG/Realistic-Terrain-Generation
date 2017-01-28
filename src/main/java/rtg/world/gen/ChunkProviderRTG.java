@@ -298,21 +298,13 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start(replace);
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
         TimeTracker.manager.stop(replace);
-
-        if (Biome.getIdForBiome(baseBiomesList[0])!=0
-                &&Biome.getIdForBiome(baseBiomesList[0])!=32) {
-             caveGenerator.generate(worldObj, cx, cz, primer);
-             ravineGenerator.generate(worldObj, cx, cz, primer);
-        }
-
+        caveGenerator.generate(worldObj, cx, cz, primer);
+        ravineGenerator.generate(worldObj, cx, cz, primer);
         if (mapFeaturesEnabled) {
 
             if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
-                    if (Biome.getIdForBiome(baseBiomesList[0])!=0
-                            &&Biome.getIdForBiome(baseBiomesList[0])!=32) {
-                         mineshaftGenerator.generate(this.worldObj, cx, cz, primer);
-                    }
+                    mineshaftGenerator.generate(this.worldObj, cx, cz, primer);
                 }
                 catch (Exception e) {
                     if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {

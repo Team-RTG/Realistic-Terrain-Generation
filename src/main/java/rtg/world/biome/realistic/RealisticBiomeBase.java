@@ -14,11 +14,13 @@ import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.Accessor;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
+import rtg.util.Logger;
 import rtg.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
@@ -129,6 +131,7 @@ public abstract class RealisticBiomeBase {
     private void init() {
         initConfig();
         this.getConfig().load(this.configPath());
+        this.adjustBiomeProperties();
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
@@ -559,6 +562,35 @@ public abstract class RealisticBiomeBase {
         }
 
         return true;
+    }
+
+    private void adjustBiomeProperties() {
+
+        Biome biome = this.baseBiome;
+        int biomeId = Biome.getIdForBiome(biome);
+        String biomeName = biome.getBiomeName();
+
+        // Temperature.
+
+        String configTemperature = this.getConfig().TEMPERATURE.get();
+
+        if (!configTemperature.isEmpty()) {
+
+            float biomeTemperature = Float.valueOf(configTemperature);
+
+            if (biomeTemperature > 0.1f && biomeTemperature < 0.2f)
+            {
+                throw new RuntimeException("Invalid biome temperature for " + biomeName + ".");
+            }
+            else if (biomeTemperature < -2f || biomeTemperature > 2f) {
+                throw new RuntimeException("Biome temperature out of range for " + biomeName + ".");
+            }
+
+            Accessor<Biome, Float> biomeTemp = new Accessor<>("temperature");
+            biomeTemp.setField(biome, biomeTemperature);
+
+            Logger.info("Set biome temperature to %f for %s", biomeTemperature, biomeName);
+        }
     }
 
     public String configPath() {

@@ -291,17 +291,15 @@ public class ChunkProviderRTG implements IChunkGenerator
                 baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome));
             }
         }
-        volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise, landscape.biome[0]);
+        volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
         TimeTracker.manager.stop(volcanos);
         
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
         TimeTracker.manager.stop(replace);
-
         caveGenerator.generate(worldObj, cx, cz, primer);
         ravineGenerator.generate(worldObj, cx, cz, primer);
-
         if (mapFeaturesEnabled) {
 
             if (rtgConfig.GENERATE_MINESHAFTS.get()) {

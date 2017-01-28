@@ -30,7 +30,6 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt RAVINE_FREQUENCY;
     public final ConfigPropertyInt BEACH_BIOME;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
-    public final ConfigPropertyInt MIN_Y_COORD_FOR_SNOW_LAYERS;
 
     /*
      * OPTIONAL CONFIGS
@@ -287,21 +286,6 @@ public class BiomeConfig extends Config {
             -1.0f, -1.0f, 5.0f
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);
-
-        MIN_Y_COORD_FOR_SNOW_LAYERS = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Minimum Y Coord for Snow Layers",
-            "Snow",
-            "Snow layers in this biome will not generate below this Y coord."
-                + Configuration.NEW_LINE +
-                "For example, snow generates around Y=95 in Extreme Hills. If you'd rather have snow generate from Y=110 and higher, set this to 110."
-                + Configuration.NEW_LINE +
-                "Set to -1 to use this biome's default snow settings."
-                + Configuration.NEW_LINE +
-                "This applies to newly-generated chunks only. Snow layers will still appear in cold/snowy biomes after it snows.",
-            -1, 1, 255
-        );
-        this.addProperty(MIN_Y_COORD_FOR_SNOW_LAYERS);
 
         /*
          * OPTIONAL CONFIGS

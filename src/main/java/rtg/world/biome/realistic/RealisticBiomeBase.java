@@ -586,10 +586,15 @@ public abstract class RealisticBiomeBase {
                 throw new RuntimeException("Biome temperature out of range for " + biomeName + ".");
             }
 
-            Accessor<Biome, Float> biomeTemp = new Accessor<>("temperature");
-            biomeTemp.setField(biome, biomeTemperature);
+            try {
+                Accessor<Biome, Float> biomeTemp = new Accessor<>("temperature");
+                biomeTemp.setField(biome, biomeTemperature);
 
-            Logger.info("Set biome temperature to %f for %s", biomeTemperature, biomeName);
+                Logger.info("Set biome temperature to %f for %s", biomeTemperature, biomeName);
+            }
+            catch (Exception e) {
+                Logger.warn("Unable to set biome temperature to %f for %s.", biomeTemperature, biomeName);
+            }
         }
     }
 

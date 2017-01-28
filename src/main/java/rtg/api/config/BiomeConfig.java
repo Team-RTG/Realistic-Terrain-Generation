@@ -30,6 +30,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt RAVINE_FREQUENCY;
     public final ConfigPropertyInt BEACH_BIOME;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
+    public final ConfigPropertyString TEMPERATURE;
 
     /*
      * OPTIONAL CONFIGS
@@ -50,7 +51,6 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt WHEAT_CHANCE;
     public final ConfigPropertyInt WHEAT_MIN_Y;
     public final ConfigPropertyInt WHEAT_MAX_Y;
-    public final ConfigPropertyString TEMPERATURE;
 
     public BiomeConfig() {
 
@@ -288,6 +288,23 @@ public class BiomeConfig extends Config {
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);
 
+        TEMPERATURE = new ConfigPropertyString(
+            Type.STRING,
+            "Temperature",
+            "Biome Properties",
+            "If you want to change this biome's temperature, enter a valid value here. [range: -2.0 ~ 2.0]"
+                + Configuration.NEW_LINE +
+                "In keeping with vanilla's temperature validation rules, values in the range of 0.1 to 0.2 (non-inclusive) are not valid and will result in a crash on startup."
+                + Configuration.NEW_LINE +
+                "If this value is empty, the biome's default temperature will be used."
+                + Configuration.NEW_LINE +
+                "Please note that changing a biome's temperature does NOT affect its climate type (DESERT, WARM, COOL, ICY)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Biome#Temperature",
+            ""
+        );
+        this.addProperty(TEMPERATURE);
+
         /*
          * OPTIONAL CONFIGS
          *
@@ -365,23 +382,6 @@ public class BiomeConfig extends Config {
                 "For more info, visit http://minecraft.gamepedia.com/Data_values",
             0, 0, 15
         );
-
-        TEMPERATURE = new ConfigPropertyString(
-            Type.STRING,
-            "Temperature",
-            "Biome Properties",
-            "If you want to change this biome's temperature, enter a valid value here. [range: -2.0 ~ 2.0]"
-                + Configuration.NEW_LINE +
-                "In keeping with vanilla's temperature validation rules, values in the range of 0.1 to 0.2 (non-inclusive) are not valid and will result in a crash on startup."
-                + Configuration.NEW_LINE +
-                "If this value is empty, the biome's default temperature will be used."
-                + Configuration.NEW_LINE +
-                "Please note that changing a biome's temperature does NOT affect its climate type (DESERT, WARM, COOL, ICY)."
-                + Configuration.NEW_LINE +
-                "For more info, visit http://minecraft.gamepedia.com/Biome#Temperature",
-            ""
-        );
-        this.addProperty(TEMPERATURE);
 
         ALLOW_LOGS = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Allow Logs", "Decorations.Logs", "", true);
         ALLOW_PALM_TREES = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Palm Trees", "Decorations.Palm Trees", "", true);

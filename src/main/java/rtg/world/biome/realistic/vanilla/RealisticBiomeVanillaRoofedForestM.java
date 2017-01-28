@@ -25,6 +25,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         super(biome, river);
 
+        this.noWaterFeatures = true;
         this.noLakes = true;
     }
 
@@ -115,7 +116,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionRoofedForest(
-            this.getConfig().ALLOW_LOGS.get(), false, false
+            63, 225, this.getConfig().ALLOW_LOGS.get(), false, false
         ));
     }
 }

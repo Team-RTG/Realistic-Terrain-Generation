@@ -176,7 +176,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionRoofedForest(
-            this.getConfig().ALLOW_LOGS.get(), this.getConfig().ALLOW_COBWEBS.get(), this.getConfig().ALLOW_PONDS_WATER.get()
+            63, 80, this.getConfig().ALLOW_LOGS.get(), this.getConfig().ALLOW_COBWEBS.get(), this.getConfig().ALLOW_PONDS_WATER.get()
         ));
     }
 }

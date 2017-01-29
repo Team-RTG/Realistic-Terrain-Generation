@@ -272,6 +272,15 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt VOLCANO_CHANCE;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Woodland mansions
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyBoolean ENABLE_WOODLAND_MANSION_MODIFICATIONS;
+    public final ConfigPropertyBoolean GENERATE_WOODLAND_MANSIONS;
+    public final ConfigPropertyInt WOODLAND_MANSION_SPACING;
+    public final ConfigPropertyInt WOODLAND_MANSION_SEPARATION;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public RTGConfig() {
@@ -1363,6 +1372,54 @@ public class RTGConfig extends Config {
             48, 1, Integer.MAX_VALUE
         );
         this.addProperty(VOLCANO_CHANCE);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Woodland mansions
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ENABLE_WOODLAND_MANSION_MODIFICATIONS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable Woodland Mansion Modifications",
+            "Woodland Mansions",
+            "Must be set to TRUE for the other woodland mansion settings to have any effect."
+                + Configuration.NEW_LINE +
+                "If FALSE, RTG won't interfere with woodland mansion generation at all."
+                + Configuration.NEW_LINE +
+                "WARNING! Setting this to FALSE may result in woodland mansions generating in unpredictable locations, including those outside of Roofed Forest biomes.",
+            true
+        );
+        this.addProperty(ENABLE_WOODLAND_MANSION_MODIFICATIONS);
+
+        GENERATE_WOODLAND_MANSIONS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN, "Generate Woodland Mansions", "Woodland Mansions", "", true
+        );
+        this.addProperty(GENERATE_WOODLAND_MANSIONS);
+
+        WOODLAND_MANSION_SPACING = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Woodland Mansion Spacing",
+            "Woodland Mansions",
+            "This setting determines the size of the grid, in chunks, on which woodland mansions are generated."
+                + Configuration.NEW_LINE +
+                "LOWER values = MORE monuments & MORE lag. (80 = Vanilla spacing)"
+                + Configuration.NEW_LINE +
+                "This value MUST be greater than the 'separation' value.",
+            80, 1, 1024
+        );
+        this.addProperty(WOODLAND_MANSION_SPACING);
+
+        WOODLAND_MANSION_SEPARATION = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Woodland Mansion Separation",
+            "Woodland Mansions",
+            "This setting determines the minimum distance, in chunks, between woodland mansions."
+                + Configuration.NEW_LINE +
+                "LOWER values = MORE monuments & MORE lag. (20 = Vanilla separation)"
+                + Configuration.NEW_LINE +
+                "This value MUST be less than the 'spacing' value.",
+            20, 1, Integer.MAX_VALUE
+        );
+        this.addProperty(WOODLAND_MANSION_SEPARATION);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

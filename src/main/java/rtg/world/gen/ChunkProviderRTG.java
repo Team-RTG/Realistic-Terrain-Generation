@@ -750,7 +750,6 @@ public class ChunkProviderRTG implements IChunkGenerator
 
                     BlockPos snowPos = this.worldObj.getPrecipitationHeight(new BlockPos(worldX + i4, 0, worldZ + j4));
                     BlockPos icePos = snowPos.down();
-                    int snowLayerMinY = biome.getConfig().MIN_Y_COORD_FOR_SNOW_LAYERS.get();
 
                     // Ice.
                     if(this.worldObj.canBlockFreezeWater(icePos)) {
@@ -758,19 +757,6 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
 
                     // Snow.
-
-                    // Does this biome have custom snow layer settings?
-                    if (snowLayerMinY > -1) {
-
-                        // Let's use a little noise to make sure the snow line isn't flat.
-                        float snowNoise = rtgWorld.simplex.noise3(worldX, snowPos.getY(), worldZ);
-                        snowLayerMinY = snowNoise < -0.8f ? snowLayerMinY - 2 : (snowNoise < -0.3f ? snowLayerMinY - 1 : (snowNoise < 0.3f ? snowLayerMinY : (snowNoise < 8f ? snowLayerMinY + 1 : snowLayerMinY + 2)));
-
-                        if (snowPos.getY() < snowLayerMinY) {
-                            break;
-                        }
-                    }
-
                     if (rtgConfig.ENABLE_SNOW_LAYERS.get() && this.worldUtil.canSnowAt(snowPos, true)) {
                         this.worldObj.setBlockState(snowPos, snowLayerBlock, 2);
                     }

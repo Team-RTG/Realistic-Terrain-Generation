@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import biomesoplenty.api.biome.BOPBiomes;
@@ -24,7 +23,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
             bopBiome, BiomeGenBase.river,
             new TerrainBOPOutback(65f, 50f, 10f),
             new SurfaceBOPOutback(config,
-                Blocks.grass.getDefaultState(), //Block top
+                topBlock, //Block top
                 fillerBlock, //Block filler,
                 topBlock, //IBlockState mixTop,
                 fillerBlock, //IBlockState mixFill,

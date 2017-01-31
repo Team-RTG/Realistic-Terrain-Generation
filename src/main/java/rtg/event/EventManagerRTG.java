@@ -235,9 +235,10 @@ public class EventManagerRTG {
         }
     }
 
-    public class SaplingGrowTreeRTG
-    {
+    public class SaplingGrowTreeRTG {
+
         SaplingGrowTreeRTG() {
+
             logEventMessage("Initialising SaplingGrowTreeRTG...");
         }
 
@@ -250,7 +251,8 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.world.getWorldInfo().getTerrainType() instanceof WorldTypeRTG) || !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
+            if (!(event.world.getWorldType() instanceof WorldTypeRTG) ||
+                !(event.world.getWorldChunkManager() instanceof WorldChunkManagerRTG)) {
                 return;
             }
 
@@ -265,7 +267,7 @@ public class EventManagerRTG {
 
             // Are we dealing with a sapling? Sounds like a silly question, but apparently it's one that needs to be asked.
             if (!(saplingBlock.getBlock() instanceof BlockSapling)) {
-                Logger.warn("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
+                Logger.debug("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
                 return;
             }
 
@@ -273,6 +275,13 @@ public class EventManagerRTG {
             //BiomeGenBase bgg = cmr.getBiomeGenAt(x, z);
             BiomeGenBase bgg = event.world.getBiomeGenForCoords(event.pos);
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
+
+            // Instead of patching the biome, we should just return early here to allow vanilla logic to kick in.
+            if (rb == null) {
+                Logger.debug("NULL biome (%d) found when trying to grow an RTG tree from a sapling.", bgg.biomeID);
+                return;
+            }
+
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
@@ -304,6 +313,9 @@ public class EventManagerRTG {
                 // If there are valid trees, then proceed; otherwise, let's get out here.
                 if (validTrees.size() > 0) {
 
+                    // Prevent the original tree from generating.
+                    event.setResult(Event.Result.DENY);
+
                     // Get a random tree from the list of valid trees.
                     TreeRTG tree = validTrees.get(event.rand.nextInt(validTrees.size()));
 
@@ -321,6 +333,17 @@ public class EventManagerRTG {
                         tree.setCrownSize(RandomUtil.getRandomInt(event.rand, tree.getMinCrownSize(), tree.getMaxCrownSize()));
                     }
 
+                    int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
+                    if (treeHeight < 1) {
+                        Logger.debug("Unable to grow RTG tree with no height.");
+                        return;
+                    }
+
+                    if (!tree.hasSpaceToGrow(event.world, event.rand, event.pos, treeHeight)) {
+                        Logger.debug("Unable to grow RTG tree with %d height. Something in the way.", treeHeight);
+                        return;
+                    }
+
                     /*
                      * Set the generateFlag to what it needs to be for growing trees from saplings,
                      * generate the tree, and then set it back to what it was before.
@@ -333,9 +356,6 @@ public class EventManagerRTG {
                     tree.setGenerateFlag(oldFlag);
 
                     if (generated) {
-
-                        // Prevent the original tree from generating.
-                        event.setResult(Event.Result.DENY);
 
                         // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
                         if (event.world.getBlockState(event.pos) == saplingBlock) {

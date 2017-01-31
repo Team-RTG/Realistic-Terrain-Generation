@@ -220,6 +220,7 @@ public class ConfigRTG {
 
     public static boolean allowTreesToGenerateOnSand = true;
     public static boolean allowShrubsToGenerateBelowSurface = true;
+    public static boolean allowBarkCoveredLogs = true;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Villages
@@ -802,6 +803,16 @@ public class ConfigRTG {
                 "Trees",
                 allowShrubsToGenerateBelowSurface,
                 "Set this to FALSE to prevent shrub trunks from generating below the surface."
+                    + Configuration.NEW_LINE
+            );
+
+            allowBarkCoveredLogs = config.getBoolean(
+                "Allow bark-covered logs",
+                "Trees",
+                allowBarkCoveredLogs,
+                "Set this to FALSE to prevent the trunks of RTG trees from using the 'all-bark' texture model."
+                    + Configuration.NEW_LINE +
+                    "For more information, visit http://minecraft.gamepedia.com/Wood#Block_data"
                     + Configuration.NEW_LINE
             );
 

@@ -21,12 +21,12 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
     public DecoCollectionSmallPineTreesForest() {
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getDefaultState();
-        sitchensisTree.leavesBlock = Blocks.leaves.getDefaultState();
-        sitchensisTree.minTrunkSize = 4;
-        sitchensisTree.maxTrunkSize = 10;
-        sitchensisTree.minCrownSize = 6;
-        sitchensisTree.maxCrownSize = 14;
+        sitchensisTree.setLogBlock(Blocks.log.getDefaultState());
+        sitchensisTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(10);
+        sitchensisTree.setMinCrownSize(6);
+        sitchensisTree.setMaxCrownSize(14);
         this.addTree(sitchensisTree);
 
         DecoTree oakPine = new DecoTree(sitchensisTree);

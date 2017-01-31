@@ -55,12 +55,12 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         // Trees first.
 
         TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
-        ponderosaOakTree.logBlock = Blocks.log.getDefaultState();
-        ponderosaOakTree.leavesBlock = Blocks.leaves.getDefaultState();
-        ponderosaOakTree.minTrunkSize = 11;
-        ponderosaOakTree.maxTrunkSize = 21;
-        ponderosaOakTree.minCrownSize = 15;
-        ponderosaOakTree.maxCrownSize = 29;
+        ponderosaOakTree.setLogBlock(Blocks.log.getDefaultState());
+        ponderosaOakTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        ponderosaOakTree.setMinTrunkSize(11);
+        ponderosaOakTree.setMaxTrunkSize(21);
+        ponderosaOakTree.setMinCrownSize(15);
+        ponderosaOakTree.setMaxCrownSize(29);
         this.addTree(ponderosaOakTree);
 
         DecoTree oakPines = new DecoTree(ponderosaOakTree);
@@ -75,12 +75,12 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.maxY = 140;
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = Blocks.log.getStateFromMeta(1);
-        ponderosaSpruceTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        ponderosaSpruceTree.minTrunkSize = 11;
-        ponderosaSpruceTree.maxTrunkSize = 21;
-        ponderosaSpruceTree.minCrownSize = 15;
-        ponderosaSpruceTree.maxCrownSize = 29;
+        ponderosaSpruceTree.setLogBlock(Blocks.log.getStateFromMeta(1));
+        ponderosaSpruceTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        ponderosaSpruceTree.setMinTrunkSize(11);
+        ponderosaSpruceTree.setMaxTrunkSize(21);
+        ponderosaSpruceTree.setMinCrownSize(15);
+        ponderosaSpruceTree.setMaxCrownSize(29);
         this.addTree(ponderosaSpruceTree);
 
         DecoTree sprucePines = new DecoTree(ponderosaSpruceTree);

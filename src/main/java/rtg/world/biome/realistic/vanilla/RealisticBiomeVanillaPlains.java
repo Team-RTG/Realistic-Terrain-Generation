@@ -52,12 +52,12 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // Very rare fat oak/birch trees.
 
         TreeRTG roburTree1 = new TreeRTGQuercusRobur();
-        roburTree1.logBlock = Blocks.log.getDefaultState();
-        roburTree1.leavesBlock = Blocks.leaves.getDefaultState();
-        roburTree1.minTrunkSize = 3;
-        roburTree1.maxTrunkSize = 5;
-        roburTree1.minCrownSize = 7;
-        roburTree1.maxCrownSize = 9;
+        roburTree1.setLogBlock(Blocks.log.getDefaultState());
+        roburTree1.setLeavesBlock(Blocks.leaves.getDefaultState());
+        roburTree1.setMinTrunkSize(3);
+        roburTree1.setMaxTrunkSize(5);
+        roburTree1.setMinCrownSize(7);
+        roburTree1.setMaxCrownSize(9);
         this.addTree(roburTree1);
 
         DecoTree oakTrees = new DecoTree(roburTree1);
@@ -68,12 +68,12 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         oakTrees.treeConditionChance = 48;
 
         TreeRTG roburTree2 = new TreeRTGQuercusRobur();
-        roburTree2.logBlock = Blocks.log.getStateFromMeta(2);
-        roburTree2.leavesBlock = Blocks.leaves.getStateFromMeta(2);
-        roburTree2.minTrunkSize = 3;
-        roburTree2.maxTrunkSize = 5;
-        roburTree2.minCrownSize = 7;
-        roburTree2.maxCrownSize = 9;
+        roburTree2.setLogBlock(Blocks.log.getStateFromMeta(2));
+        roburTree2.setLeavesBlock(Blocks.leaves.getStateFromMeta(2));
+        roburTree2.setMinTrunkSize(3);
+        roburTree2.setMaxTrunkSize(5);
+        roburTree2.setMinCrownSize(7);
+        roburTree2.setMaxCrownSize(9);
         this.addTree(roburTree2);
 
         DecoTree birchTrees = new DecoTree(roburTree2);

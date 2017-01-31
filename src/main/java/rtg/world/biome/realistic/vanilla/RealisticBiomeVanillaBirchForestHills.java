@@ -33,12 +33,12 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         this.noLakes = true;
 
         TreeRTG birchSmall = new TreeRTGBetulaPapyrifera();
-        birchSmall.logBlock = Blocks.log.getStateFromMeta(2);
-        birchSmall.leavesBlock = Blocks.leaves.getStateFromMeta(2);
-        birchSmall.minTrunkSize = 4;
-        birchSmall.maxTrunkSize = 10;
-        birchSmall.minCrownSize = 8;
-        birchSmall.maxCrownSize = 19;
+        birchSmall.setLogBlock(Blocks.log.getStateFromMeta(2));
+        birchSmall.setLeavesBlock(Blocks.leaves.getStateFromMeta(2));
+        birchSmall.setMinTrunkSize(4);
+        birchSmall.setMaxTrunkSize(10);
+        birchSmall.setMinCrownSize(8);
+        birchSmall.setMaxCrownSize(19);
         this.addTree(birchSmall);
 
         DecoTree smallBirch = new DecoTree(birchSmall);
@@ -52,12 +52,12 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
         this.addDeco(smallBirch);
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.logBlock = Blocks.log.getStateFromMeta(2);
-        birchTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
-        birchTree.minTrunkSize = 4;
-        birchTree.maxTrunkSize = 10;
-        birchTree.minCrownSize = 8;
-        birchTree.maxCrownSize = 19;
+        birchTree.setLogBlock(Blocks.log.getStateFromMeta(2));
+        birchTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(2));
+        birchTree.setMinTrunkSize(4);
+        birchTree.setMaxTrunkSize(10);
+        birchTree.setMinCrownSize(8);
+        birchTree.setMaxCrownSize(19);
         this.addTree(birchTree);
 
         DecoTree birchTrees = new DecoTree(birchTree);

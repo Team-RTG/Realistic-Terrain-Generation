@@ -13,8 +13,6 @@ import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
 
-import rtg.util.Logger;
-
 /**
  * Quercus Robur (Pedunculate Oak)
  */
@@ -43,24 +41,24 @@ public class TreeRTGQuercusRobur extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, <s>trunkSize</s>, <s>crownSize</s>, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGQuercusRobur());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)0;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGQuercusRobur() {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(0);
-        this.leavesBlock = Blocks.leaves.getStateFromMeta(0);
+        this.setLogBlock(Blocks.log.getDefaultState());
+        this.setLeavesBlock(Blocks.leaves.getDefaultState());
         this.trunkSize = 4;
         this.crownSize = 8;
     }
@@ -293,8 +291,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
                     String replaceBlock = world.getBlockState(blockpos1).getBlock().getLocalizedName();
 
-                    Logger.debug("Block at %d %d %d (%s) is not replaceable.",
-                        blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), replaceBlock);
+                    //Logger.debug("Block at %d %d %d (%s) is not replaceable.", blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), replaceBlock);
 
                     return j;
                 }
@@ -314,6 +311,14 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         this.world = worldIn;
         this.basePos = position;
         this.rand = new Random(rand.nextLong());
+
+        int x = position.getX();
+        int y = position.getY();
+        int z = position.getZ();
+
+        if (!this.isGroundValid(world, position)) {
+            return false;
+        }
 
         if (this.heightLimit == 0) {
             this.heightLimit = 5 + this.rand.nextInt(this.heightLimitLimit);
@@ -344,7 +349,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         boolean isSoil = state.getBlock().canSustainPlant(this.world, down, net.minecraft.util.EnumFacing.UP, ((net.minecraft.block.BlockSapling) Blocks.sapling));
 
         if (!isSoil) {
-            Logger.debug("Invalid tree location! Ground block is not soil.");
+            //Logger.debug("Invalid tree location! Ground block is not soil.");
             return false;
         }
         else {
@@ -354,7 +359,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
                 return true;
             }
             else if (i < 6) {
-                Logger.debug("Invalid tree location! checkBlockLine() == false");
+                //Logger.debug("Invalid tree location! checkBlockLine() == false");
                 return false;
             }
             else {

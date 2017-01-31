@@ -793,7 +793,7 @@ public class RealisticBiomeBase {
         if (allowed) {
 
             // Set the sapling data for this tree before we add it to the list.
-            tree.saplingBlock = SaplingUtil.getSaplingFromLeaves(tree.leavesBlock);
+            tree.setSaplingBlock(SaplingUtil.getSaplingFromLeaves(tree.getLeavesBlock()));
 
             this.rtgTrees.add(tree);
         }

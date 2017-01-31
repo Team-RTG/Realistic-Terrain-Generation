@@ -3,7 +3,6 @@ package rtg.world.gen.feature.tree.rtg;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -17,6 +16,8 @@ import net.minecraftforge.common.IPlantable;
  */
 public class TreeRTGPinusMonticola extends TreeRTG {
 
+    protected IBlockState trunkLog;
+
     private int height;
 
     /**
@@ -25,20 +26,20 @@ public class TreeRTGPinusMonticola extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGPinusMonticola());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)0;<br>
-     * decoTree.minTrunkSize = 2;<br>
-     * decoTree.maxTrunkSize = 3;<br>
-     * decoTree.minCrownSize = 5;<br>
-     * decoTree.maxCrownSize = 12;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(2);<br>
+     * decoTree.setMaxTrunkSize(3);<br>
+     * decoTree.setMinCrownSize(5);<br>
+     * decoTree.setMaxCrownSize(12);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGPinusMonticola() {
@@ -49,9 +50,16 @@ public class TreeRTGPinusMonticola extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+
+        this.trunkLog = this.getTrunkLog(this.logBlock);
+
         this.height = this.trunkSize + this.crownSize;
 
         int l = rand.nextInt(this.height * 2) + this.height * 2;
@@ -78,13 +86,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
                     for (int j2 = z - l3; j2 <= z + l3 && flag; ++j2) {
                         if (l1 >= 0 && l1 < 256) {
                             BlockPos pos2 = new BlockPos(new BlockPos(i2, l1, j2));
-                            IBlockState block = world.getBlockState(pos2);
-
-                            if (!block.getBlock().isAir(world, pos2)
-                                && !block.getBlock().isLeaves(world, pos2)
-                                && block != Blocks.snow_layer.getDefaultState()) {
-                                flag = false;
-                            }
+                            flag = this.isReplaceable(world, pos2);
                         }
                         else {
                             flag = false;
@@ -122,7 +124,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
                                 if ((Math.abs(i3) != l3 || Math.abs(k3) != l3 || l3 <= 0)
                                     && world.getBlockState(pos5).getBlock().canBeReplacedByLeaves(world, pos5)) {
                                     if (!this.noLeaves) {
-                                        world.setBlockState(new BlockPos(l2, k2, j3), this.leavesBlock, this.generateFlag);
+                                        this.placeLeavesBlock(world, new BlockPos(l2, k2, j3), this.leavesBlock, this.generateFlag);
                                     }
                                 }
                             }
@@ -145,14 +147,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
                     i4 = rand.nextInt(3);
 
                     for (k2 = 0; k2 < l - i4; ++k2) {
-                        IBlockState block2 = world.getBlockState(new BlockPos(x, y + k2, z));
-                        BlockPos pos4 = new BlockPos(x, y + k2, z);
-
-                        if (block2.getBlock().isAir(world, pos4)
-                            || block2.getBlock().isLeaves(world, pos4)
-                            || block2 == Blocks.snow_layer.getDefaultState()) {
-                            world.setBlockState(new BlockPos(x, y + k2, z), this.logBlock, this.generateFlag);
-                        }
+                        this.placeLogBlock(world, new BlockPos(x, y + k2, z), this.logBlock, this.generateFlag);
                     }
 
                     if (this.height > 4) {
@@ -184,8 +179,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
                     break;
                 }
 
-                //TODO: this.logMeta + 12 (meta)
-                world.setBlockState(new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
                 sh--;
             }
         }
@@ -209,7 +203,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
         }
     }
 
@@ -219,9 +213,7 @@ public class TreeRTGPinusMonticola extends TreeRTG {
         if (!this.noLeaves) {
 
             IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-            if (b.getBlock().getMaterial() == Material.air) {
-                world.setBlockState(new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
-            }
+            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
         }
     }
 }

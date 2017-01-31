@@ -38,13 +38,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(decoMushrooms);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
-        mucronataTree.logBlock = Blocks.log2.getStateFromMeta(1);
-        mucronataTree.leavesBlock = Blocks.leaves2.getStateFromMeta(1);
-        mucronataTree.minTrunkSize = 2;
-        mucronataTree.maxTrunkSize = 3;
-        mucronataTree.minCrownSize = 10;
-        mucronataTree.maxCrownSize = 18;
-        mucronataTree.noLeaves = false;
+        mucronataTree.setLogBlock(Blocks.log2.getStateFromMeta(1));
+        mucronataTree.setLeavesBlock(Blocks.leaves2.getStateFromMeta(1));
+        mucronataTree.setMinTrunkSize(2);
+        mucronataTree.setMaxTrunkSize(3);
+        mucronataTree.setMinCrownSize(10);
+        mucronataTree.setMaxCrownSize(18);
+        mucronataTree.setNoLeaves(false);
         this.addTree(mucronataTree);
 
         DecoTree mangroveTree = new DecoTree(mucronataTree);
@@ -56,13 +56,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(mangroveTree);
 
         TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
-        pentandraTree.logBlock = Blocks.log2.getStateFromMeta(1);
-        pentandraTree.leavesBlock = Blocks.leaves2.getStateFromMeta(1);
-        pentandraTree.minTrunkSize = 2;
-        pentandraTree.maxTrunkSize = 3;
-        pentandraTree.minCrownSize = 10;
-        pentandraTree.maxCrownSize = 18;
-        pentandraTree.noLeaves = false;
+        pentandraTree.setLogBlock(Blocks.log2.getStateFromMeta(1));
+        pentandraTree.setLeavesBlock(Blocks.leaves2.getStateFromMeta(1));
+        pentandraTree.setMinTrunkSize(2);
+        pentandraTree.setMaxTrunkSize(3);
+        pentandraTree.setMinCrownSize(10);
+        pentandraTree.setMaxCrownSize(18);
+        pentandraTree.setNoLeaves(false);
         this.addTree(pentandraTree);
 
         DecoTree ceibaPentandraTree = new DecoTree(pentandraTree);
@@ -74,13 +74,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(ceibaPentandraTree);
 
         TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
-        roseaTree.logBlock = Blocks.log2.getStateFromMeta(1);
-        roseaTree.leavesBlock = Blocks.leaves2.getStateFromMeta(1);
-        roseaTree.minTrunkSize = 2;
-        roseaTree.maxTrunkSize = 3;
-        roseaTree.minCrownSize = 10;
-        roseaTree.maxCrownSize = 18;
-        roseaTree.noLeaves = false;
+        roseaTree.setLogBlock(Blocks.log2.getStateFromMeta(1));
+        roseaTree.setLeavesBlock(Blocks.leaves2.getStateFromMeta(1));
+        roseaTree.setMinTrunkSize(2);
+        roseaTree.setMaxTrunkSize(3);
+        roseaTree.setMinCrownSize(10);
+        roseaTree.setMaxCrownSize(18);
+        roseaTree.setNoLeaves(false);
         this.addTree(roseaTree);
 
         DecoTree ceibaRoseaTree = new DecoTree(roseaTree);

@@ -40,10 +40,10 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         this.addDeco(decoFallenTree, fallenTrees);
 
         TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
-        bucheriTree.logBlock = Blocks.log2.getDefaultState();
-        bucheriTree.leavesBlock = Blocks.leaves2.getDefaultState();
-        bucheriTree.minTrunkSize = 4;
-        bucheriTree.maxTrunkSize = 9;
+        bucheriTree.setLogBlock(Blocks.log2.getDefaultState());
+        bucheriTree.setLeavesBlock(Blocks.leaves2.getDefaultState());
+        bucheriTree.setMinTrunkSize(4);
+        bucheriTree.setMaxTrunkSize(9);
         this.addTree(bucheriTree);
 
         DecoTree bucheriTrees = new DecoTree(bucheriTree);

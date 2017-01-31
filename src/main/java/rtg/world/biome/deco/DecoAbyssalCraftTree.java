@@ -10,6 +10,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
+import com.shinoow.abyssalcraft.api.block.ACBlocks;
+
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -79,7 +81,7 @@ public class DecoAbyssalCraftTree extends DecoTree {
 
                             if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
-                                WorldGenerator worldgenerator = new WorldGenTreeACDarkwood(6 + rand.nextInt(6), 10 + rand.nextInt(10), 0, 0);
+                                WorldGenerator worldgenerator = new WorldGenTreeACDarkwood(6 + rand.nextInt(6), 10 + rand.nextInt(10), ACBlocks.darklands_oak_wood.getDefaultState(), ACBlocks.darklands_oak_leaves.getDefaultState());
                                 worldgenerator.generate(world, rand, new BlockPos(intX, intY, intZ));
                             }
 

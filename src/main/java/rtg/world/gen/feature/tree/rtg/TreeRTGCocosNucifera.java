@@ -7,10 +7,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import rtg.util.BlockUtil;
+
+
 /**
  * Cocos Nucifera (Coconut Palm)
  */
 public class TreeRTGCocosNucifera extends TreeRTG {
+
+    protected IBlockState trunkLog;
 
     private static int leavesLength = 133;
     private static int[] leaves = new int[]{
@@ -75,28 +80,28 @@ public class TreeRTGCocosNucifera extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGCocosNucifera());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)3;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)3;<br>
-     * decoTree.minTrunkSize = 7;<br>
-     * decoTree.maxTrunkSize = 8;<br>
-     * decoTree.minCrownSize = 7;<br>
-     * decoTree.maxCrownSize = 10;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(7);<br>
+     * decoTree.setMaxTrunkSize(8);<br>
+     * decoTree.setMinCrownSize(7);<br>
+     * decoTree.setMaxCrownSize(10);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGCocosNucifera() {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(3);
-        this.leavesBlock = Blocks.leaves.getStateFromMeta(3);
+        this.setLogBlock(BlockUtil.getStateLog(3));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(3));
         this.trunkSize = 8;
         this.crownSize = 7;
     }
@@ -104,22 +109,15 @@ public class TreeRTGCocosNucifera extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos, true)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
 
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (b == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
-            return false;
-        }
+        this.trunkLog = this.getTrunkLog(this.logBlock);
 
         double horDir = getRandomDir(rand);
         float verDir = 0.3f + rand.nextFloat() * 0.4f;
@@ -144,8 +142,8 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         float velZ = (float) Math.sin(horDir * Math.PI / 180D) * verDir;
 
         while (c < length) {
-            // TODO: this.logMeta + 12 (meta)
-            world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), this.logBlock, this.generateFlag);
+
+            this.placeLogBlock(world, new BlockPos((int) posX, (int) posY, (int) posZ), this.trunkLog, this.generateFlag);
 
             if (c < length - 3) {
                 loss = Math.abs(velX) + Math.abs(velZ);
@@ -168,7 +166,7 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         if (!this.noLeaves) {
 
             for (int j = 0; j < leavesLength; j += 3) {
-                world.setBlockState(new BlockPos(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2]), this.leavesBlock, this.generateFlag);
+                this.placeLeavesBlock(world, new BlockPos(x + leaves[j], y + leaves[j + 1], z + leaves[j + 2]), this.leavesBlock, this.generateFlag);
             }
         }
 

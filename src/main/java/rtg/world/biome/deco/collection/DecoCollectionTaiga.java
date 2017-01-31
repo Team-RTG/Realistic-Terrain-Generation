@@ -23,12 +23,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         super();
 
         TreeRTG sempervirensSpruceTree1 = new TreeRTGCupressusSempervirens();
-        sempervirensSpruceTree1.logBlock = Blocks.log.getStateFromMeta(1);
-        sempervirensSpruceTree1.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        sempervirensSpruceTree1.minTrunkSize = 3;
-        sempervirensSpruceTree1.maxTrunkSize = 7;
-        sempervirensSpruceTree1.minCrownSize = 5;
-        sempervirensSpruceTree1.maxCrownSize = 10;
+        sempervirensSpruceTree1.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sempervirensSpruceTree1.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        sempervirensSpruceTree1.setMinTrunkSize(3);
+        sempervirensSpruceTree1.setMaxTrunkSize(7);
+        sempervirensSpruceTree1.setMinCrownSize(5);
+        sempervirensSpruceTree1.setMaxCrownSize(10);
         this.addTree(sempervirensSpruceTree1);
 
         DecoTree bigSpruceTrees1 = new DecoTree(sempervirensSpruceTree1);
@@ -43,12 +43,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceTrees1.maxY = 110;
 
         TreeRTG sempervirensSpruceOakTree1 = new TreeRTGCupressusSempervirens();
-        sempervirensSpruceOakTree1.logBlock = Blocks.log.getStateFromMeta(1);
-        sempervirensSpruceOakTree1.leavesBlock = Blocks.leaves.getDefaultState();
-        sempervirensSpruceOakTree1.minTrunkSize = 3;
-        sempervirensSpruceOakTree1.maxTrunkSize = 7;
-        sempervirensSpruceOakTree1.minCrownSize = 5;
-        sempervirensSpruceOakTree1.maxCrownSize = 10;
+        sempervirensSpruceOakTree1.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sempervirensSpruceOakTree1.setLeavesBlock(Blocks.leaves.getDefaultState());
+        sempervirensSpruceOakTree1.setMinTrunkSize(3);
+        sempervirensSpruceOakTree1.setMaxTrunkSize(7);
+        sempervirensSpruceOakTree1.setMinCrownSize(5);
+        sempervirensSpruceOakTree1.setMaxCrownSize(10);
         this.addTree(sempervirensSpruceOakTree1);
 
         DecoTree bigSpruceOakTrees1 = new DecoTree(sempervirensSpruceOakTree1);
@@ -66,12 +66,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         this.addDeco(decoHelperThisOrThat1);
 
         TreeRTG sempervirensSpruceTree2 = new TreeRTGCupressusSempervirens();
-        sempervirensSpruceTree2.logBlock = Blocks.log.getStateFromMeta(1);
-        sempervirensSpruceTree2.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        sempervirensSpruceTree2.minTrunkSize = 3;
-        sempervirensSpruceTree2.maxTrunkSize = 7;
-        sempervirensSpruceTree2.minCrownSize = 5;
-        sempervirensSpruceTree2.maxCrownSize = 10;
+        sempervirensSpruceTree2.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sempervirensSpruceTree2.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        sempervirensSpruceTree2.setMinTrunkSize(3);
+        sempervirensSpruceTree2.setMaxTrunkSize(7);
+        sempervirensSpruceTree2.setMinCrownSize(5);
+        sempervirensSpruceTree2.setMaxCrownSize(10);
         this.addTree(sempervirensSpruceTree2);
 
         DecoTree bigSpruceTrees2 = new DecoTree(sempervirensSpruceTree2);
@@ -86,12 +86,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceTrees2.maxY = 110;
 
         TreeRTG sempervirensSpruceOakTree2 = new TreeRTGCupressusSempervirens();
-        sempervirensSpruceOakTree2.logBlock = Blocks.log.getStateFromMeta(1);
-        sempervirensSpruceOakTree2.leavesBlock = Blocks.leaves.getDefaultState();
-        sempervirensSpruceOakTree2.minTrunkSize = 3;
-        sempervirensSpruceOakTree2.maxTrunkSize = 7;
-        sempervirensSpruceOakTree2.minCrownSize = 5;
-        sempervirensSpruceOakTree2.maxCrownSize = 10;
+        sempervirensSpruceOakTree2.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sempervirensSpruceOakTree2.setLeavesBlock(Blocks.leaves.getDefaultState());
+        sempervirensSpruceOakTree2.setMinTrunkSize(3);
+        sempervirensSpruceOakTree2.setMaxTrunkSize(7);
+        sempervirensSpruceOakTree2.setMinCrownSize(5);
+        sempervirensSpruceOakTree2.setMaxCrownSize(10);
         this.addTree(sempervirensSpruceOakTree2);
 
         DecoTree bigSpruceOakTrees2 = new DecoTree(sempervirensSpruceOakTree2);
@@ -109,12 +109,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         this.addDeco(decoHelperThisOrThat2);
 
         TreeRTG sempervirensSpruceTree3 = new TreeRTGCupressusSempervirens();
-        sempervirensSpruceTree3.logBlock = Blocks.log.getStateFromMeta(1);
-        sempervirensSpruceTree3.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        sempervirensSpruceTree3.minTrunkSize = 3;
-        sempervirensSpruceTree3.maxTrunkSize = 7;
-        sempervirensSpruceTree3.minCrownSize = 5;
-        sempervirensSpruceTree3.maxCrownSize = 10;
+        sempervirensSpruceTree3.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sempervirensSpruceTree3.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        sempervirensSpruceTree3.setMinTrunkSize(3);
+        sempervirensSpruceTree3.setMaxTrunkSize(7);
+        sempervirensSpruceTree3.setMinCrownSize(5);
+        sempervirensSpruceTree3.setMaxCrownSize(10);
         this.addTree(sempervirensSpruceTree3);
 
         DecoTree bigSpruceTrees3 = new DecoTree(sempervirensSpruceTree3);
@@ -128,12 +128,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceTrees3.maxY = 120;
 
         TreeRTG sempervirensSpruceOakTree3 = new TreeRTGCupressusSempervirens();
-        sempervirensSpruceOakTree3.logBlock = Blocks.log.getStateFromMeta(1);
-        sempervirensSpruceOakTree3.leavesBlock = Blocks.leaves.getDefaultState();
-        sempervirensSpruceOakTree3.minTrunkSize = 3;
-        sempervirensSpruceOakTree3.maxTrunkSize = 7;
-        sempervirensSpruceOakTree3.minCrownSize = 5;
-        sempervirensSpruceOakTree3.maxCrownSize = 10;
+        sempervirensSpruceOakTree3.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sempervirensSpruceOakTree3.setLeavesBlock(Blocks.leaves.getDefaultState());
+        sempervirensSpruceOakTree3.setMinTrunkSize(3);
+        sempervirensSpruceOakTree3.setMaxTrunkSize(7);
+        sempervirensSpruceOakTree3.setMinCrownSize(5);
+        sempervirensSpruceOakTree3.setMaxCrownSize(10);
         this.addTree(sempervirensSpruceOakTree3);
 
         DecoTree bigSpruceOakTrees3 = new DecoTree(sempervirensSpruceOakTree3);
@@ -150,12 +150,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         this.addDeco(decoHelperThisOrThat3);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getStateFromMeta(1);
-        sitchensisTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        sitchensisTree.minTrunkSize = 4;
-        sitchensisTree.maxTrunkSize = 9;
-        sitchensisTree.minCrownSize = 5;
-        sitchensisTree.maxCrownSize = 14;
+        sitchensisTree.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sitchensisTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(9);
+        sitchensisTree.setMinCrownSize(5);
+        sitchensisTree.setMaxCrownSize(14);
         this.addTree(sitchensisTree);
 
         DecoTree decoTrees = new DecoTree(sitchensisTree);

@@ -2,11 +2,11 @@ package rtg.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import rtg.util.BlockUtil;
+
 
 /**
  * Betula Papyrifera (Paper Birch)
@@ -19,44 +19,44 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGBetulaPapyrifera());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)2;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)2;<br>
-     * decoTree.minTrunkSize = 6;<br>
-     * decoTree.maxTrunkSize = 8;<br>
-     * decoTree.minCrownSize = 8;<br>
-     * decoTree.maxCrownSize = 24;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(6);<br>
+     * decoTree.setMaxTrunkSize(8);<br>
+     * decoTree.setMinCrownSize(8);<br>
+     * decoTree.setMaxCrownSize(24);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGBetulaPapyrifera() {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(2);
-        this.logBlock = Blocks.leaves.getStateFromMeta(2);
+        this.setLogBlock(BlockUtil.getStateLog(2));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(2));
     }
 
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (g != Blocks.grass.getDefaultState() && g != Blocks.dirt.getDefaultState()) {
+        if (!this.isGroundValid(world, pos)) {
             return false;
         }
 
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+
         int i;
         for (i = 0; i < this.trunkSize; i++) {
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
@@ -84,7 +84,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
                 buildBranch(world, rand, x, y, z, dX, dZ, 1, i < this.crownSize - 2 ? 2 : 1); //i < treeSize - 4 ? 2 : 1
             }
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
             if (i < this.crownSize - 2) {
                 if (rand.nextBoolean()) {
@@ -126,7 +126,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
         }
     }
 
@@ -134,10 +134,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
 
         if (!this.noLeaves) {
 
-            IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-            if (b.getBlock().getMaterial() == Material.air) {
-                world.setBlockState(new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
-            }
+            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
         }
     }
 }

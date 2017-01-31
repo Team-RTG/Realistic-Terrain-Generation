@@ -28,8 +28,8 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         );
 
         TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
-        myrtilloidesTree.logBlock = Blocks.log.getDefaultState();
-        myrtilloidesTree.leavesBlock = Blocks.leaves.getDefaultState();
+        myrtilloidesTree.setLogBlock(Blocks.log.getDefaultState());
+        myrtilloidesTree.setLeavesBlock(Blocks.leaves.getDefaultState());
         this.addTree(myrtilloidesTree);
 
         DecoTree decoTrees = new DecoTree(myrtilloidesTree);
@@ -45,13 +45,13 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         this.addDeco(decoTrees);
 
         TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
-        ponderosaTree.logBlock = Blocks.log.getDefaultState();
-        ponderosaTree.leavesBlock = Blocks.leaves.getDefaultState();
-        ponderosaTree.minTrunkSize = 3;
-        ponderosaTree.maxTrunkSize = 6;
-        ponderosaTree.minCrownSize = 6;
-        ponderosaTree.maxCrownSize = 14;
-        ponderosaTree.noLeaves = true;
+        ponderosaTree.setLogBlock(Blocks.log.getDefaultState());
+        ponderosaTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        ponderosaTree.setMinTrunkSize(3);
+        ponderosaTree.setMaxTrunkSize(6);
+        ponderosaTree.setMinCrownSize(6);
+        ponderosaTree.setMaxCrownSize(14);
+        ponderosaTree.setNoLeaves(true);
         this.addTree(ponderosaTree);
 
         DecoTree deadPineTree = new DecoTree(ponderosaTree);

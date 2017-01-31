@@ -39,12 +39,12 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoBoulder);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
-        mucronataTree.logBlock = Blocks.log2.getStateFromMeta(1);
-        mucronataTree.leavesBlock = Blocks.leaves2.getStateFromMeta(1);
-        mucronataTree.minTrunkSize = 3;
-        mucronataTree.maxTrunkSize = 4;
-        mucronataTree.minCrownSize = 7;
-        mucronataTree.maxCrownSize = 12;
+        mucronataTree.setLogBlock(Blocks.log2.getStateFromMeta(1));
+        mucronataTree.setLeavesBlock(Blocks.leaves2.getStateFromMeta(1));
+        mucronataTree.setMinTrunkSize(3);
+        mucronataTree.setMaxTrunkSize(4);
+        mucronataTree.setMinCrownSize(7);
+        mucronataTree.setMaxCrownSize(12);
         this.addTree(mucronataTree);
 
         DecoTree decoTrees = new DecoTree(mucronataTree);

@@ -23,12 +23,12 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         super();
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getStateFromMeta(1);
-        sitchensisTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        sitchensisTree.minTrunkSize = 4;
-        sitchensisTree.maxTrunkSize = 9;
-        sitchensisTree.minCrownSize = 5;
-        sitchensisTree.maxCrownSize = 14;
+        sitchensisTree.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sitchensisTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(9);
+        sitchensisTree.setMinCrownSize(5);
+        sitchensisTree.setMaxCrownSize(14);
         this.addTree(sitchensisTree);
 
         DecoTree smallPines = new DecoTree(sitchensisTree);
@@ -40,12 +40,12 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         smallPines.maxY = 100;
 
         TreeRTG pungensTree = new TreeRTGPiceaPungens();
-        pungensTree.logBlock = Blocks.log.getStateFromMeta(1);
-        pungensTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        pungensTree.minTrunkSize = 2;
-        pungensTree.maxTrunkSize = 7;
-        pungensTree.minCrownSize = 6;
-        pungensTree.maxCrownSize = 17;
+        pungensTree.setLogBlock(Blocks.log.getStateFromMeta(1));
+        pungensTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        pungensTree.setMinTrunkSize(2);
+        pungensTree.setMaxTrunkSize(7);
+        pungensTree.setMinCrownSize(6);
+        pungensTree.setMaxCrownSize(17);
         this.addTree(pungensTree);
 
         DecoTree spruceTrees = new DecoTree(pungensTree);
@@ -57,12 +57,12 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         spruceTrees.maxY = 100;
 
         TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
-        ponderosaTree.logBlock = Blocks.log.getDefaultState();
-        ponderosaTree.leavesBlock = Blocks.leaves.getDefaultState();
-        ponderosaTree.minTrunkSize = 11;
-        ponderosaTree.maxTrunkSize = 21;
-        ponderosaTree.minCrownSize = 15;
-        ponderosaTree.maxCrownSize = 29;
+        ponderosaTree.setLogBlock(Blocks.log.getDefaultState());
+        ponderosaTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        ponderosaTree.setMinTrunkSize(11);
+        ponderosaTree.setMaxTrunkSize(21);
+        ponderosaTree.setMinCrownSize(15);
+        ponderosaTree.setMaxCrownSize(29);
         this.addTree(ponderosaTree);
 
         DecoTree oakPines = new DecoTree(ponderosaTree);

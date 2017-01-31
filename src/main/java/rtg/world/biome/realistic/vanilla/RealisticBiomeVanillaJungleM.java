@@ -38,12 +38,12 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f);
-        mucronataTree.logBlock = Blocks.log.getStateFromMeta(3);
-        mucronataTree.leavesBlock = Blocks.leaves.getStateFromMeta(3);
-        mucronataTree.minTrunkSize = 3;
-        mucronataTree.maxTrunkSize = 4;
-        mucronataTree.minCrownSize = 10;
-        mucronataTree.maxCrownSize = 27;
+        mucronataTree.setLogBlock(Blocks.log.getStateFromMeta(3));
+        mucronataTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(3));
+        mucronataTree.setMinTrunkSize(3);
+        mucronataTree.setMaxTrunkSize(4);
+        mucronataTree.setMinCrownSize(10);
+        mucronataTree.setMaxCrownSize(27);
         this.addTree(mucronataTree);
 
         DecoTree mangroves = new DecoTree(mucronataTree);
@@ -72,10 +72,10 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
         // Add some palm trees for variety.
 
         TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
-        nuciferaTree.minTrunkSize = 7;
-        nuciferaTree.maxTrunkSize = 9;
-        nuciferaTree.minCrownSize = 6;
-        nuciferaTree.maxCrownSize = 8;
+        nuciferaTree.setMinTrunkSize(7);
+        nuciferaTree.setMaxTrunkSize(9);
+        nuciferaTree.setMinCrownSize(6);
+        nuciferaTree.setMaxCrownSize(8);
         this.addTree(nuciferaTree);
 
         DecoTree palmCustom = new DecoTree(nuciferaTree);

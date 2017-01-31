@@ -26,12 +26,12 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         // Scattered palm trees.
 
         TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
-        nuciferaTree.minTrunkSize = 7;
-        nuciferaTree.maxTrunkSize = 9;
-        nuciferaTree.minCrownSize = 6;
-        nuciferaTree.maxCrownSize = 8;
-        nuciferaTree.validGroundBlocks.clear();
-        nuciferaTree.validGroundBlocks.add(Blocks.sand.getDefaultState());
+        nuciferaTree.setMinTrunkSize(7);
+        nuciferaTree.setMaxTrunkSize(9);
+        nuciferaTree.setMinCrownSize(6);
+        nuciferaTree.setMaxCrownSize(8);
+        nuciferaTree.getValidGroundBlocks().clear();
+        nuciferaTree.getValidGroundBlocks().add(Blocks.sand.getDefaultState());
         this.addTree(nuciferaTree);
 
         DecoTree palmTrees = new DecoTree(nuciferaTree);

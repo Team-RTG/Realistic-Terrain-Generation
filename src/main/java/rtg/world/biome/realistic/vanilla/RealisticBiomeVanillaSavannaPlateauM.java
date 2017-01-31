@@ -54,10 +54,10 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         this.addDeco(acaciaShrub);
 
         TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
-        acaciaTree.logBlock = Blocks.log2.getDefaultState();
-        acaciaTree.leavesBlock = Blocks.leaves2.getDefaultState();
-        acaciaTree.minTrunkSize = 12;
-        acaciaTree.maxTrunkSize = 16;
+        acaciaTree.setLogBlock(Blocks.log2.getDefaultState());
+        acaciaTree.setLeavesBlock(Blocks.leaves2.getDefaultState());
+        acaciaTree.setMinTrunkSize(12);
+        acaciaTree.setMaxTrunkSize(16);
         this.addTree(acaciaTree);
 
         DecoTree acaciaTrees = new DecoTree(acaciaTree);

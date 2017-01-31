@@ -26,12 +26,12 @@ public class DecoCollectionForest extends DecoCollectionBase {
         // Trees first.
 
         TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
-        ponderosaOakTree.logBlock = Blocks.log.getDefaultState();
-        ponderosaOakTree.leavesBlock = Blocks.leaves.getDefaultState();
-        ponderosaOakTree.minTrunkSize = 11;
-        ponderosaOakTree.maxTrunkSize = 21;
-        ponderosaOakTree.minCrownSize = 15;
-        ponderosaOakTree.maxCrownSize = 29;
+        ponderosaOakTree.setLogBlock(Blocks.log.getDefaultState());
+        ponderosaOakTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        ponderosaOakTree.setMinTrunkSize(11);
+        ponderosaOakTree.setMaxTrunkSize(21);
+        ponderosaOakTree.setMinCrownSize(15);
+        ponderosaOakTree.setMaxCrownSize(29);
         this.addTree(ponderosaOakTree);
 
         DecoTree oakPines = new DecoTree(ponderosaOakTree);
@@ -46,12 +46,12 @@ public class DecoCollectionForest extends DecoCollectionBase {
         oakPines.maxY = 85;
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.logBlock = Blocks.log.getStateFromMeta(1);
-        ponderosaSpruceTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        ponderosaSpruceTree.minTrunkSize = 11;
-        ponderosaSpruceTree.maxTrunkSize = 21;
-        ponderosaSpruceTree.minCrownSize = 15;
-        ponderosaSpruceTree.maxCrownSize = 29;
+        ponderosaSpruceTree.setLogBlock(Blocks.log.getStateFromMeta(1));
+        ponderosaSpruceTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        ponderosaSpruceTree.setMinTrunkSize(11);
+        ponderosaSpruceTree.setMaxTrunkSize(21);
+        ponderosaSpruceTree.setMinCrownSize(15);
+        ponderosaSpruceTree.setMaxCrownSize(29);
         this.addTree(ponderosaSpruceTree);
 
         DecoTree sprucePines = new DecoTree(ponderosaSpruceTree);
@@ -71,12 +71,12 @@ public class DecoCollectionForest extends DecoCollectionBase {
         // More trees.
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getDefaultState();
-        sitchensisTree.leavesBlock = Blocks.leaves.getDefaultState();
-        sitchensisTree.minTrunkSize = 4;
-        sitchensisTree.maxTrunkSize = 10;
-        sitchensisTree.minCrownSize = 6;
-        sitchensisTree.maxCrownSize = 14;
+        sitchensisTree.setLogBlock(Blocks.log.getDefaultState());
+        sitchensisTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(10);
+        sitchensisTree.setMinCrownSize(6);
+        sitchensisTree.setMaxCrownSize(14);
         this.addTree(sitchensisTree);
 
         DecoTree oakPine = new DecoTree(sitchensisTree);

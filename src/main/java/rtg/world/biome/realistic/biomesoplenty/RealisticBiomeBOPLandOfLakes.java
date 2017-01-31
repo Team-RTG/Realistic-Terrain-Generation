@@ -32,12 +32,12 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         );
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.logBlock = Blocks.log.getStateFromMeta(2);
-        birchTree.leavesBlock = Blocks.leaves.getStateFromMeta(2);
-        birchTree.minTrunkSize = 4;
-        birchTree.maxTrunkSize = 10;
-        birchTree.minCrownSize = 8;
-        birchTree.maxCrownSize = 19;
+        birchTree.setLogBlock(Blocks.log.getStateFromMeta(2));
+        birchTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(2));
+        birchTree.setMinTrunkSize(4);
+        birchTree.setMaxTrunkSize(10);
+        birchTree.setMinCrownSize(8);
+        birchTree.setMaxCrownSize(19);
         this.addTree(birchTree);
 
         DecoTree birchTrees = new DecoTree(birchTree);
@@ -52,12 +52,12 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         birchTrees.maxY = 120;
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.logBlock = Blocks.log.getStateFromMeta(1);
-        sitchensisTree.leavesBlock = Blocks.leaves.getStateFromMeta(1);
-        sitchensisTree.minTrunkSize = 4;
-        sitchensisTree.maxTrunkSize = 9;
-        sitchensisTree.minCrownSize = 5;
-        sitchensisTree.maxCrownSize = 14;
+        sitchensisTree.setLogBlock(Blocks.log.getStateFromMeta(1));
+        sitchensisTree.setLeavesBlock(Blocks.leaves.getStateFromMeta(1));
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(9);
+        sitchensisTree.setMinCrownSize(5);
+        sitchensisTree.setMaxCrownSize(14);
         this.addTree(sitchensisTree);
 
         DecoTree smallPine = new DecoTree(sitchensisTree);

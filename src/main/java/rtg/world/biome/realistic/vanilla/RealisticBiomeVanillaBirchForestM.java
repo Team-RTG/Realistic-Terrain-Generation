@@ -32,12 +32,12 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         this.noLakes = true;
 
         TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
-        tallBirch.logBlock = Blocks.log.getStateFromMeta(2);
-        tallBirch.leavesBlock = Blocks.leaves.getStateFromMeta(2);
-        tallBirch.minTrunkSize = 16;
-        tallBirch.maxTrunkSize = 23;
-        tallBirch.minCrownSize = 4;
-        tallBirch.maxCrownSize = 11;
+        tallBirch.setLogBlock(Blocks.log.getStateFromMeta(2));
+        tallBirch.setLeavesBlock(Blocks.leaves.getStateFromMeta(2));
+        tallBirch.setMinTrunkSize(16);
+        tallBirch.setMaxTrunkSize(23);
+        tallBirch.setMinCrownSize(4);
+        tallBirch.setMaxCrownSize(11);
         this.addTree(tallBirch);
 
         DecoTree superTallBirch = new DecoTree(tallBirch);

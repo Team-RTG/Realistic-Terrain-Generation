@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -15,33 +13,33 @@ import net.minecraft.world.World;
  */
 public class TreeRTGPinusPonderosa extends TreeRTG {
 
+    protected IBlockState trunkLog;
+
     /**
      * <b>Pinus Ponderosa (Ponderosa Pine)</b><br><br>
      * <u>Relevant variables:</u><br>
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGPinusPonderosa());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)0;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)0;<br>
-     * decoTree.minTrunkSize = 11;<br>
-     * decoTree.maxTrunkSize = 21;<br>
-     * decoTree.minCrownSize = 15;<br>
-     * decoTree.maxCrownSize = 29;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(11);<br>
+     * decoTree.setMaxTrunkSize(21);<br>
+     * decoTree.setMinCrownSize(15);<br>
+     * decoTree.setMaxCrownSize(29);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGPinusPonderosa() {
 
         super();
-
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState()));
     }
 
     @Override
@@ -50,19 +48,15 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-        int startY = y;
 
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
+        this.trunkLog = this.getTrunkLog(this.logBlock);
 
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (g == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
+        if (!this.isGroundValid(world, new ArrayList<BlockPos>(Arrays.asList(
+            new BlockPos(x + 1, y, z),
+            new BlockPos(x - 1, y, z),
+            new BlockPos(x, y, z + 1),
+            new BlockPos(x, y, z - 1)
+        )))) {
             return false;
         }
 
@@ -73,7 +67,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
 
         int i;
         for (i = 0; i < trunkSize; i++) {
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             if (i > 5 && rand.nextInt(7) == 0) {
                 int dX = -1 + rand.nextInt(3);
                 int dZ = -1 + rand.nextInt(3);
@@ -117,7 +111,8 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
                     i < crownSize - 5 ? 2 : 1
                 );
             }
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
             if (i < crownSize - 2) {
                 if (rand.nextBoolean()) {
@@ -152,8 +147,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
         int h = (int) Math.ceil(this.trunkSize / 4f);
         h = h + rand.nextInt(h * 2);
         for (int i = -1; i < h; i++) {
-            //TODO: this.logMeta + 12 (meta)
-            world.setBlockState(new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.trunkLog, this.generateFlag);
         }
     }
 
@@ -175,7 +169,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
         }
     }
 
@@ -183,11 +177,7 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
     public void buildLeaves(World world, int x, int y, int z) {
 
         if (!this.noLeaves) {
-
-            IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-            if (b.getBlock().getMaterial() == Material.air) {
-                world.setBlockState(new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
-            }
+            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
         }
     }
 }

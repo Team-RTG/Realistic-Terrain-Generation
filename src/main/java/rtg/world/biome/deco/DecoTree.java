@@ -113,13 +113,13 @@ public class DecoTree extends DecoBase {
 
         this();
         this.tree = tree;
-        this.logBlock = tree.logBlock;
-        this.leavesBlock = tree.leavesBlock;
-        this.minTrunkSize = tree.minTrunkSize;
-        this.maxTrunkSize = tree.maxTrunkSize;
-        this.minCrownSize = tree.minCrownSize;
-        this.maxCrownSize = tree.maxCrownSize;
-        this.noLeaves = tree.noLeaves;
+        this.logBlock = tree.getLogBlock();
+        this.leavesBlock = tree.getLeavesBlock();
+        this.minTrunkSize = tree.getMinTrunkSize();
+        this.maxTrunkSize = tree.getMaxTrunkSize();
+        this.minCrownSize = tree.getMinCrownSize();
+        this.maxCrownSize = tree.getMaxCrownSize();
+        this.noLeaves = tree.getNoLeaves();
     }
 
     public DecoTree(WorldGenerator worldGen) {

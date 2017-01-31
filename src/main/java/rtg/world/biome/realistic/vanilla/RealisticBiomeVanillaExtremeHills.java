@@ -33,12 +33,12 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         this.noWaterFeatures = true;
 
         TreeRTG nigraTree = new TreeRTGPinusNigra();
-        nigraTree.logBlock = Blocks.log.getDefaultState();
-        nigraTree.leavesBlock = Blocks.leaves.getDefaultState();
-        nigraTree.minTrunkSize = 18;
-        nigraTree.maxTrunkSize = 27;
-        nigraTree.minCrownSize = 7;
-        nigraTree.maxCrownSize = 10;
+        nigraTree.setLogBlock(Blocks.log.getDefaultState());
+        nigraTree.setLeavesBlock(Blocks.leaves.getDefaultState());
+        nigraTree.setMinTrunkSize(18);
+        nigraTree.setMaxTrunkSize(27);
+        nigraTree.setMinCrownSize(7);
+        nigraTree.setMaxCrownSize(10);
         this.addTree(nigraTree);
 
         DecoTree decoTrees = new DecoTree(nigraTree);

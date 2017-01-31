@@ -1,14 +1,12 @@
 package rtg.world.gen.feature.tree.rtg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import rtg.util.BlockUtil;
+
 
 /**
  * Picea Sitchensis (Sitka Spruce)
@@ -21,59 +19,47 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
      * DecoTree decoTree = new DecoTree(new TreeRTGPiceaSitchensis());<br>
-     * decoTree.treeType = DecoTree.TreeType.RTG_TREE;<br>
-     * decoTree.treeCondition = DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE;<br>
-     * decoTree.distribution = new DecoTree.Distribution(100f, 6f, 0.8f);<br>
-     * decoTree.treeConditionNoise = 0f;<br>
-     * decoTree.treeConditionChance = 4;<br>
-     * decoTree.logBlock = Blocks.log;<br>
+     * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
+     * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
+     * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
+     * decoTree.setTreeConditionNoise(0f);<br>
+     * decoTree.setTreeConditionChance(4);<br>
+     * decoTree.setLogBlock(Blocks.LOG);<br>
      * decoTree.logMeta = (byte)1;<br>
-     * decoTree.leavesBlock = Blocks.leaves;<br>
+     * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)1;<br>
-     * decoTree.minTrunkSize = 4;<br>
-     * decoTree.maxTrunkSize = 9;<br>
-     * decoTree.minCrownSize = 5;<br>
-     * decoTree.maxCrownSize = 14;<br>
-     * decoTree.noLeaves = false;<br>
+     * decoTree.setMinTrunkSize(4);<br>
+     * decoTree.setMaxTrunkSize(9);<br>
+     * decoTree.setMinCrownSize(5);<br>
+     * decoTree.setMaxCrownSize(14);<br>
+     * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
     public TreeRTGPiceaSitchensis() {
 
         super();
 
-        this.logBlock = Blocks.log.getStateFromMeta(1);
-        this.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        this.setLogBlock(BlockUtil.getStateLog(1));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(1));
         this.trunkSize = 8;
         this.crownSize = 10;
-        this.noLeaves = false;
-
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(Blocks.grass.getDefaultState(), Blocks.dirt.getDefaultState()));
+        this.setNoLeaves(false);
     }
 
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
+        if (!this.isGroundValid(world, pos)) {
+            return false;
+        }
+
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
 
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        boolean validGroundBlock = false;
-
-        for (int i = 0; i < this.validGroundBlocks.size(); i++) {
-            if (g == this.validGroundBlocks.get(i)) {
-                validGroundBlock = true;
-                break;
-            }
-        }
-
-        if (!validGroundBlock) {
-            return false;
-        }
-
         int i;
         for (i = 0; i < this.trunkSize; i++) {
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
 
@@ -101,7 +87,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
 
                 buildBranch(world, rand, x, y, z, dX, dZ, i < this.crownSize - 10 ? 2 : 1, i < this.crownSize - 6 ? 2 : 1);
             }
-            world.setBlockState(new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
             if (i < this.crownSize - 2) {
                 if (rand.nextBoolean()) {
@@ -144,7 +130,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
         }
 
         for (int m = 1; m <= logLength; m++) {
-            world.setBlockState(new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
         }
     }
 
@@ -153,10 +139,7 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
 
         if (!this.noLeaves) {
 
-            IBlockState b = world.getBlockState(new BlockPos(x, y, z));
-            if (b.getBlock().getMaterial() == Material.air) {
-                world.setBlockState(new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
-            }
+            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
         }
     }
 }

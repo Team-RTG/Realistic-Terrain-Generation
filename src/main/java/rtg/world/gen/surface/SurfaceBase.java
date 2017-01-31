@@ -26,6 +26,8 @@ public class SurfaceBase {
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
+    protected IBlockState cliffStoneBlock;
+    protected IBlockState cliffCobbleBlock;
     protected BiomeConfig biomeConfig;
 
     public SurfaceBase(BiomeConfig config, Block top, byte topByte, Block fill, byte fillByte) {
@@ -48,6 +50,8 @@ public class SurfaceBase {
 
         topBlock = top;
         fillerBlock = fill;
+
+        this.initCliffBlocks();
 
         this.assignUserConfigs(config, top, fill);
     }
@@ -87,7 +91,7 @@ public class SurfaceBase {
         }
         else {
 
-            return Blocks.stone.getDefaultState();
+            return cliffStoneBlock;
         }
     }
 
@@ -98,7 +102,7 @@ public class SurfaceBase {
             return ACBlocks.darkstone_cobblestone.getDefaultState();
         }
         else {
-            return Blocks.cobblestone.getDefaultState();
+            return cliffCobbleBlock;
         }
     }
 
@@ -141,6 +145,23 @@ public class SurfaceBase {
         catch (Exception e) {
             fillerBlock = fill;
         }
+    }
+
+    protected void initCliffBlocks() {
+
+        cliffStoneBlock = getConfigBlock(
+            biomeConfig,
+            BiomeConfig.surfaceCliffStoneBlockId,
+            BiomeConfig.surfaceCliffStoneBlockMetaId,
+            Blocks.stone.getDefaultState()
+        );
+
+        cliffCobbleBlock = getConfigBlock(
+            biomeConfig,
+            BiomeConfig.surfaceCliffCobbleBlockId,
+            BiomeConfig.surfaceCliffCobbleBlockMetaId,
+            Blocks.cobblestone.getDefaultState()
+        );
     }
 
     protected IBlockState getConfigBlock(BiomeConfig config, String propertyId, String propertyMeta, IBlockState blockDefault) {

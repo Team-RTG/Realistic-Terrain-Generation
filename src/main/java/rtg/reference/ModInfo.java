@@ -13,4 +13,6 @@ public class ModInfo {
     public static final String MOD_DEPS = "";
     public static final String PROXY_COMMON = "rtg.proxy.CommonProxy";
     public static final String PROXY_CLIENT = "rtg.proxy.ClientProxy";
+    public static final String WORLD_TYPE = "RTG";
+    public static final String CONFIG_DIRECTORY = "RTG";
 }

@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 /**
  * The base class for all RTG trees.
@@ -16,7 +16,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
  * @author WhichOnesPink
  * @see <a href="http://imgur.com/a/uoJsU">RTG Tree Gallery</a>
  */
-public class TreeRTG extends WorldGenerator {
+public class TreeRTG extends WorldGenAbstractTree {
 
     public IBlockState logBlock;
     public IBlockState leavesBlock;
@@ -35,7 +35,14 @@ public class TreeRTG extends WorldGenerator {
 
     public ArrayList<IBlockState> validGroundBlocks;
 
+    public TreeRTG(boolean notify) {
+
+        super(notify);
+    }
+
     public TreeRTG() {
+
+        this(false);
 
         this.logBlock = Blocks.log.getDefaultState();
         this.leavesBlock = Blocks.leaves.getDefaultState();

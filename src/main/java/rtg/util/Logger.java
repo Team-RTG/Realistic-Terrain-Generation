@@ -1,8 +1,6 @@
 package rtg.util;
 
 import cpw.mods.fml.common.FMLLog;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.util.ReportedException;
 import org.apache.logging.log4j.Level;
 import rtg.config.rtg.ConfigRTG;
 
@@ -11,7 +9,7 @@ public class Logger {
     public static void debug(String format, Object... data) {
 
         if (ConfigRTG.enableDebugging) {
-            FMLLog.log(Level.INFO, "[RTG-DEBUG] " + format, data);
+            FMLLog.log(Level.WARN, "[RTG-DEBUG] " + format, data);
         }
     }
 
@@ -30,10 +28,8 @@ public class Logger {
         FMLLog.log(Level.ERROR, "[RTG-ERROR] " + format, data);
     }
 
-    public static void fatal(String message, Throwable throwable, Object... data) {
+    public static void fatal(String format, Object... data) {
 
-        FMLLog.log(Level.FATAL, "[RTG-FATAL] " + message, data);
-        CrashReport crashreport = CrashReport.makeCrashReport(throwable, message);
-        throw new ReportedException(crashreport);
+        FMLLog.log(Level.FATAL, "[RTG-FATAL] " + format, data);
     }
 }

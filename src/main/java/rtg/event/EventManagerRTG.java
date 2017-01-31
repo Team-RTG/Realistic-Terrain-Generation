@@ -260,11 +260,10 @@ public class EventManagerRTG
             BiomeGenBase bgg = world.getBiomeGenForCoords(x, z);
             RealisticBiomeBase rb = RealisticBiomeBase.getBiome(bgg.biomeID);
 
-            // Do we need to patch the biome?
+            // Instead of patching the biome, we should just return early here to allow vanilla logic to kick in.
             if (rb == null) {
-                RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
-                rb = biomePatcher.getPatchedRealisticBiome(
-                    "NULL biome (" + bgg.biomeID + ") found when growing an RTG sapling.");
+                Logger.debug("NULL biome (%d) found when trying to grow an RTG tree from a sapling.", bgg.biomeID);
+                return;
             }
 
             ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;

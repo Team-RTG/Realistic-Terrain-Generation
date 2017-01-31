@@ -12,7 +12,7 @@ import rtg.util.Accessor;
 public class RiverRemover {
 
     private Accessor<GenLayerRiverMix, GenLayer> riverMixBiome =
-        new Accessor<GenLayerRiverMix, GenLayer>("field_75910_b");
+        new Accessor<GenLayerRiverMix, GenLayer>("biomePatternGeneratorChain", "field_75910_b");
 
     public GenLayer[] riverLess(GenLayer[] vanilla) {
 

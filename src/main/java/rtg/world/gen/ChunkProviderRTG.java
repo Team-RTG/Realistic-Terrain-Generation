@@ -1068,8 +1068,8 @@ public class ChunkProviderRTG implements IChunkProvider
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
 
-            if (par1EnumCreatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.func_175796_a(this.worldObj, blockPos)) {
-                return this.oceanMonumentGenerator.func_175799_b();
+            if (par1EnumCreatureType == EnumCreatureType.MONSTER && ConfigRTG.generateOceanMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, blockPos)) {
+                return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
         }
         return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
@@ -1089,7 +1089,7 @@ public class ChunkProviderRTG implements IChunkProvider
     }
 
     @Override
-    public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) {
+    public boolean populateChunk(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) {
 
         boolean flag = false;
 

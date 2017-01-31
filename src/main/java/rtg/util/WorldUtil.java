@@ -80,6 +80,20 @@ public class WorldUtil {
 
                 break;
 
+            case UP: // Checks above coord.
+
+                IBlockState b;
+                for (int i = checkDistance; i > 0; i--) {
+
+                    b = this.world.getBlockState(new BlockPos(x, y + i, z));
+
+                    if (b != checkBlock) {
+                        return false;
+                    }
+                }
+
+                break;
+
             default:
                 break;
         }
@@ -117,6 +131,7 @@ public class WorldUtil {
     public enum SurroundCheckType {
         FULL,
         CARDINAL,
-        ORDINAL
+        ORDINAL,
+        UP
     }
 }

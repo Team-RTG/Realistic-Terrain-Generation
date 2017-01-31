@@ -224,7 +224,7 @@ public class ConfigRTG {
     // Trees
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public static boolean allowTreesToGenerateOnSand = true;
+    public static boolean allowTreesToGenerateOnSand = false;
     public static boolean allowShrubsToGenerateBelowSurface = true;
     public static boolean allowBarkCoveredLogs = true;
 
@@ -337,6 +337,8 @@ public class ConfigRTG {
                 "Must be set to TRUE for the other cave settings to have any effect."
                     + Configuration.NEW_LINE +
                     "If FALSE, RTG won't interfere with cave generation at all."
+                    + Configuration.NEW_LINE +
+                    "WARNING! Setting this to FALSE may result in unpredictable cave generation."
                     + Configuration.NEW_LINE
             );
 
@@ -416,13 +418,13 @@ public class ConfigRTG {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             lakeSizeMultiplier = config.getFloat(
-                "Lake Size Multipler",
+                "Lake Size Multiplier",
                 "Lakes (Scenic)",
                 1, 0, 10,
                 "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
 
             lakeFrequencyMultiplier = config.getFloat(
-                "Lake Frequency Multipler",
+                "Lake Frequency Multiplier",
                 "Lakes (Scenic)",
                 1, 0, 10,
                 "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);
@@ -476,6 +478,8 @@ public class ConfigRTG {
                 "Must be set to TRUE for the other ocean monument settings to have any effect."
                     + Configuration.NEW_LINE +
                     "If FALSE, RTG won't interfere with ocean monument generation at all."
+                    + Configuration.NEW_LINE +
+                    "WARNING! Setting this to FALSE may result in ocean monuments generating in unpredictable locations, including those outside of oceanic biomes."
                     + Configuration.NEW_LINE
             );
 
@@ -591,6 +595,8 @@ public class ConfigRTG {
                 "Must be set to TRUE for the other ravine settings to have any effect."
                     + Configuration.NEW_LINE +
                     "If FALSE, RTG won't interfere with ravine generation at all."
+                    + Configuration.NEW_LINE +
+                    "WARNING! Setting this to FALSE may result in unpredictable ravine generation."
                     + Configuration.NEW_LINE
             );
 
@@ -602,7 +608,7 @@ public class ConfigRTG {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             riverSizeMultiplier = config.getFloat(
-                "River Width Multipler",
+                "River Width Multiplier",
                 "Rivers",
                 1, 0, 10,
                 "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
@@ -684,13 +690,15 @@ public class ConfigRTG {
                 "Must be set to TRUE for the other scattered feature settings to have any effect."
                     + Configuration.NEW_LINE +
                     "If FALSE, RTG won't interfere with scattered feature generation at all."
+                    + Configuration.NEW_LINE +
+                    "WARNING! Setting this to FALSE may result in unpredictable scattered feature generation."
                     + Configuration.NEW_LINE
             );
 
             generateScatteredFeatures = config.getBoolean("Generate Scattered Features", "Scattered Features", generateScatteredFeatures, "");
 
-            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 8 = Vanilla" + Configuration.NEW_LINE);
-            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 1, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 32 = Vanilla" + Configuration.NEW_LINE);
+            minDistanceScatteredFeatures = config.getInt("Minimum distance between scattered features", "Scattered Features", minDistanceScatteredFeatures, 2, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 8 = Vanilla" + Configuration.NEW_LINE);
+            maxDistanceScatteredFeatures = config.getInt("Maximum distance between scattered features", "Scattered Features", maxDistanceScatteredFeatures, 4, Integer.MAX_VALUE, "Scattered features = desert temples, jungle temples, and witch huts; 32 = Vanilla" + Configuration.NEW_LINE);
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             // Snow
@@ -709,6 +717,8 @@ public class ConfigRTG {
                 "Must be set to TRUE for the other stronghold settings to have any effect."
                     + Configuration.NEW_LINE +
                     "If FALSE, RTG won't interfere with stronghold generation at all."
+                    + Configuration.NEW_LINE +
+                    "WARNING! Setting this to FALSE may result in unpredictable stronghold generation."
                     + Configuration.NEW_LINE
             );
 
@@ -744,7 +754,7 @@ public class ConfigRTG {
                 strongholdSpread,
                 1,
                 Integer.MAX_VALUE,
-                "This setting determines how concentrated strongholds are around the spawn (minimum is 1, default is 3). Lower number, lower concentration."
+                "This setting determines how concentrated strongholds are around the spawn."
                     + Configuration.NEW_LINE +
                     "LOWER values = LOWER concentration around spawn. (3 = Vanilla)"
                     + Configuration.NEW_LINE
@@ -839,6 +849,8 @@ public class ConfigRTG {
                 "Set this to FALSE to resolve issues with mods that also modify villages."
                     + Configuration.NEW_LINE +
                     "If set to FALSE, the 'Minimum distance between villages', 'Maximum distance between villages' & 'Size of villages' settings will have no effect."
+                    + Configuration.NEW_LINE +
+                    "WARNING! Setting this to FALSE may result in unpredictable village generation."
                     + Configuration.NEW_LINE
             );
 

@@ -114,7 +114,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     {
         // Are we in an RTG world?
         if (!(this.worldObj.getWorldInfo().getTerrainType() instanceof WorldTypeRTG)) {
-            Logger.debug("Could not generate ocean monument. This is not an RTG world.");
+            //Logger.debug("Could not generate ocean monument. This is not an RTG world.");
             return false;
         }
 

@@ -7,6 +7,8 @@ import net.minecraftforge.common.config.Configuration;
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
+import rtg.api.biome.afraidofthedark.config.BiomeConfigAOTD;
+import rtg.api.biome.afraidofthedark.config.BiomeConfigAOTDErieForest;
 import rtg.api.biome.biomesoplenty.config.*;
 import rtg.api.biome.buildcraft.config.BiomeConfigBC;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCDesertOilField;
@@ -28,6 +30,7 @@ public class BiomeConfigManager {
     public static void initBiomeConfigs() {
 
         initBiomeConfigsAC();
+        initBiomeConfigsAOTD();
         initBiomeConfigsBOP();
         initBiomeConfigsBC();
         initBiomeConfigsHL();
@@ -45,6 +48,11 @@ public class BiomeConfigManager {
         BiomeConfigAC.biomeConfigACDarklandsHighland = new BiomeConfigACDarklandsHighland();
         BiomeConfigAC.biomeConfigACDarklandsMountains = new BiomeConfigACDarklandsMountains();
         BiomeConfigAC.biomeConfigACDarklandsPlains = new BiomeConfigACDarklandsPlains();
+    }
+
+    public static void initBiomeConfigsAOTD() {
+
+        BiomeConfigAOTD.biomeConfigAOTDErieForest = new BiomeConfigAOTDErieForest();
     }
 
     public static void initBiomeConfigsBOP() {

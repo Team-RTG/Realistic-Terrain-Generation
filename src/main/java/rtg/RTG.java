@@ -26,6 +26,7 @@ import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
+import rtg.world.biome.realistic.afraidofthedark.RealisticBiomeAOTDBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
@@ -100,6 +101,7 @@ public class RTG {
         RealisticBiomeBCBase.addBiomes();
         RealisticBiomeHLBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
+        RealisticBiomeAOTDBase.addBiomes();
         RealisticBiomeMSBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
 

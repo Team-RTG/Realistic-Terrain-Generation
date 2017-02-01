@@ -6,14 +6,17 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import cpw.mods.fml.common.registry.GameData;
+
+import exterminatorJeff.undergroundBiomes.api.BlockCodes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
 import rtg.util.CellNoise;
 import rtg.util.ModPresenceTester;
 import rtg.util.OpenSimplexNoise;
 import rtg.util.UBColumnCache;
-import cpw.mods.fml.common.registry.GameData;
-import exterminatorJeff.undergroundBiomes.api.BlockCodes;
 
 public class SurfaceBase
 {
@@ -21,11 +24,15 @@ public class SurfaceBase
     public byte topBlockMeta;
     protected Block fillerBlock;
     public byte fillerBlockMeta;
+    protected Block cliffStoneBlock;
+    protected byte cliffStoneBlockMeta;
+    protected Block cliffCobbleBlock;
+    protected byte cliffCobbleBlockMeta;
 	protected BiomeConfig biomeConfig;
 
 	private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("UndergroundBiomes");
 	private final static ModPresenceTester harderUndergroundMod = new ModPresenceTester("HarderUnderground");
-	
+
     // create UBColumnCache only if UB is present
     private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     
@@ -43,6 +50,8 @@ public class SurfaceBase
         topBlockMeta = topByte;
         fillerBlock = fill;
         fillerBlockMeta = fillByte;
+
+        this.initCliffBlocks();
         
         this.assignUserConfigs(config, top, topByte, fill, fillByte);
     }
@@ -101,29 +110,28 @@ public class SurfaceBase
     
     protected Block hcStone(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
-        return Blocks.stone;
+        return cliffStoneBlock;
     }
     
     protected byte hcStoneMeta(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
     {
-        return (byte)0;
+        return cliffStoneBlockMeta;
     }
     
     protected Block hcCobble(World world, int worldX, int worldZ, int chunkX, int chunkZ, int worldY)
-    { 
+    {
         if ((undergroundBiomesMod.present())) {
-            
+
             BlockCodes cobble = ubColumnCache.column(worldX,worldZ).cobblestone(worldY);
-            
+
             return cobble.block;
         }
         else if (harderUndergroundMod.present()) {
-        	
-        	return unstableCobbleBlock;
+
+            return unstableCobbleBlock;
         }
         else {
-            
-            return Blocks.cobblestone;
+            return cliffCobbleBlock;
         }
     }
     
@@ -141,7 +149,7 @@ public class SurfaceBase
         }
         else {
             
-            return (byte)0;
+            return cliffCobbleBlockMeta;
         }
     }
     
@@ -198,6 +206,33 @@ public class SurfaceBase
         catch (Exception e) {
             this.fillerBlockMeta = fillByte;
         }
+    }
+
+    protected void initCliffBlocks() {
+
+        cliffStoneBlock = getConfigBlock(
+            biomeConfig,
+            BiomeConfig.surfaceCliffStoneBlockId,
+            Blocks.stone
+        );
+
+        cliffStoneBlockMeta = getConfigBlockMeta(
+            biomeConfig,
+            BiomeConfig.surfaceCliffStoneBlockMetaId,
+            (byte)0
+        );
+
+        cliffCobbleBlock = getConfigBlock(
+            biomeConfig,
+            BiomeConfig.surfaceCliffCobbleBlockId,
+            Blocks.cobblestone
+        );
+
+        cliffCobbleBlockMeta = getConfigBlockMeta(
+            biomeConfig,
+            BiomeConfig.surfaceCliffCobbleBlockMetaId,
+            (byte)0
+        );
     }
     
     protected Block getConfigBlock(BiomeConfig config, String propertyId, Block blockDefault)

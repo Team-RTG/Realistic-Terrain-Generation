@@ -194,6 +194,9 @@ public class ConfigRTG
     public static int scenicFrozenLakeBiome = 11;
     private static String riversAndLakes = "Rivers and Scenic Lakes";
 
+    public static boolean enableLushRiverBankDecorationsInHotBiomes = true;
+    public static boolean enableLushRiverBankSurfacesInHotBiomes = true;
+
     
 	public static void init(File configFile)
 	{
@@ -658,6 +661,26 @@ public class ConfigRTG
 
             scenicFrozenLakeBiome = config.getInt("Biome for frozen scenic lakes", riversAndLakes,
                     11, 0, 254, "Biome ID for scenic lakes when frozen (default 11 = Frozen River)" + Configuration.NEW_LINE);
+
+            enableLushRiverBankDecorationsInHotBiomes = config.getBoolean(
+                "Enable Lush River Bank Decorations in Hot Biomes",
+                "Rivers",
+                enableLushRiverBankDecorationsInHotBiomes,
+                "Set this to FALSE to prevent RTG from generating lush river bank decorations in hot biomes, like Desert and Mesa."
+                    + Configuration.NEW_LINE +
+                    "Lush decorations consist of tallgrass, trees, shrubs, and other flora."
+                    + Configuration.NEW_LINE
+            );
+
+            enableLushRiverBankSurfacesInHotBiomes = config.getBoolean(
+                "Enable Lush River Bank Surfaces in Hot Biomes",
+                "Rivers",
+                enableLushRiverBankSurfacesInHotBiomes,
+                "Set this to FALSE to prevent RTG from generating lush river bank surfaces in hot biomes, like Desert and Mesa."
+                    + Configuration.NEW_LINE +
+                    "Lush surfaces consist (almost exclusively) of grass blocks."
+                    + Configuration.NEW_LINE
+            );
             
 		}
 		catch (Exception e) 

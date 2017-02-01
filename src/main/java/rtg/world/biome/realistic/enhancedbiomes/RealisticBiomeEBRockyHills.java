@@ -6,25 +6,19 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import enhancedbiomes.api.EBAPI;
+import enhancedbiomes.blocks.EnhancedBiomesBlocks;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
-import rtg.world.biome.deco.DecoBase;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoEBTree;
+import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.DecoEBTree.TreeType;
-import rtg.world.biome.deco.DecoFlowersRTG;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.enhancedbiomes.SurfaceEBRockyHills;
 import rtg.world.gen.terrain.enhancedbiomes.TerrainEBRockyHills;
-import enhancedbiomes.api.EBAPI;
-import enhancedbiomes.blocks.EnhancedBiomesBlocks;
 
 public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
 {
@@ -126,15 +120,9 @@ public class RealisticBiomeEBRockyHills extends RealisticBiomeEBBase
         decoGrassDoubleTallgrass.maxY = 128;
         this.addDeco(decoGrassDoubleTallgrass);
     }
-    
+
     @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-    
-        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-        
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+        this.rReplaceRiverSurface(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

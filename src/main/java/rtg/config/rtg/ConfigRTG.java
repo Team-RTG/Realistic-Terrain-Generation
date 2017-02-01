@@ -255,7 +255,7 @@ public class ConfigRTG
             enableUBCBoulders = config.getBoolean(
                 "UBC Boulders",
                 "Boulders",
-                enableUBCStoneShadowing,
+                enableUBCBoulders,
                 "Set this to TRUE to allow UBC to override cobblestone boulders."
                 + Configuration.NEW_LINE +
                 "This setting doesn't have any effect if UBC is not installed."

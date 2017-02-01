@@ -93,17 +93,21 @@ public class ConfigRTG
     public static boolean generateOreEmerald = true;
     
     /* ==================== Plateaus ==================== */
-    
-    public static String mesaClayColourString = "-1,-1,-1,1,1,1,0,-1,-1,6,1,1,8,0,-1,-1,14,-1,-1,6,1,1,4";
-    public static String mesaBryceClayColourString = "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8";
-    public static String savannaClayColourString = "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
-    
-    public static byte[] mesaClayColours = getClayColourMetasFromConfigString(mesaClayColourString);
-    public static byte[] mesaBryceClayColours = getClayColourMetasFromConfigString(mesaBryceClayColourString);
-    public static byte[] savannaClayColours = getClayColourMetasFromConfigString(savannaClayColourString);
+
+    public static String plateauGradientBlockId = "minecraft:stained_hardened_clay";
+
+    public static String plateauBlockId = "minecraft:hardened_clay";
+    public static int plateauBlockByte = 0;
+
+    public static String mesaGradientString = "-1,-1,-1,1,1,1,0,-1,-1,6,1,1,8,0,-1,-1,14,-1,-1,6,1,1,4";
+    public static String mesaBryceGradientString = "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8";
+    public static String savannaGradientString = "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
+
+    public static byte[] mesaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(mesaGradientString);
+    public static byte[] mesaBrycePlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(mesaBryceGradientString);
+    public static byte[] savannaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(savannaGradientString);
 
     public static boolean stoneSavannas = true;
-    
     
     /* ==================== Ravines ==================== */
     
@@ -365,38 +369,62 @@ public class ConfigRTG
             generateOreLapis = config.getBoolean("Generate Lapis Lazuli Ore", "Ore Gen", generateOreLapis, "");
             generateOreDiamond = config.getBoolean("Generate Diamond Ore", "Ore Gen", generateOreDiamond, "");
             generateOreEmerald = config.getBoolean("Generate Emerald Ore", "Ore Gen", generateOreEmerald, "");
-            
+
             /* ==================== Plateaus ==================== */
 
-			mesaClayColours = getClayColourMetasFromConfigString(config.getString(
-				"Mesa Clay Colours",
-				"Plateaus", 
-				mesaClayColourString,
-				getPlateauClayColourComment("Mesa biome variants (doesn't include Mesa Bryce)")
-			));
-			
-			mesaBryceClayColours = getClayColourMetasFromConfigString(config.getString(
-				"Mesa Bryce Clay Colours",
-				"Plateaus",
-				mesaBryceClayColourString,
-				getPlateauClayColourComment("Mesa Bryce biome")
-			));
-			
-			savannaClayColours = getClayColourMetasFromConfigString(config.getString(
-				"Savanna Clay Colours",
-				"Plateaus",
-				savannaClayColourString,
-				getPlateauClayColourComment("Savanna biome variants")
-			));
-            
+            plateauGradientBlockId = config.getString(
+                "Plateau Gradient Block ID",
+                "Plateaus",
+                plateauGradientBlockId,
+                "The block to use for Mesa & Savanna plateau gradients. Defaults to stained hardened clay." +
+                    Configuration.NEW_LINE +
+                    "This can be any block, but it works best with blocks that have multiple colours, such as stained hardened clay." +
+                    Configuration.NEW_LINE +
+                    "The various 'meta' options in this section will use this block to configure the plateau gradients." +
+                    Configuration.NEW_LINE
+            );
+
+            plateauBlockId = config.getString(
+                "Plateau Block ID",
+                "Plateaus",
+                plateauBlockId,
+                "An extra block to use for Mesa & Savanna plateau gradients. Defaults to hardened clay." +
+                    Configuration.NEW_LINE +
+                    "When configuring the various 'meta' options in this section, use a value of '-1' to reference this block." +
+                    Configuration.NEW_LINE
+            );
+
+            plateauBlockByte = config.getInt("Plateau Block Meta Value", "Plateaus", plateauBlockByte, 0, 15, "The meta value of the plateau block." + Configuration.NEW_LINE);
+
+            mesaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
+                "Mesa Plateau Block Metas",
+                "Plateaus",
+                mesaGradientString,
+                getPlateauGradientBlockMetasComment("Mesa biome variants (doesn't include Mesa Bryce)")
+            ));
+
+            mesaBrycePlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
+                "Mesa Bryce Plateau Block Metas",
+                "Plateaus",
+                mesaBryceGradientString,
+                getPlateauGradientBlockMetasComment("Mesa Bryce biome")
+            ));
+
+            savannaPlateauBlockMetas = getPlateauGradientBlockMetasFromConfigString(config.getString(
+                "Savanna Plateau Block Metas",
+                "Plateaus",
+                savannaGradientString,
+                getPlateauGradientBlockMetasComment("Savanna biome variants")
+            ));
+
             stoneSavannas = config.getBoolean(
-                "Use stone instead of clay for most Savanna biome variants",
+                "Use stone for most Savanna biome variants",
                 "Plateaus",
                 stoneSavannas,
-                "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of stained hardened clay for cliffs and plateaus."
-                + Configuration.NEW_LINE +
-                "Savanna Plateau M will always use stained hardened clay."
-                + Configuration.NEW_LINE
+                "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of gradient blocks for cliffs and plateaus."
+                    + Configuration.NEW_LINE +
+                    "Savanna Plateau M will always use gradient blocks."
+                    + Configuration.NEW_LINE
             );
 
             /* ==================== Ravines ==================== */
@@ -705,37 +733,37 @@ public class ConfigRTG
 	    
 	    return enableVillageModifications;
 	}
-	
-	private static byte[] getClayColourMetasFromConfigString(String configString)
-	{
-		String[] strings = configString.split(",");
-		ArrayList<Byte> byteList = new ArrayList<Byte>(){};
 
-		for (int i = 0; i < strings.length; i++) {
-			strings[i] = strings[i].trim();
-			if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
-				byteList.add(Byte.valueOf(strings[i]));
-			}
-		}
-		
-		Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
-		return ArrayUtils.toPrimitive(bytes);
-	}
-	
-	private static String getPlateauClayColourComment(String biomeName)
-	{
-		String comment =
-			"Comma-separated list of meta values for the clay blocks used in the " + biomeName + "."
-			+ Configuration.NEW_LINE +
-			"-1 = Hardened Clay; 0-15 = Stained Clay"
-			+ Configuration.NEW_LINE +
-			"0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
-			+ Configuration.NEW_LINE +
-			"8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
-			+ Configuration.NEW_LINE;
-		
-		return comment;
-	}
+    private static byte[] getPlateauGradientBlockMetasFromConfigString(String configString)
+    {
+        String[] strings = configString.split(",");
+        ArrayList<Byte> byteList = new ArrayList<Byte>(){};
+
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = strings[i].trim();
+            if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
+                byteList.add(Byte.valueOf(strings[i]));
+            }
+        }
+
+        Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
+        return ArrayUtils.toPrimitive(bytes);
+    }
+
+    private static String getPlateauGradientBlockMetasComment(String biomeName)
+    {
+        String comment =
+            "Comma-separated list of meta values for the plateau gradient blocks used in the " + biomeName + "."
+                + Configuration.NEW_LINE +
+                "-1 = Plateau block; 0-15 = Plateau gradient block"
+                + Configuration.NEW_LINE +
+                "0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+                + Configuration.NEW_LINE +
+                "8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black"
+                + Configuration.NEW_LINE;
+
+        return comment;
+    }
 	
 	private static void setVolcanoBlockDefaults()
 	{

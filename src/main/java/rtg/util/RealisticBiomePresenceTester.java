@@ -24,8 +24,6 @@ public class RealisticBiomePresenceTester {
                 String biomeName = b[i].biomeName;
                 String biomeClass = b[i].getBiomeClass().getName();
 
-                Logger.debug("Biome (" + biomeId + ") " + biomeName + " from " + biomeClass);
-                
                 switch (biomeId) {
                 
                     case 8:
@@ -38,9 +36,11 @@ public class RealisticBiomePresenceTester {
                         try {
                             RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(biomeId);
                             String rBiomeName = rBiome.config.biomeSlug;
+
+                            Logger.info("Found biome (%d) %s from %s.", biomeId, biomeName, biomeClass);
                         }
                         catch (Exception e) {
-                            Logger.warn("WARNING! RTG could not find a realistic version of %s (%d) from %s", biomeName, biomeId, biomeClass);
+                            Logger.warn("WARNING! RTG could not find a realistic version of %s (%d) from %s. (If %s is a non-Overworld biome, then this is not an error.)", biomeName, biomeId, biomeClass, biomeName);
                         }
                         
                         break;

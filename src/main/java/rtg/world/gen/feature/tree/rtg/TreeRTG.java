@@ -7,7 +7,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 /**
  * The base class for all RTG trees.
@@ -16,7 +16,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
  * @author WhichOnesPink
  *
  */
-public class TreeRTG extends WorldGenerator
+public class TreeRTG extends WorldGenAbstractTree
 {
 
 	public Block logBlock;
@@ -38,9 +38,15 @@ public class TreeRTG extends WorldGenerator
 	public int maxCrownSize;
 	
 	public ArrayList<Block> validGroundBlocks;
-	
-	public TreeRTG()
-	{
+
+    public TreeRTG(boolean notify) {
+        super(notify);
+    }
+
+	public TreeRTG() {
+
+	    this(false);
+
 		this.logBlock = Blocks.log;
 		this.logMeta = (byte)0;
 		this.leavesBlock = Blocks.leaves;

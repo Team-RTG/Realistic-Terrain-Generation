@@ -58,6 +58,20 @@ public class WorldUtil
 				}
 				
 				break;
+
+            case UP: // Checks above coord.
+
+                Block b;
+                for (int i = checkDistance; i > 0; i--) {
+
+                    b = this.world.getBlock(x, y + i, z);
+
+                    if (b != checkBlock) {
+                        return false;
+                    }
+                }
+
+                break;
 				
 			default:
 				break;
@@ -70,6 +84,7 @@ public class WorldUtil
 	{
 		FULL,
 		CARDINAL,
-		ORDINAL
+		ORDINAL,
+		UP
 	}
 }

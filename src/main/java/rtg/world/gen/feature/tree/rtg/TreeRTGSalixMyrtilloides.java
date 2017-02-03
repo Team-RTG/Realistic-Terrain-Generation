@@ -158,35 +158,30 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG
     }
 
     @Override
-    protected boolean isGroundValid(World world, int x, int y, int z) {
+    protected boolean isGroundValid(World world, int x, int y, int z, boolean sandAllowed) {
 
-        Block cb;
-        boolean earth = false;
-        boolean water = false;
+		Block cb;
+		boolean earth = false;
+		boolean water = false;
 
-        for(int c1 = -2; c1 <= 2; c1++)
-        {
-            for(int c3 = -2; c3 <= 2; c3++)
-            {
-                for(int c2 = -1; c2 <= 1; c2++)
-                {
-                    cb = world.getBlock(x + c1, y + c2, z + c3);
-                    if(cb == Blocks.grass)
-                    {
-                        earth = true;
-                    }
-                    else if(cb == Blocks.water)
-                    {
-                        water = true;
-                    }
-                }
-            }
-        }
+		for (int c1 = -2; c1 <= 2; c1++) {
+			for (int c3 = -2; c3 <= 2; c3++) {
+				for (int c2 = -1; c2 <= 1; c2++) {
+					cb = world.getBlock(x + c1, y + c2, z + c3);
+					if (this.validGroundBlocks.contains(cb)) {
+						earth = true;
+					}
+					else if (cb == Blocks.water) {
+						water = true;
+					}
+				}
+			}
+		}
 
-        if (!(earth && water)) {
-            return false;
-        }
+		if (!(earth && water)) {
+			return false;
+		}
 
-        return true;
+		return true;
     }
 }

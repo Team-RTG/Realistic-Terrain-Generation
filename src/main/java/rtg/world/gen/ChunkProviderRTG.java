@@ -853,9 +853,6 @@ public class ChunkProviderRTG implements IChunkProvider
         //Initialise variables.
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
 
-        //Clay.
-        biome.rDecorateClay(worldObj, rand, chunkX, chunkZ, river, worldX, worldZ);
-
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
         float snow = 0f;

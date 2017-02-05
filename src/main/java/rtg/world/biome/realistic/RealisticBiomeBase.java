@@ -20,7 +20,6 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CLAY;
 
 import rtg.api.biome.BiomeConfig;
 import rtg.config.rtg.ConfigRTG;
@@ -31,7 +30,6 @@ import rtg.world.biome.deco.DecoBase;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.feature.WorldGenClayRTG;
 import rtg.world.gen.feature.WorldGenVolcano;
 import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.surface.SurfaceBase;
@@ -567,24 +565,6 @@ public class RealisticBiomeBase {
     public float r3Dnoise(float z) {
 
         return 0f;
-    }
-
-    public void rDecorateClay(World worldObj, Random rand, int chunkX, int chunkZ, float river, int worldX, int worldZ) {
-
-        if (TerrainGen.decorate(worldObj, rand, new BlockPos(chunkX, 0, chunkZ), CLAY)) {
-
-            if (river > 0.85f) {
-
-                for (int j2 = 0; j2 < 3; j2++) {
-
-                    int l5 = worldX + rand.nextInt(16);
-                    int i9 = 53 + rand.nextInt(15);
-                    int l11 = worldZ + rand.nextInt(16);
-
-                    (new WorldGenClayRTG(clayPerVein)).generate(worldObj, rand, new BlockPos(l5, i9, l11));
-                }
-            }
-        }
     }
 
     /**

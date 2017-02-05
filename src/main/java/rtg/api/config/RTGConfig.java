@@ -892,7 +892,7 @@ public class RTGConfig extends Config {
             ConfigProperty.Type.FLOAT,
             "River Frequency Multiplier",
             "Rivers",
-            "Multiplier to river widths. Defaults to 1",
+            "Multiplier to river frequencies. Defaults to 1",
             1, 0, 10
         );
         this.addProperty(RIVER_FREQUENCY_MULTIPLIER);

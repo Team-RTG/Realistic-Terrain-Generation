@@ -152,6 +152,9 @@ public class DecoTree extends DecoBase {
                 loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
                 loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
+
+                DecoBase.tweakTreeLeaves(this, false, true);
+
                 for (int i = 0; i < loopCount; i++) {
                     int intX = chunkX + rand.nextInt(16);// + 8;
                     int intZ = chunkY + rand.nextInt(16);// + 8;

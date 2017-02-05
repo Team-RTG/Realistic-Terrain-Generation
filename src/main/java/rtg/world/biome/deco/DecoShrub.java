@@ -72,6 +72,8 @@ public class DecoShrub extends DecoBase {
 
         if (this.allowed) {
 
+            DecoBase.tweakShrubLeaves(this, false, true);
+
             // Shrub size.
             this.size = (this.size == -1) ? rand.nextInt(4) + 1 : this.size;
             if (this.minSize > 0 && this.maxSize > 0 && this.maxSize >= this.minSize) {

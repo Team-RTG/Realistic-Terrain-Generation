@@ -3,6 +3,8 @@ package rtg.world.biome.deco;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.World;
 
 import rtg.util.CellNoise;
@@ -97,6 +99,24 @@ public class DecoBase {
 
         for (int i = 0; i < decos.length; i++) {
             this.decoTypes.add(decos[i]);
+        }
+    }
+
+    public static void tweakTreeLeaves(DecoTree deco, boolean checkDecay, boolean decayable) {
+        if (deco.leavesBlock.getBlock() instanceof BlockLeaves) {
+            IBlockState leaves = deco.leavesBlock
+                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
+                .withProperty(BlockLeaves.DECAYABLE, decayable);
+            deco.leavesBlock = leaves;
+        }
+    }
+
+    public static void tweakShrubLeaves(DecoShrub deco, boolean checkDecay, boolean decayable) {
+        if (deco.leavesBlock.getBlock() instanceof BlockLeaves) {
+            IBlockState leaves = deco.leavesBlock
+                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
+                .withProperty(BlockLeaves.DECAYABLE, decayable);
+            deco.leavesBlock = leaves;
         }
     }
 

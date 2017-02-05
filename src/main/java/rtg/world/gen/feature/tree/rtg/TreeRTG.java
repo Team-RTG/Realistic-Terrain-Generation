@@ -182,6 +182,7 @@ public class TreeRTG extends WorldGenAbstractTree {
             || material == Material.GROUND
             || material == Material.WOOD
             || material == Material.VINE
+            || material == Material.WATER
             || material == Material.SNOW;
     }
 

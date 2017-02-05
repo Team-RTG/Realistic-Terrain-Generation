@@ -655,7 +655,7 @@ public class ConfigRTG
 
             /* ====================== Water System ===================== */
             riverSizeMultiplier = config.getFloat(
-                    "River Width Multipler",
+                    "River Width Multiplier",
                     riversAndLakes,
                     1, 0, 10,
                     "Defaults to 1 (standard width)" + Configuration.NEW_LINE);
@@ -663,7 +663,7 @@ public class ConfigRTG
                     "River Frequency Multiplier",
                     riversAndLakes,
                     1, 0, 10,
-                    "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
+                    "Multiplier to river frequencies. Defaults to 1" + Configuration.NEW_LINE);
             riverBendinessMultiplier = config.getFloat(
                     "Multiplier to River Bending",
                     riversAndLakes,
@@ -680,12 +680,12 @@ public class ConfigRTG
                     0.5f, 0, 2,
                     "Higher numbers make the large-scale cut-off noise have a greater effect. Defaults to 0.5" + Configuration.NEW_LINE);
             lakeSizeMultiplier = config.getFloat(
-                    "Lake Size Multipler",
+                    "Lake Size Multiplier",
                     riversAndLakes,
                     1, 0, 10,
                     "Defaults to 1 (standard size)" + Configuration.NEW_LINE);
             lakeFrequencyMultiplier = config.getFloat(
-                    "Lake Frequency Multipler",
+                    "Lake Frequency Multiplier",
                     riversAndLakes,
                     1, 0, 10,
                     "Defaults to 1 (standard frequency)" + Configuration.NEW_LINE);

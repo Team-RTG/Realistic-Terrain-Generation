@@ -3,7 +3,7 @@ package rtg.world.biome.deco.collection;
 import java.util.ArrayList;
 
 import rtg.world.biome.deco.DecoBase;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 
 /**
  * @author WhichOnesPink

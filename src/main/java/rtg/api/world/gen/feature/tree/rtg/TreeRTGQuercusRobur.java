@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree.rtg;
+package rtg.api.world.gen.feature.tree.rtg;
 
 import java.util.List;
 import java.util.Random;

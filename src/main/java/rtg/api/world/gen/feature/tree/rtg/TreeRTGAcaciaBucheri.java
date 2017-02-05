@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree.rtg;
+package rtg.api.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
@@ -8,16 +8,16 @@ import net.minecraft.world.World;
 
 
 /**
- * Acacia Abyssinica (Flat-top Acacia)
+ * Acacia Bucheri (Bucher Acacia)
  */
-public class TreeRTGAcaciaAbyssinica extends TreeRTG {
+public class TreeRTGAcaciaBucheri extends TreeRTG {
 
     /**
-     * <b>Acacia Abyssinica (Flat-top Acacia)</b><br><br>
+     * <b>Acacia Bucheri (Bucher Acacia)</b><br><br>
      * <u>Relevant variables:</u><br>
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, <s>crownSize</s>, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
-     * DecoTree decoTree = new DecoTree(new TreeRTGAcaciaAbyssinica());<br>
+     * DecoTree decoTree = new DecoTree(new TreeRTGAcaciaBucheri());<br>
      * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
      * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
      * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
@@ -32,13 +32,13 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
      * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
-    public TreeRTGAcaciaAbyssinica() {
+    public TreeRTGAcaciaBucheri() {
 
         super();
 
         this.setLogBlock(Blocks.LOG2.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        this.trunkSize = 12;
+        this.trunkSize = 10;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
         int z = pos.getZ();
 
         int h = this.trunkSize;
-        int bh = h - 6;
+        int bh = h - 3;
 
         for (int i = 0; i < h; i++) {
             this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
@@ -63,9 +63,9 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
         int sh, eh, dir;
         float xd, yd, c;
 
-        for (int a = 6 + rand.nextInt(3); a > -1; a--) {
-            sh = bh + rand.nextInt(4);
-            eh = h - (int) ((h - sh) * 1f);
+        for (int a = 1 + rand.nextInt(2); a > -1; a--) {
+            sh = bh + rand.nextInt(2);
+            eh = h - (int) ((h - sh) * 0.25f);
             dir = rand.nextInt(360);
             xd = (float) Math.cos(dir * Math.PI / 180f) * 2f;
             yd = (float) Math.sin(dir * Math.PI / 180f) * 2f;
@@ -88,17 +88,15 @@ public class TreeRTGAcaciaAbyssinica extends TreeRTG {
 
             int i;
             int j;
-            for (i = -2; i <= 2; i++) {
-                for (j = -2; j <= 2; j++) {
-                    if (Math.abs(i) + Math.abs(j) < 4) {
-                        this.placeLeavesBlock(world, new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
-                    }
+            for (i = -1; i <= 1; i++) {
+                for (j = -1; j <= 1; j++) {
+                    this.placeLeavesBlock(world, new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
                 }
             }
 
-            for (i = -3; i <= 3; i++) {
-                for (j = -3; j <= 3; j++) {
-                    if (Math.abs(i) + Math.abs(j) < 5) {
+            for (i = -2; i <= 2; i++) {
+                for (j = -2; j <= 2; j++) {
+                    if (Math.abs(i) + Math.abs(j) < 4) {
                         this.placeLeavesBlock(world, new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag);
                     }
                 }

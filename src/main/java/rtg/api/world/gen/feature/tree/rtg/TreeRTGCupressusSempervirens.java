@@ -1,4 +1,4 @@
-package rtg.world.gen.feature.tree.rtg;
+package rtg.api.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
@@ -6,16 +6,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * Picea Pungens (Colorado Spruce)
+ * Cupressus Sempervirens (Italian Cypress)
  */
-public class TreeRTGPiceaPungens extends TreeRTG {
+public class TreeRTGCupressusSempervirens extends TreeRTG {
 
     /**
-     * <b>Picea Pungens (Colorado Spruce)</b><br><br>
+     * <b>Cupressus Sempervirens (Italian Cypress)</b><br><br>
      * <u>Relevant variables:</u><br>
      * logBlock, logMeta, leavesBlock, leavesMeta, trunkSize, crownSize, noLeaves<br><br>
      * <u>DecoTree example:</u><br>
-     * DecoTree decoTree = new DecoTree(new TreeRTGPiceaPungens());<br>
+     * DecoTree decoTree = new DecoTree(new TreeRTGCupressusSempervirens());<br>
      * decoTree.setTreeType(DecoTree.TreeType.RTG_TREE);<br>
      * decoTree.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);<br>
      * decoTree.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));<br>
@@ -25,14 +25,14 @@ public class TreeRTGPiceaPungens extends TreeRTG {
      * decoTree.logMeta = (byte)1;<br>
      * decoTree.setLeavesBlock(Blocks.LEAVES);<br>
      * decoTree.leavesMeta = (byte)1;<br>
-     * decoTree.setMinTrunkSize(2);<br>
-     * decoTree.setMaxTrunkSize(7);<br>
-     * decoTree.setMinCrownSize(6);<br>
-     * decoTree.setMaxCrownSize(17);<br>
+     * decoTree.setMinTrunkSize(3);<br>
+     * decoTree.setMaxTrunkSize(6);<br>
+     * decoTree.setMinCrownSize(5);<br>
+     * decoTree.setMaxCrownSize(10);<br>
      * decoTree.setNoLeaves(false);<br>
      * this.addDeco(decoTree);
      */
-    public TreeRTGPiceaPungens() {
+    public TreeRTGCupressusSempervirens() {
 
         super();
     }
@@ -48,14 +48,14 @@ public class TreeRTGPiceaPungens extends TreeRTG {
         int y = pos.getY();
         int z = pos.getZ();
 
-        int small = (int) Math.ceil((double) (this.crownSize / 2));
-        int large = small;
-
         int i, j, k;
         for (i = 0; i < this.trunkSize; i++) {
             this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
             y++;
         }
+
+        int small = (int) Math.ceil((double) (this.crownSize / 2));
+        int large = small;
 
         for (i = 0; i < large; i++) {
             if (!this.noLeaves) {
@@ -102,7 +102,6 @@ public class TreeRTGPiceaPungens extends TreeRTG {
         this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
 
         if (!this.noLeaves) {
-
             this.placeLeavesBlock(world, new BlockPos(x + 1, y, z), this.leavesBlock, this.generateFlag);
             this.placeLeavesBlock(world, new BlockPos(x - 1, y, z), this.leavesBlock, this.generateFlag);
             this.placeLeavesBlock(world, new BlockPos(x, y, z + 1), this.leavesBlock, this.generateFlag);
@@ -112,32 +111,5 @@ public class TreeRTGPiceaPungens extends TreeRTG {
         }
 
         return true;
-    }
-
-    @Override
-    public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize) {
-
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                for (int k = 0; k < 2; k++) {
-                    if (Math.abs(i) + Math.abs(j) + Math.abs(k) < leaveSize + 1) {
-                        buildLeaves(world, x + i + (dX * logLength), y + k, z + j + (dZ * logLength));
-                    }
-                }
-            }
-        }
-
-        for (int m = 1; m <= logLength; m++) {
-            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
-        }
-    }
-
-    @Override
-    public void buildLeaves(World world, int x, int y, int z) {
-
-        if (!this.noLeaves) {
-
-            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
-        }
     }
 }

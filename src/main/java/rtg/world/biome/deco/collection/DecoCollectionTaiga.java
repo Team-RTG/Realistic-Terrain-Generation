@@ -9,9 +9,9 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat.ChanceType;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGCupressusSempervirens;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 
 
 /**

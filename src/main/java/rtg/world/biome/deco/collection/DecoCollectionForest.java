@@ -12,10 +12,10 @@ import rtg.world.biome.deco.DecoTree.TreeCondition;
 import rtg.world.biome.deco.DecoTree.TreeType;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 
 
 /**

@@ -17,7 +17,7 @@ import rtg.api.world.RTGWorld;
 import rtg.event.terraingen.DecorateBiomeEventRTG;
 import rtg.util.DecoUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 
 /**
  * @author WhichOnesPink

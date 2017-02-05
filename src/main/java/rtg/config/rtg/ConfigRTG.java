@@ -616,7 +616,7 @@ public class ConfigRTG {
                 "River Frequency Multiplier",
                 "Rivers",
                 1, 0, 10,
-                "Multiplier to river widths. Defaults to 1" + Configuration.NEW_LINE);
+                "Multiplier to river frequencies. Defaults to 1" + Configuration.NEW_LINE);
             riverBendinessMultiplier = config.getFloat(
                 "Multiplier to River Bending",
                 "Rivers",

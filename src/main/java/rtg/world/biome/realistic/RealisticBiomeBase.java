@@ -19,7 +19,7 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.util.SaplingUtil;
+import rtg.api.util.SaplingUtil;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;

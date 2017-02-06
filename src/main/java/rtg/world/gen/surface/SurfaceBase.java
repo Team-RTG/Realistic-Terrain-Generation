@@ -6,19 +6,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.ModPresenceTester;
 import rtg.api.world.RTGWorld;
-import rtg.util.UBColumnCache;
+import rtg.api.event.SurfaceEvent;
 
 public abstract class SurfaceBase {
 
-    private final static ModPresenceTester undergroundBiomesMod = new ModPresenceTester("undergroundbiomes");
-    // Create UBColumnCache only if UB is present
-    private static UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
     protected IBlockState cliffStoneBlock;
@@ -59,26 +57,22 @@ public abstract class SurfaceBase {
 
     protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        if ((undergroundBiomesMod.present()) && rtgConfig.ENABLE_UBC_STONE_SHADOWING.get()) {
+        SurfaceEvent.HardcodedBlock event = new SurfaceEvent.HardcodedBlock(
+            rtgWorld, i, j, x, y, k, shadowStoneBlock
+        );
+        MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
-            return Blocks.STONE.getDefaultState();
-        }
-        else {
-
-            return this.shadowStoneBlock;
-        }
+        return event.getBlock();
     }
 
     protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
-        if ((undergroundBiomesMod.present()) && rtgConfig.ENABLE_UBC_DESERT_SHADOWING.get()) {
+        SurfaceEvent.HardcodedBlock event = new SurfaceEvent.HardcodedBlock(
+            rtgWorld, i, j, x, y, k, shadowDesertBlock
+        );
+        MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
-            return Blocks.STONE.getDefaultState();
-        }
-        else {
-
-            return this.shadowDesertBlock;
-        }
+        return event.getBlock();
     }
 
     protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
@@ -88,14 +82,12 @@ public abstract class SurfaceBase {
 
     protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
-        if ((undergroundBiomesMod.present())) {
+        SurfaceEvent.HardcodedBlock event = new SurfaceEvent.HardcodedBlock(
+            rtgWorld, worldX, worldZ, chunkX, chunkZ, worldY, cliffCobbleBlock
+        );
+        MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
-            return ubColumnCache.column(worldX, worldZ).cobblestone(worldY);
-        }
-        else {
-
-            return cliffCobbleBlock;
-        }
+        return event.getBlock();
     }
 
     public IBlockState getTopBlock() {

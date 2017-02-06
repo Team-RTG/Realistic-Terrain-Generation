@@ -18,7 +18,7 @@ import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
 
 public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {

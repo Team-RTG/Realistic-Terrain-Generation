@@ -21,7 +21,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {

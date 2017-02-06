@@ -17,10 +17,10 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.HeightVariation;
-import rtg.world.gen.terrain.JitterEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
 

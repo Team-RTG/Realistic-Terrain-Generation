@@ -21,8 +21,8 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {

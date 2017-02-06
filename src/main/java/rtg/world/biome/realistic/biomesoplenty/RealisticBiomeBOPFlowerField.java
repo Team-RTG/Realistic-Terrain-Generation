@@ -20,7 +20,7 @@ import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 

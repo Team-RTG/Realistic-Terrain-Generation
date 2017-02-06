@@ -18,7 +18,7 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
 
 public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {

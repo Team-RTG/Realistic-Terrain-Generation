@@ -16,7 +16,7 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBoulder;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 

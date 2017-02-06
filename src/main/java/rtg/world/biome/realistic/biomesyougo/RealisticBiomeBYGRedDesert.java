@@ -16,7 +16,7 @@ import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 

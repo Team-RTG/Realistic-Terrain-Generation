@@ -14,7 +14,7 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.collection.DecoCollectionBirchForest;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanillaBase {
 

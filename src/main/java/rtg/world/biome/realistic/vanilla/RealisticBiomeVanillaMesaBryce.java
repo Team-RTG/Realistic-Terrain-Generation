@@ -20,7 +20,7 @@ import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 

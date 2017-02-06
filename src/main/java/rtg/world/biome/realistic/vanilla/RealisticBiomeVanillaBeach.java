@@ -17,7 +17,7 @@ import rtg.world.biome.deco.DecoTree;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 
 public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {

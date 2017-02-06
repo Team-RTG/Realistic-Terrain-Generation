@@ -18,8 +18,8 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.BumpyHillsEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
 

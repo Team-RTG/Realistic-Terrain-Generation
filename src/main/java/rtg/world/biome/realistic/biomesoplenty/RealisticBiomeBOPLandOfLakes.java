@@ -22,7 +22,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {

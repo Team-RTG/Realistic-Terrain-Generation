@@ -19,8 +19,8 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {

@@ -32,7 +32,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.surface.SurfaceGeneric;
 import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase {

@@ -19,7 +19,7 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {

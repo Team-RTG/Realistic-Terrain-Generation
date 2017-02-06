@@ -18,10 +18,10 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.JitterEffect;
-import rtg.world.gen.terrain.MountainsWithPassesEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
+import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {

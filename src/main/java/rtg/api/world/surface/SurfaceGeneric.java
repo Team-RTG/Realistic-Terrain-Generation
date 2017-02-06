@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface;
 
 import java.util.Random;
 
@@ -8,8 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
+import rtg.api.world.RTGWorld;
 
 public class SurfaceGeneric extends SurfaceBase {
 

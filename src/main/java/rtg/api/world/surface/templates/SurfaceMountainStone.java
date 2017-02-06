@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface.templates;
 
 import java.util.Random;
 
@@ -8,17 +8,35 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import rtg.api.config.BiomeConfig;
+import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.world.surface.SurfaceBase;
 
-public class SurfaceTundra extends SurfaceBase {
+public class SurfaceMountainStone extends SurfaceBase {
 
-    public SurfaceTundra(BiomeConfig config, IBlockState top, IBlockState fill) {
+    private float min;
+
+    private float sCliff = 1.5f;
+    private float sHeight = 60f;
+    private float sStrength = 65f;
+    private float cCliff = 1.5f;
+
+    public SurfaceMountainStone(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
         super(config, top, fill);
+        min = minCliff;
+    }
+
+    public SurfaceMountainStone(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
+
+        this(config, top, fill, minCliff);
+
+        sCliff = stoneCliff;
+        sHeight = stoneHeight;
+        sStrength = stoneStrength;
+        cCliff = clayCliff;
     }
 
     @Override
@@ -26,7 +44,6 @@ public class SurfaceTundra extends SurfaceBase {
 
         Random rand = rtgWorld.rand;
         OpenSimplexNoise simplex = rtgWorld.simplex;
-        float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
         float c = CliffCalculator.calc(x, z, noise);
         int cliff = 0;
 
@@ -41,14 +58,12 @@ public class SurfaceTundra extends SurfaceBase {
 
                 if (depth == 0) {
 
-                    if (c > 0.45f && c > 1.5f - ((k - 60f) / 65f) + p) {
+                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                    if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                         cliff = 1;
                     }
-                    if (c > 1.5f) {
+                    if (c > cCliff) {
                         cliff = 2;
-                    }
-                    if (k > 110 + (p * 4) && c < 0.3f + ((k - 100f) / 50f) + p) {
-                        cliff = 3;
                     }
 
                     if (cliff == 1) {
@@ -64,14 +79,16 @@ public class SurfaceTundra extends SurfaceBase {
                     else if (cliff == 2) {
                         primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                     }
-                    else if (cliff == 3) {
-                        primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
-                    }
-                    else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
-                        primer.setBlockState(x, k, z, BlockUtil.getStateDirt(2));
+                    else if (k < 63) {
+                        if (k < 62) {
+                            primer.setBlockState(x, k, z, fillerBlock);
+                        }
+                        else {
+                            primer.setBlockState(x, k, z, topBlock);
+                        }
                     }
                     else {
-                        primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
+                        primer.setBlockState(x, k, z, topBlock);
                     }
                 }
                 else if (depth < 6) {
@@ -81,11 +98,8 @@ public class SurfaceTundra extends SurfaceBase {
                     else if (cliff == 2) {
                         primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                     }
-                    else if (cliff == 3) {
-                        primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
-                    }
                     else {
-                        primer.setBlockState(x, k, z, Blocks.DIRT.getDefaultState());
+                        primer.setBlockState(x, k, z, fillerBlock);
                     }
                 }
             }

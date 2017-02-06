@@ -19,7 +19,7 @@ import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.api.world.terrain.TerrainBase;
 

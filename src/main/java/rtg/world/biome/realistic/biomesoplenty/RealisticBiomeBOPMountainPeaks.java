@@ -17,7 +17,7 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;

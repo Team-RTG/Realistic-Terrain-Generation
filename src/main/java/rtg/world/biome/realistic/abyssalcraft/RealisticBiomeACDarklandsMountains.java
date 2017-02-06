@@ -22,7 +22,7 @@ import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 
 public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 

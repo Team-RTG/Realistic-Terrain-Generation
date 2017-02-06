@@ -19,7 +19,7 @@ import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.world.biome.deco.helper.DecoHelper5050;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 

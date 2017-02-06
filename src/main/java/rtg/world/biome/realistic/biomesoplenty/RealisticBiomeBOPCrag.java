@@ -18,7 +18,7 @@ import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoPond;
 import rtg.world.biome.deco.helper.DecoHelperBorder;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {

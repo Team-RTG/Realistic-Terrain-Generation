@@ -20,7 +20,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 

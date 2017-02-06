@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface;
 
 import java.util.Random;
 

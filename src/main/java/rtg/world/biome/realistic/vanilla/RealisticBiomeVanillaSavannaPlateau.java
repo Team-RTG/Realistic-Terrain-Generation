@@ -18,7 +18,7 @@ import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBase {

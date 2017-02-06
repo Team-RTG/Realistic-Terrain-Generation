@@ -1,11 +1,12 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface.templates;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
 
 public class SurfaceMountainPolar extends SurfaceBase {
 

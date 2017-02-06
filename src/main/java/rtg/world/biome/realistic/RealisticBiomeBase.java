@@ -29,9 +29,9 @@ import rtg.world.biome.deco.collection.DecoCollectionBase;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.WorldGenVolcano;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
-import rtg.world.gen.surface.SurfaceRiverOasis;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceGeneric;
+import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})

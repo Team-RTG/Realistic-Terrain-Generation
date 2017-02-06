@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface.templates;
 
 import java.util.Random;
 
@@ -8,10 +8,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
 
 public class SurfaceDuneValley extends SurfaceBase {
 

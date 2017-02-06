@@ -17,7 +17,7 @@ import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;

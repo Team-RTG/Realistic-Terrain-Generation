@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface.templates;
 
 import java.util.Random;
 
@@ -8,19 +8,24 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
 
-public class SurfaceMarshFix extends SurfaceBase {
+public class SurfaceRiverBOPCrag extends SurfaceBase {
 
+    private IBlockState topBlock;
+    private IBlockState fillerBlock;
     private IBlockState cliffBlock1;
     private IBlockState cliffBlock2;
 
-    public SurfaceMarshFix(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
+    public SurfaceRiverBOPCrag(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
 
         super(config, top, filler);
 
+        topBlock = top;
+        fillerBlock = filler;
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
     }
@@ -40,12 +45,15 @@ public class SurfaceMarshFix extends SurfaceBase {
             else if (b == Blocks.STONE) {
                 depth++;
 
-                if (cliff && k > 64) {
+                if (cliff) {
                     if (depth > -1 && depth < 2) {
-                        primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
+                        primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? cliffBlock1 : cliffBlock2);
                     }
                     else if (depth < 10) {
                         primer.setBlockState(x, k, z, cliffBlock1);
+                    }
+                    else {
+                        primer.setBlockState(x, k, z, topBlock);
                     }
                 }
                 else {
@@ -54,6 +62,9 @@ public class SurfaceMarshFix extends SurfaceBase {
                     }
                     else if (depth < 4) {
                         primer.setBlockState(x, k, z, fillerBlock);
+                    }
+                    else {
+                        primer.setBlockState(x, k, z, topBlock);
                     }
                 }
             }

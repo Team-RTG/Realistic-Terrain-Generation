@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -11,9 +11,9 @@ import net.minecraftforge.common.MinecraftForge;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
+import rtg.api.event.SurfaceEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
-import rtg.api.event.SurfaceEvent;
 
 public abstract class SurfaceBase {
 

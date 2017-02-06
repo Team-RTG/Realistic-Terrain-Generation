@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface.templates;
 
 import java.util.Random;
 
@@ -8,35 +8,30 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
 
-public class SurfaceGrasslandMixBig extends SurfaceBase {
+public class SurfaceGrasslandMix1 extends SurfaceBase {
 
-    private IBlockState mixBlockTop;
-    private IBlockState mixBlockFill;
+    private IBlockState mixBlock;
     private IBlockState cliffBlock1;
     private IBlockState cliffBlock2;
     private float width;
     private float height;
-    private float smallW;
-    private float smallS;
 
-    public SurfaceGrasslandMixBig(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+    public SurfaceGrasslandMix1(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight) {
 
         super(config, top, filler);
 
-        mixBlockTop = mixTop;
-        mixBlockFill = mixFill;
+        mixBlock = mix;
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
 
         width = mixWidth;
         height = mixHeight;
-        smallW = smallWidth;
-        smallS = smallStrength;
     }
 
     @Override
@@ -46,7 +41,6 @@ public class SurfaceGrasslandMixBig extends SurfaceBase {
         OpenSimplexNoise simplex = rtgWorld.simplex;
         float c = CliffCalculator.calc(x, z, noise);
         boolean cliff = c > 1.4f ? true : false;
-        boolean mix = false;
 
         for (int k = 255; k > -1; k--) {
             Block b = primer.getBlockState(x, k, z).getBlock();
@@ -66,21 +60,16 @@ public class SurfaceGrasslandMixBig extends SurfaceBase {
                 }
                 else {
                     if (depth == 0 && k > 61) {
-                        if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height) {
-                            primer.setBlockState(x, k, z, mixBlockTop);
-                            mix = true;
+                        if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
+                        {
+                            primer.setBlockState(x, k, z, mixBlock);
                         }
                         else {
                             primer.setBlockState(x, k, z, topBlock);
                         }
                     }
                     else if (depth < 4) {
-                        if (mix) {
-                            primer.setBlockState(x, k, z, mixBlockFill);
-                        }
-                        else {
-                            primer.setBlockState(x, k, z, fillerBlock);
-                        }
+                        primer.setBlockState(x, k, z, fillerBlock);
                     }
                 }
             }

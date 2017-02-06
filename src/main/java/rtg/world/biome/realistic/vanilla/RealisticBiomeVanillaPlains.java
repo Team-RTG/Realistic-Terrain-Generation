@@ -17,7 +17,7 @@ import rtg.world.biome.deco.*;
 import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.api.world.terrain.TerrainBase;
 

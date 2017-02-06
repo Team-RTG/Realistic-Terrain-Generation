@@ -18,7 +18,7 @@ import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoReed;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase {

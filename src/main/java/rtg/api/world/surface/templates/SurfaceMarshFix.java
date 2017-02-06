@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface.templates;
 
 import java.util.Random;
 
@@ -8,36 +8,28 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
 
-public class SurfaceGrasslandMix1 extends SurfaceBase {
+public class SurfaceMarshFix extends SurfaceBase {
 
-    private IBlockState mixBlock;
     private IBlockState cliffBlock1;
     private IBlockState cliffBlock2;
-    private float width;
-    private float height;
 
-    public SurfaceGrasslandMix1(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, IBlockState cliff1, IBlockState cliff2, float mixWidth, float mixHeight) {
+    public SurfaceMarshFix(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2) {
 
         super(config, top, filler);
 
-        mixBlock = mix;
         cliffBlock1 = cliff1;
         cliffBlock2 = cliff2;
-
-        width = mixWidth;
-        height = mixHeight;
     }
 
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         Random rand = rtgWorld.rand;
-        OpenSimplexNoise simplex = rtgWorld.simplex;
         float c = CliffCalculator.calc(x, z, noise);
         boolean cliff = c > 1.4f ? true : false;
 
@@ -49,7 +41,7 @@ public class SurfaceGrasslandMix1 extends SurfaceBase {
             else if (b == Blocks.STONE) {
                 depth++;
 
-                if (cliff) {
+                if (cliff && k > 64) {
                     if (depth > -1 && depth < 2) {
                         primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? cliffBlock2 : cliffBlock1);
                     }
@@ -59,13 +51,7 @@ public class SurfaceGrasslandMix1 extends SurfaceBase {
                 }
                 else {
                     if (depth == 0 && k > 61) {
-                        if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
-                        {
-                            primer.setBlockState(x, k, z, mixBlock);
-                        }
-                        else {
-                            primer.setBlockState(x, k, z, topBlock);
-                        }
+                        primer.setBlockState(x, k, z, topBlock);
                     }
                     else if (depth < 4) {
                         primer.setBlockState(x, k, z, fillerBlock);

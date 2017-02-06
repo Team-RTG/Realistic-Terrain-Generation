@@ -10,7 +10,7 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenPond;
+import rtg.api.world.gen.feature.WorldGenPond;
 
 /**
  * @author Zeno410

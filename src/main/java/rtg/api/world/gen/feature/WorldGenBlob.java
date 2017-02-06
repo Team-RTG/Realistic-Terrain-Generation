@@ -1,4 +1,4 @@
-package rtg.world.gen.feature;
+package rtg.api.world.gen.feature;
 
 import java.util.Random;
 
@@ -11,8 +11,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.RandomUtil;
 import rtg.api.util.BoulderUtil;
+import rtg.api.util.RandomUtil;
 
 
 public class WorldGenBlob extends WorldGenerator {

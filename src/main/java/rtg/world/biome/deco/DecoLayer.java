@@ -12,7 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenLayers;
+import rtg.api.world.gen.feature.WorldGenLayers;
 
 /**
  * @author WhichOnesPink

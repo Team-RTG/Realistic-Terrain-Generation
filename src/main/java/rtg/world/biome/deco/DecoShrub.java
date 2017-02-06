@@ -12,7 +12,7 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenShrubRTG;
+import rtg.api.world.gen.feature.WorldGenShrubRTG;
 
 /**
  * @author WhichOnesPink

@@ -1,4 +1,4 @@
-package rtg.world.gen.feature;
+package rtg.api.world.gen.feature;
 
 import java.util.Random;
 
@@ -8,19 +8,27 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.BlockUtil;
-
-public class WorldGenJungleCacti extends WorldGenerator {
+public class WorldGenCacti extends WorldGenerator {
 
     private boolean sand;
-    private byte sandByte;
     private int eHeight;
+    private IBlockState soilBlock;
 
-    public WorldGenJungleCacti(boolean sandOnly, int extraHeight, byte sandMeta) {
+    public WorldGenCacti(boolean sandOnly) {
+
+        this(sandOnly, 0);
+    }
+
+    public WorldGenCacti(boolean sandOnly, int extraHeight) {
+
+        this(sandOnly, extraHeight, Blocks.SAND.getDefaultState());
+    }
+
+    public WorldGenCacti(boolean sandOnly, int extraHeight, IBlockState soilBlock) {
 
         sand = sandOnly;
         eHeight = extraHeight;
-        sandByte = sandMeta;
+        this.setSoilBlock(soilBlock);
     }
 
     @Override
@@ -30,17 +38,18 @@ public class WorldGenJungleCacti extends WorldGenerator {
         int y = pos.getY();
         int z = pos.getZ();
         IBlockState b;
-        for (int l = 0; l < 10; ++l) {
-            int i1 = x + rand.nextInt(8) - rand.nextInt(8);
+        //for (int l = 0; l < 10; ++l)
+        {
+            int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
             int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-            int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+            int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
             if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1));
-                if (b == Blocks.SAND.getDefaultState() || (!sand && (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()))) {
+                if (b == this.soilBlock || (!sand && (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()))) {
                     int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
                     if (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()) {
-                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), BlockUtil.getStateSand(sandByte), 2);
+                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), this.soilBlock, 2);
                     }
 
                     for (int i2 = 0; i2 < l1 + eHeight; ++i2) {
@@ -53,5 +62,16 @@ public class WorldGenJungleCacti extends WorldGenerator {
         }
 
         return true;
+    }
+
+    public IBlockState getSoilBlock() {
+
+        return soilBlock;
+    }
+
+    public WorldGenCacti setSoilBlock(IBlockState soilBlock) {
+
+        this.soilBlock = soilBlock;
+        return this;
     }
 }

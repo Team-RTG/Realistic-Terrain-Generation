@@ -1,4 +1,4 @@
-package rtg.world.gen.feature;
+package rtg.api.world.gen.feature;
 
 import java.util.Random;
 
@@ -9,10 +9,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.RTGAPI;
+import rtg.api.util.Logger;
 import rtg.api.util.TerrainMath;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.Logger;
 
 
 public class WorldGenVolcano {

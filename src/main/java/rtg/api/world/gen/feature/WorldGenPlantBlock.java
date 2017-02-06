@@ -1,4 +1,4 @@
-package rtg.world.gen.feature;
+package rtg.api.world.gen.feature;
 
 /**
  * @author Zeno410

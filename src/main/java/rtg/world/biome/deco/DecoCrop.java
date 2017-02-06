@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenCrops;
+import rtg.api.world.gen.feature.WorldGenCrops;
 
 /**
  * @author lightningo7

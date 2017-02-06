@@ -11,7 +11,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenGrass;
+import rtg.api.world.gen.feature.WorldGenGrass;
 
 /*
  * @author WhichOnesPink

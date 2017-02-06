@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.WorldGenBlock;
+import rtg.api.world.gen.feature.WorldGenBlock;
 
 /**
  * @author WhichOnesPink

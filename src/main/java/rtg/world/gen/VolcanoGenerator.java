@@ -14,7 +14,7 @@ import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.world.biome.realistic.RealisticBiomeBase.getBiome;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.world.gen.feature.WorldGenVolcano;
+import rtg.api.world.gen.feature.WorldGenVolcano;
 
 /**
  *

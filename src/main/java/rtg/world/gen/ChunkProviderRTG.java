@@ -39,7 +39,7 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
+import rtg.api.util.CanyonColour;
 import rtg.util.Logger;
 import rtg.util.TimeTracker;
 import rtg.world.WorldTypeRTG;

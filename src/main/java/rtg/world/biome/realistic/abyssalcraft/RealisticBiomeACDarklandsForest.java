@@ -176,17 +176,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     @Override
     public void initDecos() {
 
-        DecoAbyssalCraftTree decoTrees = new DecoAbyssalCraftTree();
-        decoTrees.setStrengthNoiseFactorXForLoops(true);
-        decoTrees.getDistribution().setNoiseDivisor(80f);
-        decoTrees.getDistribution().setNoiseFactor(60f);
-        decoTrees.getDistribution().setNoiseAddend(-15f);
-        decoTrees.setTreeType(DecoAbyssalCraftTree.TreeType.DARKWOOD);
-        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        decoTrees.setTreeConditionChance(3);
-        decoTrees.setMaxY(110);
-        this.addDeco(decoTrees);
-
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);

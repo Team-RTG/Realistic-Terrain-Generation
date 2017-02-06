@@ -12,7 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.RandomUtil;
-import rtg.util.BoulderUtil;
+import rtg.api.util.BoulderUtil;
 
 
 public class WorldGenBlob extends WorldGenerator {

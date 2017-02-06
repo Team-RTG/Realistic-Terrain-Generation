@@ -1,4 +1,4 @@
-package rtg.util;
+package rtg.api.util;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.ModPresenceTester;
+import rtg.util.UBColumnCache;
 
 public class BoulderUtil {
 

@@ -433,6 +433,20 @@ public class EventManagerRTG {
                 event.setBlock(Blocks.STONE.getDefaultState());
             }
         }
+
+        @SubscribeEvent
+        public void onBoulderBlock(SurfaceEvent.BoulderBlock event) {
+
+            IBlockState defaultBlock = event.getBlock();
+
+            if (defaultBlock == Blocks.COBBLESTONE.getDefaultState()) {
+
+                if (undergroundBiomesMod.present() && rtgConfig.ENABLE_UBC_BOULDERS.get()) {
+
+                    event.setBlock(ubColumnCache.column(event.getWorldX(), event.getWorldZ()).cobblestone(event.getWorldY()));
+                }
+            }
+        }
     }
 
     /*

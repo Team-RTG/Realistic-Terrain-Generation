@@ -4,7 +4,7 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")

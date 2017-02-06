@@ -12,7 +12,7 @@ import rtg.api.RTGAPI;
 import rtg.api.util.TerrainMath;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 
 
 public class WorldGenVolcano {

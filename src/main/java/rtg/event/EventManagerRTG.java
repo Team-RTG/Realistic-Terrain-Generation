@@ -27,7 +27,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.Acceptor;
 import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.RandomUtil;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.util.SaplingUtil;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;

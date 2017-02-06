@@ -40,7 +40,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
 import rtg.api.util.CanyonColour;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.util.TimeTracker;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;

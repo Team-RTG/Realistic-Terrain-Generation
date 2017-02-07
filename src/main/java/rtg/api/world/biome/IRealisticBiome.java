@@ -12,7 +12,6 @@ import rtg.api.world.terrain.TerrainBase;
  */
 public interface IRealisticBiome {
 
-    BiomeDecoratorRTG rDecorator = null;
     boolean generatesEmeralds = false;
     boolean generatesSilverfish = false;
     int waterUndergroundLakeChance = 0;
@@ -23,6 +22,8 @@ public interface IRealisticBiome {
     Biome baseBiome();
     Biome riverBiome();
     Biome beachBiome();
+
+    BiomeDecoratorRTG rDecorator();
 
     BiomeConfig getConfig();
     void initConfig();

@@ -181,6 +181,10 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return this.beachBiome(BiomeAnalyzer.getPreferredBeachForBiome(this.baseBiome));
     }
 
+    public BiomeDecoratorRTG rDecorator() {
+        return rDecorator;
+    }
+
     public void rMapVolcanoes(
         ChunkPrimer primer, World world, IBiomeProviderRTG cmr,
         Random mapRand, int baseX, int baseY, int chunkX, int chunkY,

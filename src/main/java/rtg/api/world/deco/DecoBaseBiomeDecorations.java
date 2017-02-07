@@ -66,18 +66,18 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biome.rDecorator.rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
+                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
                         }
                     }
                     else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biome.rDecorator.rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
+                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
                         }
                     }
                     else {
 
-                        biome.rDecorator.rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
+                        biome.rDecorator().rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
                     }
                 }
             }

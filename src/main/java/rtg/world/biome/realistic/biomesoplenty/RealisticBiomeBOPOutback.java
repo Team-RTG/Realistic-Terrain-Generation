@@ -17,7 +17,7 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.*;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 
 public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {

@@ -15,8 +15,8 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.api.util.CanyonColour;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 

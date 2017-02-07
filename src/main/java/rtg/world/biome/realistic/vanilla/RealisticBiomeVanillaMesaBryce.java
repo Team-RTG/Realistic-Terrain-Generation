@@ -14,11 +14,11 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.api.util.CanyonColour;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDeadBush;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 

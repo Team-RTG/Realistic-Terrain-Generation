@@ -23,6 +23,16 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
         this.lavaSurfaceLakeChance = 0;
     }
 
+    @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
+    }
+
     //TODO 1.11: refactor everything 'CookingPlus' to 'AgriculturalRevolution'
     @Override
     public String modSlug() {

@@ -25,6 +25,16 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
     }
 
     @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
+    }
+
+    @Override
     public String modSlug() {
         return "morechinesemc";
     }

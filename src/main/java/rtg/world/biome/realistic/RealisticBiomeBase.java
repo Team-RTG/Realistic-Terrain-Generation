@@ -20,13 +20,14 @@ import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.api.util.SaplingUtil;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.biome.BiomeAnalyzer;
-import rtg.world.biome.BiomeDecoratorRTG;
+import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
-import rtg.world.biome.deco.DecoBase;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.collection.DecoCollectionBase;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.collection.DecoCollectionBase;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.WorldGenVolcano;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
@@ -35,7 +36,7 @@ import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
-public abstract class RealisticBiomeBase {
+public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected RTGConfig rtgConfig = RTGAPI.config();
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];

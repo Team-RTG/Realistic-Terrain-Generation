@@ -26,6 +26,16 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
     }
 
     @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
+    }
+
+    @Override
     public String modSlug() {
         return "mineworld";
     }

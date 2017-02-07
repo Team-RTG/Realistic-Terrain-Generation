@@ -13,12 +13,12 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
+import rtg.api.world.deco.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
 
@@ -191,7 +191,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
     }
 }

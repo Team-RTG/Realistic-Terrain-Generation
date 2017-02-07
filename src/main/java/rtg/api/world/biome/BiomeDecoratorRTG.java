@@ -107,7 +107,7 @@ public class BiomeDecoratorRTG
         if (TerrainGen.generateOre(worldIn, random, biomeDecorator.lapisGen, pos, OreGenEvent.GenerateMinable.EventType.LAPIS)) {
             this.genStandardOre2(worldIn, random, chunkProviderSettings.lapisCount, biomeDecorator.lapisGen, chunkProviderSettings.lapisCenterHeight, chunkProviderSettings.lapisSpread);
         }
-        if (rbb.generatesEmeralds) {
+        if (rbb.generatesEmeralds()) {
             this.genEmeraldOre(worldIn, random, pos);
         }
         if (rbb.generatesSilverfish) {

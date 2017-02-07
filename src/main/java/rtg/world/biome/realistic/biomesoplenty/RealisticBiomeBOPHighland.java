@@ -29,7 +29,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
 
         super(biome, river);
 
-        this.generatesEmeralds = true;
         this.noWaterFeatures = true;
     }
 
@@ -130,5 +129,10 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 }

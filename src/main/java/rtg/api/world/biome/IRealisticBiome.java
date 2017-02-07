@@ -12,7 +12,6 @@ import rtg.api.world.terrain.TerrainBase;
  */
 public interface IRealisticBiome {
 
-    boolean generatesEmeralds = false;
     boolean generatesSilverfish = false;
     int waterUndergroundLakeChance = 0;
     int lavaUndergroundLakeChance = 0;
@@ -31,6 +30,7 @@ public interface IRealisticBiome {
     SurfaceBase initSurface();
     void initDecos();
 
+    boolean generatesEmeralds();
     float lakePressure(RTGWorld rtgWorld, int x, int z, float border);
 
     /**

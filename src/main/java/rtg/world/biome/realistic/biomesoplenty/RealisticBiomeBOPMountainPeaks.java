@@ -33,7 +33,6 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
         super(biome, river);
 
-        this.generatesEmeralds = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -221,5 +220,10 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(3f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 }

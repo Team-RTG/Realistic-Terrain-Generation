@@ -60,7 +60,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public boolean generateVillages;
 
-    public boolean generatesEmeralds;
     public boolean generatesSilverfish;
 
     public ArrayList<DecoBase> decos;
@@ -101,7 +100,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         generateVillages = true;
 
-        generatesEmeralds = false;
         generatesSilverfish = false;
         decos = new ArrayList<>();
         rtgTrees = new ArrayList<>();

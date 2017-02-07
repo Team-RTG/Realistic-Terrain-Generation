@@ -150,4 +150,9 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
         vanillaTaigaHills = new RealisticBiomeVanillaTaigaHills();
         vanillaTaigaM = new RealisticBiomeVanillaTaigaM();
     }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return false;
+    }
 }

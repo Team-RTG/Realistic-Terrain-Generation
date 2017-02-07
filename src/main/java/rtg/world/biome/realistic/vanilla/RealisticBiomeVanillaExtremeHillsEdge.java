@@ -30,7 +30,6 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
         super(biome, river);
 
-        this.generatesEmeralds = true;
         this.generatesSilverfish = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
@@ -225,5 +224,10 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 }

@@ -55,4 +55,9 @@ public abstract class RealisticBiomeAMBase extends RealisticBiomeBase {
             }
         }
     }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return false;
+    }
 }

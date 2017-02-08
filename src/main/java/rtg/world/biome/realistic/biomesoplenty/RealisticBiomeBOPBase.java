@@ -292,9 +292,4 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
             }
         }
     }
-
-    @Override
-    public boolean generatesEmeralds() {
-        return false;
-    }
 }

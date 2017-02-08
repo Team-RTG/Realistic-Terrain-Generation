@@ -110,7 +110,7 @@ public class BiomeDecoratorRTG
         if (rbb.generatesEmeralds()) {
             this.genEmeraldOre(worldIn, random, pos);
         }
-        if (rbb.generatesSilverfish) {
+        if (rbb.generatesSilverfish()) {
             this.genSilverfishOre(worldIn, random, pos);
         }
         if (rbb.getExtraGoldGenCount() > 0) {

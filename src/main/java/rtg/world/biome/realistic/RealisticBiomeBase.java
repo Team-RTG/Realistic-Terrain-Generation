@@ -58,10 +58,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     public int waterUndergroundLakeChance; //Lower = more frequent
     public int lavaUndergroundLakeChance; //Lower = more frequent
 
-    public boolean generateVillages;
-
-    public boolean generatesSilverfish;
-
     public ArrayList<DecoBase> decos;
     public ArrayList<TreeRTG> rtgTrees;
 
@@ -98,9 +94,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         waterUndergroundLakeChance = 1;
         lavaUndergroundLakeChance = 1;
 
-        generateVillages = true;
-
-        generatesSilverfish = false;
         decos = new ArrayList<>();
         rtgTrees = new ArrayList<>();
 
@@ -576,5 +569,15 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public String biomeSlug() {
         return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return false;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
+        return false;
     }
 }

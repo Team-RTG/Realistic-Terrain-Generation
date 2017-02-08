@@ -33,7 +33,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
         super(biome, river);
 
-        this.generatesSilverfish = true;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -260,6 +259,11 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
     @Override
     public boolean generatesEmeralds() {
+        return true;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
         return true;
     }
 }

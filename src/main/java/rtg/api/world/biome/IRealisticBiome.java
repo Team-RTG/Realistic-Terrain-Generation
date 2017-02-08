@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
+import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -69,8 +70,25 @@ public interface IRealisticBiome {
         return 0; // Lower equals more frequent.
     }
 
-    default float lakePressure(RTGWorld rtgWorld, int x, int z, float border) {
-        return 1f;
+    default float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+        if (this.noLakes()) return 1f;
+        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
+        double pX = x + jitter.deltax() * largeBendSize;
+        double pY = y + jitter.deltay() * largeBendSize;
+        rtgWorld.simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+        pX += jitter.deltax() * mediumBendSize;
+        pY += jitter.deltay() * mediumBendSize;
+        rtgWorld.simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
+        pX += jitter.deltax() * smallBendSize;
+        pY += jitter.deltay() * smallBendSize;
+        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
+        double [] lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
+        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
+        return results;
     }
 
     /**

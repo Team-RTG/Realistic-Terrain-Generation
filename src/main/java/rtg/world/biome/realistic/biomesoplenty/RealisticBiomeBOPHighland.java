@@ -28,12 +28,15 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPHighland() {
 
         super(biome, river);
-
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

@@ -24,14 +24,17 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeVanill
     public RealisticBiomeVanillaBirchForestHillsM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

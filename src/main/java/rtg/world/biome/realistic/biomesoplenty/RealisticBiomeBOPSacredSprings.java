@@ -26,12 +26,15 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPSacredSprings() {
 
         super(biome, river);
-
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

@@ -27,12 +27,15 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMoor() {
 
         super(biome, river);
-
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

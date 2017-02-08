@@ -25,8 +25,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -34,6 +32,11 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
         this.getConfig().SURFACE_FILLER_BLOCK_META.set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

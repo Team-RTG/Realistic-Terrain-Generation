@@ -57,8 +57,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     private float lakeShoreLevel = 0.15f;
     private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
     private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
-    public boolean noLakes = false;
-    public boolean noWaterFeatures = false;
 
     private float largeBendSize = 100;
     private float mediumBendSize = 40;
@@ -232,7 +230,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-        if (noWaterFeatures) {
+        if (this.noWaterFeatures()) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
             river = 1f - (1f-borderForRiver)*(1f-river);
@@ -288,7 +286,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     public float lakePressure(RTGWorld rtgWorld, int x, int y, float border) {
-        if (noLakes) return 1f;
+        if (this.noLakes()) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
@@ -317,7 +315,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures ? 0f : river;
+        float riverRegion = this.noWaterFeatures() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
@@ -331,7 +329,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures ? 0f : river;
+        float riverRegion = this.noWaterFeatures() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 

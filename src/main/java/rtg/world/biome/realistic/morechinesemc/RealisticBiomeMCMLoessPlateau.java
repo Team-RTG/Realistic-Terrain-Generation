@@ -29,15 +29,22 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
     public RealisticBiomeMCMLoessPlateau(Biome biome) {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

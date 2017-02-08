@@ -25,9 +25,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaOcean() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -37,6 +34,16 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override

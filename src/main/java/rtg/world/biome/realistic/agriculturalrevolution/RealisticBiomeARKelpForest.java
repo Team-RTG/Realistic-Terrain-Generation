@@ -24,15 +24,22 @@ public class RealisticBiomeARKelpForest extends RealisticBiomeARBase {
     public RealisticBiomeARKelpForest(Biome biome) {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {
 
         this.getConfig().ALLOW_VILLAGES.set(false);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override

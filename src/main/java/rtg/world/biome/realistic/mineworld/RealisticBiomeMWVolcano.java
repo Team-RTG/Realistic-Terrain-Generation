@@ -25,9 +25,6 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
     public RealisticBiomeMWVolcano(Biome biome) {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -38,6 +35,16 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override

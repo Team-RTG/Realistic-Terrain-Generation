@@ -31,8 +31,6 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungleM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -43,6 +41,11 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeVanillaBase {
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(rtgConfig.VOLCANO_CHANCE.get() * 2);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

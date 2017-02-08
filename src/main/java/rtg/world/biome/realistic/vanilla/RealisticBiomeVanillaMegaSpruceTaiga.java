@@ -28,8 +28,6 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaMegaSpruceTaiga() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -39,6 +37,11 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

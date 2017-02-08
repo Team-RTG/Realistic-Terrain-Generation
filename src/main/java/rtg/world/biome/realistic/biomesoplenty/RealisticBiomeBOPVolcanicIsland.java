@@ -27,9 +27,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPVolcanicIsland() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -37,6 +34,16 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override

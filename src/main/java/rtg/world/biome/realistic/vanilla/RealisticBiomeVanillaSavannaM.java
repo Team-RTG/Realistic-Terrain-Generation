@@ -27,8 +27,6 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaSavannaM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -38,6 +36,11 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

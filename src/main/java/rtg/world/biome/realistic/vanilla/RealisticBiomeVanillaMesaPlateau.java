@@ -28,12 +28,15 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaMesaPlateau() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

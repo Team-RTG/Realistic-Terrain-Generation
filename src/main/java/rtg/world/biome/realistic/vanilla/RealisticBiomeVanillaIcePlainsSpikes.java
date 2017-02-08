@@ -24,12 +24,15 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaIcePlainsSpikes() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

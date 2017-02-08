@@ -25,14 +25,17 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
     public RealisticBiomeVanillaMushroomIslandShore() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
         this.getConfig().ALLOW_VILLAGES.set(false);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

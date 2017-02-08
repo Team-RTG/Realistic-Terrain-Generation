@@ -45,6 +45,14 @@ public interface IRealisticBiome {
         return false;
     }
 
+    default boolean noLakes() {
+        return false;
+    }
+
+    default boolean noWaterFeatures() {
+        return false;
+    }
+
     default int waterUndergroundLakeChance() {
         return 1; // Lower equals more frequent.
     }

@@ -28,8 +28,6 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaMegaTaigaHills() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -39,6 +37,11 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

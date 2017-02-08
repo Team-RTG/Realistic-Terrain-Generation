@@ -25,8 +25,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     public RealisticBiomeVanillaExtremeHillsM() {
 
         super(biome, river);
-
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -36,6 +34,11 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override

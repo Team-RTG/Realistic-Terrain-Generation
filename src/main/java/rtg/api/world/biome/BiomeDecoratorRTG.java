@@ -33,10 +33,10 @@ public class BiomeDecoratorRTG
     public Biome biome;
     private RTGConfig rtgConfig;
 
-    public BiomeDecoratorRTG(IRealisticBiome rbb) {
+    public BiomeDecoratorRTG(IRealisticBiome rbb, Biome baseBiome) {
 
         this.rbb = rbb;
-        this.biome = rbb.baseBiome();
+        this.biome = baseBiome;
         this.rtgConfig = RTGAPI.config();
     }
 

@@ -15,7 +15,6 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
-import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.api.world.biome.IRealisticBiome;
@@ -74,7 +73,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.config = new BiomeConfig();
         beachBiome = this.beachBiome();
 
-        rDecorator = new BiomeDecoratorRTG(this);
+        rDecorator = new BiomeDecoratorRTG(this, biome);
 
         decos = new ArrayList<>();
         rtgTrees = new ArrayList<>();
@@ -110,10 +109,10 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         initDecos();
     }
 
-    public abstract void initConfig();
-    public abstract TerrainBase initTerrain();
-    public abstract SurfaceBase initSurface();
-    public abstract void initDecos();
+//    public abstract void initConfig();
+//    public abstract TerrainBase initTerrain();
+//    public abstract SurfaceBase initSurface();
+//    public abstract void initDecos();
 
     @Override
     public BiomeConfig getConfig() {
@@ -236,7 +235,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             river = 1f - (1f-borderForRiver)*(1f-river);
             return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
-        float lakeStrength = lakePressure(rtgWorld, x, y, border);
+        float lakeStrength = lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize);
         float lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
         // we add some flattening to the rivers. The lakes are pre-flattened.
         float riverFlattening = river*1.25f-0.25f;
@@ -282,28 +281,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     public float lakeFlattening(RTGWorld rtgWorld,int x, int y, float border) {
-        return lakeFlattening(lakePressure(rtgWorld, x, y, border), lakeWaterLevel, lakeDepressionLevel);
-    }
-
-    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border) {
-        if (this.noLakes()) return 1f;
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
-        double pX = x + jitter.deltax() * largeBendSize;
-        double pY = y + jitter.deltay() * largeBendSize;
-        rtgWorld.simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
-        pX += jitter.deltax() * mediumBendSize;
-        pY += jitter.deltay() * mediumBendSize;
-        rtgWorld.simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
-        pX += jitter.deltax() * smallBendSize;
-        pY += jitter.deltay() * smallBendSize;
-        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
-        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
-        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
-        return results;
+        return lakeFlattening(lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize), lakeWaterLevel, lakeDepressionLevel);
     }
 
     public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {

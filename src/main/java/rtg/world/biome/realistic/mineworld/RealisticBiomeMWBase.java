@@ -20,9 +20,6 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
     public RealisticBiomeMWBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.waterSurfaceLakeChance = 30;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -38,6 +35,16 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "mineworld";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

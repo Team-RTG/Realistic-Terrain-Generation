@@ -14,16 +14,15 @@ import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.SaplingUtil;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.api.util.SaplingUtil;
-import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.biome.BiomeAnalyzer;
 import rtg.api.world.biome.BiomeDecoratorRTG;
-import rtg.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.biome.RealisticBiomeManager;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionBase;
@@ -34,6 +33,8 @@ import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceGeneric;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.BiomeAnalyzer;
+import rtg.world.biome.IBiomeProviderRTG;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase implements IRealisticBiome {
@@ -51,12 +52,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     public SurfaceBase surfaceRiver;
     public SurfaceBase surfaceGeneric;
     public BiomeDecoratorRTG rDecorator;
-
-    public int waterSurfaceLakeChance; //Lower = more frequent
-    public int lavaSurfaceLakeChance; //Lower = more frequent
-
-    public int waterUndergroundLakeChance; //Lower = more frequent
-    public int lavaUndergroundLakeChance; //Lower = more frequent
 
     public ArrayList<DecoBase> decos;
     public ArrayList<TreeRTG> rtgTrees;
@@ -87,12 +82,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);
-
-        waterSurfaceLakeChance = 10;
-        lavaSurfaceLakeChance = 0; // Disabled.
-
-        waterUndergroundLakeChance = 1;
-        lavaUndergroundLakeChance = 1;
 
         decos = new ArrayList<>();
         rtgTrees = new ArrayList<>();
@@ -579,5 +568,32 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     @Override
     public boolean generatesSilverfish() {
         return false;
+    }
+
+    public static void addModBiomes() {
+        ArrayList<IRealisticBiome> realisticBiomes = RealisticBiomeManager.getBiomes();
+        for (IRealisticBiome irb : realisticBiomes) {
+            new RealisticBiomeCreator(irb);
+        }
+    }
+
+    @Override
+    public int waterUndergroundLakeChance() {
+        return 1;
+    }
+
+    @Override
+    public int lavaUndergroundLakeChance() {
+        return 1;
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 10;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 }

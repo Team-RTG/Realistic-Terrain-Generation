@@ -78,9 +78,6 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
     public RealisticBiomeBOPBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -96,6 +93,16 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "biomesoplenty";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

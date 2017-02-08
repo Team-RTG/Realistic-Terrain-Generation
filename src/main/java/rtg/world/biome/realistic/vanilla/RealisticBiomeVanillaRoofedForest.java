@@ -33,8 +33,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaRoofedForest() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 3;
     }
 
     @Override
@@ -301,5 +299,10 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoDeadBush.setChance(2);
         decoDeadBush.setStrengthFactor(2f);
         this.addDeco(decoDeadBush);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 3;
     }
 }

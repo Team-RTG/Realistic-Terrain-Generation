@@ -30,7 +30,6 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         super(biome, river);
 
         this.noLakes = true;
-        this.waterSurfaceLakeChance = 30;
     }
 
     @Override
@@ -217,5 +216,10 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         decoTree.setTreeConditionNoise(0f);
         decoTree.setMinY(74);
         addDeco(decoTree);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
     }
 }

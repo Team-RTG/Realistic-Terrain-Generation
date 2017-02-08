@@ -26,8 +26,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
         super(biome, river);
 
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -127,5 +125,15 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 }

@@ -19,9 +19,6 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
     public RealisticBiomeMCMBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.waterSurfaceLakeChance = 30;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -37,6 +34,16 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "morechinesemc";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

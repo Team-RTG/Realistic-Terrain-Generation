@@ -19,8 +19,6 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
     public RealisticBiomeARBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -37,6 +35,11 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return Loader.isModLoaded("agriculturalrevolution") ? "agriculturalrevolution" : "cookingplus";
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

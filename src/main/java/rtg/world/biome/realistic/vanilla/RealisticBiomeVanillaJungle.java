@@ -32,8 +32,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaJungle() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 3;
     }
 
     @Override
@@ -290,5 +288,10 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 3;
     }
 }

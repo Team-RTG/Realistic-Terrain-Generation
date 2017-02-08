@@ -16,9 +16,6 @@ public abstract class RealisticBiomeFCBase extends RealisticBiomeBase {
     public RealisticBiomeFCBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -34,6 +31,16 @@ public abstract class RealisticBiomeFCBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "flowercraft";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

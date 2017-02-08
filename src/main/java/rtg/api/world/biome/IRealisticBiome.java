@@ -12,11 +12,6 @@ import rtg.api.world.terrain.TerrainBase;
  */
 public interface IRealisticBiome {
 
-    int waterUndergroundLakeChance = 0;
-    int lavaUndergroundLakeChance = 0;
-    int waterSurfaceLakeChance = 0;
-    int lavaSurfaceLakeChance = 0;
-
     Biome baseBiome();
     Biome riverBiome();
     Biome beachBiome();
@@ -31,6 +26,11 @@ public interface IRealisticBiome {
 
     boolean generatesEmeralds();
     boolean generatesSilverfish();
+
+    int waterUndergroundLakeChance(); // Lower = more frequent
+    int lavaUndergroundLakeChance(); // Lower = more frequent
+    int waterSurfaceLakeChance(); // Lower = more frequent
+    int lavaSurfaceLakeChance(); // Lower = more frequent
 
     float lakePressure(RTGWorld rtgWorld, int x, int z, float border);
 
@@ -57,4 +57,7 @@ public interface IRealisticBiome {
      * @see net.minecraft.world.biome.BiomeMesa
      */
     int getExtraGoldGenMaxHeight();
+
+    String modSlug();
+    String biomeSlug();
 }

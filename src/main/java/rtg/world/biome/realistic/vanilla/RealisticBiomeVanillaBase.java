@@ -69,8 +69,6 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     public RealisticBiomeVanillaBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -86,6 +84,11 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "vanilla";
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

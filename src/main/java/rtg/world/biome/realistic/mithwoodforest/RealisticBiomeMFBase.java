@@ -15,8 +15,6 @@ public abstract class RealisticBiomeMFBase extends RealisticBiomeBase {
     public RealisticBiomeMFBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -32,6 +30,11 @@ public abstract class RealisticBiomeMFBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "mithwoodforest";
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

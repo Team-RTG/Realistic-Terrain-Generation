@@ -37,8 +37,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBayou() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0; // We want RTG ponds, not Mojang lakes.
     }
 
     @Override
@@ -264,5 +262,10 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoMushrooms.setMaxY(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 }

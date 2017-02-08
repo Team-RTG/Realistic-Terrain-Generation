@@ -26,8 +26,6 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
         super(biome, river);
 
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -176,5 +174,15 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 1;
     }
 }

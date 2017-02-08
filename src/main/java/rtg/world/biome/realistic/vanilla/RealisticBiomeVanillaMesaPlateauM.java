@@ -31,7 +31,6 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
         super(biome, river);
 
         this.noLakes = true;
-        this.waterSurfaceLakeChance = 30;
     }
 
     @Override
@@ -199,5 +198,10 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setStrengthFactor(5f);
         addDeco(decoDeadBush);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
     }
 }

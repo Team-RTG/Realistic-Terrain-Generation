@@ -31,8 +31,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 20;
     }
 
     @Override
@@ -177,5 +175,10 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         decoCactus.setLoops(18);
         decoCactus.setMaxY(100);
         this.addDeco(decoCactus);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 20;
     }
 }

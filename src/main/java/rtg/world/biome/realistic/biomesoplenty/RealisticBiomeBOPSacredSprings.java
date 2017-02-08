@@ -28,7 +28,6 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
         super(biome, river);
 
         this.noWaterFeatures = true;
-        this.waterSurfaceLakeChance = 2;
     }
 
     @Override
@@ -124,5 +123,10 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 2;
     }
 }

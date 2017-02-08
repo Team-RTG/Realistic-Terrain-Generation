@@ -230,13 +230,13 @@ public class BiomeDecoratorRTG
         // Underground water lakes.
         if (rtgConfig.ENABLE_WATER_UNDERGROUND_LAKES.get()) {
 
-            if (gen && (rtgConfig.WATER_UNDERGROUND_LAKE_CHANCE.get() > 0) && (rbb.waterUndergroundLakeChance > 0)) {
+            if (gen && (rtgConfig.WATER_UNDERGROUND_LAKE_CHANCE.get() > 0) && (rbb.waterUndergroundLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16);// + 8;
 
-                if (rand.nextInt(rtgConfig.WATER_UNDERGROUND_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.waterUndergroundLakeChance) == 0) {
+                if (rand.nextInt(rtgConfig.WATER_UNDERGROUND_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.waterUndergroundLakeChance()) == 0) {
 
                     (new WorldGenLakes(Blocks.WATER)).generate(worldObj, rand, new BlockPos(new BlockPos(i2, l4, i8)));
                 }
@@ -246,14 +246,14 @@ public class BiomeDecoratorRTG
         // Surface water lakes.
         if (rtgConfig.ENABLE_WATER_SURFACE_LAKES.get() && !villageBuilding) {
 
-            if (gen && (rtgConfig.WATER_SURFACE_LAKE_CHANCE.get() > 0) && (rbb.waterSurfaceLakeChance > 0)) {
+            if (gen && (rtgConfig.WATER_SURFACE_LAKE_CHANCE.get() > 0) && (rbb.waterSurfaceLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int i8 = worldZ + rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(rtgConfig.WATER_SURFACE_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.waterSurfaceLakeChance) == 0) {
+                if (rand.nextInt(rtgConfig.WATER_SURFACE_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.waterSurfaceLakeChance()) == 0) {
 
                     if (l4 > 63) {
 
@@ -268,13 +268,13 @@ public class BiomeDecoratorRTG
         // Underground lava lakes.
         if (rtgConfig.ENABLE_LAVA_UNDERGROUND_LAKES.get()) {
 
-            if (gen && (rtgConfig.LAVA_UNDERGROUND_LAKE_CHANCE.get() > 0) && (rbb.lavaUndergroundLakeChance > 0)) {
+            if (gen && (rtgConfig.LAVA_UNDERGROUND_LAKE_CHANCE.get() > 0) && (rbb.lavaUndergroundLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16);// + 8;
 
-                if (rand.nextInt(rtgConfig.LAVA_UNDERGROUND_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.lavaUndergroundLakeChance) == 0) {
+                if (rand.nextInt(rtgConfig.LAVA_UNDERGROUND_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.lavaUndergroundLakeChance()) == 0) {
 
                     (new WorldGenLakes(Blocks.LAVA)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                 }
@@ -284,14 +284,14 @@ public class BiomeDecoratorRTG
         // Surface lava lakes.
         if (rtgConfig.ENABLE_LAVA_SURFACE_LAKES.get() && !villageBuilding) {
 
-            if (gen && (rtgConfig.LAVA_SURFACE_LAKE_CHANCE.get() > 0) && (rbb.lavaSurfaceLakeChance > 0)) {
+            if (gen && (rtgConfig.LAVA_SURFACE_LAKE_CHANCE.get() > 0) && (rbb.lavaSurfaceLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int i8 = worldZ + rand.nextInt(16);// + 8;
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
-                if (rand.nextInt(rtgConfig.LAVA_SURFACE_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.lavaSurfaceLakeChance) == 0) {
+                if (rand.nextInt(rtgConfig.LAVA_SURFACE_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.lavaSurfaceLakeChance()) == 0) {
 
                     if (l4 > 63) {
 

@@ -28,8 +28,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
         super(biome, river);
 
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 1;
         this.noLakes = true;
         this.noWaterFeatures = true;
     }
@@ -164,5 +162,15 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         decoGrassDoubleTallgrass.setLoops(15);
         decoGrassDoubleTallgrass.setMaxY(128);
         this.addDeco(decoGrassDoubleTallgrass);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 1;
     }
 }

@@ -15,9 +15,6 @@ public abstract class RealisticBiomeAMBase extends RealisticBiomeBase {
     public RealisticBiomeAMBase(Biome b, Biome river) {
 
         super(b, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -33,6 +30,16 @@ public abstract class RealisticBiomeAMBase extends RealisticBiomeBase {
     @Override
     public String modSlug() {
         return "arsmagica2";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

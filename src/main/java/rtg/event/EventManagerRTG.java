@@ -245,7 +245,7 @@ public class EventManagerRTG {
                 return;
             }
 
-            ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
+            ArrayList<TreeRTG> biomeTrees = rb.getTrees();
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             Logger.debug("Biome = %s", rb.baseBiome.getBiomeName());

@@ -3,8 +3,6 @@ package rtg.world.biome.realistic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -14,7 +12,6 @@ import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.SaplingUtil;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
@@ -25,8 +22,6 @@ import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeManager;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.collection.DecoCollectionBase;
-import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.WorldGenVolcano;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
@@ -53,8 +48,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     public SurfaceBase surfaceGeneric;
     public BiomeDecoratorRTG rDecorator;
 
-    public ArrayList<DecoBase> decos;
-    public ArrayList<TreeRTG> rtgTrees;
+    private ArrayList<DecoBase> decos;
+    private ArrayList<TreeRTG> rtgTrees;
 
     // lake calculations
 
@@ -122,8 +117,19 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     public abstract SurfaceBase initSurface();
     public abstract void initDecos();
 
+    @Override
     public BiomeConfig getConfig() {
         return this.config;
+    }
+
+    @Override
+    public ArrayList<DecoBase> getDecos() {
+        return this.decos;
+    }
+
+    @Override
+    public ArrayList<TreeRTG> getTrees() {
+        return this.rtgTrees;
     }
 
     public static RealisticBiomeBase getBiome(int id) {
@@ -370,7 +376,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public void rDecorate(RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        for (DecoBase deco : this.decos) {
+        ArrayList<DecoBase> decos = this.getDecos();
+
+        for (DecoBase deco : decos) {
             decoStack.add(new ChunkDecoration(new ChunkPos(worldX, worldZ), deco));
             if (decoStack.size() > 20) {
                 String problem = "";
@@ -384,108 +392,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             }
             decoStack.remove(decoStack.size() - 1);
         }
-    }
-
-    /**
-     * Adds a deco object to the list of biome decos.
-     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
-     *
-     * @param deco
-     * @param allowed
-     */
-    public void addDeco(DecoBase deco, boolean allowed) {
-
-        if (allowed) {
-            if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
-
-            if (deco instanceof DecoBaseBiomeDecorations) {
-
-                for (int i = 0; i < this.decos.size(); i++) {
-
-                    if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
-
-                        this.decos.remove(i);
-                        break;
-                    }
-                }
-            }
-
-            this.decos.add(deco);
-        }
-    }
-
-    /**
-     * Convenience method for addDeco() where 'allowed' is assumed to be true.
-     *
-     * @param deco
-     */
-    public void addDeco(DecoBase deco) {
-        if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
-        this.addDeco(deco, true);
-    }
-
-    public void addDecoCollection(DecoCollectionBase decoCollection) {
-
-        // Don't add the desert river deco collection if the user has disabled it.
-        if (decoCollection instanceof DecoCollectionDesertRiver) {
-            if (!rtgConfig.ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES.get()) {
-                return;
-            }
-        }
-
-        // Add this collection's decos to master deco list.
-        if (decoCollection.decos.size() > 0) {
-            for (int i = 0; i < decoCollection.decos.size(); i++) {
-                this.addDeco(decoCollection.decos.get(i));
-            }
-        }
-
-        // If there are any tree decos in this collection, then add the individual TreeRTG objects to master tree list.
-        if (decoCollection.rtgTrees.size() > 0) {
-            for (int i = 0; i < decoCollection.rtgTrees.size(); i++) {
-                this.addTree(decoCollection.rtgTrees.get(i));
-            }
-        }
-    }
-
-    /**
-     * Adds a tree to the list of RTG trees associated with this biome.
-     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
-     *
-     * @param tree
-     * @param allowed
-     */
-    public void addTree(TreeRTG tree, boolean allowed) {
-
-        if (allowed) {
-
-            // Set the sapling data for this tree before we add it to the list.
-            tree.setSaplingBlock(SaplingUtil.getSaplingFromLeaves(tree.getLeavesBlock()));
-
-            /*
-             * Make sure all leaves delay their decay to prevent insta-despawning of leaves (e.g. Swamp Willow)
-             * The try/catch is a safeguard against trees that use leaves which aren't an instance of BlockLeaves.
-             */
-            try {
-                IBlockState leaves = tree.getLeavesBlock().withProperty(BlockLeaves.CHECK_DECAY, false);
-                tree.setLeavesBlock(leaves);
-            }
-            catch (Exception e) {
-                // Do nothing.
-            }
-
-            this.rtgTrees.add(tree);
-        }
-    }
-
-    /**
-     * Convenience method for addTree() where 'allowed' is assumed to be true.
-     *
-     * @param tree
-     */
-    public void addTree(TreeRTG tree) {
-
-        this.addTree(tree, true);
     }
 
     public boolean compareTerrain(RTGWorld rtgWorld, TerrainBase oldTerrain) {

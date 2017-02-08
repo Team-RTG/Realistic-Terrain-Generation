@@ -1,11 +1,22 @@
 package rtg.api.world.biome;
 
+import java.util.ArrayList;
+
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.SaplingUtil;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.collection.DecoCollectionBase;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.RTGAPI.rtgConfig;
 
 /**
  * Created by WhichOnesPink on 06/02/2017.
@@ -23,6 +34,8 @@ public interface IRealisticBiome {
     TerrainBase initTerrain();
     SurfaceBase initSurface();
     void initDecos();
+    ArrayList<DecoBase> getDecos();
+    ArrayList<TreeRTG> getTrees();
 
     default boolean generatesEmeralds() {
         return false;
@@ -86,5 +99,99 @@ public interface IRealisticBiome {
 
     default String biomeSlug() {
         return BiomeConfig.formatSlug(this.baseBiome().getBiomeName());
+    }
+
+    /**
+     * Adds a deco object to the list of biome decos.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
+     */
+    default void addDeco(DecoBase deco, boolean allowed) {
+
+        if (allowed) {
+
+            ArrayList<DecoBase> decos = this.getDecos();
+
+            if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
+
+            if (deco instanceof DecoBaseBiomeDecorations) {
+
+                for (int i = 0; i < decos.size(); i++) {
+
+                    if (decos.get(i) instanceof DecoBaseBiomeDecorations) {
+
+                        decos.remove(i);
+                        break;
+                    }
+                }
+            }
+
+            decos.add(deco);
+        }
+    }
+
+    /**
+     * Convenience method for addDeco() where 'allowed' is assumed to be true.
+     */
+    default void addDeco(DecoBase deco) {
+        if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
+        this.addDeco(deco, true);
+    }
+
+    default void addDecoCollection(DecoCollectionBase decoCollection) {
+
+        // Don't add the desert river deco collection if the user has disabled it.
+        if (decoCollection instanceof DecoCollectionDesertRiver) {
+            if (!rtgConfig.ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES.get()) {
+                return;
+            }
+        }
+
+        // Add this collection's decos to master deco list.
+        if (decoCollection.decos.size() > 0) {
+            for (int i = 0; i < decoCollection.decos.size(); i++) {
+                this.addDeco(decoCollection.decos.get(i));
+            }
+        }
+
+        // If there are any tree decos in this collection, then add the individual TreeRTG objects to master tree list.
+        if (decoCollection.rtgTrees.size() > 0) {
+            for (int i = 0; i < decoCollection.rtgTrees.size(); i++) {
+                this.addTree(decoCollection.rtgTrees.get(i));
+            }
+        }
+    }
+
+    /**
+     * Adds a tree to the list of RTG trees associated with this biome.
+     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
+     */
+    default void addTree(TreeRTG tree, boolean allowed) {
+
+        if (allowed) {
+
+            // Set the sapling data for this tree before we add it to the list.
+            tree.setSaplingBlock(SaplingUtil.getSaplingFromLeaves(tree.getLeavesBlock()));
+
+            /*
+             * Make sure all leaves delay their decay to prevent insta-despawning of leaves (e.g. Swamp Willow)
+             * The try/catch is a safeguard against trees that use leaves which aren't an instance of BlockLeaves.
+             */
+            try {
+                IBlockState leaves = tree.getLeavesBlock().withProperty(BlockLeaves.CHECK_DECAY, false);
+                tree.setLeavesBlock(leaves);
+            }
+            catch (Exception e) {
+                // Do nothing.
+            }
+
+            this.getTrees().add(tree);
+        }
+    }
+
+    /**
+     * Convenience method for addTree() where 'allowed' is assumed to be true.
+     */
+    default void addTree(TreeRTG tree) {
+        this.addTree(tree, true);
     }
 }

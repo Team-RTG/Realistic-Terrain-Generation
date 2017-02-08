@@ -24,22 +24,42 @@ public interface IRealisticBiome {
     SurfaceBase initSurface();
     void initDecos();
 
-    boolean generatesEmeralds();
-    boolean generatesSilverfish();
+    default boolean generatesEmeralds() {
+        return false;
+    }
 
-    int waterUndergroundLakeChance(); // Lower = more frequent
-    int lavaUndergroundLakeChance(); // Lower = more frequent
-    int waterSurfaceLakeChance(); // Lower = more frequent
-    int lavaSurfaceLakeChance(); // Lower = more frequent
+    default boolean generatesSilverfish() {
+        return false;
+    }
 
-    float lakePressure(RTGWorld rtgWorld, int x, int z, float border);
+    default int waterUndergroundLakeChance() {
+        return 1; // Lower equals more frequent.
+    }
+
+    default int lavaUndergroundLakeChance() {
+        return 1; // Lower equals more frequent.
+    }
+
+    default int waterSurfaceLakeChance() {
+        return 10; // Lower equals more frequent.
+    }
+
+    default int lavaSurfaceLakeChance() {
+        return 0; // Lower equals more frequent.
+    }
+
+    default float lakePressure(RTGWorld rtgWorld, int x, int z, float border) {
+        return 1f;
+    }
 
     /**
      * Returns the number of extra blocks of gold ore to generate in this biome.
      * Defaults to 0, but can be overridden by sub-classed biomes.
      * Currently only used by vanilla Mesa biome variants.
      */
-    int getExtraGoldGenCount();
+    default int getExtraGoldGenCount() {
+        return 0;
+    }
 
     /**
      * Returns the minimum Y value at which extra gold ore can generate.
@@ -48,7 +68,9 @@ public interface IRealisticBiome {
      *
      * @see net.minecraft.world.biome.BiomeMesa
      */
-    int getExtraGoldGenMinHeight();
+    default int getExtraGoldGenMinHeight() {
+        return 32;
+    }
 
     /**
      * Returns the maximum Y value at which extra gold ore can generate.
@@ -56,8 +78,13 @@ public interface IRealisticBiome {
      *
      * @see net.minecraft.world.biome.BiomeMesa
      */
-    int getExtraGoldGenMaxHeight();
+    default int getExtraGoldGenMaxHeight() {
+        return 80;
+    }
 
     String modSlug();
-    String biomeSlug();
+
+    default String biomeSlug() {
+        return BiomeConfig.formatSlug(this.baseBiome().getBiomeName());
+    }
 }

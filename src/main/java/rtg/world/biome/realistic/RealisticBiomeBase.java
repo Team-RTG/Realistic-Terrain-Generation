@@ -488,36 +488,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.addTree(tree, true);
     }
 
-    /**
-     * Returns the number of extra blocks of gold ore to generate in this biome.
-     * Defaults to 0, but can be overridden by sub-classed biomes.
-     * Currently only used by vanilla Mesa biome variants.
-     */
-    public int getExtraGoldGenCount() {
-        return 0;
-    }
-
-    /**
-     * Returns the minimum Y value at which extra gold ore can generate.
-     * Defaults to 32 (BiomeMesa), but can be overridden by sub-classed biomes.
-     * Currently only used by vanilla Mesa biome variants.
-     *
-     * @see net.minecraft.world.biome.BiomeMesa
-     */
-    public int getExtraGoldGenMinHeight() {
-        return 32;
-    }
-
-    /**
-     * Returns the maximum Y value at which extra gold ore can generate.
-     * Defaults to 80 (BiomeMesa), but can be overridden by sub-classed biomes.
-     *
-     * @see net.minecraft.world.biome.BiomeMesa
-     */
-    public int getExtraGoldGenMaxHeight() {
-        return 80;
-    }
-
     public boolean compareTerrain(RTGWorld rtgWorld, TerrainBase oldTerrain) {
 
         OpenSimplexNoise simplex = new OpenSimplexNoise(4444);
@@ -560,40 +530,10 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return false;
-    }
-
-    @Override
-    public boolean generatesSilverfish() {
-        return false;
-    }
-
     public static void addModBiomes() {
         ArrayList<IRealisticBiome> realisticBiomes = RealisticBiomeManager.getBiomes();
         for (IRealisticBiome irb : realisticBiomes) {
             new RealisticBiomeCreator(irb);
         }
-    }
-
-    @Override
-    public int waterUndergroundLakeChance() {
-        return 1;
-    }
-
-    @Override
-    public int lavaUndergroundLakeChance() {
-        return 1;
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 10;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 0;
     }
 }

@@ -22,6 +22,13 @@ public class RealisticBiomeCreator extends RealisticBiomeBase {
         this(iRealisticBiome.baseBiome(), iRealisticBiome.riverBiome());
 
         this.iRealisticBiome = iRealisticBiome;
+
+        super.init();
+    }
+
+    @Override
+    protected void init() {
+        ;
     }
 
     @Override
@@ -52,5 +59,10 @@ public class RealisticBiomeCreator extends RealisticBiomeBase {
     @Override
     public void initDecos() {
         this.iRealisticBiome.initDecos();
+    }
+
+    @Override
+    public String modSlug() {
+        return this.iRealisticBiome.modSlug();
     }
 }

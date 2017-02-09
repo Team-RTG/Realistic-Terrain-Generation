@@ -99,7 +99,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.init();
     }
 
-    private void init() {
+    protected void init() {
         initConfig();
         this.getConfig().load(this.configPath());
         this.terrain = initTerrain();
@@ -409,8 +409,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public static void addModBiomes() {
         ArrayList<IRealisticBiome> realisticBiomes = RealisticBiomeManager.getBiomes();
+        RealisticBiomeBase rbb;
         for (IRealisticBiome irb : realisticBiomes) {
-            new RealisticBiomeCreator(irb);
+            rbb = new RealisticBiomeCreator(irb);
+            rbb.decos = irb.getDecos();
+            rbb.rtgTrees = irb.getTrees();
         }
     }
 }

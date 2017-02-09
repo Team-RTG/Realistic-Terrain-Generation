@@ -109,11 +109,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         initDecos();
     }
 
-//    public abstract void initConfig();
-//    public abstract TerrainBase initTerrain();
-//    public abstract SurfaceBase initSurface();
-//    public abstract void initDecos();
-
     @Override
     public BiomeConfig getConfig() {
         return this.config;

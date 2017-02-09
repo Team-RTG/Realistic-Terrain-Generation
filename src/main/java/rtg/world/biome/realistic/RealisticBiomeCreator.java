@@ -11,46 +11,46 @@ import rtg.api.world.terrain.TerrainBase;
  */
 public class RealisticBiomeCreator extends RealisticBiomeBase {
 
-    private IRealisticBiome realisticBiome;
+    private IRealisticBiome iRealisticBiome;
 
     private RealisticBiomeCreator(Biome biome, Biome river) {
         super(biome, river);
     }
 
-    public RealisticBiomeCreator(IRealisticBiome realisticBiome) {
+    public RealisticBiomeCreator(IRealisticBiome iRealisticBiome) {
 
-        this(realisticBiome.baseBiome(), realisticBiome.riverBiome());
+        this(iRealisticBiome.baseBiome(), iRealisticBiome.riverBiome());
 
-        this.realisticBiome = realisticBiome;
+        this.iRealisticBiome = iRealisticBiome;
     }
 
     @Override
     public Biome baseBiome() {
-        return this.realisticBiome.baseBiome();
+        return this.iRealisticBiome.baseBiome();
     }
 
     @Override
     public Biome riverBiome() {
-        return this.realisticBiome.riverBiome();
+        return this.iRealisticBiome.riverBiome();
     }
 
     @Override
     public void initConfig() {
-        this.realisticBiome.initConfig();
+        this.iRealisticBiome.initConfig();
     }
 
     @Override
     public TerrainBase initTerrain() {
-        return this.realisticBiome.initTerrain();
+        return this.iRealisticBiome.initTerrain();
     }
 
     @Override
     public SurfaceBase initSurface() {
-        return this.realisticBiome.initSurface();
+        return this.iRealisticBiome.initSurface();
     }
 
     @Override
     public void initDecos() {
-        this.realisticBiome.initDecos();
+        this.iRealisticBiome.initDecos();
     }
 }

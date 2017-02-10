@@ -4,17 +4,23 @@ import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.gen.terrain.TerrainBase;
 
-public class TerrainACDarklandsForest extends TerrainBase
-{
+public class TerrainACDarklandsForest extends TerrainBase {
 
-    public TerrainACDarklandsForest()
-    {
+    private float hillStrength = 10f;// this needs to be linked to the
+
+    public TerrainACDarklandsForest() {
 
     }
 
     @Override
-    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river)
-    {
-        return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 68f);
+    public float generateNoise(OpenSimplexNoise simplex, CellNoise cell, int x, int y, float border, float river) {
+
+        groundNoise = groundNoise(x, y, groundVariation, simplex);
+
+        float m = hills(x, y, hillStrength, simplex, river);
+
+        float floNoise = 65f + groundNoise + m;
+
+        return riverized(floNoise, river);
     }
 }

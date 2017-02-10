@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPKelpForest extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPKelpForest extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPKelpForest()
-    {
+    public BiomeConfigBOPKelpForest() {
+
         super("kelpforest");
     }
 }

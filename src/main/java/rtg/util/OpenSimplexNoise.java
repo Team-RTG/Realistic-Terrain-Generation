@@ -11,6 +11,7 @@ package rtg.util;
  * @version $Revision: 1.3$
  * @see https://gist.github.com/KdotJPG/b1270127455a94ac5d19
  */
+@SuppressWarnings("JavadocReference")
 public class OpenSimplexNoise extends SimplexOctave {
 
     private final SimplexOctave [] octaves;

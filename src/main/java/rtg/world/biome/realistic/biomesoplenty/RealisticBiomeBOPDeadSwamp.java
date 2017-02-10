@@ -1,26 +1,32 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+
 import rtg.api.biome.BiomeConfig;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPDeadSwamp;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPDeadSwamp;
 
-public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPBiomes.dead_swamp.get();
-	
+public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
+
+    public static BiomeGenBase bopBiome = BOPBiomes.dead_swamp.get();
+
     public static IBlockState topBlock = BOPBlocks.grass.getDefaultState();
     public static IBlockState fillerBlock = BOPBlocks.dirt.getDefaultState();
-	
-	public RealisticBiomeBOPDeadSwamp(BiomeConfig config)
-	{
-		super(config, 
-			bopBiome, BiomeGenBase.river,
-			new TerrainBOPDeadSwamp(),
-			new SurfaceBOPDeadSwamp(config, topBlock, fillerBlock)
-		);
-	}
+
+    public RealisticBiomeBOPDeadSwamp(BiomeConfig config) {
+
+        super(config,
+            bopBiome, BiomeGenBase.river,
+            new TerrainBOPDeadSwamp(),
+            new SurfaceBOPDeadSwamp(config, topBlock, fillerBlock)
+        );
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
 }

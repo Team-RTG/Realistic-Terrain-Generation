@@ -15,25 +15,38 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def parseprops(File cfg) {
+    cfg.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
 ext.ref = parseprops(file('build.properties'))
+ext.ref.mod_deps = parseprops(file('mod_deps.properties'))
 
 group = ref.package_base + '.' + ref.mod_id
 archivesBaseName = ref.mod_id
-version = (System.getenv("TRAVIS") ? "1.8.9-DEV-" + System.getenv('TRAVIS_BUILD_NUMBER') : ref.mc_version + '-' + ref.mod_version)
-def versionName = (System.getenv("TRAVIS") ? "1.8.9-" + ref.mod_version + "-DEV-" +  System.getenv('TRAVIS_BUILD_NUMBER') : version)
+// remove travis stuff from version for now because we aren't using it and it was a mess. -srs
+version = ref.mc_version + '-' + ref.mod_version
 
 minecraft {
-    version = ref.mcf_version
+    version = (ref.mcf_postfix!='') ? ref.mcf_version + '-' + ref.mcf_postfix : ref.mcf_version
     runDir = ref.run_dir
     mappings = ref.mappings
     replace '@MOD_NAME@', ref.mod_name
     replace '@MOD_ID@', ref.mod_id
-    replace '@MOD_VERSION@', versionName
+    replace '@MOD_VERSION@', version
     replace '@MCF_VERSION@', ref.mcf_version
+    if (ref.mod_deps!="") replace '@MOD_DEPS@', ";" + ref.mod_deps.depstring
+    else replace '@MOD_DEPS@', ''
     replaceIn 'ModInfo.java'
 }
 
-dependencies {}
+dependencies {
+    provided fileTree(dir: 'libs', include: '*.jar')
+}
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
@@ -48,16 +61,18 @@ processResources {
 			'authorList':ref.mod_author,
 			'credits':ref.mod_creds,
 			'logoFile':ref.mod_logo,
-			'dependencies':ref.mod_deps
 		])
 	}
 	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
 }
 
-def parseprops(File cfg) {
-    cfg.withReader {
-        def prop = new Properties()
-        prop.load(it)
-        return (new ConfigSlurper().parse(prop))
+sourceJar {classifier = 'src'}
+
+// For a debugging session used 'gradle -DEBUG [runClient|runServer]'
+allprojects {
+    tasks.withType(JavaExec) {
+        jvmArgs '-Xms2G', '-Xmx4G'
+        if (System.getProperty("EBUG")!=null)
+            jvmArgs '-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y'
     }
 }

@@ -2,8 +2,8 @@ package rtg.api.biome.vanilla.config;
 
 import rtg.api.biome.BiomeConfig;
 
-public class BiomeConfigVanilla
-{
+public class BiomeConfigVanilla {
+
     public static BiomeConfig biomeConfigVanillaBeach;
     public static BiomeConfig biomeConfigVanillaBirchForest;
     public static BiomeConfig biomeConfigVanillaBirchForestHills;
@@ -63,9 +63,9 @@ public class BiomeConfigVanilla
     public static BiomeConfig biomeConfigVanillaMesaBryce;
     public static BiomeConfig biomeConfigVanillaMesaPlateauFM;
     public static BiomeConfig biomeConfigVanillaMesaPlateauM;
-    
-    public static BiomeConfig[] getBiomeConfigs()
-    {
+
+    public static BiomeConfig[] getBiomeConfigs() {
+
         BiomeConfig[] biomeConfigs = new BiomeConfig[]{
             biomeConfigVanillaBeach,
             biomeConfigVanillaBirchForest,
@@ -127,7 +127,7 @@ public class BiomeConfigVanilla
             biomeConfigVanillaTaigaHills,
             biomeConfigVanillaTaigaM
         };
-        
+
         return biomeConfigs;
     }
 }

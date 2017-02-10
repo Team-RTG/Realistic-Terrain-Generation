@@ -1,27 +1,44 @@
 package rtg.world.gen.feature;
 
-import net.minecraft.block.Block;
+import java.util.Random;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import java.util.Random;
-
-import static net.minecraft.init.Blocks.*;
-
 public class WorldGenGrass extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
-    private Block block;
+
+    private IBlockState block;
     private int metadata;
 
-    public WorldGenGrass(Block b, int m) {
-        block = b;
+    public WorldGenGrass(IBlockState b, int m) {
+
+        block = b.getBlock().getStateFromMeta(m);
         metadata = m;
     }
 
-    public boolean generate(World world, Random rand, int x, int y, int z) {
+    protected IBlockState block() {
+
+        return block;
+    }
+
+    protected int metadata() {
+
+        return metadata;
+    }
+
+    protected void setBlock(Random random) {
+
+    }// nothing needed
+
+    @Override
+    public boolean generate(World world, Random rand, BlockPos pos) {
+
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
         while (y > 0) {
             if (!world.isAirBlock(new BlockPos(x, y, z)) || world.getBlockState(new BlockPos(x, y, z)).getBlock().isLeaves(world, new BlockPos(x, y, z))) {
                 break;
@@ -29,37 +46,84 @@ public class WorldGenGrass extends WorldGenerator {
             y--;
         }
 
-        if (block == double_plant) {
-            for (int l = 0; l < 64; ++l) {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
+        setBlock(rand);
+        if (block() == Blocks.double_plant.getStateFromMeta(metadata)) {
+            //for (int l = 0; l < 64; ++l)
+            {
+                int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && double_plant.canBlockStay(world, new BlockPos(i1, j1, k1), double_plant.getDefaultState())) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), double_plant.getStateFromMeta(metadata));
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && j1 < 254 && Blocks.double_plant.canBlockStay(world, new BlockPos(i1, j1, k1), Blocks.double_plant.getDefaultState())) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), Blocks.double_plant.getStateFromMeta(metadata));
                 }
             }
-        } else if (block == leaves) {
-            for (int l = 0; l < 64; ++l) {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
+        }
+        else if (block() == Blocks.leaves) {
+            //for (int l = 0; l < 64; ++l)
+            {
+                int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == grass) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getBlock() == Blocks.grass) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), block.getBlock().getStateFromMeta(metadata), 0);
                 }
             }
-        } else {
-            for (int l = 0; l < 128; ++l) {
-                int i1 = x + rand.nextInt(8) - rand.nextInt(8);
+        }
+        else {
+            //for (int l = 0; l < 128; ++l)
+            {
+                int i1 = x;// + rand.nextInt(8) - rand.nextInt(8);
                 int j1 = y + rand.nextInt(4) - rand.nextInt(4);
-                int k1 = z + rand.nextInt(8) - rand.nextInt(8);
+                int k1 = z;// + rand.nextInt(8) - rand.nextInt(8);
 
-                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && block.canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
-                    world.setBlockState(new BlockPos(i1, j1, k1), block.getStateFromMeta(metadata), 0);
+                if (world.isAirBlock(new BlockPos(i1, j1, k1)) && block.getBlock().canPlaceBlockAt(world, new BlockPos(i1, j1, k1))) {
+                    world.setBlockState(new BlockPos(i1, j1, k1), block.getBlock().getStateFromMeta(metadata), 0);
                 }
             }
         }
         return true;
+    }
+
+    public static class SingleType extends WorldGenGrass {
+
+        public SingleType(IBlockState b, int m) {
+
+            super(b, m);
+        }
+    }
+
+    public static class RandomType extends WorldGenGrass {
+
+        private final IBlockState[] blocks;
+        private final byte[] metas;
+        private int index;// if it gets called without being set there's a bug in passing
+
+        public RandomType(IBlockState[] b, byte[] m) {
+
+            super(b[0], (int) m[0]);// temporary fake cal
+            blocks = b;
+            metas = m;
+        }
+
+        @Override
+        protected IBlockState block() {
+
+            return blocks[index];
+        }
+
+        @Override
+        protected int metadata() {
+
+            return metas[index];
+        }
+
+        @Override
+        protected void setBlock(Random rand) {
+
+            index = rand.nextInt(blocks.length);
+        }
+
     }
 }

@@ -1,69 +1,66 @@
 package rtg.world.gen.feature;
 
-import net.minecraft.block.Block;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import java.util.Random;
-
-import static net.minecraft.block.material.Material.*;
-import static net.minecraft.init.Blocks.log2;
+import rtg.util.WorldUtil;
 
 public class WorldGenLog extends WorldGenerator {
-    public boolean generate(World world, Random rand, BlockPos blockPos) {
-        return this.generate(world, rand, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    }
 
-
-    private int logMeta;
-    private int leavesMeta;
-    private Block logBlock;
-    private Block leavesBlock;
+    private IBlockState logBlock;
+    private IBlockState leavesBlock;
     private int logLength;
-
-    public WorldGenLog(int meta, int length, boolean leaves) {
-        logBlock = meta > 4 ? log2 : Blocks.log;
-        leavesBlock = meta > 4 ? Blocks.leaves2 : Blocks.leaves;
-
-        logMeta = 1;
-        leavesMeta = leaves ? 1 : -1;
-        logLength = length < 2 ? 2 : length;
-    }
+    private boolean generateLeaves;
 
     /**
-     * @param blockLog
-     * @param metaLog
-     * @param blockLeaves
-     * @param metaLeaves  Set to -1 to disable leaves.
-     * @param length
+     * @param logBlock
+     * @param leavesBlock
+     * @param logLength
      */
-    public WorldGenLog(Block blockLog, int metaLog, Block blockLeaves, int metaLeaves, int length) {
-        logBlock = blockLog;
-        leavesBlock = blockLeaves;
-        logMeta = metaLog;
-        leavesMeta = metaLeaves;
-        logLength = length;
+    public WorldGenLog(IBlockState logBlock, IBlockState leavesBlock, int logLength) {
+
+        this.logBlock = logBlock;
+        this.leavesBlock = leavesBlock;
+        this.logLength = logLength;
+
+        this.generateLeaves = false;
+    }
+
+    @Override
+    public boolean generate(World world, Random rand, BlockPos pos) {
+
+        return this.generate(world, rand, pos.getX(), pos.getY(), pos.getZ());
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
-        Block g = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (g.getMaterial() != ground && g.getMaterial() != grass && g.getMaterial() != sand && g.getMaterial() != rock) {
+
+        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
+        if (g.getBlock().getMaterial() != Material.ground && g.getBlock().getMaterial() != Material.grass && g.getBlock().getMaterial() != Material.sand && g.getBlock().getMaterial() != Material.rock) {
             return false;
         }
 
+        WorldUtil worldUtil = new WorldUtil(world);
         int dir = rand.nextInt(2);
-        int dirMeta = 4 + (dir * 4) + logMeta;
-        boolean leaves = leavesMeta > -1 ;
+        int dirMeta = 4 + (dir * 4) + this.logBlock.getBlock().getMetaFromState(this.logBlock);
 
         int i;
-        Block b;
+        IBlockState b;
         int air = 0;
+
+        ArrayList<Integer> aX = new ArrayList<Integer>();
+        ArrayList<Integer> aY = new ArrayList<Integer>();
+        ArrayList<Integer> aZ = new ArrayList<Integer>();
+        ArrayList<IBlockState> aBlock = new ArrayList<IBlockState>();
         for (i = 0; i < logLength; i++) {
-            b = world.getBlockState(new BlockPos(x - (dir == 0 ? 1 : 0), y, z - (dir == 1 ? 1 : 0))).getBlock();
-            if (b.getMaterial() != Material.air && b.getMaterial() != vine && b.getMaterial() != plants) {
+            b = world.getBlockState(new BlockPos(x - (dir == 0 ? 1 : 0), y, z - (dir == 1 ? 1 : 0)));
+            if (b.getBlock().getMaterial() != Material.air && b.getBlock().getMaterial() != Material.vine && b.getBlock().getMaterial() != Material.plants) {
                 break;
             }
 
@@ -76,8 +73,8 @@ public class WorldGenLog extends WorldGenerator {
         }
 
         for (i = 0; i < logLength * 2; i++) {
-            b = world.getBlockState(new BlockPos(x + (dir == 0 ? 1 : 0), y, z + (dir == 1 ? 1 : 0))).getBlock();
-            if (b.getMaterial() != Material.air && b.getMaterial() != vine && b.getMaterial() != plants) {
+            b = world.getBlockState(new BlockPos(x + (dir == 0 ? 1 : 0), y, z + (dir == 1 ? 1 : 0)));
+            if (b.getBlock().getMaterial() != Material.air && b.getBlock().getMaterial() != Material.vine && b.getBlock().getMaterial() != Material.plants) {
                 break;
             }
 
@@ -86,9 +83,26 @@ public class WorldGenLog extends WorldGenerator {
                 return false;
             }
 
-            world.setBlockState(new BlockPos(x, y, z), logBlock.getStateFromMeta(dirMeta), 0);
+            /**
+             * Before we place the log block, let's make sure that there's an air block immediately above it.
+             * This is to ensure that the log doesn't override, for example, a 2-block tall plant,
+             * which some mods (like WAILA) have trouble handling.
+             *
+             * Also, to ensure that we don't have 'broken' logs, if one log block fails the check,
+             * then no logs actually get placed.
+             */
+            if (!worldUtil.isBlockAbove(Blocks.air.getDefaultState(), 1, world, x, y, z, true)) {
+                //Logger.debug("Found non-air block above log at %d %d %d", x, y, z);
+                return false;
+            }
 
-            if (leavesMeta > -1) {
+            // Store the log information instead of placing it straight away.
+            aX.add(x);
+            aY.add(y);
+            aZ.add(z);
+            aBlock.add(logBlock.getBlock().getStateFromMeta(dirMeta));
+
+            if (this.generateLeaves) {
                 addLeaves(world, rand, dir, x, y, z);
             }
 
@@ -96,14 +110,19 @@ public class WorldGenLog extends WorldGenerator {
             z += dir == 1 ? 1 : 0;
         }
 
+        for (int i1 = 0; i1 < aBlock.size(); i1++) {
+            world.setBlockState(new BlockPos(aX.get(i1).intValue(), aY.get(i1).intValue(), aZ.get(i1).intValue()), aBlock.get(i1), 2);
+        }
+
         return true;
     }
 
     private int airCheck(World world, Random rand, int x, int y, int z) {
-        Block b = world.getBlockState(new BlockPos(x, y - 1, z)).getBlock();
-        if (b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == water || b.getMaterial() == plants) {
-            b = world.getBlockState(new BlockPos(x, y - 2, z)).getBlock();
-            if (b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == water || b.getMaterial() == plants) {
+
+        IBlockState b = world.getBlockState(new BlockPos(x, y - 1, z));
+        if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.water || b.getBlock().getMaterial() == Material.plants) {
+            b = world.getBlockState(new BlockPos(x, y - 2, z));
+            if (b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.water || b.getBlock().getMaterial() == Material.plants) {
                 return 99;
             }
             return 1;
@@ -113,30 +132,32 @@ public class WorldGenLog extends WorldGenerator {
     }
 
     private void addLeaves(World world, Random rand, int dir, int x, int y, int z) {
-        Block b;
+
+        IBlockState b;
         if (dir == 0) {
-            b = world.getBlockState(new BlockPos(x, y, z - 1)).getBlock();
-            if ((b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == plants) && rand.nextInt(3) == 0) {
-                world.setBlockState(new BlockPos(x, y, z - 1), leavesBlock.getStateFromMeta(leavesMeta), 0);
+            b = world.getBlockState(new BlockPos(x, y, z - 1));
+            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+                world.setBlockState(new BlockPos(x, y, z - 1), leavesBlock, 2);
             }
-            b = world.getBlockState(new BlockPos(x, y, z + 1)).getBlock();
-            if ((b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == plants) && rand.nextInt(3) == 0) {
-                world.setBlockState(new BlockPos(x, y, z + 1), leavesBlock.getStateFromMeta(leavesMeta), 0);
+            b = world.getBlockState(new BlockPos(x, y, z + 1));
+            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+                world.setBlockState(new BlockPos(x, y, z + 1), leavesBlock, 2);
             }
-        } else {
-            b = world.getBlockState(new BlockPos(x - 1, y, z)).getBlock();
-            if ((b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == plants) && rand.nextInt(3) == 0) {
-                world.setBlockState(new BlockPos(x - 1, y, z), leavesBlock.getStateFromMeta(leavesMeta), 0);
+        }
+        else {
+            b = world.getBlockState(new BlockPos(x - 1, y, z));
+            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+                world.setBlockState(new BlockPos(x - 1, y, z), leavesBlock, 2);
             }
-            b = world.getBlockState(new BlockPos(x + 1, y, z)).getBlock();
-            if ((b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == plants) && rand.nextInt(3) == 0) {
-                world.setBlockState(new BlockPos(x + 1, y, z), leavesBlock.getStateFromMeta(leavesMeta), 0);
+            b = world.getBlockState(new BlockPos(x + 1, y, z));
+            if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+                world.setBlockState(new BlockPos(x + 1, y, z), leavesBlock, 2);
             }
         }
 
-        b = world.getBlockState(new BlockPos(x, y + 1, z)).getBlock();
-        if ((b.getMaterial() == air || b.getMaterial() == vine || b.getMaterial() == plants) && rand.nextInt(3) == 0) {
-            world.setBlockState(new BlockPos(x, y + 1, z), leavesBlock.getStateFromMeta(leavesMeta), 0);
+        b = world.getBlockState(new BlockPos(x, y + 1, z));
+        if ((b.getBlock().getMaterial() == Material.air || b.getBlock().getMaterial() == Material.vine || b.getBlock().getMaterial() == Material.plants) && rand.nextInt(3) == 0) {
+            world.setBlockState(new BlockPos(x, y + 1, z), leavesBlock, 2);
         }
     }
 }

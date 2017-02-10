@@ -1,37 +1,36 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+
+import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.block.BOPBlocks;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.biomesoplenty.config.BiomeConfigBOPFen;
-import rtg.util.CellNoise;
-import rtg.util.OpenSimplexNoise;
-import rtg.world.gen.feature.WorldGenLog;
+import rtg.world.biome.deco.DecoBase;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoBoulder;
+import rtg.world.biome.deco.DecoFallenTree;
+import rtg.world.biome.deco.helper.DecoHelper5050;
+import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPFen;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPFen;
 
-import java.util.Random;
+public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
 
-public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
-{	
-	public static BiomeGenBase bopBiome = BOPBiomes.fen.get();
-	
-	public static IBlockState topBlock = bopBiome.topBlock;
-	public static IBlockState fillerBlock = bopBiome.fillerBlock;
-	
-	public RealisticBiomeBOPFen(BiomeConfig config)
-	{
-		super(config, 
-			bopBiome, BiomeGenBase.river,
-			new TerrainBOPFen(),
-			new SurfaceBOPFen(config,
+    public static BiomeGenBase bopBiome = BOPBiomes.fen.get();
+
+    public static IBlockState topBlock = bopBiome.topBlock;
+    public static IBlockState fillerBlock = bopBiome.fillerBlock;
+
+    public RealisticBiomeBOPFen(BiomeConfig config) {
+
+        super(config,
+            bopBiome, BiomeGenBase.river,
+            new TerrainBOPFen(),
+            new SurfaceBOPFen(config,
                 topBlock, //Block top
                 fillerBlock, //Block filler,
                 topBlock, //IBlockState mixTop,
@@ -41,61 +40,50 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase
                 10f, //float smallWidth, 
                 0.5f //float smallStrength
             )
-		);
-	}
-	
-    @Override
-    public void rDecorate(World world, Random rand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float strength, float river)
-    {
-        
-        /**
-         * Using rDecorateSeedBiome() to partially decorate the biome? If so, then comment out this method.
-         */
-        //rOreGenSeedBiome(world, rand, new BlockPos(chunkX, 0, chunkY), simplex, cell, strength, river, baseBiome);
+        );
 
-        float l = simplex.noise2(chunkX / 100f, chunkY / 100f) * 6f + 0.8f;
-        
-        for (int i23 = 0; i23 < 1; i23++)
-        {
-            int i1 = chunkX + rand.nextInt(16) + 8;
-            int j1 = chunkY + rand.nextInt(16) + 8;
-            int k1 = world.getHeight(new BlockPos(i1, 0, j1)).getY();
-            
-            if (rand.nextInt(12) == 0) {
-                
-                if (rand.nextBoolean()) {
-                    (new WorldGenBlockBlob(Blocks.cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
-                }
-                else {
-                    (new WorldGenBlockBlob(Blocks.mossy_cobblestone, 0)).generate(world, rand, new BlockPos(i1, k1, j1));
-                }
-            }
-        }
+        DecoBoulder decoBoulder1 = new DecoBoulder();
+        decoBoulder1.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder1.maxY = 80;
+        decoBoulder1.chance = 12;
+        decoBoulder1.strengthFactor = 1f;
+        DecoBoulder decoBoulder2 = new DecoBoulder();
+        decoBoulder2.boulderBlock = Blocks.cobblestone.getDefaultState();
+        decoBoulder2.maxY = 80;
+        decoBoulder2.chance = 12;
+        decoBoulder2.strengthFactor = 1f;
+        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
+        this.addDeco(decoHelper5050);
 
-        if (this.config.getPropertyById(BiomeConfigBOPFen.decorationLogsId).valueBoolean) {
-        
-            if (l > 0f && rand.nextInt(16) == 0)
-            {
-                int x22 = chunkX + rand.nextInt(16) + 8;
-                int z22 = chunkY + rand.nextInt(16) + 8;
-                int y22 = world.getHeight(new BlockPos(x22, 0, z22)).getY();
-                
-                Block log;
-                byte logMeta;
-    
-                if (rand.nextInt(4) == 0) {
-                    log = BOPBlocks.log_3;
-                    logMeta = (byte)2;
-                }
-                else {
-                    log = Blocks.log2;
-                    logMeta = (byte)1;
-                }
-                
-                (new WorldGenLog(log, logMeta, Blocks.leaves, -1, 3 + rand.nextInt(3))).generate(world, rand, new BlockPos(x22, y22, z22));
-            }
-        }
-        
-        rDecorateSeedBiome(world, rand, chunkX, chunkY, simplex, cell, strength, river, baseBiome);
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.distribution.noiseDivisor = 100f;
+        decoFallenTree.distribution.noiseFactor = 6f;
+        decoFallenTree.distribution.noiseAddend = 0.8f;
+        decoFallenTree.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree.logConditionNoise = 0f;
+        decoFallenTree.logConditionChance = 16;
+        decoFallenTree.logBlock = BOPBlocks.log_3.getStateFromMeta(2);
+        decoFallenTree.leavesBlock = Blocks.leaves.getDefaultState();
+        decoFallenTree.minSize = 3;
+        decoFallenTree.maxSize = 5;
+        DecoFallenTree decoFallenTree2 = new DecoFallenTree();
+        decoFallenTree2.distribution.noiseDivisor = 100f;
+        decoFallenTree2.distribution.noiseFactor = 6f;
+        decoFallenTree2.distribution.noiseAddend = 0.8f;
+        decoFallenTree2.logCondition = DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+        decoFallenTree2.logConditionNoise = 0f;
+        decoFallenTree2.logConditionChance = 16;
+        decoFallenTree2.maxY = 100;
+        decoFallenTree2.logBlock = Blocks.log2.getStateFromMeta(1);
+        decoFallenTree2.leavesBlock = Blocks.leaves.getStateFromMeta(1);
+        decoFallenTree2.minSize = 3;
+        decoFallenTree2.maxSize = 5;
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
+        decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree, decoFallenTree2};
+        decoHelperRandomSplit.chances = new int[]{4, 1};
+        this.addDeco(decoHelperRandomSplit, this.config._boolean(BiomeConfigBOPFen.decorationLogsId));
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 }

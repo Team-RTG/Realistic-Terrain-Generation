@@ -1,31 +1,43 @@
 package rtg;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
-import rtg.debug.DebugHandler;
+import rtg.config.rtg.ConfigRTG;
 import rtg.event.EventManagerRTG;
+import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
+import rtg.world.biome.realistic.afraidofthedark.RealisticBiomeAOTDBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
+import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.minestrappolation.RealisticBiomeMSBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
+import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
+import rtg.world.gen.structure.MapGenStrongholdRTG;
+import rtg.world.gen.structure.MapGenVillageRTG;
+import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.reference.ModInfo.*;
 
 @Mod(modid = MOD_ID, name = MOD_NAME, version = MOD_VERSION, dependencies = "required-after:Forge@[" + FORGE_DEP + ",)", acceptableRemoteVersions = "*")
@@ -42,6 +54,9 @@ public class RTG {
 
     private ConfigManager configManager = new ConfigManager();
 
+    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
+    private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
+
     public ConfigManager configManager(int dimension) {
 
         return configManager;
@@ -52,31 +67,29 @@ public class RTG {
 
         instance = this;
 
-        eventMgr = new EventManagerRTG();
-        MinecraftForge.EVENT_BUS.register(eventMgr);
-        MinecraftForge.ORE_GEN_BUS.register(eventMgr);
-        MinecraftForge.TERRAIN_GEN_BUS.register(eventMgr);
+        worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
 
+        // Biome configs MUST get initialised before the main config.
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
-
-        // This MUST get called before the config is initialised.
         BiomeConfigManager.initBiomeConfigs();
-
         MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
 
-        configPath = event.getModConfigurationDirectory() + "/RTG/";
+        configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         ConfigManager.init(configPath);
 
-        worldtype = new WorldTypeRTG("RTG");
+        this.registerStructures();
+
+        eventMgr = new EventManagerRTG();
+        eventMgr.registerEventHandlers();
+
+        // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
+        if (ConfigRTG.enableWorldTypeNotificationScreen) {
+            MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
+        }
     }
 
     @EventHandler
-    public void fmlLifeCycleEvent(FMLInitializationEvent event) {
-
-        if (event.getSide() == Side.CLIENT) {
-            MinecraftForge.EVENT_BUS.register(new DebugHandler());
-        }
-    }
+    public void fmlLifeCycleEvent(FMLInitializationEvent event) {}
 
     @EventHandler
     public void fmlLifeCycle(FMLPostInitializationEvent event) {
@@ -86,46 +99,51 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();
+        RealisticBiomeHLBase.addBiomes();
         RealisticBiomeACBase.addBiomes();
+        RealisticBiomeAOTDBase.addBiomes();
         RealisticBiomeMSBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }
 
-    @EventHandler
-    public void fmlLifeCycle(FMLServerAboutToStartEvent event) {
-
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerStartingEvent event) {
-
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerStartedEvent event) {
-
-    }
-
-    @EventHandler
-    public void fmlLifeCycle(FMLServerStoppingEvent event) {
-
-    }
-
     public void runOnServerClose(Runnable action) {
-
         serverCloseActions.add(action);
     }
 
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<Runnable>();
+    public void runOnNextServerCloseOnly(Runnable action) {
+        serverCloseActions.add(action);
+    }
 
     @EventHandler
-    public void fmlLifeCycle(FMLServerStoppedEvent event) {
-
-        for (Runnable action : serverCloseActions) {
+    public void serverStopped(FMLServerStoppedEvent event)
+    {
+        for (Runnable action: serverCloseActions) {
             action.run();
         }
+        for (Runnable action: oneShotServerCloseActions) {
+            action.run();
+        }
+        oneShotServerCloseActions.clear();
+    }
 
+    private void registerStructures() {
+
+        if (ConfigRTG.enableScatteredFeatureModifications) {
+            MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
+        }
+
+        if (ConfigRTG.enableVillageModifications) {
+            MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
+        }
+
+        if (ConfigRTG.enableOceanMonumentModifications) {
+            MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG");
+        }
+
+        if (ConfigRTG.enableStrongholdModifications) {
+            MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
+        }
     }
 }

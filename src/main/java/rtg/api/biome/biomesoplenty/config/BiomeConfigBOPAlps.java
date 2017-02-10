@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPAlps extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPAlps extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPAlps()
-    {
+    public BiomeConfigBOPAlps() {
+
         super("alps");
     }
 }

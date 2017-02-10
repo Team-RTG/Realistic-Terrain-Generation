@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPFlowerField extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPFlowerField extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPFlowerField()
-    {
+    public BiomeConfigBOPFlowerField() {
+
         super("flowerfield");
     }
 }

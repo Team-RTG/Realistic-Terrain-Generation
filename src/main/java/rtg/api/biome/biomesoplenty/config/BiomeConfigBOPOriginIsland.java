@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPOriginIsland extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPOriginIsland extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPOriginIsland()
-    {
+    public BiomeConfigBOPOriginIsland() {
+
         super("originisland");
     }
 }

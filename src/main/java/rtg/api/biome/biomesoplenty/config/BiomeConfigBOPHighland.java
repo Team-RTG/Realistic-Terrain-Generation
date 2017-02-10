@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPHighland extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPHighland extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPHighland()
-    {
+    public BiomeConfigBOPHighland() {
+
         super("highland");
     }
 }

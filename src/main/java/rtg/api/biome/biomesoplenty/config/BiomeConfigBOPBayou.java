@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPBayou extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPBayou extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPBayou()
-    {
+    public BiomeConfigBOPBayou() {
+
         super("bayou");
     }
 }

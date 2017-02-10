@@ -1,11 +1,10 @@
 package rtg.api.biome.biomesoplenty.config;
 
 
+public class BiomeConfigBOPRainforest extends BiomeConfigBOPBase {
 
-public class BiomeConfigBOPRainforest extends BiomeConfigBOPBase
-{
-    public BiomeConfigBOPRainforest()
-    {
+    public BiomeConfigBOPRainforest() {
+
         super("rainforest");
     }
 }

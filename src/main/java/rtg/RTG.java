@@ -31,6 +31,7 @@ import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
+import rtg.world.biome.realistic.jikou.RealisticBiomeJIKBase;
 import rtg.world.biome.realistic.mineworld.RealisticBiomeMWBase;
 import rtg.world.biome.realistic.mithwoodforest.RealisticBiomeMFBase;
 import rtg.world.biome.realistic.morechinesemc.RealisticBiomeMCMBase;
@@ -104,6 +105,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeJIKBase.addBiomes();
         RealisticBiomeMCMBase.addBiomes();
         RealisticBiomeMFBase.addBiomes();
         RealisticBiomeMWBase.addBiomes();

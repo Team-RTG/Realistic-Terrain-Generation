@@ -28,7 +28,7 @@ public class RealisticBiomeCreator extends RealisticBiomeBase {
 
     @Override
     protected void init() {
-        ;
+        ; // Do nothing here so that we can super.init() after the iRealisticBiome variable has been initialized.
     }
 
     @Override

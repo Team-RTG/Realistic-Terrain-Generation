@@ -148,7 +148,7 @@ public class ConfigRTG
 	
     /* ==================== Trees ==================== */
 
-	public static boolean allowTreesToGenerateOnSand = true;
+	public static boolean allowTreesToGenerateOnSand = false;
 	public static boolean allowShrubsToGenerateBelowSurface = true;
     public static boolean allowBarkCoveredLogs = true;
     

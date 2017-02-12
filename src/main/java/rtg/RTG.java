@@ -16,6 +16,7 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import rtg.api.event.BiomeConfigEvent;
 import rtg.config.BiomeConfigManager;
 import rtg.config.ConfigManager;
+import rtg.config.rtg.ConfigRTG;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
 import rtg.reference.ModInfo;
@@ -71,6 +72,14 @@ public class RTG {
 
         worldtype = new WorldTypeRTG("RTG");
 
+        // Biome configs MUST get initialised before the main config.
+        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
+        BiomeConfigManager.initBiomeConfigs();
+        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
+
+        configPath = event.getModConfigurationDirectory() + "/RTG/";
+        ConfigManager.init(configPath);
+
         MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG");
         MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG");
 
@@ -78,15 +87,9 @@ public class RTG {
         eventMgr.registerEventHandlers();
 
         // This event handler unregisters itself, so it doesn't need to be a part of the event management system.
-        MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
-
-        // Biome configs MUST get initialised before the main config.
-        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Pre());
-        BiomeConfigManager.initBiomeConfigs();
-        MinecraftForge.EVENT_BUS.post(new BiomeConfigEvent.Post());
-        
-        configPath = event.getModConfigurationDirectory() + "/RTG/";
-        ConfigManager.init(configPath);
+        if (ConfigRTG.enableWorldTypeNotificationScreen) {
+            MinecraftForge.EVENT_BUS.register(WorldTypeMessageEventHandler.instance);
+        }
     }
 
     /*

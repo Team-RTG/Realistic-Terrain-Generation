@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
@@ -14,8 +15,6 @@ import rtg.world.biome.deco.DecoCactus;
 import rtg.world.biome.deco.DecoDeadBush;
 import rtg.world.biome.deco.DecoShrub;
 import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceRiverOasis;
 import rtg.world.gen.surface.vanilla.SurfaceVanillaMesaBryce;
 import rtg.world.gen.terrain.vanilla.TerrainVanillaMesaBryce;
 
@@ -36,6 +35,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
                 new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f),
                 new SurfaceVanillaMesaBryce(config, Blocks.sand, (byte)1, Blocks.sand, (byte)1, 0)
         );
+
+        this.waterSurfaceLakeChance = 0;
+        this.lavaSurfaceLakeChance = 0;
         
         this.addDecoCollection(new DecoCollectionDesertRiver());
         
@@ -61,15 +63,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase
         decoCactus.maxY = 100;
         this.addDeco(decoCactus);
     }
-    
+
     @Override
-    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand,
-        OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base)
-    {
-    
-        this.getSurface().paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
-        
-        SurfaceBase riverSurface = new SurfaceRiverOasis(this.config);
-        riverSurface.paintTerrain(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
+    public void rReplace(Block[] blocks, byte[] metadata, int i, int j, int x, int y, int depth, World world, Random rand, OpenSimplexNoise simplex, CellNoise cell, float[] noise, float river, BiomeGenBase[] base) {
+        this.rReplaceRiverSurface(blocks, metadata, i, j, x, y, depth, world, rand, simplex, cell, noise, river, base);
     }
 }

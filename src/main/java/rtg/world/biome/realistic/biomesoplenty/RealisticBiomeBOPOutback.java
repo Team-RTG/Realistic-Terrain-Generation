@@ -1,13 +1,14 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import biomesoplenty.api.content.BOPCBiomes;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.biomesoplenty.SurfaceBOPOutback;
 import rtg.world.gen.terrain.biomesoplenty.TerrainBOPOutback;
-import biomesoplenty.api.content.BOPCBiomes;
 
 public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 {	
@@ -21,8 +22,8 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase
 		super(config, 
 			bopBiome, BiomeGenBase.river,
 			new TerrainBOPOutback(65f,50f,10f),
-			new SurfaceBOPOutback(config, 
-                Blocks.grass, //Block top 
+			new SurfaceBOPOutback(config,
+                topBlock, //Block top
                 (byte)0, //byte topByte
                 fillerBlock, //Block filler, 
                 (byte)0, //byte fillerByte

@@ -31,3 +31,5 @@ gradlew-setupDecompWorkspace-refresh-deps.bat
 gradlew-idea.bat
 /gradlew-runClient.bat
 gradlew-clean-build.bat
+/src/api/java/com/chaosthedude
+/src/api/resources/assets/naturescompass

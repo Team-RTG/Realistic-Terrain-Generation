@@ -26,6 +26,7 @@ import rtg.api.util.RandomUtil;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.gen.feature.WorldGenPond;
 
 public class BiomeDecoratorRTG
 {
@@ -258,7 +259,7 @@ public class BiomeDecoratorRTG
 
                     if (l4 > 63) {
 
-                        (new WorldGenLakes(Blocks.WATER)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
+                        (new WorldGenPond(Blocks.WATER.getDefaultState())).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }
@@ -296,7 +297,7 @@ public class BiomeDecoratorRTG
 
                     if (l4 > 63) {
 
-                        (new WorldGenLakes(Blocks.LAVA)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
+                        (new WorldGenPond(Blocks.LAVA.getDefaultState())).generate(worldObj, rand, new BlockPos(i2, l4, i8));
                     }
                 }
             }

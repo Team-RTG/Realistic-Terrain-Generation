@@ -1,4 +1,4 @@
-package rtg.world.biome.realistic.abyssalcraft;
+package rtg.world.biome.realistic.jikou;
 
 import java.util.Random;
 
@@ -9,32 +9,25 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
+public class RealisticBiomeJIKCherry extends RealisticBiomeJIKBase {
 
-    public static Biome biome = ACBiomes.darklands_forest;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsForest() {
+    public RealisticBiomeJIKCherry(Biome biome) {
 
         super(biome, river);
     }
 
     @Override
     public void initConfig() {
-
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
@@ -43,37 +36,33 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainACDarklandsForest();
+        return new TerrainJIKCherry();
     }
 
-    public class TerrainACDarklandsForest extends TerrainBase {
+    public class TerrainJIKCherry extends TerrainBase {
 
-        private float hillStrength = 10f;// this needs to be linked to the
-
-        public TerrainACDarklandsForest() {
+        public TerrainJIKCherry() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex);
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex, river);
+            float h = terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 65f);
 
-            float floNoise = 65f + groundNoise + m;
-
-            return riverized(floNoise, river);
+            return riverized(groundNoise + h, river);
         }
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACDarklandsForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+        return new SurfaceJIKCherry(config, baseBiome.topBlock, baseBiome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome.topBlock, 0.10f);
     }
 
-    public class SurfaceACDarklandsForest extends SurfaceACBase {
+    public class SurfaceJIKCherry extends SurfaceBase {
 
         private float min;
 
@@ -85,8 +74,8 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         private IBlockState mixBlock;
         private float mixHeight;
 
-        public SurfaceACDarklandsForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                        float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+        public SurfaceJIKCherry(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                                       float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
 
             super(config, top, fill);
             min = minCliff;
@@ -175,29 +164,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
     @Override
     public void initDecos() {
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
-        decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
-        decoFallenTree.setMinSize(2);
-        decoFallenTree.setMaxSize(3);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
-        decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
-        decoShrubCustom.setMaxY(110);
-        decoShrubCustom.setNotEqualsZeroChance(3);
-        decoShrubCustom.setStrengthFactor(3f);
-        this.addDeco(decoShrubCustom);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(8f);
-        this.addDeco(decoGrass);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

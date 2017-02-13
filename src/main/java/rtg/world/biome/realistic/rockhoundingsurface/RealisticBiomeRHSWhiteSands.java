@@ -1,4 +1,4 @@
-package rtg.world.biome.realistic.abyssalcraft;
+package rtg.world.biome.realistic.rockhoundingsurface;
 
 import java.util.Random;
 
@@ -9,32 +9,28 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
+import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
+import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
+public class RealisticBiomeRHSWhiteSands extends RealisticBiomeRHSBase {
 
-    public static Biome biome = ACBiomes.darklands_forest;
     public static Biome river = Biomes.RIVER;
 
-    public RealisticBiomeACDarklandsForest() {
+    private static IBlockState whiteSandBlock = Block.getBlockFromName("rockhounding_surface:whiteSand").getDefaultState();
+
+    public RealisticBiomeRHSWhiteSands(Biome biome) {
 
         super(biome, river);
     }
 
     @Override
     public void initConfig() {
-
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
@@ -43,37 +39,31 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainACDarklandsForest();
+        return new TerrainRHSWhiteSands();
     }
 
-    public class TerrainACDarklandsForest extends TerrainBase {
+    public class TerrainRHSWhiteSands extends TerrainBase {
 
-        private float hillStrength = 10f;// this needs to be linked to the
+        private GroundEffect groundEffect = new GroundEffect(4f);
 
-        public TerrainACDarklandsForest() {
+        public TerrainRHSWhiteSands() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex);
-
-            float m = hills(x, y, hillStrength, rtgWorld.simplex, river);
-
-            float floNoise = 65f + groundNoise + m;
-
-            return riverized(floNoise, river);
+            return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACDarklandsForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+        return new SurfaceRHSWhiteSands(config, whiteSandBlock, whiteSandBlock, 0f, 1.5f, 60f, 65f, 1.5f, whiteSandBlock, 0.2f);
     }
 
-    public class SurfaceACDarklandsForest extends SurfaceACBase {
+    public class SurfaceRHSWhiteSands extends SurfaceBase {
 
         private float min;
 
@@ -85,8 +75,8 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         private IBlockState mixBlock;
         private float mixHeight;
 
-        public SurfaceACDarklandsForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                        float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+        public SurfaceRHSWhiteSands(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
 
             super(config, top, fill);
             min = minCliff;
@@ -171,33 +161,30 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
                 }
             }
         }
+
+        @Override
+        protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+            return whiteSandBlock;
+        }
+
+        @Override
+        protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+            return whiteSandBlock;
+        }
+
+        @Override
+        protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+            return whiteSandBlock;
+        }
+
+        @Override
+        protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+            return whiteSandBlock;
+        }
     }
 
     @Override
     public void initDecos() {
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
-        decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
-        decoFallenTree.setMinSize(2);
-        decoFallenTree.setMaxSize(3);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
-        decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
-        decoShrubCustom.setMaxY(110);
-        decoShrubCustom.setNotEqualsZeroChance(3);
-        decoShrubCustom.setStrengthFactor(3f);
-        this.addDeco(decoShrubCustom);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(8f);
-        this.addDeco(decoGrass);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

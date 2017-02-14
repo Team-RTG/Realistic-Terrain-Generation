@@ -13,10 +13,10 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionDesert;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionDesert;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
@@ -26,13 +26,15 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesertM() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -169,5 +171,10 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionDesert());
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 }

@@ -24,6 +24,7 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
 import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
@@ -111,6 +112,8 @@ public class RTG {
         RealisticBiomeMWBase.addBiomes();
         RealisticBiomeRHSBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
+
+        RealisticBiomeBase.addModBiomes();
         
         RealisticBiomePresenceTester.doBiomeCheck();
     }

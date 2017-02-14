@@ -12,10 +12,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionDesert;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionDesert;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
@@ -25,9 +25,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDesert() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.noLakes = true;
     }
 
     @Override
@@ -35,6 +32,11 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
         this.getConfig().SURFACE_FILLER_BLOCK_META.set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override
@@ -142,5 +144,10 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver());
         this.addDecoCollection(new DecoCollectionDesert());
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 }

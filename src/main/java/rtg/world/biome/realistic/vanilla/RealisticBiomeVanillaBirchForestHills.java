@@ -14,9 +14,9 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionBirchForest;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionBirchForest;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
 
@@ -26,8 +26,6 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     public RealisticBiomeVanillaBirchForestHills() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -37,6 +35,11 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

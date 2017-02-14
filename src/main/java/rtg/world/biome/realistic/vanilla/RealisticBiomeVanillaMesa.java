@@ -13,15 +13,15 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.util.CanyonColour;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDeadBush;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
@@ -31,8 +31,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 20;
     }
 
     @Override
@@ -177,5 +175,10 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         decoCactus.setLoops(18);
         decoCactus.setMaxY(100);
         this.addDeco(decoCactus);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 20;
     }
 }

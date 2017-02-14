@@ -22,15 +22,32 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
         super(b, riverbiome);
 
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-
         this.getConfig().ALLOW_VILLAGES.set(false);
+    }
+
+    @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
     }
 
     @Override
     public String modSlug() {
         return "abyssalcraft";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

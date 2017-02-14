@@ -3,8 +3,6 @@ package rtg.world.biome.realistic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -17,25 +15,23 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
-import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.util.SaplingUtil;
+import rtg.api.world.biome.BiomeDecoratorRTG;
+import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.biome.RealisticBiomeManager;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.gen.feature.WorldGenVolcano;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceGeneric;
+import rtg.api.world.surface.SurfaceRiverOasis;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeAnalyzer;
-import rtg.world.biome.BiomeDecoratorRTG;
 import rtg.world.biome.IBiomeProviderRTG;
-import rtg.world.biome.deco.DecoBase;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.collection.DecoCollectionBase;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.feature.WorldGenVolcano;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.surface.SurfaceGeneric;
-import rtg.world.gen.surface.SurfaceRiverOasis;
-import rtg.world.gen.terrain.TerrainBase;
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
-public abstract class RealisticBiomeBase {
+public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected RTGConfig rtgConfig = RTGAPI.config();
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
@@ -51,19 +47,8 @@ public abstract class RealisticBiomeBase {
     public SurfaceBase surfaceGeneric;
     public BiomeDecoratorRTG rDecorator;
 
-    public int waterSurfaceLakeChance; //Lower = more frequent
-    public int lavaSurfaceLakeChance; //Lower = more frequent
-
-    public int waterUndergroundLakeChance; //Lower = more frequent
-    public int lavaUndergroundLakeChance; //Lower = more frequent
-
-    public boolean generateVillages;
-
-    public boolean generatesEmeralds;
-    public boolean generatesSilverfish;
-
-    public ArrayList<DecoBase> decos;
-    public ArrayList<TreeRTG> rtgTrees;
+    private ArrayList<DecoBase> decos;
+    private ArrayList<TreeRTG> rtgTrees;
 
     // lake calculations
 
@@ -71,8 +56,6 @@ public abstract class RealisticBiomeBase {
     private float lakeShoreLevel = 0.15f;
     private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
     private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
-    public boolean noLakes = false;
-    public boolean noWaterFeatures = false;
 
     private float largeBendSize = 100;
     private float mediumBendSize = 40;
@@ -90,18 +73,8 @@ public abstract class RealisticBiomeBase {
         this.config = new BiomeConfig();
         beachBiome = this.beachBiome();
 
-        rDecorator = new BiomeDecoratorRTG(this);
+        rDecorator = new BiomeDecoratorRTG(this, biome);
 
-        waterSurfaceLakeChance = 10;
-        lavaSurfaceLakeChance = 0; // Disabled.
-
-        waterUndergroundLakeChance = 1;
-        lavaUndergroundLakeChance = 1;
-
-        generateVillages = true;
-
-        generatesEmeralds = false;
-        generatesSilverfish = false;
         decos = new ArrayList<>();
         rtgTrees = new ArrayList<>();
 
@@ -126,7 +99,7 @@ public abstract class RealisticBiomeBase {
         this.init();
     }
 
-    private void init() {
+    protected void init() {
         initConfig();
         this.getConfig().load(this.configPath());
         this.terrain = initTerrain();
@@ -136,13 +109,19 @@ public abstract class RealisticBiomeBase {
         initDecos();
     }
 
-    public abstract void initConfig();
-    public abstract TerrainBase initTerrain();
-    public abstract SurfaceBase initSurface();
-    public abstract void initDecos();
-
+    @Override
     public BiomeConfig getConfig() {
         return this.config;
+    }
+
+    @Override
+    public ArrayList<DecoBase> getDecos() {
+        return this.decos;
+    }
+
+    @Override
+    public ArrayList<TreeRTG> getTrees() {
+        return this.rtgTrees;
     }
 
     public static RealisticBiomeBase getBiome(int id) {
@@ -178,6 +157,10 @@ public abstract class RealisticBiomeBase {
      */
     public Biome beachBiome() {
         return this.beachBiome(BiomeAnalyzer.getPreferredBeachForBiome(this.baseBiome));
+    }
+
+    public BiomeDecoratorRTG rDecorator() {
+        return rDecorator;
     }
 
     public void rMapVolcanoes(
@@ -241,13 +224,13 @@ public abstract class RealisticBiomeBase {
 
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-        if (noWaterFeatures) {
+        if (this.noWaterFeatures()) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
             river = 1f - (1f-borderForRiver)*(1f-river);
             return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
-        float lakeStrength = lakePressure(rtgWorld, x, y, border);
+        float lakeStrength = lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize);
         float lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
         // we add some flattening to the rivers. The lakes are pre-flattened.
         float riverFlattening = river*1.25f-0.25f;
@@ -293,28 +276,7 @@ public abstract class RealisticBiomeBase {
     }
 
     public float lakeFlattening(RTGWorld rtgWorld,int x, int y, float border) {
-        return lakeFlattening(lakePressure(rtgWorld, x, y, border), lakeWaterLevel, lakeDepressionLevel);
-    }
-
-    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border) {
-        if (noLakes) return 1f;
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
-        double pX = x + jitter.deltax() * largeBendSize;
-        double pY = y + jitter.deltay() * largeBendSize;
-        rtgWorld.simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
-        pX += jitter.deltax() * mediumBendSize;
-        pY += jitter.deltay() * mediumBendSize;
-        rtgWorld.simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
-        pX += jitter.deltax() * smallBendSize;
-        pY += jitter.deltay() * smallBendSize;
-        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
-        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
-        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
-        return results;
+        return lakeFlattening(lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize), lakeWaterLevel, lakeDepressionLevel);
     }
 
     public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
@@ -326,7 +288,7 @@ public abstract class RealisticBiomeBase {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures ? 0f : river;
+        float riverRegion = this.noWaterFeatures() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
@@ -340,7 +302,7 @@ public abstract class RealisticBiomeBase {
 
     protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures ? 0f : river;
+        float riverRegion = this.noWaterFeatures() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
@@ -385,7 +347,9 @@ public abstract class RealisticBiomeBase {
 
     public void rDecorate(RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        for (DecoBase deco : this.decos) {
+        ArrayList<DecoBase> decos = this.getDecos();
+
+        for (DecoBase deco : decos) {
             decoStack.add(new ChunkDecoration(new ChunkPos(worldX, worldZ), deco));
             if (decoStack.size() > 20) {
                 String problem = "";
@@ -399,138 +363,6 @@ public abstract class RealisticBiomeBase {
             }
             decoStack.remove(decoStack.size() - 1);
         }
-    }
-
-    /**
-     * Adds a deco object to the list of biome decos.
-     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
-     *
-     * @param deco
-     * @param allowed
-     */
-    public void addDeco(DecoBase deco, boolean allowed) {
-
-        if (allowed) {
-            if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
-
-            if (deco instanceof DecoBaseBiomeDecorations) {
-
-                for (int i = 0; i < this.decos.size(); i++) {
-
-                    if (this.decos.get(i) instanceof DecoBaseBiomeDecorations) {
-
-                        this.decos.remove(i);
-                        break;
-                    }
-                }
-            }
-
-            this.decos.add(deco);
-        }
-    }
-
-    /**
-     * Convenience method for addDeco() where 'allowed' is assumed to be true.
-     *
-     * @param deco
-     */
-    public void addDeco(DecoBase deco) {
-        if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
-        this.addDeco(deco, true);
-    }
-
-    public void addDecoCollection(DecoCollectionBase decoCollection) {
-
-        // Don't add the desert river deco collection if the user has disabled it.
-        if (decoCollection instanceof DecoCollectionDesertRiver) {
-            if (!rtgConfig.ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES.get()) {
-                return;
-            }
-        }
-
-        // Add this collection's decos to master deco list.
-        if (decoCollection.decos.size() > 0) {
-            for (int i = 0; i < decoCollection.decos.size(); i++) {
-                this.addDeco(decoCollection.decos.get(i));
-            }
-        }
-
-        // If there are any tree decos in this collection, then add the individual TreeRTG objects to master tree list.
-        if (decoCollection.rtgTrees.size() > 0) {
-            for (int i = 0; i < decoCollection.rtgTrees.size(); i++) {
-                this.addTree(decoCollection.rtgTrees.get(i));
-            }
-        }
-    }
-
-    /**
-     * Adds a tree to the list of RTG trees associated with this biome.
-     * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
-     *
-     * @param tree
-     * @param allowed
-     */
-    public void addTree(TreeRTG tree, boolean allowed) {
-
-        if (allowed) {
-
-            // Set the sapling data for this tree before we add it to the list.
-            tree.setSaplingBlock(SaplingUtil.getSaplingFromLeaves(tree.getLeavesBlock()));
-
-            /*
-             * Make sure all leaves delay their decay to prevent insta-despawning of leaves (e.g. Swamp Willow)
-             * The try/catch is a safeguard against trees that use leaves which aren't an instance of BlockLeaves.
-             */
-            try {
-                IBlockState leaves = tree.getLeavesBlock().withProperty(BlockLeaves.CHECK_DECAY, false);
-                tree.setLeavesBlock(leaves);
-            }
-            catch (Exception e) {
-                // Do nothing.
-            }
-
-            this.rtgTrees.add(tree);
-        }
-    }
-
-    /**
-     * Convenience method for addTree() where 'allowed' is assumed to be true.
-     *
-     * @param tree
-     */
-    public void addTree(TreeRTG tree) {
-
-        this.addTree(tree, true);
-    }
-
-    /**
-     * Returns the number of extra blocks of gold ore to generate in this biome.
-     * Defaults to 0, but can be overridden by sub-classed biomes.
-     * Currently only used by vanilla Mesa biome variants.
-     */
-    public int getExtraGoldGenCount() {
-        return 0;
-    }
-
-    /**
-     * Returns the minimum Y value at which extra gold ore can generate.
-     * Defaults to 32 (BiomeMesa), but can be overridden by sub-classed biomes.
-     * Currently only used by vanilla Mesa biome variants.
-     *
-     * @see net.minecraft.world.biome.BiomeMesa
-     */
-    public int getExtraGoldGenMinHeight() {
-        return 32;
-    }
-
-    /**
-     * Returns the maximum Y value at which extra gold ore can generate.
-     * Defaults to 80 (BiomeMesa), but can be overridden by sub-classed biomes.
-     *
-     * @see net.minecraft.world.biome.BiomeMesa
-     */
-    public int getExtraGoldGenMaxHeight() {
-        return 80;
     }
 
     public boolean compareTerrain(RTGWorld rtgWorld, TerrainBase oldTerrain) {
@@ -573,5 +405,15 @@ public abstract class RealisticBiomeBase {
 
     public String biomeSlug() {
         return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
+    }
+
+    public static void addModBiomes() {
+        ArrayList<IRealisticBiome> realisticBiomes = RealisticBiomeManager.getBiomes();
+        RealisticBiomeBase rbb;
+        for (IRealisticBiome irb : realisticBiomes) {
+            rbb = new RealisticBiomeCreator(irb);
+            rbb.decos = irb.getDecos();
+            rbb.rtgTrees = irb.getTrees();
+        }
     }
 }

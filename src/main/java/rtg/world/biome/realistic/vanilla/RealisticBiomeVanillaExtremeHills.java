@@ -13,12 +13,12 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
@@ -28,11 +28,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaExtremeHills() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
-        this.generatesSilverfish = true;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -44,6 +39,16 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override
@@ -210,13 +215,13 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(3f);
         this.addDeco(decoMushrooms);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(rtg.world.biome.deco.DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
+        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(30f);
         this.addDeco(decoPumpkin);
 
@@ -224,5 +229,15 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
+        return true;
     }
 }

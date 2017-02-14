@@ -13,12 +13,12 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
+import rtg.api.world.deco.*;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
 
@@ -28,8 +28,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public RealisticBiomeVanillaRoofedForestM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
@@ -39,6 +37,11 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override
@@ -191,7 +194,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
     }
 }

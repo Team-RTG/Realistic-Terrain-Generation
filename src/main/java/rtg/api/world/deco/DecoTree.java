@@ -243,15 +243,23 @@ public class DecoTree extends DecoBase {
                                 break;
                         }
                     }
+                    else {
+                        //Logger.debug("%d/%d/%d - minY = %d; maxY = %d; noise = %f", intX, intY, intZ, minY, maxY, noise);
+                    }
                 }
             }
             else {
-                //Logger.info("Tree generation was cancelled.");
+                //Logger.debug("Tree generation was cancelled.");
             }
         }
     }
 
     public boolean isValidTreeCondition(float noise, Random rand, float strength) {
+
+        boolean noiseGreaterThanMin;
+        boolean noiseLessThanMax;
+        boolean randomResult;
+        boolean valid;
 
         switch (this.treeCondition) {
             case ALWAYS_GENERATE:
@@ -264,10 +272,25 @@ public class DecoTree extends DecoBase {
                 return (noise < this.treeConditionNoise && rand.nextInt(this.treeConditionChance) == 0);
 
             case NOISE_BETWEEN_AND_RANDOM_CHANCE:
-                return (noise > this.treeConditionNoise && noise < this.treeConditionNoise2 && rand.nextInt(this.treeConditionChance) == 0);
+                noiseGreaterThanMin = noise >= this.treeConditionNoise;
+                noiseLessThanMax = noise <= this.treeConditionNoise2;
+                randomResult = rand.nextInt(this.treeConditionChance) == 0;
+                valid = (noiseGreaterThanMin && noiseLessThanMax && randomResult);
+
+                if (!valid) {
+                    valid = false;
+                }
+                else {
+                    valid = true;
+                }
+
+                return valid;
 
             case RANDOM_CHANCE:
                 return rand.nextInt(this.treeConditionChance) == 0;
+
+            case RANDOM_NOT_EQUALS_CHANCE:
+                return rand.nextInt(this.treeConditionChance) != 0;
 
             case X_DIVIDED_BY_STRENGTH:
                 return rand.nextInt((int) (this.treeConditionFloat / strength)) == 0;
@@ -288,6 +311,7 @@ public class DecoTree extends DecoBase {
         NOISE_LESSER_AND_RANDOM_CHANCE,
         NOISE_BETWEEN_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
+        RANDOM_NOT_EQUALS_CHANCE,
         X_DIVIDED_BY_STRENGTH;
     }
 

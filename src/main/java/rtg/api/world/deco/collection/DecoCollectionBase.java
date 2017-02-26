@@ -2,6 +2,8 @@ package rtg.api.world.deco.collection;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.state.IBlockState;
+
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -62,5 +64,27 @@ public class DecoCollectionBase {
     public void addTree(TreeRTG tree) {
 
         this.addTree(tree, true);
+    }
+
+    public ArrayList<IBlockState> treeLogs() {
+
+        ArrayList<IBlockState> logBlocks = new ArrayList<IBlockState>();
+
+        for (int i = 0; i < rtgTrees.size(); i++) {
+            logBlocks.add(rtgTrees.get(i).getLogBlock());
+        }
+
+        return logBlocks;
+    }
+
+    public ArrayList<IBlockState> treeLeaves() {
+
+        ArrayList<IBlockState> leafBlocks = new ArrayList<IBlockState>();
+
+        for (int i = 0; i < rtgTrees.size(); i++) {
+            leafBlocks.add(rtgTrees.get(i).getLeavesBlock());
+        }
+
+        return leafBlocks;
     }
 }

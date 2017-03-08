@@ -40,6 +40,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
+
+        this.getConfig().TEMPERATURE.set("0.25");
     }
 
     @Override

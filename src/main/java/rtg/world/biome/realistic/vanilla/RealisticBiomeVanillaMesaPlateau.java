@@ -189,6 +189,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setChance(10);
+        decoShrub.setStrengthFactor(3f);
         addDeco(decoShrub);
 
         DecoCactus decoCactus = new DecoCactus();

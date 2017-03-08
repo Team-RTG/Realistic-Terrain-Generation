@@ -48,7 +48,7 @@ public class DecoShrub extends DecoBase {
         this.sand = true; //Whether shrubs generate on sand
         this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
-        this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setStrengthFactor(0f); // The higher the value, the more there will be.
         this.setMinY(1); // No height limit by default.
         this.setMaxY(255); // No height limit by default.
         this.setChance(1); // 100% chance of generating by default.

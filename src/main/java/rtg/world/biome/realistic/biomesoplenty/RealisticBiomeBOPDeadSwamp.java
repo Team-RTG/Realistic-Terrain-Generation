@@ -16,6 +16,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.HeightEffect;
 import rtg.world.gen.terrain.HeightVariation;
@@ -66,14 +67,19 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPDeadSwamp(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
+        return new SurfaceBOPDeadSwamp(config, BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState(), BOPBlocks.mud.getDefaultState());
     }
 
     public class SurfaceBOPDeadSwamp extends SurfaceBase {
+        
+        private IBlockState mix;
+        private float mixHeight;
+        
+        public SurfaceBOPDeadSwamp(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixBlock) {
 
-        public SurfaceBOPDeadSwamp(BiomeConfig config, IBlockState top, IBlockState filler) {
-
-            super(config, top, filler);
+            super(config, top, filler);            
+            mix = mixBlock;
+            mixHeight = .1f;
         }
 
         @Override
@@ -108,7 +114,12 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            primer.setBlockState(x, k, z, topBlock);
+                            
+                            if (rtgWorld.simplex.octave(2).noise2(i / 12f, j / 12f) > mixHeight + (noise[x * 16 + z]-63f)/10f) {
+                                primer.setBlockState(x, k, z, mix);
+                            } else {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
                         }
                         else if (depth < 4) {
                             primer.setBlockState(x, k, z, fillerBlock);
@@ -122,7 +133,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

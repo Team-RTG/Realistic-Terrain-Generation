@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.Bayesian;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -128,7 +129,9 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
              // ground effect is increased by the multiplier
             float groundEffectLevel = groundEffect.added(rtgWorld, (float)x, (float)y);
-            float result = base + multiplier.added(rtgWorld, (float)x, (float )y) * (groundEffectLevel + heightIncrease.added(rtgWorld, (float)x, (float )y)) 
+            float ridging = multiplier.added(rtgWorld, (float)x, (float )y);
+            ridging = Bayesian.adjustment(ridging, 2);
+            float result = base + ridging * (groundEffectLevel + heightIncrease.added(rtgWorld, (float)x, (float )y)) 
                     + groundEffectLevel;
             return TerrainBase.mountainCap(result);
         }

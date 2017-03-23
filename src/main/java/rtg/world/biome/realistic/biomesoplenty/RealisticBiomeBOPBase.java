@@ -279,7 +279,7 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
             }
             if (BOPBiomes.xeric_shrubland.isPresent()) {
                 bopXericShrubland = new RealisticBiomeBOPXericShrubland();
-            }
+            } 
         }
     }
 }

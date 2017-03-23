@@ -22,6 +22,7 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
 
@@ -187,7 +188,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         decoFallenTree.setMaxSize(5);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
         decoBaseBiomeDecorations.setLoops(1);
         this.addDeco(decoBaseBiomeDecorations);

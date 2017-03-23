@@ -227,7 +227,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

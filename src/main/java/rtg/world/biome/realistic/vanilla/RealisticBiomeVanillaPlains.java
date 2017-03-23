@@ -20,6 +20,7 @@ import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.GroundEffect;
 import rtg.world.gen.terrain.TerrainBase;
+import rtg.world.gen.terrain.TerrainShowCellNoise;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 

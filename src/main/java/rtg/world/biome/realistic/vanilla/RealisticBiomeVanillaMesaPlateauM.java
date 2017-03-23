@@ -40,7 +40,8 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f);
+        return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
+        //return new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f);
     }
 
     public class TerrainVanillaMesaPlateauM extends TerrainBase {
@@ -147,13 +148,13 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 
                         if (k > 74 + grassRaise)
                         {
-                            primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                         }
                         else if (depth == 0 && k > 61) {
                             int r = (int)((k - (62 + grassRaise)) / 2f);

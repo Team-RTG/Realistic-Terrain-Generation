@@ -1,5 +1,6 @@
 package rtg.world.gen.terrain;
 
+import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
 
 /**
@@ -15,11 +16,10 @@ public class VoronoiBorderEffect extends HeightEffect {
     
     @Override
     public float added(RTGWorld rtgWorld, float x, float y) {
-         double[] points = rtgWorld.cell.octave(1).eval((float) x / pointWavelength, (float) y / pointWavelength);      
-         double divisor = Math.max(minimumDivisor, points[1]);
-         float raise = (float) ((points[1] - points[0]) / divisor);
+         VoronoiResult points = rtgWorld.cell.octave(1).eval((float) x / pointWavelength, (float) y / pointWavelength);      
+         float raise = (float) (points.interiorValue());
          raise = 1.0f-raise;
-         raise = TerrainBase.blendedHillHeight(raise, floor);
+         //raise = TerrainBase.blendedHillHeight(raise, floor);
          return raise;
     }
 

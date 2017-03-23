@@ -17,6 +17,7 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.*;
 
@@ -90,10 +91,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             float result = biomeHeight.added(rtgWorld, x, y);
-            if (result < 60) {
-                throw new RuntimeException();
-            }
-            return result;
+            return riverized(result,river);
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
         }
     }
@@ -207,7 +205,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

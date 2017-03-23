@@ -23,6 +23,7 @@ import rtg.world.biome.deco.DecoJungleCacti;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.*;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
 
@@ -192,7 +193,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();

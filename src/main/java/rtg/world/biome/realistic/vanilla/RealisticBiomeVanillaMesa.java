@@ -110,7 +110,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 

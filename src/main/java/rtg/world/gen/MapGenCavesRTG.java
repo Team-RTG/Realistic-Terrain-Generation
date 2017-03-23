@@ -226,16 +226,8 @@ public class MapGenCavesRTG extends MapGenCaves
         // Use the global settings by default.
         int caveDensity = rtgConfig.CAVE_DENSITY.get();
         int caveFrequency = rtgConfig.CAVE_FREQUENCY.get();
-
-        // If the user has set biome-specific settings, let's use those instead.
-        Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
-
-        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
-
-        if (realisticBiome != null) {
-            caveDensity = (realisticBiome.getConfig().CAVE_DENSITY.get() > -1) ? realisticBiome.getConfig().CAVE_DENSITY.get() : caveDensity;
-            caveFrequency = (realisticBiome.getConfig().CAVE_FREQUENCY.get() > -1) ? realisticBiome.getConfig().CAVE_FREQUENCY.get() : caveFrequency;
-        }
+        
+        //biome-specific cave features disabled for performance;
 
         // Return early if caves are disabled.
         if (caveDensity < 1 || caveFrequency < 1) return;

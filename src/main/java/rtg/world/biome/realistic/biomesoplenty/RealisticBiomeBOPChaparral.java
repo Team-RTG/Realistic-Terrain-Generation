@@ -17,6 +17,7 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -74,7 +75,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
             int pY = (int) Math.round(y + jitter.deltay() * amplitude);
             float h = this.terrainGrasslandHills(pX, pY, rtgWorld.simplex, rtgWorld.cell, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
-            return groundNoise + h;
+            return groundNoise*river + h;
         }
     }
 
@@ -153,7 +154,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

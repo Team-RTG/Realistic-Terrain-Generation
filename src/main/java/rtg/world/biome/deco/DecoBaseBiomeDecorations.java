@@ -3,6 +3,7 @@ package rtg.world.biome.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -56,7 +57,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
-
+            
             for (int i = 0; i < loops; i++) {
 
                 int intY = rtgWorld.world.getHeight(new BlockPos(worldX, 0, worldZ)).getY();

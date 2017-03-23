@@ -20,6 +20,7 @@ import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.HillockEffect;
 import rtg.world.gen.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
 
@@ -139,7 +140,7 @@ public class RealisticBiomeBOPHeathland extends RealisticBiomeBOPBase {
         decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

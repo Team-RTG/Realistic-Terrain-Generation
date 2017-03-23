@@ -19,6 +19,7 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.biome.deco.DecoFlowersRTG;
 import rtg.world.biome.deco.DecoGrass;
 import rtg.world.biome.deco.DecoShrub;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
@@ -185,7 +186,8 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
         this.addDeco(decoFlowers2);
 
         // Not much free space left, so let's give some space to the base biome.
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
         this.addDeco(decoBaseBiomeDecorations);
 

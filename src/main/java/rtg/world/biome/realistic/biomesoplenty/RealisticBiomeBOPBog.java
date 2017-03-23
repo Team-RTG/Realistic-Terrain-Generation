@@ -15,6 +15,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.HeightVariation;
 import rtg.world.gen.terrain.HillockEffect;
@@ -41,7 +42,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
 
     public class TerrainBOPBog extends TerrainBase {
 
-        private final float bottom = 58f;
+        private final float bottom = 62f;
         private final HeightVariation bottomVariation;
         private final HillockEffect smallHills;
         private final HillockEffect mediumHills;
@@ -55,14 +56,14 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
             bottomVariation.wavelength = 40;
 
             smallHills = new HillockEffect();
-            smallHills.height = 6;
-            smallHills.wavelength = 15;
+            smallHills.height = 5;
+            smallHills.wavelength = 25;
             smallHills.minimumSimplex = 0.2f;
             smallHills.octave = 1;
 
             mediumHills = new HillockEffect();
-            mediumHills.height = 12;
-            mediumHills.wavelength = 25;
+            mediumHills.height = 10;
+            mediumHills.wavelength = 40;
             mediumHills.minimumSimplex = 0.2f;
             mediumHills.octave = 2;
 
@@ -136,7 +137,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

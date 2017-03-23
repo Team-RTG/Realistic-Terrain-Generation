@@ -21,6 +21,7 @@ import rtg.world.biome.deco.DecoFallenTree;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
@@ -157,7 +158,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();

@@ -18,8 +18,8 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsPlus;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsPlus;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 

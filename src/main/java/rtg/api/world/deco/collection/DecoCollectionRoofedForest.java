@@ -1,4 +1,4 @@
-package rtg.world.biome.deco.collection;
+package rtg.api.world.deco.collection;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenCanopyTree;
@@ -6,7 +6,6 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
-import rtg.api.world.deco.collection.DecoCollectionBase;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;

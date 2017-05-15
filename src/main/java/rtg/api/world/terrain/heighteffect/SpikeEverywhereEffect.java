@@ -1,8 +1,7 @@
-package rtg.world.gen.terrain;
+package rtg.api.world.terrain.heighteffect;
 
 import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.terrain.heighteffect.HeightEffect;
 
 /**
  * This creates a spiky multiplier going from 0 to 1

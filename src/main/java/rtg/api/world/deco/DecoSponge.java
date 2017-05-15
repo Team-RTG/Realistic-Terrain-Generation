@@ -1,4 +1,4 @@
-package rtg.world.biome.deco;
+package rtg.api.world.deco;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,7 @@ import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.api.world.deco.DecoBase;
-import rtg.world.gen.feature.WorldGenSponge;
+import rtg.api.world.gen.feature.WorldGenSponge;
 
 /**
  * @author WhichOnesPink

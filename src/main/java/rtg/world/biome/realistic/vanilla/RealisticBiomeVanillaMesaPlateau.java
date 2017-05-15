@@ -19,8 +19,8 @@ import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.gen.terrain.PlateauStep;
-import rtg.world.gen.terrain.VoronoiPlateauEffect;
+import rtg.api.util.PlateauStep;
+import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 

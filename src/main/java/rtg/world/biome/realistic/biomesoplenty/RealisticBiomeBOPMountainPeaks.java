@@ -22,7 +22,7 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
-import rtg.world.biome.deco.DecoSingleBiomeDecorations;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {

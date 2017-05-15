@@ -21,7 +21,7 @@ import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.deco.DecoSingleBiomeDecorations;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {

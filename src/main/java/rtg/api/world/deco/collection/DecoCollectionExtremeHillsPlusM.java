@@ -1,4 +1,4 @@
-package rtg.world.biome.deco.collection;
+package rtg.api.world.deco.collection;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

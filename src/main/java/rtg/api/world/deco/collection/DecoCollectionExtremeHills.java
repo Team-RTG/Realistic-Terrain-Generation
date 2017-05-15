@@ -1,11 +1,10 @@
-package rtg.world.biome.deco.collection;
+package rtg.api.world.deco.collection;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoTree;
-import rtg.api.world.deco.collection.DecoCollectionBase;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;

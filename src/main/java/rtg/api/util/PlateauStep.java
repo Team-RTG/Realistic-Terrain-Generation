@@ -1,5 +1,5 @@
 
-package rtg.world.gen.terrain;
+package rtg.api.util;
 
 /**
  *

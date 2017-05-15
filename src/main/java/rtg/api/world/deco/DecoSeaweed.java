@@ -1,4 +1,4 @@
-package rtg.world.biome.deco;
+package rtg.api.world.deco;
 
 import java.util.Random;
 
@@ -10,8 +10,7 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.api.world.deco.DecoBase;
-import rtg.world.gen.feature.WorldGenSeaweed;
+import rtg.api.world.gen.feature.WorldGenSeaweed;
 
 /**
  * @author WhichOnesPink

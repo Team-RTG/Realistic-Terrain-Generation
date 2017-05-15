@@ -22,8 +22,8 @@ import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.gen.terrain.PlateauStep;
-import rtg.world.gen.terrain.VoronoiBasinEffect;
+import rtg.api.util.PlateauStep;
+import rtg.api.world.terrain.heighteffect.VoronoiBasinEffect;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 

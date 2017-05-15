@@ -25,7 +25,7 @@ import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.deco.DecoSingleBiomeDecorations;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {

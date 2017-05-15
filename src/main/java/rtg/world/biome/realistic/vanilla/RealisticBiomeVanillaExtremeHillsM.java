@@ -15,8 +15,8 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsM;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsM;
 
 public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBase {
 

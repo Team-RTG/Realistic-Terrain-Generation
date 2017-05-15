@@ -1,9 +1,8 @@
 
-package rtg.world.gen.terrain;
+package rtg.api.world.terrain;
 
 import rtg.api.util.noise.SpacedCellOctave;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.terrain.TerrainBase;
 
 /**
  *

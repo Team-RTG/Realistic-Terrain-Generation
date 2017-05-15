@@ -20,10 +20,10 @@ import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.RaiseEffect;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHills;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
-import rtg.world.gen.terrain.SpikeEverywhereEffect;
-import rtg.world.gen.terrain.VoronoiBorderEffect;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHills;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.terrain.heighteffect.SpikeEverywhereEffect;
+import rtg.api.world.terrain.heighteffect.VoronoiBorderEffect;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 

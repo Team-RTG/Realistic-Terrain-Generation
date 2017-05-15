@@ -60,7 +60,7 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 WorldUtil worldUtil = new WorldUtil(world);
 
                 if (world.isAirBlock(doublePlantPos)
-                    && (!world.provider.getHasNoSky() || j1 < 254)
+                    && (!world.provider.hasNoSky() || j1 < 254)
                     && Blocks.DOUBLE_PLANT.canPlaceBlockAt(world, doublePlantPos)) {
 
                     worldUtil.setDoublePlant(doublePlantPos, doublePlant);
@@ -78,7 +78,7 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 BlockPos flowerPos = new BlockPos(i1, j1, k1);
 
                 if (world.isAirBlock(flowerPos)
-                    && (!world.provider.getHasNoSky() || j1 < 254)
+                    && (!world.provider.hasNoSky() || j1 < 254)
                     && Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, flowerPos)
                     && Blocks.YELLOW_FLOWER.canBlockStay(world, flowerPos, flower)) {
 
@@ -97,7 +97,7 @@ public class WorldGenFlowersRTG extends WorldGenerator {
                 BlockPos flowerPos = new BlockPos(i1, j1, k1);
 
                 if (world.isAirBlock(flowerPos)
-                    && (!world.provider.getHasNoSky() || j1 < 254)
+                    && (!world.provider.hasNoSky() || j1 < 254)
                     && Blocks.RED_FLOWER.canPlaceBlockAt(world, flowerPos)
                     && Blocks.RED_FLOWER.canBlockStay(world, flowerPos, flower)) {
 

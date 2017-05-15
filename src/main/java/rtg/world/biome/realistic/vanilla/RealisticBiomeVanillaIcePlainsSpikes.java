@@ -12,9 +12,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
 
@@ -24,12 +24,15 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaIcePlainsSpikes() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

@@ -4,11 +4,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 import rtg.api.util.BlockUtil;
-import rtg.world.biome.deco.DecoBase;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoBoulder;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.collection.DecoCollectionBase;
+import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.world.biome.deco.DecoSponge;
-import rtg.world.biome.deco.helper.DecoHelperRandomSplit;
 
 
 /**

@@ -2,7 +2,6 @@ package rtg.world.gen;
 
 import java.util.*;
 import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -37,14 +36,10 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import mcp.MethodsReturnNonnullByDefault;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.util.Logger;
 import rtg.util.TimeTracker;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
@@ -58,9 +53,7 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
-//@SuppressWarnings({"UnusedParameters", "deprecation"})
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+@SuppressWarnings({"UnusedParameters", "deprecation"})
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
@@ -84,7 +77,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private byte bedrockByte = (byte) rtgConfig.BEDROCK_BLOCK_BYTE.get();
     private Random rand;
     private Random mapRand;
-    private final World worldObj;
+    public final World worldObj;
     public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
@@ -111,7 +104,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         @Override
         public void accept(ChunkEvent.Load event) {
             if (event.isCanceled()) return;
-            ChunkPos pos = event.getChunk().getPos();
+            ChunkPos pos = event.getChunk().getChunkCoordIntPair();
 
             if (!toCheck.contains(pos)) return;
             toCheck.remove(pos);
@@ -229,6 +222,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         this.mapFeaturesEnabled = false;
     }
 
+    @Nonnull
     public Chunk provideChunk(final int cx, final int cz) {
         final ChunkPos pos = new ChunkPos(cx, cz);
         if (inGeneration.containsKey(pos)) return inGeneration.get(pos);
@@ -272,7 +266,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         ChunkLandscape landscape = landscapeGenerator.landscape(cmr, cx * 16, cz * 16);
 
         TimeTracker.manager.stop(landscaping);
-        
+
         String fill = "RTG Fill";
         TimeTracker.manager.start(fill);
         generateTerrain(cmr, cx, cz, primer, landscape.biome, landscape.noise);
@@ -292,7 +286,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
         volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
         TimeTracker.manager.stop(volcanos);
-        
+
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
         
@@ -386,7 +380,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
             }
         }
-        
+
         TimeTracker.manager.stop(features);
         
         String housekeeping = "Terrain Housekeeping";
@@ -684,7 +678,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
-        
+
         TreeSet<Valued<RealisticBiomeBase>> activeBiomes = new TreeSet();
         for (int bn = 0; bn < 256; bn++) {
             if (borderNoise[bn] > 0f) {
@@ -707,7 +701,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (Valued<RealisticBiomeBase> biomeInfluence: activeBiomes.descendingSet()) {
             realisticBiome = biomeInfluence.item();
             float borderNoise = (float)biomeInfluence.value();
-                            /*
+                /*
                  * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
                  * If the biome configs don't allow it, then we try to let the base biome decorate itself.
                  * However, there are some mod biomes that crash when they try to decorate themselves,
@@ -729,7 +723,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
         }
-        
+
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
         TimeTracker.manager.stop("Decorations");
@@ -828,6 +822,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
+    @Nonnull
     public List<Biome.SpawnListEntry> getPossibleCreatures(@Nonnull EnumCreatureType creatureType, @Nonnull BlockPos pos) {
         Biome biome = this.worldObj.getBiome(pos);
 
@@ -844,9 +839,10 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
+    public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
+
         if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
-        return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : null;
+        return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
     }
 
     @Override

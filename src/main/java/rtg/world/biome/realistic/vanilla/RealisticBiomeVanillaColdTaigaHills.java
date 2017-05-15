@@ -13,9 +13,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionTaiga;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionTaiga;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBase {
 
@@ -25,14 +25,17 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaColdTaigaHills() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override

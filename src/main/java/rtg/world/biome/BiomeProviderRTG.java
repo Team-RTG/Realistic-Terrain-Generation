@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -19,7 +18,9 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.RTGAPI;
 import rtg.api.util.Bayesian;
-import rtg.api.util.noise.*;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
@@ -63,9 +64,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         simplex = new OpenSimplexNoise(seed);
         //simplexCell = new SimplexCellularNoise(seed);
         river = new SpacedCellNoise(seed);
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(
-            seed, worldType, ChunkProviderSettings.Factory.jsonToFactory("").build()
-        );
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];

@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.google.common.collect.Lists;
 
 import rtg.api.RTGAPI;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 
 /**
  * Author: Choonster (https://github.com/Choonster)
@@ -69,7 +69,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         {
             if (((String)entry.getKey()).equals("distance"))
             {
-                this.maxDistanceBetweenScatteredFeatures = MathHelper.getInt((String)entry.getValue(), this.maxDistanceBetweenScatteredFeatures, 9);
+                this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.maxDistanceBetweenScatteredFeatures, 9);
             }
         }
     }
@@ -98,7 +98,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
         int k = chunkX / this.maxDistanceBetweenScatteredFeatures;
         int l = chunkZ / this.maxDistanceBetweenScatteredFeatures;
-        Random random = this.world.setRandomSeed(k, l, 14357617);
+        Random random = this.worldObj.setRandomSeed(k, l, 14357617);
         k *= this.maxDistanceBetweenScatteredFeatures;
         l *= this.maxDistanceBetweenScatteredFeatures;
         k += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
@@ -107,7 +107,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         if (i == k && j == l)
         {
             BlockPos pos = new BlockPos(i * 16 + 8, 0, j * 16 + 8);
-            Biome biome = this.world.getBiomeProvider().getBiome(pos);
+            Biome biome = this.worldObj.getBiomeProvider().getBiome(pos);
 
             if (null == biome) {
                 Logger.error("MapGenScatteredFeatureRTG#canSpawnStructureAtCoords received a null biome at %d %d.", pos.getX(), pos.getZ());
@@ -139,16 +139,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
-    {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
-    }
-
-    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenScatteredFeatureRTG.Start(this.world, this.rand, chunkX, chunkZ);
+        return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
     @Override
@@ -228,18 +221,18 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     private static boolean canSpawnDesertTemple(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.hasType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SANDY));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY));
     }
 
     private static boolean canSpawnJungleTemple(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.hasType(b, BiomeDictionary.Type.WET) && BiomeDictionary.hasType(b, BiomeDictionary.Type.JUNGLE));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE));
     }
 
     private static boolean canSpawnWitchHut(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.WET) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SWAMP));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP));
     }
 
     private static boolean canSpawnIgloo(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.hasType(b, BiomeDictionary.Type.PLAINS));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.PLAINS));
     }
 }

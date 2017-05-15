@@ -12,9 +12,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionOcean;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.*;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
@@ -24,11 +24,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaDeepOcean() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -41,67 +36,21 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     }
 
     @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaSeamounts(false, 1f, 360f, 30f);
-        //return new TerrainVanillaDeepOcean();
+        return new TerrainVanillaDeepOcean();
     }
-    public class TerrainVanillaSeamounts extends TerrainBase {
 
-        private float[] height;
-        private int heightLength;
-        private float strength;
-        private boolean riverGen;
-        private float canyonWidth;
-        private float abyssalVariation = 6f;
-        private HeightEffect seamounts;
-        public TerrainVanillaSeamounts(boolean riverGen, float heightStrength, float canyonWidth,  float baseHeight) {
-            this.canyonWidth = canyonWidth;
-            this.base = baseHeight;
-            
-            // spikes for interest
-            SpikeEffect seamountSpikes = new SpikeEffect();
-            seamountSpikes.height = 10;
-            seamountSpikes.minimumSimplex = -.3f;
-            seamountSpikes.octave = 3;
-            seamountSpikes.wavelength = 10;
-            
-            // some variation in height
-            HeightVariation seamountTop = new HeightVariation();
-            seamountTop.height = 5;
-            seamountTop.octave = 4;
-            seamountTop.wavelength = 120;
-            
-            // widely scattered
-            PlateauEffect seamountPlacement = new PlateauEffect();
-            seamountPlacement.bottomSimplexValue = .85f;
-            seamountPlacement.height = 15;
-            seamountPlacement.octave = 5;
-            seamountPlacement.subordinate = seamountTop.plus(seamountSpikes);
-            seamountPlacement.topSimplexValue = .92f;
-            seamountPlacement.wavelength = canyonWidth;
-            
-            seamounts = seamountPlacement;
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            float result = seamounts.added(rtgWorld, x, y)+this.oceanNoise(x, y, river, rtgWorld.simplex)+30f;
-            if (result > 61) result = 61;// just in case;
-            return result;
-        }
-        
-        public float oceanNoise(float x, float y, float amplitude, OpenSimplexNoise simplex) {
-            // similar to groundnoise except just uses simplex noise because deadvalleys are not an issue
-
-            float h = simplex.noise2(x / 49f, y / 49f) * amplitude;
-            h += simplex.octave(1).noise2(x / 23f, y / 23f) * amplitude / 2f;
-            h += simplex.octave(2).noise2(x / 11f, y / 11f) * amplitude / 4f;
-            return h;
-        }
-    }
-        
     public class TerrainVanillaDeepOcean extends TerrainBase {
 
         public TerrainVanillaDeepOcean() {
@@ -118,7 +67,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaDeepOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.44f);
+        return new SurfaceVanillaDeepOcean(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f);
     }
 
     public class SurfaceVanillaDeepOcean extends SurfaceBase {
@@ -155,8 +104,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                     if (depth == 0 && k > 0 && k < 63) {
                         mixCheck = simplex.noise2(i / width, j / width);
 
-                        if (mixCheck > height) // > 0.27f, i / 12f
-                        {
+                        if (mixCheck > height) {
                             primer.setBlockState(x, k, z, mixBlock);
                         }
                         else {
@@ -166,11 +114,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
                     else if (depth < 4 && k < 63) {
                         primer.setBlockState(x, k, z, fillerBlock);
                     }
-
-                    else if (depth == 0 && k < 69) {
-                        primer.setBlockState(x, k, z, topBlock);
-
-                    }
                 }
             }
         }
@@ -178,6 +121,18 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionOcean());
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 }

@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -14,8 +14,10 @@ package com.shinoow.abyssalcraft.api.energy;
 import net.minecraft.item.ItemStack;
 
 /**
- * Interface to use on items that can hold Potential Energy
- *
+ * Interface to use on items that can hold Potential Energy (WIP)<br>
+ * WARNING: Any methods in this interface might end up getting removed,<br>
+ * so I would suggest not using it until this text (and the WIP part) is removed.
+ * 
  * @author shinoow
  *
  * @since 1.7.5
@@ -45,21 +47,16 @@ public interface IEnergyContainerItem {
 	 * Consumes (removes) Potential Energy from the item
 	 * @param stack ItemStack containing the item
 	 * @param energy Energy quanta to consume
-	 * @return The amount of energy consumed
 	 */
-	public float consumeEnergy(ItemStack stack, float energy);
+	public void consumeEnergy(ItemStack stack, float energy);
 
 	/**
-	 * Returns Whether or not this item can accept Potential Energy<br>
-	 * (eg. if it  has room for more Potential Energy, or if it accepts input at all)
-	 * @param stack ItemStack containing the item
+	 * Returns Whether or not this item can accept Potential Energy
 	 */
 	public boolean canAcceptPE(ItemStack stack);
 
 	/**
-	 * Returns Whether or not this item can transfer Potential Energy<br>
-	 * (eg. if it has any Potential Energy stored that it can transfer, or if it allows extraction at all)
-	 * @param stack ItemStack containing the item
+	 * Returns Whether or not this item can transfer Potential Energy
 	 */
 	public boolean canTransferPE(ItemStack stack);
 }

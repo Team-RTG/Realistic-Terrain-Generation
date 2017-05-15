@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -42,8 +42,8 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 	public NecronomiconCreationRitual(String unlocalizedName, int bookType, int dimension, float requiredEnergy, boolean requiresSacrifice, ItemStack item, Object...offerings) {
 		super(unlocalizedName, bookType, dimension, requiredEnergy, requiresSacrifice, offerings);
 		this.item = item;
-		if(item.getCount() > 1)
-			item.setCount(1);
+		if(item.stackSize > 1)
+			item.stackSize = 1;
 	}
 
 	/**
@@ -96,9 +96,8 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 		NBTTagCompound newItem = new NBTTagCompound();
 		altar.writeToNBT(compound);
 		NBTTagCompound nbtItem = compound.getCompoundTag("Item");
-		ItemStack stack = new ItemStack(nbtItem);
 
-		if(stack == null || !stack.isItemEqual(item)){
+		if(ItemStack.loadItemStackFromNBT(nbtItem) == null || !ItemStack.loadItemStackFromNBT(nbtItem).isItemEqual(item)){
 			item.writeToNBT(newItem);
 			compound.setTag("Item", newItem);
 		}
@@ -114,9 +113,8 @@ public class NecronomiconCreationRitual extends NecronomiconRitual {
 		NBTTagCompound newItem = new NBTTagCompound();
 		altar.writeToNBT(compound);
 		NBTTagCompound nbtItem = compound.getCompoundTag("Item");
-		ItemStack stack = new ItemStack(nbtItem);
 
-		if(stack == null || !stack.isItemEqual(item)){
+		if(ItemStack.loadItemStackFromNBT(nbtItem) == null || !ItemStack.loadItemStackFromNBT(nbtItem).isItemEqual(item)){
 			item.writeToNBT(newItem);
 			compound.setTag("Item", newItem);
 		}

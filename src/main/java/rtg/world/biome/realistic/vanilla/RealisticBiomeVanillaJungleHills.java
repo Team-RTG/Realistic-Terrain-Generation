@@ -15,14 +15,14 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
-import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.helper.DecoHelperThisOrThat;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
 
@@ -32,9 +32,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaJungleHills() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 3;
-        this.noLakes = true;
     }
 
     @Override
@@ -45,6 +42,11 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(rtgConfig.VOLCANO_CHANCE.get() * 2);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override
@@ -286,5 +288,10 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 3;
     }
 }

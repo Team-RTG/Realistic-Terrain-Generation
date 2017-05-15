@@ -15,9 +15,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoGrassDoubleTallgrass;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoGrassDoubleTallgrass;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
@@ -27,11 +27,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPVolcanicIsland() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 1;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -39,6 +34,16 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override
@@ -164,5 +169,15 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         decoGrassDoubleTallgrass.setLoops(15);
         decoGrassDoubleTallgrass.setMaxY(128);
         this.addDeco(decoGrassDoubleTallgrass);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 1;
     }
 }

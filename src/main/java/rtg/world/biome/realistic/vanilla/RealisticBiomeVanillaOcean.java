@@ -10,11 +10,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionOcean;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
@@ -24,11 +25,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaOcean() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -38,6 +34,16 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override
@@ -55,18 +61,19 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainOcean(x, y, rtgWorld.simplex, river, 52f);
+            return terrainOcean(x, y, rtgWorld.simplex, river, 50f);
         }
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.44f);
+        return new SurfaceVanillaOcean(config, Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f);
     }
 
     public class SurfaceVanillaOcean extends SurfaceBase {
 
+        private final int sandMetadata = 0;
         private IBlockState mixBlock;
         private float width;
         private float height;
@@ -112,7 +119,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
                     }
 
                     else if (depth == 0 && k < 69) {
-                        primer.setBlockState(x, k, z, topBlock);
+                        primer.setBlockState(x, k, z, BlockUtil.getStateSand(sandMetadata));
 
                     }
                 }
@@ -122,6 +129,18 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionOcean());
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 }

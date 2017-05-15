@@ -20,10 +20,11 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.deco.DecoSingleBiomeDecorations;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
@@ -40,8 +41,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPBayou() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0; // We want RTG ponds, not Mojang lakes.
     }
 
     @Override
@@ -177,9 +176,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
             }
         }
     }
-    
+
     @Override
-    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border)
+    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize)
             // so, rather than lakes, we have a bayou network
     {
     	//this code is borrowed from WorldChunkManagerRTG with vars changes
@@ -331,7 +330,12 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 }

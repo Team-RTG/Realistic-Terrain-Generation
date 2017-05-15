@@ -4,9 +4,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 import rtg.api.util.BlockUtil;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.helper.DecoHelper5050;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionBase;
+import rtg.api.world.deco.helper.DecoHelper5050;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
 /**

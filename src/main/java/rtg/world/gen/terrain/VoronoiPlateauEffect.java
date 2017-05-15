@@ -2,9 +2,11 @@
 package rtg.world.gen.terrain;
 
 import java.awt.geom.Point2D;
+
 import rtg.api.util.Bayesian;
 import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
 
 /**
  * This returns a value generally between just below 0 and 1 depending on the distance from a voronoi cell border

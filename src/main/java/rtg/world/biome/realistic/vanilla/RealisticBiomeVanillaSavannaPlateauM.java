@@ -13,13 +13,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.util.CanyonColour;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase {
 
@@ -29,12 +29,15 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaSavannaPlateauM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {

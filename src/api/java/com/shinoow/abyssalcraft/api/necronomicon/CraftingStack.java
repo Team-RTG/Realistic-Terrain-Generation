@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -85,7 +85,7 @@ public class CraftingStack {
 								stuff[i+3] = copy[i+2];
 							}
 						}
-						this.output.setCount(recipe.getRecipeOutput().getCount());
+						this.output.stackSize = recipe.getRecipeOutput().stackSize;
 					}
 				}
 			for(int i = 0; i < 9; i++)

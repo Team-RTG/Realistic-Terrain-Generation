@@ -14,9 +14,9 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
@@ -25,11 +25,6 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
     public RealisticBiomeMWVolcano(Biome biome) {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 1;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -40,6 +35,16 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override
@@ -176,5 +181,15 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 1;
     }
 }

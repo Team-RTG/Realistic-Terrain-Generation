@@ -5,28 +5,24 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.necronomicon;
 
-import java.io.IOException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.NavigableMap;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.logging.log4j.Level;
 
 import com.google.common.collect.Maps;
-import com.shinoow.abyssalcraft.api.AbyssalCraftAPI;
 
 /**
  * Base data structure for Necronomicon information pages
@@ -155,12 +151,16 @@ public class NecroData {
 	 * @since 1.6
 	 */
 	public static class Chapter{
-		private NavigableMap<Integer, Page> pages = Maps.newTreeMap((o1, o2) -> {
-			if(o1 > o2)
-				return 1;
-			if(o1 < o2)
-				return -1;
-			return 0;
+		private NavigableMap<Integer, Page> pages = Maps.newTreeMap(new Comparator<Integer>(){
+
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				if(o1 > o2)
+					return 1;
+				if(o1 < o2)
+					return -1;
+				return 0;
+			}
 		});
 		private String identifier;
 		private String title;
@@ -285,24 +285,10 @@ public class NecroData {
 			if(pageNum == 0) throw new ArithmeticException("The Page number can't be zero");
 			this.pageNum = pageNum;
 			if(icon != null)
-				if(!(icon instanceof ResourceLocation) && !(icon instanceof ItemStack) && !(icon instanceof CraftingStack) && !(icon instanceof String))
-					throw new IllegalArgumentException("Icon isn't a ResourceLocation, ItemStack, CraftingStack or URL String!");
-			this.icon = verify(icon);
+				if(!(icon instanceof ResourceLocation) && !(icon instanceof ItemStack) && !(icon instanceof CraftingStack))
+					throw new IllegalArgumentException("Icon isn't a ResourceLocation, ItemStack or CraftingStack!");
+			this.icon = icon;
 			this.text = text;
-		}
-
-		private Object verify(Object obj){
-			if(obj instanceof String) AbyssalCraftAPI.getInternalNDHandler().verifyImageURL((String)obj);
-			if(!(obj instanceof ResourceLocation)) return obj;
-			if(FMLCommonHandler.instance().getSide().isServer()) return obj;
-			ResourceLocation res = (ResourceLocation)obj;
-			if(res.toString().equals("abyssalcraft:textures/gui/necronomicon/missing.png")) return obj;
-			try {
-				TextureUtil.readBufferedImage(Minecraft.getMinecraft().getResourceManager().getResource(res).getInputStream());
-			} catch (IOException e) {
-				return new ResourceLocation("abyssalcraft", "textures/gui/necronomicon/missing.png");
-			}
-			return res;
 		}
 
 		/**

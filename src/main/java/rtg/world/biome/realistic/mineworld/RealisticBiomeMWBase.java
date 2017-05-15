@@ -4,7 +4,7 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -20,14 +20,31 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
     public RealisticBiomeMWBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
+    }
 
-        this.waterSurfaceLakeChance = 30;
-        this.lavaSurfaceLakeChance = 0;
+    @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
     }
 
     @Override
     public String modSlug() {
         return "mineworld";
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     public static void addBiomes() {

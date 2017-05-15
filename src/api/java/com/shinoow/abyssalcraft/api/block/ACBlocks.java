@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -15,7 +15,7 @@ import net.minecraft.block.Block;
 
 /**
  * Contains all blocks added in AbyssalCraft
- *
+ * 
  * @author shinoow
  *
  */
@@ -23,7 +23,6 @@ public class ACBlocks {
 
 	public static Block darkstone;
 	public static Block darkstone_cobblestone;
-	/** Metadata block, 0 = Darkstone Bricks, 1 = Chiseled Darkstone Bricks, 2 = Cracked Darkstone Bricks */
 	public static Block darkstone_brick;
 	public static Block glowing_darkstone_bricks;
 	public static Block darkstone_brick_slab;
@@ -35,7 +34,6 @@ public class ACBlocks {
 	public static Block darklands_oak_wood;
 	public static Block darklands_oak_sapling;
 	public static Block abyssal_stone;
-	/** Metadata block, 0 = Abyssal Stone Bricks, 1 = Chiseled Abyssal Stone Bricks, 2 = Cracked Abyssal Stone Bricks */
 	public static Block abyssal_stone_brick;
 	public static Block abyssal_stone_brick_slab;
 	public static Block abyssal_stone_brick_stairs;
@@ -71,9 +69,7 @@ public class ACBlocks {
 	public static Block abyssalnite_stone;
 	public static Block dreadlands_abyssalnite_ore;
 	public static Block dreaded_abyssalnite_ore;
-	/** Metadata block, 0 = Dreadstone Bricks, 1 = Chiseled Dreadstone Bricks, 2 = Cracked Dreadstone Bricks */
 	public static Block dreadstone_brick;
-	/** Metadata block, 0 = Abyssalnite Stone Bricks, 1 = Chiseled Abyssalnite Stone Bricks, 2 = Cracked Abyssalnite Stone Bricks */
 	public static Block abyssalnite_stone_brick;
 	public static Block dreadlands_grass;
 	public static Block dreadlands_log;
@@ -94,7 +90,6 @@ public class ACBlocks {
 	public static Block abyssalnite_stone_brick_slab;
 	public static Block liquid_antimatter;
 	public static Block coralium_stone;
-	/** Metadata block, 0 = Coralium Brick, 1 = Chiseled Coralium Brick, 2 = Cracked Coralium Brick */
 	public static Block coralium_stone_brick;
 	public static Block coralium_stone_brick_fence;
 	public static Block coralium_stone_brick_slab;
@@ -122,7 +117,7 @@ public class ACBlocks {
 	public static Block liquified_coralium_ore;
 	public static Block solid_lava;
 	public static Block ethaxium;
-	/** Metadata block, 0 = Ethaxium Brick, 1 = Chiseled Ethaxium Brick, 2 = Cracked Ethaxium Brick */
+	/** Metadata block, 0 = Ethaxium Brick, 1 = Chiseled Ethaxium Brick */
 	public static Block ethaxium_brick;
 	public static Block ethaxium_pillar;
 	public static Block ethaxium_brick_stairs;
@@ -134,7 +129,7 @@ public class ACBlocks {
 	public static Block omothol_fire;
 	public static Block engraver;
 	public static Block materializer;
-	/** Metadata block, 0 = Dark Ethaxium Brick, 1 = Chiseled Dark Ethaxium Brick, 2 = Cracked Dark Ethaxium Brick */
+	/** Metadata block, 0 = Dark Ethaxium Brick, 1 = Chiseled Dark Ethaxium Brick */
 	public static Block dark_ethaxium_brick;
 	public static Block dark_ethaxium_pillar;
 	public static Block dark_ethaxium_brick_stairs;
@@ -171,37 +166,4 @@ public class ACBlocks {
 	public static Block decorative_shub_niggurath_statue;
 	public static Block crystal_cluster;
 	public static Block crystal_cluster2;
-	public static Block energy_collector;
-	public static Block energy_relay;
-	public static Block energy_container;
-	/** Metadata block, 0 = Overworld, 1 = Abyssal Wasteland, 2 = Dreadlands, 3 = Omothol */
-	public static Block tiered_energy_collector;
-	public static Block overworld_energy_relay;
-	public static Block abyssal_wasteland_energy_relay;
-	public static Block dreadlands_energy_relay;
-	public static Block omothol_energy_relay;
-	/** Metadata block, 0 = Overworld, 1 = Abyssal Wasteland, 2 = Dreadlands, 3 = Omothol */
-	public static Block tiered_energy_container;
-	public static Block abyssal_sand;
-	public static Block fused_abyssal_sand;
-	public static Block abyssal_sand_glass;
-	public static Block dreadlands_dirt;
-	public static Block abyssal_cobblestone;
-	public static Block dreadstone_cobblestone;
-	public static Block abyssalnite_cobblestone;
-	public static Block coralium_cobblestone;
-	public static Block abyssal_cobblestone_slab;
-	public static Block abyssal_cobblestone_stairs;
-	public static Block abyssal_cobblestone_wall;
-	public static Block dreadstone_cobblestone_slab;
-	public static Block dreadstone_cobblestone_stairs;
-	public static Block dreadstone_cobblestone_wall;
-	public static Block abyssalnite_cobblestone_slab;
-	public static Block abyssalnite_cobblestone_stairs;
-	public static Block abyssalnite_cobblestone_wall;
-	public static Block coralium_cobblestone_slab;
-	public static Block coralium_cobblestone_stairs;
-	public static Block coralium_cobblestone_wall;
-	public static Block luminous_thistle;
-	public static Block wastelands_thorn;
 }

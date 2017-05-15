@@ -7,7 +7,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeMesa;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
@@ -16,12 +15,11 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.world.gen.terrain.PlateauStep;
-import rtg.world.gen.terrain.TerrainBase;
 import rtg.world.gen.terrain.VoronoiPlateauEffect;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
@@ -32,13 +30,15 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaMesaPlateau() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.waterSurfaceLakeChance = 30;
     }
 
     @Override
     public void initConfig() {}
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -266,5 +266,10 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         decoTree.setTreeConditionNoise(0f);
         decoTree.setMinY(74);
         addDeco(decoTree);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
     }
 }

@@ -14,11 +14,11 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.util.CanyonColour;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBase {
 
@@ -28,15 +28,16 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
     public RealisticBiomeVanillaMesaPlateauFM() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.waterSurfaceLakeChance = 30;
     }
 
     @Override
     public void initConfig() {}
 
     @Override
+    public boolean noLakes() {
+        return true;
+    }
+
     public TerrainBase initTerrain() {
 
         return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
@@ -224,5 +225,10 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         decoTree.setTreeConditionNoise(0f);
         decoTree.setMinY(74);
         addDeco(decoTree);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
     }
 }

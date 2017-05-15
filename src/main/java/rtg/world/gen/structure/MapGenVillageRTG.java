@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import javax.annotation.Nonnull;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -18,14 +18,15 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
 import rtg.api.RTGAPI;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class MapGenVillageRTG extends MapGenVillage
 {
-    public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.<Biome>asList(new Biome[] {Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.TAIGA});
+    public static List<Biome> VILLAGE_SPAWN_BIOMES = Arrays.asList(Biomes.PLAINS, Biomes.DESERT, Biomes.SAVANNA, Biomes.TAIGA);
     private int size;
     private int distance;
     private final int minTownSeparation;
@@ -40,16 +41,16 @@ public class MapGenVillageRTG extends MapGenVillage
         this();
 
         for (Entry<String, String> entry : map.entrySet()) {
-            if (((String)entry.getKey()).equals("size")) {
-                this.size = MathHelper.getInt((String)entry.getValue(), this.size, 0);
+            if (entry.getKey().equals("size")) {
+                this.size = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.size, 0);
             }
-            else if (((String)entry.getKey()).equals("distance")) {
-                this.distance = MathHelper.getInt((String)entry.getValue(), this.distance, 9);
+            else if (entry.getKey().equals("distance")) {
+                this.distance = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.distance, 9);
             }
         }
     }
 
-    @Override
+    @Override @Nonnull
     public String getStructureName() {
         return "Village";
     }
@@ -60,17 +61,12 @@ public class MapGenVillageRTG extends MapGenVillage
         int i = chunkX;
         int j = chunkZ;
 
-        if (chunkX < 0) {
-            chunkX -= this.distance - 1;
-        }
-
-        if (chunkZ < 0) {
-            chunkZ -= this.distance - 1;
-        }
+        if (chunkX < 0) chunkX -= this.distance - 1;
+        if (chunkZ < 0) chunkZ -= this.distance - 1;
 
         int k = chunkX / this.distance;
         int l = chunkZ / this.distance;
-        Random random = this.world.setRandomSeed(k, l, 10387312);
+        Random random = this.worldObj.setRandomSeed(k, l, 10387312);
         k = k * this.distance;
         l = l * this.distance;
         k = k + random.nextInt(this.distance - 8);
@@ -78,15 +74,15 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (i == k && j == l) {
 
-            boolean booRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
-            boolean booRTGChunkManager = world.getBiomeProvider() instanceof BiomeProviderRTG;
+            boolean booRTGWorld = worldObj.getWorldType() instanceof WorldTypeRTG;
+            boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof BiomeProviderRTG;
 
             int worldX = i * 16 + 8;
             int worldZ = j * 16 + 8;
 
             if (booRTGWorld && booRTGChunkManager) {
 
-                BiomeProviderRTG cmr = (BiomeProviderRTG) world.getBiomeProvider();
+                BiomeProviderRTG cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
                 //Why are we flipping XZ here? No idea, but it works. - Pink
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
 
@@ -95,22 +91,9 @@ public class MapGenVillageRTG extends MapGenVillage
                     Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
                 }
             }
-            else canSpawnVillage = this.world.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);
+            else canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);
         }
         return canSpawnVillage;
-    }
-
-    @Override
-    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
-    {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.distance, 8, 10387312, false, 100, findUnexplored);
-    }
-
-    @Override
-    protected StructureStart getStructureStart(int chunkX, int chunkZ)
-    {
-        return new MapGenVillage.Start(this.world, this.rand, chunkX, chunkZ, this.size);
     }
 
     public static class Start extends StructureStart
@@ -131,12 +114,12 @@ public class MapGenVillageRTG extends MapGenVillage
             while (!list1.isEmpty() || !list2.isEmpty()) {
                 if (list1.isEmpty()) {
                     int i = rand.nextInt(list2.size());
-                    StructureComponent structurecomponent = (StructureComponent)list2.remove(i);
+                    StructureComponent structurecomponent = list2.remove(i);
                     structurecomponent.buildComponent(structurevillagepieces$start, this.components, rand);
                 }
                 else {
                     int j = rand.nextInt(list1.size());
-                    StructureComponent structurecomponent2 = (StructureComponent)list1.remove(j);
+                    StructureComponent structurecomponent2 = list1.remove(j);
                     structurecomponent2.buildComponent(structurevillagepieces$start, this.components, rand);
                 }
             }
@@ -145,11 +128,8 @@ public class MapGenVillageRTG extends MapGenVillage
             int k = 0;
 
             for (StructureComponent structurecomponent1 : this.components) {
-                if (!(structurecomponent1 instanceof StructureVillagePieces.Road)) {
-                    ++k;
+                if (!(structurecomponent1 instanceof StructureVillagePieces.Road)) ++k;
             }
-            }
-
             this.hasMoreThanTwoComponents = k > 2;
         }
 

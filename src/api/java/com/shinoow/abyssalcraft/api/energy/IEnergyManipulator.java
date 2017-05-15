@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -18,9 +18,9 @@ import com.shinoow.abyssalcraft.api.energy.EnergyEnum.DeityType;
  * Interface to use on tile entities that can manipulate Ley Lines (WIP)<br>
  * WARNING: Any methods in this interface might end up getting removed,<br>
  * so I would suggest not using it until this text (and the WIP part) is removed.
- *
+ * 
  * @author shinoow
- *
+ * 
  * @since 1.4.5
  */
 public interface IEnergyManipulator {
@@ -77,18 +77,8 @@ public interface IEnergyManipulator {
 	public void setActiveAmplifier(AmplifierType amplifier);
 
 	/**
-	 * Increases the tolerance value (tolerance determines a disruption is fired)
-	 * @param num Amount to increase with
+	 * Something bad that has the potential of happening
+	 * @param factor A random occasion (could be 5% trigger chance if activated etc)
 	 */
-	public void addTolerance(int num);
-
-	/**
-	 * Returns the manipulator's current tolerance value (tolerance determines a disruption is fired)
-	 */
-	public int getTolerance();
-
-	/**
-	 * Fires off a Disruption, which can lead to bad things happening
-	 */
-	public void disrupt();
+	public void disrupt(boolean factor);
 }

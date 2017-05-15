@@ -13,13 +13,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsPlus;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.JitterEffect;
-import rtg.world.gen.terrain.MountainsWithPassesEffect;
-import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
@@ -29,11 +29,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     public RealisticBiomeVanillaExtremeHillsPlus() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
-        this.generatesSilverfish = true;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -45,6 +40,16 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
 
         this.getConfig().TEMPERATURE.set("0.25");
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
     }
 
     @Override
@@ -87,7 +92,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.65f);
+        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f);
     }
 
     public class SurfaceVanillaExtremeHillsPlus extends SurfaceBase {
@@ -124,6 +129,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
             OpenSimplexNoise simplex = rtgWorld.simplex;
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
+            boolean m = false;
 
             Block b;
             for (int k = 255; k > -1; k--) {
@@ -137,10 +143,6 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                     if (depth == 0) {
 
                         float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
-                        float mixNoise = simplex.noise2(i / 12f, j / 12f);
-
-                        //Logger.debug("%f", mixNoise);
-
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -169,8 +171,9 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (mixNoise > mixHeight) {
+                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
                             primer.setBlockState(x, k, z, mixBlock);
+                            m = true;
                         }
                         else {
                             primer.setBlockState(x, k, z, topBlock);
@@ -196,5 +199,15 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionExtremeHillsPlus());
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
+        return true;
     }
 }

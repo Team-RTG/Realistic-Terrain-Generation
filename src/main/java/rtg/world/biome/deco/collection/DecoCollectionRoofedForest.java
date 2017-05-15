@@ -5,12 +5,13 @@ import net.minecraft.world.gen.feature.WorldGenCanopyTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.util.BlockUtil;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
-import rtg.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
-import rtg.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionBase;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
 /**
@@ -168,7 +169,7 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
         return new DecoMushrooms()
             .setChance(6)
             .setMaxY(90)
-            .setRandomType(rtg.world.biome.deco.DecoMushrooms.RandomType.ALWAYS_GENERATE);
+            .setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
     }
 
     private DecoFallenTree logs() {

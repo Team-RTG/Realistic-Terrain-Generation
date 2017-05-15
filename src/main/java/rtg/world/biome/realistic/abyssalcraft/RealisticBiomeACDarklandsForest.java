@@ -16,10 +16,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
@@ -175,17 +178,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
     @Override
     public void initDecos() {
-
-        DecoAbyssalCraftTree decoTrees = new DecoAbyssalCraftTree();
-        decoTrees.setStrengthNoiseFactorXForLoops(true);
-        decoTrees.getDistribution().setNoiseDivisor(80f);
-        decoTrees.getDistribution().setNoiseFactor(60f);
-        decoTrees.getDistribution().setNoiseAddend(-15f);
-        decoTrees.setTreeType(DecoAbyssalCraftTree.TreeType.DARKWOOD);
-        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        decoTrees.setTreeConditionChance(3);
-        decoTrees.setMaxY(110);
-        this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);

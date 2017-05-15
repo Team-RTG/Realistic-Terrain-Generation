@@ -1,19 +1,17 @@
 package rtg.api.world;
 
 import java.util.Random;
+
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.ChunkPos;
-
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeMesa;
-import rtg.api.util.TimedHashSet;
 
+import rtg.api.util.TimedHashSet;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
-import rtg.api.util.noise.VoronoiCellNoise;
 
 /**
  * @author topisani

@@ -14,10 +14,16 @@ import rtg.api.util.Bayesian;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.RaiseEffect;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHills;
 import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.*;
+import rtg.world.gen.terrain.SpikeEverywhereEffect;
+import rtg.world.gen.terrain.VoronoiBorderEffect;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
@@ -27,11 +33,6 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaExtremeHills() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
-        this.generatesSilverfish = true;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
@@ -45,6 +46,16 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
 
         this.getConfig().TEMPERATURE.set("0.25");
+    }
+
+    @Override
+    public boolean noWaterFeatures() {
+        return true;
+    }
+
+    @Override
+    public boolean noLakes() {
+        return true;
     }
 
     @Override
@@ -247,5 +258,15 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionExtremeHills());
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
+        return true;
     }
 }

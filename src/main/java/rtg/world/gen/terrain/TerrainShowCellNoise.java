@@ -3,6 +3,7 @@ package rtg.world.gen.terrain;
 
 import rtg.api.util.noise.SpacedCellOctave;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.TerrainBase;
 
 /**
  *

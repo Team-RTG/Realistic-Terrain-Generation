@@ -11,21 +11,19 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.CanyonColour;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDeadBush;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.world.gen.terrain.PlateauStep;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.gen.terrain.TerrainBase.riverized;
 import rtg.world.gen.terrain.VoronoiBasinEffect;
-import rtg.world.gen.terrain.VoronoiPlateauEffect;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
@@ -35,9 +33,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesaBryce() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -277,5 +272,15 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         decoCactus.setLoops(18);
         decoCactus.setMaxY(100);
         this.addDeco(decoCactus);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 }

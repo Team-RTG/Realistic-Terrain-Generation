@@ -2,9 +2,10 @@ package rtg.world.biome.deco.collection;
 
 import net.minecraft.block.state.IBlockState;
 
-import rtg.world.biome.deco.DecoTree;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
+import rtg.api.world.deco.DecoTree;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
+
 
 /**
  * @author WhichOnesPink

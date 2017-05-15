@@ -1,6 +1,7 @@
 package rtg.world.gen;
 
 import java.util.WeakHashMap;
+
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 
@@ -174,8 +175,9 @@ class LandscapeGenerator {
             }
         }
         TimeTracker.manager.stop("Biome Layout");
+        TimeTracker.manager.stop("RTG Noise");
     }
-    
+
     public float [] noiseFor(IBiomeProviderRTG cmr, int worldX, int worldZ) {
         ChunkPos location = new ChunkPos(worldX,worldZ);
         ChunkLandscape landscape = storage.get(location);

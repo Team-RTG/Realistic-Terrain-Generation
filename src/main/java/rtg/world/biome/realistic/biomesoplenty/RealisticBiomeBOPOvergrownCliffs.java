@@ -15,10 +15,10 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.deco.DecoSingleBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
 
 public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
@@ -28,8 +28,6 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPOvergrownCliffs() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
     }
 
     @Override
@@ -185,5 +183,10 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 }

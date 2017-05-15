@@ -13,7 +13,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.deco.DecoBase;
 import rtg.world.gen.feature.WorldGenSponge;
 
 /**
@@ -59,7 +60,7 @@ public class DecoSponge extends DecoBase {
     }
 
     @Override
-    public void generate(RealisticBiomeBase biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 

@@ -31,6 +31,7 @@ import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.jikou.RealisticBiomeJIKBase;
 import rtg.world.biome.realistic.mineworld.RealisticBiomeMWBase;
@@ -106,6 +107,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeFLORIBase.addBiomes();
         RealisticBiomeJIKBase.addBiomes();
         RealisticBiomeMCMBase.addBiomes();
         RealisticBiomeMFBase.addBiomes();

@@ -25,9 +25,9 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_CLIFF_STONE_BLOCK_META;
     public final ConfigPropertyString SURFACE_CLIFF_COBBLE_BLOCK;
     public final ConfigPropertyInt SURFACE_CLIFF_COBBLE_BLOCK_META;
-    public final ConfigPropertyInt CAVE_DENSITY;
-    public final ConfigPropertyInt CAVE_FREQUENCY;
-    public final ConfigPropertyInt RAVINE_FREQUENCY;
+    //public final ConfigPropertyInt CAVE_DENSITY;
+    //public final ConfigPropertyInt CAVE_FREQUENCY;
+    //public final ConfigPropertyInt RAVINE_FREQUENCY;
     public final ConfigPropertyInt BEACH_BIOME;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
     public final ConfigPropertyString TEMPERATURE;
@@ -215,38 +215,38 @@ public class BiomeConfig extends Config {
         );
         this.addProperty(SURFACE_CLIFF_COBBLE_BLOCK_META);
 
-        CAVE_DENSITY = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Cave Density",
-            "Caves",
-            "This setting controls the size of caves."
-                + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
-            -1, -1, 40
-        );
-        this.addProperty(CAVE_DENSITY);
-
-        CAVE_FREQUENCY = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Cave Frequency",
-            "Caves",
-            "This setting controls the number of caves that generate."
-                + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
-            -1, -1, 40
-        );
-        this.addProperty(CAVE_FREQUENCY);
-
-        RAVINE_FREQUENCY = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Ravine Frequency",
-            "Ravines",
-            "This setting controls the number of ravines that generate."
-                + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome.",
-            -1, -1, 100
-        );
-        this.addProperty(RAVINE_FREQUENCY);
+//        CAVE_DENSITY = new ConfigPropertyInt(
+//            Type.INTEGER,
+//            "Cave Density",
+//            "Caves",
+//            "This setting controls the size of caves."
+//                + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)"
+//                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
+//            -1, -1, 40
+//        );
+//        this.addProperty(CAVE_DENSITY);
+//
+//        CAVE_FREQUENCY = new ConfigPropertyInt(
+//            Type.INTEGER,
+//            "Cave Frequency",
+//            "Caves",
+//            "This setting controls the number of caves that generate."
+//                + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)"
+//                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
+//            -1, -1, 40
+//        );
+//        this.addProperty(CAVE_FREQUENCY);
+//
+//        RAVINE_FREQUENCY = new ConfigPropertyInt(
+//            Type.INTEGER,
+//            "Ravine Frequency",
+//            "Ravines",
+//            "This setting controls the number of ravines that generate."
+//                + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)"
+//                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome.",
+//            -1, -1, 100
+//        );
+//        this.addProperty(RAVINE_FREQUENCY);
 
         BEACH_BIOME = new ConfigPropertyInt(
             Type.INTEGER, "Beach Biome", "Beaches",

@@ -16,7 +16,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
  */
 public class DecoCollectionDesertRiver extends DecoCollectionBase {
 
-    public DecoCollectionDesertRiver() {
+    public DecoCollectionDesertRiver(boolean allowCactus) {
 
         super();
 
@@ -54,7 +54,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         decoRiverCactus.setMinRiver(0.7f);
         decoRiverCactus.setMaxY(80);
         decoRiverCactus.setStrengthFactor(12f);
-        this.addDeco(decoRiverCactus);
+        this.addDeco(decoRiverCactus, allowCactus);
 
         DecoReed decoReed = new DecoReed();
         decoReed.setCheckRiver(true);

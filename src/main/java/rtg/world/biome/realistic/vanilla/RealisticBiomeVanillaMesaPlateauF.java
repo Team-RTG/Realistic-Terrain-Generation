@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.api.util.CanyonColour;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
@@ -31,7 +30,9 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public boolean noLakes() {
@@ -199,7 +200,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setChance(10);
@@ -211,7 +212,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
         decoCactus.setSandOnly(false);
         decoCactus.setMaxRiver(0.8f);
-        addDeco(decoCactus);
+        addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();
         decoReed.setLoops(5);

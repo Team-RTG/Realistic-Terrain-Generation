@@ -33,7 +33,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public boolean noLakes() {
@@ -233,7 +235,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setChance(10);
@@ -245,7 +247,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
         decoCactus.setSandOnly(false);
         decoCactus.setMaxRiver(0.8f);
-        addDeco(decoCactus);
+        addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();
         decoReed.setLoops(5);

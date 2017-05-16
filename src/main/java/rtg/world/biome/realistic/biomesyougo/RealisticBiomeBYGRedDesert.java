@@ -28,7 +28,9 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public boolean noLakes() {
@@ -180,7 +182,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

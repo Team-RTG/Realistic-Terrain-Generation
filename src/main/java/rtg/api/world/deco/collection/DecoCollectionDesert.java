@@ -10,7 +10,7 @@ import rtg.api.world.deco.DecoDesertWell;
  */
 public class DecoCollectionDesert extends DecoCollectionBase {
 
-    public DecoCollectionDesert() {
+    public DecoCollectionDesert(boolean allowCactus) {
 
         super();
 
@@ -24,7 +24,7 @@ public class DecoCollectionDesert extends DecoCollectionBase {
         decoCactus.setMaxY(90);
         decoCactus.setStrengthFactor(3f);
         decoCactus.setChance(2);
-        this.addDeco(decoCactus);
+        this.addDeco(decoCactus, allowCactus);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setMaxY(128);

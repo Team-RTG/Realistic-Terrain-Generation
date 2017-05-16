@@ -39,6 +39,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     public void initConfig() {
 
         this.getConfig().ALLOW_VILLAGES.set(false);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
     @Override
@@ -250,7 +251,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -271,7 +272,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
         decoCactus.setLoops(18);
         decoCactus.setMaxY(100);
-        this.addDeco(decoCactus);
+        this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
     }
 
     @Override

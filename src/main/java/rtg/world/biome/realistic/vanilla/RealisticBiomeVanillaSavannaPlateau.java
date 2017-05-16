@@ -32,7 +32,9 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public boolean noLakes() {
@@ -199,7 +201,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -240,7 +242,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         decoCactus.setMaxY(160);
         decoCactus.setLoops(60);
         decoCactus.setChance(8);
-        this.addDeco(decoCactus);
+        this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
         decoDoubleGrass.setMaxY(128);

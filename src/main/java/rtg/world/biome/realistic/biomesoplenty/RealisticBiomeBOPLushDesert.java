@@ -40,6 +40,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
     @Override
@@ -219,6 +220,6 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
         decoJungleCacti.setStrengthFactor(8f);
         decoJungleCacti.setMaxY(110);
-        this.addDeco(decoJungleCacti);
+        this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
     }
 }

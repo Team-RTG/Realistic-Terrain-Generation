@@ -32,11 +32,9 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
+        this.getConfig().ALLOW_RIVERS.set(false);
     }
 
     @Override

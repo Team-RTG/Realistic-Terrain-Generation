@@ -29,17 +29,11 @@ public class RealisticBiomeIAFGlacier extends RealisticBiomeIAFBase {
     }
 
     @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
     public void initConfig() {
+
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");

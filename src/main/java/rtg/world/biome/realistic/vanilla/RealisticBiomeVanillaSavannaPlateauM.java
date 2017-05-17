@@ -33,12 +33,10 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
     @Override
     public void initConfig() {
-        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
-    }
 
-    @Override
-    public boolean noLakes() {
-        return true;
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
     @Override

@@ -81,16 +81,6 @@ public class RealisticBiomeCreator extends RealisticBiomeBase {
     }
 
     @Override
-    public boolean noLakes() {
-        return this.iRealisticBiome.noLakes();
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return this.iRealisticBiome.noWaterFeatures();
-    }
-
-    @Override
     public int waterUndergroundLakeChance() {
         return this.iRealisticBiome.waterUndergroundLakeChance();
     }

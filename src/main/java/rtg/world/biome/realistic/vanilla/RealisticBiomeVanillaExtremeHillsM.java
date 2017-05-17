@@ -31,17 +31,13 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
+
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
-
-        this.getConfig().TEMPERATURE.set("0.25");
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
     }
 
     @Override

@@ -47,14 +47,6 @@ public interface IRealisticBiome {
         return false;
     }
 
-    default boolean noLakes() {
-        return false;
-    }
-
-    default boolean noWaterFeatures() {
-        return false;
-    }
-
     default int waterUndergroundLakeChance() {
         return 1; // Lower equals more frequent.
     }
@@ -72,7 +64,7 @@ public interface IRealisticBiome {
     }
 
     default float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
-        if (this.noLakes()) return 1f;
+        if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;

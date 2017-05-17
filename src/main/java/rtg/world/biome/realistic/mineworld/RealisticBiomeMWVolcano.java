@@ -30,21 +30,13 @@ public class RealisticBiomeMWVolcano extends RealisticBiomeMWBase {
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
-
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
-    }
 
-    @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override

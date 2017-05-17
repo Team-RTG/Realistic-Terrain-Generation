@@ -12,6 +12,8 @@ public class BiomeConfig extends Config {
      * GLOBAL CONFIGS
      */
 
+    public final ConfigPropertyBoolean ALLOW_RIVERS;
+    public final ConfigPropertyBoolean ALLOW_SCENIC_LAKES;
     public final ConfigPropertyBoolean ALLOW_VILLAGES;
     public final ConfigPropertyBoolean ALLOW_VOLCANOES;
     public final ConfigPropertyInt VOLCANO_CHANCE;
@@ -57,6 +59,24 @@ public class BiomeConfig extends Config {
         /*
          * GLOBAL CONFIGS
          */
+
+        ALLOW_RIVERS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Allow Rivers",
+            "Terrain Features",
+            "Set this to FALSE to prevent rivers from generating in this biome.",
+            true
+        );
+        this.addProperty(ALLOW_RIVERS);
+
+        ALLOW_SCENIC_LAKES = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Allow Scenic Lakes",
+            "Terrain Features",
+            "Set this to FALSE to prevent scenic lakes from generating in this biome.",
+            true
+        );
+        this.addProperty(ALLOW_SCENIC_LAKES);
 
         ALLOW_VILLAGES = new ConfigPropertyBoolean(
             ConfigProperty.Type.BOOLEAN,

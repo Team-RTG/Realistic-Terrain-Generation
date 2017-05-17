@@ -34,17 +34,10 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
     }
 
     @Override

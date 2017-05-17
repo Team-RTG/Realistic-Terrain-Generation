@@ -34,24 +34,15 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
 
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
-
-        this.getConfig().TEMPERATURE.set("0.25");
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
     }
 
     @Override

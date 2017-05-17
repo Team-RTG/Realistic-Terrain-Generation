@@ -27,11 +27,9 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
-    public boolean noLakes() {
-        return true;
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
 
     @Override

@@ -30,12 +30,8 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeVani
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VILLAGES.set(false);
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
     }
 
     @Override

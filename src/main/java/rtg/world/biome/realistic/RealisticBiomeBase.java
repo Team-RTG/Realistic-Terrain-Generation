@@ -163,7 +163,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-        if (this.noWaterFeatures()) {
+        if (!this.getConfig().ALLOW_RIVERS.get()) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
             river = 1f - (1f-borderForRiver)*(1f-river);
@@ -252,7 +252,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures() ? 0f : river;
+        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
@@ -266,7 +266,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures() ? 0f : river;
+        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 

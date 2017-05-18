@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -12,7 +11,8 @@ import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.noise.CellNoise;
+import rtg.api.util.Accessor;
+import rtg.api.util.Logger;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.world.RTGWorld;
@@ -21,14 +21,13 @@ import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeManager;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.gen.feature.WorldGenVolcano;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceGeneric;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeAnalyzer;
-import rtg.world.biome.IBiomeProviderRTG;
+
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase implements IRealisticBiome {
@@ -52,14 +51,13 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     // lake calculations
 
-    private float lakeInterval = 989.0f;
-    private float lakeShoreLevel = 0.15f;
-    private float lakeWaterLevel = 0.11f;// the lakeStrength below which things should be below water
-    private float lakeDepressionLevel = 0.30f;// the lakeStrength below which land should start to be lowered
+    private float lakeInterval = 649.0f;
+    private float lakeShoreLevel = 0.035f;
+    private float lakeDepressionLevel = 0.15f;// the lakeStrength below which land should start to be lowered
 
-    private float largeBendSize = 100;
-    private float mediumBendSize = 40;
-    private float smallBendSize = 15;
+    private float largeBendSize = 80;
+    private float mediumBendSize = 30;
+    private float smallBendSize = 12;
 
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
@@ -88,7 +86,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         // set the water feature constants with the config changes
         this.lakeInterval *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
-        this.lakeWaterLevel *= rtgConfig.lakeSizeMultiplier();
         this.lakeShoreLevel *= rtgConfig.lakeSizeMultiplier();
         this.lakeDepressionLevel *= rtgConfig.lakeSizeMultiplier();
 
@@ -102,6 +99,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     protected void init() {
         initConfig();
         this.getConfig().load(this.configPath());
+        this.adjustBiomeProperties();
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
@@ -163,132 +161,98 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return rDecorator;
     }
 
-    public void rMapVolcanoes(
-        ChunkPrimer primer, World world, IBiomeProviderRTG cmr,
-        Random mapRand, int baseX, int baseY, int chunkX, int chunkY,
-        OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
-
-        // Have volcanoes been disabled in the global config?
-        if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
-
-        // Have volcanoes been disabled in the biome config?
-        int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
-        RealisticBiomeBase realisticBiome = getBiome(biomeId);
-        // Do we need to patch the biome?
-        if (realisticBiome == null) {
-            RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
-            realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                "NULL biome (" + biomeId + ") found when mapping volcanoes.");
-        }
-        if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
-
-        // Have volcanoes been disabled via frequency?
-        // Use the global frequency unless the biome frequency has been explicitly set.
-        int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? rtgConfig.VOLCANO_CHANCE.get() : realisticBiome.getConfig().VOLCANO_CHANCE.get();
-        if (chance < 1) return;
-
-        // If we've made it this far, let's go ahead and generate the volcano. Exciting!!! :D
-        if (baseX % 4 == 0 && baseY % 4 == 0 && mapRand.nextInt(chance) == 0) {
-
-            float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
-            if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16)) {
-                long i1 = mapRand.nextLong() / 2L * 2L + 1L;
-                long j1 = mapRand.nextLong() / 2L * 2L + 1L;
-                mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
-
-                WorldGenVolcano.build(primer, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
-            }
-        }
-    }
-
-    public void generateMapGen(ChunkPrimer primer, Long seed, World world, IBiomeProviderRTG cmr, Random mapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
-
-        // Have volcanoes been disabled in the global config?
-        if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
-
-        final int mapGenRadius = 5;
-        final int volcanoGenRadius = 15;
-
-        mapRand.setSeed(seed);
-        long l = (mapRand.nextLong() / 2L) * 2L + 1L;
-        long l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
-
-        // Volcanoes generation
-        for (int baseX = chunkX - volcanoGenRadius; baseX <= chunkX + volcanoGenRadius; baseX++) {
-            for (int baseY = chunkY - volcanoGenRadius; baseY <= chunkY + volcanoGenRadius; baseY++) {
-                mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapVolcanoes(primer, world, cmr, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
-            }
-        }
-    }
-
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
         // we now have both lakes and rivers lowering land
-        if (this.noWaterFeatures()) {
+        if (!this.getConfig().ALLOW_RIVERS.get()) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
             river = 1f - (1f-borderForRiver)*(1f-river);
             return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
         float lakeStrength = lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize);
-        float lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
-        // we add some flattening to the rivers. The lakes are pre-flattened.
-        float riverFlattening = river*1.25f-0.25f;
-        if (riverFlattening <0) riverFlattening = 0;
+        // set the lakeStrength to match river parameters. Changes are needed because the
+        // function is much steeper at the edges (rivers) than the center (lakes)
+        float //lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+            lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
+
+        // combine rivers and lakes
+        if ((river<1)&&(lakeFlattening<1)) {
+            river = (1f-river)/river+(1f-lakeFlattening)/lakeFlattening;
+            river = (1f/(river+1f));
+        }
+        else if (lakeFlattening < river) river = lakeFlattening;
+
+        // smooth the edges on the top
+        river = 1f - river;
+        river = river*(river/(river + 0.05f)*(1.05f));
+        river = 1f - river;
+
+        // make the water areas flat for water features
+        float riverFlattening = river*(1f+riverFlatteningAddend)-riverFlatteningAddend;
+        if (riverFlattening <0 ) riverFlattening = 0;
+
+        /*if (riverFlattening <0) riverFlattening = 0;
+        if (riverFlattening >1) riverFlattening = 1;
         if ((river<1)&&(lakeFlattening<1)) {
             riverFlattening = (1f-riverFlattening)/riverFlattening+(1f-lakeFlattening)/lakeFlattening;
             riverFlattening = (1f/(riverFlattening+1f));
         }
         else if (lakeFlattening < riverFlattening) riverFlattening = lakeFlattening;
         // the lakes have to have a little less flattening to avoid the rocky edges
-        lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
+        lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeShoreLevel);*/
 
-        if ((river<1)&&(lakeFlattening<1)) {
-            river = (1f-river)/river+(1f-lakeFlattening)/lakeFlattening;
-            river = (1f/(river+1f));
-        }
-        else if (lakeFlattening < river) river = lakeFlattening;
+
         // flatten terrain to set up for the water features
         float terrainNoise = terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
         // place water features
-        return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise, lakeFlattening);
+        return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise);
     }
 
-    public static final float actualRiverProportion = 300f/1600f;
-    public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight, double lakeFlattening) {
+    public static final float actualRiverProportion = 150f/1600f;
+    public static final float riverFlatteningAddend = (actualRiverProportion)/(1f-actualRiverProportion);
 
+    public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         float r;
-        // put a flat spot in the middle of the river
-        float riverFlattening = river; // moved the flattening to terrain stage
-        if (riverFlattening <0) riverFlattening = 0;
+        // river of actualRiverProportions now maps to 1; TODO
+        float riverFlattening = 1f-river;
+        riverFlattening = riverFlattening - (1-actualRiverProportion);
+        // return biomeHeight if no river effect
+        if (riverFlattening <0) return biomeHeight;
+        // what was 1 set back to 1;
+        riverFlattening /= (actualRiverProportion);
 
-        // check if rivers need lowering
-        //if (riverFlattening < actualRiverProportion) {
-        r = riverFlattening/actualRiverProportion;
-        //}
+        // back to usual meanings: 1 = no river 0 = river
+        r = 1f - riverFlattening;
+        // flat spot in middle;
+        riverFlattening = riverFlattening *1.4f - 0.4f;
+        if (riverFlattening < 0) riverFlattening = 0;
 
-        //if (1>0) return 62f+r*10f;
-        if ((r < 1f && biomeHeight > 57f)) {
-            return (biomeHeight * (r)) + ((57f + rtgWorld.simplex.noise2(x / 12f, y / 12f) *
-                2f + rtgWorld.simplex.noise2(x / 8f, y / 8f) * 1.5f) * (1f-r));
+        if ((r < 1f && biomeHeight > 55f)) {
+            float irregularity = rtgWorld.simplex.noise2(x / 12f, y / 12f) *
+                2f + rtgWorld.simplex.noise2(x / 8f, y / 8f);
+            // less on the bottom and more on the sides
+            irregularity = irregularity*(1+r);
+            return (biomeHeight * (r)) + ((55f + irregularity) * 1.0f) * (1f-r);
         }
         else return biomeHeight;
     }
 
-    public float lakeFlattening(RTGWorld rtgWorld,int x, int y, float border) {
-        return lakeFlattening(lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize), lakeWaterLevel, lakeDepressionLevel);
-    }
-
-    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
-        // this number indicates a multiplier to height
+    public float lakeFlattening(float pressure, float shoreLevel, float topLevel) {
+        // adjusts the lake pressure to the river numbers. The lake shoreLevel is mapped
+        // to become equivalent to actualRiverProportion
         if (pressure > topLevel) return 1;
-        if (pressure<bottomLevel) return 0;
-        return (float)Math.pow((pressure-bottomLevel)/(topLevel-bottomLevel),1.0);
+        if (pressure<shoreLevel){
+            return (pressure/shoreLevel)*actualRiverProportion;
+        };
+        // proportion between top and shore becomes proportion between 1 and actual river
+        float proportion = (pressure-shoreLevel)/(topLevel - shoreLevel);
+        return actualRiverProportion + proportion*(1f-actualRiverProportion);
+        //return (float)Math.pow((pressure-shoreLevel)/(topLevel-shoreLevel),1.0);
     }
 
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures() ? 0f : river;
+        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
@@ -302,7 +266,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        float riverRegion = this.noWaterFeatures() ? 0f : river;
+        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
         if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
 
@@ -385,14 +349,48 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
                 //Logger.info("%s (%d) = oldNoise = %f | newNoise = %f", this.baseBiome.getBiomeName(), Biome.getIdForBiome(this.baseBiome), oldNoise, newNoise);
 
                 if (oldNoise != newNoise) {
-                   throw new RuntimeException(
-                       "Terrains do not match in biome ID " + Biome.getIdForBiome(this.baseBiome) + " (" + this.baseBiome.getBiomeName() + ")."
-                   );
+                    throw new RuntimeException(
+                        "Terrains do not match in biome ID " + Biome.getIdForBiome(this.baseBiome) + " (" + this.baseBiome.getBiomeName() + ")."
+                    );
                 }
             }
         }
 
         return true;
+    }
+
+    private void adjustBiomeProperties() {
+
+        Biome biome = this.baseBiome;
+        int biomeId = Biome.getIdForBiome(biome);
+        String biomeName = biome.getBiomeName();
+
+        // Temperature.
+
+        String configTemperature = this.getConfig().TEMPERATURE.get();
+
+        if (!configTemperature.isEmpty()) {
+
+            float biomeTemperature = Float.valueOf(configTemperature);
+
+            if (biomeTemperature > 0.1f && biomeTemperature < 0.2f)
+            {
+                throw new RuntimeException("Invalid biome temperature for " + biomeName + ".");
+            }
+            else if (biomeTemperature < -2f || biomeTemperature > 2f) {
+                throw new RuntimeException("Biome temperature out of range for " + biomeName + ".");
+            }
+
+            try {
+                Accessor<Biome, Float> biomeTemp = new Accessor<>("temperature", "field_76750_F");
+                biomeTemp.setField(biome, biomeTemperature);
+
+                Logger.info("Set biome temperature to %f for %s", biomeTemperature, biomeName);
+            }
+            catch (Exception e) {
+                Logger.warn("Unable to set biome temperature to %f for %s. Reason: %s", biomeTemperature, biomeName, e.getMessage());
+            }
+        }
     }
 
     public String configPath() {

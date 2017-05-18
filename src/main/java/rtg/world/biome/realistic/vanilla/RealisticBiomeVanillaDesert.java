@@ -30,13 +30,11 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
         this.getConfig().SURFACE_FILLER_BLOCK_META.set(0);
-    }
 
-    @Override
-    public boolean noLakes() {
-        return true;
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
     @Override
@@ -142,8 +140,8 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-        this.addDecoCollection(new DecoCollectionDesert());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesert(this.getConfig().ALLOW_CACTUS.get()));
     }
 
     @Override

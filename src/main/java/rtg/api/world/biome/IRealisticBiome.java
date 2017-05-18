@@ -9,6 +9,7 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
 import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -46,14 +47,6 @@ public interface IRealisticBiome {
         return false;
     }
 
-    default boolean noLakes() {
-        return false;
-    }
-
-    default boolean noWaterFeatures() {
-        return false;
-    }
-
     default int waterUndergroundLakeChance() {
         return 1; // Lower equals more frequent.
     }
@@ -71,7 +64,7 @@ public interface IRealisticBiome {
     }
 
     default float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
-        if (this.noLakes()) return 1f;
+        if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
@@ -83,10 +76,10 @@ public interface IRealisticBiome {
         pX += jitter.deltax() * smallBendSize;
         pY += jitter.deltay() * smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        double [] lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
-        float results = 1f-(float)((lakeResults[1]-lakeResults[0])/lakeResults[1]);
-        if (results >1.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
-        if (results<-.01) throw new RuntimeException("" + lakeResults[0]+ " , "+lakeResults[1]);
+        VoronoiResult lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+        float results = 1f-(float)(lakeResults.interiorValue());
+        if (results >1.01) throw new RuntimeException("" + lakeResults.shortestDistance+ " , "+lakeResults.nextDistance);
+        if (results<-.01) throw new RuntimeException("" + lakeResults.shortestDistance+ " , "+lakeResults.nextDistance);
         //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
         return results;
     }

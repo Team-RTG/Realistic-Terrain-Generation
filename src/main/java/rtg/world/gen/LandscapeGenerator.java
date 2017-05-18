@@ -1,13 +1,15 @@
 package rtg.world.gen;
 
+import java.util.WeakHashMap;
+
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 
+import rtg.api.util.TimedHashMap;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.util.TimeTracker;
-import rtg.api.util.TimedHashMap;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -30,6 +32,8 @@ class LandscapeGenerator {
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
     private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
+    private final WeakHashMap<ChunkLandscape,float[]> cache = new WeakHashMap();
+    private MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
 
     LandscapeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
@@ -126,6 +130,9 @@ class LandscapeGenerator {
                     weightedBiomes[biomeIndex] /= totalWeight;
                 }
 
+                // combine mesa biomes
+                mesaCombiner.adjust(weightedBiomes);
+                
                 landscape.noise[i * 16 + j] = 0f;
 
                 TimeTracker.manager.stop("Weighting");
@@ -134,6 +141,7 @@ class LandscapeGenerator {
                 landscape.river[i * 16 + j] = -river;
                 float totalBorder = 0f;
 
+                
                 for(int k = 0; k < 256; k++)
                 {
                     if(weightedBiomes[k] > 0f)
@@ -168,5 +176,28 @@ class LandscapeGenerator {
         }
         TimeTracker.manager.stop("Biome Layout");
         TimeTracker.manager.stop("RTG Noise");
+    }
+
+    public float [] noiseFor(IBiomeProviderRTG cmr, int worldX, int worldZ) {
+        ChunkPos location = new ChunkPos(worldX,worldZ);
+        ChunkLandscape landscape = storage.get(location);
+        float [] result = cache.get(landscape);
+        if (result != null) return result;
+        // not found; we have to make it;
+        
+        result = new float[256];
+        final int adjust = 24;// seems off? but decorations aren't matching their chunks.
+
+        TimeTracker.manager.start("Biome Layout");
+        for (int bx = -4; bx <= 4; bx++) {
+
+            for (int bz = -4; bz <= 4; bz++) {
+                result[getBiomeDataAt(cmr, worldX + adjust + bx * 4, worldZ + adjust + bz * 4)] += 0.01234569f;
+            }
+        }
+        TimeTracker.manager.stop("Biome Layout");
+        TimeTracker.manager.stop("Features"); 
+        cache.put(landscape, result);
+        return result;
     }
 }

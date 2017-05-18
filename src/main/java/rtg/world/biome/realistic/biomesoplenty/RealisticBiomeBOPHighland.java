@@ -16,9 +16,10 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
-import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
 
@@ -31,11 +32,9 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
+        this.getConfig().ALLOW_RIVERS.set(false);
     }
 
     @Override
@@ -130,7 +129,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 

@@ -10,19 +10,16 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.*;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
-import rtg.api.world.terrain.TerrainBase;
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsPlus;
 
 public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
 
@@ -37,26 +34,19 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
 
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaExtremeHillsPlus(150f, 80f, 90f);
+       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(150f, 67f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsPlus extends TerrainBase {
@@ -198,70 +188,8 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
 
     @Override
     public void initDecos() {
-
-        TreeRTG nigraTree = new TreeRTGPinusNigra();
-        nigraTree.setLogBlock(Blocks.LOG.getDefaultState());
-        nigraTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        nigraTree.setMinTrunkSize(18);
-        nigraTree.setMaxTrunkSize(27);
-        nigraTree.setMinCrownSize(7);
-        nigraTree.setMaxCrownSize(10);
-        this.addTree(nigraTree);
-
-        DecoTree decoTrees = new DecoTree(nigraTree);
-        decoTrees.setStrengthFactorForLoops(4f);
-        decoTrees.setStrengthNoiseFactorXForLoops(true);
-        decoTrees.getDistribution().setNoiseDivisor(100f);
-        decoTrees.getDistribution().setNoiseFactor(6f);
-        decoTrees.getDistribution().setNoiseAddend(0.8f);
-        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
-        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        decoTrees.setTreeConditionChance(24);
-        decoTrees.setMaxY(100);
-        this.addDeco(decoTrees);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
-        this.addDeco(decoShrub);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(12);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(2f);
-        this.addDeco(decoBoulder);
-
-        DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.USE_CHANCE_VALUE);
-        decoPumpkin.setChance(28);
-        this.addDeco(decoPumpkin);
-
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.setFlowers(new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2, 11, 11, 11});
-        decoFlowersRTG.setMaxY(128);
-        decoFlowersRTG.setLoops(3);
-        this.addDeco(decoFlowersRTG);
-
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
-        this.addDeco(decoDoublePlants);
+        this.addDecoCollection(new DecoCollectionExtremeHillsPlus());
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
     }
 
     @Override

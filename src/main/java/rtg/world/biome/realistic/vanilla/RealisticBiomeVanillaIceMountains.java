@@ -30,15 +30,13 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().USE_ARCTIC_SURFACE).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
     }
 
     @Override
@@ -70,8 +68,22 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaIceMountains(config, biome.topBlock, biome.fillerBlock, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
-            -0.14f, 14f, 0.25f);
+        if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
+            return new SurfaceVanillaIceMountains(
+                config, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
+                Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
+                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
+                60f, -0.14f, 14f, 0.25f
+            );
+        }
+        else {
+            return new SurfaceVanillaIceMountains(
+                config, biome.topBlock, biome.fillerBlock,
+                Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
+                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
+                60f, -0.14f, 14f, 0.25f
+            );
+        }
     }
 
     public class SurfaceVanillaIceMountains extends SurfaceBase {

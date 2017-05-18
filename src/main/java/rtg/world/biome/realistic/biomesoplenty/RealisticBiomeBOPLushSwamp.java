@@ -19,6 +19,7 @@ import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
 
 public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
@@ -52,7 +53,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
+            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f,river);
             //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
         }
     }
@@ -116,7 +117,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();

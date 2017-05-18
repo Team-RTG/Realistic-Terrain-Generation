@@ -41,4 +41,26 @@ public class DecoHelper5050 extends DecoBase {
             }
         }
     }
+
+    public DecoBase getDeco1() {
+
+        return deco1;
+    }
+
+    public DecoHelper5050 setDeco1(DecoBase deco1) {
+
+        this.deco1 = deco1;
+        return this;
+    }
+
+    public DecoBase getDeco2() {
+
+        return deco2;
+    }
+
+    public DecoHelper5050 setDeco2(DecoBase deco2) {
+
+        this.deco2 = deco2;
+        return this;
+    }
 }

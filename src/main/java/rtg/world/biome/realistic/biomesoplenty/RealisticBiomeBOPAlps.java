@@ -18,6 +18,7 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
@@ -30,16 +31,10 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
 
     @Override
@@ -50,7 +45,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     public class TerrainBOPAlps extends TerrainBase {
 
-        // the BoP version has steep slopes and a flat area on top. The RTG version will
+        // the BoP version has steep slopes and a flat area on top. The RTG version will mimic that.
         private float start = 0f;// this puts a minimum on "ruggedness" on the top. We want to allow flats
         private float height = 40f; // sets the variability range
         private float width = 80f; // width of irregularity noise on top. We want low, for a lot of features.
@@ -184,8 +179,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 

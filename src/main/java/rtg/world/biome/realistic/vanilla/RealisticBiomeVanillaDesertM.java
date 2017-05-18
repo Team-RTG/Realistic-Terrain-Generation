@@ -29,11 +29,11 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
-    public boolean noLakes() {
-        return true;
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
     @Override
@@ -169,8 +169,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
-        this.addDecoCollection(new DecoCollectionDesert());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesert(this.getConfig().ALLOW_CACTUS.get()));
     }
 
     @Override

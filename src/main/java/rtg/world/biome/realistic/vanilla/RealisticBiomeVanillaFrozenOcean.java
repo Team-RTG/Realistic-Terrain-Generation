@@ -30,15 +30,11 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VILLAGES.set(false);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
     }
 
     @Override

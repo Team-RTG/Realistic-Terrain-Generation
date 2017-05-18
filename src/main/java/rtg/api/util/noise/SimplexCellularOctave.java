@@ -27,8 +27,8 @@ public class SimplexCellularOctave implements CellOctave {
 
 	private short[] perm;
 	private short[] perm2D;
-    private int f1Index = 0;
-    private int f2Index =1;
+    private int shortestIndex = 0;
+    private int nextIndex =1;
 
 	public SimplexCellularOctave(long seed) {
 		perm = new short[1024];
@@ -96,12 +96,12 @@ public class SimplexCellularOctave implements CellOctave {
     public static boolean crashing = false;
     public static String chunkManagerProblems = "";
 
-	public double [] eval(double x, double y) {
+	public VoronoiResult eval(double x, double y) {
 
         extant = 0;// clear the point record
-        double [] results = new double[2];
-        results[0] = Double.POSITIVE_INFINITY;
-        results[1] = Double.POSITIVE_INFINITY;
+        VoronoiResult results = new VoronoiResult();
+        results.shortestDistance = Double.POSITIVE_INFINITY;
+        results.nextDistance = Double.POSITIVE_INFINITY;
         // set the found points to not found
         pointIndex[0] = -2;
         pointIndex[1] = -2;
@@ -151,49 +151,57 @@ public class SimplexCellularOctave implements CellOctave {
             int closeTo = pointTooClose(jx -c.dx,jy - c.dy);
             if (closeTo != -1) {
                 // just replace existing points if appropriate
-                if (pointIndex[f1Index] == i) {
-                    if (distance < results[f1Index]) {
-                        results[f1Index] = distance;
-                        pointIndex[f1Index] = i;
+                if (pointIndex[shortestIndex] == i) {
+                    if (distance < results.shortestDistance) {
+                        results.shortestDistance = distance;
+                        pointIndex[shortestIndex] = i;
+                        results.closestX = x - djx;
+                        results.closestZ = y - djy;
                     }
                 }
-                if (pointIndex[f2Index] == i) {
-                    if (distance < results[f1Index]) {
+                if (pointIndex[nextIndex] == i) {
+                    if (distance < results.shortestDistance) {
                         // complicated; the old point was #2 and the new is #1
-                        results[f2Index] = results[f1Index];
-                        pointIndex[f2Index] = pointIndex[f1Index];
-                        results[f1Index] = distance;
-                        pointIndex[f1Index] = i;
+                        results.nextDistance = results.shortestDistance;
+                        pointIndex[nextIndex] = pointIndex[shortestIndex];
+                        results.shortestDistance = distance;
+                        pointIndex[shortestIndex] = i;
+                        results.closestX = x - djx;
+                        results.closestZ = y - djy;
                     }
-                    else if (distance < results[f2Index]) {
-                        results[f2Index] = distance;
-                        pointIndex[f2Index] = i;
+                    else if (distance < results.nextDistance) {
+                        results.nextDistance = distance;
+                        pointIndex[nextIndex] = i;
                     }
                 }
             } else {
-                if (f2Index >= 0) {
-                    if (distance < results[f2Index]) {
-                            results[f2Index] = distance;
-                            pointIndex[f2Index]=i;
-                            if (distance < results[f1Index]) {
-                                results[f2Index] = results[f1Index];
-                                pointIndex[f2Index] = pointIndex[f1Index];
-                                results[f1Index] = distance;
-                                pointIndex[f1Index]=i;
+                if (nextIndex >= 0) {
+                    if (distance < results.nextDistance) {
+                            results.nextDistance = distance;
+                            pointIndex[nextIndex]=i;
+                            if (distance < results.shortestDistance) {
+                                results.nextDistance = results.shortestDistance;
+                                pointIndex[nextIndex] = pointIndex[shortestIndex];
+                                results.shortestDistance = distance;
+                                pointIndex[shortestIndex]=i;
+                        results.closestX = x - djx;
+                        results.closestZ = y - djy;
                             }
                         }
-                } else if (f1Index >= 0) {
-                    if (distance < results[f1Index]) {
-                        results[f1Index] = distance;
-                        pointIndex[f1Index] = i;
+                } else if (shortestIndex >= 0) {
+                    if (distance < results.shortestDistance) {
+                        results.shortestDistance = distance;
+                        pointIndex[shortestIndex] = i;
+                        results.closestX = x - djx;
+                        results.closestZ = y - djy;
                     }
                 }
             }
 		}
 
         if (crashing) {
-            complaint += pointIndex[f1Index] + " " + results[f1Index]+ " " ;
-            complaint += pointIndex[f2Index] + " " + results[f2Index]+ " " ;
+            complaint += pointIndex[shortestIndex] + " " + results.shortestDistance+ " " ;
+            complaint += pointIndex[nextIndex] + " " + results.nextDistance+ " " ;
             if (otherSide == null) {
                 otherSide = complaint;
             } else {
@@ -201,7 +209,8 @@ public class SimplexCellularOctave implements CellOctave {
             }
             crashing = false;
         }
-        if (results[0]>results[1]) throw new RuntimeException();
+        if (results.shortestDistance>results.nextDistance) throw new RuntimeException();
+        results.closestX = pointIndex[shortestIndex];
         return results;
 	}
 
@@ -286,7 +295,7 @@ public class SimplexCellularOctave implements CellOctave {
 	};
 
     public float noise(double x, double z, double depth) {
-        return (float)eval(x,z)[0];
+        return (float)eval(x,z).shortestDistance;
     }
 
 	private static class LatticePoint2D {

@@ -18,6 +18,7 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
 
@@ -47,7 +48,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
+            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f,river);
         }
     }
 
@@ -110,7 +111,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

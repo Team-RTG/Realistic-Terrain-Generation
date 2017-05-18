@@ -146,6 +146,17 @@ public class BlockUtil {
         }
     }
 
+    public static IBlockState getSponge (int meta) {
+        switch (meta) {
+            case 0:
+                return Blocks.SPONGE.getDefaultState();
+            case 1:
+                return Blocks.SPONGE.getDefaultState().withProperty(BlockSponge.WET, true);
+            default:
+                return Blocks.SPONGE.getDefaultState();
+        }
+    }
+
     /*
      * FLOWER LIST:
      * 0	Poppy

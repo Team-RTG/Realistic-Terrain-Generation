@@ -104,7 +104,9 @@ public abstract class DecoBase {
         PUMPKIN,
         REED,
         ROCK_SPIRE,
+        SEAWEED,
         SHRUB,
+        SPONGE,
         TEST,
         TREE,
         VINE,
@@ -112,8 +114,8 @@ public abstract class DecoBase {
     }
 
     public static void tweakTreeLeaves(DecoTree deco, boolean checkDecay, boolean decayable) {
-        if (deco.leavesBlock.getBlock() instanceof BlockLeaves) {
-            IBlockState leaves = deco.leavesBlock
+        if (deco.getLeavesBlock().getBlock() instanceof BlockLeaves) {
+            IBlockState leaves = deco.getLeavesBlock()
                 .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
                 .withProperty(BlockLeaves.DECAYABLE, decayable);
             deco.setLeavesBlock(leaves);

@@ -13,9 +13,10 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsPlusM;
 
 public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanillaBase {
 
@@ -30,24 +31,18 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
+
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaExtremeHillsPlusM(230f, 120f, 68f);
+       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
@@ -177,9 +172,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        this.addDecoCollection(new DecoCollectionExtremeHillsPlusM());
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
     }
 
     @Override

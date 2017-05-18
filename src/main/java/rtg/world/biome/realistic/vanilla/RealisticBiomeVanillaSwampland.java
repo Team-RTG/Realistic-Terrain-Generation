@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
+            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f,river);
         }
     }
 
@@ -148,7 +148,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         deadPineTree.setTreeType(DecoTree.TreeType.RTG_TREE);
         deadPineTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         deadPineTree.setTreeConditionChance(18);
-        deadPineTree.setMaxY(100);
+        deadPineTree.setMaxY(90);
         this.addDeco(deadPineTree);
 
         DecoShrub decoShrub = new DecoShrub();
@@ -179,7 +179,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         this.addDeco(decoPumpkin);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY(100);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
     }

@@ -17,6 +17,7 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
 
@@ -29,16 +30,10 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
-    public boolean noWaterFeatures() {
-        return true;
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
 
     @Override
@@ -127,7 +122,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

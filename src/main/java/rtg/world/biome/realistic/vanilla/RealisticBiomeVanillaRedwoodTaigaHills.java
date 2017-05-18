@@ -33,12 +33,9 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-    }
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
-    @Override
-    public boolean noLakes() {
-        return true;
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override

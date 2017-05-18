@@ -14,12 +14,16 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.Bayesian;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
@@ -174,6 +178,72 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize)
+            // so, rather than lakes, we have a bayou network
+    {
+    	//this code is borrowed from WorldChunkManagerRTG with vars changes
+            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+            rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 40.0, (float)y / 40.0, jitter);
+            double pX = x + jitter.deltax() * 35f;
+            double pY = y + jitter.deltay() * 35f;
+            /*double[] simplexResults = new double[2];
+    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
+            double pX = x + simplexResults[0] * 220f;
+            double pY = y + simplexResults[1] * 220f;*/
+
+        //New cellular noise.
+        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+        VoronoiResult results = rtgWorld.cell.river().eval(pX / 150.0, pY / 150.0);
+        if (border<.5) border = .5f;
+        float result = (float)(results.interiorValue());
+        // that will leave rivers too small
+        
+        result = Bayesian.adjustment(result, 0.25f);
+        return result;
+
+    }
+    public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
+        // Bayou has a higher river bottom
+        float r;
+        // river of actualRiverProportions now maps to 1; TODO
+        float riverFlattening = 1f-river;
+        riverFlattening = riverFlattening - (1-actualRiverProportion);
+        // return biomeHeight if no river effect
+        if (riverFlattening <0) return biomeHeight;
+        // what was 1 set back to 1;
+        riverFlattening /= (actualRiverProportion);
+        
+        // back to usual meanings: 1 = no river 0 = river
+        r = 1f - riverFlattening;
+        // flat spot in middle;
+        riverFlattening = riverFlattening *1.4f - 0.4f;
+        if (riverFlattening < 0) riverFlattening = 0;
+        
+        if ((r < 1f && biomeHeight > 57f)) {
+            float irregularity = rtgWorld.simplex.noise2(x / 12f, y / 12f) *
+                2f + rtgWorld.simplex.noise2(x / 8f, y / 8f);
+            // less on the bottom and more on the sides
+            irregularity = irregularity*(1+r);
+            return (biomeHeight * (r)) + ((57f + irregularity) * 1.0f) * (1f-r);
+        }
+        else return biomeHeight;
+    }
+    
+    private double lakeWaterLevel = 0.04;// the lakeStrength below which things should be below water
+    private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
+
+    @Override
+    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
+        
+        // these are rivers so not necessary to fake the lake values as river
+        return pressure;
+        // this number indicates a multiplier to height
+        /*if (pressure > lakeDepressionLevel) return 1;
+        if (pressure<lakeWaterLevel) return 0;
+        return (float)((pressure-lakeWaterLevel)/(lakeDepressionLevel-lakeWaterLevel));*/
+    }
+    
+    @Override
     public void initDecos() {
 
         DecoPond decoPond = new DecoPond();
@@ -219,7 +289,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 //        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
 //        this.addDeco(ceibaRoseaTree);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
         this.addDeco(decoBaseBiomeDecorations);
 

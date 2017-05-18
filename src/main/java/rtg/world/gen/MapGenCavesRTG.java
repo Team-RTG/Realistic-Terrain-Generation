@@ -8,7 +8,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
 
@@ -16,7 +15,6 @@ import com.google.common.base.Objects;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings({"NullableProblems", "WeakerAccess", "unused"})
 public class MapGenCavesRTG extends MapGenCaves
@@ -101,12 +99,12 @@ public class MapGenCavesRTG extends MapGenCaves
                 if (d4 * d4 + d5 * d5 - d6 * d6 > d7 * d7) return;
 
                 if (p_180702_6_ >= d0 - 16.0D - d2 * 2.0D && p_180702_10_ >= d1 - 16.0D - d2 * 2.0D && p_180702_6_ <= d0 + 16.0D + d2 * 2.0D && p_180702_10_ <= d1 + 16.0D + d2 * 2.0D) {
-                    int k2 = MathHelper.floor_double(p_180702_6_ - d2) - p_180702_3_ * 16 - 1;
-                    int k = MathHelper.floor_double(p_180702_6_ + d2) - p_180702_3_ * 16 + 1;
-                    int l2 = MathHelper.floor_double(p_180702_8_ - d3) - 1;
-                    int l = MathHelper.floor_double(p_180702_8_ + d3) + 1;
-                    int i3 = MathHelper.floor_double(p_180702_10_ - d2) - p_180702_4_ * 16 - 1;
-                    int i1 = MathHelper.floor_double(p_180702_10_ + d2) - p_180702_4_ * 16 + 1;
+                    int k2 = MathHelper.floor(p_180702_6_ - d2) - p_180702_3_ * 16 - 1;
+                    int k = MathHelper.floor(p_180702_6_ + d2) - p_180702_3_ * 16 + 1;
+                    int l2 = MathHelper.floor(p_180702_8_ - d3) - 1;
+                    int l = MathHelper.floor(p_180702_8_ + d3) + 1;
+                    int i3 = MathHelper.floor(p_180702_10_ - d2) - p_180702_4_ * 16 - 1;
+                    int i1 = MathHelper.floor(p_180702_10_ + d2) - p_180702_4_ * 16 + 1;
 
                     if (k2 < 0)  k2 = 0;
                     if (k > 16)  k  = 16;
@@ -185,15 +183,17 @@ public class MapGenCavesRTG extends MapGenCaves
         int caveDensity = rtgConfig.CAVE_DENSITY.get();
         int caveFrequency = rtgConfig.CAVE_FREQUENCY.get();
 
-        // If the user has set biome-specific settings, let's use those instead.
-        Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+        //biome-specific cave features disabled for performance;
 
-        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
-
-        if (realisticBiome != null) {
-            caveDensity = (realisticBiome.getConfig().CAVE_DENSITY.get() > -1) ? realisticBiome.getConfig().CAVE_DENSITY.get() : caveDensity;
-            caveFrequency = (realisticBiome.getConfig().CAVE_FREQUENCY.get() > -1) ? realisticBiome.getConfig().CAVE_FREQUENCY.get() : caveFrequency;
-        }
+//        // If the user has set biome-specific settings, let's use those instead.
+//        Biome biome = worldIn.getBiome(new BlockPos(this.rand.nextInt(16) + chunkX * 16, 0, this.rand.nextInt(16) + chunkZ * 16));
+//
+//        RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+//
+//        if (realisticBiome != null) {
+//            caveDensity = (realisticBiome.getConfig().CAVE_DENSITY.get() > -1) ? realisticBiome.getConfig().CAVE_DENSITY.get() : caveDensity;
+//            caveFrequency = (realisticBiome.getConfig().CAVE_FREQUENCY.get() > -1) ? realisticBiome.getConfig().CAVE_FREQUENCY.get() : caveFrequency;
+//        }
 
         // Return early if caves are disabled.
         if (caveDensity < 1 || caveFrequency < 1) return;
@@ -259,7 +259,7 @@ public class MapGenCavesRTG extends MapGenCaves
      *     True if we've encountered the biome's top block. Ideally if we've broken the surface.
      */
     protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop, IBlockState state, IBlockState up) {
-        net.minecraft.world.biome.Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        net.minecraft.world.biome.Biome biome = world.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         IBlockState top = biome.topBlock;
         IBlockState filler = biome.fillerBlock;
 
@@ -284,7 +284,7 @@ public class MapGenCavesRTG extends MapGenCaves
     //Determine if the block at the specified location is the top block for the biome, we take into account
     //Vanilla bugs to make sure that we generate the map the same way vanilla does.
     private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
-        net.minecraft.world.biome.Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+        net.minecraft.world.biome.Biome biome = world.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
         IBlockState state = data.getBlockState(x, y, z);
         return (isExceptionBiome(biome) ? state.getBlock() == Blocks.GRASS : state.getBlock() == biome.topBlock);
     }

@@ -13,9 +13,10 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsM;
 
 public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBase {
 
@@ -30,6 +31,9 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
+
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
@@ -37,14 +41,9 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     }
 
     @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaExtremeHillsM(10f, 140f, 68f, 200f);
+         return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsM extends TerrainBase {
@@ -71,8 +70,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsM(config, biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f,
-            -0.14f, 14f, 0.25f);
+        return new SurfaceVanillaExtremeHillsM(config, biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
     public class SurfaceVanillaExtremeHillsM extends SurfaceBase {
@@ -156,9 +154,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        this.addDecoCollection(new DecoCollectionExtremeHillsM());
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
     }
 
     @Override

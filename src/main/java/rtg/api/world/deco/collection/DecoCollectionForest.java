@@ -35,6 +35,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
 
     public DecoCollectionForest(boolean fallenTrees) {
 
+        super();
+
         this
             .addDeco(tallTrees(tallMin, tallMax)) // Tall trees first.
             .addDeco(shortTrees(short1Min, short1Max)) // Short trees next.

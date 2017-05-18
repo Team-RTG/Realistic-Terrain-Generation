@@ -34,8 +34,11 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
 
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
@@ -43,19 +46,9 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     }
 
     @Override
-    public boolean noWaterFeatures() {
-        return true;
-    }
-
-    @Override
-    public boolean noLakes() {
-        return true;
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaExtremeHillsEdge(10f, 60f, 68f, 200f);
+       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(125f, 67f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsEdge extends TerrainBase {

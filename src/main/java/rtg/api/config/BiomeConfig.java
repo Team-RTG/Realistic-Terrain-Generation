@@ -54,6 +54,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt WHEAT_MIN_Y;
     public final ConfigPropertyInt WHEAT_MAX_Y;
     public final ConfigPropertyBoolean USE_ARCTIC_SURFACE;
+    public final ConfigPropertyBoolean ALLOW_ICE_TREES;
 
     public BiomeConfig() {
 
@@ -413,7 +414,8 @@ public class BiomeConfig extends Config {
         WHEAT_CHANCE = new ConfigPropertyInt(Type.INTEGER, "Wheat (Chance)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MIN_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Min Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MAX_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Max Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
-        USE_ARCTIC_SURFACE = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Use Alternative Surface", "Surfaces", "", true);
+        USE_ARCTIC_SURFACE = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Use Arctic Surface", "Surfaces.Arctic Surface", "", true);
+        ALLOW_ICE_TREES = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Allow Ice Trees", "Trees.Ice Trees", "", true);
     }
 
     public static String formatSlug(String s) {

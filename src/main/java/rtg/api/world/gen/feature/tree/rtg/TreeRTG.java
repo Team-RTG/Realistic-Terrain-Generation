@@ -42,6 +42,7 @@ public class TreeRTG extends WorldGenAbstractTree {
     protected int maxCrownSize;
 
     protected ArrayList<IBlockState> validGroundBlocks;
+    protected ArrayList<Material> canGrowIntoMaterials;
 
     protected RTGConfig rtgConfig = RTGAPI.config();
     private boolean allowBarkCoveredLogs;
@@ -79,6 +80,8 @@ public class TreeRTG extends WorldGenAbstractTree {
             Blocks.SAND.getDefaultState(),
             BlockUtil.getStateSand(1)
         ));
+
+        this.canGrowIntoMaterials = rtgConfig.getTreeMaterialsFromConfigString(rtgConfig.MATERIALS_TREES_CAN_GROW_INTO.get());
 
         this.allowBarkCoveredLogs = rtgConfig.ALLOW_BARK_COVERED_LOGS.get();
     }
@@ -175,15 +178,14 @@ public class TreeRTG extends WorldGenAbstractTree {
 
         Material material = blockType.getDefaultState().getMaterial();
 
-        return material == Material.AIR
-            || material == Material.LEAVES
-            || material == Material.PLANTS
-            || material == Material.GRASS
-            || material == Material.GROUND
-            || material == Material.WOOD
-            || material == Material.VINE
-            || material == Material.WATER
-            || material == Material.SNOW;
+        for (int i = 0; i < this.canGrowIntoMaterials.size(); i++) {
+            if (material == this.canGrowIntoMaterials.get(i)) {
+                //Logger.debug("Log has grown into %s (%s)", this.canGrowIntoMaterials.get(i).toString(), blockType.getLocalizedName());
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean hasSpaceToGrow(World world, Random rand, BlockPos pos, int treeHeight) {

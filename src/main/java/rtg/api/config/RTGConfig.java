@@ -2,6 +2,7 @@ package rtg.api.config;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
@@ -10,6 +11,7 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.api.config.property.*;
+import rtg.api.util.MaterialUtil;
 
 public class RTGConfig extends Config {
 
@@ -244,6 +246,7 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE;
     public final ConfigPropertyBoolean ALLOW_BARK_COVERED_LOGS;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
+    public final ConfigPropertyString MATERIALS_TREES_CAN_GROW_INTO;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Villages
@@ -1206,6 +1209,21 @@ public class RTGConfig extends Config {
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);
 
+        MATERIALS_TREES_CAN_GROW_INTO = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Materials That Trees Can Grow Into",
+            "Trees",
+            "Comma-separated list of materials that trees can grow into (replace) when generating."
+                + Configuration.NEW_LINE +
+                "Valid values include the following:"
+                + Configuration.NEW_LINE +
+                "AIR,ANVIL,BARRIER,CACTUS,CAKE,CARPET,CIRCUITS,CLAY,CLOTH,CORAL,CRAFTED_SNOW,DRAGON_EGG,FIRE,GLASS,GOURD,GRASS,GROUND,ICE,IRON,LAVA,LEAVES,PACKED_ICE,PISTON,PLANTS,PORTAL,REDSTONE_LIGHT,ROCK,SAND,SNOW,SPONGE,STRUCTURE_VOID,TNT,VINE,WATER,WEB,WOOD"
+                + Configuration.NEW_LINE +
+                "For more information, visit http://minecraft.gamepedia.com/Materials",
+                "AIR,WOOD,LEAVES,GRASS,GROUND,PLANTS,VINE,WATER,SNOW"
+        );
+        this.addProperty(MATERIALS_TREES_CAN_GROW_INTO);
+
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Villages
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1408,5 +1426,27 @@ public class RTGConfig extends Config {
         // With the river system changing frequency also shinks size and that will
         // confuse the heck out of users.
         return RIVER_SIZE_MULTIPLIER.get() * RIVER_FREQUENCY_MULTIPLIER.get();
+    }
+
+    public static ArrayList<Material> getTreeMaterialsFromConfigString(String configString)
+    {
+        String[] strings = configString.split(",");
+        ArrayList<Material> materials = new ArrayList<Material>(){};
+
+        for (int i = 0; i < strings.length; i++) {
+
+            String string = strings[i].trim().toUpperCase();
+
+            try {
+
+                MaterialUtil util = new MaterialUtil(string);
+                materials.add(util.getMaterial());
+            }
+            catch (Exception e) {
+                ;
+            }
+        }
+
+        return materials;
     }
 }

@@ -2,7 +2,8 @@ package rtg.api.world.surface;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -33,13 +34,13 @@ public class SurfaceRiverOasis extends SurfaceBase {
         Random rand = rtgWorld.rand;
         OpenSimplexNoise simplex = rtgWorld.simplex;
 
-        Block b;
+        IBlockState blockState;
         int highestY;
 
         for (highestY = 255; highestY > 0; highestY--)
         {
-            b = primer.getBlockState(x, highestY, z).getBlock();
-            if(b != Blocks.AIR)
+            blockState = primer.getBlockState(x, highestY, z);
+            if(blockState.getBlock() != Blocks.AIR)
                 break;
         }
 
@@ -59,12 +60,12 @@ public class SurfaceRiverOasis extends SurfaceBase {
         {
             for(int k = 255; k > -1; k--)
             {
-                b = primer.getBlockState(x, k, z).getBlock();
-                if(b == Blocks.AIR)
+                blockState = primer.getBlockState(x, k, z);
+                if(blockState.getBlock() == Blocks.AIR)
                 {
                     depth = -1;
                 }
-                else if(b != Blocks.WATER)
+                else if(blockState.getMaterial() != Material.WATER)
                 {
                     depth++;
 

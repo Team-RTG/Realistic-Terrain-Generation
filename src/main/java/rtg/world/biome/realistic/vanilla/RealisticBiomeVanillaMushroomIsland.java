@@ -28,6 +28,11 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     }
 
     @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.MUSHROOM_ISLAND_SHORE);
+    }
+
+    @Override
     public void initConfig() {
 
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);

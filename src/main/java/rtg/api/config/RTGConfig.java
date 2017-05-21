@@ -275,6 +275,7 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt VOLCANO_CHANCE;
     public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS;
     public final ConfigPropertyInt VOLCANO_CONDUIT_DEPTH;
+    public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1286,7 +1287,7 @@ public class RTGConfig extends Config {
         VOLCANO_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
             "Volcano block ID",
-            "Volcanoes.Blocks.Volcano Block",
+            "Volcanoes.Volcano Blocks.Volcano Block",
             "The main block to use for the surface of the volcano.",
             "minecraft:obsidian"
         );
@@ -1295,7 +1296,7 @@ public class RTGConfig extends Config {
         VOLCANO_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
             "Volcano block meta value",
-            "Volcanoes.Blocks.Volcano Block",
+            "Volcanoes.Volcano Blocks.Volcano Block",
             "The meta value of the volcano block.",
             0, 0, 15
         );
@@ -1304,7 +1305,7 @@ public class RTGConfig extends Config {
         VOLCANO_MIX1_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
             "Volcano mix block 1 ID",
-            "Volcanoes.Blocks.Mix Block 1",
+            "Volcanoes.Volcano Blocks.Mix Block 1",
             "The block ID of the 1st volcano mix block.",
             "minecraft:cobblestone"
         );
@@ -1313,7 +1314,7 @@ public class RTGConfig extends Config {
         VOLCANO_MIX1_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
             "Volcano mix block 1 meta value",
-            "Volcanoes.Blocks.Mix Block 1",
+            "Volcanoes.Volcano Blocks.Mix Block 1",
             "The meta value of the 1st volcano mix block.",
             0, 0, 15
         );
@@ -1322,7 +1323,7 @@ public class RTGConfig extends Config {
         VOLCANO_MIX2_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
             "Volcano mix block 2 ID",
-            "Volcanoes.Blocks.Mix Block 2",
+            "Volcanoes.Volcano Blocks.Mix Block 2",
             "The block ID of the 2nd volcano mix block.",
             "minecraft:gravel"
         );
@@ -1331,7 +1332,7 @@ public class RTGConfig extends Config {
         VOLCANO_MIX2_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
             "Volcano mix block 2 meta value",
-            "Volcanoes.Blocks.Mix Block 2",
+            "Volcanoes.Volcano Blocks.Mix Block 2",
             "The meta value of the 2nd volcano mix block.",
             0, 0, 15
         );
@@ -1340,7 +1341,7 @@ public class RTGConfig extends Config {
         VOLCANO_MIX3_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
             "Volcano mix block 3 ID",
-            "Volcanoes.Blocks.Mix Block 3",
+            "Volcanoes.Volcano Blocks.Mix Block 3",
             "The block ID of the 3rd volcano mix block.",
             "minecraft:coal_block"
         );
@@ -1349,7 +1350,7 @@ public class RTGConfig extends Config {
         VOLCANO_MIX3_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
             "Volcano mix block 3 meta value",
-            "Volcanoes.Blocks.Mix Block 3",
+            "Volcanoes.Volcano Blocks.Mix Block 3",
             "The meta value of the 3rd volcano mix block.",
             0, 0, 15
         );
@@ -1387,7 +1388,7 @@ public class RTGConfig extends Config {
         ENABLE_VOLCANO_CONDUITS = new ConfigPropertyBoolean(
             ConfigProperty.Type.BOOLEAN,
             "Enable volcano conduits",
-            "Volcanoes.Conduits",
+            "Volcanoes.Volcano Conduits",
             "Set this to FALSE to prevent volcanoes from generating conduits (lava tubes) below their throats.",
             true
         );
@@ -1396,13 +1397,22 @@ public class RTGConfig extends Config {
         VOLCANO_CONDUIT_DEPTH = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
             "Volcano Conduit Depth",
-            "Volcanoes.Conduits",
+            "Volcanoes.Volcano Conduits",
             "The lowest Y value that conduits should reach."
                 + Configuration.NEW_LINE +
                 "Please note that even though conduits can reach to Y=1, they will not replace bedrock.",
             0, 0, 120
         );
         this.addProperty(VOLCANO_CONDUIT_DEPTH);
+
+        VOLCANO_CALDERA_MULTIPLIER = new ConfigPropertyFloat(
+            ConfigProperty.Type.FLOAT,
+            "Volcano Caldera Multiplier",
+            "Volcanoes",
+            "This setting allows you to modify the radius of volcano calderas.",
+            1, 1, 3
+        );
+        this.addProperty(VOLCANO_CALDERA_MULTIPLIER);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

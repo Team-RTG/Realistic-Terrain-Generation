@@ -18,8 +18,8 @@ import rtg.api.util.noise.OpenSimplexNoise;
 public class WorldGenVolcano {
 
     // How much stretched the vent/mouth is
-    private static final float ventEccentricity = 8f;
-    private static final float ventRadius = 7f;
+    private static final float ventEccentricity = 8f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
+    private static final float ventRadius = 7f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
     private static final int lavaHeight = 138 + 3 + (RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? 5 : 0);    // + 3 to account for lava cone tip
     private static final int baseVolcanoHeight = 142 + 8;
     private static IBlockState volcanoBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_BLOCK_ID.get(), RTGAPI.config().VOLCANO_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_BLOCK);

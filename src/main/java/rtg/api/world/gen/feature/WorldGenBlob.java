@@ -184,7 +184,7 @@ public class WorldGenBlob extends WorldGenerator {
                             float f3 = (float) (j2 - y);
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
-                                world.setBlockState(new BlockPos(l1, j2, i2), boulderBlock, 2);
+                                this.placeBoulderBlock(world, new BlockPos(l1, j2, i2), boulderBlock);
                             }
                         }
                     }
@@ -196,6 +196,27 @@ public class WorldGenBlob extends WorldGenerator {
             }
 
             return true;
+        }
+    }
+
+    protected void placeBoulderBlock(World world, BlockPos targetPos, IBlockState boulderBlock) {
+
+
+        Block targetblock = world.getBlockState(targetPos).getBlock();
+
+
+        if (targetblock.isReplaceable(world, targetPos)) {
+
+            world.setBlockState(targetPos, boulderBlock, 2);
+
+            // Double-plant check.
+            BlockPos aboveTargetPos = targetPos.up();
+            Block abovetargetblock = world.getBlockState(aboveTargetPos).getBlock();
+
+            if (abovetargetblock == Blocks.DOUBLE_PLANT) {
+                world.setBlockState(aboveTargetPos, Blocks.AIR.getDefaultState(), 2);
+                //Logger.debug("Replaced double plant at %d %d %d.", aboveTargetPos.getX(), aboveTargetPos.getY(), aboveTargetPos.getZ());
+            }
         }
     }
 }

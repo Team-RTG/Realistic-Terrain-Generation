@@ -14,6 +14,7 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoWave;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -121,6 +122,12 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
+
+        DecoWave decoWave = new DecoWave();
+        decoWave.setMinSize(8);
+        decoWave.setMaxSize(10);
+        decoWave.setConditionChance(3);
+        this.addDeco(decoWave);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

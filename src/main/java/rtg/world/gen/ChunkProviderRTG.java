@@ -934,7 +934,10 @@ public class ChunkProviderRTG implements IChunkGenerator
     private void decorateIfOtherwiseSurrounded(IChunkProvider world, ChunkPos pos, Direction fromNewChunk) {
 
         // check if this is the master provider
-        if (WorldTypeRTG.chunkProvider != this) return;
+        if (WorldTypeRTG.chunkProvider != this) {
+            Logger.debug("Cannot decorate-if-otherwise-surrounded.");
+            return;
+        }
 
         // see if otherwise surrounded besides the new chunk
         ChunkPos probe = new ChunkPos(pos.chunkXPos + fromNewChunk.xOffset, pos.chunkZPos + fromNewChunk.zOffset);
@@ -998,7 +1001,10 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     private void clearToDecorateList() {
-        if (WorldTypeRTG.chunkProvider != this) return;
+        if (WorldTypeRTG.chunkProvider != this) {
+            Logger.debug("Cannot clear the to-decorate list.");
+            return;
+        }
         if (populating) return;// in process, do later;
         // we have to make a copy of the set to work on or we'll get errors
         Set<ChunkPos> toProcess = doableLocations(0);

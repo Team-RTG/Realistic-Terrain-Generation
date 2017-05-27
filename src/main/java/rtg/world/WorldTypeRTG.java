@@ -10,7 +10,10 @@ import net.minecraft.world.gen.ChunkProviderOverworld;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import rtg.RTG;
+import rtg.api.RTGAPI;
+import rtg.api.util.Logger;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkProviderRTG;
 
@@ -36,7 +39,7 @@ public class WorldTypeRTG extends WorldType
     @Override @Nonnull
     public BiomeProvider getBiomeProvider(@Nonnull World world)
     {
-        if (world.provider.getDimension() == 0)
+        if (RTGAPI.config().isValidDimension(world.provider.getDimension()))
         {
             if (biomeProvider == null) {
 
@@ -54,9 +57,9 @@ public class WorldTypeRTG extends WorldType
     @Override @Nonnull
     public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions)
     {
-        if (world.provider.getDimension() == 0) {
+        if (RTGAPI.config(world.provider.getDimension()).isValidDimension(world.provider.getDimension())) {
 
-            if (chunkProvider == null) {
+            //if (chunkProvider == null) {
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed());
                 RTG.instance.runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
@@ -65,20 +68,21 @@ public class WorldTypeRTG extends WorldType
                 RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
 
                 return chunkProvider;
-            }
+            //}
 
             // return a "fake" provider that won't decorate for Streams
-            ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
-            result.isFakeGenerator();
+            //ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
+            //result.isFakeGenerator();
 
-            return result;
+            //return result;
 
             // no server close because it's not supposed to decorate
             //return chunkProvider;
         }
-        else return new ChunkProviderOverworld(
-            world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions
-        );
+        else {
+            Logger.debug("Invalid dimension. Serving up ChunkProviderOverworld instead of ChunkProviderRTG.");
+            return new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
+        }
     }
 
     @Override

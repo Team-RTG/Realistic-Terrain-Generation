@@ -74,6 +74,14 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean CRASH_ON_STRUCTURE_EXCEPTIONS;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Dimensions
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyBoolean USE_DIMENSION_WHITELIST;
+    public final ConfigPropertyString DIMENSION_WHITELIST;
+    public final ConfigPropertyString DIMENSION_BLACKLIST;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Dunes
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -444,6 +452,41 @@ public class RTGConfig extends Config {
             false
         );
         this.addProperty(CRASH_ON_STRUCTURE_EXCEPTIONS);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Dimensions
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        USE_DIMENSION_WHITELIST = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Use Dimension Whitelist",
+            "Dimensions",
+            "If TRUE, then RTG will use the Dimension Whitelist. If FALSE, then RTG will use the Dimension Blacklist.",
+            false
+        );
+        this.addProperty(USE_DIMENSION_WHITELIST);
+
+        DIMENSION_WHITELIST = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Dimension Whitelist",
+            "Dimensions",
+            "Comma-separated list of dimension IDs in which RTG is ALLOWED to generate realistic terrain."
+                + Configuration.NEW_LINE +
+                "In order for this setting to have an effect, 'Use Dimension Whitelist' must be set to TRUE.",
+            "0"
+        );
+        this.addProperty(DIMENSION_WHITELIST);
+
+        DIMENSION_BLACKLIST = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Dimension Blacklist",
+            "Dimensions",
+            "Comma-separated list of dimension IDs in which RTG is NOT ALLOWED to generate realistic terrain."
+                + Configuration.NEW_LINE +
+                "In order for this setting to have an effect, 'Use Dimension Whitelist' must be set to FALSE.",
+            "-1,1"
+        );
+        this.addProperty(DIMENSION_BLACKLIST);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Dunes
@@ -1480,5 +1523,35 @@ public class RTGConfig extends Config {
         }
 
         return materials;
+    }
+
+    public ArrayList<Integer> getConfigDimensionIds(boolean useDimensionWhitelist)
+    {
+        String configString = useDimensionWhitelist ? DIMENSION_WHITELIST.get() : DIMENSION_BLACKLIST.get();
+        String[] strings = configString.split(",");
+        ArrayList<Integer> intList = new ArrayList<Integer>(){};
+
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = strings[i].trim();
+            intList.add(Integer.valueOf(strings[i]));
+        }
+
+        return intList;
+    }
+
+    public boolean isValidDimension(int dimensionId) {
+
+        // This variable will contain either whitelisted IDs or blacklisted IDs.
+        ArrayList<Integer> dimensions = this.getConfigDimensionIds(USE_DIMENSION_WHITELIST.get());
+
+        for (int i = 0; i < dimensions.size(); i++) {
+            if (dimensions.get(i) == dimensionId) {
+                // If we have whitelisted IDs, we want to return true.
+                // If we have blacklisted IDs, we want to return false.
+                return USE_DIMENSION_WHITELIST.get();
+            }
+        }
+
+        return !USE_DIMENSION_WHITELIST.get();
     }
 }

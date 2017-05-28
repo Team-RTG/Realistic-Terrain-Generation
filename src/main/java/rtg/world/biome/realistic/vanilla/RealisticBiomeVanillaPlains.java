@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(RTGAPI.config().SEA_LEVEL_MODIFIER.get());
         this.getConfig().addProperty(this.getConfig().WHEAT_MAX_Y).set(255);
     }
-    //Added Sea LVL Customization Support SDF_Brambe
+
     @Override
     public TerrainBase initTerrain() {
 
@@ -153,7 +153,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         decoGrass.setMinY((RTGAPI.config().SEA_LEVEL_MODIFIER.get()) - 3);
         decoGrass.setLoops(6);
         this.addDeco(decoGrass);
-//Added Sea LVL Customization Support SDF_Bramble
+
         // Very rare fat oak/birch trees.
 
         TreeRTG roburTree1 = new TreeRTGQuercusRobur();

@@ -1,7 +1,5 @@
 package rtg.api.world.biome;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockSilverfish;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
@@ -14,12 +12,10 @@ import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.feature.*;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.RandomUtil;
@@ -27,7 +23,9 @@ import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.gen.feature.WorldGenPond;
 
-public class  BiomeDecoratorRTG
+import java.util.Random;
+
+public class BiomeDecoratorRTG
 {
     public BlockPos pos;
     public IRealisticBiome rbb;

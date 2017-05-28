@@ -39,12 +39,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt BEDROCK_BLOCK_BYTE;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // SEA LEVEL
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Biomes
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -215,6 +209,12 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt MAX_DISTANCE_SCATTERED_FEATURES;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // SEA LEVEL
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Snow
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -315,18 +315,6 @@ public class RTGConfig extends Config {
             0, 0, 15
         );
         this.addProperty(BEDROCK_BLOCK_BYTE);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // SEA LEVEL
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
-                ConfigProperty.Type.INTEGER,
-                "Sea Level Base Height",
-                "Sea Level",
-                "The 'Y' Level that the World Spawns at.",
-                80, 32, 132
-                );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Biomes
@@ -1038,6 +1026,18 @@ public class RTGConfig extends Config {
             48, 4, Integer.MAX_VALUE
         );
         this.addProperty(MAX_DISTANCE_SCATTERED_FEATURES);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // SEA LEVEL
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
+                ConfigProperty.Type.INTEGER,
+                "Sea Level Base Height",
+                "Sea Level",
+                "The 'Y' Level that the World Spawns at.",
+                80, 32, 132
+        );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Snow

@@ -1,17 +1,14 @@
 package rtg.api.config;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-
 import net.minecraftforge.common.config.Configuration;
-
 import org.apache.commons.lang3.ArrayUtils;
-
 import rtg.api.config.property.*;
 import rtg.api.util.MaterialUtil;
+
+import java.util.ArrayList;
 
 public class RTGConfig extends Config {
 
@@ -40,6 +37,12 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt FLAT_BEDROCK_LAYERS;
     public final ConfigPropertyString BEDROCK_BLOCK_ID;
     public final ConfigPropertyInt BEDROCK_BLOCK_BYTE;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // SEA LEVEL
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Biomes
@@ -312,6 +315,18 @@ public class RTGConfig extends Config {
             0, 0, 15
         );
         this.addProperty(BEDROCK_BLOCK_BYTE);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // SEA LEVEL
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
+                ConfigProperty.Type.INTEGER,
+                "Sea Level Base Height",
+                "Sea Level",
+                "The 'Y' Level that the World Spawns at.",
+                80, 32, 132
+                );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Biomes

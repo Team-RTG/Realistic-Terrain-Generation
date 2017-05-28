@@ -27,7 +27,7 @@ import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.gen.feature.WorldGenPond;
 
-public class BiomeDecoratorRTG
+public class  BiomeDecoratorRTG
 {
     public BlockPos pos;
     public IRealisticBiome rbb;

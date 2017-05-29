@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_WHEAT).set(true);
         this.getConfig().addProperty(this.getConfig().WHEAT_CHANCE).set(50);
-        this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(RTGAPI.config().SEA_LEVEL_MODIFIER.get());
+        this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get());
         this.getConfig().addProperty(this.getConfig().WHEAT_MAX_Y).set(255);
     }
 
@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
-            return riverized((RTGAPI.config().SEA_LEVEL_MODIFIER.get()) + 2f + groundEffect.added(rtgWorld, x, y), river);
+            return riverized((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 2f + groundEffect.added(rtgWorld, x, y), river);
 
         }
     }
@@ -136,7 +136,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoShrubOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoShrubOak.setMaxY((RTGAPI.config().SEA_LEVEL_MODIFIER.get()) + 47);
+        decoShrubOak.setMaxY((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 47);
         decoShrubOak.setLoops(1);
         decoShrubOak.setChance(36);
         this.addDeco(decoShrubOak);
@@ -144,13 +144,13 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // The occasional flower.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{0, 2, 3, 4, 5, 6, 7, 8, 9});
-        decoFlowersRTG.setMaxY((RTGAPI.config().SEA_LEVEL_MODIFIER.get()) + 65);
+        decoFlowersRTG.setMaxY((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 65);
         decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         // Lots of grass, but not as much as vanilla.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY((RTGAPI.config().SEA_LEVEL_MODIFIER.get()) + 3);
+        decoGrass.setMinY((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 3);
         decoGrass.setLoops(6);
         this.addDeco(decoGrass);
 

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.ClientProxy;
@@ -48,6 +49,7 @@ import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.api.RTGAPI.config;
+import static rtg.api.dimension.DimensionManagerRTG.rtgDimensions;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -78,6 +80,8 @@ public class RTG {
         instance = this;
 
         worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
+
+        rtgDimensions.add(DimensionManagerRTG.OVERWORLD);
 
         configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         RTGAPI.rtgConfig = new RTGConfig();

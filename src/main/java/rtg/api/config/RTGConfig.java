@@ -28,7 +28,10 @@ public class RTGConfig extends Config {
     public static final IBlockState DEFAULT_VOLCANO_MIX3_BLOCK = Blocks.COAL_BLOCK.getDefaultState();
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Base Terrain Height
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Bedrock
@@ -37,12 +40,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt FLAT_BEDROCK_LAYERS;
     public final ConfigPropertyString BEDROCK_BLOCK_ID;
     public final ConfigPropertyInt BEDROCK_BLOCK_BYTE;
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // SEA LEVEL
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Biomes
@@ -286,6 +283,18 @@ public class RTGConfig extends Config {
     public RTGConfig() {
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Base Terrain Height
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
+                ConfigProperty.Type.INTEGER,
+                "Sea Level Base Height",
+                "Sea Level",
+                "The 'Y' Level that the World Spawns at.",
+                80, 52, 132
+        );
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Bedrock
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -315,18 +324,6 @@ public class RTGConfig extends Config {
             0, 0, 15
         );
         this.addProperty(BEDROCK_BLOCK_BYTE);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // SEA LEVEL
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
-                ConfigProperty.Type.INTEGER,
-                "Sea Level Base Height",
-                "Sea Level",
-                "The 'Y' Level that the World Spawns at.",
-                80, 32, 132
-                );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Biomes

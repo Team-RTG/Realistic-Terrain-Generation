@@ -31,7 +31,7 @@ public class RTGConfig extends Config {
     // Base Terrain Height
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
+    public final ConfigPropertyInt BASE_TERRAIN_HEIGHT;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Bedrock
@@ -286,7 +286,7 @@ public class RTGConfig extends Config {
         // Base Terrain Height
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
+        BASE_TERRAIN_HEIGHT = new ConfigPropertyInt(
                 ConfigProperty.Type.INTEGER,
                 "Sea Level Base Height",
                 "Sea Level",

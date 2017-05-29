@@ -49,7 +49,6 @@ import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.api.RTGAPI.config;
-import static rtg.api.dimension.DimensionManagerRTG.rtgDimensions;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -81,7 +80,7 @@ public class RTG {
 
         worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
 
-        rtgDimensions.add(DimensionManagerRTG.OVERWORLD);
+        DimensionManagerRTG.addRTGDimension(DimensionManagerRTG.OVERWORLD);
 
         configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         RTGAPI.rtgConfig = new RTGConfig();

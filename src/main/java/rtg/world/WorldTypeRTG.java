@@ -46,10 +46,15 @@ public class WorldTypeRTG extends WorldType
                 biomeProvider = new BiomeProviderRTG(world, this);
                 RTG.instance.runOnNextServerCloseOnly(clearProvider(biomeProvider));
             }
+
+            Logger.debug("WorldTypeRTG#getBiomeProvider() returning BiomeProviderRTG");
+
             return biomeProvider;
         }
         else
         {
+            Logger.debug("WorldTypeRTG#getBiomeProvider() returning vanilla BiomeProvider");
+
             return new BiomeProvider(world.getWorldInfo());
         }
     }
@@ -66,6 +71,8 @@ public class WorldTypeRTG extends WorldType
                 // inform the event manager about the ChunkEvent.Load event
                 RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
                 RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
+
+                Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG");
 
                 return chunkProvider;
             //}
@@ -92,10 +99,17 @@ public class WorldTypeRTG extends WorldType
     }
 
     private static Runnable clearProvider(Object provider) {
-        if (provider instanceof BiomeProviderRTG)
+        if (provider instanceof BiomeProviderRTG) {
+            Logger.debug("WorldTypeRTG#clearProvider() provider instanceof BiomeProviderRTG (setting to NULL)");
             return () -> biomeProvider = null;
-        else if (provider instanceof ChunkProviderRTG)
+        }
+        else if (provider instanceof ChunkProviderRTG) {
+            Logger.debug("WorldTypeRTG#clearProvider() provider instanceof ChunkProviderRTG (setting to NULL)");
             return () -> chunkProvider = null;
-        else return null;
+        }
+        else {
+            Logger.debug("WorldTypeRTG#clearProvider() returning NULL");
+            return null;
+        }
     }
 }

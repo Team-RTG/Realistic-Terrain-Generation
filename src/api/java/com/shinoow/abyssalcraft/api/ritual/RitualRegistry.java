@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -49,7 +49,7 @@ public class RitualRegistry {
 	 * Maps a dimension to a book type, in order to specify dimensions where a ritual of that book type can be performed
 	 * @param dim The Dimension ID
 	 * @param bookType The Necronomicon book type required
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public void addDimensionToBookType(int dim, int bookType){
@@ -64,7 +64,7 @@ public class RitualRegistry {
 	 * Maps a dimension to a name, in order to display it in the Necronomicon if rituals can only be performed in said dimension
 	 * @param dim The Dimension ID
 	 * @param name A String representing the name
-	 *
+	 * 
 	 * @since 1.4.5
 	 */
 	public void addDimensionToName(int dim, String name){
@@ -79,7 +79,7 @@ public class RitualRegistry {
 	 * @param dim The Dimension ID
 	 * @param bookType The Necronomicon book type required
 	 * @param name A String representing the name
-	 *
+	 * 
 	 * @since 1.4.5
 	 */
 	public void addDimensionToBookTypeAndName(int dim, int bookType, String name){
@@ -92,7 +92,7 @@ public class RitualRegistry {
 	 * @param dim The dimension ID
 	 * @param bookType The Necronomicon book type
 	 * @return True if the action can be performed, otherwise false
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public boolean canPerformAction(int dim, int bookType){
@@ -105,7 +105,7 @@ public class RitualRegistry {
 	 * @param dim The dimension ID
 	 * @param bookType The Necronomicon book type
 	 * @return True if the book types match, otherwise false
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public boolean sameBookType(int dim, int bookType){
@@ -116,7 +116,7 @@ public class RitualRegistry {
 	/**
 	 * Registers a Necronomicon Ritual
 	 * @param ritual The Ritual, contains all data used to perform it
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public void registerRitual(NecronomiconRitual ritual){
@@ -133,7 +133,7 @@ public class RitualRegistry {
 	/**
 	 * Used to fetch a list of rituals
 	 * @return An ArrayList containing all registered Necronomicon Rituals
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public List<NecronomiconRitual> getRituals(){
@@ -155,7 +155,7 @@ public class RitualRegistry {
 	 * @param offerings The provided offerings
 	 * @param sacrifice The provided sacrifice (object placed on the altar)
 	 * @return A Necronomicon Ritual, or null if none was found
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public NecronomiconRitual getRitual(int dimension, int bookType, ItemStack[] offerings, ItemStack sacrifice){
@@ -174,33 +174,33 @@ public class RitualRegistry {
 	 * @param offerings The supplied offerings
 	 * @param sacrifice The supplied sacrifice
 	 * @return True if the rituals match, otherwise false
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	private boolean areRitualsSame(NecronomiconRitual ritual, int dimension, int bookType, ItemStack[] offerings, ItemStack sacrifice){
 		if(ritual.getDimension() == dimension || ritual.getDimension() == -1)
 			if(ritual.getBookType() <= bookType)
 				if(ritual.getOfferings() != null && offerings != null)
-					if(areItemStackArraysEqual(ritual.getOfferings(), offerings, ritual.isNBTSensitive()))
-						if(ritual.requiresItemSacrifice() || ritual.getSacrifice() == null && sacrifice.isEmpty() ||
-						areObjectsEqual(sacrifice, ritual.getSacrifice(), false))
+					if(areItemStackArraysEqual(ritual.getOfferings(), offerings))
+						if(ritual.requiresItemSacrifice() || ritual.getSacrifice() == null && sacrifice == null ||
+						areObjectsEqual(sacrifice, ritual.getSacrifice()))
 							return true;
 		return false;
 	}
 
-	private boolean areItemStackArraysEqual(Object[] array1, ItemStack[] array2, boolean nbt){
+	private boolean areItemStackArraysEqual(Object[] array1, ItemStack[] array2){
 
 		List<Object> compareList = Lists.newArrayList(array1);
 		List<ItemStack> itemList = Lists.newArrayList();
 
 		for(ItemStack item : array2)
-			if(!item.isEmpty())
+			if(item != null)
 				itemList.add(item);
 
 		if(itemList.size() == compareList.size())
 			for(ItemStack item : itemList)
 				for(Object compare : compareList)
-					if(areObjectsEqual(item, compare, nbt)){
+					if(areObjectsEqual(item, compare)){
 						compareList.remove(compare);
 						break;
 					}
@@ -208,38 +208,23 @@ public class RitualRegistry {
 		return compareList.isEmpty();
 	}
 
-	public boolean areObjectsEqual(ItemStack stack, Object obj, boolean nbt){
+	public boolean areObjectsEqual(ItemStack stack, Object obj){
 		if(obj instanceof ItemStack)
-			return areStacksEqual(stack, (ItemStack)obj, nbt);
+			return areStacksEqual(stack, (ItemStack)obj);
 		else if(obj instanceof Item)
-			return areStacksEqual(stack, new ItemStack((Item)obj), nbt);
+			return areStacksEqual(stack, new ItemStack((Item)obj));
 		else if(obj instanceof Block)
-			return areStacksEqual(stack, new ItemStack((Block)obj), nbt);
-		else if(obj instanceof ItemStack[]){
-			for(ItemStack item : (ItemStack[])obj)
-				if(areStacksEqual(stack, item, nbt))
-					return true;
-		} else if(obj instanceof String){
+			return areStacksEqual(stack, new ItemStack((Block)obj));
+		else if(obj instanceof String)
 			for(ItemStack item : OreDictionary.getOres((String)obj))
-				if(areStacksEqual(stack, item, nbt))
-					return true;
-		} else if(obj instanceof List)
-			for(ItemStack item :(List<ItemStack>)obj)
-				if(areStacksEqual(stack, item, nbt))
-					return true;
+				return areStacksEqual(stack, item);
 		return false;
-	}
-
-	public boolean areStacksEqual(ItemStack stack1, ItemStack stack2, boolean nbt){
-		if(stack1.isEmpty() || stack2.isEmpty()) return false;
-		return nbt ? areStacksEqual(stack1, stack2) && ItemStack.areItemStackTagsEqual(stack2, stack1) :
-			areStacksEqual(stack1, stack2);
 	}
 
 	public boolean areStacksEqual(ItemStack stack1, ItemStack stack2)
 	{
-		if (stack1.isEmpty() || stack2.isEmpty()) return false;
-		return stack1.getItem() == stack2.getItem() && (stack2.getItemDamage() == OreDictionary.WILDCARD_VALUE
+		if (stack1 == null || stack2 == null) return false;
+		return stack1.getItem() == stack2.getItem() && (stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE
 				|| stack1.getItemDamage() == stack2.getItemDamage());
 	}
 }

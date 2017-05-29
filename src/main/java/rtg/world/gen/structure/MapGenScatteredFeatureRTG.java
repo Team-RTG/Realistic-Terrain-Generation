@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.google.common.collect.Lists;
 
 import rtg.api.RTGAPI;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 
 /**
  * Author: Choonster (https://github.com/Choonster)
@@ -139,13 +139,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
-    {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
-    }
-
-    @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
         return new MapGenScatteredFeatureRTG.Start(this.world, this.rand, chunkX, chunkZ);
@@ -228,18 +221,18 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     private static boolean canSpawnDesertTemple(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.hasType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SANDY));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY));
     }
 
     private static boolean canSpawnJungleTemple(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.hasType(b, BiomeDictionary.Type.WET) && BiomeDictionary.hasType(b, BiomeDictionary.Type.JUNGLE));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE));
     }
 
     private static boolean canSpawnWitchHut(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.WET) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SWAMP));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP));
     }
 
     private static boolean canSpawnIgloo(Biome b) {
-        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.hasType(b, BiomeDictionary.Type.PLAINS));
+        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.PLAINS));
     }
 }

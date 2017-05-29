@@ -13,11 +13,11 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.biome.deco.collection.DecoCollectionSavanna;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.deco.collection.DecoCollectionSavanna;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
 
@@ -33,6 +33,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
@@ -139,7 +140,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
         this.addDecoCollection(new DecoCollectionSavanna(this.getConfig().ALLOW_LOGS.get()));
     }
 }

@@ -13,15 +13,14 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.DecoBoulder;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoShrub;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDeadBush;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
 
 public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
@@ -31,12 +30,12 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaMesa() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 20;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -110,7 +109,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 
@@ -155,7 +154,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -176,6 +175,11 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
         decoCactus.setLoops(18);
         decoCactus.setMaxY(100);
-        this.addDeco(decoCactus);
+        this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 20;
     }
 }

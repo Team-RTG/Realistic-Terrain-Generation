@@ -11,9 +11,9 @@ import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
 import rtg.api.util.BiomeUtils;
 import rtg.api.util.LimitedMap;
+import rtg.api.util.Logger;
 import rtg.api.util.PlaneLocation;
 import rtg.api.world.RTGWorld;
-import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.api.util.MathUtils.globalToChunk;
 import static rtg.api.util.MathUtils.globalToLocal;

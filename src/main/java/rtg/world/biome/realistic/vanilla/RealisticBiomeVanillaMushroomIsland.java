@@ -13,9 +13,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
 
@@ -25,13 +25,17 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     public RealisticBiomeVanillaMushroomIsland() {
 
         super(biome, river);
+    }
 
-        this.noLakes = true;
+    @Override
+    public Biome beachBiome() {
+        return this.beachBiome(Biomes.MUSHROOM_ISLAND_SHORE);
     }
 
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VILLAGES.set(false);
     }
 

@@ -25,8 +25,8 @@ def parseprops(File cfg) {
 ext.ref = parseprops(file('build.properties'))
 ext.ref.mod_deps = parseprops(file('mod_deps.properties'))
 
-group = "org.teamrtg.rtg"
-archivesBaseName = "RTG-" + (ref.mc_version as String)
+group = ref.package_base + '.' + ref.mod_id
+archivesBaseName = (ref.mod_id as String).toUpperCase() + '-' + (ref.mc_version as String)
 version = ref.mod_version
 
 //repositories {
@@ -41,13 +41,15 @@ dependencies {
 }
 
 minecraft {
-    version          = (ref.mcf_suffix!='') ? ref.mcf_version + '-' + ref.mcf_suffix : ref.mcf_version
-    mappings         = ref.mcp_mappings
-    runDir           = "run"
+    version = (ref.mcf_suffix!='') ? ref.mcf_version + '-' + ref.mcf_suffix : ref.mcf_version
+    mappings = ref.mcp_mappings
+    runDir = ref.run_dir
     makeObfSourceJar = false
-    replace '@MOD_VERSION@', project.version
-    replace '0.0-MCF+MINVER', ref.mcf_minver
-    replace '9001.0-MCF+MAXVER', ref.mcf_maxver
+    replace '= "RTG";', '= "' + (ref.mod_id as String) + '";'
+    replace '= "Realistic Terrain Generation";', '= "' + (ref.mod_name as String) + '";'
+    replace '@MOD_VERSION@',    project.version
+    replace '0.0-MCF+MINVER',     ref.mcf_minver
+    replace '9001.0-MCF+MAXVER',     ref.mcf_maxver
     if (ref.mod_deps!="") replace ';after:MODDEPS', ";" + (ref.mod_deps.depstring as String)
     else replace ';after:MODDEPS', ''
     replaceIn 'ModInfo.java'
@@ -56,31 +58,28 @@ minecraft {
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand (['version':ref.mod_version, 'mcversion':ref.mc_version,])
-    }
-    from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
+		expand ([
+			'modid':ref.mod_id,
+			'name':ref.mod_name,
+			'description':ref.mod_desc,
+			'version':ref.mod_version,
+			'mcversion':ref.mc_version,
+			'url':ref.mod_url,
+			'authorList':ref.mod_author,
+			'credits':ref.mod_creds,
+			'logoFile':ref.mod_logo,
+		])
+	}
+	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
 }
 
 sourceJar {classifier = 'src'}
 
-task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-    include 'rtg/api/**/*'
-    classifier = 'api'
-}
-artifacts {archives apiJar}
-
-task devJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'dev'
-}
-artifacts {archives devJar}
-
 // For a debugging session used 'gradle -DEBUG [runClient|runServer]'
 allprojects {
     tasks.withType(JavaExec) {
-        jvmArgs '-Xms1G', '-Xmx4G'
+// disabled to possibly alleviate testing issues on cumputers with low memory
+//      jvmArgs '-Xms2G', '-Xmx4G'
         if (System.getProperty("EBUG")!=null)
             jvmArgs '-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y'
     }

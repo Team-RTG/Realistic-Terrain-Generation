@@ -67,20 +67,18 @@ public class WorldTypeRTG extends WorldType
                 return chunkProvider;
             }
 
-            // Return a "pseudo" provider that won't decorate for Streams.
+            // return a "fake" provider that won't decorate for Streams
             ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
-            result.isPseudoGenerator();
+            result.isFakeGenerator();
 
             return result;
 
             // no server close because it's not supposed to decorate
             //return chunkProvider;
         }
-        else {
-            return new ChunkProviderOverworld(
-                world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions
-            );
-        }
+        else return new ChunkProviderOverworld(
+            world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions
+        );
     }
 
     @Override

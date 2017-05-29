@@ -13,9 +13,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase {
 
@@ -25,15 +25,12 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaFrozenOcean() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VILLAGES.set(false);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
@@ -126,5 +123,15 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 }

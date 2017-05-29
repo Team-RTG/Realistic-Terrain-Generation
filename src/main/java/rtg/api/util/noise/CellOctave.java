@@ -6,5 +6,5 @@ package rtg.api.util.noise;
  */
 public interface CellOctave {
     public float noise(double x, double z,double depth) ;
-    public double [] eval(double x, double y);
+    public VoronoiResult eval(double x, double y);
 }

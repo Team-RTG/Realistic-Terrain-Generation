@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -31,7 +31,7 @@ import com.shinoow.abyssalcraft.api.ritual.NecronomiconRitual;
 /**
  * A class containing events used by AbyssalCraft.<br>
  * All events are fired on the {@link MinecraftForge#EVENT_BUS}.
- *
+ * 
  * @author shinoow
  *
  * @since 1.4
@@ -48,9 +48,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public static class ItemTransmutedEvent extends PlayerEvent {
@@ -77,9 +77,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public static class ItemCrystallizedEvent extends PlayerEvent {
@@ -106,9 +106,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public static class ItemEngravedEvent extends PlayerEvent {
@@ -135,9 +135,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public static class ItemMaterializedEvent extends PlayerEvent {
@@ -170,9 +170,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.4
 	 */
 	public static class RitualEvent extends PlayerEvent {
@@ -232,9 +232,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.7.5
 	 */
 	@Cancelable
@@ -290,9 +290,9 @@ public class ACEvents {
 	 * This event does not have a result. {@link HasResult}<br>
 	 * <br>
 	 * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
-	 *
+	 * 
 	 * @author shinoow
-	 *
+	 * 
 	 * @since 1.7.5
 	 */
 	@Cancelable

@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -25,8 +25,6 @@ import net.minecraft.world.World;
  * @since 1.4
  */
 public class NecronomiconInfusionRitual extends NecronomiconCreationRitual {
-
-	private String[] tags;
 
 	/**
 	 * A Necronomicon Infusion Ritual
@@ -74,11 +72,6 @@ public class NecronomiconInfusionRitual extends NecronomiconCreationRitual {
 		this(unlocalizedName, bookType, -1, requiredEnergy, item, sacrifice, offerings);
 	}
 
-	public NecronomiconInfusionRitual setTags(String... strings){
-		tags = strings;
-		return this;
-	}
-
 	@Override
 	public boolean canCompleteRitual(World world, BlockPos pos, EntityPlayer player) {
 
@@ -88,79 +81,16 @@ public class NecronomiconInfusionRitual extends NecronomiconCreationRitual {
 		altar.writeToNBT(compound);
 		NBTTagCompound nbtItem = compound.getCompoundTag("Item");
 
-		return RitualRegistry.instance().areObjectsEqual(new ItemStack(nbtItem), sacrifice, false);
+		return RitualRegistry.instance().areObjectsEqual(ItemStack.loadItemStackFromNBT(nbtItem), sacrifice);
 	}
 
 	@Override
 	protected void completeRitualServer(World world, BlockPos pos, EntityPlayer player){
-		if(canCompleteRitual(world, pos, player)){
-			NBTTagCompound data = new NBTTagCompound();
-			if(tags != null && tags.length > 0){
-				TileEntity altar = world.getTileEntity(pos);
-
-				NBTTagCompound compound = new NBTTagCompound();
-				altar.writeToNBT(compound);
-				ItemStack stack = new ItemStack(compound.getCompoundTag("Item"));
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				for(String s : tags)
-					if(stack.getTagCompound().hasKey(s))
-						data.setTag(s, stack.getTagCompound().getTag(s));
-			}
-			super.completeRitualServer(world, pos, player);
-			if(!data.hasNoTags()){
-				TileEntity altar = world.getTileEntity(pos);
-
-				NBTTagCompound compound = new NBTTagCompound();
-				altar.writeToNBT(compound);
-				ItemStack stack = new ItemStack(compound.getCompoundTag("Item"));
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				for(String e : tags)
-					if(data.hasKey(e))
-						stack.getTagCompound().setTag(e, data.getTag(e));
-				NBTTagCompound item = new NBTTagCompound();
-				stack.writeToNBT(item);
-				compound.setTag("Item", item);
-				altar.readFromNBT(compound);
-			}
-		}
+		if(canCompleteRitual(world, pos, player)) super.completeRitualServer(world, pos, player);
 	}
-
 
 	@Override
 	protected void completeRitualClient(World world, BlockPos pos, EntityPlayer player){
-		if(canCompleteRitual(world, pos, player)){
-			NBTTagCompound data = new NBTTagCompound();
-			if(tags != null && tags.length > 0){
-				TileEntity altar = world.getTileEntity(pos);
-
-				NBTTagCompound compound = new NBTTagCompound();
-				altar.writeToNBT(compound);
-				ItemStack stack = new ItemStack(compound.getCompoundTag("Item"));
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				for(String s : tags)
-					if(stack.getTagCompound().hasKey(s))
-						data.setTag(s, stack.getTagCompound().getTag(s));
-			}
-			super.completeRitualClient(world, pos, player);
-			if(!data.hasNoTags()){
-				TileEntity altar = world.getTileEntity(pos);
-
-				NBTTagCompound compound = new NBTTagCompound();
-				altar.writeToNBT(compound);
-				ItemStack stack = new ItemStack(compound.getCompoundTag("Item"));
-				if(!stack.hasTagCompound())
-					stack.setTagCompound(new NBTTagCompound());
-				for(String e : tags)
-					if(data.hasKey(e))
-						stack.getTagCompound().setTag(e, data.getTag(e));
-				NBTTagCompound item = new NBTTagCompound();
-				stack.writeToNBT(item);
-				compound.setTag("Item", item);
-				altar.readFromNBT(compound);
-			}
-		}
+		if(canCompleteRitual(world, pos, player)) super.completeRitualClient(world, pos, player);
 	}
 }

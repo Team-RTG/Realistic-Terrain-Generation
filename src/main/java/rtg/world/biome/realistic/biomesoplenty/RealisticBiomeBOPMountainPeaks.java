@@ -16,13 +16,14 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.HeightEffect;
-import rtg.world.gen.terrain.JitterEffect;
-import rtg.world.gen.terrain.MountainsWithPassesEffect;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
@@ -32,14 +33,13 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPMountainPeaks() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {
+
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
@@ -188,7 +188,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
@@ -221,5 +221,10 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(3f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package rtg.world.gen.terrain;
 
 import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.TerrainBase;
 
 public class TerrainOrganic extends TerrainBase {
 

@@ -2,9 +2,12 @@ package rtg.api.util;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -131,6 +134,34 @@ public class WorldUtil {
         }
 
         return true;
+    }
+
+    /**
+     * Checks if the Block has a bounding box.
+     * @param world The world to check in
+     * @param pos The position to check
+     * @return True if the block has a bounding box, false otherwise.
+     */
+    public static boolean isNotSolid(World world, BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
+        AxisAlignedBB boundingBox = state.getCollisionBoundingBox(world, pos);
+
+        return boundingBox == null || boundingBox.equals(Block.NULL_AABB);
+    }
+
+    /**
+     * Gets the next Block which has a bounding box.
+     * @param world The world to check in
+     * @param start The Block to start looking from
+     * @param direction The direction to go to
+     * @return The position of the next solid block
+     */
+    public static BlockPos nextSolidBlock(World world, BlockPos start, EnumFacing direction) {
+        while (isNotSolid(world, start)) {
+            start = start.offset(direction);
+        }
+
+        return start;
     }
 
     public void setDoublePlant(BlockPos lowerPos, IBlockState doublePlant, int flag) {

@@ -5,17 +5,17 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.energy;
 
-import net.minecraft.tileentity.TileEntity;
-
 /**
- * Interface to use on tile entities that can hold Potential Energy
- *
+ * Interface to use on tile entities that can hold Potential Energy (WIP)<br>
+ * WARNING: Any methods in this interface might end up getting removed,<br>
+ * so I would suggest not using it until this text (and the WIP part) is removed.
+ * 
  * @author shinoow
  *
  * @since 1.4.5
@@ -41,24 +41,16 @@ public interface IEnergyContainer {
 	/**
 	 * Consumes (removes) Potential Energy from the tile entity
 	 * @param energy Energy quota to consume
-	 * @return The amount of energy consumed
 	 */
-	public float consumeEnergy(float energy);
+	public void consumeEnergy(float energy);
 
 	/**
-	 * Returns whether or not this container can accept Potential Energy<br>
-	 * (eg. if it  has room for more Potential Energy, or if it accepts external input at all)
+	 * Returns Whether or not this container can accept Potential Energy
 	 */
 	public boolean canAcceptPE();
 
 	/**
-	 * Returns whether or not this container can transfer Potential Energy<br>
-	 * (eg. if it has any Potential Energy stored that it can transfer, or if it allows extraction at all)
+	 * Returns whether or not this container can transfer Potential Energy
 	 */
 	public boolean canTransferPE();
-
-	/**
-	 * Returns the TileEntity this interface is bound to
-	 */
-	public TileEntity getContainerTile();
 }

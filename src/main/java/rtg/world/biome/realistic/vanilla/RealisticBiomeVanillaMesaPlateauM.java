@@ -13,13 +13,12 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.DecoCactus;
-import rtg.world.biome.deco.DecoDeadBush;
-import rtg.world.biome.deco.DecoReed;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDeadBush;
+import rtg.api.world.deco.DecoReed;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase {
 
@@ -29,18 +28,20 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaMesaPlateauM() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.waterSurfaceLakeChance = 30;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
 
-    @Override
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
+
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f);
+        return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
+        //return new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f);
     }
 
     public class TerrainVanillaMesaPlateauM extends TerrainBase {
@@ -147,13 +148,13 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 
                         if (k > 74 + grassRaise)
                         {
-                            primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                         }
                         else if (depth == 0 && k > 61) {
                             int r = (int)((k - (62 + grassRaise)) / 2f);
@@ -182,14 +183,14 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.setStrengthFactor(25f);
         decoCactus.setSoilBlock(BlockUtil.getStateClay(1));
         decoCactus.setSandOnly(false);
         decoCactus.setMaxRiver(0.8f);
-        addDeco(decoCactus);
+        addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();
         decoReed.setLoops(5);
@@ -199,5 +200,10 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setStrengthFactor(5f);
         addDeco(decoDeadBush);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
     }
 }

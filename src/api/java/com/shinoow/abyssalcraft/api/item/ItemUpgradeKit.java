@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Use this class to create Upgrade Kits for tools/armor.
  * You will need to create a crafting recipe for the upgrade:
  * GameRegistry.addRecipe(new ItemStack(NewItem, 1),  new Object [] {"#", "@", '#', OldItem, '@', UpgradeKit);
- *
+ * 
  * @author shinoow
  *
  * @since 1.0

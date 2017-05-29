@@ -13,12 +13,14 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.util.PlateauStep;
+import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase {
 
@@ -28,20 +30,66 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaMesaPlateau() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.waterSurfaceLakeChance = 30;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public TerrainBase initTerrain() {
-
-        return new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f);
+        return new TerrainRTGMesaPlateau(67);
+        //return new TerrainVanillaMesaPlateau(true, 35f, 160f, 60f, 40f, 69f);
     }
 
+    public static class TerrainRTGMesaPlateau extends TerrainBase {
+
+        final PlateauStep step;
+        final VoronoiPlateauEffect plateau;
+        final int groundNoise;
+        private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        private float jitterWavelength = 30;
+        private float jitterAmplitude = 10;
+        private float bumpinessMultiplier = 0.05f;
+        private float bumpinessWavelength = 10f;
+        private int bumpinessOctave = 2;
+        
+        public TerrainRTGMesaPlateau(float base) {
+            plateau = new VoronoiPlateauEffect();
+            step = new PlateauStep();
+            step.finish = 0.4f;
+            step.start = 0.25f;
+            plateau.pointWavelength = 200;
+            this.base = base;
+            groundNoise = 4;
+        }
+        
+
+         
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+            rtgWorld.simplex.riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
+        float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
+        float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
+            float simplex = plateau.added(rtgWorld, x, y);
+            //if (simplex > river) simplex = river;
+            float bordercap = border *3.5f -2.5f;
+            if (bordercap > 1) bordercap = 1;
+            float rivercap = 3f*river;
+            if (rivercap > 1) rivercap = 1;
+            simplex *= rivercap*bordercap;
+            float bumpiness = rtgWorld.simplex.octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            simplex += bumpiness;
+            //if (simplex > bordercap) simplex = bordercap;
+            float added = step.increase(simplex)/border;
+            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex),river) + added;
+        }
+        
+    }
     public class TerrainVanillaMesaPlateau extends TerrainBase {
 
         private float[] height;
@@ -143,7 +191,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 
@@ -155,7 +203,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
                             }
                             else
                             {
-                                primer.setBlockState(x, k, z, CanyonColour.MESA.getBlockForHeight(i, k, j));
+                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                             }
                         }
                         else if (depth == 0 && k > 61) {
@@ -185,10 +233,11 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setChance(10);
+        decoShrub.setStrengthFactor(3f);
         addDeco(decoShrub);
 
         DecoCactus decoCactus = new DecoCactus();
@@ -196,7 +245,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
         decoCactus.setSandOnly(false);
         decoCactus.setMaxRiver(0.8f);
-        addDeco(decoCactus);
+        addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();
         decoReed.setLoops(5);
@@ -217,5 +266,10 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         decoTree.setTreeConditionNoise(0f);
         decoTree.setMinY(74);
         addDeco(decoTree);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 30;
     }
 }

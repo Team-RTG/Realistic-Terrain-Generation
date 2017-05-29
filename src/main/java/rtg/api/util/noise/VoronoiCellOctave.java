@@ -162,84 +162,24 @@ public class VoronoiCellOctave implements CellOctave
 		       (int)(Math.floor (zCandidate)), seed));
 	}
 
-	public float border2(double x, double z, double width, float depth)
-	{
-		x *= 1D;
-		z *= 1D;
-
-		int xInt = (x > .0? (int)x: (int)x - 1);
-		int zInt = (z > .0? (int)z: (int)z - 1);
-
-		double dCandidate = 32000000.0;
-		double xCandidate = 0;
-		double zCandidate = 0;
-
-		double dNeighbour = 32000000.0;
-		double xNeighbour = 0;
-		double zNeighbour = 0;
-
-		double xPos, zPos, xDist, zDist, dist;
-		for(int zCur = zInt - 2; zCur <= zInt + 2; zCur++)
-		{
-			for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++)
-			{
-				xPos = xCur + valueNoise2D(xCur, zCur, seed);
-				zPos = zCur + valueNoise2D(xCur, zCur, zSeed);
-				xDist = xPos - x;
-				zDist = zPos - z;
-				dist = distance(xPos - x, zPos - z);
-
-				if(dist < dCandidate)
-				{
-					dNeighbour = dCandidate;
-					xNeighbour = xCandidate;
-					zNeighbour = zCandidate;
-
-					dCandidate = dist;
-					xCandidate = xPos;
-					zCandidate = zPos;
-				}
-				else if(dist > dCandidate && dist < dNeighbour)
-				{
-					dNeighbour = dist;
-					xNeighbour = xPos;
-					zNeighbour = zPos;
-				}
-			}
-		}
-
-		//double diff = distance(xCandidate - xNeighbour, zCandidate - zNeighbour);
-		//double total = (dCandidate + dNeighbour) / diff;
-
-		//dCandidate = dCandidate / total;
-		//dNeighbour = dNeighbour / total;
-
-		//double c = (diff / 2D) - dCandidate;
-        double c = (dNeighbour - dCandidate)/dNeighbour;
-		if(c < width)
-		{
-			return (((float)(c / width)) - 1f) * depth;
-		}
-		else
-		{
-			return 0f;
-		}
-	}
-
-	public double[] eval (double x, double z)
+	public VoronoiResult eval (double x, double z)
 	{
 
 		int xInt = (x > .0? (int)x: (int)x - 1);
 		int zInt = (z > .0? (int)z: (int)z - 1);
 
 		double dCandidate = 32000000.0;
-		double xCandidate = 0;
-		double zCandidate = 0;
+		double xCandidate = 32000000.0;
+		double zCandidate = 32000000.0;
 
 		double dNeighbour = 32000000.0;
-		double xNeighbour = 0;
-		double zNeighbour = 0;
+		double xNeighbour = 32000000.0;
+		double zNeighbour = 32000000.0;
 
+		VoronoiResult result= new VoronoiResult();
+					result.closestX = 32000000.0;
+					result.closestZ = 32000000.0;
+                
 		for(int zCur = zInt - 2; zCur <= zInt + 2; zCur++)
 		{
 			for(int xCur = xInt - 2; xCur <= xInt + 2; xCur++)
@@ -252,7 +192,8 @@ public class VoronoiCellOctave implements CellOctave
 				double dist = xDist * xDist + zDist * zDist;
 				//double dist = getDistance2D(xPos - x, zPos - z);
 
-				if(dist < dCandidate)
+                                // if closer than existing best but not so close as to create a double point
+				if(dist < dCandidate & Math.abs(result.closestX-xPos)>.05& Math.abs(result.closestZ-zPos)>.05)
 				{
 					dNeighbour = dCandidate;
 					dCandidate = dist;
@@ -262,10 +203,13 @@ public class VoronoiCellOctave implements CellOctave
 					zNeighbour = zCandidate;
 
 					dCandidate = dist;
-					xCandidate = xPos;
-					zCandidate = zPos;*/
+                                        */
+					result.closestX = xPos;
+					result.closestZ = zPos;
 				}
-				else if(dist < dNeighbour)
+                                
+                                // if closer than existing neighbot but not so close *to the candidate* as to create a double point
+				else if(dist < dNeighbour & Math.abs(result.closestX-xPos)>.05& Math.abs(result.closestZ-zPos)>.05)
 				{
 					dNeighbour = dist;
 				}
@@ -273,9 +217,8 @@ public class VoronoiCellOctave implements CellOctave
 		}
 
 		//double c = getDistance2D(xNeighbour - x, zNeighbour - z) - getDistance2D(xCandidate - x, zCandidate - z);
-		double [] result= new double [2];
-        result [0] = dCandidate ;
-        result [1] = dNeighbour;
+        result.shortestDistance = dCandidate ;
+        result.nextDistance = dNeighbour;
         return result;
 	}
 
@@ -349,9 +292,12 @@ public class VoronoiCellOctave implements CellOctave
 	 */
 	public static double valueNoise2D (int x, int z, long seed)
 	{
+            // modified by Zeno to keep points further apart
 		long n = (1619 * x + 6971 * z + 1013 * seed) & 0x7fffffff;
 		n = (n >> 13) ^ n;
-		return 1.0 - ((double)((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
+                int hashed = (int)((n * (n * n * 60493 + 19990303) + 1376312589));
+                return 0.90 - ((double)(hashed & 0x7fffffff) / 2684354560.0);
+		//return 1.0 - ((double)((n * (n * n * 60493 + 19990303) + 1376312589) & 0x7fffffff) / 1073741824.0);
 	}
 
 	public static double valueNoise3D (int x, int y, int z, long seed)

@@ -15,9 +15,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase {
 
@@ -49,7 +49,7 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f);
+            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f, river);
         }
     }
 

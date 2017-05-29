@@ -2,11 +2,11 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import net.minecraft.world.biome.Biome;
 
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.Loader;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
@@ -22,10 +22,17 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
         super(b, riverbiome);
 
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
-
         this.getConfig().ALLOW_VILLAGES.set(false);
+    }
+
+    @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
     }
 
     @Override
@@ -33,26 +40,36 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
         return "abyssalcraft";
     }
 
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
+    }
+
     public static void addBiomes() {
 
         if (Loader.isModLoaded("abyssalcraft")) {
 
-            if (ForgeRegistries.BIOMES.containsValue(ACBiomes.coralium_infested_swamp)) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.coralium_infested_swamp)) {
                 acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp();
             }
-            if (ForgeRegistries.BIOMES.containsValue(ACBiomes.darklands)) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands)) {
                 acDarklands = new RealisticBiomeACDarklands();
             }
-            if (ForgeRegistries.BIOMES.containsValue(ACBiomes.darklands_forest)) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_forest)) {
                 acDarklandsForest = new RealisticBiomeACDarklandsForest();
             }
-            if (ForgeRegistries.BIOMES.containsValue(ACBiomes.darklands_hills)) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_hills)) {
                 acDarklandsHighland = new RealisticBiomeACDarklandsHighland();
             }
-            if (ForgeRegistries.BIOMES.containsValue(ACBiomes.darklands_mountains)) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_mountains)) {
                 acDarklandsMountains = new RealisticBiomeACDarklandsMountains();
             }
-            if (ForgeRegistries.BIOMES.containsValue(ACBiomes.darklands_plains)) {
+            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_plains)) {
                 acDarklandsPlains = new RealisticBiomeACDarklandsPlains();
             }
         }

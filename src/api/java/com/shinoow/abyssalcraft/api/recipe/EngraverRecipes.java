@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- *
+ * 
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -63,7 +63,7 @@ public class EngraverRecipes {
 		if(coins.contains(par1ItemStack))
 			return par1ItemStack;
 
-		return ItemStack.EMPTY;
+		return null;
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class EngraverRecipes {
 					par2.getItem() == ACItems.coin && par1 != ACItems.blank_engraving)
 						return engravings.get(par1);
 
-		return ItemStack.EMPTY;
+		return null;
 	}
 
 	private boolean areStacksEqual(ItemStack par1ItemStack, ItemStack par2ItemStack)

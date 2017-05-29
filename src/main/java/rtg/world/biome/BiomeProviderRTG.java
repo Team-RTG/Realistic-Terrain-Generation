@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
@@ -18,7 +17,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.RTGAPI;
-import rtg.api.util.noise.*;
+import rtg.api.util.Bayesian;
+import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
@@ -34,13 +36,12 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     private List<Biome> biomesToSpawnIn;
     private RTGWorld rtgWorld;
     private OpenSimplexNoise simplex;
-    private CellNoise cell;
     //private SimplexCellularNoise simplexCell;
-    private VoronoiCellNoise river;
+    private SpacedCellNoise river;
     private float[] borderNoise;
     private RealisticBiomePatcher biomePatcher;
-    private double riverValleyLevel = 60.0 / 450.0;//60.0/450.0;
-    private float riverSeparation = 1875;
+    private double riverValleyLevel = 140.0 / 450.0;//60.0/450.0;
+    private float riverSeparation = 975;
     private float largeBendSize = 140;
     private float smallBendSize = 30;
 
@@ -61,42 +62,12 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         if (world.provider.getDimension() != 0) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
-        cell = new SimplexCellularNoise(seed);
         //simplexCell = new SimplexCellularNoise(seed);
-        river = new VoronoiCellNoise(seed);
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(
-            seed, worldType, ChunkProviderSettings.Factory.jsonToFactory("").build()
-        );
+        river = new SpacedCellNoise(seed);
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
-        testCellBorder();
-    }
-
-    private static void testCellBorder() {
-        double[] result = new double[2];
-        result[0] = 0.5;
-        result[1] = 1;
-        if (cellBorder(result, 0.5, 1) < 0) throw new RuntimeException();
-    }
-
-    private static double cellBorder(double[] results, double width, double depth) {
-        double c = (results[1] - results[0]) / results[1];
-        if (c < 0) throw new RuntimeException();
-    /*
-        int slot = (int)Math.floor(c*100.0);
-        incidences[slot] += 1;
-        references ++;
-        if (references>40000) {
-            String result = "";
-            for (int i = 0; i< 100; i ++) {
-                result += " " + incidences[i];
-            }
-            throw new RuntimeException(result);
-        }
-    */
-        if (c < width) return ((c / width) - 1f) * depth;
-        else return 0;
     }
 
     @Override
@@ -131,7 +102,11 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         //double[] results = cell.river().eval(xRiver,zRiver );
         //return (float) cellBorder(results, riverValleyLevel, 1.0);
-        return river.octave(0).border2(xRiver, zRiver, riverValleyLevel, 1f);
+        float riverFactor = (float)river.octave(0).eval(xRiver, zRiver).interiorValue();
+        // the output is a curved function of relative distance from the center, so adjust to make it flatter
+        riverFactor = Bayesian.adjustment(riverFactor, .5f);
+        if (riverFactor>riverValleyLevel) return 0; // no river effect
+        return (float)(riverFactor/riverValleyLevel) -1f;
     }
 
     /**
@@ -233,6 +208,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
     @Override
     public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
+
         IntCache.resetIntCache();
 
         if (biomes == null || biomes.length < width * height) {

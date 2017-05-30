@@ -14,9 +14,9 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionForest;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.collection.DecoCollectionForest;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase {
 
@@ -26,15 +26,14 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     public RealisticBiomeVanillaForestHills() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }

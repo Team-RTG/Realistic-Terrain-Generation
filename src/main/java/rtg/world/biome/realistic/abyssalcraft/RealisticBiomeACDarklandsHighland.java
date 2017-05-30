@@ -15,9 +15,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
 
@@ -27,13 +27,13 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
     public RealisticBiomeACDarklandsHighland() {
 
         super(biome, river);
-
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {
+
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);

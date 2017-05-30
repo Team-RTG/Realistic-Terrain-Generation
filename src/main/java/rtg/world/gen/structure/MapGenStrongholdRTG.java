@@ -16,9 +16,9 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureStrongholdPieces;
 
 import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.ObjectIterator;
 
 import rtg.api.RTGAPI;
+
 
 public class MapGenStrongholdRTG extends MapGenStronghold
 {
@@ -77,14 +77,12 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         }
     }
 
-    @Override
     public String getStructureName()
     {
         return "Stronghold";
     }
 
-    @Override
-    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
+    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos)
     {
         if (!this.ranBiomeCheck)
         {
@@ -116,7 +114,6 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         return blockpos;
     }
 
-    @Override
     protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
     {
         if (!this.ranBiomeCheck)
@@ -140,12 +137,9 @@ public class MapGenStrongholdRTG extends MapGenStronghold
     {
         this.initializeStructureData(this.world);
         int i = 0;
-        ObjectIterator lvt_2_1_ = this.structureMap.values().iterator();
 
-        while (lvt_2_1_.hasNext())
+        for (StructureStart structurestart : this.structureMap.values())
         {
-            StructureStart structurestart = (StructureStart)lvt_2_1_.next();
-
             if (i < this.structureCoords.length)
             {
                 this.structureCoords[i++] = new ChunkPos(structurestart.getChunkPosX(), structurestart.getChunkPosZ());
@@ -194,7 +188,23 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         }
     }
 
-    @Override
+    /*
+    protected List<BlockPos> getCoordList()
+    {
+        List<BlockPos> list = Lists.<BlockPos>newArrayList();
+
+        for (ChunkPos chunkpos : this.structureCoords)
+        {
+            if (chunkpos != null)
+            {
+                list.add(chunkpos.getCenterBlock(64));
+            }
+        }
+
+        return list;
+    }
+    */
+
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
         MapGenStronghold.Start mapgenstronghold$start;

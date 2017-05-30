@@ -14,7 +14,7 @@ import rtg.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.world.biome.realistic.RealisticBiomeBase.getBiome;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.world.gen.feature.WorldGenVolcano;
+import rtg.api.world.gen.feature.WorldGenVolcano;
 
 /**
  *
@@ -70,31 +70,24 @@ public class VolcanoGenerator {
         // Have volcanoes been disabled in the global config?
         if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
 
-
-
-
-
-
         // Let's go ahead and generate the volcano. Exciting!!! :D
-        
         if (baseX % 4 == 0 && baseY % 4 == 0) {
             int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
             RealisticBiomeBase realisticBiome = getBiome(biomeId);
-            // Have volcanoes been disabled in the biome config?
- 
+
             // Do we need to patch the biome?
             if (realisticBiome == null) {
                 RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
                 realisticBiome = biomePatcher.getPatchedRealisticBiome(
                     "NULL biome found when mapping volcanoes.");
             }
-            if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return; 
+            if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
             // Have volcanoes been disabled via frequency?
             // Use the global frequency unless the biome frequency has been explicitly set.
             int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? rtgConfig.VOLCANO_CHANCE.get() : realisticBiome.getConfig().VOLCANO_CHANCE.get();
             if (chance < 1) return;
             if (mapRand.nextInt(chance)>0) return;
-            
+
             float river = cmr.getRiverStrength(baseX * 16, baseY * 16) + 1f;
             if (river > 0.98f && cmr.isBorderlessAt(baseX * 16, baseY * 16)) {
                 

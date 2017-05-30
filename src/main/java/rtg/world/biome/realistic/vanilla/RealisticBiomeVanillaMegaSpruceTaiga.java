@@ -14,11 +14,11 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoFallenTree;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
 
@@ -28,17 +28,16 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaMegaSpruceTaiga() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
     }
 
     @Override

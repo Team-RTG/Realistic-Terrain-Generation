@@ -14,12 +14,14 @@ import biomesoplenty.api.biome.BOPBiomes;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.DecoPond;
-import rtg.world.biome.deco.helper.DecoHelperBorder;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoPond;
+import rtg.api.world.deco.helper.DecoHelperBorder;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
@@ -29,14 +31,14 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public RealisticBiomeBOPCrag() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -73,8 +75,8 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             if (multiplier > 1) {
                 multiplier = 1;
             }
-            double[] points = rtgWorld.cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
-            float raise = (float) ((points[1] - points[0]) / points[1]);
+            VoronoiResult points = rtgWorld.cell.octave(1).eval((float) pX / pointWavelength, (float) pY / pointWavelength);
+            float raise = (float) (points.interiorValue());
             raise = raise * 3f;
             raise -= 0.2f;
             if (raise < 0) {
@@ -181,7 +183,12 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
         this.addDeco(borderedPond);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 }

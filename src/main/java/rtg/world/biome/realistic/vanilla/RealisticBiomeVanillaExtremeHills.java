@@ -10,13 +10,20 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.Bayesian;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHills;
-import rtg.world.biome.deco.collection.DecoCollectionExtremeHillsCommon;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.*;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.RaiseEffect;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHills;
+import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
+import rtg.api.world.terrain.heighteffect.SpikeEverywhereEffect;
+import rtg.api.world.terrain.heighteffect.VoronoiBorderEffect;
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
 
@@ -26,24 +33,20 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaExtremeHills() {
 
         super(biome, river);
-
-        this.generatesEmeralds = true;
-        this.generatesSilverfish = true;
-        this.noLakes = true;
-        this.noWaterFeatures = true;
     }
 
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().TEMPERATURE.set("0.25");
 
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
-
-        this.getConfig().TEMPERATURE.set("0.25");
     }
 
     @Override
@@ -128,7 +131,9 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
              // ground effect is increased by the multiplier
             float groundEffectLevel = groundEffect.added(rtgWorld, (float)x, (float)y);
-            float result = base + multiplier.added(rtgWorld, (float)x, (float )y) * (groundEffectLevel + heightIncrease.added(rtgWorld, (float)x, (float )y)) 
+            float ridging = multiplier.added(rtgWorld, (float)x, (float )y);
+            ridging = Bayesian.adjustment(ridging, 2);
+            float result = base + ridging * (groundEffectLevel + heightIncrease.added(rtgWorld, (float)x, (float )y)) 
                     + groundEffectLevel;
             return TerrainBase.mountainCap(result);
         }
@@ -244,5 +249,15 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionExtremeHills());
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
+        return true;
     }
 }

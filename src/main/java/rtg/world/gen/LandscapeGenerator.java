@@ -1,6 +1,7 @@
 package rtg.world.gen;
 
 import java.util.WeakHashMap;
+
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 
@@ -32,6 +33,7 @@ class LandscapeGenerator {
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
     private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
     private final WeakHashMap<ChunkLandscape,float[]> cache = new WeakHashMap();
+    private MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
 
     LandscapeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
@@ -128,6 +130,9 @@ class LandscapeGenerator {
                     weightedBiomes[biomeIndex] /= totalWeight;
                 }
 
+                // combine mesa biomes
+                mesaCombiner.adjust(weightedBiomes);
+                
                 landscape.noise[i * 16 + j] = 0f;
 
                 TimeTracker.manager.stop("Weighting");
@@ -136,6 +141,7 @@ class LandscapeGenerator {
                 landscape.river[i * 16 + j] = -river;
                 float totalBorder = 0f;
 
+                
                 for(int k = 0; k < 256; k++)
                 {
                     if(weightedBiomes[k] > 0f)
@@ -169,8 +175,9 @@ class LandscapeGenerator {
             }
         }
         TimeTracker.manager.stop("Biome Layout");
+        TimeTracker.manager.stop("RTG Noise");
     }
-    
+
     public float [] noiseFor(IBiomeProviderRTG cmr, int worldX, int worldZ) {
         ChunkPos location = new ChunkPos(worldX,worldZ);
         ChunkLandscape landscape = storage.get(location);

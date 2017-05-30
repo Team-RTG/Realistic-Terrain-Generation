@@ -14,12 +14,12 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.deco.*;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
 

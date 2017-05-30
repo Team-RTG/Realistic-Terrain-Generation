@@ -12,9 +12,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.collection.DecoCollectionIceTrees;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
 
@@ -24,12 +25,15 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaIcePlainsSpikes() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_ICE_TREES).set(true);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -107,6 +111,10 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
 
     @Override
     public void initDecos() {
+
+        if (this.getConfig().ALLOW_ICE_TREES.get()) {
+            this.addDecoCollection(new DecoCollectionIceTrees());
+        }
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

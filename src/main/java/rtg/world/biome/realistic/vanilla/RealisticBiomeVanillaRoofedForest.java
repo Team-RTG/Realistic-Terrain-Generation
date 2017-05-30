@@ -14,10 +14,16 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionRoofedForest;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.helper.DecoHelperThisOrThat;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase {
 
@@ -27,9 +33,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public RealisticBiomeVanillaRoofedForest() {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
@@ -37,7 +40,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().ALLOW_COBWEBS).set(true);
-        this.getConfig().addProperty(this.getConfig().ALLOW_PONDS_WATER).set(true);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
@@ -175,8 +177,132 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionRoofedForest(
-            63, 80, this.getConfig().ALLOW_LOGS.get(), this.getConfig().ALLOW_COBWEBS.get(), this.getConfig().ALLOW_PONDS_WATER.get()
-        ));
+
+        DecoMushrooms decoMushrooms = new DecoMushrooms();
+        decoMushrooms.setChance(4);
+        decoMushrooms.setMaxY(90);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
+        this.addDeco(decoMushrooms);
+
+        TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
+        mucronataTree.setLogBlock(BlockUtil.getStateLog2(1));
+        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        mucronataTree.setMinTrunkSize(2);
+        mucronataTree.setMaxTrunkSize(3);
+        mucronataTree.setMinCrownSize(10);
+        mucronataTree.setMaxCrownSize(18);
+        mucronataTree.setNoLeaves(false);
+        this.addTree(mucronataTree);
+
+        DecoTree mangroveTree = new DecoTree(mucronataTree);
+        mangroveTree.setTreeType(DecoTree.TreeType.RTG_TREE);
+        mangroveTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        mangroveTree.setTreeConditionChance(1);
+        mangroveTree.setStrengthFactorForLoops(12f);
+        mangroveTree.setMaxY(110);
+        mangroveTree.setScatter(new DecoTree.Scatter(16, 0));
+        this.addDeco(mangroveTree);
+
+        TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
+        pentandraTree.setLogBlock(BlockUtil.getStateLog2(1));
+        pentandraTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        pentandraTree.setMinTrunkSize(2);
+        pentandraTree.setMaxTrunkSize(3);
+        pentandraTree.setMinCrownSize(10);
+        pentandraTree.setMaxCrownSize(18);
+        pentandraTree.setNoLeaves(false);
+        this.addTree(pentandraTree);
+
+        DecoTree ceibaPentandraTree = new DecoTree(pentandraTree);
+        ceibaPentandraTree.setTreeType(DecoTree.TreeType.RTG_TREE);
+        ceibaPentandraTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        ceibaPentandraTree.setTreeConditionChance(1);
+        ceibaPentandraTree.setStrengthFactorForLoops(12f);
+        ceibaPentandraTree.setMaxY(110);
+        ceibaPentandraTree.setScatter(new DecoTree.Scatter(16, 0));
+        this.addDeco(ceibaPentandraTree);
+
+        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
+        roseaTree.setLogBlock(BlockUtil.getStateLog2(1));
+        roseaTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        roseaTree.setMinTrunkSize(2);
+        roseaTree.setMaxTrunkSize(3);
+        roseaTree.setMinCrownSize(10);
+        roseaTree.setMaxCrownSize(18);
+        roseaTree.setNoLeaves(false);
+        this.addTree(roseaTree);
+
+        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
+        ceibaRoseaTree.setTreeType(DecoTree.TreeType.RTG_TREE);
+        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        ceibaRoseaTree.setTreeConditionChance(1);
+        ceibaRoseaTree.setStrengthFactorForLoops(12f);
+        ceibaRoseaTree.setMaxY(110);
+        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
+        this.addDeco(ceibaRoseaTree);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionChance(16);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog2(1));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        decoFallenTree.setMinSize(4);
+        decoFallenTree.setMaxSize(9);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoShrub darkOakShrub = new DecoShrub();
+        darkOakShrub.setLogBlock(BlockUtil.getStateLog2(1));
+        darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        darkOakShrub.setMaxY(100);
+        darkOakShrub.setStrengthFactor(8f);
+
+        DecoShrub oakShrub = new DecoShrub();
+        oakShrub.setLogBlock(Blocks.LOG.getDefaultState());
+        oakShrub.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        oakShrub.setMaxY(100);
+        oakShrub.setStrengthFactor(8f);
+
+        this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(16);
+        decoBoulder.setMaxY(80);
+        decoBoulder.setStrengthFactor(2f);
+        this.addDeco(decoBoulder);
+
+        DecoCobwebs decoCobwebs = new DecoCobwebs();
+        decoCobwebs.setChance(1);
+        decoCobwebs.setMinY(63);
+        decoCobwebs.setMaxY(76);
+        decoCobwebs.setStrengthFactor(24f);
+        decoCobwebs.setAdjacentBlock(BlockUtil.getStateLog2(1));
+        decoCobwebs.setMinAdjacents(2);
+        this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
+        decoBaseBiomeDecorations.setMaxY(100);
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.setMaxY(100);
+        decoGrass.setStrengthFactor(20f);
+        this.addDeco(decoGrass);
+
+        DecoDeadBush decoDeadBush = new DecoDeadBush();
+        decoDeadBush.setMaxY(100);
+        decoDeadBush.setChance(2);
+        decoDeadBush.setStrengthFactor(2f);
+        this.addDeco(decoDeadBush);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 3;
     }
 }

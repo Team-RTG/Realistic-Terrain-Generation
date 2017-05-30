@@ -13,13 +13,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.util.CanyonColour;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.util.CanyonColour;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase {
 
@@ -29,12 +29,15 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public RealisticBiomeVanillaSavannaPlateauM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -189,7 +192,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -230,7 +233,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         decoCactus.setMaxY(160);
         decoCactus.setLoops(60);
         decoCactus.setChance(8);
-        this.addDeco(decoCactus);
+        this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
         decoDoubleGrass.setMaxY(128);

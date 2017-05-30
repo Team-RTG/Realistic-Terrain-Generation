@@ -13,13 +13,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.helper.DecoHelperThisOrThat;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.helper.DecoHelperThisOrThat;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 

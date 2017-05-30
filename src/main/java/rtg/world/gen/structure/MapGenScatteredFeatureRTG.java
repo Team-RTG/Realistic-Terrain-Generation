@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.google.common.collect.Lists;
 
 import rtg.api.RTGAPI;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 
 /**
  * Author: Choonster (https://github.com/Choonster)
@@ -136,13 +136,6 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         }
 
         return false;
-    }
-
-    @Override
-    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos, boolean findUnexplored)
-    {
-        this.world = worldIn;
-        return findNearestStructurePosBySpacing(worldIn, this, pos, this.maxDistanceBetweenScatteredFeatures, 8, 14357617, false, 100, findUnexplored);
     }
 
     @Override

@@ -24,17 +24,24 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
 import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
+import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
+import rtg.world.biome.realistic.iceandfire.RealisticBiomeIAFBase;
+import rtg.world.biome.realistic.jikou.RealisticBiomeJIKBase;
 import rtg.world.biome.realistic.mineworld.RealisticBiomeMWBase;
 import rtg.world.biome.realistic.mithwoodforest.RealisticBiomeMFBase;
 import rtg.world.biome.realistic.morechinesemc.RealisticBiomeMCMBase;
+import rtg.world.biome.realistic.rockhoundingsurface.RealisticBiomeRHSBase;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
+import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
@@ -99,14 +106,22 @@ public class RTG {
         RealisticBiomeACBase.addBiomes();
         RealisticBiomeAMBase.addBiomes();
         RealisticBiomeARBase.addBiomes();
+        RealisticBiomeATGBase.addBiomes();
         RealisticBiomeBABase.addBiomes();
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeFLORIBase.addBiomes();
+        RealisticBiomeIAFBase.addBiomes();
+        RealisticBiomeJIKBase.addBiomes();
         RealisticBiomeMCMBase.addBiomes();
         RealisticBiomeMFBase.addBiomes();
         RealisticBiomeMWBase.addBiomes();
+        RealisticBiomeRHSBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
+        RealisticBiomeVAMPBase.addBiomes();
+
+        RealisticBiomeBase.addModBiomes();
         
         RealisticBiomePresenceTester.doBiomeCheck();
     }

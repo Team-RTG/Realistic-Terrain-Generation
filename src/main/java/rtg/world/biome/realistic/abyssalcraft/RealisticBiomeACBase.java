@@ -54,22 +54,22 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
         if (Loader.isModLoaded("abyssalcraft")) {
 
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.coralium_infested_swamp)) {
+            if (BiomeDictionary.hasAnyType(ACBiomes.coralium_infested_swamp)) {
                 acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands)) {
+            if (BiomeDictionary.hasAnyType(ACBiomes.darklands)) {
                 acDarklands = new RealisticBiomeACDarklands();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_forest)) {
+            if (BiomeDictionary.hasAnyType(ACBiomes.darklands_forest)) {
                 acDarklandsForest = new RealisticBiomeACDarklandsForest();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_hills)) {
+            if (BiomeDictionary.hasAnyType(ACBiomes.darklands_hills)) {
                 acDarklandsHighland = new RealisticBiomeACDarklandsHighland();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_mountains)) {
+            if (BiomeDictionary.hasAnyType(ACBiomes.darklands_mountains)) {
                 acDarklandsMountains = new RealisticBiomeACDarklandsMountains();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_plains)) {
+            if (BiomeDictionary.hasAnyType(ACBiomes.darklands_plains)) {
                 acDarklandsPlains = new RealisticBiomeACDarklandsPlains();
             }
         }

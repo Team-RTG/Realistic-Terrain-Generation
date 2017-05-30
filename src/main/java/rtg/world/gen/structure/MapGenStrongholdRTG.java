@@ -188,6 +188,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         }
     }
 
+    /*
     protected List<BlockPos> getCoordList()
     {
         List<BlockPos> list = Lists.<BlockPos>newArrayList();
@@ -202,6 +203,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
         return list;
     }
+    */
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {

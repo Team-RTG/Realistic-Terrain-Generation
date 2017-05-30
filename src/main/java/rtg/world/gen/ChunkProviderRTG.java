@@ -2,6 +2,7 @@ package rtg.world.gen;
 
 import java.util.*;
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -36,6 +37,8 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import mcp.MethodsReturnNonnullByDefault;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.*;
@@ -53,7 +56,9 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
-@SuppressWarnings({"UnusedParameters", "deprecation"})
+//@SuppressWarnings({"UnusedParameters", "deprecation"})
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
@@ -77,7 +82,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private byte bedrockByte = (byte) rtgConfig.BEDROCK_BLOCK_BYTE.get();
     private Random rand;
     private Random mapRand;
-    public final World worldObj;
+    private final World worldObj;
     public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
     private IBiomeProviderRTG cmr;
@@ -104,7 +109,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         @Override
         public void accept(ChunkEvent.Load event) {
             if (event.isCanceled()) return;
-            ChunkPos pos = event.getChunk().getChunkCoordIntPair();
+            ChunkPos pos = event.getChunk().getPos();
 
             if (!toCheck.contains(pos)) return;
             toCheck.remove(pos);
@@ -222,7 +227,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         this.mapFeaturesEnabled = false;
     }
 
-    @Nonnull
     public Chunk provideChunk(final int cx, final int cz) {
         final ChunkPos pos = new ChunkPos(cx, cz);
         if (inGeneration.containsKey(pos)) return inGeneration.get(pos);
@@ -289,11 +293,11 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
-        
+
         borderNoise = landscapeGenerator.noiseFor(cmr, cx * 16, cz * 16);
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
         TimeTracker.manager.stop(replace);
-        
+
         String features = "Vanilla Features";
         TimeTracker.manager.start(features);
         caveGenerator.generate(worldObj, cx, cz, primer);
@@ -382,10 +386,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         TimeTracker.manager.stop(features);
-        
+
         String housekeeping = "Terrain Housekeeping";
         TimeTracker.manager.start(housekeeping);
-        
+
         // store in the in process pile
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cz);
         inGeneration.put(pos, chunk);
@@ -701,7 +705,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (Valued<RealisticBiomeBase> biomeInfluence: activeBiomes.descendingSet()) {
             realisticBiome = biomeInfluence.item();
             float borderNoise = (float)biomeInfluence.value();
-                /*
+                            /*
                  * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
                  * If the biome configs don't allow it, then we try to let the base biome decorate itself.
                  * However, there are some mod biomes that crash when they try to decorate themselves,
@@ -822,7 +826,6 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    @Nonnull
     public List<Biome.SpawnListEntry> getPossibleCreatures(@Nonnull EnumCreatureType creatureType, @Nonnull BlockPos pos) {
         Biome biome = this.worldObj.getBiome(pos);
 
@@ -839,10 +842,9 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     @Override
-    public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
-
+    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
         if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
-        return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
+        return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position, findUnexplored) : null;
     }
 
     @Override

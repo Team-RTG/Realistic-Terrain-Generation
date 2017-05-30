@@ -5,26 +5,29 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
 package com.shinoow.abyssalcraft.api.item;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * Contains all items added in AbyssalCraft
- * 
+ *
  * @author shinoow
  *
  */
 public class ACItems {
 
+	public static ItemStack liquid_coralium_bucket_stack;
+	public static ItemStack liquid_antimatter_bucket_stack;
+
 	public static Item oblivion_catalyst;
 	public static Item gateway_key;
 	public static Item staff_of_the_gatekeeper;
-	public static Item liquid_coralium_bucket;
 	public static Item powerstone_tracker;
 	public static Item eye_of_the_abyss;
 	public static Item dreaded_gateway_key;
@@ -104,7 +107,6 @@ public class ACItems {
 	public static Item shadow_gem;
 	public static Item shard_of_oblivion;
 	public static Item coralium_longbow;
-	public static Item liquid_antimatter_bucket;
 	public static Item coralium_brick;
 	public static Item cudgel;
 	public static Item dreadium_ingot;
@@ -190,6 +192,7 @@ public class ACItems {
 	public static Item shoggoth_flesh;
 	/** Metadata Item, 0 = Abyssalnite, 1 = Refined Coralium, 2 = Dreadium, 3 = Ethaxium */
 	public static Item ingot_nugget;
+	/** Metadata Item, 0 = Normal, 1 = Abyssal Wasteland, 2 = Dreadlands, 3 = Omothol */
 	public static Item staff_of_rending;
 	/** Metadata Item, 0 = Abyssal Wasteland, 1 = Dreadlands, 2 = Omothol */
 	public static Item essence;
@@ -222,5 +225,6 @@ public class ACItems {
 	public static Item yog_sothoth_engraving;
 	public static Item shub_niggurath_engraving;
 	public static Item essence_of_the_gatekeeper;
+	public static Item interdimensional_cage;
 	//	public static Item shadow_titan_armor_plate = getItem("shadowplate");
 }

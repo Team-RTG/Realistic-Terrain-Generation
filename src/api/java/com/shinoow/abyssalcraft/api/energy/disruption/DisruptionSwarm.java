@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -19,6 +19,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -61,6 +63,8 @@ public class DisruptionSwarm extends DisruptionEntry {
 						entity.setLocationAndAngles(pos1.getX(), pos1.getY(), pos1.getZ(), entity.rotationYaw, entity.rotationPitch);
 						((EntityLiving) entity).onInitialSpawn(world.getDifficultyForLocation(pos1), (IEntityLivingData)null);
 						world.spawnEntity(entity);
+						if(!entity.isImmuneToFire())
+							entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 200));
 					} catch (InstantiationException | IllegalAccessException
 							| IllegalArgumentException
 							| InvocationTargetException | NoSuchMethodException

@@ -5,7 +5,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-3.0.txt
- * 
+ *
  * Contributors:
  *     Shinoow -  implementation
  ******************************************************************************/
@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 /**
@@ -112,7 +113,7 @@ public class NecronomiconSummonRitual extends NecronomiconRitual {
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
-		//if(entityliving == null) player.addChatMessage(new TextComponentString("The Entity could not be summoned."));
+		if(entityliving == null) player.sendMessage(new TextComponentString("The Entity could not be summoned."));
 
 	}
 }

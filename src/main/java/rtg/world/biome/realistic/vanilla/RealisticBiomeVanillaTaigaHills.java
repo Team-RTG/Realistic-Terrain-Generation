@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
 
         public TerrainVanillaTaigaHills() {
 
-            this(72f, 30f);
+            this((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 9f), 30f);
         }
 
         public TerrainVanillaTaigaHills(float bh, float hs) {

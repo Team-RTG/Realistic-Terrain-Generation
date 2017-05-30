@@ -41,7 +41,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f);
+        return new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, (rtg.api.RTGAPI.config().SEA_LEVEL.get() + 5f));
     }
 
     public class TerrainVanillaTaigaM extends TerrainBase {

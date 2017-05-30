@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandMountains(x, y, rtgWorld.simplex, rtgWorld.cell, river, 4f, 50f, 68f);
+            return terrainGrasslandMountains(x, y, rtgWorld.simplex, rtgWorld.cell, river, 4f, 50f, (rtg.api.RTGAPI.config().SEA_LEVEL.get() + 5f));
         }
     }
 
@@ -121,7 +121,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.setChance(20);
-        decoBoulder.setMaxY(80);
+        decoBoulder.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 17));
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
@@ -143,7 +143,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         decoTrees.setTreeConditionNoise(0f);
         decoTrees.setTreeConditionChance(1);
-        decoTrees.setMaxY(120);
+        decoTrees.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 57));
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -160,7 +160,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
+        decoShrub.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 47));
         decoShrub.setStrengthFactor(1f);
         this.addDeco(decoShrub);
 
@@ -171,19 +171,19 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoGrassDoubleTallgrass);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.setMaxY(128);
+        decoDeadBush.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 65));
         decoDeadBush.setChance(16);
         decoDeadBush.setStrengthFactor(1f);
         this.addDeco(decoDeadBush);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 65));
         decoGrass.setStrengthFactor(4f);
         decoGrass.setChance(2);
         this.addDeco(decoGrass);
 
         DecoGrass decoFern = new DecoGrass(2);
-        decoFern.setMaxY(128);
+        decoFern.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 65));
         decoFern.setStrengthFactor(4f);
         decoFern.setChance(2);
         this.addDeco(decoFern);
@@ -192,7 +192,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 27));
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
     }

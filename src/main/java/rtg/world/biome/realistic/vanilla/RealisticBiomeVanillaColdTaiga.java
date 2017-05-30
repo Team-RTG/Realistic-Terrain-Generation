@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
 
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 13f, 66f);
+            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 13f, (rtg.api.RTGAPI.config().SEA_LEVEL.get()) + 3f);
         }
     }
 

@@ -31,7 +31,7 @@ public class RTGConfig extends Config {
     // Base Terrain Height
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyInt BASE_TERRAIN_HEIGHT;
+    public final ConfigPropertyInt SEA_LEVEL;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Bedrock
@@ -286,12 +286,12 @@ public class RTGConfig extends Config {
         // Base Terrain Height
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        BASE_TERRAIN_HEIGHT = new ConfigPropertyInt(
+        SEA_LEVEL = new ConfigPropertyInt(
                 ConfigProperty.Type.INTEGER,
                 "Sea Level Base Height",
-                "Sea Level",
+                "Base Terrain Height",
                 "The 'Y' Level that the World Spawns at.",
-                80, 52, 132
+                80, 52, 112
         );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -303,7 +303,7 @@ public class RTGConfig extends Config {
             "Number of flat bedrock layers",
             "Bedrock",
             "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate",
-            0, 0, 5
+            2, 1, 5
         );
         this.addProperty(FLAT_BEDROCK_LAYERS);
 

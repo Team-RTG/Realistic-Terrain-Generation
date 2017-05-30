@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaSwamplandM(50f, 25f, 60f);
+        return new TerrainVanillaSwamplandM(50f, 25f, (rtg.api.RTGAPI.config().SEA_LEVEL.get() - 3f));
     }
 
     public class TerrainVanillaSwamplandM extends TerrainBase {
@@ -135,7 +135,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         decoTrees.setTreeConditionChance(12);
-        decoTrees.setMaxY(100);
+        decoTrees.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 37));
         this.addDeco(decoTrees);
 
         TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
@@ -152,11 +152,11 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         deadPineTree.setTreeType(DecoTree.TreeType.RTG_TREE);
         deadPineTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         deadPineTree.setTreeConditionChance(18);
-        deadPineTree.setMaxY(100);
+        deadPineTree.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 37));
         this.addDeco(deadPineTree);
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
+        decoShrub.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 37));
         decoShrub.setStrengthFactor(3f);
         this.addDeco(decoShrub);
 
@@ -177,13 +177,13 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
+        decoPumpkin.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 27));
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(50f);
         this.addDeco(decoPumpkin);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 65));
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
     }

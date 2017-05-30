@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainOcean(x, y, rtgWorld.simplex, river, 50f);
+            return terrainOcean(x, y, rtgWorld.simplex, river, (rtg.api.RTGAPI.config().SEA_LEVEL.get() - 13f));
         }
     }
 

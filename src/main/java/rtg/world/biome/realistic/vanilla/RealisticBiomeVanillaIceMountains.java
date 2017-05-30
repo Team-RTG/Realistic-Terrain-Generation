@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaIceMountains(230f, 60f, 68f);
+        return new TerrainVanillaIceMountains(230f, 60f, ((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 5)));
     }
 
     public class TerrainVanillaIceMountains extends TerrainBase {

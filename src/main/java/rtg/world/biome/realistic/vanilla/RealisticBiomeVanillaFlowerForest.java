@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 65f);
+            return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, (rtg.api.RTGAPI.config().SEA_LEVEL.get() + 2f));
         }
     }
 
@@ -211,7 +211,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         oakPines.setTreeConditionNoise(0f);
         oakPines.setTreeConditionChance(1);
-        oakPines.setMaxY(140);
+        oakPines.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 77));
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
         ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(1));
@@ -231,7 +231,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         sprucePines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         sprucePines.setTreeConditionNoise(0f);
         sprucePines.setTreeConditionChance(1);
-        sprucePines.setMaxY(140);
+        sprucePines.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 77));
 
         DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
         this.addDeco(decoPines);
@@ -248,7 +248,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenOak = new DecoFallenTree();
         decoFallenOak.setLogCondition(RANDOM_CHANCE);
         decoFallenOak.setLogConditionChance(8);
-        decoFallenOak.setMaxY(100);
+        decoFallenOak.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 37));
         decoFallenOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenOak.setMinSize(3);
@@ -256,7 +256,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
         decoFallenSpruce.setLogConditionChance(8);
-        decoFallenSpruce.setMaxY(100);
+        decoFallenSpruce.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 37));
         decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
         decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenSpruce.setMinSize(3);
@@ -266,7 +266,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY((rtg.api.RTGAPI.config().SEA_LEVEL.get() + 65));
         decoGrass.setStrengthFactor(24f);
         this.addDeco(decoGrass);
     }

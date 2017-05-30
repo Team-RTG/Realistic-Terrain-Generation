@@ -103,7 +103,7 @@ public class NecronomiconEnchantmentRitual extends NecronomiconRitual {
 		if(stack.isItemEnchanted()){
 			Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
 			for(Enchantment ench : enchantments.keySet())
-				if(!ench.canApplyTogether(enchantment.enchantmentobj) || !enchantment.enchantmentobj.canApplyTogether(ench))
+				if(!ench.func_191560_c(enchantment.enchantmentobj) || !enchantment.enchantmentobj.func_191560_c(ench))
 					return false;
 			return enchantment.enchantmentobj.canApply(stack);
 		}

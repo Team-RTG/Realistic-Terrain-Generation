@@ -1,4 +1,4 @@
-package rtg.world.gen.surface;
+package rtg.api.world.surface;
 
 import java.util.Random;
 
@@ -10,7 +10,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.surface.SurfaceBase;
 
 public class SurfaceOrganic extends SurfaceBase {
 

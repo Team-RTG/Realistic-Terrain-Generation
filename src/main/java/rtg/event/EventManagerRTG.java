@@ -24,6 +24,7 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.event.SurfaceEvent;
 import rtg.api.util.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -66,7 +67,7 @@ public class EventManagerRTG {
         public void loadChunkRTG(ChunkEvent.Load event) {
 
             // Are we in an RTG world?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
+            if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
                 return;
             }
 
@@ -83,7 +84,7 @@ public class EventManagerRTG {
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
+            if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
                 return;
             }
 
@@ -214,7 +215,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG) ||
+            if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
                 return;
             }
@@ -379,7 +380,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG) ||
+            if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
                 return;
             }

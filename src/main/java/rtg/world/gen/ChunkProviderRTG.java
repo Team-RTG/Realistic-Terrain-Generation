@@ -38,6 +38,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
 import rtg.util.TimeTracker;
@@ -103,11 +104,21 @@ public class ChunkProviderRTG implements IChunkGenerator
     public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
         @Override
         public void accept(ChunkEvent.Load event) {
-            if (event.isCanceled()) return;
+
+            if (event.isCanceled()) {
+                Logger.debug("CPRTG#Acceptor: event is cancelled.");
+                return;
+            }
+
             ChunkPos pos = event.getChunk().getChunkCoordIntPair();
 
-            if (!toCheck.contains(pos)) return;
+            if (!toCheck.contains(pos)) {
+                Logger.debug("CPRTG#Acceptor: toCheck contains pos.");
+                return;
+            }
+
             toCheck.remove(pos);
+
             for (Direction forPopulation : directions) {
                 decorateIfOtherwiseSurrounded(event.getWorld().getChunkProvider(), pos, forPopulation);
             }
@@ -116,6 +127,9 @@ public class ChunkProviderRTG implements IChunkGenerator
     };
 
     public ChunkProviderRTG(World world, long seed) {
+
+        Logger.debug("STARTED instantiating CPRTG.");
+
         worldObj = world;
         worldUtil = new WorldUtil(world);
         rtgWorld = new RTGWorld(worldObj);
@@ -130,7 +144,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         m.put("distance", "24");
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        boolean isRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
+        boolean isRTGWorld = DimensionManagerRTG.isValidDimension(world.provider.getDimension());
 
         if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
@@ -187,6 +201,8 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         // check for bogus world
         if (worldObj == null) throw new RuntimeException("Attempt to create chunk provider without a world");
+
+        Logger.debug("FINISHED instantiating CPRTG.");
     }
 
     private void setWeightings() {
@@ -677,6 +693,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start("Decorations");
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
 
+        Logger.debug("DecorateBiomeEvent.Pre (%d %d)", worldX, worldZ);
+
         // Ore gen.
         this.generateOres(biome, new BlockPos(worldX, 0, worldZ));
 
@@ -732,6 +750,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));
+
+        Logger.debug("DecorateBiomeEvent.Post (%d %d)", worldX, worldZ);
 
         TimeTracker.manager.stop("Decorations");
 
@@ -941,22 +961,41 @@ public class ChunkProviderRTG implements IChunkGenerator
     private void decorateIfOtherwiseSurrounded(IChunkProvider world, ChunkPos pos, Direction fromNewChunk) {
 
         // check if this is the master provider
-        if (WorldTypeRTG.chunkProvider != this) return;
+        if (WorldTypeRTG.chunkProvider != this) {
+            Logger.debug("Cannot decorate-if-otherwise-surrounded.");
+            return;
+        }
 
         // see if otherwise surrounded besides the new chunk
         ChunkPos probe = new ChunkPos(pos.chunkXPos + fromNewChunk.xOffset, pos.chunkZPos + fromNewChunk.zOffset);
 
         // check to see if already decorated; shouldn't be but just in case
-        if (this.alreadyDecorated.contains(probe)) return;
+        if (this.alreadyDecorated.contains(probe)) {
+            Logger.debug("Already decorated (%d %d).", pos.chunkXPos, pos.chunkZPos);
+            return;
+        }
+
         // if an in-process chunk; we'll get a populate call later;
         // if (this.inGeneration.containsKey(probe)) return;
 
         for (Direction checked : directions) {
-            if (checked == compass.opposite(fromNewChunk)) continue; // that's the new chunk
-            if (!chunkExists(true, probe.chunkXPos + checked.xOffset, probe.chunkZPos + checked.zOffset)) return;// that one's missing
+
+            if (checked == compass.opposite(fromNewChunk)) {
+                Logger.debug("Chunk checked (%d %d). Continuing...", pos.chunkXPos, pos.chunkZPos);
+                continue; // that's the new chunk
+            }
+
+            if (!chunkExists(true, probe.chunkXPos + checked.xOffset, probe.chunkZPos + checked.zOffset)) {
+                Logger.debug("Chunk doesn't exist (%d %d). Returning...", pos.chunkXPos, pos.chunkZPos);
+                return;// that one's missing
+            }
         }
+
         // passed all checks
         addToDecorationList(probe);
+
+        Logger.debug("Chunk added to decoration list (%d %d).", probe.chunkXPos, probe.chunkZPos);
+
         //this.doPopulate(probe.chunkXPos, probe.chunkZPos);
     }
 
@@ -1005,7 +1044,10 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     private void clearToDecorateList() {
-        if (WorldTypeRTG.chunkProvider != this) return;
+        if (WorldTypeRTG.chunkProvider != this) {
+            Logger.debug("Cannot clear the to-decorate list.");
+            return;
+        }
         if (populating) return;// in process, do later;
         // we have to make a copy of the set to work on or we'll get errors
         Set<ChunkPos> toProcess = doableLocations(0);

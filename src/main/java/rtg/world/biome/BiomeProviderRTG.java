@@ -17,6 +17,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.RTGAPI;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Bayesian;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
@@ -59,7 +60,8 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         this.smallBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
 
         long seed = world.getSeed();
-        if (world.provider.getDimension() != 0) throw new RuntimeException();
+
+        if (!DimensionManagerRTG.isValidDimension(world.provider.getDimension())) throw new RuntimeException();
 
         simplex = new OpenSimplexNoise(seed);
         //simplexCell = new SimplexCellularNoise(seed);

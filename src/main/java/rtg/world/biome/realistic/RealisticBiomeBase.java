@@ -98,7 +98,12 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected void init() {
         initConfig();
-        this.getConfig().load(this.configPath());
+
+        // Realistic biomes have configs... organic biomes do not.
+        if (this.hasConfig()) {
+            this.getConfig().load(this.configPath());
+        }
+
         this.adjustBiomeProperties();
         this.terrain = initTerrain();
         this.surface = initSurface();
@@ -110,6 +115,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     @Override
     public BiomeConfig getConfig() {
         return this.config;
+    }
+
+    @Override
+    public boolean hasConfig() {
+        return true;
     }
 
     @Override

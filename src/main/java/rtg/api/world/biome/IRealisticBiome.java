@@ -33,6 +33,7 @@ public interface IRealisticBiome {
 
     BiomeConfig getConfig();
     void initConfig();
+    boolean hasConfig();
     TerrainBase initTerrain();
     SurfaceBase initSurface();
     void initDecos();

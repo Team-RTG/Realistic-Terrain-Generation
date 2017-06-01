@@ -19,6 +19,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt VOLCANO_CHANCE;
     public final ConfigPropertyBoolean USE_RTG_DECORATIONS;
     public final ConfigPropertyBoolean USE_RTG_SURFACES;
+    public final ConfigPropertyBoolean USE_RTG_TERRAIN;
     public final ConfigPropertyString SURFACE_TOP_BLOCK;
     public final ConfigPropertyInt SURFACE_TOP_BLOCK_META;
     public final ConfigPropertyString SURFACE_FILLER_BLOCK;
@@ -128,6 +129,15 @@ public class BiomeConfig extends Config {
             true
         );
         this.addProperty(USE_RTG_SURFACES);
+
+        USE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Use RTG Terrain",
+            "Terrain",
+            "If FALSE, no realistic terrain will be generated in this biome. Instead, vanilla terrain will be generated.",
+            true
+        );
+        this.addProperty(USE_RTG_TERRAIN);
 
         SURFACE_TOP_BLOCK = new ConfigPropertyString(
             Type.STRING,

@@ -26,6 +26,7 @@ import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceGeneric;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainOrganic;
 import rtg.world.biome.BiomeAnalyzer;
 
 
@@ -105,7 +106,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         }
 
         this.adjustBiomeProperties();
-        this.terrain = initTerrain();
+        this.terrain = checkTerrain(initTerrain());
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
@@ -423,5 +424,14 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             rbb.decos = irb.getDecos();
             rbb.rtgTrees = irb.getTrees();
         }
+    }
+
+    protected boolean organicTerrain() {
+        return !rtgConfig.ENABLE_RTG_TERRAIN.get() || !this.config.USE_RTG_TERRAIN.get();
+    }
+
+    protected TerrainBase checkTerrain(TerrainBase terrainIn) {
+
+        return organicTerrain() ? new TerrainOrganic() : terrainIn;
     }
 }

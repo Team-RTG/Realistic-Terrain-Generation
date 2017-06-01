@@ -5,10 +5,10 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.surface.SurfaceOrganic;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.TerrainOrganic;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.surface.SurfaceOrganic;
-import rtg.world.gen.terrain.TerrainOrganic;
 
 /**
  * @author topisani

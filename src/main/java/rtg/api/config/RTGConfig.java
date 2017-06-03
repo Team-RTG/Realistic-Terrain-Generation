@@ -47,6 +47,7 @@ public class RTGConfig extends Config {
 
     public final ConfigPropertyBoolean ENABLE_RTG_BIOME_DECORATIONS;
     public final ConfigPropertyBoolean ENABLE_RTG_BIOME_SURFACES;
+    public final ConfigPropertyBoolean ENABLE_RTG_TERRAIN;
     public final ConfigPropertyInt PATCH_BIOME_ID;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -352,6 +353,15 @@ public class RTGConfig extends Config {
             true
         );
         this.addProperty(ENABLE_RTG_BIOME_SURFACES);
+
+        ENABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable RTG Terrain",
+            "Biomes",
+            "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all realistic terrain generation and uses vanilla terrain instead.",
+            true
+        );
+        this.addProperty(ENABLE_RTG_TERRAIN);
 
         PATCH_BIOME_ID = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,

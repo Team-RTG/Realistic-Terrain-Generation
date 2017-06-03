@@ -437,7 +437,6 @@ public class BiomeConfig extends Config {
                 "1.0 = Default density; 2.0 = Twice as many fallen logs; 0.5 = half as many fallen logs; 0 = No fallen logs",
             1f, 0f, 5.0f
         );
-        this.addProperty(FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     public static String formatSlug(String s) {

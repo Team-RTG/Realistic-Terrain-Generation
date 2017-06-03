@@ -50,6 +50,7 @@ import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.api.RTGAPI.config;
+import static rtg.api.RTGAPI.configPath;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -62,7 +63,6 @@ import static rtg.api.RTGAPI.config;
 )
 public class RTG {
 
-    public static String configPath;
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
     private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
@@ -83,7 +83,7 @@ public class RTG {
 
         DimensionManagerRTG.addRTGDimension(DimensionManagerRTG.OVERWORLD);
 
-        configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
+        RTGAPI.configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         RTGAPI.rtgConfig = new RTGConfig();
         RTGAPI.rtgConfig.load(configPath + "rtg.cfg");
 

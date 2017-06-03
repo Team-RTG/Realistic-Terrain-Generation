@@ -7,7 +7,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
-import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
@@ -405,7 +404,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     public String configPath() {
-        return RTG.configPath + "biomes/" + this.modSlug() + "/" + this.biomeSlug() + ".cfg";
+        return RTGAPI.configPath + "biomes/" + this.modSlug() + "/" + this.biomeSlug() + ".cfg";
     }
 
     public String modSlug() {

@@ -28,4 +28,11 @@ public class DecoUtil {
 
         return loopCount;
     }
+
+    public int adjustChanceFromMultiplier(int chanceIn, float multiplier) {
+
+        int chanceOut = (multiplier != 0f) ? ((int) Math.floor((float)chanceIn / multiplier)) : chanceIn;
+
+        return (chanceOut == 0) ? 1 : chanceOut;
+    }
 }

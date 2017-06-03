@@ -33,6 +33,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
 		this.getConfig().addProperty(this.getConfig().USE_ARCTIC_SURFACE).set(true);
 		this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
 	}
 
 	@Override

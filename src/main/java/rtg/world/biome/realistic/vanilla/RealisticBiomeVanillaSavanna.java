@@ -33,6 +33,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeVanillaBase {
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");

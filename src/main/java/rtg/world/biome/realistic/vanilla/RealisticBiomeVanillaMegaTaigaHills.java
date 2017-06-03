@@ -38,6 +38,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
         this.getConfig().VOLCANO_CHANCE.set(-1);
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override

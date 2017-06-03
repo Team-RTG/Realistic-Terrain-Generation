@@ -18,8 +18,8 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
 import rtg.api.RTGAPI;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
-import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
@@ -74,7 +74,7 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (i == k && j == l) {
 
-            boolean booRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
+            boolean booRTGWorld = DimensionManagerRTG.isValidDimension(world.provider.getDimension());
             boolean booRTGChunkManager = world.getBiomeProvider() instanceof BiomeProviderRTG;
 
             int worldX = i * 16 + 8;

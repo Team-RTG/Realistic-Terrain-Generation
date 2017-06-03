@@ -28,8 +28,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import rtg.api.RTGAPI;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
-import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -122,7 +122,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
         // Are we in an RTG world?
-        if (!(this.world.getWorldType() instanceof WorldTypeRTG)) {
+        if (!DimensionManagerRTG.isValidDimension(this.world.provider.getDimension())) {
             //Logger.debug("Could not generate ocean monument. This is not an RTG world.");
             return false;
         }

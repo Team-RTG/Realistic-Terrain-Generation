@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.dimension.DimensionManagerRTG;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.ClientProxy;
@@ -24,6 +25,7 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
+import rtg.world.biome.organic.OrganicBiomeGenerator;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
@@ -79,6 +81,8 @@ public class RTG {
 
         worldtype = new WorldTypeRTG(ModInfo.WORLD_TYPE);
 
+        DimensionManagerRTG.addRTGDimension(DimensionManagerRTG.OVERWORLD);
+
         configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
         RTGAPI.rtgConfig = new RTGConfig();
         RTGAPI.rtgConfig.load(configPath + "rtg.cfg");
@@ -122,6 +126,8 @@ public class RTG {
         RealisticBiomeVAMPBase.addBiomes();
 
         RealisticBiomeBase.addModBiomes();
+
+        OrganicBiomeGenerator.initOrganicBiomes();
         
         RealisticBiomePresenceTester.doBiomeCheck();
     }

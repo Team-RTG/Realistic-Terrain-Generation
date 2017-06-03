@@ -40,6 +40,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override

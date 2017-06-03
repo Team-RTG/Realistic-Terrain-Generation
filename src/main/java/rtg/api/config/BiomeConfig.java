@@ -19,6 +19,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt VOLCANO_CHANCE;
     public final ConfigPropertyBoolean USE_RTG_DECORATIONS;
     public final ConfigPropertyBoolean USE_RTG_SURFACES;
+    public final ConfigPropertyBoolean USE_RTG_TERRAIN;
     public final ConfigPropertyString SURFACE_TOP_BLOCK;
     public final ConfigPropertyInt SURFACE_TOP_BLOCK_META;
     public final ConfigPropertyString SURFACE_FILLER_BLOCK;
@@ -55,6 +56,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt WHEAT_MAX_Y;
     public final ConfigPropertyBoolean USE_ARCTIC_SURFACE;
     public final ConfigPropertyBoolean ALLOW_ICE_TREES;
+    public final ConfigPropertyFloat FALLEN_LOG_DENSITY_MULTIPLIER;
 
     public BiomeConfig() {
 
@@ -128,6 +130,15 @@ public class BiomeConfig extends Config {
             true
         );
         this.addProperty(USE_RTG_SURFACES);
+
+        USE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Use RTG Terrain",
+            "Terrain",
+            "If FALSE, no realistic terrain will be generated in this biome. Instead, vanilla terrain will be generated.",
+            true
+        );
+        this.addProperty(USE_RTG_TERRAIN);
 
         SURFACE_TOP_BLOCK = new ConfigPropertyString(
             Type.STRING,
@@ -416,6 +427,16 @@ public class BiomeConfig extends Config {
         WHEAT_MAX_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Max Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         USE_ARCTIC_SURFACE = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Use Arctic Surface", "Surfaces.Arctic Surface", "", true);
         ALLOW_ICE_TREES = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Allow Ice Trees", "Trees.Ice Trees", "", true);
+
+        FALLEN_LOG_DENSITY_MULTIPLIER = new ConfigPropertyFloat(
+            Type.FLOAT,
+            "Fallen Log Density Multiplier",
+            "Decorations.Logs",
+            "This setting allows you to increase/decrease the number of fallen logs that generate in this biome."
+                + Configuration.NEW_LINE +
+                "1.0 = Default density; 2.0 = Twice as many fallen logs; 0.5 = half as many fallen logs; 0 = No fallen logs",
+            1f, 0f, 5.0f
+        );
     }
 
     public static String formatSlug(String s) {

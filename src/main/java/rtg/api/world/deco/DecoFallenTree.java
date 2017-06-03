@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.api.util.DecoUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
@@ -28,6 +29,7 @@ public class DecoFallenTree extends DecoBase {
     private int minSize; // Min log height (only used with certain log presets)
     private int maxSize; // Max log height (only used with certain log presets)
     private IBlockState[] randomLogBlocks;
+    private DecoUtil decoUtil = new DecoUtil(this);
 
     public DecoFallenTree() {
 
@@ -83,6 +85,10 @@ public class DecoFallenTree extends DecoBase {
 
             WorldGenerator worldGenerator = null;
             int finalSize = 4;
+
+            // Adjust the chance according to biome config.
+            this.setLogConditionChance(decoUtil.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
+
             if (this.maxSize > this.minSize) {
                 finalSize = this.minSize + rand.nextInt(this.maxSize - this.minSize);
                 worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);

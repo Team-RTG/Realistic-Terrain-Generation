@@ -31,6 +31,8 @@ public class DecoUtil {
 
     public int adjustChanceFromMultiplier(int chanceIn, float multiplier) {
 
-        return (multiplier != 0f) ? ((int) Math.floor((float)chanceIn / multiplier)) : chanceIn;
+        int chanceOut = (multiplier != 0f) ? ((int) Math.floor((float)chanceIn / multiplier)) : chanceIn;
+
+        return (chanceOut == 0) ? 1 : chanceOut;
     }
 }

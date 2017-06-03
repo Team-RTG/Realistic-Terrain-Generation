@@ -17,10 +17,10 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.deco.DecoSingleBiomeDecorations;
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.ALWAYS_GENERATE;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
 
@@ -131,7 +131,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(ALWAYS_GENERATE);
+        decoFallenTree.setLogCondition(RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(4);
         decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());

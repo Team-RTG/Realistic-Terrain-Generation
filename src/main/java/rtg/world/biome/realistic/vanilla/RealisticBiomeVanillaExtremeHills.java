@@ -52,7 +52,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
 
     @Override
     public TerrainBase initTerrain() {
-       return new RidgedExtremeHills(150f, 67f, 200f);
+       return new RidgedExtremeHills(150f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f, 200f);
         //return new TerrainVanillaExtremeHills(10f, 120f, 10f, 200f);
     }
     

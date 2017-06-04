@@ -62,7 +62,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeVanillaBase {
 
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 3f, 66f);
+            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 3f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f);
         }
     }
 

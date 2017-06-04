@@ -24,7 +24,7 @@ public abstract class TerrainBase {
 
     public TerrainBase() {
 
-        this(68f);// default to marginally above sea level;
+        this(RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f);// default to marginally above sea level;
     }
 
     public TerrainBase(float base) {
@@ -134,12 +134,12 @@ public abstract class TerrainBase {
 
     public static float getTerrainBase() {
 
-        return 68f;
+        return (RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f);
     }
 
     public static float getTerrainBase(float river) {
 
-        return 62f + 6f * river;
+        return (RTGAPI.config().SEA_LVL_MODIFIER.get() -1) + 6f * river;
     }
 
     public static float mountainCap(float m) {

@@ -59,7 +59,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
             float m = hills(x, y, hillStrength, rtgWorld.simplex, river);
 
-            float floNoise = 65f + groundNoise + m;
+            float floNoise = rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f + groundNoise + m;
 
             return riverized(floNoise, river);
         }

@@ -1,14 +1,17 @@
 package rtg.api.config;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+
 import net.minecraftforge.common.config.Configuration;
+
 import org.apache.commons.lang3.ArrayUtils;
+
 import rtg.api.config.property.*;
 import rtg.api.util.MaterialUtil;
-
-import java.util.ArrayList;
 
 public class RTGConfig extends Config {
 
@@ -28,10 +31,10 @@ public class RTGConfig extends Config {
     public static final IBlockState DEFAULT_VOLCANO_MIX3_BLOCK = Blocks.COAL_BLOCK.getDefaultState();
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Base Terrain Height
+    // Base Terrain Y Coordinate
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyInt BASE_TERRAIN_HEIGHT;
+    public final ConfigPropertyInt SEA_LVL_MODIFIER;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Bedrock
@@ -213,12 +216,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt MAX_DISTANCE_SCATTERED_FEATURES;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // SEA LEVEL
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    public final ConfigPropertyInt SEA_LEVEL_MODIFIER;
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Snow
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -290,15 +287,15 @@ public class RTGConfig extends Config {
     public RTGConfig() {
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // Base Terrain Height
+        // Base Terrian Y Coordinate
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        BASE_TERRAIN_HEIGHT = new ConfigPropertyInt(
-                ConfigProperty.Type.INTEGER,
-                "Sea Level Base Height",
-                "Sea Level",
-                "The 'Y' Level that the World Spawns at.",
-                80, 52, 132
+        SEA_LVL_MODIFIER = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "The Y Coordinate Noise Generates at.",
+            "Base Terrain Generation",
+            "Changing Default World base height," +
+                "Default Value = 63, Max Value = 132",
+            83, 63, 132
         );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1051,18 +1048,6 @@ public class RTGConfig extends Config {
             48, 4, Integer.MAX_VALUE
         );
         this.addProperty(MAX_DISTANCE_SCATTERED_FEATURES);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // SEA LEVEL
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        SEA_LEVEL_MODIFIER = new ConfigPropertyInt(
-                ConfigProperty.Type.INTEGER,
-                "Sea Level Base Height",
-                "Sea Level",
-                "The 'Y' Level that the World Spawns at.",
-                80, 32, 132
-        );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Snow

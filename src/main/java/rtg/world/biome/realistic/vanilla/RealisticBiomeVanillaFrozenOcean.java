@@ -52,7 +52,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainOcean(x, y, rtgWorld.simplex, river, 50f);
+            return terrainOcean(x, y, rtgWorld.simplex, river, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 13f);
         }
     }
 
@@ -94,7 +94,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
                 else if (b == Blocks.STONE) {
                     depth++;
 
-                    if (depth == 0 && k > 0 && k < 63) {
+                    if (depth == 0 && k > 0 && k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
                         mixCheck = simplex.noise2(i / width, j / width);
 
                         if (mixCheck > height) // > 0.27f, i / 12f
@@ -105,7 +105,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
                             primer.setBlockState(x, k, z, topBlock);
                         }
                     }
-                    else if (depth < 4 && k < 63) {
+                    else if (depth < 4 && k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
                         primer.setBlockState(x, k, z, fillerBlock);
                     }
 

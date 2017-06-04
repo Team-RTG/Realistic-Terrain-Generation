@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex, 61.5f,river);
+            return terrainMarsh(x, y, rtgWorld.simplex, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1.5f,river);
         }
     }
 

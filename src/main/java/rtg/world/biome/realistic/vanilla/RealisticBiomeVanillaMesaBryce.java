@@ -44,7 +44,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
     @Override
     public TerrainBase initTerrain() {
-        return new TerrainRTGMesaBryce(67);
+        return new TerrainRTGMesaBryce(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 5);
         //return new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f);
     }
     public static class TerrainRTGMesaBryce extends TerrainBase {

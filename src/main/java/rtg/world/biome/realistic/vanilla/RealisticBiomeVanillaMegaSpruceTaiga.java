@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
 
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 14f, 66f);
+            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 14f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f);
         }
     }
 

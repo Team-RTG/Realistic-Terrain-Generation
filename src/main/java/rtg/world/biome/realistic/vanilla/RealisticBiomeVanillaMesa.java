@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return riverized(68f + groundEffect.added(rtgWorld, x, y), river);
+            return riverized((rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 6f) + groundEffect.added(rtgWorld, x, y), river);
         }
     }
 

@@ -325,7 +325,7 @@ public class BiomeAnalyzer {
             savedJittered[i] = jitteredBiomes[i];
             //if (savedJittered[i]== null) throw new RuntimeException();
 
-            if (noise[i] > 61.5) {
+            if (noise[i] > RTGAPI.config().SEA_LVL_MODIFIER.get() - 1.5) {
                 // replace
                 jitteredBiomes[i] = realisticBiome;
             } else {
@@ -344,10 +344,10 @@ public class BiomeAnalyzer {
         // put beaches on shores
         beachSearch.notHunted = true;
         beachSearch.absent = false;
-        float beachTop = 64.5f;
+        float beachTop = RTGAPI.config().SEA_LVL_MODIFIER.get() + 1.5f;
         for (int i = 0; i < 256; i++) {
             if (beachSearch.absent) break; //no point
-            float beachBottom = 61.5f;
+            float beachBottom = RTGAPI.config().SEA_LVL_MODIFIER.get() - 1.5f;
             if (noise[i]< beachBottom ||noise[i]>riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't beach level
             int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
             if (swampBiome[biomeID]) continue;// swamps are acceptable at beach level
@@ -412,7 +412,7 @@ public class BiomeAnalyzer {
         oceanSearch.notHunted = true;
         for (int i = 0; i < 256; i++) {
             if (oceanSearch.absent) break; //no point
-            float oceanTop = 61.5f;
+            float oceanTop = RTGAPI.config().SEA_LVL_MODIFIER.get() - 1.5f;
             if (noise[i]> oceanTop) continue;// too hight
             int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
             if (oceanBiome[biomeID]) continue;// obviously ocean is OK
@@ -435,7 +435,7 @@ public class BiomeAnalyzer {
         // convert remainder below sea level to lake biome
         for (int i = 0; i < 256; i++) {
             int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
-            if (noise[i]<=61.5&&!riverBiome[biomeID]) {
+            if (noise[i]<=RTGAPI.config().SEA_LVL_MODIFIER.get() - 1.5&&!riverBiome[biomeID]) {
                 // check for river
                 if (!oceanBiome[biomeID] &&
                     !swampBiome[biomeID] &&

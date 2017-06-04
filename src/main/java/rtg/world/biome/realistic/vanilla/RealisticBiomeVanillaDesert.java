@@ -47,7 +47,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         public TerrainVanillaDesert() {
 
-            super(64);
+            super(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 1);
         }
 
         @Override

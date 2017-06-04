@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBeach(x, y, rtgWorld.simplex, river, 180f, 35f, 63f);
+            return terrainBeach(x, y, rtgWorld.simplex, river, 180f, 35f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get());
         }
     }
 

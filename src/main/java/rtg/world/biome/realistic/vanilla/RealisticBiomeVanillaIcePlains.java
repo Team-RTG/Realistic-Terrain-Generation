@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-			return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 200f, 65f);
+			return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 200f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f);
         }
     }
 
@@ -119,7 +119,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 					}
 					else
 					{
-						if(depth == 0 && k > 61)
+						if(depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2)
 						{
 							primer.setBlockState(x, k, z, topBlock);
 						}

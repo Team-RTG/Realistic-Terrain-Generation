@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeVanillaBase
 
     public TerrainBase initTerrain() {
 
-        return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
+        return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 4);
         //return new TerrainVanillaMesaPlateauM(true, 15f, 260f, 50f, 30f, 79f);
     }
 

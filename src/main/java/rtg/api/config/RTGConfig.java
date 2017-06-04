@@ -31,9 +31,6 @@ public class RTGConfig extends Config {
     public static final IBlockState DEFAULT_VOLCANO_MIX3_BLOCK = Blocks.COAL_BLOCK.getDefaultState();
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Base Terrain Y Coordinate
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -293,12 +290,12 @@ public class RTGConfig extends Config {
         // Base Terrian Y Coordinate
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         SEA_LVL_MODIFIER = new ConfigPropertyInt(
-           ConfigProperty.Type.INTEGER,
-           "The Y Coordinate Noise Generates at.",
-           "Base Terrain Generation",
-           "Changing Default World base height," +
-                   "Default Value = 63, Max Value = 132",
-           83, 63, 132
+            ConfigProperty.Type.INTEGER,
+            "The Y Coordinate Noise Generates at.",
+            "Base Terrain Generation",
+            "Changing Default World base height," +
+                "Default Value = 63, Max Value = 132",
+            83, 63, 132
         );
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

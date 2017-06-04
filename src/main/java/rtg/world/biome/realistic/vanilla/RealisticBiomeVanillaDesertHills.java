@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaDesertHills(10f, 80f, 68f, 200f);
+        return new TerrainVanillaDesertHills(10f, 80f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f, 200f);
     }
 
     public class TerrainVanillaDesertHills extends TerrainBase {
@@ -137,8 +137,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, Blocks.SANDSTONE.getDefaultState());
                         }
-                        else if (k < 63) {
-                            if (k < 62) {
+                        else if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
+                            if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {

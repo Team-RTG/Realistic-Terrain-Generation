@@ -123,8 +123,8 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                         }
-                        else if (k < 63) {
-                            if (k < 62) {
+                        else if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
+                            if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {

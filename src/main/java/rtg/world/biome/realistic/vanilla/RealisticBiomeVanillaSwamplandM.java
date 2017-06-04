@@ -40,7 +40,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaSwamplandM(50f, 25f, 60f);
+        return new TerrainVanillaSwamplandM(50f, 25f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()- 3f);
     }
 
     public class TerrainVanillaSwamplandM extends TerrainBase {
@@ -91,7 +91,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
                 else if (b == Blocks.STONE) {
                     depth++;
 
-                    if (cliff && k > 64) {
+                    if (cliff && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 1) {
                         if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 
@@ -107,7 +107,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
                         }
                     }
                     else {
-                        if (depth == 0 && k > 61) {
+                        if (depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2) {
                             primer.setBlockState(x, k, z, topBlock);
                         }
                         else if (depth < 4) {
@@ -136,7 +136,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         decoTrees.setTreeConditionChance(12);
-        decoTrees.setMaxY(100);
+        decoTrees.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 37);
         this.addDeco(decoTrees);
 
         TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
@@ -153,11 +153,11 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         deadPineTree.setTreeType(DecoTree.TreeType.RTG_TREE);
         deadPineTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         deadPineTree.setTreeConditionChance(18);
-        deadPineTree.setMaxY(100);
+        deadPineTree.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 37);
         this.addDeco(deadPineTree);
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
+        decoShrub.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 37);
         decoShrub.setStrengthFactor(3f);
         this.addDeco(decoShrub);
 
@@ -178,13 +178,13 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
+        decoPumpkin.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 27);
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(50f);
         this.addDeco(decoPumpkin);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 65);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
     }

@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, 69f);
+        return new TerrainVanillaSavannaPlateau(true, 35f, 160f, 60f, 40f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 6f);
     }
 
     public class TerrainVanillaSavannaPlateau extends TerrainBase {
@@ -158,7 +158,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
                     }
                     else {
 
-                        if (k > 74 + grassRaise)
+                        if (k > (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 11) + grassRaise)
                         {
                             if (depth == 0) {
                                 if (rand.nextInt(5) == 0) {
@@ -172,7 +172,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                         }
-                        else if (depth == 0 && k > 61) {
+                        else if (depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2) {
                             int r = (int)((k - (62 + grassRaise)) / 2f);
                             if(rand.nextInt(r + 2) == 0)
                             {
@@ -203,20 +203,20 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
+        decoBoulder1.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 17);
         decoBoulder1.setChance(24);
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
         decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMinY(110);
+        decoBoulder1.setMinY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 47);
         decoBoulder2.setChance(24);
         this.addDeco(decoBoulder2);
 
         DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        acaciaShrub.setMaxY(160);
+        acaciaShrub.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 97);
         acaciaShrub.setStrengthFactor(3f);
         acaciaShrub.setChance(9);
         this.addDeco(acaciaShrub);
@@ -233,22 +233,22 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         acaciaTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         acaciaTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         acaciaTrees.setTreeConditionChance(12);
-        acaciaTrees.setMaxY(160);
+        acaciaTrees.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 97);
         this.addDeco(acaciaTrees);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.setMaxY(160);
+        decoCactus.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 97);
         decoCactus.setLoops(60);
         decoCactus.setChance(8);
         this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
-        decoDoubleGrass.setMaxY(128);
+        decoDoubleGrass.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 65);
         decoDoubleGrass.setStrengthFactor(3f);
         this.addDeco(decoDoubleGrass);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 65);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
     }

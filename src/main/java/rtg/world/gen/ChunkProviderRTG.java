@@ -442,7 +442,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
                 for (int k = 0; k < 256; k++) {
                     if (k > h) {
-                        if (k < 63) {
+                        if (k < (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get())) {
                             primer.setBlockState(i, k, j, Blocks.WATER.getDefaultState());
                         }
                         else {

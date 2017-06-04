@@ -134,12 +134,12 @@ public abstract class TerrainBase {
 
     public static float getTerrainBase() {
 
-        return (RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f);
+        return (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f);
     }
 
     public static float getTerrainBase(float river) {
 
-        return (RTGAPI.config().SEA_LVL_MODIFIER.get() -1) + 6f * river;
+        return (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() -1) + 6f * river;
     }
 
     public static float mountainCap(float m) {
@@ -156,13 +156,13 @@ public abstract class TerrainBase {
 
     public static float riverized(float height, float river) {
 
-        if (height < 62.45f) {
+        if (height < (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 0.55f)) {
             return height;
         }
         // experimental adjustment to make riverbanks more varied
-        float adjustment = (height - 62.45f)/10f + .6f;
+        float adjustment = (height - (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 0.55f))/10f + .6f;
         river = Bayesian.adjustment(river, adjustment);
-        return 62.45f + (height - 62.45f) * river;
+        return (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 0.55f) + (height - (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 0.55f)) * river;
         }
 
     public static float terrainBeach(int x, int y, OpenSimplexNoise simplex, float river, float pitch1, float pitch2, float baseHeight) {

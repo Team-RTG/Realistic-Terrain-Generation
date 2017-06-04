@@ -87,7 +87,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
                 else if (b == Blocks.STONE) {
                     depth++;
 
-                    if (cliff && k > 64) {
+                    if (cliff && k > (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f)) {
                         if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 
@@ -103,7 +103,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
                         }
                     }
                     else {
-                        if (depth == 0 && k > 61) {
+                        if (depth == 0 && k > (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2f)) {
                             primer.setBlockState(x, k, z, topBlock);
                         }
                         else if (depth < 4) {

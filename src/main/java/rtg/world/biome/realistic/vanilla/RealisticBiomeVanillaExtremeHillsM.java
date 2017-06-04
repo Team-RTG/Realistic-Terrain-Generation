@@ -43,7 +43,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
     @Override
     public TerrainBase initTerrain() {
 
-         return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
+         return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 4f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsM extends TerrainBase {
@@ -129,7 +129,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
                         }
                     }
                     else {
-                        if (depth == 0 && k > 61) {
+                        if (depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2) {
                             if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height) {
                                 primer.setBlockState(x, k, z, mixBlockTop);
                                 mix = true;

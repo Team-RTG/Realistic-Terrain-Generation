@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     @Override
     public TerrainBase initTerrain() {
 
-       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
+       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 4f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
@@ -138,8 +138,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                         }
-                        else if (k < 63) {
-                            if (k < 62) {
+                        else if (k <  rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
+                            if (k <  rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {

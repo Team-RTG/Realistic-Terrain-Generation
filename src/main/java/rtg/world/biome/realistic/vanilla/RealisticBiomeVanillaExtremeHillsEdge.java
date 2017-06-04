@@ -49,7 +49,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     @Override
     public TerrainBase initTerrain() {
 
-       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(125f, 67f, 200f);
+       return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(125f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 4f, 200f);
     }
 
     public class TerrainVanillaExtremeHillsEdge extends TerrainBase {
@@ -136,7 +136,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
                         }
                     }
                     else {
-                        if (depth == 0 && k > 61) {
+                        if (depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2) {
                             if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height) {
                                 primer.setBlockState(x, k, z, mixBlockTop);
                                 mix = true;
@@ -180,7 +180,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         decoTrees.setTreeConditionChance(24);
-        decoTrees.setMaxY(100);
+        decoTrees.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 37);
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -197,14 +197,14 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
+        decoShrub.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 37);
         decoShrub.setStrengthFactor(2f);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.setChance(12);
-        decoBoulder.setMaxY(95);
+        decoBoulder.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 32);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 

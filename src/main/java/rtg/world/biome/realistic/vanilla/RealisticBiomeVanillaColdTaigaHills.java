@@ -140,8 +140,8 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeVanillaBa
                         else if (cliff == 3) {
                             primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
                         }
-                        else if (k < 63) {
-                            if (k < 62) {
+                        else if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
+                            if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {

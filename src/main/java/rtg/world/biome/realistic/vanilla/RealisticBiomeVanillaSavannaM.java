@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandMountains(x, y, rtgWorld.simplex, rtgWorld.cell, river, 4f, 90f, 67f);
+            return terrainGrasslandMountains(x, y, rtgWorld.simplex, rtgWorld.cell, river, 4f, 90f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 4f);
         }
     }
 
@@ -150,7 +150,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
                         }
                     }
                     else {
-                        if (k > 74)
+                        if (k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 11)
                         {
                             if (depth == 0) {
                                 if (rand.nextInt(5) == 0) {
@@ -164,8 +164,8 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                         }
-                        else if (depth == 0 && k > 61) {
-                            int r = (int)((k - 62) / 2f);
+                        else if (depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2) {
+                            int r = (int)((k - rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) / 2f);
                             if(rand.nextInt(r + 2) == 0)
                             {
                                 primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());

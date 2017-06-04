@@ -42,7 +42,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, 68f);
+        return new TerrainVanillaTaigaM(70f, 180f, 7f, 100f, 38f, 160f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f);
     }
 
     public class TerrainVanillaTaigaM extends TerrainBase {
@@ -113,7 +113,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
 
                     if (depth == 0) {
 
-                        if (c > 0.45f && c > 1.5f - ((k - 60f) / 65f) + p) {
+                        if (c > 0.45f && c > 1.5f - ((k - rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 3f) / rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f) + p) {
                             cliff = 1;
                         }
                         if (c > 1.5f) {

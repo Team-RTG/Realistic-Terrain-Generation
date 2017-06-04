@@ -223,7 +223,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
                         }
                     }
                     else {
-                        if (depth == 0 && k > 61) {
+                        if (depth == 0 && k > rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 2) {
                             if (simplex.noise2(i / width, j / width) + simplex.noise2(i / smallW, j / smallW) * smallS > height) {
                                 primer.setBlockState(x, k, z, mixBlockTop);
                                 mix = true;

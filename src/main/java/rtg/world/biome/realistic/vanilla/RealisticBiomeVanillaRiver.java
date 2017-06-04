@@ -79,7 +79,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
                     else if (b != Blocks.WATER) {
                         depth++;
 
-                        if (depth == 0 && k > 61) {
+                        if (depth == 0 && k > (rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 3f)) {
                             primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
                         }
                         else if (depth < 4) {

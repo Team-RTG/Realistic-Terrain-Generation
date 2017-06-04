@@ -39,7 +39,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaDesertM(10f, 20f, 68f, 200f);
+        return new TerrainVanillaDesertM(10f, 20f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 5f, 200f);
     }
 
     public class TerrainVanillaDesertM extends TerrainBase {
@@ -138,8 +138,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeVanillaBase {
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
                         }
-                        else if (k < 63) {
-                            if (k < 62) {
+                        else if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
+                            if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {

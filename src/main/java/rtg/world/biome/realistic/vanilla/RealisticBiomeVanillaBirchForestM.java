@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 65f);
+            return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 3f);
         }
     }
 
@@ -135,8 +135,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
                         }
-                        else if (k < 63) {
-                            if (k < 62) {
+                        else if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get()) {
+                            if (k < rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() - 1) {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {
@@ -187,16 +187,16 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         superTallBirch.getDistribution().setNoiseFactor(60f);
         superTallBirch.getDistribution().setNoiseAddend(-15f);
         superTallBirch.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
-        superTallBirch.setMaxY(100);
+        superTallBirch.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 47);
         this.addDeco(superTallBirch);
 
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
+        decoDoublePlants.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 65);
         decoDoublePlants.setStrengthFactor(8f);
         this.addDeco(decoDoublePlants);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 65);
         decoGrass.setStrengthFactor(24f);
         this.addDeco(decoGrass);
 
@@ -210,7 +210,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
+        decoShrub.setMaxY(rtg.api.RTGAPI.config().SEA_LVL_MODIFIER.get() + 47);
         decoShrub.setStrengthFactor(2f);
         this.addDeco(decoShrub);
     }

@@ -14,6 +14,7 @@ import rtg.api.util.LimitedMap;
 import rtg.api.util.Logger;
 import rtg.api.util.PlaneLocation;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.api.util.MathUtils.globalToChunk;
 import static rtg.api.util.MathUtils.globalToLocal;
@@ -62,7 +63,7 @@ public class OrganicBiomeGenerator {
                 try {
                     RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome)).baseBiome.getBiomeName();
                 } catch (Exception e) {
-                    RealisticBiomeBase organicBiome = new OrganicBiome(biome);
+                    IRealisticBiome organicBiome = new OrganicBiome(biome);
                     organicBiomes[Biome.getIdForBiome(biome)] = true;
                 }
             }

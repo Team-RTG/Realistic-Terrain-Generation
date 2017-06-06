@@ -1,14 +1,12 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
+import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
@@ -18,8 +16,10 @@ import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.api.world.surface.SurfaceBase;
-import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+
+import java.util.Random;
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
@@ -36,7 +36,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_WHEAT).set(true);
         this.getConfig().addProperty(this.getConfig().WHEAT_CHANCE).set(50);
-        this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(63);
+        this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get());
         this.getConfig().addProperty(this.getConfig().WHEAT_MAX_Y).set(255);
     }
 
@@ -57,7 +57,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
-            return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
+            return riverized((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 2f + groundEffect.added(rtgWorld, x, y), river);
+
         }
     }
 
@@ -135,7 +136,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoShrubOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoShrubOak.setMaxY(110);
+        decoShrubOak.setMaxY((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 47);
         decoShrubOak.setLoops(1);
         decoShrubOak.setChance(36);
         this.addDeco(decoShrubOak);
@@ -143,14 +144,13 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // The occasional flower.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{0, 2, 3, 4, 5, 6, 7, 8, 9});
-        decoFlowersRTG.setMaxY(128);
+        decoFlowersRTG.setMaxY((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 65);
         decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         // Lots of grass, but not as much as vanilla.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(60);
-        decoGrass.setMaxY(128);
+        decoGrass.setMinY((rtg.api.RTGAPI.config().BASE_TERRAIN_HEIGHT.get()) + 3);
         decoGrass.setLoops(6);
         this.addDeco(decoGrass);
 

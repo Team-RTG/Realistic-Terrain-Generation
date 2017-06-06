@@ -25,6 +25,8 @@ import static rtg.api.RTGAPI.rtgConfig;
  */
 public interface IRealisticBiome {
 
+    IRealisticBiome[] arrRealisticBiomes = new IRealisticBiome[256];
+
     Biome baseBiome();
     Biome riverBiome();
     Biome beachBiome();

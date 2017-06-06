@@ -12,7 +12,7 @@ import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
-import rtg.world.biome.organic.OrganicBiomeGenerator;
+import rtg.api.world.biome.OrganicBiomeGenerator;
 
 /**
  * @author topisani

@@ -3,6 +3,7 @@ package rtg;
 import java.io.File;
 import java.util.ArrayList;
 
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +19,8 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
+import rtg.api.util.BiomeUtils;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.client.gui.RTGConfigGUIFactory;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
@@ -26,7 +29,7 @@ import rtg.proxy.CommonProxy;
 import rtg.reference.ModInfo;
 import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.organic.OrganicBiomeGenerator;
+import rtg.world.biome.organic.OrganicBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
@@ -52,6 +55,8 @@ import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
 import static rtg.api.RTGAPI.config;
 import static rtg.api.RTGAPI.configPath;
+import static rtg.api.world.biome.IRealisticBiome.arrRealisticBiomes;
+import static rtg.api.world.biome.OrganicBiomeGenerator.organicBiomes;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -129,7 +134,7 @@ public class RTG {
 
         RealisticBiomeBase.addModBiomes();
 
-        OrganicBiomeGenerator.initOrganicBiomes();
+        initOrganicBiomes();
         
         RealisticBiomePresenceTester.doBiomeCheck();
     }
@@ -167,5 +172,19 @@ public class RTG {
 
     public void runOnNextServerCloseOnly(Runnable action) {
         serverCloseActions.add(action);
+    }
+
+    private static void initOrganicBiomes() {
+        Biome[] b = BiomeUtils.getRegisteredBiomes();
+        for (Biome biome : b) {
+            if (biome != null) {
+                try {
+                    arrRealisticBiomes[Biome.getIdForBiome(biome)].baseBiome().getBiomeName();
+                } catch (Exception e) {
+                    IRealisticBiome organicBiome = new OrganicBiome(biome);
+                    organicBiomes[Biome.getIdForBiome(biome)] = true;
+                }
+            }
+        }
     }
 }

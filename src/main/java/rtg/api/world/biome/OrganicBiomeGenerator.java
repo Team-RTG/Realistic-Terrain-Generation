@@ -1,4 +1,4 @@
-package rtg.world.biome.organic;
+package rtg.api.world.biome;
 
 import java.lang.reflect.Field;
 
@@ -9,13 +9,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
-import rtg.api.util.BiomeUtils;
 import rtg.api.util.LimitedMap;
 import rtg.api.util.Logger;
 import rtg.api.util.PlaneLocation;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.api.util.MathUtils.globalToChunk;
 import static rtg.api.util.MathUtils.globalToLocal;
 
@@ -52,20 +49,6 @@ public class OrganicBiomeGenerator {
                     "Failed to access private field 'surfaceNoise' in ChunkProviderOverworld. Are you in a deobfuscated environment with other mappings?",
                     e2
                 );
-            }
-        }
-    }
-
-    public static void initOrganicBiomes() {
-        Biome[] b = BiomeUtils.getRegisteredBiomes();
-        for (Biome biome : b) {
-            if (biome != null) {
-                try {
-                    RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome)).baseBiome.getBiomeName();
-                } catch (Exception e) {
-                    IRealisticBiome organicBiome = new OrganicBiome(biome);
-                    organicBiomes[Biome.getIdForBiome(biome)] = true;
-                }
             }
         }
     }

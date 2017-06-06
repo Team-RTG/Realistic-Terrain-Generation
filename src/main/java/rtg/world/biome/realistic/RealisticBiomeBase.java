@@ -65,6 +65,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     public RealisticBiomeBase(Biome biome, Biome river) {
 
         arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
+        arrRealisticBiomes[Biome.getIdForBiome(biome)] = this;
 
         baseBiome = biome;
         riverBiome = river;

@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
+import rtg.client.gui.RTGConfigGUIFactory;
 import rtg.event.EventManagerRTG;
 import rtg.event.WorldTypeMessageEventHandler;
 import rtg.proxy.ClientProxy;
@@ -59,6 +60,7 @@ import static rtg.api.RTGAPI.configPath;
     name                     = ModInfo.MOD_NAME,
     version                  = ModInfo.MOD_VERSION,
     dependencies             = "required-after:Forge@[" + ModInfo.MCF_MINVER + "," + ModInfo.MCF_MAXVER + ")" + ModInfo.MOD_DEPS,
+    guiFactory               = RTGConfigGUIFactory.LOCATION,
     acceptableRemoteVersions = "*"
 )
 public class RTG {

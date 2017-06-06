@@ -7,3 +7,5 @@ warning.rtgStartup3=under 'More World Options' until it displays 'Realistic'.
 warning.rtgStartup4=The world type can be used on servers by changing the 'level-type' in
 warning.rtgStartup5=server.properties to 'RTG' (without quotes).
 warning.rtgStartup6=This message will only display once.
+
+gui.config.title=Realistic Terrain Generation Global Config Settings

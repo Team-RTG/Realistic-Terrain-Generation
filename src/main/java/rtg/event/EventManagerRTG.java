@@ -84,6 +84,11 @@ public class EventManagerRTG {
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
+            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
+                return;
+            }
+
+            // Are we in a valid dimension?
             if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
                 return;
             }

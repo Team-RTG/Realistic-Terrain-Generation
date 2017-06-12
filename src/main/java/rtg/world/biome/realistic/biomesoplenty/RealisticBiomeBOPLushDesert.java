@@ -102,10 +102,10 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         return new SurfaceBOPLushDesert(config,
             biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
+            Blocks.GRASS.getDefaultState(), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
             40f, //float mixWidth,
-            -0.15f, //float mixHeight,
+            0.5f, //float mixHeight,
             10f, //float smallWidth,
             0.5f //float smallStrength
         );

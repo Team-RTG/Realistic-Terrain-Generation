@@ -32,6 +32,19 @@ public class BiomeDecoratorRTG
     public BlockPos pos;
     public IRealisticBiome rbb;
     public Biome biome;
+
+    public int dirtSize = -1;
+    public int gravelSize = -1;
+    public int graniteSize = -1;
+    public int dioriteSize = -1;
+    public int andesiteSize = -1;
+    public int coalSize = -1;
+    public int ironSize = -1;
+    public int goldSize = -1;
+    public int redstoneSize = -1;
+    public int diamondSize = -1;
+    public int lapisSize = -1;
+
     private RTGConfig rtgConfig;
 
     public BiomeDecoratorRTG(IRealisticBiome rbb, Biome baseBiome) {
@@ -62,17 +75,17 @@ public class BiomeDecoratorRTG
         ChunkProviderSettings chunkProviderSettings = biomeDecorator.chunkProviderSettings;
         pos = new BlockPos(worldX, 0, worldZ);
 
-        biomeDecorator.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), chunkProviderSettings.dirtSize);
-        biomeDecorator.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), chunkProviderSettings.gravelSize);
-        biomeDecorator.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), chunkProviderSettings.graniteSize);
-        biomeDecorator.dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), chunkProviderSettings.dioriteSize);
-        biomeDecorator.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), chunkProviderSettings.andesiteSize);
-        biomeDecorator.coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), chunkProviderSettings.coalSize);
-        biomeDecorator.ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), chunkProviderSettings.ironSize);
-        biomeDecorator.goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), chunkProviderSettings.goldSize);
-        biomeDecorator.redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), chunkProviderSettings.redstoneSize);
-        biomeDecorator.diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), chunkProviderSettings.diamondSize);
-        biomeDecorator.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), chunkProviderSettings.lapisSize);
+        biomeDecorator.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), getSize(chunkProviderSettings.dirtSize, dirtSize));
+        biomeDecorator.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), getSize(chunkProviderSettings.gravelSize, gravelSize));
+        biomeDecorator.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), getSize(chunkProviderSettings.graniteSize, graniteSize));
+        biomeDecorator.dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), getSize(chunkProviderSettings.dioriteSize, dioriteSize));
+        biomeDecorator.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), getSize(chunkProviderSettings.andesiteSize, andesiteSize));
+        biomeDecorator.coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), getSize(chunkProviderSettings.coalSize, coalSize));
+        biomeDecorator.ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), getSize(chunkProviderSettings.ironSize, ironSize));
+        biomeDecorator.goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), getSize(chunkProviderSettings.goldSize, goldSize));
+        biomeDecorator.redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), getSize(chunkProviderSettings.redstoneSize, redstoneSize));
+        biomeDecorator.diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), getSize(chunkProviderSettings.diamondSize, diamondSize));
+        biomeDecorator.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), getSize(chunkProviderSettings.lapisSize, lapisSize));
 
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldIn, random, pos));
         if (TerrainGen.generateOre(worldIn, random, biomeDecorator.dirtGen, pos, OreGenEvent.GenerateMinable.EventType.DIRT)) {
@@ -356,5 +369,9 @@ public class BiomeDecoratorRTG
                 }
             }
         }
+    }
+
+    private int getSize(int originalSize, int newSize) {
+        return (newSize == -1) ? originalSize : newSize;
     }
 }

@@ -57,6 +57,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyBoolean USE_ARCTIC_SURFACE;
     public final ConfigPropertyBoolean ALLOW_ICE_TREES;
     public final ConfigPropertyFloat FALLEN_LOG_DENSITY_MULTIPLIER;
+    public final ConfigPropertyBoolean ALLOW_SPONGE;
 
     public BiomeConfig() {
 
@@ -437,6 +438,8 @@ public class BiomeConfig extends Config {
                 "1.0 = Default density; 2.0 = Twice as many fallen logs; 0.5 = half as many fallen logs; 0 = No fallen logs",
             1f, 0f, 5.0f
         );
+
+        ALLOW_SPONGE = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Sponge", "Decorations.Sponge", "", true);
     }
 
     public static String formatSlug(String s) {

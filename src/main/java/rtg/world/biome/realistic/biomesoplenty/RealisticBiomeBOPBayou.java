@@ -23,7 +23,6 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
@@ -290,9 +289,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 //        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
 //        this.addDeco(ceibaRoseaTree);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        this.addDeco(decoBOPBaseBiomeDecorations);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();

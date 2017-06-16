@@ -38,11 +38,11 @@ public class DecoSponge extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setSpongeBlock(Blocks.COBBLESTONE.getDefaultState());
+        this.setSpongeBlock(Blocks.SPONGE.getDefaultState());
         this.setStrengthFactor(2f);
-        this.setMinY(20); // Sensible lower height limit by default.
-        this.setMaxY(50); // No upper height limit by default.
-        this.setHeightType(HeightType.GET_HEIGHT_VALUE);
+        this.setMinY(20);
+        this.setMaxY(45);
+        this.setHeightType(HeightType.NEXT_INT);
         this.setChance(10);
         this.water = true;
 

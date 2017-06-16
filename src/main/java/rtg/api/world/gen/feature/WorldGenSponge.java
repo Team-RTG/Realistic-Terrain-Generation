@@ -99,10 +99,10 @@ public class WorldGenSponge extends WorldGenerator {
                             float f3 = (float) (j2 - y);
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
-                                if (isAdjacent(world, l1, j2, i2)){
+                                //if (isAdjacent(world, l1, j2, i2)){
                                     world.setBlockState(new BlockPos(l1, j2, i2), spongeBlock, 2);
                                     //Logger.debug("Sponge generated at %d %d %d", l1, j2, i2);
-                                }
+                                //}
                             }
                         }
                     }

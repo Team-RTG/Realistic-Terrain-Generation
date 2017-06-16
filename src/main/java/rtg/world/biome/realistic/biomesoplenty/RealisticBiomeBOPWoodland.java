@@ -125,14 +125,10 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-
         this.addDecoCollection(new DecoCollectionWoodland(this.getConfig().ALLOW_LOGS.get()));
-
-//        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
-//        this.addDeco(decoBaseBiomeDecorations);
     }
 
-    public class DecoCollectionWoodland extends DecoCollectionBase {
+    private class DecoCollectionWoodland extends DecoCollectionBase {
 
         // Tends to return values between -3f to 5f, with some overflow.
         private DecoTree.Distribution forestDistribution = new DecoTree.Distribution(100f, 6f, 0.8f);
@@ -142,7 +138,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private float short1Min = -3f;
         private float short1Max = -1f;
 
-        public DecoCollectionWoodland(boolean fallenTrees) {
+        DecoCollectionWoodland(boolean fallenTrees) {
 
             super();
 
@@ -154,6 +150,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
                 .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
                 .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
                 .addDeco(grass()) // Grass filler.
+                .addDeco(new DecoBOPBaseBiomeDecorations())
             ;
         }
 

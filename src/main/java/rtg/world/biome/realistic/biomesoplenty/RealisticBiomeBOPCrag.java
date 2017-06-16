@@ -16,9 +16,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoPond;
-import rtg.api.world.deco.DecoSingleBiomeDecorations;
 import rtg.api.world.deco.helper.DecoHelperBorder;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -281,8 +279,8 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
         this.addDeco(borderedPond);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     @Override

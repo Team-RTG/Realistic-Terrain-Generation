@@ -15,10 +15,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
@@ -179,8 +177,8 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     @Override

@@ -1,14 +1,22 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.*;
+
 import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
 import biomesoplenty.api.biome.BOPBiomes;
+import biomesoplenty.api.biome.IExtendedBiome;
+import biomesoplenty.api.generation.GeneratorStage;
+import biomesoplenty.api.generation.IGenerationManager;
+import biomesoplenty.api.generation.IGenerator;
+import com.google.common.collect.ImmutableCollection;
+import static biomesoplenty.api.generation.GeneratorStage.*;
 
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
+public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implements IRealisticBOPBiome {
 
     public static RealisticBiomeBase bopAlps;
     public static RealisticBiomeBase bopBambooForest;
@@ -74,10 +82,49 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
     public static RealisticBiomeBase bopWoodland;
     public static RealisticBiomeBase bopXericShrubland;
 
+    protected IExtendedBiome bopExtendedBiome;
+    protected IGenerationManager bopGenerationManager;
+    protected HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = new HashMap<>();
+
+    protected ArrayList<GeneratorStage> generatorStages = new ArrayList<GeneratorStage>(Arrays.asList(
+        BIG_SHROOM, CACTUS, CLAY, DEAD_BUSH, FLOWERS, GRASS, LAKE_LAVA, LAKE_WATER, LILYPAD,
+        ORE_POST, ORE_PRE, PARENT, POST, PRE, PUMPKIN, REED, SAND, SAND_PASS2, SHROOM, TREE
+    ));
 
     public RealisticBiomeBOPBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
+
+        bopExtendedBiome = (IExtendedBiome) b;
+        bopGenerationManager = bopExtendedBiome.getGenerationManager();
+
+        // Add the BOP biome's generators to RTG's internal list.
+        for (GeneratorStage generatorStage : generatorStages) {
+            bopGeneratorStages.put(generatorStage, bopGenerationManager.getGeneratorsForStage(generatorStage));
+        }
+
+        // Now remove them from the biome so we can manually call them when we want to.
+        removeBOPGenerators();
+    }
+
+    @Override
+    public IExtendedBiome bopExtendedBiome() {
+        return this.bopExtendedBiome;
+    }
+
+    @Override
+    public IGenerationManager bopGenerationManager() {
+        return this.bopGenerationManager;
+    }
+
+    @Override
+    public HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages() {
+        return this.bopGeneratorStages;
+    }
+
+    @Override
+    public ArrayList<GeneratorStage> generatorStages() {
+        return this.generatorStages;
     }
 
     @Override
@@ -296,6 +343,46 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
             }
             if (BOPBiomes.xeric_shrubland.isPresent()) {
                 bopXericShrubland = new RealisticBiomeBOPXericShrubland();
+            }
+        }
+    }
+
+    @Override
+    public void addBOPGenerators() {
+
+        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = this.bopGeneratorStages();
+        IGenerationManager bopGenerationManager = this.bopGenerationManager();
+
+        Set set = bopGeneratorStages.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()) {
+            Map.Entry me = (Map.Entry)i.next();
+
+            GeneratorStage stage = (GeneratorStage) me.getKey();
+            ImmutableCollection<IGenerator> generators = (ImmutableCollection<IGenerator>) me.getValue();
+
+            for (IGenerator generator : generators) {
+                bopGenerationManager.addGenerator(generator.getName(), stage, generator);
+            }
+        }
+    }
+
+    @Override
+    public void removeBOPGenerators() {
+
+        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = this.bopGeneratorStages();
+        IGenerationManager bopGenerationManager = this.bopGenerationManager();
+
+        Set set = bopGeneratorStages.entrySet();
+        Iterator i = set.iterator();
+        while(i.hasNext()) {
+            Map.Entry me = (Map.Entry)i.next();
+
+            GeneratorStage stage = (GeneratorStage) me.getKey();
+            ImmutableCollection<IGenerator> generators = (ImmutableCollection<IGenerator>) me.getValue();
+
+            for (IGenerator generator : generators) {
+                bopGenerationManager.removeGenerator(generator.getName());
             }
         }
     }

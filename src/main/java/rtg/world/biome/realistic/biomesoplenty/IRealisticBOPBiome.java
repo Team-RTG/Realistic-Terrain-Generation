@@ -16,7 +16,7 @@ public interface IRealisticBOPBiome {
 
     IExtendedBiome bopExtendedBiome();
     IGenerationManager bopGenerationManager();
-    HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages();
+    HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopStageGenerators();
     ArrayList<GeneratorStage> generatorStages();
     void addBOPGenerators();
     void removeBOPGenerators();

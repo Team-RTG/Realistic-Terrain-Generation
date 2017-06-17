@@ -1,8 +1,11 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.util.math.ChunkPos;
+
+import biomesoplenty.api.generation.GeneratorStage;
 
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
@@ -13,6 +16,8 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
  * @author WhichOnesPink
  */
 public class DecoBOPBaseBiomeDecorations extends DecoBaseBiomeDecorations {
+
+    public ArrayList<GeneratorStage> generatorStagesToRemove = new ArrayList<GeneratorStage>(){};
 
     public DecoBOPBaseBiomeDecorations() {
         super();
@@ -29,6 +34,7 @@ public class DecoBOPBaseBiomeDecorations extends DecoBaseBiomeDecorations {
             rtgWorld.decoratedChunks.add(position);
 
             IRealisticBOPBiome bopBiome = (IRealisticBOPBiome) biome;
+
             bopBiome.addBOPGenerators();
             super.generate(biome, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
             bopBiome.removeBOPGenerators();

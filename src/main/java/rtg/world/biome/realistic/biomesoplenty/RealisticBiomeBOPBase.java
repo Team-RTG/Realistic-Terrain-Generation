@@ -14,6 +14,7 @@ import biomesoplenty.api.generation.IGenerator;
 import com.google.common.collect.ImmutableCollection;
 import static biomesoplenty.api.generation.GeneratorStage.*;
 
+import rtg.api.world.deco.DecoBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implements IRealisticBOPBiome {
@@ -82,9 +83,11 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
     public static RealisticBiomeBase bopWoodland;
     public static RealisticBiomeBase bopXericShrubland;
 
+    public static ArrayList<RealisticBiomeBOPBase> bopBiomes = new ArrayList<RealisticBiomeBOPBase>(){};
+
     protected IExtendedBiome bopExtendedBiome;
     protected IGenerationManager bopGenerationManager;
-    protected HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = new HashMap<>();
+    protected HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopStageGenerators = new HashMap<>();
 
     protected ArrayList<GeneratorStage> generatorStages = new ArrayList<GeneratorStage>(Arrays.asList(
         BIG_SHROOM, CACTUS, CLAY, DEAD_BUSH, FLOWERS, GRASS, LAKE_LAVA, LAKE_WATER, LILYPAD,
@@ -95,16 +98,20 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
 
         super(b, riverbiome);
 
+        bopBiomes.add(this);
         bopExtendedBiome = (IExtendedBiome) b;
         bopGenerationManager = bopExtendedBiome.getGenerationManager();
 
         // Add the BOP biome's generators to RTG's internal list.
         for (GeneratorStage generatorStage : generatorStages) {
-            bopGeneratorStages.put(generatorStage, bopGenerationManager.getGeneratorsForStage(generatorStage));
+            bopStageGenerators.put(generatorStage, bopGenerationManager.getGeneratorsForStage(generatorStage));
         }
 
         // Now remove them from the biome so we can manually call them when we want to.
         removeBOPGenerators();
+
+        // Remove any relevant stages from decoration, as designated in the individual biome's initDecos().
+        removeStagesFromBaseBiomeDecoration();
     }
 
     @Override
@@ -118,8 +125,8 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
     }
 
     @Override
-    public HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages() {
-        return this.bopGeneratorStages;
+    public HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopStageGenerators() {
+        return this.bopStageGenerators;
     }
 
     @Override
@@ -350,7 +357,7 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
     @Override
     public void addBOPGenerators() {
 
-        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = this.bopGeneratorStages();
+        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = this.bopStageGenerators();
         IGenerationManager bopGenerationManager = this.bopGenerationManager();
 
         Set set = bopGeneratorStages.entrySet();
@@ -370,7 +377,7 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
     @Override
     public void removeBOPGenerators() {
 
-        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = this.bopGeneratorStages();
+        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> bopGeneratorStages = this.bopStageGenerators();
         IGenerationManager bopGenerationManager = this.bopGenerationManager();
 
         Set set = bopGeneratorStages.entrySet();
@@ -383,6 +390,37 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
 
             for (IGenerator generator : generators) {
                 bopGenerationManager.removeGenerator(generator.getName());
+            }
+        }
+    }
+
+    private void removeStagesFromBaseBiomeDecoration() {
+
+        // Loop through all the BOP biomes.
+        for (RealisticBiomeBOPBase biome : bopBiomes) {
+
+            ArrayList<DecoBase> decos = biome.getDecos(); // We need to get the decos before we cast the biome.
+            IRealisticBOPBiome bopBiome = (IRealisticBOPBiome) biome;
+
+            // Loop through all the decos until we find an instance of DecoBOPBaseBiomeDecorations and remove stages as necessary.
+            for (DecoBase deco : decos) {
+
+                if (deco instanceof DecoBOPBaseBiomeDecorations) {
+
+                    DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = (DecoBOPBaseBiomeDecorations) deco;
+
+                    if (decoBOPBaseBiomeDecorations.generatorStagesToRemove.size() > 0) {
+
+                        HashMap<GeneratorStage, ImmutableCollection<IGenerator>> stageGenerators = bopBiome.bopStageGenerators();
+
+                        for (GeneratorStage stage : decoBOPBaseBiomeDecorations.generatorStagesToRemove) {
+
+                            if (stageGenerators.containsKey(stage)) {
+                                stageGenerators.remove(stage);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

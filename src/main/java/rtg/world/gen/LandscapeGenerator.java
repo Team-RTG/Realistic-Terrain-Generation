@@ -32,7 +32,7 @@ class LandscapeGenerator {
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
     private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
-    private final WeakHashMap<ChunkLandscape,float[]> cache = new WeakHashMap();
+    private final WeakHashMap<ChunkPos,float[]> cache = new WeakHashMap();
     private MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
 
     LandscapeGenerator(RTGWorld rtgWorld) {
@@ -180,11 +180,10 @@ class LandscapeGenerator {
 
     public float [] noiseFor(IBiomeProviderRTG cmr, int worldX, int worldZ) {
         ChunkPos location = new ChunkPos(worldX,worldZ);
-        ChunkLandscape landscape = storage.get(location);
-        float [] result = cache.get(landscape);
+        float [] result = cache.get(location);
         if (result != null) return result;
         // not found; we have to make it;
-        
+
         result = new float[256];
         final int adjust = 24;// seems off? but decorations aren't matching their chunks.
 
@@ -197,7 +196,7 @@ class LandscapeGenerator {
         }
         TimeTracker.manager.stop("Biome Layout");
         TimeTracker.manager.stop("Features"); 
-        cache.put(landscape, result);
+        cache.put(location, result);
         return result;
     }
 }

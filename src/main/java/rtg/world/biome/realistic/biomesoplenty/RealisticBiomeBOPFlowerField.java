@@ -10,13 +10,14 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
+import static biomesoplenty.api.generation.GeneratorStage.FLOWERS;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -32,7 +33,9 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_PONDS_WATER).set(true);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -162,37 +165,43 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        // First, let's get a few shrubs in to break things up a bit.
+        //First, let's add some ponds to break things up and add some colour.
+        DecoPond decoPond = new DecoPond();
+        decoPond.setChunksPerPond(24);
+        this.addDeco(decoPond);
+
+        // Now, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
         decoShrub.setStrengthFactor(4f);
         decoShrub.setChance(3);
         this.addDeco(decoShrub);
 
-        // Flowers are the most aesthetically important feature of this biome, so let's add those next.
+        // Flowers are the most aesthetically important feature of this biome, so let's add those next, starting with tulips.
+        DecoFlowersRTG decoTulips = new DecoFlowersRTG();
+        decoTulips.setFlowers(new int[]{4, 5, 6, 7}); //Only tulips.
+        decoTulips.setStrengthFactor(8f);
+        decoTulips.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+        this.addDeco(decoTulips);
+
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
-        decoFlowers1.setFlowers(new int[]{0, 1, 2, 3, 8, 9}); //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
-        decoFlowers1.setStrengthFactor(12f); // Lots and lots of flowers!
+        decoFlowers1.setFlowers(new int[]{0, 1, 2, 3, 8, 9}); //Only colourful 1-block-tall flowers. No tulips as we already have those covered.
+        decoFlowers1.setStrengthFactor(4f);
+        decoFlowers1.setChance(3);
         decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
         decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
         decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-        decoFlowers2.setChance(3);
+        decoFlowers2.setChance(4);
         decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers2);
 
         // Not much free space left, so let's give some space to the base biome.
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        decoBOPBaseBiomeDecorations.generatorStagesToRemove.add(FLOWERS);
         this.addDeco(decoBOPBaseBiomeDecorations);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
-        this.addDeco(decoGrass);
     }
 }

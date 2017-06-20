@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSponge;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +39,7 @@ public class DecoSponge extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setSpongeBlock(Blocks.SPONGE.getDefaultState());
+        this.setSpongeBlock(Blocks.SPONGE.getDefaultState().withProperty(BlockSponge.WET, true));
         this.setStrengthFactor(2f);
         this.setMinY(20);
         this.setMaxY(45);

@@ -1,8 +1,5 @@
 package rtg.world.gen;
 
-import java.util.*;
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
@@ -25,7 +22,6 @@ import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.structure.*;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
@@ -35,11 +31,11 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
+import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.ChunkLandscape;
@@ -55,6 +51,9 @@ import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
 import rtg.world.gen.structure.StructureOceanMonumentRTG;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 
 @SuppressWarnings({"UnusedParameters", "deprecation"})
@@ -310,7 +309,24 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start(replace);
         
         borderNoise = landscapeGenerator.noiseFor(cmr, cx * 16, cz * 16);
-        replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
+
+        RealisticBiomeBase[] jitteredBiomes = new RealisticBiomeBase[256];
+
+        RealisticBiomeBase jittered, actual;
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                rtgWorld.simplex.evaluateNoise(cx * 16 + i, cz * 16 + j, rtgWorld.surfaceJitter);
+                int pX = (int) Math.round(cx * 16 + i + rtgWorld.surfaceJitter.deltax() * rtgConfig.SURFACE_BLEED_RADIUS.get());
+                int pZ = (int) Math.round(cz * 16 + j + rtgWorld.surfaceJitter.deltay() * rtgConfig.SURFACE_BLEED_RADIUS.get());
+                // TODO: These wont work, since they are pre-repair
+                actual = cmr.getBiomeDataAt(cx * 16 + i, cz * 16 + j);
+                jittered = cmr.getBiomeDataAt(pX, pZ);
+                jitteredBiomes[i * 16 + j] = (actual.config.SURFACE_BLEED_IN.get() && jittered.config.SURFACE_BLEED_OUT.get()) ? jittered : actual;
+            }
+        }
+
+        replaceBlocksForBiome(cx, cz, primer, jitteredBiomes, baseBiomesList, landscape.noise);
+
         TimeTracker.manager.stop(replace);
         
         String features = "Vanilla Features";

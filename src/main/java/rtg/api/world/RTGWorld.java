@@ -13,6 +13,7 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.biome.OrganicBiomeGenerator;
+import rtg.api.world.gen.LandscapeGenerator;
 
 /**
  * @author topisani
@@ -28,6 +29,7 @@ public class RTGWorld {
     public final TimedHashSet<ChunkPos> decoratedChunks = new TimedHashSet(5000);
     public final BiomeMesa mesaBiome;
     public final OrganicBiomeGenerator organicBiomeGenerator;
+    public final LandscapeGenerator landscapeGenerator;
 
     public RTGWorld(World world) {
         this.world = world;
@@ -40,5 +42,6 @@ public class RTGWorld {
         mesaBiome = (BiomeMesa)Biomes.MESA;
         mesaBiome.generateBands(world.getSeed());
         this.organicBiomeGenerator = new OrganicBiomeGenerator(this);
+        this.landscapeGenerator = new LandscapeGenerator(this);
     }
 }

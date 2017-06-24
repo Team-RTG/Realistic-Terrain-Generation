@@ -1,7 +1,6 @@
 package rtg;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -70,10 +69,9 @@ import static rtg.api.world.biome.OrganicBiomeGenerator.organicBiomes;
 )
 public class RTG {
 
+    private RTGAPI rtgapi = RTGAPI.getInstance();
     public static WorldTypeRTG worldtype;
     public static EventManagerRTG eventMgr;
-    private ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
-    private ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
     @Instance(ModInfo.MOD_ID)
     public static RTG instance;
@@ -142,9 +140,9 @@ public class RTG {
     @EventHandler
     public void onServerStopped(FMLServerStoppedEvent event)
     {
-        serverCloseActions.forEach(Runnable::run);
-        oneShotServerCloseActions.forEach(Runnable::run);
-        oneShotServerCloseActions.clear();
+        rtgapi.serverCloseActions.forEach(Runnable::run);
+        rtgapi.oneShotServerCloseActions.forEach(Runnable::run);
+        rtgapi.oneShotServerCloseActions.clear();
     }
 
     private void registerStructures() {
@@ -164,14 +162,6 @@ public class RTG {
         if (RTGAPI.config().ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
             MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG");
         }
-    }
-
-    public void runOnServerClose(Runnable action) {
-        serverCloseActions.add(action);
-    }
-
-    public void runOnNextServerCloseOnly(Runnable action) {
-        serverCloseActions.add(action);
     }
 
     private static void initOrganicBiomes() {

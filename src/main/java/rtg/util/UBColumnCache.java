@@ -2,10 +2,9 @@
 package rtg.util;
 
 import exterminatorjeff.undergroundbiomes.api.UBStrataColumn;
-
 import static exterminatorjeff.undergroundbiomes.api.API.STRATA_COLUMN_PROVIDER;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
 
 
 /**
@@ -18,7 +17,7 @@ public class UBColumnCache {
     private int cachedY = Integer.MIN_VALUE;
 
     public UBColumnCache() {
-        RTG.instance.runOnServerClose(onClose());
+        RTGAPI.getInstance().runOnServerClose(onClose());
     }
 
     public UBStrataColumn column(int x, int y) {

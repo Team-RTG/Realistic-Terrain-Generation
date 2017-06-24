@@ -23,8 +23,10 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
+import rtg.api.world.biome.RealisticBiomePatcher;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
@@ -123,14 +125,14 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
      * @see IBiomeProviderRTG
      */
     @Override
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
+    public IRealisticBiome getBiomeDataAt(int par1, int par2) {
         /*long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
         if (biomeDataMap.containsKey(coords)) {
             return biomeDataMap.get(coords);
         }*/
-        RealisticBiomeBase output;
+        IRealisticBiome output;
 
-        output = RealisticBiomeBase.getBiome(Biome.getIdForBiome(this.getBiomeGenAt(par1, par2)));
+        output = IRealisticBiome.getRealisticBiome(Biome.getIdForBiome(this.getBiomeGenAt(par1, par2)));
         if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
 
         /*if (biomeDataMap.size() > 4096) {
@@ -151,7 +153,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         int bx, bz;
         for (bx = -2; bx <= 2; bx++) {
             for (bz = -2; bz <= 2; bz++) {
-                borderNoise[Biome.getIdForBiome(getBiomeDataAt(x + bx * 16, z + bz * 16).baseBiome)] += 0.04f;
+                borderNoise[Biome.getIdForBiome(getBiomeDataAt(x + bx * 16, z + bz * 16).baseBiome())] += 0.04f;
             }
         }
 
@@ -188,7 +190,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
                 if (biome > 255) throw new RuntimeException(biomeIndexLayer.toString());
                 if (RealisticBiomeBase.getBiome(biome) == null) {
                     f = biomePatcher.getPatchedRealisticBiome("Problem with biome " + biome + " from " +
-                        e.getMessage()).baseBiome.getRainfall() / 65536.0F;
+                        e.getMessage()).baseBiome().getRainfall() / 65536.0F;
                 }
             }
             if (f > 1.0F) f = 1.0F;

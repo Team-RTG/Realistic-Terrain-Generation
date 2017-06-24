@@ -1,10 +1,12 @@
 package rtg.api.world.biome;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
@@ -26,6 +28,17 @@ import static rtg.api.RTGAPI.rtgConfig;
 public interface IRealisticBiome {
 
     IRealisticBiome[] arrRealisticBiomes = new IRealisticBiome[256];
+
+    public static IRealisticBiome getRealisticBiome(int id) {
+        return arrRealisticBiomes[id];
+    }
+
+    public static final float actualRiverProportion = 150f/1600f;
+    public static final float riverFlatteningAddend = (actualRiverProportion)/(1f-actualRiverProportion);
+
+    float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
+    void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base);
+    void rDecorate(RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks);
 
     Biome baseBiome();
     Biome riverBiome();
@@ -115,6 +128,14 @@ public interface IRealisticBiome {
      */
     default int getExtraGoldGenMaxHeight() {
         return 80;
+    }
+
+    default boolean disallowStoneBeaches() {
+        return false;
+    }
+
+    default boolean disallowAllBeaches() {
+        return false;
     }
 
     String modSlug();

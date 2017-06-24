@@ -41,13 +41,16 @@ import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
 import rtg.api.world.RTGWorld;
-import rtg.util.TimeTracker;
+import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.gen.ChunkLandscape;
+import rtg.api.world.gen.LandscapeGenerator;
+import rtg.api.util.TimeTracker;
 import rtg.world.WorldTypeRTG;
-import rtg.world.biome.BiomeAnalyzer;
+import rtg.api.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
-import rtg.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
+import rtg.api.world.biome.RealisticBiomePatcher;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
 import rtg.world.gen.structure.MapGenVillageRTG;
@@ -294,10 +297,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (k = 0; k < 256; k++) {
 
             try {
-                baseBiomesList[k] = landscape.biome[k].baseBiome;
+                baseBiomesList[k] = landscape.biome[k].baseBiome();
             }
             catch (Exception e) {
-                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome));
+                baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome()));
             }
         }
         volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
@@ -433,7 +436,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     private void generateTerrain(IBiomeProviderRTG cmr, int cx, int cz, ChunkPrimer primer,
-                                 RealisticBiomeBase biomes[], float[] noise) {
+                                 IRealisticBiome biomes[], float[] noise) {
 
         int h;
         for (int i = 0; i < 16; i++) {
@@ -457,7 +460,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, RealisticBiomeBase[]
+    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, IRealisticBiome[]
         biomes, Biome[] base, float[] n) {
 
         ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(
@@ -467,7 +470,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         int i, j, depth;
         float river;
-        RealisticBiomeBase biome;
+        IRealisticBiome biome;
 
         for (i = 0; i < 16; i++) {
             for (j = 0; j < 16; j++) {
@@ -480,9 +483,9 @@ public class ChunkProviderRTG implements IChunkGenerator
                 river = -cmr.getRiverStrength(cx * 16 + i, cz * 16 + j);
                 depth = -1;
 
-                if (rtgWorld.organicBiomeGenerator.isOrganicBiome(Biome.getIdForBiome(biome.baseBiome))) {
+                if (rtgWorld.organicBiomeGenerator.isOrganicBiome(Biome.getIdForBiome(biome.baseBiome()))) {
 
-                    rtgWorld.organicBiomeGenerator.organicSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome);
+                    rtgWorld.organicBiomeGenerator.organicSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome());
                 }
                 else {
 
@@ -567,7 +570,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.start("Biome Layout");
 
         //Flippy McFlipperson.
-        RealisticBiomeBase biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
+        IRealisticBiome biome = cmr.getBiomeDataAt(worldX + 16, worldZ + 16);
         //Logger.debug("CPRTG#doPopulate: %s at %d %d", biome.baseBiome.getBiomeName(), worldX + 16, worldZ + 16);
 
         TimeTracker.manager.stop("Biome Layout");
@@ -674,7 +677,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         TimeTracker.manager.start("Pools");
-        biome.rDecorator.rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator().rPopulatePreDecorate(this, worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         TimeTracker.manager.stop("Pools");
 
         /*
@@ -702,7 +705,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         float river = -cmr.getRiverStrength(worldX + 16, worldZ + 16);
 
         //Border noise. (Does this have to be done here? - Pink)
-        RealisticBiomeBase realisticBiome;
+        IRealisticBiome realisticBiome;
 
         TreeSet<Valued<RealisticBiomeBase>> activeBiomes = new TreeSet();
         for (int bn = 0; bn < 256; bn++) {
@@ -740,7 +743,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
                     try {
 
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
+                        realisticBiome.baseBiome().decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
                     }
                     catch (Exception e) {
 
@@ -762,12 +765,12 @@ public class ChunkProviderRTG implements IChunkGenerator
          */
 
         TimeTracker.manager.start("Post-decorations");
-        biome.rDecorator.rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator().rPopulatePostDecorate(worldObj, rand, chunkX, chunkZ, hasPlacedVillageBlocks);
         TimeTracker.manager.stop("Post-decorations");
 
         TimeTracker.manager.start("Entities");
         if (TerrainGen.populate(this, this.worldObj, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
-            WorldEntitySpawner.performWorldGenSpawning(this.worldObj, biome.baseBiome, worldX + 8, worldZ + 8, 16, 16, this.rand);
+            WorldEntitySpawner.performWorldGenSpawning(this.worldObj, biome.baseBiome(), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
         TimeTracker.manager.stop("Entities");
 
@@ -1067,7 +1070,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    private void generateOres(RealisticBiomeBase rb, BlockPos pos) {
+    private void generateOres(IRealisticBiome rb, BlockPos pos) {
 
         int x = pos.getX();
         int z = pos.getZ();
@@ -1078,7 +1081,7 @@ public class ChunkProviderRTG implements IChunkGenerator
             return;
         }
 
-        rb.rDecorator.decorateOres(this.worldObj, this.rand, x, z);
+        rb.rDecorator().decorateOres(this.worldObj, this.rand, x, z);
         chunkOreGenTracker.addOreChunk(pos);
     }
 

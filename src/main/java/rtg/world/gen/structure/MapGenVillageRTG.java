@@ -20,8 +20,8 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import rtg.api.RTGAPI;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.biome.BiomeProviderRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class MapGenVillageRTG extends MapGenVillage
@@ -84,11 +84,11 @@ public class MapGenVillageRTG extends MapGenVillage
 
                 BiomeProviderRTG cmr = (BiomeProviderRTG) world.getBiomeProvider();
                 //Why are we flipping XZ here? No idea, but it works. - Pink
-                RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
+                IRealisticBiome realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
 
                 if (realisticBiome.getConfig().ALLOW_VILLAGES.get()) {
                     canSpawnVillage = true;
-                    Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
+                    Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome().getBiomeName(), worldX, worldZ);
                 }
             }
             else canSpawnVillage = this.world.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);

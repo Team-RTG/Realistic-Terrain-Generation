@@ -177,6 +177,6 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionForest(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionForest(this.getConfig()));
     }
 }

@@ -180,7 +180,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);

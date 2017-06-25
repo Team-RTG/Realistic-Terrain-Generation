@@ -2,6 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
@@ -17,14 +18,14 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
 
     private DecoTree.Distribution forestDistribution = new DecoTree.Distribution(80f, 60f, -15f);
 
-    public DecoCollectionBirchForest(boolean fallenTrees) {
+    public DecoCollectionBirchForest(BiomeConfig config) {
 
-        super();
+        super(config);
 
         this
             .addDeco(tallBirchTrees())
             .addDeco(randomTrees())
-            .addDeco(logs(), fallenTrees) // Add some fallen birch trees.
+            .addDeco(logs(), config.ALLOW_LOGS.get()) // Add some fallen birch trees.
             .addDeco(shrubsOak()) // Oak shrubs to fill in the blanks.
             .addDeco(baseBiomeDecorations()) // Let the biome partially-decorate itself.
             .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.

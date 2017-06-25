@@ -1,5 +1,6 @@
 package rtg.api.world.deco.collection;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoCactus;
 import rtg.api.world.deco.DecoDeadBush;
 import rtg.api.world.deco.DecoDesertWell;
@@ -10,9 +11,9 @@ import rtg.api.world.deco.DecoDesertWell;
  */
 public class DecoCollectionDesert extends DecoCollectionBase {
 
-    public DecoCollectionDesert(boolean allowCactus) {
+    public DecoCollectionDesert(BiomeConfig config) {
 
-        super();
+        super(config);
 
         DecoDesertWell decoDesertWell = new DecoDesertWell();
         decoDesertWell.setMaxY(80);
@@ -24,7 +25,7 @@ public class DecoCollectionDesert extends DecoCollectionBase {
         decoCactus.setMaxY(90);
         decoCactus.setStrengthFactor(3f);
         decoCactus.setChance(2);
-        this.addDeco(decoCactus, allowCactus);
+        this.addDeco(decoCactus, config.ALLOW_CACTUS.get());
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setMaxY(128);

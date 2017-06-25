@@ -14,7 +14,7 @@ public class DecoCollectionMesa extends DecoCollectionBase {
 
     public DecoCollectionMesa(BiomeConfig config) {
 
-        super();
+        super(config);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());

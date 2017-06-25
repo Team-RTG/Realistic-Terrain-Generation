@@ -172,8 +172,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionExtremeHillsPlusM());
-        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionExtremeHillsPlusM(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
     }
 
     @Override

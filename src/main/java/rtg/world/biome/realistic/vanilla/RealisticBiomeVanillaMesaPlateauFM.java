@@ -216,7 +216,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
 
         DecoTree decoTree = new DecoTree(new WorldGenTrees(false));

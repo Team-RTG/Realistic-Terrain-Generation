@@ -3,6 +3,7 @@ package rtg.api.world.deco.collection;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.DecoTree.TreeCondition;
@@ -17,9 +18,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
  */
 public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
 
-    public DecoCollectionSmallPineTreesForest() {
+    public DecoCollectionSmallPineTreesForest(BiomeConfig config) {
 
-        super();
+        super(config);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
         sitchensisTree.setLogBlock(Blocks.LOG.getDefaultState());

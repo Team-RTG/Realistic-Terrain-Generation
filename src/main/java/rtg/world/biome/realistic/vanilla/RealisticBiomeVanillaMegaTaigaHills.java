@@ -188,7 +188,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
         decoBoulder.setStrengthFactor(3f);
         this.addDeco(decoBoulder);
 
-        this.addDecoCollection(new DecoCollectionMegaTaiga());
+        this.addDecoCollection(new DecoCollectionMegaTaiga(this.getConfig()));
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(100f);

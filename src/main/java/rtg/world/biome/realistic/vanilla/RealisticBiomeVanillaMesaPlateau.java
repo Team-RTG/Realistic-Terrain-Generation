@@ -241,7 +241,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
     }
 

@@ -136,7 +136,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         rtgWorld = new RTGWorld(worldObj);
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(seed);
-        landscapeGenerator = new LandscapeGenerator(rtgWorld);
+        landscapeGenerator = rtgWorld.landscapeGenerator;
         mapRand = new Random(seed);
         worldSeed = seed;
         volcanoGenerator = new VolcanoGenerator(seed);

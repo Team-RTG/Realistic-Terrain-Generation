@@ -10,6 +10,7 @@ import rtg.api.util.TimedHashSet;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
+import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.OrganicBiomeGenerator;
 
 /**
@@ -25,4 +26,5 @@ public interface IRTGWorld {
     TimedHashSet<ChunkPos> decoratedChunks();
     BiomeMesa mesaBiome();
     OrganicBiomeGenerator organicBiomeGenerator();
+    int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz);
 }

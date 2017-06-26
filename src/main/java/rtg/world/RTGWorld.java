@@ -13,7 +13,9 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.IRTGWorld;
+import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.OrganicBiomeGenerator;
+import rtg.world.gen.LandscapeGenerator;
 
 /**
  * @author topisani
@@ -29,6 +31,7 @@ public class RTGWorld implements IRTGWorld {
     public final TimedHashSet<ChunkPos> decoratedChunks = new TimedHashSet(5000);
     public final BiomeMesa mesaBiome;
     public final OrganicBiomeGenerator organicBiomeGenerator;
+    public final LandscapeGenerator landscapeGenerator;
 
     public RTGWorld(World world) {
         this.world = world;
@@ -41,6 +44,7 @@ public class RTGWorld implements IRTGWorld {
         mesaBiome = (BiomeMesa)Biomes.MESA;
         mesaBiome.generateBands(world.getSeed());
         this.organicBiomeGenerator = new OrganicBiomeGenerator(this);
+        this.landscapeGenerator = new LandscapeGenerator(this);
     }
 
     @Override
@@ -86,5 +90,10 @@ public class RTGWorld implements IRTGWorld {
     @Override
     public OrganicBiomeGenerator organicBiomeGenerator() {
         return this.organicBiomeGenerator;
+    }
+
+    @Override
+    public int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz) {
+        return this.landscapeGenerator.getBiomeDataAt(cmr, cx, cz);
     }
 }

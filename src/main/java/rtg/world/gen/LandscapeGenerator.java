@@ -20,7 +20,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
  *
  * @author Zeno410
  */
-class LandscapeGenerator {
+public class LandscapeGenerator {
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private final int[] biomeData;
@@ -35,7 +35,7 @@ class LandscapeGenerator {
     private final WeakHashMap<ChunkPos,float[]> cache = new WeakHashMap();
     private MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
 
-    LandscapeGenerator(RTGWorld rtgWorld) {
+    public LandscapeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
         sampleArraySize = sampleSize * 2 + 5;
         biomeData = new int[sampleArraySize * sampleArraySize];
@@ -72,7 +72,7 @@ class LandscapeGenerator {
         return (biomeMapCoordinate - sampleSize)*8;
     }
 
-    int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz) {
+    public int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz) {
         int cx2 = cx&15;
         int cz2 = cz&15;
         ChunkLandscape target = this.landscape(cmr, cx-cx2, cz-cz2);

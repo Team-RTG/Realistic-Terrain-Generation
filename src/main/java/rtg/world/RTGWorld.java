@@ -1,4 +1,4 @@
-package rtg.api.world;
+package rtg.world;
 
 import java.util.Random;
 
@@ -12,12 +12,13 @@ import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.OrganicBiomeGenerator;
 
 /**
  * @author topisani
  */
-public class RTGWorld {
+public class RTGWorld implements IRTGWorld {
 
     public final World world;
     public final OpenSimplexNoise simplex;
@@ -40,5 +41,50 @@ public class RTGWorld {
         mesaBiome = (BiomeMesa)Biomes.MESA;
         mesaBiome.generateBands(world.getSeed());
         this.organicBiomeGenerator = new OrganicBiomeGenerator(this);
+    }
+
+    @Override
+    public World world() {
+        return this.world;
+    }
+
+    @Override
+    public OpenSimplexNoise simplex() {
+        return this.simplex;
+    }
+
+    @Override
+    public CellNoise cell() {
+        return this.cell;
+    }
+
+    @Override
+    public CellNoise voronoi() {
+        return this.voronoi;
+    }
+
+    @Override
+    public Random rand() {
+        return this.rand;
+    }
+
+    @Override
+    public SimplexOctave.Disk surfaceJitter() {
+        return this.surfaceJitter;
+    }
+
+    @Override
+    public TimedHashSet<ChunkPos> decoratedChunks() {
+        return this.decoratedChunks;
+    }
+
+    @Override
+    public BiomeMesa mesaBiome() {
+        return this.mesaBiome;
+    }
+
+    @Override
+    public OrganicBiomeGenerator organicBiomeGenerator() {
+        return this.organicBiomeGenerator;
     }
 }

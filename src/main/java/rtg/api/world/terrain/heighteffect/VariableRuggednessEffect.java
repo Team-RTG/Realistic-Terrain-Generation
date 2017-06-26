@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 /**
  * This provides a standard "ruggedness switch" between a rugged terrain and a smooth one
@@ -43,9 +43,9 @@ public class VariableRuggednessEffect extends HeightEffect {
     }
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        float choice = rtgWorld.simplex.octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
+        float choice = rtgWorld.simplex().octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
         if (choice <= startTransition) {
             return smoothTerrain.added(rtgWorld, x, y);
         }

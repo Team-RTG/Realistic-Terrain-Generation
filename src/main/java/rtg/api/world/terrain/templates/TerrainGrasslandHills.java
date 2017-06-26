@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.templates;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 
@@ -29,8 +29,8 @@ public class TerrainGrasslandHills extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        return terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, vWidth, vHeight, hWidth, hHeight, bHeight);
+        return terrainGrasslandHills(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, vWidth, vHeight, hWidth, hHeight, bHeight);
     }
 }

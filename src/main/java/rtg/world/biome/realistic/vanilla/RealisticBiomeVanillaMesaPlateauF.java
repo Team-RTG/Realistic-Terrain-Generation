@@ -13,12 +13,13 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.RTGWorld;
 
 public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase {
 
@@ -91,9 +92,9 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 100f, false);
+            return terrainPlateau(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, 100f, false);
         }
     }
 
@@ -143,9 +144,9 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
@@ -161,11 +162,11 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome().getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 
-                        float mixNoise = rtgWorld.simplex.noise2(i / 12f, j / 12f);
+                        float mixNoise = rtgWorld.simplex().noise2(i / 12f, j / 12f);
 
                         if (k > 74 + grassRaise)
                         {

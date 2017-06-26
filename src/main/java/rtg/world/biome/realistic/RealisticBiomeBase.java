@@ -15,7 +15,7 @@ import rtg.api.util.BiomeUtils;
 import rtg.api.util.Logger;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
-import rtg.api.world.RTGWorld;
+import rtg.world.RTGWorld;
 import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeManager;

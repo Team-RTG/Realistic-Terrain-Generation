@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
@@ -52,11 +52,11 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex);
+            groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex());
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex, river);
+            float m = hills(x, y, hillStrength, rtgWorld.simplex(), river);
 
             float floNoise = 65f + groundNoise + m;
 
@@ -104,10 +104,10 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;

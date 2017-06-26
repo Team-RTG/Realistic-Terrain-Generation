@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.WorldUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLayers;
 
@@ -56,11 +56,11 @@ public class DecoLayer extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
 
             int loopCount = this.loops;
@@ -68,18 +68,18 @@ public class DecoLayer extends DecoBase {
             for (int i = 0; i < loopCount; i++) {
                 int intX = worldX + rand.nextInt(16);// + 8;
                 int intZ = worldZ + rand.nextInt(16);// + 8;
-                int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                int intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                 if (this.notEqualsZeroChance > 1) {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
                 else {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world, rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
             }

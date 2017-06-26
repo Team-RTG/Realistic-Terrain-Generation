@@ -14,12 +14,13 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.PlateauStep;
 import rtg.api.util.noise.SimplexOctave;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.VoronoiBasinEffect;
+import rtg.world.RTGWorld;
 
 public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
@@ -73,19 +74,19 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
          
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            rtgWorld.simplex.riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
-        float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
-        float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
+        public float generateNoise(IRTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+            rtgWorld.simplex().riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
+            float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
+            float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
             float simplex = plateau.added(rtgWorld, x, y);
             simplex *= river;
-            float bumpiness = rtgWorld.simplex.octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
-            bumpiness += rtgWorld.simplex.octave(bumpinessOctave+1).noise2(x / bumpinessWavelength/2f, y / bumpinessWavelength/2f) * bumpinessMultiplier/2f;
-            
+            float bumpiness = rtgWorld.simplex().octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            bumpiness += rtgWorld.simplex().octave(bumpinessOctave+1).noise2(x / bumpinessWavelength/2f, y / bumpinessWavelength/2f) * bumpinessMultiplier/2f;
+
             simplex += bumpiness;
             //if (simplex > bordercap) simplex = bordercap;
             float added = step.increase(simplex);
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex),river) + added;
+            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
         }
         
     }
@@ -128,9 +129,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBryce(x, y, rtgWorld.simplex, river, height, border);
+            return terrainBryce(x, y, rtgWorld.simplex(), river, height, border);
         }
     }
 
@@ -172,9 +173,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
@@ -190,7 +191,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome().getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 

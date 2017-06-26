@@ -7,7 +7,7 @@ import net.minecraft.util.math.ChunkPos;
 
 import biomesoplenty.api.generation.GeneratorStage;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 
@@ -24,14 +24,14 @@ public class DecoBOPBaseBiomeDecorations extends DecoBaseBiomeDecorations {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed && biome instanceof IRealisticBOPBiome) {
 
             // skip if already decorated (@author Zeno410, lifted from DecoSingleBiomeDecorations)
             ChunkPos position = new ChunkPos(worldX,worldZ);
-            if (rtgWorld.decoratedChunks.contains(position)) return;
-            rtgWorld.decoratedChunks.add(position);
+            if (rtgWorld.decoratedChunks().contains(position)) return;
+            rtgWorld.decoratedChunks().add(position);
 
             IRealisticBOPBiome bopBiome = (IRealisticBOPBiome) biome;
 

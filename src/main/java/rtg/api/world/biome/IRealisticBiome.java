@@ -10,7 +10,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.VoronoiResult;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionBase;
@@ -66,20 +66,20 @@ public interface IRealisticBiome {
         return 0; // Lower equals more frequent.
     }
 
-    default float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+    default float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
         if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;
         SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
+        rtgWorld.simplex().riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
         double pX = x + jitter.deltax() * largeBendSize;
         double pY = y + jitter.deltay() * largeBendSize;
-        rtgWorld.simplex.mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
+        rtgWorld.simplex().mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
         pX += jitter.deltax() * mediumBendSize;
         pY += jitter.deltay() * mediumBendSize;
-        rtgWorld.simplex.octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
+        rtgWorld.simplex().octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
         pX += jitter.deltax() * smallBendSize;
         pY += jitter.deltay() * smallBendSize;
         //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        VoronoiResult lakeResults = rtgWorld.cell.river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
+        VoronoiResult lakeResults = rtgWorld.cell().river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
         float results = 1f-(float)(lakeResults.interiorValue());
         if (results >1.01) throw new RuntimeException("" + lakeResults.shortestDistance+ " , "+lakeResults.nextDistance);
         if (results<-.01) throw new RuntimeException("" + lakeResults.shortestDistance+ " , "+lakeResults.nextDistance);

@@ -22,7 +22,7 @@ import rtg.api.util.Bayesian;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
-import rtg.api.world.RTGWorld;
+import rtg.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 

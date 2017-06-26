@@ -40,7 +40,7 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
-import rtg.api.world.RTGWorld;
+import rtg.world.RTGWorld;
 import rtg.util.TimeTracker;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;

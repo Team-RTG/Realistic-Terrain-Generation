@@ -1,20 +1,22 @@
 package rtg.world.gen;
 
 import java.util.Random;
+
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.LimitedSet;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.world.biome.IBiomeProviderRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import static rtg.world.biome.realistic.RealisticBiomeBase.getBiome;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
+import rtg.api.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenVolcano;
+import rtg.api.world.biome.RealisticBiomePatcher;
+import static rtg.world.biome.realistic.RealisticBiomeBase.getBiome;
 
 /**
  *
@@ -73,7 +75,7 @@ public class VolcanoGenerator {
         // Let's go ahead and generate the volcano. Exciting!!! :D
         if (baseX % 4 == 0 && baseY % 4 == 0) {
             int biomeId = Biome.getIdForBiome(cmr.getBiomeGenAt(baseX * 16, baseY * 16));
-            RealisticBiomeBase realisticBiome = getBiome(biomeId);
+            IRealisticBiome realisticBiome = getBiome(biomeId);
 
             // Do we need to patch the biome?
             if (realisticBiome == null) {

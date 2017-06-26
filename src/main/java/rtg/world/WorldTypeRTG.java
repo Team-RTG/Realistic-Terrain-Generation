@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import rtg.RTG;
+import rtg.api.RTGAPI;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
 import rtg.world.biome.BiomeProviderRTG;
@@ -44,7 +45,7 @@ public class WorldTypeRTG extends WorldType
             if (biomeProvider == null) {
 
                 biomeProvider = new BiomeProviderRTG(world, this);
-                RTG.instance.runOnNextServerCloseOnly(clearProvider(biomeProvider));
+                RTGAPI.getInstance().runOnNextServerCloseOnly(clearProvider(biomeProvider));
             }
 
             Logger.debug("WorldTypeRTG#getBiomeProvider() returning BiomeProviderRTG");
@@ -66,11 +67,11 @@ public class WorldTypeRTG extends WorldType
 
             //if (chunkProvider == null) {
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed());
-                RTG.instance.runOnNextServerCloseOnly(clearProvider(chunkProvider));
+                RTGAPI.getInstance().runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
                 // inform the event manager about the ChunkEvent.Load event
                 RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
-                RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
+                RTGAPI.getInstance().runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
 
                 Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG");
 

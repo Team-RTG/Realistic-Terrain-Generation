@@ -1,5 +1,5 @@
 
-package rtg.world.gen;
+package rtg.api.world.gen;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;

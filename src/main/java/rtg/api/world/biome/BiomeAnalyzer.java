@@ -1,13 +1,11 @@
 
-package rtg.world.biome;
+package rtg.api.world.biome;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.RTGAPI;
 import rtg.api.util.CircularSearchCreator;
-import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
 /**
@@ -20,9 +18,9 @@ public class BiomeAnalyzer {
     private boolean [] beachBiome;
     private boolean [] landBiome;
     private int [] preferredBeach;
-    private RealisticBiomeBase [] savedJittered;
-    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
-    private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
+    private IRealisticBiome [] savedJittered;
+    private IRealisticBiome scenicLakeBiome = IRealisticBiome.getRealisticBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
+    private IRealisticBiome scenicFrozenLakeBiome = IRealisticBiome.getRealisticBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
     private SmoothingSearchStatus beachSearch;
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;
@@ -38,7 +36,7 @@ public class BiomeAnalyzer {
         setupBeachesForBiomes();
         prepareSearchPattern();
         setSearches();
-        savedJittered = new RealisticBiomeBase[256];
+        savedJittered = new IRealisticBiome[256];
     }
 
     public int[] xyinverted() {
@@ -278,20 +276,20 @@ public class BiomeAnalyzer {
             // We need to work with the realistic biome, so let's try to get it from the base biome, aborting if necessary.
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
+            IRealisticBiome realisticBiome = IRealisticBiome.getRealisticBiome(i);
             if (realisticBiome == null) continue;
 
-            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome);
+            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome());
 
             // If stone beaches aren't allowed in this biome, then determine the best beach to use based on the biome's temperature.
-            if (realisticBiome.disallowStoneBeaches) {
-                if (Biome.getIdForBiome(realisticBiome.beachBiome) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
+            if (realisticBiome.disallowStoneBeaches()) {
+                if (Biome.getIdForBiome(realisticBiome.beachBiome()) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
                     preferredBeach[i] = Biome.getIdForBiome((biome.getTemperature() <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH);
                 }
             }
 
             // If beaches aren't allowed in this biome, then use this biome as the beach.
-            if (realisticBiome.disallowAllBeaches) {
+            if (realisticBiome.disallowAllBeaches()) {
                 preferredBeach[i] = i;
             }
         }
@@ -301,23 +299,23 @@ public class BiomeAnalyzer {
      *
      */
 
-    public void newRepair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float [] riverStrength) {
+    public void newRepair(int [] genLayerBiomes, IRealisticBiome[] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float [] riverStrength) {
 
         int sampleSize = 8;
-        RealisticBiomeBase realisticBiome;
+        IRealisticBiome realisticBiome;
         int realisticBiomeId;
         if (neighborhoodSize != sampleSize) throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
 
         // currently just stuffs the genLayer into the jitter;
         for (int i = 0; i < 256; i++) {
 
-            realisticBiome = RealisticBiomeBase.getBiome(genLayerBiomes[i]);
+            realisticBiome = IRealisticBiome.getRealisticBiome(genLayerBiomes[i]);
             // Do we need to patch the biome?
             if (realisticBiome == null) {
                 realisticBiome = biomePatcher.getPatchedRealisticBiome(
                     "NULL biome (" + i + ") found when performing new repair.");
             }
-            realisticBiomeId = Biome.getIdForBiome(realisticBiome.baseBiome);
+            realisticBiomeId = Biome.getIdForBiome(realisticBiome.baseBiome());
 
             boolean canBeRiver = riverStrength[i] > 0.7;
 
@@ -332,8 +330,8 @@ public class BiomeAnalyzer {
                 // check for river
                 if (canBeRiver && !oceanBiome[realisticBiomeId] && !swampBiome[realisticBiomeId]) {
                     // make river
-                    int riverBiomeID = Biome.getIdForBiome(realisticBiome.riverBiome);
-                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);
+                    int riverBiomeID = Biome.getIdForBiome(realisticBiome.riverBiome());
+                    jitteredBiomes[i] =  IRealisticBiome.getRealisticBiome(riverBiomeID);
                 } else {
                     // replace
                     jitteredBiomes[i] = realisticBiome;
@@ -349,7 +347,7 @@ public class BiomeAnalyzer {
             if (beachSearch.absent) break; //no point
             float beachBottom = 61.5f;
             if (noise[i]< beachBottom ||noise[i]>riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't beach level
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             if (swampBiome[biomeID]) continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
@@ -362,7 +360,7 @@ public class BiomeAnalyzer {
                     foundBiome = preferredBeach[nearestLandBiome];
                 }
 
-                realisticBiome = RealisticBiomeBase.getBiome(foundBiome);
+                realisticBiome = IRealisticBiome.getRealisticBiome(foundBiome);
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
@@ -379,7 +377,7 @@ public class BiomeAnalyzer {
             if (landSearch.absent&&beachSearch.absent) break; //no point
             // skip if this block isn't above beach level, adjusted for river effect to prevent abrupt beach stops
             if (noise[i] < riverAdjusted(beachTop, riverStrength[i])) continue;
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             // already land
             if (landBiome[biomeID]) continue;
             // swamps are acceptable above water
@@ -397,7 +395,7 @@ public class BiomeAnalyzer {
 
             if (foundBiome != NO_BIOME) {
 
-                realisticBiome = RealisticBiomeBase.getBiome(foundBiome);
+                realisticBiome = IRealisticBiome.getRealisticBiome(foundBiome);
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
@@ -414,7 +412,7 @@ public class BiomeAnalyzer {
             if (oceanSearch.absent) break; //no point
             float oceanTop = 61.5f;
             if (noise[i]> oceanTop) continue;// too hight
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             if (oceanBiome[biomeID]) continue;// obviously ocean is OK
             if (swampBiome[biomeID]) continue;// swamps are acceptable
             if (riverBiome[biomeID]) continue;// rivers stay rivers
@@ -423,7 +421,7 @@ public class BiomeAnalyzer {
 
             if (foundBiome != NO_BIOME) {
 
-                realisticBiome = RealisticBiomeBase.getBiome(foundBiome);
+                realisticBiome = IRealisticBiome.getRealisticBiome(foundBiome);
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
@@ -434,13 +432,13 @@ public class BiomeAnalyzer {
         }
         // convert remainder below sea level to lake biome
         for (int i = 0; i < 256; i++) {
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             if (noise[i]<=61.5&&!riverBiome[biomeID]) {
                 // check for river
                 if (!oceanBiome[biomeID] &&
                     !swampBiome[biomeID] &&
                     !beachBiome[biomeID]) {
-                    int riverReplacement = Biome.getIdForBiome(jitteredBiomes[i].riverBiome); // make river
+                    int riverReplacement = Biome.getIdForBiome(jitteredBiomes[i].riverBiome()); // make river
                     if (riverReplacement == Biome.getIdForBiome(Biomes.FROZEN_RIVER))
                         jitteredBiomes[i] = scenicFrozenLakeBiome;
                     else jitteredBiomes[i] = scenicLakeBiome;
@@ -459,7 +457,7 @@ public class BiomeAnalyzer {
 
     private float riverAdjusted (float top, float river) {
         if (river>=1) return top;
-        float erodedRiver = river/RealisticBiomeBase.actualRiverProportion;
+        float erodedRiver = river/IRealisticBiome.actualRiverProportion;
         if (erodedRiver <= 1f) top = top*(1-erodedRiver)+62f*erodedRiver;
         top = top*(1-river)+62f*river;
         return top;

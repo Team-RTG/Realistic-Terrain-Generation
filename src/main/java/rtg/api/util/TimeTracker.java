@@ -1,5 +1,5 @@
 
-package rtg.util;
+package rtg.api.util;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
-import rtg.RTG;
+import rtg.api.RTGAPI;
 
 /**
  * A simple utility to track time spent in various procedures.
@@ -58,7 +58,7 @@ public class TimeTracker {
     public static class Manager {
         private HashMap<String,TimeTracker> trackers = new HashMap<String,TimeTracker>();
         private Manager() {
-            RTG.instance.runOnServerClose(runReport());
+            RTGAPI.getInstance().runOnServerClose(runReport());
         }
 
         private Runnable runReport() {

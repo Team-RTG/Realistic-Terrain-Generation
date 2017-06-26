@@ -219,9 +219,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise);
     }
 
-    public static final float actualRiverProportion = 150f/1600f;
-    public static final float riverFlatteningAddend = (actualRiverProportion)/(1f-actualRiverProportion);
-
     public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         float r;
         // river of actualRiverProportions now maps to 1; TODO

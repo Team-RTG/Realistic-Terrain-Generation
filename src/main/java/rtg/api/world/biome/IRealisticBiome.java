@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
@@ -65,6 +66,8 @@ public interface IRealisticBiome {
     default int lavaSurfaceLakeChance() {
         return 0; // Lower equals more frequent.
     }
+
+    void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base);
 
     default float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
         if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;

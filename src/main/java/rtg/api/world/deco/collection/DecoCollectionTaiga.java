@@ -2,6 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.DecoFallenTree.LogCondition;
@@ -19,9 +20,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
  */
 public class DecoCollectionTaiga extends DecoCollectionBase {
 
-    public DecoCollectionTaiga(boolean fallenTrees, float grassStrengthFactor) {
+    public DecoCollectionTaiga(BiomeConfig config, float grassStrengthFactor) {
 
-        super();
+        super(config);
 
         TreeRTG sempervirensSpruceTree1 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceTree1.setLogBlock(BlockUtil.getStateLog(1));
@@ -178,7 +179,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, fallenTrees);
+        this.addDeco(decoFallenTree, config.ALLOW_LOGS.get());
 
         DecoShrub decoShrubSpruce = new DecoShrub();
         decoShrubSpruce.setLogBlock(BlockUtil.getStateLog(1));

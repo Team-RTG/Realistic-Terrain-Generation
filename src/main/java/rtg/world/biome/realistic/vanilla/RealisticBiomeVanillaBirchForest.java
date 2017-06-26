@@ -169,6 +169,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 }

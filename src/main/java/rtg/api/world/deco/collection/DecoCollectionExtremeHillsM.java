@@ -2,6 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.block.state.IBlockState;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
@@ -12,9 +13,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
  */
 public class DecoCollectionExtremeHillsM extends DecoCollectionExtremeHills {
 
-    public DecoCollectionExtremeHillsM() {
+    public DecoCollectionExtremeHillsM(BiomeConfig config) {
 
-        super();
+        super(config);
 
         this.addDeco(nigraDecos(85, 10, 18, 10, 18)); // Taller trees lower down.
         this.addDeco(nigraDecos(95, 10, 12, 10, 12)); // Shorter trees both lower down & higher up.

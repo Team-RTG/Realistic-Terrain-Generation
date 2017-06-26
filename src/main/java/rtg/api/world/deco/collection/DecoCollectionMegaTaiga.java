@@ -2,6 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoTree;
@@ -19,9 +20,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
  */
 public class DecoCollectionMegaTaiga extends DecoCollectionBase {
 
-    public DecoCollectionMegaTaiga() {
+    public DecoCollectionMegaTaiga(BiomeConfig config) {
 
-        super();
+        super(config);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
         sitchensisTree.setLogBlock(BlockUtil.getStateLog(1));

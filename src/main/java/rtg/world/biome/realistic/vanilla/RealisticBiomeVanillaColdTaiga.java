@@ -140,6 +140,6 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig().ALLOW_LOGS.get(), 8f));
+        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
     }
 }

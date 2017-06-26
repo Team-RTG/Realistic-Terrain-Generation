@@ -113,7 +113,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     public void initDecos() {
 
         if (this.getConfig().ALLOW_ICE_TREES.get()) {
-            this.addDecoCollection(new DecoCollectionIceTrees());
+            this.addDecoCollection(new DecoCollectionIceTrees(this.getConfig()));
         }
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

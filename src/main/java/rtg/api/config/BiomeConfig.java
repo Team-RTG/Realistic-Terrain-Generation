@@ -49,6 +49,10 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_MIX_FILLER_BLOCK_META;
     public final ConfigPropertyString SURFACE_MIX_2_BLOCK;
     public final ConfigPropertyInt SURFACE_MIX_2_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_3_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_3_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_4_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_4_BLOCK_META;
     public final ConfigPropertyBoolean ALLOW_PALM_TREES;
     public final ConfigPropertyBoolean ALLOW_CACTUS;
     public final ConfigPropertyBoolean ALLOW_COBWEBS;
@@ -429,6 +433,54 @@ public class BiomeConfig extends Config {
             "If you're using a custom 2nd mix block, enter its numeric data value here."
                 + Configuration.NEW_LINE +
                 "For example, if you want to use podzol for this biome's 2nd mix block, you would enter minecraft:dirt for the Mix 2 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        SURFACE_MIX_3_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 3 Block ID",
+            "Surfaces.Mix 3 Top Block",
+            "If you want to change this biome's 3rd mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_3_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 3 Block Meta (Data Value)",
+            "Surfaces.Mix 3 Top Block",
+            "If you're using a custom 3rd mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 3rd mix block, you would enter minecraft:dirt for the Mix 3 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        SURFACE_MIX_4_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 4 Block ID",
+            "Surfaces.Mix 4 Top Block",
+            "If you want to change this biome's 4th mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_4_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 4 Block Meta (Data Value)",
+            "Surfaces.Mix 4 Top Block",
+            "If you're using a custom 4th mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 4th mix block, you would enter minecraft:dirt for the Mix 4 Block ID,"
                 + Configuration.NEW_LINE +
                 "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
                 + Configuration.NEW_LINE +

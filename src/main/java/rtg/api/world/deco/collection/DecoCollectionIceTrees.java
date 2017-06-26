@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.DecoTree.TreeCondition;
@@ -31,9 +32,9 @@ public class DecoCollectionIceTrees extends DecoCollectionBase {
     private float short2Min = 3f;
     private float short2Max = 5f;
 
-    public DecoCollectionIceTrees() {
+    public DecoCollectionIceTrees(BiomeConfig config) {
 
-        super();
+        super(config);
 
         this
             .addDeco(tallTrees(tallMin, tallMax)) // Tall trees first.

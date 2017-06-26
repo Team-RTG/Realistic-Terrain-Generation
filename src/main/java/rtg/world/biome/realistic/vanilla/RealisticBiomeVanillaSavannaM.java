@@ -191,7 +191,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
-        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
     }
 }

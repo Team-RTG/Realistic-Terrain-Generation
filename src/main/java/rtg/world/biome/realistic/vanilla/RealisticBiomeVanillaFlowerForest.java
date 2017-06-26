@@ -238,7 +238,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         this.addDeco(decoPines);
 
         // More trees.
-        this.addDecoCollection(new DecoCollectionSmallPineTreesForest());
+        this.addDecoCollection(new DecoCollectionSmallPineTreesForest(this.getConfig()));
 
         // Not much free space left, so let's give some space to the base biome.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenCanopyTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -27,26 +28,26 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     private int treesMinY = 63;
     private int treesMaxY = 225;
 
-    public DecoCollectionRoofedForest(int treesMinY, int treesMaxY, boolean allowLogs, boolean allowCobwebs, boolean allowPonds) {
+    public DecoCollectionRoofedForest(BiomeConfig config, int treesMinY, int treesMaxY) {
 
-        super();
+        super(config);
 
         this.treesMinY = treesMinY;
         this.treesMaxY = treesMaxY;
 
         this
-            .addDeco(ponds(), allowPonds)
+            .addDeco(ponds(), config.ALLOW_PONDS_WATER.get())
             .addDeco(mushrooms())
             .addDeco(mucronataTrees(treesMinY, treesMaxY))
             .addDeco(pentandraTrees(treesMinY, treesMaxY))
             .addDeco(roseaTrees(treesMinY, treesMaxY))
             .addDeco(canopyTrees())
             .addDeco(vanillaTrees())
-            .addDeco(logs(), allowLogs)
+            .addDeco(logs(), config.ALLOW_LOGS.get())
             .addDeco(darkOakShrubs())
             .addDeco(oakShrubs())
             .addDeco(boulders())
-            .addDeco(cobwebs(), allowCobwebs)
+            .addDeco(cobwebs(), config.ALLOW_COBWEBS.get())
             //.addDeco(baseBiomeDecorations())
             .addDeco(grass())
             .addDeco(deadBushes())

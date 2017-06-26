@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.block.state.IBlockState;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -12,11 +13,13 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
  */
 public class DecoCollectionBase {
 
+    protected BiomeConfig config;
     public ArrayList<DecoBase> decos;
     public ArrayList<TreeRTG> rtgTrees;
 
-    public DecoCollectionBase() {
+    public DecoCollectionBase(BiomeConfig config) {
 
+        this.config = config;
         this.decos = new ArrayList<DecoBase>();
         this.rtgTrees = new ArrayList<TreeRTG>();
     }

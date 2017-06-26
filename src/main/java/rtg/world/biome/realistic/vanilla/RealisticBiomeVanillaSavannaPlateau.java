@@ -199,7 +199,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());

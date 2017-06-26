@@ -13,11 +13,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoCactus;
-import rtg.api.world.deco.DecoDeadBush;
-import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
@@ -35,6 +32,10 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
     }
 
     @Override
@@ -61,7 +62,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMesa(config, BlockUtil.getStateSand(1), BlockUtil.getStateClay(1), 0);
+        return new SurfaceVanillaMesa(config, biome.topBlock, BlockUtil.getStateClay(1), 0);
     }
 
     @Override
@@ -83,11 +84,16 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     public class SurfaceVanillaMesa extends SurfaceBase {
 
         private int grassRaise = 0;
+        private IBlockState mixBlock;
+        private IBlockState mix2Block;
 
         public SurfaceVanillaMesa(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
 
             super(config, top, fill);
             grassRaise = grassHeight;
+
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateClay(1));
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), Blocks.RED_SANDSTONE.getDefaultState());
         }
 
         @Override
@@ -117,7 +123,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                         {
                             if (depth == 0) {
                                 if (rand.nextInt(5) == 0) {
-                                    primer.setBlockState(x, k, z, BlockUtil.getStateDirt(1));
+                                    primer.setBlockState(x, k, z, mix2Block);
                                 }
                                 else {
                                     primer.setBlockState(x, k, z, topBlock);
@@ -131,11 +137,11 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
                             int r = (int)((k - (62 + grassRaise)) / 2f);
                             if(rand.nextInt(r + 2) == 0)
                             {
-                                primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
+                                primer.setBlockState(x, k, z, mixBlock);
                             }
                             else if(rand.nextInt((int)(r / 2f) + 2) == 0)
                             {
-                                primer.setBlockState(x, k, z, BlockUtil.getStateDirt(1));
+                                primer.setBlockState(x, k, z, mix2Block);
                             }
                             else
                             {
@@ -153,29 +159,8 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
 
     @Override
     public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(83);
-        this.addDeco(decoBoulder);
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setLoops(3);
-        decoShrub.setMaxY(90);
-        addDeco(decoShrub);
-
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.setMaxY(100);
-        decoDeadBush.setLoops(3);
-        this.addDeco(decoDeadBush);
-
-        DecoCactus decoCactus = new DecoCactus();
-        decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
-        decoCactus.setLoops(18);
-        decoCactus.setMaxY(100);
-        this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
     }
 
     @Override

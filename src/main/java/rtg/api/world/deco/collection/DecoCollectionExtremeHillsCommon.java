@@ -3,6 +3,7 @@ package rtg.api.world.deco.collection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelper5050;
@@ -14,11 +15,11 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_R
  */
 public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
-    public DecoCollectionExtremeHillsCommon(boolean fallenTrees) {
+    public DecoCollectionExtremeHillsCommon(BiomeConfig config) {
 
-        super();
+        super(config);
 
-        this.addDeco(logDecos(), fallenTrees) // Logs.
+        this.addDeco(logDecos(), config.ALLOW_LOGS.get()) // Logs.
             .addDeco(shrubDecos()) // Shrubs.
             .addDeco(boulders()) // Boulders.
             .addDeco(flowers()) // Flowers.

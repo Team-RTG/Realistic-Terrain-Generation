@@ -125,7 +125,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionWoodland(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionWoodland(this.getConfig()));
     }
 
     private class DecoCollectionWoodland extends DecoCollectionBase {
@@ -138,14 +138,14 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private float short1Min = -3f;
         private float short1Max = -1f;
 
-        DecoCollectionWoodland(boolean fallenTrees) {
+        DecoCollectionWoodland(BiomeConfig config) {
 
-            super();
+            super(config);
 
             this
                 .addDeco(tallTrees(tallMin, tallMax)) // Tall trees first.
                 .addDeco(shortTrees(short1Min, short1Max)) // Short trees next.
-                .addDeco(logs(), fallenTrees) // Add some fallen trees of the oak and spruce variety (50/50 distribution).
+                .addDeco(logs(), config.ALLOW_LOGS.get()) // Add some fallen trees of the oak and spruce variety (50/50 distribution).
                 .addDeco(shrubsOak()) // Shrubs to fill in the blanks.
                 .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
                 .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.

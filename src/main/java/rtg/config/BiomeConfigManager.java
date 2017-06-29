@@ -1,6 +1,9 @@
 package rtg.config;
 
+import java.util.ArrayList;
+
 import net.minecraftforge.common.config.Configuration;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
@@ -13,6 +16,7 @@ import rtg.api.biome.buildcraft.config.BiomeConfigBCDesertOilField;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCOceanOilField;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCEnderForest;
+import rtg.api.biome.chromaticraft.config.BiomeConfigCCLuminousCliffs;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCRainbowForest;
 import rtg.api.biome.enhancedbiomes.config.*;
 import rtg.api.biome.extrabiomes.config.*;
@@ -40,8 +44,6 @@ import rtg.api.biome.tofucraft.config.*;
 import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
 import rtg.api.biome.vampirism.config.BiomeConfigVAMPVampireForest;
 import rtg.api.biome.vanilla.config.*;
-
-import java.util.ArrayList;
 
 public class BiomeConfigManager
 {
@@ -187,6 +189,7 @@ public class BiomeConfigManager
     public static void initBiomeConfigsCC()
     {
         BiomeConfigCC.biomeConfigCCEnderForest = new BiomeConfigCCEnderForest();
+        BiomeConfigCC.biomeConfigCCLuminousCliffs = new BiomeConfigCCLuminousCliffs();
         BiomeConfigCC.biomeConfigCCRainbowForest = new BiomeConfigCCRainbowForest();
     }
     

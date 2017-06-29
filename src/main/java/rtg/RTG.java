@@ -34,6 +34,7 @@ import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
+import rtg.world.biome.realistic.hotwatermod.RealisticBiomeHWMBase;
 import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
 import rtg.world.biome.realistic.idt.RealisticBiomeIDTBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
@@ -121,6 +122,7 @@ public class RTG {
         RealisticBiomeICBase.addBiomes();
         RealisticBiomeIDTBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeHWMBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

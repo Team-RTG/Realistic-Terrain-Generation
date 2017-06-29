@@ -26,6 +26,8 @@ import rtg.api.biome.forgottennature.config.*;
 import rtg.api.biome.growthcraft.config.BiomeConfigGC;
 import rtg.api.biome.growthcraft.config.BiomeConfigGCBambooForest;
 import rtg.api.biome.highlands.config.*;
+import rtg.api.biome.hotwatermod.config.BiomeConfigHWM;
+import rtg.api.biome.hotwatermod.config.BiomeConfigHWMHotSprings;
 import rtg.api.biome.icmod.config.BiomeConfigIC;
 import rtg.api.biome.icmod.config.BiomeConfigICIceCream;
 import rtg.api.biome.idt.config.BiomeConfigIDT;
@@ -60,6 +62,7 @@ public class BiomeConfigManager
         initBiomeConfigsEBXL();
         initBiomeConfigsGC();
         initBiomeConfigsHL();
+        initBiomeConfigsHWM();
         initBiomeConfigsIC();
         initBiomeConfigsIDT();
         initBiomeConfigsRW();
@@ -374,6 +377,11 @@ public class BiomeConfigManager
         BiomeConfigHL.biomeConfigHLWindyIsland = new BiomeConfigHLWindyIsland();
         BiomeConfigHL.biomeConfigHLWoodlands = new BiomeConfigHLWoodlands();
         BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
+    }
+
+    public static void initBiomeConfigsHWM()
+    {
+        BiomeConfigHWM.biomeConfigHWMHotSprings = new BiomeConfigHWMHotSprings();
     }
 
     public static void initBiomeConfigsIC()

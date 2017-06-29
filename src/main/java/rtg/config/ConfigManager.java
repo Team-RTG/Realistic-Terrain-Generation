@@ -1,5 +1,7 @@
 package rtg.config;
 
+import java.io.File;
+
 import rtg.config.abyssalcraft.ConfigAC;
 import rtg.config.arsmagica.ConfigAM;
 import rtg.config.atg.ConfigATG;
@@ -12,6 +14,7 @@ import rtg.config.flowercraft.ConfigFC;
 import rtg.config.forgottennature.ConfigFN;
 import rtg.config.growthcraft.ConfigGC;
 import rtg.config.highlands.ConfigHL;
+import rtg.config.hotwatermod.ConfigHWM;
 import rtg.config.icmod.ConfigIC;
 import rtg.config.idt.ConfigIDT;
 import rtg.config.ridiculousworld.ConfigRW;
@@ -20,8 +23,6 @@ import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.tofucraft.ConfigTOFU;
 import rtg.config.vampirism.ConfigVAMP;
 import rtg.config.vanilla.ConfigVanilla;
-
-import java.io.File;
 
 public class ConfigManager
 {
@@ -34,6 +35,7 @@ public class ConfigManager
     public static File hlConfigFile;
     public static File tcConfigFile;
     public static File bcConfigFile;
+    public static File hwmConfigFile;
     public static File amConfigFile;
     public static File atgConfigFile;
     public static File ccConfigFile;
@@ -63,6 +65,7 @@ public class ConfigManager
         hlConfigFile = new File(configpath + "biomes/highlands.cfg");
         tcConfigFile = new File(configpath + "biomes/thaumcraft.cfg");
         bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
+        hwmConfigFile = new File(configpath + "biomes/hotwatermod.cfg");
         amConfigFile = new File(configpath + "biomes/arsmagica.cfg");
         atgConfigFile = new File(configpath + "biomes/atg.cfg");
         ccConfigFile = new File(configpath + "biomes/chromaticraft.cfg");
@@ -86,6 +89,7 @@ public class ConfigManager
         ConfigHL.init(hlConfigFile);
         ConfigTC.init(tcConfigFile);
         ConfigBC.init(bcConfigFile);
+        ConfigHWM.init(hwmConfigFile);
         ConfigAM.init(amConfigFile);
         ConfigATG.init(atgConfigFile);
         ConfigCC.init(ccConfigFile);

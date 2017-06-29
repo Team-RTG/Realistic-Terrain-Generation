@@ -2,13 +2,15 @@ package rtg.world.biome.realistic.sushicraft;
 
 
 import net.minecraft.world.biome.BiomeGenBase;
+
+import cpw.mods.fml.common.Loader;
+
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
+import rtg.api.biome.sushicraft.config.BiomeConfigSC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.Loader;
 /**
  * Created by VelocityRa on 15/4/2016.
  */
@@ -46,7 +48,7 @@ public class RealisticBiomeSCBase extends RealisticBiomeBase
 
                     if (biomeName == "Sakura Forest" && biomeClass == "fr.kingstone.sushicraft.world.biome.BiomeGenSakura")
                     {
-                        scSakuraForest = new RealisticBiomeSCSakuraForest(scBiome, BiomeConfigTC.biomeConfigTCMagicalForest);
+                        scSakuraForest = new RealisticBiomeSCSakuraForest(scBiome, BiomeConfigSC.biomeConfigSCSakuraForest);
                     }
                 }
             }

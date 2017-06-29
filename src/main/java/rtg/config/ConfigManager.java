@@ -17,6 +17,7 @@ import rtg.config.highlands.ConfigHL;
 import rtg.config.hotwatermod.ConfigHWM;
 import rtg.config.icmod.ConfigIC;
 import rtg.config.idt.ConfigIDT;
+import rtg.config.itd.ConfigITD;
 import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
 import rtg.config.thaumcraft.ConfigTC;
@@ -47,6 +48,7 @@ public class ConfigManager
     public static File fnConfigFile;
     public static File icConfigFile;
     public static File idtConfigFile;
+    public static File itdConfigFile;
     public static File fcConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
@@ -77,6 +79,7 @@ public class ConfigManager
         fnConfigFile = new File(configpath + "biomes/forgottennature.cfg");
         icConfigFile = new File(configpath + "biomes/icecreammod.cfg");
         idtConfigFile = new File(configpath + "biomes/industrialtechnologies.cfg");
+        itdConfigFile = new File(configpath + "biomes/inthedarkness.cfg");
         fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
         
         ConfigRTG.init(rtgConfigFile);
@@ -101,6 +104,7 @@ public class ConfigManager
         ConfigFN.init(fnConfigFile);
         ConfigIC.init(icConfigFile);
         ConfigIDT.init(idtConfigFile);
+        ConfigITD.init(itdConfigFile);
         ConfigFC.init(fcConfigFile);
     }
 }

@@ -37,6 +37,7 @@ import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
 import rtg.world.biome.realistic.hotwatermod.RealisticBiomeHWMBase;
 import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
 import rtg.world.biome.realistic.idt.RealisticBiomeIDTBase;
+import rtg.world.biome.realistic.itd.RealisticBiomeITDBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -121,6 +122,7 @@ public class RTG {
         RealisticBiomeFNBase.addBiomes();
         RealisticBiomeICBase.addBiomes();
         RealisticBiomeIDTBase.addBiomes();
+        RealisticBiomeITDBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
         RealisticBiomeHWMBase.addBiomes();
 

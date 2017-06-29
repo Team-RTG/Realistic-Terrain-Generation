@@ -34,6 +34,8 @@ import rtg.api.biome.idt.config.BiomeConfigIDT;
 import rtg.api.biome.idt.config.BiomeConfigIDTEbonyForest;
 import rtg.api.biome.idt.config.BiomeConfigIDTSilkwoodForest;
 import rtg.api.biome.idt.config.BiomeConfigIDTWillowForest;
+import rtg.api.biome.itd.config.BiomeConfigITD;
+import rtg.api.biome.itd.config.BiomeConfigITDDarkForest;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
@@ -65,6 +67,7 @@ public class BiomeConfigManager
         initBiomeConfigsHWM();
         initBiomeConfigsIC();
         initBiomeConfigsIDT();
+        initBiomeConfigsITD();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsVAMP();
@@ -388,12 +391,17 @@ public class BiomeConfigManager
     {
         BiomeConfigIC.biomeConfigICIceCream = new BiomeConfigICIceCream();
     }
-    
+
     public static void initBiomeConfigsIDT()
     {
-    	BiomeConfigIDT.biomeConfigIDTEbonyForest = new BiomeConfigIDTEbonyForest();
-    	BiomeConfigIDT.biomeConfigIDTSilkwoodForest = new BiomeConfigIDTSilkwoodForest();
-    	BiomeConfigIDT.biomeConfigIDTWillowForest = new BiomeConfigIDTWillowForest();
+        BiomeConfigIDT.biomeConfigIDTEbonyForest = new BiomeConfigIDTEbonyForest();
+        BiomeConfigIDT.biomeConfigIDTSilkwoodForest = new BiomeConfigIDTSilkwoodForest();
+        BiomeConfigIDT.biomeConfigIDTWillowForest = new BiomeConfigIDTWillowForest();
+    }
+
+    public static void initBiomeConfigsITD()
+    {
+        BiomeConfigITD.biomeConfigITDDarkForest = new BiomeConfigITDDarkForest();
     }
 
     public static void initBiomeConfigsRW()

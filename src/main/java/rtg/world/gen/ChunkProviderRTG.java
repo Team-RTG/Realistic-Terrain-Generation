@@ -91,6 +91,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private HashSet<ChunkPos> toCheck = new HashSet<>();
     private Compass compass = new Compass();
     private ArrayList<Direction> directions = compass.directions();
+    private PlateauBand plateauBand;
 
     //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
     private TimedHashSet<ChunkPos> chunkMade = new TimedHashSet<>(5 * 1000);
@@ -144,8 +145,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         m.put("size", "0");
         m.put("distance", "24");
         mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
-
         boolean isRTGWorld = DimensionManagerRTG.isValidDimension(world.provider.getDimension());
+
+        plateauBand = PlateauBand.getInstance();
+        plateauBand.init(rtgWorld);
 
         if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
@@ -191,7 +194,6 @@ public class ChunkProviderRTG implements IChunkGenerator
             oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
         }
 
-        CanyonColour.init(seed);
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];
         biomePatcher = new RealisticBiomePatcher();

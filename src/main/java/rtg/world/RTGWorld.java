@@ -93,7 +93,7 @@ public class RTGWorld implements IRTGWorld {
     }
 
     @Override
-    public int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz) {
+    public int getRepairedBiomeAt(IBiomeProviderRTG cmr, int cx, int cz) {
         return this.landscapeGenerator.getBiomeDataAt(cmr, cx, cz);
     }
 }

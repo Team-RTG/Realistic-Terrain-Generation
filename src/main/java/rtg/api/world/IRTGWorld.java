@@ -26,5 +26,5 @@ public interface IRTGWorld {
     TimedHashSet<ChunkPos> decoratedChunks();
     BiomeMesa mesaBiome();
     OrganicBiomeGenerator organicBiomeGenerator();
-    int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz);
+    int getRepairedBiomeAt(IBiomeProviderRTG cmr, int cx, int cz);
 }

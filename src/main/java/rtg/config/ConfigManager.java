@@ -21,6 +21,7 @@ import rtg.config.idt.ConfigIDT;
 import rtg.config.itd.ConfigITD;
 import rtg.config.ridiculousworld.ConfigRW;
 import rtg.config.rtg.ConfigRTG;
+import rtg.config.sugiforest.ConfigSF;
 import rtg.config.thaumcraft.ConfigTC;
 import rtg.config.tofucraft.ConfigTOFU;
 import rtg.config.vampirism.ConfigVAMP;
@@ -52,6 +53,7 @@ public class ConfigManager
     public static File idtConfigFile;
     public static File itdConfigFile;
     public static File fcConfigFile;
+    public static File sfConfigFile;
 
     private ConfigRTG configRTG = new ConfigRTG();
     public ConfigRTG rtg() {
@@ -84,6 +86,7 @@ public class ConfigManager
         idtConfigFile = new File(configpath + "biomes/industrialtechnologies.cfg");
         itdConfigFile = new File(configpath + "biomes/inthedarkness.cfg");
         fcConfigFile = new File(configpath + "biomes/flowercraft.cfg");
+        sfConfigFile = new File(configpath + "biomes/sugiforest.cfg");
         
         ConfigRTG.init(rtgConfigFile);
         
@@ -110,5 +113,6 @@ public class ConfigManager
         ConfigIDT.init(idtConfigFile);
         ConfigITD.init(itdConfigFile);
         ConfigFC.init(fcConfigFile);
+        ConfigSF.init(sfConfigFile);
     }
 }

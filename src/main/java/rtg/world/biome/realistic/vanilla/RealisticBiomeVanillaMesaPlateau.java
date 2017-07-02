@@ -41,6 +41,12 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_ID).set("minecraft:stained_hardened_clay");
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_METAS).set(BiomeConfig.MESA_PLATEAU_GRADIENT_METAS);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_ID).set("minecraft:hardened_clay");
+        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_META).set(0);
     }
 
     @Override
@@ -197,7 +203,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome().getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, plateauBand.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaPlateau.this, i, k, j));
                     }
                     else {
 

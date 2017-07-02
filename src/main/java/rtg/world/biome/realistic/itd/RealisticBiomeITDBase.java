@@ -1,4 +1,4 @@
-package rtg.world.biome.realistic.sushicraft;
+package rtg.world.biome.realistic.itd;
 
 
 import net.minecraft.world.biome.BiomeGenBase;
@@ -6,20 +6,18 @@ import net.minecraft.world.biome.BiomeGenBase;
 import cpw.mods.fml.common.Loader;
 
 import rtg.api.biome.BiomeConfig;
-import rtg.api.biome.sushicraft.config.BiomeConfigSC;
+import rtg.api.biome.itd.config.BiomeConfigITD;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-/**
- * Created by VelocityRa on 15/4/2016.
- */
 
-public class RealisticBiomeSCBase extends RealisticBiomeBase
+
+public class RealisticBiomeITDBase extends RealisticBiomeBase
 {
-    public static RealisticBiomeBase scSakuraForest;
+    public static RealisticBiomeBase itdDarkForest;
 
-    public RealisticBiomeSCBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
+    public RealisticBiomeITDBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
     {
         super(config, b, riverbiome, t, s);
 
@@ -29,7 +27,7 @@ public class RealisticBiomeSCBase extends RealisticBiomeBase
 
     public static void addBiomes()
     {
-        if (Loader.isModLoaded("sushicraft"))
+        if (Loader.isModLoaded("InTheDarkness"))
         {
             BiomeGenBase[] b = BiomeGenBase.getBiomeGenArray();
 
@@ -42,13 +40,13 @@ public class RealisticBiomeSCBase extends RealisticBiomeBase
                         continue;
                     }
 
-                    BiomeGenBase scBiome = b[i];
-                    String biomeName = scBiome.biomeName;
-                    String biomeClass = scBiome.getBiomeClass().getName();
+                    BiomeGenBase itdBiome = b[i];
+                    String biomeName = itdBiome.biomeName;
+                    String biomeClass = itdBiome.getBiomeClass().getName();
 
-                    if (biomeName == "Sakura Forest" && biomeClass == "fr.kingstone.sushicraft.world.biome.BiomeGenSakura")
+                    if (biomeName.equals("darkForest") && biomeClass.equals("mod.mcreator.mcreator_darkForest$BiomeGendarkForest"))
                     {
-                        scSakuraForest = new RealisticBiomeSCSakuraForest(scBiome, BiomeConfigSC.biomeConfigSCSakuraForest);
+                        itdDarkForest = new RealisticBiomeITDDarkForest(itdBiome, BiomeConfigITD.biomeConfigITDDarkForest);
                     }
                 }
             }

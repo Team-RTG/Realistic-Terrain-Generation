@@ -1,18 +1,21 @@
 package rtg.world.biome.realistic.chromaticraft;
 
 import net.minecraft.world.biome.BiomeGenBase;
+
+import cpw.mods.fml.common.Loader;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
-import cpw.mods.fml.common.Loader;
 
 public class RealisticBiomeCCBase extends RealisticBiomeBase
 {	
     public static RealisticBiomeBase ccEnderForest;
-    public static RealisticBiomeBase ccRainbowForest;
+	public static RealisticBiomeBase ccLuminousCliffs;
+	public static RealisticBiomeBase ccRainbowForest;
     
 	public RealisticBiomeCCBase(BiomeConfig config, BiomeGenBase b, BiomeGenBase riverbiome, TerrainBase t, SurfaceBase s)
 	{
@@ -45,10 +48,14 @@ public class RealisticBiomeCCBase extends RealisticBiomeBase
 					{
 					    ccEnderForest = new RealisticBiomeCCEnderForest(ccBiome, BiomeConfigCC.biomeConfigCCEnderForest);
 					}
-					else if (biomeName == "Rainbow Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeRainbowForest")
-					{
-					    ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
-					}
+                    else if (biomeName == "Luminous Cliffs" && biomeClass == "Reika.ChromatiCraft.World.BiomeGlowingCliffs")
+                    {
+                        ccLuminousCliffs = new RealisticBiomeCCLuminousCliffs(ccBiome, BiomeConfigCC.biomeConfigCCLuminousCliffs);
+                    }
+                    else if (biomeName == "Rainbow Forest" && biomeClass == "Reika.ChromatiCraft.World.BiomeRainbowForest")
+                    {
+                        ccRainbowForest = new RealisticBiomeCCRainbowForest(ccBiome, BiomeConfigCC.biomeConfigCCRainbowForest);
+                    }
 				}
 			}
 		}

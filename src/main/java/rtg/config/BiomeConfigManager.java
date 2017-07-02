@@ -1,6 +1,9 @@
 package rtg.config;
 
+import java.util.ArrayList;
+
 import net.minecraftforge.common.config.Configuration;
+
 import rtg.api.biome.BiomeConfig;
 import rtg.api.biome.BiomeConfigProperty;
 import rtg.api.biome.abyssalcraft.config.*;
@@ -13,7 +16,9 @@ import rtg.api.biome.buildcraft.config.BiomeConfigBCDesertOilField;
 import rtg.api.biome.buildcraft.config.BiomeConfigBCOceanOilField;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCEnderForest;
+import rtg.api.biome.chromaticraft.config.BiomeConfigCCLuminousCliffs;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCRainbowForest;
+import rtg.api.biome.eccentricbiomes.config.*;
 import rtg.api.biome.enhancedbiomes.config.*;
 import rtg.api.biome.extrabiomes.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
@@ -22,12 +27,16 @@ import rtg.api.biome.forgottennature.config.*;
 import rtg.api.biome.growthcraft.config.BiomeConfigGC;
 import rtg.api.biome.growthcraft.config.BiomeConfigGCBambooForest;
 import rtg.api.biome.highlands.config.*;
+import rtg.api.biome.hotwatermod.config.BiomeConfigHWM;
+import rtg.api.biome.hotwatermod.config.BiomeConfigHWMHotSprings;
 import rtg.api.biome.icmod.config.BiomeConfigIC;
 import rtg.api.biome.icmod.config.BiomeConfigICIceCream;
 import rtg.api.biome.idt.config.BiomeConfigIDT;
 import rtg.api.biome.idt.config.BiomeConfigIDTEbonyForest;
 import rtg.api.biome.idt.config.BiomeConfigIDTSilkwoodForest;
 import rtg.api.biome.idt.config.BiomeConfigIDTWillowForest;
+import rtg.api.biome.itd.config.BiomeConfigITD;
+import rtg.api.biome.itd.config.BiomeConfigITDDarkForest;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
@@ -40,8 +49,6 @@ import rtg.api.biome.tofucraft.config.*;
 import rtg.api.biome.vampirism.config.BiomeConfigVAMP;
 import rtg.api.biome.vampirism.config.BiomeConfigVAMPVampireForest;
 import rtg.api.biome.vanilla.config.*;
-
-import java.util.ArrayList;
 
 public class BiomeConfigManager
 {
@@ -56,10 +63,13 @@ public class BiomeConfigManager
         initBiomeConfigsCC();
         initBiomeConfigsEB();
         initBiomeConfigsEBXL();
+        initBiomeConfigsECC();
         initBiomeConfigsGC();
         initBiomeConfigsHL();
+        initBiomeConfigsHWM();
         initBiomeConfigsIC();
         initBiomeConfigsIDT();
+        initBiomeConfigsITD();
         initBiomeConfigsRW();
         initBiomeConfigsTC();
         initBiomeConfigsVAMP();
@@ -187,6 +197,7 @@ public class BiomeConfigManager
     public static void initBiomeConfigsCC()
     {
         BiomeConfigCC.biomeConfigCCEnderForest = new BiomeConfigCCEnderForest();
+        BiomeConfigCC.biomeConfigCCLuminousCliffs = new BiomeConfigCCLuminousCliffs();
         BiomeConfigCC.biomeConfigCCRainbowForest = new BiomeConfigCCRainbowForest();
     }
     
@@ -316,6 +327,26 @@ public class BiomeConfigManager
         BiomeConfigEBXL.biomeConfigEBXLWoodlands = new BiomeConfigEBXLWoodlands();
     }
 
+    public static void initBiomeConfigsECC()
+    {
+        BiomeConfigECC.biomeConfigECCAmethyst = new BiomeConfigECCAmethyst();
+        BiomeConfigECC.biomeConfigECCAmethystGrove = new BiomeConfigECCAmethystGrove();
+        BiomeConfigECC.biomeConfigECCArctic = new BiomeConfigECCArctic();
+        BiomeConfigECC.biomeConfigECCAutilField = new BiomeConfigECCAutilField();
+        BiomeConfigECC.biomeConfigECCBone = new BiomeConfigECCBone();
+        BiomeConfigECC.biomeConfigECCDeadLand = new BiomeConfigECCDeadLand();
+        BiomeConfigECC.biomeConfigECCDeathForest = new BiomeConfigECCDeathForest();
+        BiomeConfigECC.biomeConfigECCFertile = new BiomeConfigECCFertile();
+        BiomeConfigECC.biomeConfigECCFlamage = new BiomeConfigECCFlamage();
+        BiomeConfigECC.biomeConfigECCGlassland = new BiomeConfigECCGlassland();
+        BiomeConfigECC.biomeConfigECCHighLands = new BiomeConfigECCHighLands();
+        BiomeConfigECC.biomeConfigECCHive = new BiomeConfigECCHive();
+        BiomeConfigECC.biomeConfigECCObsidianForest = new BiomeConfigECCObsidianForest();
+        BiomeConfigECC.biomeConfigECCOcher = new BiomeConfigECCOcher();
+        BiomeConfigECC.biomeConfigECCSnowyDesert = new BiomeConfigECCSnowyDesert();
+        BiomeConfigECC.biomeConfigECCVoid = new BiomeConfigECCVoid();
+    }
+
     public static void initBiomeConfigsGC()
     {
         BiomeConfigGC.biomeConfigGCBambooForest = new BiomeConfigGCBambooForest();
@@ -373,16 +404,26 @@ public class BiomeConfigManager
         BiomeConfigHL.biomeConfigHLWoodsMountains = new BiomeConfigHLWoodsMountains();
     }
 
+    public static void initBiomeConfigsHWM()
+    {
+        BiomeConfigHWM.biomeConfigHWMHotSprings = new BiomeConfigHWMHotSprings();
+    }
+
     public static void initBiomeConfigsIC()
     {
         BiomeConfigIC.biomeConfigICIceCream = new BiomeConfigICIceCream();
     }
-    
+
     public static void initBiomeConfigsIDT()
     {
-    	BiomeConfigIDT.biomeConfigIDTEbonyForest = new BiomeConfigIDTEbonyForest();
-    	BiomeConfigIDT.biomeConfigIDTSilkwoodForest = new BiomeConfigIDTSilkwoodForest();
-    	BiomeConfigIDT.biomeConfigIDTWillowForest = new BiomeConfigIDTWillowForest();
+        BiomeConfigIDT.biomeConfigIDTEbonyForest = new BiomeConfigIDTEbonyForest();
+        BiomeConfigIDT.biomeConfigIDTSilkwoodForest = new BiomeConfigIDTSilkwoodForest();
+        BiomeConfigIDT.biomeConfigIDTWillowForest = new BiomeConfigIDTWillowForest();
+    }
+
+    public static void initBiomeConfigsITD()
+    {
+        BiomeConfigITD.biomeConfigITDDarkForest = new BiomeConfigITDDarkForest();
     }
 
     public static void initBiomeConfigsRW()

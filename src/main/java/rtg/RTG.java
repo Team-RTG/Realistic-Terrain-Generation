@@ -28,14 +28,17 @@ import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
+import rtg.world.biome.realistic.eccentricbiomes.RealisticBiomeECCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.forgottennature.RealisticBiomeFNBase;
 import rtg.world.biome.realistic.growthcraft.RealisticBiomeGCBase;
 import rtg.world.biome.realistic.highlands.RealisticBiomeHLBase;
+import rtg.world.biome.realistic.hotwatermod.RealisticBiomeHWMBase;
 import rtg.world.biome.realistic.icmod.RealisticBiomeICBase;
 import rtg.world.biome.realistic.idt.RealisticBiomeIDTBase;
+import rtg.world.biome.realistic.itd.RealisticBiomeITDBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
@@ -105,6 +108,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeEBBase.addBiomes();
         RealisticBiomeEBXLBase.addBiomes();
+        RealisticBiomeECCBase.addBiomes();
         RealisticBiomeHLBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();
@@ -120,7 +124,9 @@ public class RTG {
         RealisticBiomeFNBase.addBiomes();
         RealisticBiomeICBase.addBiomes();
         RealisticBiomeIDTBase.addBiomes();
+        RealisticBiomeITDBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeHWMBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

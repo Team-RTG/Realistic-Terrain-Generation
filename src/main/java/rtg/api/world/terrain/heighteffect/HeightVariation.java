@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 /**
  * @author Zeno410
@@ -14,9 +14,9 @@ public class HeightVariation extends HeightEffect {
     public int octave = -1;
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        return rtgWorld.simplex.octave(octave).noise2(x / wavelength, y / wavelength) * height;
+        return rtgWorld.simplex().octave(octave).noise2(x / wavelength, y / wavelength) * height;
     }
 
 }

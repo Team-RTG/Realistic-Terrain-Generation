@@ -5,7 +5,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.Bayesian;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
 
 public abstract class TerrainBase {
@@ -775,5 +775,5 @@ public abstract class TerrainBase {
         return baseHeight + h * border;
     }
 
-    public abstract float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
+    public abstract float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river);
 }

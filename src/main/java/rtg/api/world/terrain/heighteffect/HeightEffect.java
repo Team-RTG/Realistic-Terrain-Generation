@@ -4,14 +4,14 @@
 
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 /**
  * @author Zeno410
  */
 public abstract class HeightEffect {
 
-    public abstract float added(RTGWorld rtgWorld, float x, float y);
+    public abstract float added(IRTGWorld rtgWorld, float x, float y);
 
     public HeightEffect plus(HeightEffect added) {
 
@@ -30,7 +30,7 @@ public abstract class HeightEffect {
         }
 
         @Override
-        public float added(RTGWorld rtgWorld, float x, float y) {
+        public float added(IRTGWorld rtgWorld, float x, float y) {
 
             return one.added(rtgWorld, x, y) + two.added(rtgWorld, x, y);
         }

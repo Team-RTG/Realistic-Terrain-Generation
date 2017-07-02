@@ -14,7 +14,7 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.PlateauStep;
 import rtg.api.util.noise.SimplexOctave;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
@@ -74,10 +74,10 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
 
          
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            rtgWorld.simplex.riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
-        float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
-        float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
+        public float generateNoise(IRTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+            rtgWorld.simplex().riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
+            float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
+            float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
             float simplex = plateau.added(rtgWorld, x, y);
             //if (simplex > river) simplex = river;
             float bordercap = border *3.5f -2.5f;
@@ -85,11 +85,11 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
             float rivercap = 3f*river;
             if (rivercap > 1) rivercap = 1;
             simplex *= rivercap*bordercap;
-            float bumpiness = rtgWorld.simplex.octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            float bumpiness = rtgWorld.simplex().octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
             simplex += bumpiness;
             //if (simplex > bordercap) simplex = bordercap;
             float added = step.increase(simplex)/border;
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex),river) + added;
+            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
         }
         
     }
@@ -135,9 +135,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 100f, false);
+            return terrainPlateau(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, 100f, false);
         }
     }
 
@@ -148,7 +148,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
@@ -179,9 +179,9 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
@@ -197,7 +197,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, rtgWorld.mesaBiome().getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
                     }
                     else {
 

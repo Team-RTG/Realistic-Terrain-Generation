@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.templates;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 public class TerrainRollingHills extends TerrainBase {
@@ -19,11 +19,11 @@ public class TerrainRollingHills extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex);
+        groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex());
 
-        float m = hills(x, y, hillStrength, rtgWorld.simplex, river);
+        float m = hills(x, y, hillStrength, rtgWorld.simplex(), river);
 
         float floNoise = riverized(minHeight + groundNoise, river) + m;
 

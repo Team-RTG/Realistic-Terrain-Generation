@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SnowHeightCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 
 public class SurfacePolar extends SurfaceBase {
@@ -22,10 +22,10 @@ public class SurfacePolar extends SurfaceBase {
     }
 
     @Override
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        Random rand = rtgWorld.rand;
-        OpenSimplexNoise simplex = rtgWorld.simplex;
+        Random rand = rtgWorld.rand();
+        OpenSimplexNoise simplex = rtgWorld.simplex();
         boolean water = false;
         boolean riverPaint = false;
         boolean grass = false;

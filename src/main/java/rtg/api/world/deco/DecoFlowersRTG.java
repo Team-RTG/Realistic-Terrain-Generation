@@ -9,7 +9,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 
 import rtg.api.util.RandomUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenFlowersRTG;
 
@@ -67,11 +67,11 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), FLOWERS)) {
+            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), FLOWERS)) {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
@@ -88,7 +88,7 @@ public class DecoFlowersRTG extends DecoBase {
                             break;
 
                         case GET_HEIGHT_VALUE:
-                            intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                            intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
                             break;
 
                         default:
@@ -101,14 +101,14 @@ public class DecoFlowersRTG extends DecoBase {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
 
-                            worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                            worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                     else {
 
                         if (rand.nextInt(this.chance) == 0) {
 
-                            worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                            worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                 }

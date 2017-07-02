@@ -10,7 +10,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.LimitedSet;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.world.biome.realistic.RealisticBiomeBase.getBiome;
 import rtg.world.biome.realistic.RealisticBiomePatcher;

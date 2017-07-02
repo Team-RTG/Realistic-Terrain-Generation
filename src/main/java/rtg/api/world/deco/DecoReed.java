@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.REED;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
 /**
@@ -37,11 +37,11 @@ public class DecoReed extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), REED)) {
+            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), REED)) {
 
                 WorldGenerator worldGenerator = new WorldGenReed();
 
@@ -52,7 +52,7 @@ public class DecoReed extends DecoBase {
                     int intZ = worldZ + rand.nextInt(16) + 8;
 
                     if (intY <= this.maxY) {
-                        worldGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                        worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }

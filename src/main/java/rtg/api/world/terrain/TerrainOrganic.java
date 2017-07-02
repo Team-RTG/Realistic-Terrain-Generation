@@ -1,6 +1,6 @@
 package rtg.api.world.terrain;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 public class TerrainOrganic extends TerrainBase {
 
@@ -9,8 +9,8 @@ public class TerrainOrganic extends TerrainBase {
     }
 
     @Override
-    public float generateNoise(RTGWorld rtgWorld, int x, int z, float border, float river) {
+    public float generateNoise(IRTGWorld rtgWorld, int x, int z, float border, float river) {
 
-        return riverized(rtgWorld.organicBiomeGenerator.getHeightAt(x, z), river);
+        return riverized(rtgWorld.organicBiomeGenerator().getHeightAt(x, z), river);
     }
 }

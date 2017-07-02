@@ -15,7 +15,7 @@ import rtg.api.event.DecorateBiomeEventRTG;
 import rtg.api.util.DecoUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 
@@ -147,7 +147,7 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
@@ -156,7 +156,7 @@ public class DecoTree extends DecoBase {
              * The actual number of trees that end up being generated could be *less* than this value,
              * depending on environmental conditions.
              */
-            float noise = rtgWorld.simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
             int loopCount = this.loops;
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
@@ -185,7 +185,7 @@ public class DecoTree extends DecoBase {
              * the additional context.
              */
             DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(
-                rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), TREE, loopCount
+                rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), TREE, loopCount
             );
             MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
@@ -197,14 +197,14 @@ public class DecoTree extends DecoBase {
                     return;
                 }
 
-                WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
+                WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
                 DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
 
                     int intX = scatter.get(rand, worldX); // + 8;
                     int intZ = scatter.get(rand, worldZ); // + 8;
-                    int intY = rtgWorld.world.getHeight(new BlockPos(intX, 0, intZ)).getY();
+                    int intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
 
                     //Logger.info("noise = %f", noise);
 
@@ -228,14 +228,14 @@ public class DecoTree extends DecoBase {
                                 this.tree.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
                                 this.tree.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
                                 this.tree.setNoLeaves(this.noLeaves);
-                                this.tree.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                this.tree.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
 
                                 break;
 
                             case WORLDGEN:
 
                                 WorldGenerator worldgenerator = this.worldGen;
-                                worldgenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
 
                                 break;
 

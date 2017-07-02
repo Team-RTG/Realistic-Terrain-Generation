@@ -15,7 +15,7 @@ import biomesoplenty.api.block.BOPBlocks;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.helper.DecoHelperBorder;
 import rtg.api.world.surface.SurfaceBase;
@@ -97,17 +97,17 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
             //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
             //b *= b / cStrength;
             river *= 1.3f;
             river = river > 1f ? 1f : river;
-            float r = rtgWorld.simplex.noise2(x / 100f, y / 100f) * 50f;
+            float r = rtgWorld.simplex().noise2(x / 100f, y / 100f) * 50f;
             r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
             float b = (17f + r) * river;
 
-            float hn = rtgWorld.simplex.noise2(x / 12f, y / 12f) * 0.5f;
+            float hn = rtgWorld.simplex().noise2(x / 12f, y / 12f) * 0.5f;
             float sb = 0f;
             if(b > 0f)
             {
@@ -146,7 +146,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             }
             else if(b < 5f)
             {
-                bn = (rtgWorld.simplex.noise2(x / 7f, y / 7f) * 1.3f + rtgWorld.simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+                bn = (rtgWorld.simplex().noise2(x / 7f, y / 7f) * 1.3f + rtgWorld.simplex().noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
             }
 
             b += cTotal - bn;
@@ -189,10 +189,10 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -266,7 +266,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+        protected IBlockState hcCobble(IRTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
             return cragRock;
         }
     }

@@ -2,7 +2,7 @@ package rtg.world.biome.realistic;
 
 import net.minecraft.world.biome.Biome;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.collection.DecoCollectionBase;
@@ -101,7 +101,7 @@ public class RealisticBiomeCreator extends RealisticBiomeBase {
     }
 
     @Override
-    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
         return this.iRealisticBiome.lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize);
     }
 

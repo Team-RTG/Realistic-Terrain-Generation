@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 public class SurfaceEvent extends Event {
 
@@ -15,7 +15,7 @@ public class SurfaceEvent extends Event {
 
     public static class HardcodedBlock extends SurfaceEvent {
 
-        private RTGWorld rtgWorld;
+        private IRTGWorld rtgWorld;
         private int chunkX;
         private int chunkZ;
         private int worldX;
@@ -23,7 +23,7 @@ public class SurfaceEvent extends Event {
         private int worldZ;
         private IBlockState block;
 
-        public HardcodedBlock(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY, IBlockState defaultBlock) {
+        public HardcodedBlock(IRTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY, IBlockState defaultBlock) {
 
             super();
 
@@ -36,7 +36,7 @@ public class SurfaceEvent extends Event {
             this.block = defaultBlock;
         }
 
-        public RTGWorld getRTGWorld() {
+        public IRTGWorld getRTGWorld() {
 
             return rtgWorld;
         }

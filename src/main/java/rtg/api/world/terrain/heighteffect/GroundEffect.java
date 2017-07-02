@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 /**
@@ -17,9 +17,9 @@ public class GroundEffect extends HeightEffect {
     }
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        return TerrainBase.groundNoise(x, y, amplitude, rtgWorld.simplex);
+        return TerrainBase.groundNoise(x, y, amplitude, rtgWorld.simplex());
     }
 
 }

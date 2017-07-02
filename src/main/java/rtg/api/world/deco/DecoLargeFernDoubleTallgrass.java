@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenGrass;
 
@@ -45,11 +45,11 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
+            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
                 WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(GRASS_META), GRASS_META);
                 WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(FERN_META), FERN_META);
@@ -66,33 +66,33 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
 
                             if (rand.nextInt(this.fernChance) == 0) {
 
-                                worldgeneratorLargeFern.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgeneratorLargeFern.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                             }
                             else {
 
-                                worldgeneratorDoubleTallgrass.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgeneratorDoubleTallgrass.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                             }
                         }
                         else if (this.grassChance > 0) {
 
                             if (rand.nextInt(this.grassChance) == 0) {
 
-                                worldgeneratorDoubleTallgrass.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgeneratorDoubleTallgrass.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                             }
                             else {
 
-                                worldgeneratorLargeFern.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgeneratorLargeFern.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                             }
                         }
                         else {
 
                             if (rand.nextBoolean()) {
 
-                                worldgeneratorDoubleTallgrass.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgeneratorDoubleTallgrass.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                             }
                             else {
 
-                                worldgeneratorLargeFern.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                                worldgeneratorLargeFern.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                             }
                         }
                     }

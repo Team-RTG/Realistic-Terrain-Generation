@@ -308,11 +308,30 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
-        
+
         borderNoise = landscapeGenerator.noiseFor(cmr, cx * 16, cz * 16);
-        replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
+
+        IRealisticBiome[] jitteredBiomes = new IRealisticBiome[256];
+
+        IRealisticBiome jittered, actual;
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                rtgWorld.simplex.evaluateNoise(cx * 16 + i, cz * 16 + j, rtgWorld.surfaceJitter);
+                int pX = (int) Math.round(cx * 16 + i + rtgWorld.surfaceJitter.deltax() * rtgConfig.SURFACE_BLEED_RADIUS.get());
+                int pZ = (int) Math.round(cz * 16 + j + rtgWorld.surfaceJitter.deltay() * rtgConfig.SURFACE_BLEED_RADIUS.get());
+//                // These wont work, since they are pre-repair
+//                actual = cmr.getBiomeDataAt(cx * 16 + i, cz * 16 + j);
+//                jittered = cmr.getBiomeDataAt(pX, pZ);
+                actual = RealisticBiomeBase.getBiome(rtgWorld.getRepairedBiomeAt(cmr, cx * 16 + i, cz * 16 + j));
+                jittered = RealisticBiomeBase.getBiome(rtgWorld.getRepairedBiomeAt(cmr, pX, pZ));
+                jitteredBiomes[i * 16 + j] = (actual.getConfig().SURFACE_BLEED_IN.get() && jittered.getConfig().SURFACE_BLEED_OUT.get()) ? jittered : actual;
+            }
+        }
+
+        replaceBlocksForBiome(cx, cz, primer, jitteredBiomes, baseBiomesList, landscape.noise);
+
         TimeTracker.manager.stop(replace);
-        
+
         String features = "Vanilla Features";
         TimeTracker.manager.start(features);
         caveGenerator.generate(worldObj, cx, cz, primer);
@@ -401,10 +420,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         TimeTracker.manager.stop(features);
-        
+
         String housekeeping = "Terrain Housekeeping";
         TimeTracker.manager.start(housekeeping);
-        
+
         // store in the in process pile
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cz);
         inGeneration.put(pos, chunk);
@@ -735,21 +754,21 @@ public class ChunkProviderRTG implements IChunkGenerator
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  */
-                if (rtgConfig.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
+            if (rtgConfig.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
+
+                realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
+            }
+            else {
+
+                try {
+
+                    realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
+                }
+                catch (Exception e) {
 
                     realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
                 }
-                else {
-
-                    try {
-
-                        realisticBiome.baseBiome.decorate(this.worldObj, rand, new BlockPos(worldX, 0, worldZ));
-                    }
-                    catch (Exception e) {
-
-                        realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
-                    }
-                }
+            }
         }
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));

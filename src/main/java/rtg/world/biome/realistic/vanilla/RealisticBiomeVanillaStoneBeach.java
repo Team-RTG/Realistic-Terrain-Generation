@@ -29,6 +29,8 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_BLEED_IN.set(true);
+        this.getConfig().SURFACE_BLEED_OUT.set(true);
 
         this.getConfig().ALLOW_VILLAGES.set(false);
     }

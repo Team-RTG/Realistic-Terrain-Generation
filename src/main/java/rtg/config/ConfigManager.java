@@ -8,6 +8,7 @@ import rtg.config.atg.ConfigATG;
 import rtg.config.biomesoplenty.ConfigBOP;
 import rtg.config.buildcraft.ConfigBC;
 import rtg.config.chromaticraft.ConfigCC;
+import rtg.config.eccentricbiomes.ConfigECC;
 import rtg.config.enhancedbiomes.ConfigEB;
 import rtg.config.extrabiomes.ConfigEBXL;
 import rtg.config.flowercraft.ConfigFC;
@@ -33,6 +34,7 @@ public class ConfigManager
     public static File bopConfigFile;
     public static File ebxlConfigFile;
     public static File ebConfigFile;
+    public static File eccConfigFile;
     public static File hlConfigFile;
     public static File tcConfigFile;
     public static File bcConfigFile;
@@ -64,6 +66,7 @@ public class ConfigManager
         bopConfigFile = new File(configpath + "biomes/biomesoplenty.cfg");
         ebxlConfigFile = new File(configpath + "biomes/extrabiomes.cfg");
         ebConfigFile = new File(configpath + "biomes/enhancedbiomes.cfg");
+        eccConfigFile = new File(configpath + "biomes/eccentricbiomes.cfg");
         hlConfigFile = new File(configpath + "biomes/highlands.cfg");
         tcConfigFile = new File(configpath + "biomes/thaumcraft.cfg");
         bcConfigFile = new File(configpath + "biomes/buildcraft.cfg");
@@ -89,6 +92,7 @@ public class ConfigManager
         ConfigBOP.init(bopConfigFile);
         ConfigEBXL.init(ebxlConfigFile);
         ConfigEB.init(ebConfigFile);
+        ConfigECC.init(eccConfigFile);
         ConfigHL.init(hlConfigFile);
         ConfigTC.init(tcConfigFile);
         ConfigBC.init(bcConfigFile);

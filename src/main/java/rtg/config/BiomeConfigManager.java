@@ -18,6 +18,7 @@ import rtg.api.biome.chromaticraft.config.BiomeConfigCC;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCEnderForest;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCLuminousCliffs;
 import rtg.api.biome.chromaticraft.config.BiomeConfigCCRainbowForest;
+import rtg.api.biome.eccentricbiomes.config.*;
 import rtg.api.biome.enhancedbiomes.config.*;
 import rtg.api.biome.extrabiomes.config.*;
 import rtg.api.biome.flowercraft.config.BiomeConfigFC;
@@ -62,6 +63,7 @@ public class BiomeConfigManager
         initBiomeConfigsCC();
         initBiomeConfigsEB();
         initBiomeConfigsEBXL();
+        initBiomeConfigsECC();
         initBiomeConfigsGC();
         initBiomeConfigsHL();
         initBiomeConfigsHWM();
@@ -323,6 +325,26 @@ public class BiomeConfigManager
         BiomeConfigEBXL.biomeConfigEBXLTundra = new BiomeConfigEBXLTundra();
         BiomeConfigEBXL.biomeConfigEBXLWasteland = new BiomeConfigEBXLWasteland();
         BiomeConfigEBXL.biomeConfigEBXLWoodlands = new BiomeConfigEBXLWoodlands();
+    }
+
+    public static void initBiomeConfigsECC()
+    {
+        BiomeConfigECC.biomeConfigECCAmethyst = new BiomeConfigECCAmethyst();
+        BiomeConfigECC.biomeConfigECCAmethystGrove = new BiomeConfigECCAmethystGrove();
+        BiomeConfigECC.biomeConfigECCArctic = new BiomeConfigECCArctic();
+        BiomeConfigECC.biomeConfigECCAutilField = new BiomeConfigECCAutilField();
+        BiomeConfigECC.biomeConfigECCBone = new BiomeConfigECCBone();
+        BiomeConfigECC.biomeConfigECCDeadLand = new BiomeConfigECCDeadLand();
+        BiomeConfigECC.biomeConfigECCDeathForest = new BiomeConfigECCDeathForest();
+        BiomeConfigECC.biomeConfigECCFertile = new BiomeConfigECCFertile();
+        BiomeConfigECC.biomeConfigECCFlamage = new BiomeConfigECCFlamage();
+        BiomeConfigECC.biomeConfigECCGlassland = new BiomeConfigECCGlassland();
+        BiomeConfigECC.biomeConfigECCHighLands = new BiomeConfigECCHighLands();
+        BiomeConfigECC.biomeConfigECCHive = new BiomeConfigECCHive();
+        BiomeConfigECC.biomeConfigECCObsidianForest = new BiomeConfigECCObsidianForest();
+        BiomeConfigECC.biomeConfigECCOcher = new BiomeConfigECCOcher();
+        BiomeConfigECC.biomeConfigECCSnowyDesert = new BiomeConfigECCSnowyDesert();
+        BiomeConfigECC.biomeConfigECCVoid = new BiomeConfigECCVoid();
     }
 
     public static void initBiomeConfigsGC()

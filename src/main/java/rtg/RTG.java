@@ -28,6 +28,7 @@ import rtg.world.biome.realistic.atg.RealisticBiomeATGBase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCBase;
 import rtg.world.biome.realistic.chromaticraft.RealisticBiomeCCBase;
+import rtg.world.biome.realistic.eccentricbiomes.RealisticBiomeECCBase;
 import rtg.world.biome.realistic.enhancedbiomes.RealisticBiomeEBBase;
 import rtg.world.biome.realistic.extrabiomes.RealisticBiomeEBXLBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
@@ -107,6 +108,7 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeEBBase.addBiomes();
         RealisticBiomeEBXLBase.addBiomes();
+        RealisticBiomeECCBase.addBiomes();
         RealisticBiomeHLBase.addBiomes();
         RealisticBiomeTCBase.addBiomes();
         RealisticBiomeBCBase.addBiomes();

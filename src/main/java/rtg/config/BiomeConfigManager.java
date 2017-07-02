@@ -41,6 +41,8 @@ import rtg.api.biome.lotsomobs.config.BiomeConfigLOM;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMAntartica;
 import rtg.api.biome.lotsomobs.config.BiomeConfigLOMTropicalBeach;
 import rtg.api.biome.ridiculousworld.config.*;
+import rtg.api.biome.sugiforest.config.BiomeConfigSF;
+import rtg.api.biome.sugiforest.config.BiomeConfigSFSugiForest;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTC;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCEerie;
 import rtg.api.biome.thaumcraft.config.BiomeConfigTCMagicalForest;
@@ -71,6 +73,7 @@ public class BiomeConfigManager
         initBiomeConfigsIDT();
         initBiomeConfigsITD();
         initBiomeConfigsRW();
+        initBiomeConfigsSF();
         initBiomeConfigsTC();
         initBiomeConfigsVAMP();
         initBiomeConfigsLOM();
@@ -435,6 +438,11 @@ public class BiomeConfigManager
         BiomeConfigRW.biomeConfigRWRockCandyMountain = new BiomeConfigRWRockCandyMountain();
         BiomeConfigRW.biomeConfigRWShadowFen = new BiomeConfigRWShadowFen();
         BiomeConfigRW.biomeConfigRWSpookyForest = new BiomeConfigRWSpookyForest();
+    }
+
+    public static void initBiomeConfigsSF()
+    {
+        BiomeConfigSF.biomeConfigSFSugiForest = new BiomeConfigSFSugiForest();
     }
 
     public static void initBiomeConfigsTC()

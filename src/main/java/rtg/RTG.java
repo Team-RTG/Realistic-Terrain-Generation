@@ -41,6 +41,7 @@ import rtg.world.biome.realistic.idt.RealisticBiomeIDTBase;
 import rtg.world.biome.realistic.itd.RealisticBiomeITDBase;
 import rtg.world.biome.realistic.lotsomobs.RealisticBiomeLOMBase;
 import rtg.world.biome.realistic.ridiculousworld.RealisticBiomeRWBase;
+import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
 import rtg.world.biome.realistic.tofucraft.RealisticBiomeTOFUBase;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
@@ -127,6 +128,7 @@ public class RTG {
         RealisticBiomeITDBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
         RealisticBiomeHWMBase.addBiomes();
+        RealisticBiomeSFBase.addBiomes();
 
         RealisticBiomePresenceTester.doBiomeCheck();
     }

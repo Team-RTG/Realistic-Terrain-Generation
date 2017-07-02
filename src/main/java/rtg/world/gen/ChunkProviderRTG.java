@@ -319,9 +319,11 @@ public class ChunkProviderRTG implements IChunkGenerator
                 rtgWorld.simplex.evaluateNoise(cx * 16 + i, cz * 16 + j, rtgWorld.surfaceJitter);
                 int pX = (int) Math.round(cx * 16 + i + rtgWorld.surfaceJitter.deltax() * rtgConfig.SURFACE_BLEED_RADIUS.get());
                 int pZ = (int) Math.round(cz * 16 + j + rtgWorld.surfaceJitter.deltay() * rtgConfig.SURFACE_BLEED_RADIUS.get());
-                // TODO: These wont work, since they are pre-repair
-                actual = cmr.getBiomeDataAt(cx * 16 + i, cz * 16 + j);
-                jittered = cmr.getBiomeDataAt(pX, pZ);
+//                // These wont work, since they are pre-repair
+//                actual = cmr.getBiomeDataAt(cx * 16 + i, cz * 16 + j);
+//                jittered = cmr.getBiomeDataAt(pX, pZ);
+                actual = RealisticBiomeBase.getBiome(rtgWorld.getRepairedBiomeAt(cmr, cx * 16 + i, cz * 16 + j));
+                jittered = RealisticBiomeBase.getBiome(rtgWorld.getRepairedBiomeAt(cmr, pX, pZ));
                 jitteredBiomes[i * 16 + j] = (actual.getConfig().SURFACE_BLEED_IN.get() && jittered.getConfig().SURFACE_BLEED_OUT.get()) ? jittered : actual;
             }
         }

@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.RandomUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenBlock;
 
@@ -43,7 +43,7 @@ public class DecoCobwebs extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
@@ -55,7 +55,7 @@ public class DecoCobwebs extends DecoBase {
                 int k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
 
                 if (rand.nextInt(this.chance) == 0) {
-                    worldGenerator.generate(rtgWorld.world, rand, new BlockPos(i1, k1, j1));
+                    worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
                 }
             }
         }

@@ -12,11 +12,11 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.api.world.surface.SurfaceBase;
-import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
 import rtg.api.world.deco.collection.DecoCollectionExtremeHillsM;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBase {
 
@@ -61,9 +61,9 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, base - 62f);
+            return terrainHighland(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, start, width, height, base - 62f);
         }
     }
 
@@ -97,10 +97,10 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
@@ -154,8 +154,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionExtremeHillsM());
-        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionExtremeHillsM(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
     }
 
     @Override

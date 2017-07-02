@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionBase;
 import rtg.api.world.deco.helper.DecoHelper5050;
@@ -61,9 +61,9 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld.simplex, rtgWorld.cell, river, start, width, height, base - 62f);
+            return terrainHighland(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, start, width, height, base - 62f);
         }
     }
 
@@ -81,9 +81,9 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
@@ -125,7 +125,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionWoodland(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionWoodland(this.getConfig()));
     }
 
     private class DecoCollectionWoodland extends DecoCollectionBase {
@@ -138,14 +138,14 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private float short1Min = -3f;
         private float short1Max = -1f;
 
-        DecoCollectionWoodland(boolean fallenTrees) {
+        DecoCollectionWoodland(BiomeConfig config) {
 
-            super();
+            super(config);
 
             this
                 .addDeco(tallTrees(tallMin, tallMax)) // Tall trees first.
                 .addDeco(shortTrees(short1Min, short1Max)) // Short trees next.
-                .addDeco(logs(), fallenTrees) // Add some fallen trees of the oak and spruce variety (50/50 distribution).
+                .addDeco(logs(), config.ALLOW_LOGS.get()) // Add some fallen trees of the oak and spruce variety (50/50 distribution).
                 .addDeco(shrubsOak()) // Shrubs to fill in the blanks.
                 .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
                 .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.

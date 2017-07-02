@@ -13,7 +13,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.SnowHeightCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -49,9 +49,9 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-			return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 200f, 65f);
+			return terrainPlains(x, y, rtgWorld.simplex(), river, 160f, 10f, 60f, 200f, 65f);
         }
     }
 
@@ -92,9 +92,9 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		}
 
 		@Override
-		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-			Random rand = rtgWorld.rand;
+			Random rand = rtgWorld.rand();
 			float c = CliffCalculator.calc(x, z, noise);
 			boolean cliff = c > 1.4f ? true : false;
 
@@ -157,10 +157,10 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		}
 
 		@Override
-		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-			Random rand = rtgWorld.rand;
-			OpenSimplexNoise simplex = rtgWorld.simplex;
+			Random rand = rtgWorld.rand();
+			OpenSimplexNoise simplex = rtgWorld.simplex();
 			boolean water = false;
 			boolean riverPaint = false;
 			boolean grass = false;

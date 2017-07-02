@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.DecoFallenTree.LogCondition;
@@ -33,16 +34,16 @@ public class DecoCollectionForest extends DecoCollectionBase {
     private float short2Min = 3f;
     private float short2Max = 5f;
 
-    public DecoCollectionForest(boolean fallenTrees) {
+    public DecoCollectionForest(BiomeConfig config) {
 
-        super();
+        super(config);
 
         this
             .addDeco(tallTrees(tallMin, tallMax)) // Tall trees first.
             .addDeco(shortTrees(short1Min, short1Max)) // Short trees next.
             .addDeco(shortTrees(short2Min, short2Max)) // More short trees (on the other 'side' of the noise spectrum).
             .addDeco(randomTrees()) // More trees.
-            .addDeco(logs(), fallenTrees) // Add some fallen trees of the oak and spruce variety (50/50 distribution).
+            .addDeco(logs(), config.ALLOW_LOGS.get()) // Add some fallen trees of the oak and spruce variety (50/50 distribution).
             .addDeco(shrubsOak()) // Shrubs to fill in the blanks.
             .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
             .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.

@@ -3,6 +3,7 @@ package rtg.api.world.deco.collection;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
@@ -17,9 +18,9 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_R
  */
 public class DecoCollectionJungle extends DecoCollectionBase {
 
-    public DecoCollectionJungle(boolean fallenTrees, boolean cactus) {
+    public DecoCollectionJungle(BiomeConfig config) {
 
-        super();
+        super(config);
 
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
@@ -85,7 +86,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(3));
         decoFallenTree.setMinSize(4);
         decoFallenTree.setMaxSize(9);
-        this.addDeco(decoFallenTree, fallenTrees);
+        this.addDeco(decoFallenTree, config.ALLOW_LOGS.get());
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -116,7 +117,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoJungleCacti.setSandOnly(false);
         decoJungleCacti.setExtraHeight(7);
         decoJungleCacti.setSandMeta((byte) 1);
-        this.addDeco(decoJungleCacti, cactus);
+        this.addDeco(decoJungleCacti, config.ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();

@@ -45,6 +45,15 @@ public abstract class Config {
         }
     }
 
+    public boolean hasProperty(ConfigProperty prop) {
+        for (int i = 0; i < this.properties.size(); i++) {
+            if (this.properties.get(i).category.contentEquals(prop.category) && this.properties.get(i).name.contentEquals(prop.name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ConfigPropertyBoolean addProperty(ConfigPropertyBoolean property) {
         this.addProp(property);
         return property;

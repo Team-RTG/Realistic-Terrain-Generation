@@ -8,6 +8,12 @@ import rtg.api.config.property.ConfigProperty.Type;
 
 public class BiomeConfig extends Config {
 
+    public static final String MESA_PLATEAU_GRADIENT_METAS = "" +
+        "4,4,4,-1,-1,1,14,14,-1,8,0,-1,-1,-1,1,-1,-1,-1,1,8,0,12,12,12,-1,1,-1,1,-1,1,-1,-1,-1";
+
+    public static final String SAVANNA_PLATEAU_GRADIENT_METAS = "" +
+        "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
+
     /*
      * GLOBAL CONFIGS
      */
@@ -49,6 +55,15 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_MIX_FILLER_BLOCK_META;
     public final ConfigPropertyString SURFACE_MIX_2_BLOCK;
     public final ConfigPropertyInt SURFACE_MIX_2_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_3_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_3_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_4_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_4_BLOCK_META;
+    public final ConfigPropertyBoolean ALLOW_PLATEAU_MODIFICATIONS;
+    public final ConfigPropertyString PLATEAU_GRADIENT_BLOCK_ID;
+    public final ConfigPropertyString PLATEAU_GRADIENT_METAS;
+    public final ConfigPropertyString PLATEAU_BLOCK_ID;
+    public final ConfigPropertyInt PLATEAU_BLOCK_META;
     public final ConfigPropertyBoolean ALLOW_PALM_TREES;
     public final ConfigPropertyBoolean ALLOW_CACTUS;
     public final ConfigPropertyBoolean ALLOW_COBWEBS;
@@ -436,6 +451,100 @@ public class BiomeConfig extends Config {
             0, 0, 15
         );
 
+        SURFACE_MIX_3_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 3 Block ID",
+            "Surfaces.Mix 3 Top Block",
+            "If you want to change this biome's 3rd mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_3_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 3 Block Meta (Data Value)",
+            "Surfaces.Mix 3 Top Block",
+            "If you're using a custom 3rd mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 3rd mix block, you would enter minecraft:dirt for the Mix 3 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        SURFACE_MIX_4_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 4 Block ID",
+            "Surfaces.Mix 4 Top Block",
+            "If you want to change this biome's 4th mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_4_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 4 Block Meta (Data Value)",
+            "Surfaces.Mix 4 Top Block",
+            "If you're using a custom 4th mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 4th mix block, you would enter minecraft:dirt for the Mix 4 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        ALLOW_PLATEAU_MODIFICATIONS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Allow Plateau Modifications",
+            "Plateaus",
+            "",
+            false
+        );
+
+        PLATEAU_GRADIENT_BLOCK_ID = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Plateau Gradient Block ID",
+            "Plateaus.Gradient Blocks",
+            "The block to use for this biome's plateau gradients. Defaults to stained hardened clay." +
+                Configuration.NEW_LINE +
+                "This can be any block, but it works best with blocks that have multiple colours, such as stained hardened clay." +
+                Configuration.NEW_LINE +
+                "The various 'meta' options in this section will use this block to configure the plateau gradients.",
+            "minecraft:stained_hardened_clay"
+        );
+
+        PLATEAU_GRADIENT_METAS = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Plateau Gradient Block Meta Values",
+            "Plateaus.Gradient Blocks",
+            getPlateauGradientBlockMetasComment(),
+            MESA_PLATEAU_GRADIENT_METAS
+        );
+
+        PLATEAU_BLOCK_ID = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Plateau Block ID",
+            "Plateaus.Plateau Blocks",
+            "An extra block to use for Mesa & Savanna plateau gradients. Defaults to hardened clay." +
+                Configuration.NEW_LINE +
+                "When configuring the various 'meta' options in this section, use a value of '-1' to reference this block.",
+            "minecraft:hardened_clay"
+        );
+
+        PLATEAU_BLOCK_META = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Plateau Block Meta Value",
+            "Plateaus.Plateau Blocks",
+            "The meta value of the plateau block.",
+            0, 0, 15
+        );
+
         ALLOW_LOGS = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Allow Logs", "Decorations.Logs", "", true);
         ALLOW_PALM_TREES = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Palm Trees", "Decorations.Palm Trees", "", true);
         ALLOW_CACTUS = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Cactus", "Decorations.Cactus", "", true);
@@ -468,5 +577,19 @@ public class BiomeConfig extends Config {
         s = s.replaceAll("\\W", "");
 
         return s;
+    }
+
+    private static String getPlateauGradientBlockMetasComment()
+    {
+        String comment =
+            "Comma-separated list of meta values for the gradient plateau blocks used in this biome."
+                + Configuration.NEW_LINE +
+                "-1 = Plateau block; 0-15 = Plateau gradient block"
+                + Configuration.NEW_LINE +
+                "0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+                + Configuration.NEW_LINE +
+                "8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black";
+
+        return comment;
     }
 }

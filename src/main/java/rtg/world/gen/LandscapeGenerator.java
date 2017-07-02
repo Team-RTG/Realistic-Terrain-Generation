@@ -8,10 +8,10 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.util.TimedHashMap;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.world.RTGWorld;
 import rtg.util.TimeTracker;
 import rtg.world.biome.BiomeAnalyzer;
-import rtg.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -20,7 +20,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
  *
  * @author Zeno410
  */
-class LandscapeGenerator {
+public class LandscapeGenerator {
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private final int[] biomeData;
@@ -35,7 +35,7 @@ class LandscapeGenerator {
     private final WeakHashMap<ChunkPos,float[]> cache = new WeakHashMap();
     private MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
 
-    LandscapeGenerator(RTGWorld rtgWorld) {
+    public LandscapeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
         sampleArraySize = sampleSize * 2 + 5;
         biomeData = new int[sampleArraySize * sampleArraySize];
@@ -72,11 +72,11 @@ class LandscapeGenerator {
         return (biomeMapCoordinate - sampleSize)*8;
     }
 
-    int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz) {
+    public int getBiomeDataAt(IBiomeProviderRTG cmr, int cx, int cz) {
         int cx2 = cx&15;
         int cz2 = cz&15;
         ChunkLandscape target = this.landscape(cmr, cx-cx2, cz-cz2);
-        return Biome.getIdForBiome(target.biome[cx2*16+cz2].baseBiome);
+        return Biome.getIdForBiome(target.biome[cx2*16+cz2].baseBiome());
     }
 
     /*
@@ -104,7 +104,7 @@ class LandscapeGenerator {
         for(int i = -sampleSize; i < sampleSize + 5; i++) {
             for(int j = -sampleSize; j < sampleSize + 5; j++) {
                 biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] =
-                Biome.getIdForBiome(cmr.getBiomeDataAt(cx + ((i * 8)), cz + ((j * 8))).baseBiome);
+                Biome.getIdForBiome(cmr.getBiomeDataAt(cx + ((i * 8)), cz + ((j * 8))).baseBiome());
             }
         }
 

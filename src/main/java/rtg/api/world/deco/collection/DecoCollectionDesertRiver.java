@@ -2,6 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.DecoTree.TreeCondition;
 import rtg.api.world.deco.DecoTree.TreeType;
@@ -16,9 +17,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
  */
 public class DecoCollectionDesertRiver extends DecoCollectionBase {
 
-    public DecoCollectionDesertRiver(boolean allowCactus) {
+    public DecoCollectionDesertRiver(BiomeConfig config) {
 
-        super();
+        super(config);
 
         TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
         acaciaTree.setLogBlock(Blocks.LOG2.getDefaultState());
@@ -54,7 +55,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         decoRiverCactus.setMinRiver(0.7f);
         decoRiverCactus.setMaxY(80);
         decoRiverCactus.setStrengthFactor(12f);
-        this.addDeco(decoRiverCactus, allowCactus);
+        this.addDeco(decoRiverCactus, config.ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();
         decoReed.setCheckRiver(true);

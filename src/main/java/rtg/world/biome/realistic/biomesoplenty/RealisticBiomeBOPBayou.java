@@ -19,10 +19,11 @@ import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.VoronoiResult;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.RTGWorld;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
@@ -65,9 +66,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld.simplex, river, 80f, 1f, 40f, 20f, 62f);
+            return terrainPlains(x, y, rtgWorld.simplex(), river, 80f, 1f, 40f, 20f, 62f);
         }
     }
 
@@ -105,10 +106,10 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -178,12 +179,12 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize)
+    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize)
             // so, rather than lakes, we have a bayou network
     {
     	//this code is borrowed from WorldChunkManagerRTG with vars changes
             SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            rtgWorld.simplex.riverJitter().evaluateNoise((float)x / 40.0, (float)y / 40.0, jitter);
+            rtgWorld.simplex().riverJitter().evaluateNoise((float)x / 40.0, (float)y / 40.0, jitter);
             double pX = x + jitter.deltax() * 35f;
             double pY = y + jitter.deltay() * 35f;
             /*double[] simplexResults = new double[2];
@@ -193,7 +194,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        VoronoiResult results = rtgWorld.cell.river().eval(pX / 150.0, pY / 150.0);
+        VoronoiResult results = rtgWorld.cell().river().eval(pX / 150.0, pY / 150.0);
         if (border<.5) border = .5f;
         float result = (float)(results.interiorValue());
         // that will leave rivers too small

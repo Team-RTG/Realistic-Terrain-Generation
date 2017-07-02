@@ -15,7 +15,7 @@ import rtg.api.util.BiomeUtils;
 import rtg.api.util.Logger;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeManager;
@@ -27,6 +27,7 @@ import rtg.api.world.surface.SurfaceGeneric;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.TerrainOrganic;
+import rtg.world.RTGWorld;
 
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
@@ -261,7 +262,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         //return (float)Math.pow((pressure-shoreLevel)/(topLevel-shoreLevel),1.0);
     }
 
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
@@ -275,7 +277,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         }
     }
 
-    protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 

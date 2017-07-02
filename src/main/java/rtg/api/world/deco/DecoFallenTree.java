@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.DecoUtil;
 import rtg.api.util.WorldUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLog;
 
@@ -71,12 +71,12 @@ public class DecoFallenTree extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            float noise = rtgWorld.simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
+            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
 
             //Do we want to choose a random log?
             if (this.randomLogBlocks.length > 0) {
@@ -105,7 +105,7 @@ public class DecoFallenTree extends DecoBase {
                 if (isValidLogCondition(noise, strength, rand)) {
                     int x22 = worldX + rand.nextInt(16);// + 8;
                     int z22 = worldZ + rand.nextInt(16);// + 8;
-                    int y22 = rtgWorld.world.getHeight(new BlockPos(x22, 0, z22)).getY();
+                    int y22 = rtgWorld.world().getHeight(new BlockPos(x22, 0, z22)).getY();
 
                     if (y22 <= this.maxY) {
 
@@ -116,7 +116,7 @@ public class DecoFallenTree extends DecoBase {
                             }
                         }
 
-                        worldGenerator.generate(rtgWorld.world, rand, new BlockPos(x22, y22, z22));
+                        worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x22, y22, z22));
                     }
                 }
             }

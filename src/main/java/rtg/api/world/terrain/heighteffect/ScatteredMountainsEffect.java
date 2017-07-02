@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 /**
@@ -26,11 +26,11 @@ public class ScatteredMountainsEffect extends HeightEffect {
     private float adjustedBottom = TerrainBase.blendedHillHeight(0, 0f);
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        float noise = rtgWorld.simplex.octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
+        float noise = rtgWorld.simplex().octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
         noise = TerrainBase.blendedHillHeight(noise, 0f);
-        float spikeNoise = rtgWorld.simplex.octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
+        float spikeNoise = rtgWorld.simplex().octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
         spikeNoise = Math.abs(noise);
         spikeNoise = TerrainBase.blendedHillHeight(noise, 0f);
         spikeNoise *= spikeNoise;

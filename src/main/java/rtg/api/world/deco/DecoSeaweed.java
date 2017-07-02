@@ -8,7 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.BlockUtil;
 import rtg.api.util.RandomUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenSeaweed;
 
@@ -68,7 +68,7 @@ public class DecoSeaweed extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
@@ -77,7 +77,7 @@ public class DecoSeaweed extends DecoBase {
              * The actual amount of seaweed that ends up being generated could be *less* than this value,
              * depending on environmental conditions.
              */
-            float noise = rtgWorld.simplex.noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
             int loopCount = this.loops;
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
@@ -99,7 +99,7 @@ public class DecoSeaweed extends DecoBase {
 
                 if (intY <= this.maxY && intY >= this.minY && isValidCondition(noise, rand, strength)) {
 
-                    worldGen.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                    worldGen.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                 }
             }
         }

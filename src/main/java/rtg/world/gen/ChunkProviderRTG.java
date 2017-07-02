@@ -196,6 +196,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         sampleArraySize = sampleSize * 2 + 5;
         baseBiomesList = new Biome[256];
+        borderNoise = new float[256];
         biomePatcher = new RealisticBiomePatcher();
 
         // set up the cache of available chunks
@@ -308,11 +309,9 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
-        
-        borderNoise = landscapeGenerator.noiseFor(cmr, cx * 16, cz * 16);
         replaceBlocksForBiome(cx, cz, primer, landscape.biome, baseBiomesList, landscape.noise);
         TimeTracker.manager.stop(replace);
-        
+
         String features = "Vanilla Features";
         TimeTracker.manager.start(features);
         caveGenerator.generate(worldObj, cx, cz, primer);
@@ -401,10 +400,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         TimeTracker.manager.stop(features);
-        
+
         String housekeeping = "Terrain Housekeeping";
         TimeTracker.manager.start(housekeeping);
-        
+
         // store in the in process pile
         Chunk chunk = new Chunk(this.worldObj, primer, cx, cz);
         inGeneration.put(pos, chunk);
@@ -685,7 +684,17 @@ public class ChunkProviderRTG implements IChunkGenerator
          * Answer: building a frequency table of nearby biomes - Zeno.
          */
 
-        borderNoise = landscapeGenerator.noiseFor(cmr, worldX, worldZ);
+        final int adjust = 24;// seems off? but decorations aren't matching their chunks.
+
+        TimeTracker.manager.start("Biome Layout");
+        for (int bx = -4; bx <= 4; bx++) {
+
+            for (int bz = -4; bz <= 4; bz++) {
+                borderNoise[landscapeGenerator.getBiomeDataAt(cmr, worldX + adjust + bx * 4, worldZ + adjust + bz * 4)] += 0.01234569f;
+            }
+        }
+        TimeTracker.manager.stop("Biome Layout");
+        TimeTracker.manager.stop("Features");
 
         /*
          * ########################################################################
@@ -707,7 +716,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
 
-        TreeSet<Valued<RealisticBiomeBase>> activeBiomes = new TreeSet();
         for (int bn = 0; bn < 256; bn++) {
             if (borderNoise[bn] > 0f) {
                 if (borderNoise[bn] >= 1f) borderNoise[bn] = 1f;
@@ -719,16 +727,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
                         "NULL biome (" + bn + ") found when generating border noise.");
                 }
-                activeBiomes.add(new Valued(borderNoise[bn],realisticBiome));
 
-                borderNoise[bn] = 0f;
-            }
-        }
-
-        // for basebiomedeco interference: run the biomes in reverse order of influence
-        for (Valued<RealisticBiomeBase> biomeInfluence: activeBiomes.descendingSet()) {
-            realisticBiome = biomeInfluence.item();
-            float borderNoise = (float)biomeInfluence.value();
                 /*
                  * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
                  * If the biome configs don't allow it, then we try to let the base biome decorate itself.
@@ -737,7 +736,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  */
                 if (rtgConfig.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
-                    realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
+                    realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                 }
                 else {
 
@@ -747,9 +746,15 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                     catch (Exception e) {
 
-                        realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
+                        realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise[bn], river, hasPlacedVillageBlocks);
                     }
                 }
+            /*
+                if(realisticBiome.baseBiome.getTemperature() < 0.15f) {}
+                else {}
+            */
+                borderNoise[bn] = 0f;
+            }
         }
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(worldObj, rand, new BlockPos(worldX, 0, worldZ)));

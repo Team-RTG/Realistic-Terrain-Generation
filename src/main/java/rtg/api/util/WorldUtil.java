@@ -137,6 +137,34 @@ public class WorldUtil {
     }
 
     /**
+     * Checks to see if a given block is below a given coordinate.
+     * Use isSurroundedByBlock() with SurroundCheckType.DOWN if you want to check all blocks below.
+     */
+    public boolean isBlockBelow(IBlockState checkBlock, int checkDistance, World world, int x, int y, int z, boolean materialCheck) {
+
+        Material checkBlockMaterial = checkBlock.getMaterial();
+        IBlockState blockBelow;
+        Material m;
+
+        for (int i = 1; i <= checkDistance; i++) {
+
+            blockBelow = world.getBlockState(new BlockPos(x, y + checkDistance, z));
+
+            if (materialCheck) {
+                m = blockBelow.getMaterial();
+                if (m != checkBlockMaterial) {
+                    return false;
+                }
+            }
+            else if (blockBelow != checkBlock) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Checks if the Block has a bounding box.
      * @param world The world to check in
      * @param pos The position to check

@@ -145,6 +145,12 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt OCEAN_MONUMENT_SEPARATION;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Ocean waves
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyInt OCEAN_WAVE_DIRECTION;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ore gen
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -717,6 +723,21 @@ public class RTGConfig extends Config {
             5, 1, Integer.MAX_VALUE
         );
         this.addProperty(OCEAN_MONUMENT_SEPARATION);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Ocean waves
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        OCEAN_WAVE_DIRECTION = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Ocean Wave Direction",
+            "Ocean Waves",
+            "This setting determines the directin that ocean waves are placed."
+                + Configuration.NEW_LINE +
+                "0 = East->West; 1 = North->South",
+            0, 0, 1
+        );
+        this.addProperty(OCEAN_WAVE_DIRECTION);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Ore gen

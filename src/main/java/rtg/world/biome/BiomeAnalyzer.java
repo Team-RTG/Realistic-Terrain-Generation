@@ -4,10 +4,9 @@ package rtg.world.biome;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.common.BiomeDictionary;
-
 import rtg.api.RTGAPI;
 import rtg.api.util.CircularSearchCreator;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
@@ -22,7 +21,7 @@ public class BiomeAnalyzer {
     private boolean [] beachBiome;
     private boolean [] landBiome;
     private int [] preferredBeach;
-    private RealisticBiomeBase [] savedJittered;
+    private IRealisticBiome [] savedJittered;
     private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
     private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
     private SmoothingSearchStatus beachSearch;
@@ -299,44 +298,11 @@ public class BiomeAnalyzer {
         }
     }
 
-    public static Biome getPreferredBeachForBiome(Biome biome) {
-
-        /*
-         * Some of this code is from Climate Control, and it's still a bit crude. - Zeno
-         * Some of this code is from Pink's brain, and it's also a bit crude. - Pink
-         */
-
-        float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
-        float temp = biome.getTemperature();
-
-        // Use a cold beach if the temperature is low enough; otherwise, just use a normal beach.
-        Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
-
-        // If this is a mountainous biome or a Taiga variant, then let's use a stone beach.
-        if ((height > (1.0f + 0.5f) && temp > 0.05f) || isTaigaBiome(biome)) {
-            beach = Biomes.STONE_BEACH;
-        }
-
-        // Snowy biomes should always use cold beach; otherwise, the transition looks too abrupt.
-        if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY)) {
-            beach = Biomes.COLD_BEACH;
-        }
-
-        return beach;
-    }
-
-    private static boolean isTaigaBiome(Biome biome) {
-        return BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.COLD)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.CONIFEROUS)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FOREST)
-            && !BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY);
-    }
-
     /* HUNTING
      *
      */
 
-    public void newRepair(int [] genLayerBiomes, RealisticBiomeBase [] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float [] riverStrength) {
+    public void newRepair(int [] genLayerBiomes, IRealisticBiome[] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float [] riverStrength) {
 
         int sampleSize = 8;
         RealisticBiomeBase realisticBiome;
@@ -384,7 +350,7 @@ public class BiomeAnalyzer {
             if (beachSearch.absent) break; //no point
             float beachBottom = 61.5f;
             if (noise[i]< beachBottom ||noise[i]>riverAdjusted(beachTop,riverStrength[i])) continue;// this block isn't beach level
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             if (swampBiome[biomeID]) continue;// swamps are acceptable at beach level
             if (beachSearch.notHunted) {
                 beachSearch.hunt(biomeNeighborhood);
@@ -414,7 +380,7 @@ public class BiomeAnalyzer {
             if (landSearch.absent&&beachSearch.absent) break; //no point
             // skip if this block isn't above beach level, adjusted for river effect to prevent abrupt beach stops
             if (noise[i] < riverAdjusted(beachTop, riverStrength[i])) continue;
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             // already land
             if (landBiome[biomeID]) continue;
             // swamps are acceptable above water
@@ -449,7 +415,7 @@ public class BiomeAnalyzer {
             if (oceanSearch.absent) break; //no point
             float oceanTop = 61.5f;
             if (noise[i]> oceanTop) continue;// too hight
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             if (oceanBiome[biomeID]) continue;// obviously ocean is OK
             if (swampBiome[biomeID]) continue;// swamps are acceptable
             if (riverBiome[biomeID]) continue;// rivers stay rivers
@@ -469,13 +435,13 @@ public class BiomeAnalyzer {
         }
         // convert remainder below sea level to lake biome
         for (int i = 0; i < 256; i++) {
-            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome);
+            int biomeID = Biome.getIdForBiome(jitteredBiomes[i].baseBiome());
             if (noise[i]<=61.5&&!riverBiome[biomeID]) {
                 // check for river
                 if (!oceanBiome[biomeID] &&
                     !swampBiome[biomeID] &&
                     !beachBiome[biomeID]) {
-                    int riverReplacement = Biome.getIdForBiome(jitteredBiomes[i].riverBiome); // make river
+                    int riverReplacement = Biome.getIdForBiome(jitteredBiomes[i].riverBiome()); // make river
                     if (riverReplacement == Biome.getIdForBiome(Biomes.FROZEN_RIVER))
                         jitteredBiomes[i] = scenicFrozenLakeBiome;
                     else jitteredBiomes[i] = scenicLakeBiome;

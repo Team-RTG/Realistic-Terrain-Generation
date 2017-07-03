@@ -165,18 +165,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_ORE_GEN_EVENT_CANCELLATION;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Plateaus
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    public final ConfigPropertyString PLATEAU_GRADIENT_BLOCK_ID;
-    public final ConfigPropertyString MESA_BRYCE_GRADIENT_STRING;
-    public final ConfigPropertyString MESA_GRADIENT_STRING;
-    public final ConfigPropertyString SAVANNA_GRADIENT_STRING;
-    public final ConfigPropertyString PLATEAU_BLOCK_ID;
-    public final ConfigPropertyInt PLATEAU_BLOCK_META;
-    public final ConfigPropertyBoolean STONE_SAVANNAS;
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ravines
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -277,6 +265,12 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS;
     public final ConfigPropertyInt VOLCANO_CONDUIT_DEPTH;
     public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Surface Bleeding
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyInt SURFACE_BLEED_RADIUS;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -779,81 +773,6 @@ public class RTGConfig extends Config {
             true
         );
         this.addProperty(ALLOW_ORE_GEN_EVENT_CANCELLATION);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // Plateaus
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        PLATEAU_GRADIENT_BLOCK_ID = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block ID",
-            "Plateaus",
-            "The block to use for Mesa & Savanna plateau gradients. Defaults to stained hardened clay." +
-                Configuration.NEW_LINE +
-                "This can be any block, but it works best with blocks that have multiple colours, such as stained hardened clay." +
-                Configuration.NEW_LINE +
-                "The various 'meta' options in this section will use this block to configure the plateau gradients.",
-            "minecraft:stained_hardened_clay"
-        );
-        this.addProperty(PLATEAU_GRADIENT_BLOCK_ID);
-
-        MESA_BRYCE_GRADIENT_STRING = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block Meta Values (Mesa Bryce)",
-            "Plateaus",
-            getPlateauGradientBlockMetasComment("Mesa Bryce biome"),
-            "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8"
-        );
-        this.addProperty(MESA_BRYCE_GRADIENT_STRING);
-
-        MESA_GRADIENT_STRING = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block Meta Values (Mesa)",
-            "Plateaus",
-            getPlateauGradientBlockMetasComment("Mesa biome variants (doesn't include Mesa Bryce)"),
-            "0,1,8,14,1,8"
-        );
-        this.addProperty(MESA_GRADIENT_STRING);
-
-        SAVANNA_GRADIENT_STRING = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block Meta Values (Savanna)",
-            "Plateaus",
-            getPlateauGradientBlockMetasComment("Savanna biome variants"),
-            "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12"
-        );
-        this.addProperty(SAVANNA_GRADIENT_STRING);
-
-        PLATEAU_BLOCK_ID = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Plateau Block ID",
-            "Plateaus",
-            "An extra block to use for Mesa & Savanna plateau gradients. Defaults to hardened clay." +
-                Configuration.NEW_LINE +
-                "When configuring the various 'meta' options in this section, use a value of '-1' to reference this block.",
-            "minecraft:hardened_clay"
-        );
-        this.addProperty(PLATEAU_BLOCK_ID);
-
-        PLATEAU_BLOCK_META = new ConfigPropertyInt(
-            ConfigProperty.Type.INTEGER,
-            "Plateau Block Meta Value",
-            "Plateaus",
-            "The meta value of the plateau block.",
-            0, 0, 15
-        );
-        this.addProperty(PLATEAU_BLOCK_META);
-
-        STONE_SAVANNAS = new ConfigPropertyBoolean(
-            ConfigProperty.Type.BOOLEAN,
-            "Use stone for most Savanna biome variants",
-            "Plateaus",
-            "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of gradient blocks for cliffs and plateaus."
-                + Configuration.NEW_LINE +
-                "Savanna Plateau M will always use gradient blocks.",
-            true
-        );
-        this.addProperty(STONE_SAVANNAS);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Ravines
@@ -1424,6 +1343,22 @@ public class RTGConfig extends Config {
         );
         this.addProperty(VOLCANO_CALDERA_MULTIPLIER);
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Surface Bleeding
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        SURFACE_BLEED_RADIUS = this.addProperty(new ConfigPropertyInt(
+                ConfigProperty.Type.INTEGER,
+                "Surface Bleed Radius",
+                "Surface Bleed",
+                "The maximum distance surfaces will bleed. Set to 0 to disable surface bleeds." +
+                Configuration.NEW_LINE +
+                "Per default surface bleeding is only enabled for beaches. You can control that in biome settings",
+                16, 0, 32
+        ));
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }

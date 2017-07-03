@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 /**
  * // just adds a constant increase
@@ -18,7 +18,7 @@ public class RaiseEffect extends HeightEffect {
     }
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
         return height;
     }

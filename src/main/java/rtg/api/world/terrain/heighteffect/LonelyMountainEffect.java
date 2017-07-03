@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 /**
@@ -24,15 +24,15 @@ public class LonelyMountainEffect extends HeightEffect {
     private float adjustedBottom = TerrainBase.blendedHillHeight(0, 0f);
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        float noise = rtgWorld.simplex.octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
+        float noise = rtgWorld.simplex().octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, 0f);
         //transform to be more mountainous
         noise = TerrainBase.unsignedPower(noise, 1.7f);
         noise = 1f - (1f - noise) / (1f - adjustedBottom);
-        float spikeNoise = rtgWorld.simplex.octave(spikeOctave).noise2((float) x / spikeWavelength, (float) y / spikeWavelength);
+        float spikeNoise = rtgWorld.simplex().octave(spikeOctave).noise2((float) x / spikeWavelength, (float) y / spikeWavelength);
         spikeNoise = Math.abs(noise);
         spikeNoise = TerrainBase.blendedHillHeight(noise, 0f);
         spikeNoise *= noise;

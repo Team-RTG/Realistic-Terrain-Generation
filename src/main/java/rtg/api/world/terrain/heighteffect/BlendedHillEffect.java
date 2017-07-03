@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 /**
@@ -22,9 +22,9 @@ public class BlendedHillEffect extends HeightEffect {
     public HeightEffect subordinate;
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        float noise = rtgWorld.simplex.octave(octave).noise2(x / wavelength, y / wavelength);
+        float noise = rtgWorld.simplex().octave(octave).noise2(x / wavelength, y / wavelength);
         noise = TerrainBase.blendedHillHeight(noise, hillBottomSimplexValue);
         if (subordinate == null) {
             return noise * height;

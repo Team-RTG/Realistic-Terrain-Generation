@@ -3,6 +3,7 @@ package rtg.api.world.deco.collection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -18,9 +19,9 @@ public class DecoCollectionOcean extends DecoCollectionBase {
 
     private int maxY = 56;
 
-    public DecoCollectionOcean() {
+    public DecoCollectionOcean(BiomeConfig config) {
 
-        super();
+        super(config);
 
         this.addDeco(boulderDecos()) // Mossy, non-mossy & prismarine boulders.
             .addDeco(sponge()) // Rare, wet sponge (only in deeper waters).

@@ -14,13 +14,11 @@ import biomesoplenty.api.biome.BOPBiomes;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.deco.DecoSingleBiomeDecorations;
 
 public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
 
@@ -48,9 +46,9 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 66f);
+            return terrainPlains(x, y, rtgWorld.simplex(), river, 160f, 10f, 60f, 80f, 66f);
         }
     }
 
@@ -88,10 +86,10 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -174,7 +172,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         decoGrass.setStrengthFactor(6f);
         this.addDeco(decoGrass);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoSingleBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesert;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
@@ -51,19 +51,19 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
             float duneHeight = (minDuneHeight + (float) rtgConfig.DUNE_HEIGHT.get());
 
-            duneHeight *= (1f + rtgWorld.simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+            duneHeight *= (1f + rtgWorld.simplex().octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 
             float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
             float stFactor = duneHeight;
             float hPitch = 70;    // Dune scale
             float hDivisor = 40;
 
-            return terrainPolar(x, y, rtgWorld.simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
-                groundNoise(x, y, 1f, rtgWorld.simplex);
+            return terrainPolar(x, y, rtgWorld.simplex(), river, stPitch, stFactor, hPitch, hDivisor, base) +
+                groundNoise(x, y, 1f, rtgWorld.simplex());
         }
     }
 
@@ -74,7 +74,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
@@ -92,10 +92,10 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             boolean water = false;
             boolean riverPaint = false;
             boolean grass = false;
@@ -140,8 +140,8 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
-        this.addDecoCollection(new DecoCollectionDesert(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionDesert(this.getConfig()));
     }
 
     @Override

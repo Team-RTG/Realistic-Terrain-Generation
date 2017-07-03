@@ -4,7 +4,7 @@ import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
 /**
@@ -16,24 +16,24 @@ public class DecoBaseBiomeDecorations extends DecoBase {
      * This optional setting is useful when you want the base biome to decorate a majority of the biome's chunks.
      * Only used if greater than 0
      */
-    private int equalsZeroChance;
+    protected int equalsZeroChance;
 
     /**
      * This optional setting is useful when you want the base biome to decorate a minority of the biome's chunks.
      * Only used if greater than 0
      */
-    private int notEqualsZeroChance;
+    protected int notEqualsZeroChance;
 
     /**
      * How many times per chunk do we want the base biome to decorate itself? (Usually only once)
      */
-    private int loops;
+    protected int loops;
 
     /**
      * Height restriction.
      */
-    private int minY;
-    private int maxY;
+    protected int minY;
+    protected int maxY;
 
     public DecoBaseBiomeDecorations() {
 
@@ -53,31 +53,31 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
             for (int i = 0; i < loops; i++) {
 
-                int intY = rtgWorld.world.getHeight(new BlockPos(worldX, 0, worldZ)).getY();
+                int intY = rtgWorld.world().getHeight(new BlockPos(worldX, 0, worldZ)).getY();
 
                 if (intY >= this.minY && intY <= this.maxY) {
 
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
+                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
                         }
                     }
                     else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
+                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
                         }
                     }
                     else {
 
-                        biome.rDecorator().rDecorateSeedBiome(rtgWorld.world, rand, worldX, worldZ, rtgWorld.simplex, rtgWorld.cell, strength, river);
+                        biome.rDecorator().rDecorateSeedBiome(rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
                     }
                 }
             }

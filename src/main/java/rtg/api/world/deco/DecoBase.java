@@ -6,7 +6,7 @@ import java.util.Random;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
 /**
@@ -46,7 +46,7 @@ public abstract class DecoBase {
     /**
      * Performs pre-generation checks to determine if the deco is allowed to generate.
      */
-    public boolean preGenerate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public boolean preGenerate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.checkRiver) {
 
@@ -62,7 +62,7 @@ public abstract class DecoBase {
      * Generates the decoration.
      * This method should be overridden in the individual deco objects.
      */
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
     }
 

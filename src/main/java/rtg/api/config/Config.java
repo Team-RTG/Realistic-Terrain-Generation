@@ -14,6 +14,7 @@ import rtg.api.config.property.*;
 public abstract class Config {
 
     protected ArrayList<ConfigProperty> properties = new ArrayList<ConfigProperty>();
+    private Configuration config;
 
     public ArrayList<ConfigProperty> getProperties() {
 
@@ -22,9 +23,9 @@ public abstract class Config {
 
     protected void addProp(ConfigProperty property) {
 
-        for (int i = 0; i < this.properties.size(); i++) {
+        for (ConfigProperty prop : this.properties) {
 
-            if (this.properties.get(i).name.contentEquals(property.name)) {
+            if (prop.name.contentEquals(property.name)) {
                 removeProp(property.name);
                 break;
             }
@@ -42,6 +43,15 @@ public abstract class Config {
                 return;
             }
         }
+    }
+
+    public boolean hasProperty(ConfigProperty prop) {
+        for (int i = 0; i < this.properties.size(); i++) {
+            if (this.properties.get(i).category.contentEquals(prop.category) && this.properties.get(i).name.contentEquals(prop.name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ConfigPropertyBoolean addProperty(ConfigPropertyBoolean property) {
@@ -66,22 +76,20 @@ public abstract class Config {
 
     public void load(String configFile) {
 
-        Configuration config = new Configuration(new File(configFile));
+        config = new Configuration(new File(configFile));
 
         try {
             config.load();
 
             ArrayList<ConfigProperty> properties = this.getProperties();
 
-            for (int j = 0; j < properties.size(); j++) {
-
-                ConfigProperty prop = properties.get(j);
+            for (ConfigProperty prop : properties) {
 
                 switch (prop.type) {
 
                     case INTEGER:
 
-                        ConfigPropertyInt propInt = (ConfigPropertyInt)properties.get(j);
+                        ConfigPropertyInt propInt = (ConfigPropertyInt) prop;
 
                         propInt.set(config.getInt(
                             propInt.name,
@@ -96,7 +104,7 @@ public abstract class Config {
 
                     case FLOAT:
 
-                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat)properties.get(j);
+                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat) prop;
 
                         propFloat.set(config.getFloat(
                             propFloat.name,
@@ -111,7 +119,7 @@ public abstract class Config {
 
                     case BOOLEAN:
 
-                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)properties.get(j);
+                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean) prop;
 
                         propBool.set(config.getBoolean(
                             propBool.name,
@@ -124,7 +132,7 @@ public abstract class Config {
 
                     case STRING:
 
-                        ConfigPropertyString propString = (ConfigPropertyString)properties.get(j);
+                        ConfigPropertyString propString = (ConfigPropertyString) prop;
 
                         propString.set(config.getString(
                             propString.name,
@@ -149,5 +157,9 @@ public abstract class Config {
                 config.save();
             }
         }
+    }
+
+    public Configuration getConfig() {
+        return config;
     }
 }

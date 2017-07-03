@@ -1,7 +1,7 @@
 package rtg.api.world.terrain.heighteffect;
 
 import rtg.api.util.noise.SimplexOctave;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 
 /**
  * This class returns a height effect with a jitter on the position.
@@ -28,13 +28,13 @@ public class JitterEffect extends HeightEffect {
     }
 
     @Override
-    public final float added(RTGWorld rtgWorld, float x, float y) {
+    public final float added(IRTGWorld rtgWorld, float x, float y) {
 
         if (running) {
             throw new RuntimeException();
         }
         running = true;
-        rtgWorld.simplex.riverJitter().evaluateNoise((float) x / wavelength, (float) y / wavelength, jitter);
+        rtgWorld.simplex().riverJitter().evaluateNoise((float) x / wavelength, (float) y / wavelength, jitter);
         int pX = (int) Math.round(x + jitter.deltax() * amplitude);
         int pY = (int) Math.round(y + jitter.deltay() * amplitude);
         running = false;

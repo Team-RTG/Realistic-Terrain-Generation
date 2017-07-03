@@ -13,7 +13,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionMegaTaiga;
 import rtg.api.world.surface.SurfaceBase;
@@ -52,9 +52,9 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 
         }
 
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex, river, 13f, 66f);
+            return terrainFlatLakes(x, y, rtgWorld.simplex(), river, 13f, 66f);
         }
     }
 
@@ -72,10 +72,10 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
@@ -153,7 +153,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         decoBoulder.setStrengthFactor(3f);
         this.addDeco(decoBoulder);
 
-        this.addDecoCollection(new DecoCollectionMegaTaiga());
+        this.addDecoCollection(new DecoCollectionMegaTaiga(this.getConfig()));
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(100f);

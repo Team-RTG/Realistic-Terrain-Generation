@@ -12,14 +12,16 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
-import rtg.api.world.RTGWorld;
-import rtg.api.util.CanyonColour;
+import rtg.api.util.PlateauStep;
+import rtg.api.util.noise.SimplexOctave;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaBase {
 
@@ -37,14 +39,68 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_ID).set("minecraft:stained_hardened_clay");
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_METAS).set(BiomeConfig.SAVANNA_PLATEAU_GRADIENT_METAS);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_ID).set("minecraft:hardened_clay");
+        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_META).set(0);
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f);
+        return new TerrainRTGSavannaPlateauM(67);
+        //return new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f);
     }
 
+    public static class TerrainRTGSavannaPlateauM extends TerrainBase {
+
+        final PlateauStep step;
+        final VoronoiPlateauEffect plateau;
+        final int groundNoise;
+        private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
+        private float jitterWavelength = 30;
+        private float jitterAmplitude = 10;
+        private float bumpinessMultiplier = 0.05f;
+        private float bumpinessWavelength = 10f;
+        private int bumpinessOctave = 2;
+
+        public TerrainRTGSavannaPlateauM(float base) {
+            plateau = new VoronoiPlateauEffect();
+            step = new PlateauStep();
+            step.finish = 0.4f;
+            step.start = 0.25f;
+            plateau.pointWavelength = 200;
+            this.base = base;
+            groundNoise = 4;
+        }
+
+
+
+        @Override
+        public float generateNoise(IRTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+            rtgWorld.simplex().riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
+            float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
+            float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
+            float simplex = plateau.added(rtgWorld, x, y);
+            //if (simplex > river) simplex = river;
+            float bordercap = border *3.5f -2.5f;
+            if (bordercap > 1) bordercap = 1;
+            float rivercap = 3f*river;
+            if (rivercap > 1) rivercap = 1;
+            simplex *= rivercap*bordercap;
+            float bumpiness = rtgWorld.simplex().octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            simplex += bumpiness;
+            //if (simplex > bordercap) simplex = bordercap;
+            float added = step.increase(simplex)/border;
+            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
+        }
+
+    }
     public class TerrainVanillaSavannaPlateauM extends TerrainBase {
 
         private float[] height;
@@ -84,9 +140,9 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 50f, true);
+            return terrainPlateau(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, 50f, true);
         }
     }
 
@@ -104,17 +160,21 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     public class SurfaceVanillaSavannaPlateauM extends SurfaceBase {
 
         private int grassRaise = 0;
+        private IBlockState mixBlock;
+        private IBlockState mix2Block;
 
         public SurfaceVanillaSavannaPlateauM(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
 
             super(config, top, fill);
             grassRaise = grassHeight;
+
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateDirt(1));
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
@@ -130,24 +190,24 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                     depth++;
 
                     if (cliff) {
-//                    if (!rtgConfig.STONE_SAVANNAS.get()) {
-                        primer.setBlockState(x, k, z, CanyonColour.SAVANNA.getBlockForHeight(i, k, j));
-//                    }
-//                    else {
-//                        if (depth > -1 && depth < 2) {
-//                            if (rand.nextInt(3) == 0) {
-//
-//                                primer.setBlockState(x, k, z, hcCobble(world, i, j, x, y, k));
-//                            }
-//                            else {
-//
-//                                primer.setBlockState(x, k, z, hcStone(world, i, j, x, y, k));
-//                            }
-//                        }
-//                        else if (depth < 10) {
-//                            primer.setBlockState(x, k, z, hcStone(world, i, j, x, y, k));
-//                        }
-//                    }
+                        if (biomeConfig.ALLOW_PLATEAU_MODIFICATIONS.get()) {
+                            primer.setBlockState(x, k, z, plateauBand.getPlateauBand(rtgWorld, RealisticBiomeVanillaSavannaPlateauM.this, i, k, j));
+                        }
+                        else {
+                            if (depth > -1 && depth < 2) {
+                                if (rand.nextInt(3) == 0) {
+
+                                    primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                }
+                                else {
+
+                                    primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                }
+                            }
+                            else if (depth < 10) {
+                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            }
+                        }
                     }
                     else {
 
@@ -155,7 +215,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                         {
                             if (depth == 0) {
                                 if (rand.nextInt(5) == 0) {
-                                    primer.setBlockState(x, k, z, BlockUtil.getStateDirt(1));
+                                    primer.setBlockState(x, k, z, mixBlock);
                                 }
                                 else {
                                     primer.setBlockState(x, k, z, topBlock);
@@ -169,11 +229,11 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
                             int r = (int)((k - (62 + grassRaise)) / 2f);
                             if(rand.nextInt(r + 2) == 0)
                             {
-                                primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
+                                primer.setBlockState(x, k, z, topBlock);
                             }
                             else if(rand.nextInt((int)(r / 2f) + 2) == 0)
                             {
-                                primer.setBlockState(x, k, z, BlockUtil.getStateDirt(1));
+                                primer.setBlockState(x, k, z, mixBlock);
                             }
                             else
                             {
@@ -192,7 +252,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -226,7 +286,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         acaciaTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         acaciaTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         acaciaTrees.setTreeConditionChance(12);
-        acaciaTrees.setMaxY(160);
+        acaciaTrees.setMaxY(90);
         this.addDeco(acaciaTrees);
 
         DecoCactus decoCactus = new DecoCactus();

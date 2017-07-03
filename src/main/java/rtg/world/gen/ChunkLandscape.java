@@ -1,6 +1,6 @@
 package rtg.world.gen;
 
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.IRealisticBiome;
 
 /**
  *
@@ -8,6 +8,6 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
  */
 public class ChunkLandscape {
     public float [] noise = new float [256];
-    public RealisticBiomeBase [] biome = new RealisticBiomeBase [256];
+    public IRealisticBiome[] biome = new IRealisticBiome [256];
     public float [] river = new float [256];
 }

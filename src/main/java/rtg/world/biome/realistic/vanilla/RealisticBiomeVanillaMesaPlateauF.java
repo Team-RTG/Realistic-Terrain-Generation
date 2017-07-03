@@ -13,9 +13,10 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
-import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.*;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -35,6 +36,20 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_3_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_3_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_4_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_4_BLOCK_META).set(0);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_ID).set("minecraft:stained_hardened_clay");
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_METAS).set(BiomeConfig.MESA_PLATEAU_GRADIENT_METAS);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_ID).set("minecraft:hardened_clay");
+        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_META).set(0);
     }
 
     public TerrainBase initTerrain() {
@@ -82,25 +97,20 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, rtgWorld.simplex, river, height, border, strength, heightLength, 100f, false);
+            return terrainPlateau(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, 100f, false);
         }
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMesaPlateauF(
-            config,
-            BlockUtil.getStateSand(1),
-            BlockUtil.getStateClay(1),
-            0
-        );
+        return new SurfaceVanillaMesaPlateauF(config, biome.topBlock, BlockUtil.getStateClay(1), 0, 0.2f, 0.6f);
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
@@ -118,71 +128,83 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     public class SurfaceVanillaMesaPlateauF extends SurfaceBase {
 
         private int grassRaise = 0;
+        private IBlockState mixBlock;
+        private IBlockState mix2Block;
+        private IBlockState mix3Block;
+        private IBlockState mix4Block;
+        private float mix3Height;
+        private float mix4Height;
 
-        public SurfaceVanillaMesaPlateauF(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
+        public SurfaceVanillaMesaPlateauF(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight, float mix3Height, float mix4Height) {
 
             super(config, top, fill);
             grassRaise = grassHeight;
+            this.mix3Height = mix3Height;
+            this.mix4Height = mix4Height;
+
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateClay(1));
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), Blocks.RED_SANDSTONE.getDefaultState());
+            this.mix3Block = this.getConfigBlock(config.SURFACE_MIX_3_BLOCK.get(), config.SURFACE_MIX_3_BLOCK_META.get(), BlockUtil.getStateDirt(1));
+            this.mix4Block = this.getConfigBlock(config.SURFACE_MIX_4_BLOCK.get(), config.SURFACE_MIX_4_BLOCK_META.get(), Blocks.GRASS.getDefaultState());
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.3f;
+            Block b;
 
-            for (int k = 255; k > -1; k--) {
-
-                Block b = primer.getBlockState(x, k, z).getBlock();
-
-                if (b == Blocks.AIR) {
+            for(int k = 255; k > -1; k--)
+            {
+                b = primer.getBlockState(x, k, z).getBlock();
+                if(b == Blocks.AIR)
+                {
                     depth = -1;
                 }
                 else if (b == Blocks.STONE) {
-
                     depth++;
 
                     if (cliff) {
-                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
+                        primer.setBlockState(x, k, z, plateauBand.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaPlateauF.this, i, k, j));
                     }
                     else {
 
+                        float mixNoise = rtgWorld.simplex().noise2(i / 12f, j / 12f);
+
                         if (k > 74 + grassRaise)
                         {
-                            if(depth == 0)
-                            {
-                                int r = (int)((k - (62 + grassRaise)) / 2f);
-                                if(rand.nextInt(r + 2) == 0)
-                                {
-                                    primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
+                            if (depth == 0) {
+                                if (mixNoise > mix4Height) {
+                                    primer.setBlockState(x, k, z, mix4Block);
                                 }
-                                else if(rand.nextInt((int)(r / 2f) + 2) == 0)
-                                {
-                                    primer.setBlockState(x, k, z, BlockUtil.getStateDirt(1));
+                                else if (mixNoise > mix3Height) {
+                                    primer.setBlockState(x, k, z, mix3Block);
                                 }
-                                else
-                                {
-                                    primer.setBlockState(x, k, z, topBlock);
+                                else {
+                                    if (rand.nextInt(5) == 0) {
+                                        primer.setBlockState(x, k, z, mix2Block);
+                                    }
+                                    else {
+                                        primer.setBlockState(x, k, z, topBlock);
+                                    }
                                 }
                             }
-                            else
-                            {
-                                primer.setBlockState(x, k, z, rtgWorld.mesaBiome.getBand(i, k, j));//CanyonColour.MESA.getBlockForHeight(i, k, j));
+                            else if (depth < 4) {
+                                primer.setBlockState(x, k, z, fillerBlock);
                             }
                         }
                         else if (depth == 0 && k > 61) {
+
                             int r = (int)((k - (62 + grassRaise)) / 2f);
-                            if(rand.nextInt(r + 1) == 0)
-                            {
-                                primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
+                            if (rand.nextInt(r + 2) == 0) {
+                                primer.setBlockState(x, k, z, mixBlock);
                             }
-                            else if(rand.nextInt((int)(r / 2f) + 1) == 0)
-                            {
-                                primer.setBlockState(x, k, z, BlockUtil.getStateDirt(1));
+                            else if (rand.nextInt((int)(r / 2f) + 2) == 0) {
+                                primer.setBlockState(x, k, z, mix2Block);
                             }
-                            else
-                            {
+                            else {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
@@ -198,35 +220,15 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig().ALLOW_CACTUS.get()));
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setChance(10);
-        decoShrub.setStrengthFactor(3f);
-        addDeco(decoShrub);
-
-        DecoCactus decoCactus = new DecoCactus();
-        decoCactus.setStrengthFactor(25f);
-        decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
-        decoCactus.setSandOnly(false);
-        decoCactus.setMaxRiver(0.8f);
-        addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
-
-        DecoReed decoReed = new DecoReed();
-        decoReed.setLoops(5);
-        decoReed.setMaxRiver(0.8f);
-        addDeco(decoReed);
-
-        DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.setStrengthFactor(5f);
-        addDeco(decoDeadBush);
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
 
         DecoTree decoTree = new DecoTree(new WorldGenTrees(false));
         decoTree.setLoops(24);
         decoTree.setTreeType(DecoTree.TreeType.WORLDGEN);
         decoTree.setTreeCondition(DecoTree.TreeCondition.X_DIVIDED_BY_STRENGTH);
         decoTree.setDistribution(new DecoTree.Distribution(24f, 1f, 0f));
-        decoTree.setTreeConditionChance(0);
+        decoTree.setTreeConditionChance(1);
         decoTree.setTreeConditionFloat(4f);
         decoTree.setTreeConditionNoise(0f);
         decoTree.setMinY(74);

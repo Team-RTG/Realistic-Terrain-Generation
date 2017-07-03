@@ -12,7 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenBlob;
 
@@ -59,11 +59,11 @@ public class DecoBoulder extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world);
+            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
@@ -79,11 +79,11 @@ public class DecoBoulder extends DecoBase {
                         break;
 
                     case GET_HEIGHT_VALUE:
-                        k1 = rtgWorld.world.getHeight(new BlockPos(i1, 0, j1)).getY();
+                        k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
                         break;
 
                     default:
-                        k1 = rtgWorld.world.getHeight(new BlockPos(i1, 0, j1)).getY();
+                        k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
                         break;
 
                 }
@@ -97,7 +97,7 @@ public class DecoBoulder extends DecoBase {
                         }
                     }
 
-                    worldGenerator.generate(rtgWorld.world, rand, new BlockPos(i1, k1, j1));
+                    worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
                 }
             }
         }

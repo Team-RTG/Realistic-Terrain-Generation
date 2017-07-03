@@ -1,4 +1,4 @@
-package rtg.world.biome.organic;
+package rtg.api.world.biome;
 
 import java.lang.reflect.Field;
 
@@ -9,12 +9,10 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkProviderOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
-import rtg.api.util.BiomeUtils;
 import rtg.api.util.LimitedMap;
 import rtg.api.util.Logger;
 import rtg.api.util.PlaneLocation;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.IRTGWorld;
 import static rtg.api.util.MathUtils.globalToChunk;
 import static rtg.api.util.MathUtils.globalToLocal;
 
@@ -26,12 +24,12 @@ public class OrganicBiomeGenerator {
     public static boolean[] organicBiomes = new boolean[256];
     private final ChunkProviderOverworld organicProvider;
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
-    private RTGWorld rtgWorld;
+    private IRTGWorld rtgWorld;
     private NoiseGeneratorPerlin surfaceNoise;
 
-    public OrganicBiomeGenerator(RTGWorld rtgWorld) {
+    public OrganicBiomeGenerator(IRTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
-        organicProvider = new ChunkProviderOverworld(rtgWorld.world, rtgWorld.world.getSeed(), rtgWorld.world.getWorldInfo().isMapFeaturesEnabled(), rtgWorld.world.getWorldInfo().getGeneratorOptions());
+        organicProvider = new ChunkProviderOverworld(rtgWorld.world(), rtgWorld.world().getSeed(), rtgWorld.world().getWorldInfo().isMapFeaturesEnabled(), rtgWorld.world().getWorldInfo().getGeneratorOptions());
 
         Field field;
         try {
@@ -51,20 +49,6 @@ public class OrganicBiomeGenerator {
                     "Failed to access private field 'surfaceNoise' in ChunkProviderOverworld. Are you in a deobfuscated environment with other mappings?",
                     e2
                 );
-            }
-        }
-    }
-
-    public static void initOrganicBiomes() {
-        Biome[] b = BiomeUtils.getRegisteredBiomes();
-        for (Biome biome : b) {
-            if (biome != null) {
-                try {
-                    RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome)).baseBiome.getBiomeName();
-                } catch (Exception e) {
-                    RealisticBiomeBase organicBiome = new OrganicBiome(biome);
-                    organicBiomes[Biome.getIdForBiome(biome)] = true;
-                }
             }
         }
     }
@@ -107,6 +91,6 @@ public class OrganicBiomeGenerator {
     }
 
     public void organicSurface(int bx, int bz, ChunkPrimer primer, Biome biome) {
-        biome.genTerrainBlocks(rtgWorld.world, rtgWorld.rand, primer, bx, bz, this.surfaceNoise.getValue(bx, bz));
+        biome.genTerrainBlocks(rtgWorld.world(), rtgWorld.rand(), primer, bx, bz, this.surfaceNoise.getValue(bx, bz));
     }
 }

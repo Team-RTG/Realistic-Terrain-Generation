@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
 
-import rtg.api.world.RTGWorld;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenGrass;
 
@@ -84,11 +84,11 @@ public class DecoGrass extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
 
-            if (TerrainGen.decorate(rtgWorld.world, rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
+            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
                 this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 this.setLoops((this.loops > this.MAX_LOOPS) ? this.MAX_LOOPS : this.loops);
@@ -107,13 +107,13 @@ public class DecoGrass extends DecoBase {
                     if (this.notEqualsZeroChance > 1) {
 
                         if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            grassGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                            grassGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                     else {
 
                         if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                            grassGenerator.generate(rtgWorld.world, rand, new BlockPos(intX, intY, intZ));
+                            grassGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                 }

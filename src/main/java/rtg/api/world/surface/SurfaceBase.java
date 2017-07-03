@@ -13,7 +13,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
 import rtg.api.event.SurfaceEvent;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.RTGWorld;
+import rtg.api.util.PlateauBand;
+import rtg.api.world.IRTGWorld;
 
 public abstract class SurfaceBase {
 
@@ -23,6 +24,7 @@ public abstract class SurfaceBase {
     protected IBlockState cliffCobbleBlock;
     protected RTGConfig rtgConfig = RTGAPI.config();
     protected BiomeConfig biomeConfig;
+    protected PlateauBand plateauBand;
 
     public IBlockState shadowStoneBlock;
     public IBlockState shadowDesertBlock;
@@ -49,13 +51,14 @@ public abstract class SurfaceBase {
         this.initCliffBlocks();
         this.initShadowBlocks();
         this.assignUserConfigs(config, top, fill);
+        plateauBand = PlateauBand.getInstance();
     }
 
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
     }
 
-    protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowStoneBlock(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         SurfaceEvent.HardcodedBlock event = new SurfaceEvent.HardcodedBlock(
             rtgWorld, i, j, x, y, k, shadowStoneBlock
@@ -65,7 +68,7 @@ public abstract class SurfaceBase {
         return event.getBlock();
     }
 
-    protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowDesertBlock(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         SurfaceEvent.HardcodedBlock event = new SurfaceEvent.HardcodedBlock(
             rtgWorld, i, j, x, y, k, shadowDesertBlock
@@ -75,12 +78,12 @@ public abstract class SurfaceBase {
         return event.getBlock();
     }
 
-    protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState hcStone(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         return cliffStoneBlock;
     }
 
-    protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+    protected IBlockState hcCobble(IRTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
         SurfaceEvent.HardcodedBlock event = new SurfaceEvent.HardcodedBlock(
             rtgWorld, worldX, worldZ, chunkX, chunkZ, worldY, cliffCobbleBlock

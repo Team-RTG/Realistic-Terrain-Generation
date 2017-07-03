@@ -2,6 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.init.Blocks;
 
+import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.DecoFallenTree.LogCondition;
 import rtg.api.world.deco.DecoTree.TreeCondition;
@@ -15,9 +16,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
  */
 public class DecoCollectionSavanna extends DecoCollectionBase {
 
-    public DecoCollectionSavanna(boolean fallenTrees) {
+    public DecoCollectionSavanna(BiomeConfig config) {
 
-        super();
+        super(config);
 
         DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
@@ -39,7 +40,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         decoFallenTree.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, fallenTrees);
+        this.addDeco(decoFallenTree, config.ALLOW_LOGS.get());
 
         TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
         bucheriTree.setLogBlock(Blocks.LOG2.getDefaultState());

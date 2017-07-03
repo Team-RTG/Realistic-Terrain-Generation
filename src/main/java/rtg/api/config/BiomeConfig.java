@@ -76,6 +76,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_ICE_TREES;
     public final ConfigPropertyFloat FALLEN_LOG_DENSITY_MULTIPLIER;
     public final ConfigPropertyBoolean ALLOW_SPONGE;
+    public final ConfigPropertyBoolean ALLOW_OCEAN_WAVES;
 
     public BiomeConfig() {
 
@@ -568,6 +569,7 @@ public class BiomeConfig extends Config {
         );
 
         ALLOW_SPONGE = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Sponge", "Decorations.Sponge", "", true);
+        ALLOW_OCEAN_WAVES = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Ocean Waves", "Decorations.Waves", "", true);
     }
 
     public static String formatSlug(String s) {

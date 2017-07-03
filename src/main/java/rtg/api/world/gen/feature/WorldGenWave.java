@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.api.RTGAPI;
 import rtg.api.util.WorldUtil;
 
 public class WorldGenWave extends WorldGenerator {
@@ -23,7 +24,7 @@ public class WorldGenWave extends WorldGenerator {
 
         this.waveBlock = waveBlock;
         this.waveLength = waveLength;
-        this.direction = 0; // The direction of the wave (0 = X; 1 = Z)
+        this.direction = RTGAPI.config().OCEAN_WAVE_DIRECTION.get(); // The direction of the wave (0 = X; 1 = Z)
     }
 
     public WorldGenWave(int waveLength) {
@@ -38,11 +39,6 @@ public class WorldGenWave extends WorldGenerator {
     }
 
     public boolean generate(World world, Random rand, int x, int y, int z) {
-
-        IBlockState g = world.getBlockState(new BlockPos(x, y - 1, z));
-        if (g.getMaterial() != Material.WATER || g == this.waveBlock) {
-            return false;
-        }
 
         WorldUtil worldUtil = new WorldUtil(world);
         int i;
@@ -71,7 +67,17 @@ public class WorldGenWave extends WorldGenerator {
         }
 
         for (int i1 = 0; i1 < aBlock.size(); i1++) {
-            world.setBlockState(new BlockPos(aX.get(i1).intValue(), aY.get(i1).intValue(), aZ.get(i1).intValue()), aBlock.get(i1), 0);
+            BlockPos belowPos = new BlockPos(aX.get(i1), aY.get(i1) - 1, aZ.get(i1));
+            IBlockState g = world.getBlockState(belowPos);
+            if (g.getMaterial() != Material.WATER || g == this.waveBlock) {
+                continue;
+            }
+            if (world.canBlockFreezeWater(belowPos)) {
+                continue;
+            }
+            if (worldUtil.isSurroundedByBlock(Blocks.WATER.getDefaultState(), 8, WorldUtil.SurroundCheckType.FULL, rand, aX.get(i1), aY.get(i1) - 1, aZ.get(i1))) {
+                world.setBlockState(new BlockPos(aX.get(i1), aY.get(i1), aZ.get(i1)), aBlock.get(i1), 0);
+            }
         }
 
         return true;

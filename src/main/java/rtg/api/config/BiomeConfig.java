@@ -358,21 +358,23 @@ public class BiomeConfig extends Config {
         );
         this.addProperty(TEMPERATURE);
 
-        SURFACE_BLEED_IN = this.addProperty(new ConfigPropertyBoolean(
+        SURFACE_BLEED_IN = new ConfigPropertyBoolean(
                 Type.BOOLEAN,
                 "Surface Bleed In",
                 "Surface Bleed",
                 "Set to false if other biomes shouldn't bleed into this one",
                 false
-        ));
+        );
+        this.addProperty(SURFACE_BLEED_IN);
 
-        SURFACE_BLEED_OUT = this.addProperty(new ConfigPropertyBoolean(
+        SURFACE_BLEED_OUT = new ConfigPropertyBoolean(
                 Type.BOOLEAN,
                 "Surface Bleed Out",
                 "Surface Bleed",
                 "Set to false if this biome shouldn't bleed into other biomes",
                 false
-        ));
+        );
+        this.addProperty(SURFACE_BLEED_OUT);
 
         /*
          * OPTIONAL CONFIGS

@@ -26,6 +26,13 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaForest() {
 
         super(biome, river);
+
+        // Prevent ores from messing up the surface.
+        this.rDecorator().graniteSize = 0;
+        this.rDecorator().dioriteSize = 0;
+        //this.rDecorator().andesiteSize = 0; // This looks good.
+        //this.rDecorator().gravelSize = 0; // So does this.
+        this.rDecorator().dirtSize = 0;
     }
 
     @Override
@@ -36,6 +43,8 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
     }
 
     @Override
@@ -68,7 +77,11 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f);
+        return new SurfaceVanillaForest(
+            config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
+            0f, 1.5f, 60f, 65f, 1.5f,
+            BlockUtil.getStateDirt(2), 0.6f, BlockUtil.getStateStone(BlockUtil.StoneType.STONE), -0.4f
+        );
     }
 
     public class SurfaceVanillaForest extends SurfaceBase {
@@ -82,9 +95,11 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
         private IBlockState mixBlock;
         private float mixHeight;
+        private IBlockState mix2Block;
+        private float mix2Height;
 
         public SurfaceVanillaForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
 
             super(config, top, fill);
             min = minCliff;
@@ -94,8 +109,10 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
-            mixHeight = mixSize;
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            this.mixHeight = mixHeight;
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), mix2);
+            this.mix2Height = mix2Height;
         }
 
         @Override
@@ -147,12 +164,20 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
-                            primer.setBlockState(x, k, z, mixBlock);
-                            m = true;
-                        }
                         else {
-                            primer.setBlockState(x, k, z, topBlock);
+                            float mixNoise = simplex.noise2(i / 12f, j / 12f);
+
+                            if (mixNoise < mix2Height) {
+                                primer.setBlockState(x, k, z, mix2Block);
+                                m = true;
+                            }
+                            else if (mixNoise > mixHeight) {
+                                primer.setBlockState(x, k, z, mixBlock);
+                                m = true;
+                            }
+                            else {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
                         }
                     }
                     else if (depth < 6) {

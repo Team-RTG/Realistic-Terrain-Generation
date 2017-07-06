@@ -124,7 +124,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoCrop decoCropWheat = new DecoCrop();
         decoCropWheat.setSize(8);
         decoCropWheat.setDensity(5);
-        decoCropWheat.setChance(this.getConfig().WHEAT_CHANCE.get());
+        decoCropWheat.config().CHANCE.set(this.getConfig().WHEAT_CHANCE.get());
         decoCropWheat.setType(3);
         decoCropWheat.setWater(false);
         decoCropWheat.config().MIN_Y.set(this.getConfig().WHEAT_MIN_Y.get());
@@ -137,7 +137,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         decoShrubOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoShrubOak.config().MAX_Y.set(110);
         decoShrubOak.config().LOOPS.set(1);
-        decoShrubOak.setChance(36);
+        decoShrubOak.config().CHANCE.set(36);
         this.addDeco(decoShrubOak);
 
         // The occasional flower.

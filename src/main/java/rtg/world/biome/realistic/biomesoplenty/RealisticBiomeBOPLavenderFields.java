@@ -163,7 +163,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(110);
-        decoShrub.setChance(10);
+        decoShrub.config().CHANCE.set(10);
         decoShrub.setStrengthFactor(4f);
         this.addDeco(decoShrub);
 

@@ -19,8 +19,6 @@ import rtg.api.world.gen.feature.WorldGenGrass;
 public class DecoGrass extends DecoBase {
 
     private float strengthFactor;
-    private int chance;
-    private int notEqualsZeroChance;
     private IBlockState[] randomGrassBlocks;
     private byte[] randomGrassMetas;
 
@@ -40,8 +38,6 @@ public class DecoGrass extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.setChance(1);
-        this.notEqualsZeroChance = 1;
         this.block = Blocks.TALLGRASS.getStateFromMeta(1);
         this.meta = 1;
         this.randomGrassBlocks = new IBlockState[]{};
@@ -82,6 +78,8 @@ public class DecoGrass extends DecoBase {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
+        this.config().addProperty(this.config().CHANCE).set(1);
     }
 
     @Override
@@ -105,15 +103,15 @@ public class DecoGrass extends DecoBase {
                         //this.meta = this.randomGrassMetas[rand.nextInt(this.randomGrassMetas.length)];
                     }
 
-                    if (this.notEqualsZeroChance > 1) {
+                    if (this.config().NOT_EQUALS_ZERO_CHANCE.get() > 1) {
 
-                        if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.notEqualsZeroChance) != 0) {
+                        if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.config().NOT_EQUALS_ZERO_CHANCE.get()) != 0) {
                             grassGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                     else {
 
-                        if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
+                        if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.config().CHANCE.get()) == 0) {
                             grassGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
@@ -130,28 +128,6 @@ public class DecoGrass extends DecoBase {
     public DecoGrass setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoGrass setChance(int chance) {
-
-        this.chance = chance;
-        return this;
-    }
-
-    public int getNotEqualsZerochance() {
-
-        return notEqualsZeroChance;
-    }
-
-    public DecoGrass setNotEqualsZerochance(int notEqualsZeroChance) {
-
-        this.notEqualsZeroChance = notEqualsZeroChance;
         return this;
     }
 

@@ -36,7 +36,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
     private DecoBoulder boulders(IBlockState boulderBlock, int chance) {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(boulderBlock);
-        decoBoulder.setChance(chance);
+        decoBoulder.config().CHANCE.set(chance);
         decoBoulder.config().MIN_Y.set(22);
         decoBoulder.config().MAX_Y.set(58);
         decoBoulder.setHeightType(DecoBoulder.HeightType.NEXT_INT);
@@ -47,7 +47,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
     private DecoSponge sponge() {
         DecoSponge decoSponge = new DecoSponge();
         decoSponge.setSpongeBlock(BlockUtil.getSponge(1));
-        decoSponge.setChance(1);
+        decoSponge.config().CHANCE.set(1);
         decoSponge.config().MIN_Y.set(22);
         decoSponge.config().MAX_Y.set(39);
         decoSponge.setHeightType(DecoSponge.HeightType.NEXT_INT);

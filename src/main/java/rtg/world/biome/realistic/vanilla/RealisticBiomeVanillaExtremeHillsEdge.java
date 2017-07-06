@@ -203,7 +203,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(12);
+        decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);

@@ -21,7 +21,6 @@ public class DecoMushrooms extends DecoBase {
     private float strengthFactor;
     private float randomFloat;
     private RandomType randomType;
-    private int chance;
 
     public DecoMushrooms() {
 
@@ -34,7 +33,6 @@ public class DecoMushrooms extends DecoBase {
         this.setStrengthFactor(0f); // The higher the value, the more there will be. Disabled by default.
         this.setRandomType(RandomType.USE_CHANCE_VALUE);
         this.setRandomFloat(1f);
-        this.setChance(1);
 
         this.addDecoTypes(DecoType.MUSHROOM);
     }
@@ -43,6 +41,7 @@ public class DecoMushrooms extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().CHANCE).set(1);
     }
 
     @Override
@@ -55,14 +54,14 @@ public class DecoMushrooms extends DecoBase {
                 // Let's figure out what the rand.nextInt() argument should be.
                 switch (this.randomType) {
                     case ALWAYS_GENERATE:
-                        this.setChance(1);
+                        this.config().CHANCE.set(1);
                         break;
 
                     case USE_CHANCE_VALUE:
                         break;
 
                     case X_DIVIDED_BY_STRENGTH:
-                        this.setChance((int) (this.randomFloat / strength));
+                        this.config().CHANCE.set((int) (this.randomFloat / strength));
                         break;
 
                     default:
@@ -74,7 +73,7 @@ public class DecoMushrooms extends DecoBase {
 
                 int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
-                    if (rand.nextInt(this.chance) == 0) {
+                    if (rand.nextInt(this.config().CHANCE.get()) == 0) {
 
                         int intX = worldX + rand.nextInt(16);// + 8;
                         int intY = rand.nextInt(this.config().MAX_Y.get());
@@ -131,17 +130,6 @@ public class DecoMushrooms extends DecoBase {
     public DecoMushrooms setRandomType(RandomType randomType) {
 
         this.randomType = randomType;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoMushrooms setChance(int chance) {
-
-        this.chance = chance;
         return this;
     }
 }

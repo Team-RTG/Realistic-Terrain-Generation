@@ -24,7 +24,6 @@ public class DecoBoulder extends DecoBase {
     private IBlockState boulderBlock; // This can be any block.
     private float strengthFactor; // Higher = more/bigger boulders.
     private HeightType heightType; // How we determine the Y coord.
-    private int chance; // Higher = more rare.
     private boolean water;
     protected ArrayList<Block> validGroundBlocks;
 
@@ -39,7 +38,6 @@ public class DecoBoulder extends DecoBase {
         this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         this.setStrengthFactor(2f);
         this.setHeightType(HeightType.GET_HEIGHT_VALUE);
-        this.setChance(10);
         this.water = true;
 
         this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(
@@ -58,6 +56,7 @@ public class DecoBoulder extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(60);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().CHANCE).set(10);
     }
 
     @Override
@@ -90,7 +89,7 @@ public class DecoBoulder extends DecoBase {
 
                 }
 
-                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
+                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.config().CHANCE.get()) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
                     if (hasPlacedVillageBlocks) {
@@ -129,17 +128,6 @@ public class DecoBoulder extends DecoBase {
     public DecoBoulder setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoBoulder setChance(int chance) {
-
-        this.chance = chance;
         return this;
     }
 

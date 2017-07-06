@@ -186,16 +186,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoShrubSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoShrubSpruce.config().MAX_Y.set(100);
         decoShrubSpruce.setStrengthFactor(3f);
-        decoShrubSpruce.setChance(6);
+        decoShrubSpruce.config().CHANCE.set(6);
         this.addDeco(decoShrubSpruce);
-
-//		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-//		decoBaseBiomeDecorations.setEqualsZeroChance(3);
-//		this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(20);
+        decoBoulder.config().CHANCE.set(20);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);

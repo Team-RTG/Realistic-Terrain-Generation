@@ -180,7 +180,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     public void initDecos() {
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setChance(4);
+        decoMushrooms.config().CHANCE.set(4);
         decoMushrooms.config().MAX_Y.set(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
@@ -271,13 +271,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
+        decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoCobwebs decoCobwebs = new DecoCobwebs();
-        decoCobwebs.setChance(1);
+        decoCobwebs.config().CHANCE.set(1);
         decoCobwebs.config().MIN_Y.set(63);
         decoCobwebs.config().MAX_Y.set(76);
         decoCobwebs.setStrengthFactor(24f);
@@ -286,7 +286,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(2);
         decoBaseBiomeDecorations.config().MAX_Y.set(100);
         this.addDeco(decoBaseBiomeDecorations);
 
@@ -297,7 +297,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.config().MAX_Y.set(100);
-        decoDeadBush.setChance(2);
+        decoDeadBush.config().CHANCE.set(2);
         decoDeadBush.setStrengthFactor(2f);
         this.addDeco(decoDeadBush);
     }

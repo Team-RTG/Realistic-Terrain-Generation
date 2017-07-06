@@ -25,7 +25,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaShrub.config().MAX_Y.set(160);
         acaciaShrub.setStrengthFactor(2f);
-        acaciaShrub.setChance(12);
+        acaciaShrub.config().CHANCE.set(12);
         this.addDeco(acaciaShrub);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -62,7 +62,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(32);
+        decoBoulder.config().CHANCE.set(32);
         decoBoulder.config().MAX_Y.set(95);
         this.addDeco(decoBoulder);
 

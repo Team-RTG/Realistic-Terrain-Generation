@@ -291,14 +291,14 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 //        this.addDeco(ceibaRoseaTree);
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        decoBOPBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(4);
         this.addDeco(decoBOPBaseBiomeDecorations);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.config().MAX_Y.set(90);
         decoShrubOak.setStrengthFactor(4f);
-        decoShrubOak.setChance(3);
+        decoShrubOak.config().CHANCE.set(3);
         this.addDeco(decoShrubOak);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -326,7 +326,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(90);
         decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
+        decoGrass.config().CHANCE.set(2);
         this.addDeco(decoGrass);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();

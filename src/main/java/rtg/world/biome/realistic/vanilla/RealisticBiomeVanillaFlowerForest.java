@@ -175,7 +175,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(110);
         decoShrub.setStrengthFactor(4f);
-        decoShrub.setChance(3);
+        decoShrub.config().CHANCE.set(3);
         this.addDeco(decoShrub);
 
         // Flowers are the most aesthetically important feature of this biome, so let's add those next.
@@ -188,7 +188,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
         decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
         decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-        decoFlowers2.setChance(3);
+        decoFlowers2.config().CHANCE.set(3);
         decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers2);
 
@@ -242,7 +242,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // Not much free space left, so let's give some space to the base biome.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(4);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Add some fallen trees of the oak and spruce variety (50/50 distribution).

@@ -18,7 +18,6 @@ import rtg.api.world.gen.feature.WorldGenBlock;
 public class DecoCobwebs extends DecoBase {
 
     private float strengthFactor; // Higher = more/bigger boulders.
-    private int chance; // Higher = more rare.
     private IBlockState adjacentBlock;
     private int minAdjacents;
 
@@ -31,7 +30,6 @@ public class DecoCobwebs extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setStrengthFactor(2f);
-        this.setChance(10);
         this.setAdjacentBlock(Blocks.AIR.getDefaultState());
         this.setMinAdjacents(1);
 
@@ -42,6 +40,7 @@ public class DecoCobwebs extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(62);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().CHANCE).set(10);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class DecoCobwebs extends DecoBase {
                 int j1 = worldZ + rand.nextInt(16);// + 8;
                 int k1 = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
 
-                if (rand.nextInt(this.chance) == 0) {
+                if (rand.nextInt(this.config().CHANCE.get()) == 0) {
                     worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
                 }
             }
@@ -71,17 +70,6 @@ public class DecoCobwebs extends DecoBase {
     public DecoCobwebs setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoCobwebs setChance(int chance) {
-
-        this.chance = chance;
         return this;
     }
 

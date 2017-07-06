@@ -18,19 +18,19 @@ public class DecoCollectionDesert extends DecoCollectionBase {
         DecoDesertWell decoDesertWell = new DecoDesertWell();
         decoDesertWell.config().MAX_Y.set(80);
         decoDesertWell.setStrengthFactor(1f);
-        decoDesertWell.setChance(160);
+        decoDesertWell.config().CHANCE.set(160);
         this.addDeco(decoDesertWell);
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.config().MAX_Y.set(90);
         decoCactus.setStrengthFactor(3f);
-        decoCactus.setChance(2);
+        decoCactus.config().CHANCE.set(2);
         this.addDeco(decoCactus, config.ALLOW_CACTUS.get());
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.config().MAX_Y.set(128);
         decoDeadBush.setStrengthFactor(2f);
-        decoDeadBush.setChance(3);
+        decoDeadBush.config().CHANCE.set(3);
         this.addDeco(decoDeadBush);
     }
 }

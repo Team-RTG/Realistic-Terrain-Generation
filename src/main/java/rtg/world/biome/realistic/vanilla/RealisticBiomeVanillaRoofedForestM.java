@@ -121,7 +121,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(20);
+        decoBoulder.config().CHANCE.set(20);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
@@ -173,20 +173,20 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.config().MAX_Y.set(128);
-        decoDeadBush.setChance(16);
+        decoDeadBush.config().CHANCE.set(16);
         decoDeadBush.setStrengthFactor(1f);
         this.addDeco(decoDeadBush);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
         decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
+        decoGrass.config().CHANCE.set(2);
         this.addDeco(decoGrass);
 
         DecoGrass decoFern = new DecoGrass(2);
         decoFern.config().MAX_Y.set(128);
         decoFern.setStrengthFactor(4f);
-        decoFern.setChance(2);
+        decoFern.config().CHANCE.set(2);
         this.addDeco(decoFern);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

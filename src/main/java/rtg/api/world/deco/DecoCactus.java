@@ -19,7 +19,6 @@ import rtg.api.world.gen.feature.WorldGenCacti;
  */
 public class DecoCactus extends DecoBase {
 
-    private int chance;
     private float strengthFactor;
     private boolean sandOnly;
     private IBlockState soilBlock;
@@ -32,7 +31,6 @@ public class DecoCactus extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setChance(1);
         this.setStrengthFactor(0f); // The higher the value, the more there will be.
         this.setSandOnly(false);
         this.setSoilBlock(Blocks.SAND.getDefaultState());
@@ -44,6 +42,7 @@ public class DecoCactus extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().CHANCE).set(1);
     }
 
     @Override
@@ -62,23 +61,12 @@ public class DecoCactus extends DecoBase {
                     int intY = rand.nextInt(this.config().MAX_Y.get());
                     int intZ = worldZ + rand.nextInt(16);// + 8;
 
-                    if (intY <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
+                    if (intY <= this.config().MAX_Y.get() && rand.nextInt(this.config().CHANCE.get()) == 0) {
                         worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }
         }
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoCactus setChance(int chance) {
-
-        this.chance = chance;
-        return this;
     }
 
     public float getStrengthFactor() {

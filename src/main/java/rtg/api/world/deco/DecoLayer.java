@@ -26,8 +26,6 @@ public class DecoLayer extends DecoBase {
     private int layerScatter;
 
     private float strengthFactor; // Higher = more/bigger shrubs.
-    private int chance; // Higher = more rare.
-    private int notEqualsZeroChance;
 
     public DecoLayer(IBlockState layerBlock, PropertyInteger layerProperty) {
 
@@ -43,8 +41,6 @@ public class DecoLayer extends DecoBase {
         this.layerRange = 4;
         this.layerScatter = 3;
         this.setStrengthFactor(2f);
-        this.setChance(1); // 100% chance of generating by default.
-        this.notEqualsZeroChance = 1;
 
         this.addDecoTypes(DecoType.LAYER, DecoType.LEAVES, DecoType.FALLEN_LEAVES);
     }
@@ -54,6 +50,8 @@ public class DecoLayer extends DecoBase {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
+        this.config().addProperty(this.config().CHANCE).set(1);
     }
 
     @Override
@@ -71,15 +69,15 @@ public class DecoLayer extends DecoBase {
                 int intZ = worldZ + rand.nextInt(16);// + 8;
                 int intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
 
-                if (this.notEqualsZeroChance > 1) {
+                if (this.config().NOT_EQUALS_ZERO_CHANCE.get() > 1) {
 
-                    if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.notEqualsZeroChance) != 0) {
+                    if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.config().NOT_EQUALS_ZERO_CHANCE.get()) != 0) {
                         generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
                 else {
 
-                    if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
+                    if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.config().CHANCE.get()) == 0) {
                         generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
@@ -161,28 +159,6 @@ public class DecoLayer extends DecoBase {
     public DecoLayer setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoLayer setChance(int chance) {
-
-        this.chance = chance;
-        return this;
-    }
-
-    public int getNotEqualsZerochance() {
-
-        return notEqualsZeroChance;
-    }
-
-    public DecoLayer setNotEqualsZerochance(int notEqualsZeroChance) {
-
-        this.notEqualsZeroChance = notEqualsZeroChance;
         return this;
     }
 }

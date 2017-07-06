@@ -139,11 +139,10 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations()
-            .setNotEqualsZeroChance(4);
-
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.config().MIN_Y.set(treesMinY);
         decoBaseBiomeDecorations.config().MAX_Y.set(treesMaxY);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(4);
 
         return decoBaseBiomeDecorations;
     }
@@ -188,9 +187,9 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
 
     private DecoMushrooms mushrooms() {
         DecoMushrooms decoMushrooms = new DecoMushrooms()
-            .setChance(6)
             .setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
 
+        decoMushrooms.config().CHANCE.set(6);
         decoMushrooms.config().MAX_Y.set(90);
 
         return decoMushrooms;
@@ -239,9 +238,9 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     private DecoBoulder boulders() {
         DecoBoulder decoBoulder = new DecoBoulder()
             .setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState())
-            .setChance(12)
             .setStrengthFactor(2f);
 
+        decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(80);
 
         return decoBoulder;
@@ -249,11 +248,11 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
 
     private DecoCobwebs cobwebs() {
         DecoCobwebs decoCobwebs = new DecoCobwebs()
-            .setChance(1)
             .setStrengthFactor(24f)
             .setAdjacentBlock(BlockUtil.getStateLog2(1))
             .setMinAdjacents(2);
 
+        decoCobwebs.config().CHANCE.set(1);
         decoCobwebs.config().MIN_Y.set(treesMinY);
         decoCobwebs.config().MAX_Y.set(treesMaxY);
 
@@ -266,8 +265,11 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     }
 
     private DecoDeadBush deadBushes() {
-        return new DecoDeadBush()
-            .setChance(2)
+        DecoDeadBush decoDeadBush = new DecoDeadBush()
             .setStrengthFactor(2f);
+
+        decoDeadBush.config().CHANCE.set(2);
+
+        return decoDeadBush;
     }
 }

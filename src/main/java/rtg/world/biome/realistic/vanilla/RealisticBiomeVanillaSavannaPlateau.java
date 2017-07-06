@@ -264,13 +264,13 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder1.config().MAX_Y.set(80);
-        decoBoulder1.setChance(24);
+        decoBoulder1.config().CHANCE.set(24);
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
         decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder1.config().MIN_Y.set(110);
-        decoBoulder2.setChance(24);
+        decoBoulder2.config().CHANCE.set(24);
         this.addDeco(decoBoulder2);
 
         DecoShrub acaciaShrub = new DecoShrub();
@@ -278,7 +278,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaShrub.config().MAX_Y.set(160);
         acaciaShrub.setStrengthFactor(3f);
-        acaciaShrub.setChance(9);
+        acaciaShrub.config().CHANCE.set(9);
         this.addDeco(acaciaShrub);
 
         TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
@@ -299,7 +299,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.config().MAX_Y.set(160);
         decoCactus.config().LOOPS.set(60);
-        decoCactus.setChance(8);
+        decoCactus.config().CHANCE.set(8);
         this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();

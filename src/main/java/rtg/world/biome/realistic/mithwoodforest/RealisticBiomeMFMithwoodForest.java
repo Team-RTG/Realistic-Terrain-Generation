@@ -264,13 +264,13 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoShrubMithwood.setLeavesBlock(mithwoodLeavesBlock);
         decoShrubMithwood.config().MAX_Y.set(100);
         decoShrubMithwood.setStrengthFactor(1f);
-        decoShrubMithwood.setChance(2);
+        decoShrubMithwood.config().CHANCE.set(2);
         this.addDeco(decoShrubMithwood);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(100);
         decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(4);
+        decoShrub.config().CHANCE.set(4);
         this.addDeco(decoShrub);
 
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
@@ -282,20 +282,20 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
         decoFlowers2.setFlowers(new int[]{11, 12, 13, 14});
         decoFlowers2.setStrengthFactor(1f);
-        decoFlowers2.setChance(1);
+        decoFlowers2.config().CHANCE.set(1);
         decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
         this.addDeco(decoFlowers2);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(2);
+        decoBoulder.config().CHANCE.set(2);
         decoBoulder.config().MAX_Y.set(100);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.config().MAX_Y.set(100);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoFallenTree decoFallenMithwoodTree = new DecoFallenTree();

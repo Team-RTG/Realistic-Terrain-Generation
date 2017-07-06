@@ -23,6 +23,9 @@ public class DecoConfig extends Config {
     public final ConfigPropertyInt MIN_Y;
     public final ConfigPropertyInt MAX_Y;
     public final ConfigPropertyInt LOOPS;
+    public final ConfigPropertyInt CHANCE;
+    public final ConfigPropertyInt EQUALS_ZERO_CHANCE;
+    public final ConfigPropertyInt NOT_EQUALS_ZERO_CHANCE;
 
     public DecoConfig() {
 
@@ -66,5 +69,8 @@ public class DecoConfig extends Config {
         MIN_Y = new ConfigPropertyInt("Min Y", "", "", 1, 1, 255);
         MAX_Y = new ConfigPropertyInt("Max Y", "", "", 255, 1, 255);
         LOOPS = new ConfigPropertyInt("Loops", "", "", 1, -1, Integer.MAX_VALUE);
+        CHANCE = new ConfigPropertyInt("Chance", "", "", 1, 1, Integer.MAX_VALUE);
+        EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
+        NOT_EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Not Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
     }
 }

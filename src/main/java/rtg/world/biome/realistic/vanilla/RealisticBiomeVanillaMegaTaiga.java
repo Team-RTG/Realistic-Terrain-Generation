@@ -148,7 +148,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
+        decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(3f);
         this.addDeco(decoBoulder);
@@ -171,11 +171,11 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(100);
         decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(10);
+        decoShrub.config().CHANCE.set(10);
         this.addDeco(decoShrub);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setEqualsZeroChance(3);
+        decoBaseBiomeDecorations.config().EQUALS_ZERO_CHANCE.set(3);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();

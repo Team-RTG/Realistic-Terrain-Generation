@@ -44,7 +44,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaShrub.config().MAX_Y.set(65);
         acaciaShrub.config().LOOPS.set(1);
-        acaciaShrub.setChance(1);
+        acaciaShrub.config().CHANCE.set(1);
         this.addDeco(acaciaShrub);
 
         DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, acaciaShrub, acaciaTrees);

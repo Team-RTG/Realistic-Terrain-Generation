@@ -184,25 +184,25 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoShrubSugi.setLeavesBlock(sugiLeavesBlock);
         decoShrubSugi.config().MAX_Y.set(90);
         decoShrubSugi.setStrengthFactor(4f);
-        decoShrubSugi.setChance(8);
+        decoShrubSugi.config().CHANCE.set(8);
         this.addDeco(decoShrubSugi);
 
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.config().MAX_Y.set(90);
         decoShrubOak.setStrengthFactor(4f);
-        decoShrubOak.setChance(4);
+        decoShrubOak.config().CHANCE.set(4);
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(24);
+        decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.config().MAX_Y.set(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.

@@ -23,7 +23,7 @@ public class DecoCollectionMesa extends DecoCollectionBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().LOOPS.set(2);
-        decoShrub.setChance(4);
+        decoShrub.config().CHANCE.set(4);
         decoShrub.config().MAX_Y.set(90);
         addDeco(decoShrub);
 

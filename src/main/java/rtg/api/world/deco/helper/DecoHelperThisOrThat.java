@@ -14,7 +14,6 @@ import rtg.api.world.deco.DecoBase;
 
 public class DecoHelperThisOrThat extends DecoBase {
 
-    private int chance;
     private ChanceType chanceType;
     private DecoBase decoThis;
     private DecoBase decoThat;
@@ -23,7 +22,7 @@ public class DecoHelperThisOrThat extends DecoBase {
 
         super();
 
-        this.chance = chance;
+        this.config().CHANCE.set(chance);
         this.chanceType = chanceType;
         this.decoThis = decoThis;
         this.decoThat = decoThat;
@@ -36,7 +35,9 @@ public class DecoHelperThisOrThat extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().CHANCE).set(1);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -46,7 +47,7 @@ public class DecoHelperThisOrThat extends DecoBase {
             switch (this.chanceType) {
                 case EQUALS_ZERO:
 
-                    if (rand.nextInt(this.chance) == 0) {
+                    if (rand.nextInt(this.config().CHANCE.get()) == 0) {
                         this.decoThis.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
                     }
                     else {
@@ -57,7 +58,7 @@ public class DecoHelperThisOrThat extends DecoBase {
 
                 case NOT_EQUALS_ZERO:
 
-                    if (rand.nextInt(this.chance) != 0) {
+                    if (rand.nextInt(this.config().CHANCE.get()) != 0) {
                         this.decoThis.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
                     }
                     else {
@@ -76,17 +77,6 @@ public class DecoHelperThisOrThat extends DecoBase {
     public enum ChanceType {
         EQUALS_ZERO,
         NOT_EQUALS_ZERO;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoHelperThisOrThat setChance(int chance) {
-
-        this.chance = chance;
-        return this;
     }
 
     public ChanceType getChanceType() {

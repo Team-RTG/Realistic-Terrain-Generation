@@ -90,7 +90,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(6);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(6);
         decoBaseBiomeDecorations.config().LOOPS.set(1);
         this.addDeco(decoBaseBiomeDecorations);
 
@@ -105,7 +105,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         // Flowers.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{5}); // Only orange tulips fit in with the colour scheme.
-        decoFlowersRTG.setChance(4);
+        decoFlowersRTG.config().CHANCE.set(4);
         decoFlowersRTG.config().MAX_Y.set(120);
         decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
@@ -122,7 +122,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
+        decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);

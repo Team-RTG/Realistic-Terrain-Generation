@@ -180,7 +180,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
         DecoCrop decoWheat = new DecoCrop();
         decoWheat.setType(3);
-        decoWheat.setChance(80);
+        decoWheat.config().CHANCE.set(80);
         decoWheat.setStrengthFactor(15f);
         decoWheat.config().MAX_Y.set(255);
         decoWheat.setSize(30);//DO NOT PUT HIGHER THAN 30
@@ -190,7 +190,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
         DecoCrop decoBeet = new DecoCrop();
         decoBeet.setType(2);
-        decoBeet.setChance(80);
+        decoBeet.config().CHANCE.set(80);
         decoBeet.setStrengthFactor(12f);
         decoBeet.config().MAX_Y.set(255);
         decoBeet.setSize(30);//DO NOT PUT HIGHER THAN 30
@@ -200,7 +200,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
         DecoCrop decoCarrot = new DecoCrop();
         decoCarrot.setType(1);
-        decoCarrot.setChance(80);
+        decoCarrot.config().CHANCE.set(80);
         decoCarrot.setStrengthFactor(12f);
         decoCarrot.config().MAX_Y.set(255);
         decoCarrot.setSize(30);//DO NOT PUT HIGHER THAN 30
@@ -210,7 +210,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
         DecoCrop decoPotato = new DecoCrop();
         decoPotato.setType(0);
-        decoPotato.setChance(80);
+        decoPotato.config().CHANCE.set(80);
         decoPotato.setStrengthFactor(12f);
         decoPotato.config().MAX_Y.set(255);
         decoPotato.setSize(30);//DO NOT PUT HIGHER THAN 30
@@ -221,19 +221,19 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.config().MAX_Y.set(90);
         decoShrubOak.setStrengthFactor(2f);
-        decoShrubOak.setChance(4);
+        decoShrubOak.config().CHANCE.set(4);
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(BlockUtil.getStateDirt(2));
-        decoBoulder.setChance(24);
+        decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(4f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.config().MAX_Y.set(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.

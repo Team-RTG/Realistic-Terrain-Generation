@@ -92,8 +92,9 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {
-        return new DecoBaseBiomeDecorations()
-            .setNotEqualsZeroChance(3);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(3);
+        return decoBaseBiomeDecorations;
     }
 
     private DecoFlowersRTG flowers() {

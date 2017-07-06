@@ -103,7 +103,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
+        decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(3f);
         this.addDeco(decoBoulder);

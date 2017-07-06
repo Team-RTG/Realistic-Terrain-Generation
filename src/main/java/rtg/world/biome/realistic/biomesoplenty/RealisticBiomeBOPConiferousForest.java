@@ -168,7 +168,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
+        decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
@@ -188,7 +188,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(12);
+        decoBOPBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(12);
         decoBOPBaseBiomeDecorations.config().LOOPS.set(1);
         this.addDeco(decoBOPBaseBiomeDecorations);
     }

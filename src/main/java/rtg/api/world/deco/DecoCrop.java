@@ -21,7 +21,6 @@ public class DecoCrop extends DecoBase {
     private int density; //Higher = Crops in fields closer together.
     private int height; //Higher = Crops on more y levels - When higher tends to be less dense.
     private float strengthFactor; // Higher = More frequent spawns.
-    private int chance; // Higher = more rare.
     private boolean water;
 
     public DecoCrop() {
@@ -37,7 +36,6 @@ public class DecoCrop extends DecoBase {
         this.density = 50;
         this.height = 2;
         this.setStrengthFactor(2f);
-        this.setChance(10); //The higher the number the less common it will be
         this.water = true; //whether or not to spawn water with the crops
 
         this.addDecoTypes(DecoType.WHEAT);
@@ -47,6 +45,7 @@ public class DecoCrop extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().CHANCE).set(10);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class DecoCrop extends DecoBase {
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenCrops(type, size, density, height, water);
 
-            if (this.chance < 1) {
+            if (this.config().CHANCE.get() < 1) {
                 return;
             }
 
@@ -66,7 +65,7 @@ public class DecoCrop extends DecoBase {
                 int j1 = worldZ + rand.nextInt(16);// + 8;
                 int k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
 
-                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
+                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.config().CHANCE.get()) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
                     if (hasPlacedVillageBlocks) {
@@ -133,17 +132,6 @@ public class DecoCrop extends DecoBase {
     public DecoCrop setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoCrop setChance(int chance) {
-
-        this.chance = chance;
         return this;
     }
 

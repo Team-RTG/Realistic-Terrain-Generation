@@ -85,66 +85,60 @@ public abstract class Config {
 
             for (ConfigProperty prop : properties) {
 
-                switch (prop.type) {
+                if (prop instanceof ConfigPropertyInt) {
 
-                    case INTEGER:
+                    ConfigPropertyInt propInt = (ConfigPropertyInt)prop;
 
-                        ConfigPropertyInt propInt = (ConfigPropertyInt) prop;
+                    propInt.set(config.getInt(
+                        propInt.name,
+                        propInt.category,
+                        propInt.valueInt,
+                        propInt.minValueInt,
+                        propInt.maxValueInt,
+                        prop.description
+                    ));
 
-                        propInt.set(config.getInt(
-                            propInt.name,
-                            propInt.category,
-                            propInt.valueInt,
-                            propInt.minValueInt,
-                            propInt.maxValueInt,
-                            prop.description
-                        ));
+                    break;
+                }
+                else if (prop instanceof ConfigPropertyFloat) {
 
-                        break;
+                    ConfigPropertyFloat propFloat = (ConfigPropertyFloat)prop;
 
-                    case FLOAT:
+                    propFloat.set(config.getFloat(
+                        propFloat.name,
+                        propFloat.category,
+                        propFloat.valueFloat,
+                        propFloat.minValueFloat,
+                        propFloat.maxValueFloat,
+                        propFloat.description
+                    ));
 
-                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat) prop;
+                }
+                else if (prop instanceof ConfigPropertyBoolean) {
 
-                        propFloat.set(config.getFloat(
-                            propFloat.name,
-                            propFloat.category,
-                            propFloat.valueFloat,
-                            propFloat.minValueFloat,
-                            propFloat.maxValueFloat,
-                            propFloat.description
-                        ));
+                    ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)prop;
 
-                        break;
+                    propBool.set(config.getBoolean(
+                        propBool.name,
+                        propBool.category,
+                        propBool.valueBoolean,
+                        propBool.description
+                    ));
 
-                    case BOOLEAN:
+                }
+                else if (prop instanceof ConfigPropertyString) {
 
-                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean) prop;
+                    ConfigPropertyString propString = (ConfigPropertyString)prop;
 
-                        propBool.set(config.getBoolean(
-                            propBool.name,
-                            propBool.category,
-                            propBool.valueBoolean,
-                            propBool.description
-                        ));
-
-                        break;
-
-                    case STRING:
-
-                        ConfigPropertyString propString = (ConfigPropertyString) prop;
-
-                        propString.set(config.getString(
-                            propString.name,
-                            propString.category,
-                            propString.valueString,
-                            propString.description
-                        ));
-
-                        break;
-
-                    default:
-                        throw new RuntimeException("ConfigProperty type not supported.");
+                    propString.set(config.getString(
+                        propString.name,
+                        propString.category,
+                        propString.valueString,
+                        propString.description
+                    ));
+                }
+                else {
+                    throw new RuntimeException("ConfigProperty type not supported.");
                 }
             }
 

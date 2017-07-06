@@ -132,7 +132,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().STRENGTH_FACTOR.set(1f);

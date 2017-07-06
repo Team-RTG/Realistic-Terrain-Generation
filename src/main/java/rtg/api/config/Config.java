@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 import rtg.api.config.property.*;
+import rtg.api.util.BlockStringUtil;
 
 
 public abstract class Config {
@@ -70,6 +71,11 @@ public abstract class Config {
     }
 
     public ConfigPropertyString addProperty(ConfigPropertyString property) {
+        this.addProp(property);
+        return property;
+    }
+
+    public ConfigPropertyBlockstate addProperty(ConfigPropertyBlockstate property) {
         this.addProp(property);
         return property;
     }
@@ -136,6 +142,17 @@ public abstract class Config {
                         propString.valueString,
                         propString.description
                     ));
+                }
+                else if (prop instanceof ConfigPropertyBlockstate) {
+
+                    ConfigPropertyBlockstate propBlockstate = (ConfigPropertyBlockstate)prop;
+
+                    propBlockstate.set(BlockStringUtil.stringToState(config.getString(
+                        propBlockstate.name,
+                        propBlockstate.category,
+                        BlockStringUtil.stateToString(propBlockstate.valueBlockstate),
+                        propBlockstate.description
+                    )));
                 }
                 else {
                     throw new RuntimeException("ConfigProperty type not supported.");

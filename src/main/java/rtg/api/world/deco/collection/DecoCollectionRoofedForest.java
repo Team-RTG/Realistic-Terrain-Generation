@@ -236,12 +236,11 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     }
 
     private DecoBoulder boulders() {
-        DecoBoulder decoBoulder = new DecoBoulder()
-            .setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-
+        DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
 
         return decoBoulder;
     }

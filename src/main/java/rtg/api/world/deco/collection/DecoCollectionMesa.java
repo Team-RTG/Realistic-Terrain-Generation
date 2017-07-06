@@ -17,7 +17,7 @@ public class DecoCollectionMesa extends DecoCollectionBase {
         super(config);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().MAX_Y.set(83);
         this.addDeco(decoBoulder);
 

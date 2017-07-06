@@ -163,12 +163,12 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder1.config().MAX_Y.set(80);
         decoBoulder1.config().CHANCE.set(12);
         decoBoulder1.config().STRENGTH_FACTOR.set(1f);
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder2.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder2.config().MAX_Y.set(80);
         decoBoulder2.config().CHANCE.set(12);
         decoBoulder2.config().STRENGTH_FACTOR.set(1f);

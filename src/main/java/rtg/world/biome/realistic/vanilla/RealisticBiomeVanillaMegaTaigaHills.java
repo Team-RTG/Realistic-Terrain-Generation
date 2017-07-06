@@ -182,7 +182,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.config().STRENGTH_FACTOR.set(3f);

@@ -121,7 +121,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);

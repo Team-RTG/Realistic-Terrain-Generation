@@ -1,5 +1,8 @@
 package rtg.api.config;
 
+import net.minecraft.init.Blocks;
+
+import rtg.api.config.property.ConfigPropertyBlockstate;
 import rtg.api.config.property.ConfigPropertyBoolean;
 import rtg.api.config.property.ConfigPropertyFloat;
 import rtg.api.config.property.ConfigPropertyInt;
@@ -27,6 +30,8 @@ public class DecoConfig extends Config {
     public final ConfigPropertyInt EQUALS_ZERO_CHANCE;
     public final ConfigPropertyInt NOT_EQUALS_ZERO_CHANCE;
     public final ConfigPropertyFloat STRENGTH_FACTOR;
+    public final ConfigPropertyBoolean CHECK_WATER;
+    public final ConfigPropertyBlockstate BOULDER_BLOCK;
 
     public DecoConfig() {
 
@@ -74,5 +79,7 @@ public class DecoConfig extends Config {
         EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
         NOT_EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Not Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
         STRENGTH_FACTOR = new ConfigPropertyFloat("Strength Factor", "", "", 2f, 0f, Float.MAX_VALUE);
+        CHECK_WATER = new ConfigPropertyBoolean("Check Water", "", "", true);
+        BOULDER_BLOCK = new ConfigPropertyBlockstate("Boulder Block", "", "", Blocks.COBBLESTONE.getDefaultState());
     }
 }

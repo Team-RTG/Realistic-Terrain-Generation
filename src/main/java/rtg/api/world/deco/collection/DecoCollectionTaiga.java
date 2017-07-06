@@ -190,7 +190,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         this.addDeco(decoShrubSpruce);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(20);
         decoBoulder.config().MAX_Y.set(95);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);

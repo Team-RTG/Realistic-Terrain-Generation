@@ -35,7 +35,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
 
     private DecoBoulder boulders(IBlockState boulderBlock, int chance) {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(boulderBlock);
+        decoBoulder.config().BOULDER_BLOCK.set(boulderBlock);
         decoBoulder.config().CHANCE.set(chance);
         decoBoulder.config().MIN_Y.set(22);
         decoBoulder.config().MAX_Y.set(58);

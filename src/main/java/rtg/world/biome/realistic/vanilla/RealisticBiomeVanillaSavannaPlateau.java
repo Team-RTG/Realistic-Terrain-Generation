@@ -262,13 +262,13 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder1.config().MAX_Y.set(80);
         decoBoulder1.config().CHANCE.set(24);
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder2.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder1.config().MIN_Y.set(110);
         decoBoulder2.config().CHANCE.set(24);
         this.addDeco(decoBoulder2);

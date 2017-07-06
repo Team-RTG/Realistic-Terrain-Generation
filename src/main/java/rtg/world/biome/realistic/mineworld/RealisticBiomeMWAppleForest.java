@@ -166,7 +166,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().STRENGTH_FACTOR.set(2f);
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(95);

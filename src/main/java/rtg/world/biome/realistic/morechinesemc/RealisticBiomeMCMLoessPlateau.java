@@ -223,7 +223,7 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(30);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);

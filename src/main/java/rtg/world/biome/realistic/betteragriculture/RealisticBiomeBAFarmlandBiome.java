@@ -225,7 +225,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(BlockUtil.getStateDirt(2));
+        decoBoulder.config().BOULDER_BLOCK.set(BlockUtil.getStateDirt(2));
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.config().STRENGTH_FACTOR.set(4f);

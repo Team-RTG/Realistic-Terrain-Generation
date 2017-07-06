@@ -73,7 +73,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
     private DecoBoulder boulders() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(90);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);

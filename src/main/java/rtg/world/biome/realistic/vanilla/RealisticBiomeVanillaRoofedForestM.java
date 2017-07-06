@@ -120,7 +120,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(20);
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);

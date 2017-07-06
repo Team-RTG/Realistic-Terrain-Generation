@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -21,22 +20,14 @@ import rtg.api.world.gen.feature.WorldGenBlob;
  */
 public class DecoBoulder extends DecoBase {
 
-    private IBlockState boulderBlock; // This can be any block.
     private HeightType heightType; // How we determine the Y coord.
-    private boolean water;
     protected ArrayList<Block> validGroundBlocks;
 
     public DecoBoulder() {
 
         super();
 
-        /**
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         this.setHeightType(HeightType.GET_HEIGHT_VALUE);
-        this.water = true;
 
         this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(
             Blocks.GRASS,
@@ -56,6 +47,8 @@ public class DecoBoulder extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().CHANCE).set(10);
         this.config().addProperty(this.config().STRENGTH_FACTOR).set(2f);
+        this.config().addProperty(this.config().CHECK_WATER).set(true);
+        this.config().addProperty(this.config().BOULDER_BLOCK).set(Blocks.COBBLESTONE.getDefaultState());
     }
 
     @Override
@@ -64,7 +57,7 @@ public class DecoBoulder extends DecoBase {
         if (this.config().ALLOW.get()) {
 
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
-            WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
+            WorldGenerator worldGenerator = new WorldGenBlob(this.config().BOULDER_BLOCK.get(), 0, rand, this.config().CHECK_WATER.get(), validGroundBlocks);
 
             for (int l1 = 0; l1 < this.config().STRENGTH_FACTOR.get() * strength; ++l1) {
 
@@ -106,28 +99,6 @@ public class DecoBoulder extends DecoBase {
     public enum HeightType {
         NEXT_INT,
         GET_HEIGHT_VALUE;
-    }
-
-    public IBlockState getBoulderBlock() {
-
-        return boulderBlock;
-    }
-
-    public DecoBoulder setBoulderBlock(IBlockState boulderBlock) {
-
-        this.boulderBlock = boulderBlock;
-        return this;
-    }
-
-    public boolean isWater() {
-
-        return water;
-    }
-
-    public DecoBoulder setWater(boolean water) {
-
-        this.water = water;
-        return this;
     }
 
     public HeightType getHeightType() {

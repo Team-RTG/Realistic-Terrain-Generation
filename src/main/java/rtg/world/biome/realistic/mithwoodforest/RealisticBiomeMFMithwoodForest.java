@@ -287,7 +287,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(decoFlowers2);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(2);
         decoBoulder.config().MAX_Y.set(100);
         decoBoulder.config().STRENGTH_FACTOR.set(2f);

@@ -122,7 +122,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
         palmTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         palmTrees.setTreeConditionNoise(-0.2f);
         palmTrees.setTreeConditionChance(12);
-        palmTrees.setMaxY(68);
+        palmTrees.config().MAX_Y.set(68);
         this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
     }
 }

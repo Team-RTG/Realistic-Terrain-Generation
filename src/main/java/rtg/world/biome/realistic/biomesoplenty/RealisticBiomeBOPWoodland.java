@@ -173,15 +173,18 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
             this.addTree(pinusPonderosa);
 
-            return new DecoTree(pinusPonderosa)
+            DecoTree decoTree = new DecoTree(pinusPonderosa)
                 .setStrengthFactorForLoops(6f)
                 .setTreeType(DecoTree.TreeType.RTG_TREE)
                 .setDistribution(forestDistribution)
                 .setTreeCondition(DecoTree.TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
                 .setTreeConditionNoise(noiseMin)
                 .setTreeConditionNoise2(noiseMax)
-                .setTreeConditionChance(1)
-                .setMaxY(85);
+                .setTreeConditionChance(1);
+
+            decoTree.config().MAX_Y.set(85);
+
+            return decoTree;
         }
 
         private DecoHelper5050 shortTrees(float noiseMin, float noiseMax) {
@@ -203,15 +206,18 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
             this.addTree(piceaSitchensis);
 
-            return new DecoTree(piceaSitchensis)
+            DecoTree decoTree = new DecoTree(piceaSitchensis)
                 .setStrengthFactorForLoops(6f)
                 .setTreeType(DecoTree.TreeType.RTG_TREE)
                 .setDistribution(forestDistribution)
                 .setTreeCondition(DecoTree.TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
                 .setTreeConditionNoise(noiseMin)
                 .setTreeConditionNoise2(noiseMax)
-                .setTreeConditionChance(1)
-                .setMaxY(85);
+                .setTreeConditionChance(1);
+
+            decoTree.config().MAX_Y.set(85);
+
+            return decoTree;
         }
 
         private DecoHelper5050 logs() {
@@ -219,55 +225,73 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
 
         private DecoFallenTree oakLogs() {
-            return new DecoFallenTree()
+            DecoFallenTree decoFallenTree = new DecoFallenTree()
                 .setLogCondition(DecoFallenTree.LogCondition.RANDOM_CHANCE)
                 .setLogConditionChance(10)
-                .setMaxY(80)
                 .setLogBlock(Blocks.LOG.getDefaultState())
                 .setLeavesBlock(Blocks.LEAVES.getDefaultState())
                 .setMinSize(3)
                 .setMaxSize(6);
+
+            decoFallenTree.config().MAX_Y.set(80);
+
+            return decoFallenTree;
         }
 
         private DecoFallenTree spruceLogs() {
-            return new DecoFallenTree()
+            DecoFallenTree decoFallenTree = new DecoFallenTree()
                 .setLogCondition(DecoFallenTree.LogCondition.RANDOM_CHANCE)
                 .setLogConditionChance(24)
-                .setMaxY(80)
                 .setLogBlock(BlockUtil.getStateLog(1))
                 .setLeavesBlock(BlockUtil.getStateLeaf(1))
                 .setMinSize(3)
                 .setMaxSize(6);
+
+            decoFallenTree.config().MAX_Y.set(80);
+
+            return decoFallenTree;
         }
 
         private DecoShrub shrubsOak() {
-            return new DecoShrub()
-                .setMaxY(140)
+            DecoShrub decoShrub = new DecoShrub()
                 .setStrengthFactor(4f)
                 .setChance(3);
+
+            decoShrub.config().MAX_Y.set(140);
+
+            return decoShrub;
         }
 
         private DecoShrub shrubsSpruce() {
-            return new DecoShrub()
+            DecoShrub decoShrub = new DecoShrub()
                 .setLogBlock(BlockUtil.getStateLog(1))
                 .setLeavesBlock(BlockUtil.getStateLeaf(1))
-                .setMaxY(140)
                 .setStrengthFactor(4f)
                 .setChance(9);
+
+            decoShrub.config().MAX_Y.set(140);
+
+            return decoShrub;
         }
 
         private DecoFlowersRTG flowers() {
-            return new DecoFlowersRTG()
+            DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
                 .setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
-                .setMaxY(128)
                 .setStrengthFactor(6f);
+
+            decoFlowersRTG.config().MAX_Y.set(128);
+
+            return decoFlowersRTG;
         }
 
         private DecoGrass grass() {
-            return new DecoGrass()
-                .setMinY(60)
-                .setMaxY(128)
+            DecoGrass decoGrass = new DecoGrass()
                 .setLoops(8);
+
+            decoGrass.config().MIN_Y.set(60);
+            decoGrass.config().MAX_Y.set(128);
+
+            return decoGrass;
         }
     }
 }

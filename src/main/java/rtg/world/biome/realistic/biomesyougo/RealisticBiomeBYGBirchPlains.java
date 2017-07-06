@@ -193,19 +193,19 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(100);
+        decoBaseBiomeDecorations.config().MAX_Y.set(100);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoShrub decoShrubBirch = new DecoShrub();
         decoShrubBirch.setLogBlock(BlockUtil.getStateLog(2));
         decoShrubBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
-        decoShrubBirch.setMaxY(90);
+        decoShrubBirch.config().MAX_Y.set(90);
         decoShrubBirch.setStrengthFactor(6f);
         decoShrubBirch.setChance(4);
         this.addDeco(decoShrubBirch);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(100);
+        decoGrass.config().MAX_Y.set(100);
         decoGrass.setStrengthFactor(6f);
         this.addDeco(decoGrass);
     }

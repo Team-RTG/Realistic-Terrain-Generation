@@ -34,7 +34,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         acaciaTrees.setLoops(1);
         acaciaTrees.setTreeType(TreeType.RTG_TREE);
         acaciaTrees.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
-        acaciaTrees.setMaxY(65);
+        acaciaTrees.config().MAX_Y.set(65);
         this.addDeco(acaciaTrees);
 
         DecoShrub acaciaShrub = new DecoShrub();
@@ -42,7 +42,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         acaciaShrub.config().MIN_RIVER.set(0.86f);
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        acaciaShrub.setMaxY(65);
+        acaciaShrub.config().MAX_Y.set(65);
         acaciaShrub.setLoops(1);
         acaciaShrub.setChance(1);
         this.addDeco(acaciaShrub);
@@ -53,21 +53,21 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         DecoCactus decoRiverCactus = new DecoCactus();
         decoRiverCactus.config().CHECK_RIVER.set(true);
         decoRiverCactus.config().MIN_RIVER.set(0.7f);
-        decoRiverCactus.setMaxY(80);
+        decoRiverCactus.config().MAX_Y.set(80);
         decoRiverCactus.setStrengthFactor(12f);
         this.addDeco(decoRiverCactus, config.ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();
         decoReed.config().CHECK_RIVER.set(true);
         decoReed.config().MIN_RIVER.set(0.7f);
-        decoReed.setMaxY(68);
+        decoReed.config().MAX_Y.set(68);
         decoReed.setLoops(3);
         this.addDeco(decoReed);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.config().CHECK_RIVER.set(true);
         decoGrassDoubleTallgrass.config().MIN_RIVER.set(0.7f);
-        decoGrassDoubleTallgrass.setMaxY(128);
+        decoGrassDoubleTallgrass.config().MAX_Y.set(128);
         decoGrassDoubleTallgrass.setLoops(15);
         decoGrassDoubleTallgrass.setDoubleGrassChance(3);
         this.addDeco(decoGrassDoubleTallgrass);

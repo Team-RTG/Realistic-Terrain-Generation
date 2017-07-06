@@ -18,8 +18,6 @@ import rtg.api.world.gen.feature.WorldGenBlock;
 public class DecoCobwebs extends DecoBase {
 
     private float strengthFactor; // Higher = more/bigger boulders.
-    private int minY; // Lower height restriction.
-    private int maxY; // Upper height restriction.
     private int chance; // Higher = more rare.
     private IBlockState adjacentBlock;
     private int minAdjacents;
@@ -33,8 +31,6 @@ public class DecoCobwebs extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setStrengthFactor(2f);
-        this.setMinY(1); // No lower height limit by default.
-        this.setMaxY(255); // No upper height limit by default.
         this.setChance(10);
         this.setAdjacentBlock(Blocks.AIR.getDefaultState());
         this.setMinAdjacents(1);
@@ -43,7 +39,10 @@ public class DecoCobwebs extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(62);
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -55,7 +54,7 @@ public class DecoCobwebs extends DecoBase {
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
                 int i1 = worldX + rand.nextInt(16);// + 8;
                 int j1 = worldZ + rand.nextInt(16);// + 8;
-                int k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                int k1 = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
 
                 if (rand.nextInt(this.chance) == 0) {
                     worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
@@ -72,28 +71,6 @@ public class DecoCobwebs extends DecoBase {
     public DecoCobwebs setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoCobwebs setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoCobwebs setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

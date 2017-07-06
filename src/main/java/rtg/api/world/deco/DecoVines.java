@@ -25,8 +25,6 @@ public class DecoVines extends DecoBase {
     private int loops;
     private float strengthFactor;
     private Block vineBlock;
-    private int minY;
-    private int maxY;
     private PropertyBool propNorth;
     private PropertyBool propEast;
     private PropertyBool propSouth;
@@ -40,8 +38,6 @@ public class DecoVines extends DecoBase {
 
         this.setLoops(1);
         this.setStrengthFactor(0f);
-        this.setMinY(63);
-        this.setMaxY(200);
         this.vineBlock = Blocks.VINE;
         this.propNorth = BlockVine.NORTH;
         this.propEast = BlockVine.EAST;
@@ -52,7 +48,10 @@ public class DecoVines extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(200);
+    }
 
     @Override
     public boolean properlyDefined() {
@@ -78,14 +77,14 @@ public class DecoVines extends DecoBase {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
-                this.worldGenerator = new WorldGenVinesRTG(this.vineBlock, this.maxY, this.propNorth, this.propEast, this.propSouth, this.propWest);
+                this.worldGenerator = new WorldGenVinesRTG(this.vineBlock, this.config().MAX_Y.get(), this.propNorth, this.propEast, this.propSouth, this.propWest);
 
                 this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
 
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intZ = worldZ + rand.nextInt(16);// + 8;
-                    int intY = this.minY;
+                    int intY = this.config().MIN_Y.get();
 
                     worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                 }
@@ -123,28 +122,6 @@ public class DecoVines extends DecoBase {
     public DecoVines setVineBlock(Block vineBlock) {
 
         this.vineBlock = vineBlock;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoVines setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoVines setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

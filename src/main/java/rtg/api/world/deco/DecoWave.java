@@ -24,8 +24,6 @@ public class DecoWave extends DecoBase {
     private ConditionType conditionType; // Enum for the various conditions/chances for generation.
     private float conditionNoise; // Only applies to a noise-related ConditionType.
     private int conditionChance; // Only applies to a chance-related ConditionType.
-    private int minY; // Height restriction.
-    private int maxY; // Height restriction.
     private int minSize; // Min height (only used with certain presets)
     private int maxSize; // Max height (only used with certain presets)
 
@@ -42,8 +40,6 @@ public class DecoWave extends DecoBase {
         this.setConditionType(ConditionType.NOISE_GREATER_AND_RANDOM_CHANCE);
         this.setConditionNoise(0f);
         this.setConditionChance(1);
-        this.setMinY(63);
-        this.setMaxY(63);
         this.setWaveBlock(Blocks.WATER.getDefaultState().withProperty(BlockLiquid.LEVEL, 6));
         this.setMinSize(10);
         this.setMaxSize(12);
@@ -52,7 +48,10 @@ public class DecoWave extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(63);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -84,7 +83,7 @@ public class DecoWave extends DecoBase {
 
                     //Logger.info("Strength = %f @ %d %d", strength, worldX, worldZ);
 
-                    if (y22 >= this.minY && y22 <= this.maxY) {
+                    if (y22 >= this.config().MIN_Y.get() && y22 <= this.config().MAX_Y.get()) {
 
                         worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x22, y22, z22));
                     }
@@ -236,28 +235,6 @@ public class DecoWave extends DecoBase {
     public DecoWave setConditionChance(int conditionChance) {
 
         this.conditionChance = conditionChance;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoWave setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoWave setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

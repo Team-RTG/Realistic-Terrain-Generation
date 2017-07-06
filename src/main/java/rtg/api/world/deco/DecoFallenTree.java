@@ -23,7 +23,6 @@ public class DecoFallenTree extends DecoBase {
     private LogCondition logCondition; // Enum for the various conditions/chances for log gen.
     private float logConditionNoise; // Only applies to a noise-related LogCondition.
     private int logConditionChance; // Only applies to a chance-related LogCondition.
-    private int maxY; // Height restriction.
     private IBlockState logBlock;
     private IBlockState leavesBlock;
     private int minSize; // Min log height (only used with certain log presets)
@@ -44,7 +43,6 @@ public class DecoFallenTree extends DecoBase {
         this.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         this.setLogConditionNoise(0f);
         this.setLogConditionChance(1);
-        this.setMaxY(80);
         this.setLogBlock(Blocks.LOG.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         this.setMinSize(2);
@@ -62,7 +60,7 @@ public class DecoFallenTree extends DecoBase {
         this.setLogCondition(source.logCondition);
         this.setLogConditionNoise(source.logConditionNoise);
         this.setLogConditionChance(source.logConditionChance);
-        this.setMaxY(source.maxY);
+        this.config().MAX_Y.set(source.config().MAX_Y.get());
         this.setLogBlock(source.logBlock);
         this.setLeavesBlock(source.leavesBlock);
         this.setMinSize(source.minSize);
@@ -71,7 +69,9 @@ public class DecoFallenTree extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(80);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -110,7 +110,7 @@ public class DecoFallenTree extends DecoBase {
                     int z22 = worldZ + rand.nextInt(16);// + 8;
                     int y22 = rtgWorld.world().getHeight(new BlockPos(x22, 0, z22)).getY();
 
-                    if (y22 <= this.maxY) {
+                    if (y22 <= this.config().MAX_Y.get()) {
 
                         // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
@@ -269,17 +269,6 @@ public class DecoFallenTree extends DecoBase {
     public DecoFallenTree setLogConditionChance(int logConditionChance) {
 
         this.logConditionChance = logConditionChance;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoFallenTree setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

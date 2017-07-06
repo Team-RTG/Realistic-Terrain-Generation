@@ -123,7 +123,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
     public void initDecos() {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(82);
+        decoBaseBiomeDecorations.config().MAX_Y.set(82);
         this.addDeco(decoBaseBiomeDecorations);
 
         TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
@@ -139,7 +139,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         decoTrees.setTreeConditionNoise(0f);
         decoTrees.setTreeConditionChance(16);
-        decoTrees.setMaxY(70);
+        decoTrees.config().MAX_Y.set(70);
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -153,7 +153,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
-        decoFallenTree.setMaxY(76);
+        decoFallenTree.config().MAX_Y.set(76);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         TreeRTG deadWillowTree = new TreeRTGSalixMyrtilloides();
@@ -166,18 +166,18 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         deadWillow.setTreeType(DecoTree.TreeType.RTG_TREE);
         deadWillow.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         deadWillow.setTreeConditionChance(18);
-        deadWillow.setMaxY(84);
+        deadWillow.config().MAX_Y.set(84);
         this.addDeco(deadWillow);
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(88);
+        decoShrub.config().MAX_Y.set(88);
         decoShrub.setStrengthFactor(6f);
         this.addDeco(decoShrub);
 
         DecoShrub decoShrubBYG = new DecoShrub();
         decoShrubBYG.setLogBlock(willowLogBlock);
         decoShrubBYG.setLeavesBlock(willowLeavesBlock);
-        decoShrubBYG.setMaxY(88);
+        decoShrubBYG.config().MAX_Y.set(88);
         decoShrubBYG.setStrengthFactor(3f);
         this.addDeco(decoShrubBYG);
     }

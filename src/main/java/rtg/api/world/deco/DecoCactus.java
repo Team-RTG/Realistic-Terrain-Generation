@@ -22,7 +22,6 @@ public class DecoCactus extends DecoBase {
     private int loops;
     private int chance;
     private float strengthFactor;
-    private int maxY;
     private boolean sandOnly;
     private IBlockState soilBlock;
 
@@ -36,7 +35,6 @@ public class DecoCactus extends DecoBase {
          */
         this.setLoops(1);
         this.setChance(1);
-        this.setMaxY(255); // No height limit by default.
         this.setStrengthFactor(0f); // The higher the value, the more there will be.
         this.setSandOnly(false);
         this.setSoilBlock(Blocks.SAND.getDefaultState());
@@ -45,7 +43,9 @@ public class DecoCactus extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -60,10 +60,10 @@ public class DecoCactus extends DecoBase {
                 loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
                 for (int i = 0; i < loopCount * 10; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
-                    int intY = rand.nextInt(this.maxY);
+                    int intY = rand.nextInt(this.config().MAX_Y.get());
                     int intZ = worldZ + rand.nextInt(16);// + 8;
 
-                    if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
+                    if (intY <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
                         worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                     }
                 }
@@ -101,17 +101,6 @@ public class DecoCactus extends DecoBase {
     public DecoCactus setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoCactus setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

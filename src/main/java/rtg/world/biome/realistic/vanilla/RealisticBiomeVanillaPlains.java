@@ -127,15 +127,15 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         decoCropWheat.setChance(this.getConfig().WHEAT_CHANCE.get());
         decoCropWheat.setType(3);
         decoCropWheat.setWater(false);
-        decoCropWheat.setMinY(this.getConfig().WHEAT_MIN_Y.get());
-        decoCropWheat.setMaxY(this.getConfig().WHEAT_MAX_Y.get());
+        decoCropWheat.config().MIN_Y.set(this.getConfig().WHEAT_MIN_Y.get());
+        decoCropWheat.config().MAX_Y.set(this.getConfig().WHEAT_MAX_Y.get());
         this.addDeco(decoCropWheat, this.getConfig().ALLOW_WHEAT.get());
 
         // Very sparse shrubs.
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoShrubOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoShrubOak.setMaxY(110);
+        decoShrubOak.config().MAX_Y.set(110);
         decoShrubOak.setLoops(1);
         decoShrubOak.setChance(36);
         this.addDeco(decoShrubOak);
@@ -143,14 +143,14 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         // The occasional flower.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{0, 2, 3, 4, 5, 6, 7, 8, 9});
-        decoFlowersRTG.setMaxY(128);
+        decoFlowersRTG.config().MAX_Y.set(128);
         decoFlowersRTG.setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         // Lots of grass, but not as much as vanilla.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(60);
-        decoGrass.setMaxY(128);
+        decoGrass.config().MIN_Y.set(60);
+        decoGrass.config().MAX_Y.set(128);
         decoGrass.setLoops(6);
         this.addDeco(decoGrass);
 

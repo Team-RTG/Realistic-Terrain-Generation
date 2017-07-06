@@ -66,7 +66,7 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
         mucronataTree.setNoLeaves(false);
         this.addTree(mucronataTree);
 
-        return new DecoTree(mucronataTree)
+        DecoTree decoTree = new DecoTree(mucronataTree)
             .setTreeType(DecoTree.TreeType.RTG_TREE)
             .setDistribution(forestDistribution)
             .setTreeCondition(DecoTree.TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
@@ -74,9 +74,12 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
             .setTreeConditionNoise2(distributionNoiseMax)
             .setTreeConditionChance(5)
             .setStrengthFactorForLoops(10f)
-            .setMinY(minY)
-            .setMaxY(maxY)
             .setScatter(new DecoTree.Scatter(16, 0));
+
+        decoTree.config().MIN_Y.set(minY);
+        decoTree.config().MAX_Y.set(maxY);
+
+        return decoTree;
     }
 
     private DecoTree pentandraTrees(int minY, int maxY) {
@@ -91,7 +94,7 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
         pentandraTree.setNoLeaves(false);
         this.addTree(pentandraTree);
 
-        return new DecoTree(pentandraTree)
+        DecoTree decoTree = new DecoTree(pentandraTree)
             .setTreeType(DecoTree.TreeType.RTG_TREE)
             .setDistribution(forestDistribution)
             .setTreeCondition(DecoTree.TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
@@ -99,9 +102,12 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
             .setTreeConditionNoise2(distributionNoiseMax)
             .setTreeConditionChance(5)
             .setStrengthFactorForLoops(10f)
-            .setMinY(minY)
-            .setMaxY(maxY)
             .setScatter(new DecoTree.Scatter(16, 0));
+
+        decoTree.config().MIN_Y.set(minY);
+        decoTree.config().MAX_Y.set(maxY);
+
+        return decoTree;
     }
 
     private DecoTree roseaTrees(int minY, int maxY) {
@@ -116,7 +122,7 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
         roseaTree.setNoLeaves(false);
         this.addTree(roseaTree);
 
-        return new DecoTree(roseaTree)
+        DecoTree decoTree = new DecoTree(roseaTree)
             .setTreeType(DecoTree.TreeType.RTG_TREE)
             .setDistribution(forestDistribution)
             .setTreeCondition(DecoTree.TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
@@ -124,56 +130,74 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
             .setTreeConditionNoise2(distributionNoiseMax)
             .setTreeConditionChance(5)
             .setStrengthFactorForLoops(10f)
-            .setMinY(minY)
-            .setMaxY(maxY)
             .setScatter(new DecoTree.Scatter(16, 0));
+
+        decoTree.config().MIN_Y.set(minY);
+        decoTree.config().MAX_Y.set(maxY);
+
+        return decoTree;
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {
-        return new DecoBaseBiomeDecorations()
-            .setNotEqualsZeroChance(4)
-            .setMinY(treesMinY)
-            .setMaxY(treesMaxY);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations()
+            .setNotEqualsZeroChance(4);
+
+        decoBaseBiomeDecorations.config().MIN_Y.set(treesMinY);
+        decoBaseBiomeDecorations.config().MAX_Y.set(treesMaxY);
+
+        return decoBaseBiomeDecorations;
     }
 
     private DecoTree canopyTrees() {
-        return new DecoTree()
+        DecoTree decoTree = new DecoTree()
             .setWorldGen(new WorldGenCanopyTree(false))
             .setTreeType(DecoTree.TreeType.WORLDGEN)
             .setStrengthFactorForLoops(12f)
             .setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE)
-            .setTreeConditionChance(1)
-            .setMinY(treesMinY)
-            .setMaxY(treesMaxY);
+            .setTreeConditionChance(1);
+
+        decoTree.config().MIN_Y.set(treesMinY);
+        decoTree.config().MAX_Y.set(treesMaxY);
+
+        return decoTree;
     }
 
     private DecoTree vanillaTrees() {
-        return new DecoTree()
+        DecoTree decoTree = new DecoTree()
             .setWorldGen(new WorldGenTrees(false))
             .setTreeType(DecoTree.TreeType.WORLDGEN)
             .setStrengthFactorForLoops(8f)
             .setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE)
-            .setTreeConditionChance(1)
-            .setMinY(treesMinY)
-            .setMaxY(treesMaxY);
+            .setTreeConditionChance(1);
+
+        decoTree.config().MIN_Y.set(treesMinY);
+        decoTree.config().MAX_Y.set(treesMaxY);
+
+        return decoTree;
     }
 
     private DecoPond ponds() {
-        return new DecoPond()
+        DecoPond decoPond = new DecoPond()
             .setChunksPerPond(10)
-            .setMaxY(67)
             .setLoops(1);
+
+        decoPond.config().MAX_Y.set(67);
+
+        return decoPond;
     }
 
     private DecoMushrooms mushrooms() {
-        return new DecoMushrooms()
+        DecoMushrooms decoMushrooms = new DecoMushrooms()
             .setChance(6)
-            .setMaxY(90)
             .setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
+
+        decoMushrooms.config().MAX_Y.set(90);
+
+        return decoMushrooms;
     }
 
     private DecoFallenTree logs() {
-        return new DecoFallenTree()
+        DecoFallenTree decoFallenTree = new DecoFallenTree()
             .setDistribution(new DecoFallenTree.Distribution(80f, 60f, -15f))
             .setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE)
             .setLogConditionChance(16)
@@ -181,44 +205,59 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
             .setLogBlock(BlockUtil.getStateLog2(1))
             .setLeavesBlock(BlockUtil.getStateLeaf2(1))
             .setMinSize(4)
-            .setMaxSize(9)
-            .setMaxY(72);
+            .setMaxSize(9);
+
+        decoFallenTree.config().MAX_Y.set(72);
+
+        return decoFallenTree;
     }
 
     private DecoShrub darkOakShrubs() {
-        return new DecoShrub()
+        DecoShrub decoShrub = new DecoShrub()
             .setLogBlock(BlockUtil.getStateLog2(1))
             .setLeavesBlock(BlockUtil.getStateLeaf2(1))
-            .setStrengthFactor(40f)
-            .setMinY(treesMinY)
-            .setMaxY(treesMaxY);
+            .setStrengthFactor(40f);
+
+        decoShrub.config().MIN_Y.set(treesMinY);
+        decoShrub.config().MAX_Y.set(treesMaxY);
+
+        return decoShrub;
     }
 
     private DecoShrub oakShrubs() {
-        return new DecoShrub()
+        DecoShrub decoShrub = new DecoShrub()
             .setLogBlock(Blocks.LOG.getDefaultState())
             .setLeavesBlock(Blocks.LEAVES.getDefaultState())
-            .setStrengthFactor(40f)
-            .setMinY(treesMinY)
-            .setMaxY(treesMaxY);
+            .setStrengthFactor(40f);
+
+        decoShrub.config().MIN_Y.set(treesMinY);
+        decoShrub.config().MAX_Y.set(treesMaxY);
+
+        return decoShrub;
     }
 
     private DecoBoulder boulders() {
-        return new DecoBoulder()
+        DecoBoulder decoBoulder = new DecoBoulder()
             .setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState())
             .setChance(12)
-            .setMaxY(80)
             .setStrengthFactor(2f);
+
+        decoBoulder.config().MAX_Y.set(80);
+
+        return decoBoulder;
     }
 
     private DecoCobwebs cobwebs() {
-        return new DecoCobwebs()
+        DecoCobwebs decoCobwebs = new DecoCobwebs()
             .setChance(1)
-            .setMinY(treesMinY)
-            .setMaxY(treesMaxY)
             .setStrengthFactor(24f)
             .setAdjacentBlock(BlockUtil.getStateLog2(1))
             .setMinAdjacents(2);
+
+        decoCobwebs.config().MIN_Y.set(treesMinY);
+        decoCobwebs.config().MAX_Y.set(treesMaxY);
+
+        return decoCobwebs;
     }
 
     private DecoGrass grass() {

@@ -20,8 +20,6 @@ public class DecoFlowersRTG extends DecoBase {
 
     private int[] flowers; // Integer array of flower IDs.
     private float strengthFactor; // Higher = more flowers.
-    private int minY; // Height restriction.
-    private int maxY; // Height restriction.
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private int notEqualsZeroChance;
@@ -57,8 +55,6 @@ public class DecoFlowersRTG extends DecoBase {
         this.setFlowers(new int[]{0, 9}); // Only roses and dandelions by default.
         this.setChance(1); // 100% chance of generating by default.
         this.setNotEqualsZeroChance(1);
-        this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
-        this.setMaxY(253); // 2 below max build height to account for 2-block tall flowers.
         this.setHeightType(HeightType.NEXT_INT);
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setLoops(1);
@@ -67,7 +63,10 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(253); // 2 below max build height to account for 2-block tall flowers.
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -87,7 +86,7 @@ public class DecoFlowersRTG extends DecoBase {
                     int intY;
                     switch (this.heightType) {
                         case NEXT_INT:
-                            intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                            intY = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
                             break;
 
                         case GET_HEIGHT_VALUE:
@@ -95,7 +94,7 @@ public class DecoFlowersRTG extends DecoBase {
                             break;
 
                         default:
-                            intY = rand.nextInt(this.maxY);
+                            intY = rand.nextInt(this.config().MAX_Y.get());
                             break;
 
                     }
@@ -143,28 +142,6 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoFlowersRTG setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoFlowersRTG setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

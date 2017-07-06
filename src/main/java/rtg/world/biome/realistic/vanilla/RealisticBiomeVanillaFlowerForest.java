@@ -173,7 +173,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
+        decoShrub.config().MAX_Y.set(110);
         decoShrub.setStrengthFactor(4f);
         decoShrub.setChance(3);
         this.addDeco(decoShrub);
@@ -212,7 +212,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         oakPines.setTreeConditionNoise(0f);
         oakPines.setTreeConditionChance(1);
-        oakPines.setMaxY(140);
+        oakPines.config().MAX_Y.set(140);
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
         ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(1));
@@ -232,7 +232,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         sprucePines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         sprucePines.setTreeConditionNoise(0f);
         sprucePines.setTreeConditionChance(1);
-        sprucePines.setMaxY(140);
+        sprucePines.config().MAX_Y.set(140);
 
         DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
         this.addDeco(decoPines);
@@ -249,7 +249,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenOak = new DecoFallenTree();
         decoFallenOak.setLogCondition(RANDOM_CHANCE);
         decoFallenOak.setLogConditionChance(8);
-        decoFallenOak.setMaxY(100);
+        decoFallenOak.config().MAX_Y.set(100);
         decoFallenOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenOak.setMinSize(3);
@@ -257,7 +257,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
         decoFallenSpruce.setLogConditionChance(8);
-        decoFallenSpruce.setMaxY(100);
+        decoFallenSpruce.config().MAX_Y.set(100);
         decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
         decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenSpruce.setMinSize(3);
@@ -267,7 +267,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.config().MAX_Y.set(128);
         decoGrass.setStrengthFactor(24f);
         this.addDeco(decoGrass);
     }

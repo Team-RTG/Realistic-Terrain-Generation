@@ -182,7 +182,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         decoWheat.setType(3);
         decoWheat.setChance(80);
         decoWheat.setStrengthFactor(15f);
-        decoWheat.setMaxY(255);
+        decoWheat.config().MAX_Y.set(255);
         decoWheat.setSize(30);//DO NOT PUT HIGHER THAN 30
         decoWheat.setDensity(600);
         decoWheat.setHeight(5);
@@ -192,7 +192,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         decoBeet.setType(2);
         decoBeet.setChance(80);
         decoBeet.setStrengthFactor(12f);
-        decoBeet.setMaxY(255);
+        decoBeet.config().MAX_Y.set(255);
         decoBeet.setSize(30);//DO NOT PUT HIGHER THAN 30
         decoBeet.setDensity(500);
         decoBeet.setHeight(5);
@@ -202,7 +202,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         decoCarrot.setType(1);
         decoCarrot.setChance(80);
         decoCarrot.setStrengthFactor(12f);
-        decoCarrot.setMaxY(255);
+        decoCarrot.config().MAX_Y.set(255);
         decoCarrot.setSize(30);//DO NOT PUT HIGHER THAN 30
         decoCarrot.setDensity(500);
         decoCarrot.setHeight(5);
@@ -212,14 +212,14 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         decoPotato.setType(0);
         decoPotato.setChance(80);
         decoPotato.setStrengthFactor(12f);
-        decoPotato.setMaxY(255);
+        decoPotato.config().MAX_Y.set(255);
         decoPotato.setSize(30);//DO NOT PUT HIGHER THAN 30
         decoPotato.setDensity(500);
         decoPotato.setHeight(5);
         this.addDeco(decoPotato);
 
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.setMaxY(90);
+        decoShrubOak.config().MAX_Y.set(90);
         decoShrubOak.setStrengthFactor(2f);
         decoShrubOak.setChance(4);
         this.addDeco(decoShrubOak);
@@ -227,19 +227,19 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(BlockUtil.getStateDirt(2));
         decoBoulder.setChance(24);
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(4f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
+        decoBaseBiomeDecorations.config().MAX_Y.set(105);
         decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(100);
+        decoGrass.config().MIN_Y.set(63);
+        decoGrass.config().MAX_Y.set(100);
         decoGrass.setLoops(1);
         this.addDeco(decoGrass);
     }

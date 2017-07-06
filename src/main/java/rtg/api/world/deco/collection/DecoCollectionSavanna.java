@@ -23,7 +23,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        acaciaShrub.setMaxY(160);
+        acaciaShrub.config().MAX_Y.set(160);
         acaciaShrub.setStrengthFactor(2f);
         acaciaShrub.setChance(12);
         this.addDeco(acaciaShrub);
@@ -63,16 +63,16 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setChance(32);
-        decoBoulder.setMaxY(95);
+        decoBoulder.config().MAX_Y.set(95);
         this.addDeco(decoBoulder);
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
-        decoDoubleGrass.setMaxY(128);
+        decoDoubleGrass.config().MAX_Y.set(128);
         decoDoubleGrass.setStrengthFactor(3f);
         this.addDeco(decoDoubleGrass);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.config().MAX_Y.set(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
     }

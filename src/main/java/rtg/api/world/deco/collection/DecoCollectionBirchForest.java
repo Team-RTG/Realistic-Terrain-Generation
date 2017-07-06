@@ -51,19 +51,25 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
 
         this.addTree(birchTree);
 
-        return new DecoTree(birchTree)
+        DecoTree decoTree = new DecoTree(birchTree)
             .setStrengthFactorForLoops(3f)
             .setTreeType(DecoTree.TreeType.RTG_TREE)
-            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE)
-            .setMaxY(100);
+            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+
+        decoTree.config().MAX_Y.set(100);
+
+        return decoTree;
     }
 
     private DecoTree vanillaTrees() {
-        return new DecoTree(new WorldGenTrees(false))
+        DecoTree decoTree = new DecoTree(new WorldGenTrees(false))
             .setTreeType(DecoTree.TreeType.WORLDGEN)
             .setStrengthFactorForLoops(3f)
-            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE)
-            .setMaxY(100);
+            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+
+        decoTree.config().MAX_Y.set(100);
+
+        return decoTree;
     }
 
     private DecoFallenTree logs() {
@@ -77,9 +83,12 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoShrub shrubsOak() {
-        return new DecoShrub()
-            .setMaxY(120)
+        DecoShrub decoShrub = new DecoShrub()
             .setStrengthFactor(3f);
+
+        decoShrub.config().MAX_Y.set(120);
+
+        return decoShrub;
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {
@@ -88,16 +97,22 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoFlowersRTG flowers() {
-        return new DecoFlowersRTG()
+        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
             .setFlowers(new int[]{3, 6})
-            .setMaxY(128)
             .setStrengthFactor(12f);
+
+        decoFlowersRTG.config().MAX_Y.set(128);
+
+        return decoFlowersRTG;
     }
 
     private DecoGrass grass() {
-        return new DecoGrass()
-            .setMinY(60)
-            .setMaxY(128)
+        DecoGrass decoGrass = new DecoGrass()
             .setStrengthFactor(20f);
+
+        decoGrass.config().MIN_Y.set(60);
+        decoGrass.config().MAX_Y.set(128);
+
+        return decoGrass;
     }
 }

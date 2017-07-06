@@ -29,12 +29,6 @@ public class DecoBaseBiomeDecorations extends DecoBase {
      */
     protected int loops;
 
-    /**
-     * Height restriction.
-     */
-    protected int minY;
-    protected int maxY;
-
     public DecoBaseBiomeDecorations() {
 
         super();
@@ -46,14 +40,15 @@ public class DecoBaseBiomeDecorations extends DecoBase {
         this.setEqualsZeroChance(0); // Only used if greater than 0
         this.setNotEqualsZeroChance(0); // Only used if greater than 0
         this.setLoops(1); // You almost always want to loop only once.
-        this.setMinY(1); // No height limit by default.
-        this.setMaxY(255); // No height limit by default.
 
         this.addDecoTypes(DecoType.BASE_BIOME_DECORATION);
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(1);
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -64,7 +59,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
 
                 int intY = rtgWorld.world().getHeight(new BlockPos(worldX, 0, worldZ)).getY();
 
-                if (intY >= this.minY && intY <= this.maxY) {
+                if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get()) {
 
                     if (this.equalsZeroChance > 0) {
 
@@ -117,28 +112,6 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     public DecoBaseBiomeDecorations setLoops(int loops) {
 
         this.loops = loops;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoBaseBiomeDecorations setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoBaseBiomeDecorations setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 }

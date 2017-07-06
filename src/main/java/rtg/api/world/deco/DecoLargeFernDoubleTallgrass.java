@@ -22,7 +22,6 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     private final int FERN_META = 3;
 
     public float strengthFactor;
-    public int maxY;
     public int loops;
     public int grassChance;
     public int fernChance;
@@ -35,7 +34,6 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setMaxY(255); // No height limit by default.
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setLoops(1);
         this.grassChance = 0; // 50% chance for both grass & ferns by default.
@@ -45,7 +43,9 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -60,10 +60,10 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
                 this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 for (int i = 0; i < this.loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
-                    int intY = rand.nextInt(this.maxY);
+                    int intY = rand.nextInt(this.config().MAX_Y.get());
                     int intZ = worldZ + rand.nextInt(16) + 8;
 
-                    if (intY <= this.maxY) {
+                    if (intY <= this.config().MAX_Y.get()) {
 
                         if (this.fernChance > 0) {
 
@@ -112,17 +112,6 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     public DecoLargeFernDoubleTallgrass setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoLargeFernDoubleTallgrass setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

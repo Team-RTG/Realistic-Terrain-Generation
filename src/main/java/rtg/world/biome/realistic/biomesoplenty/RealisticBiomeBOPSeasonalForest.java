@@ -172,7 +172,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setChance(16);
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);

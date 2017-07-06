@@ -39,7 +39,7 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         smallPines.setTreeType(TreeType.RTG_TREE);
         smallPines.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
         smallPines.setTreeConditionChance(3);
-        smallPines.setMaxY(100);
+        smallPines.config().MAX_Y.set(100);
 
         TreeRTG pungensTree = new TreeRTGPiceaPungens();
         pungensTree.setLogBlock(BlockUtil.getStateLog(1));
@@ -56,7 +56,7 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         spruceTrees.setTreeType(TreeType.RTG_TREE);
         spruceTrees.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
         spruceTrees.setTreeConditionChance(1);
-        spruceTrees.setMaxY(100);
+        spruceTrees.config().MAX_Y.set(100);
 
         TreeRTG ponderosaTree = new TreeRTGPinusPonderosa();
         ponderosaTree.setLogBlock(Blocks.LOG.getDefaultState());
@@ -73,7 +73,7 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         oakPines.setTreeType(TreeType.RTG_TREE);
         oakPines.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
         oakPines.setTreeConditionChance(1);
-        oakPines.setMaxY(100);
+        oakPines.config().MAX_Y.set(100);
 
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{spruceTrees, smallPines, oakPines};

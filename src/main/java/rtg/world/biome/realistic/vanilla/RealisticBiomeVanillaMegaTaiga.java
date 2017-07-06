@@ -149,7 +149,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.setChance(16);
-        decoBoulder.setMaxY(95);
+        decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(3f);
         this.addDeco(decoBoulder);
 
@@ -169,7 +169,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
+        decoShrub.config().MAX_Y.set(100);
         decoShrub.setStrengthFactor(2f);
         decoShrub.setChance(10);
         this.addDeco(decoShrub);
@@ -179,19 +179,19 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeVanillaBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.config().MAX_Y.set(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(3f);
         this.addDeco(decoMushrooms);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
+        decoPumpkin.config().MAX_Y.set(90);
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(20f);
         this.addDeco(decoPumpkin);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
+        decoGrass.config().MAX_Y.set(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
     }

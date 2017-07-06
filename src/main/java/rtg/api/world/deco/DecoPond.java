@@ -18,8 +18,6 @@ import rtg.api.world.gen.feature.WorldGenPond;
 public class DecoPond extends DecoBase {
 
     private int chunksPerPond = 8;
-    private int minY = 64;
-    private int maxY = 240;
     private int loops = 1;
 
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
@@ -39,7 +37,7 @@ public class DecoPond extends DecoBase {
 
                 if (rand.nextInt(this.chunksPerPond) == 0) {
 
-                    if (l4 >= this.minY && l4 <= this.maxY) {
+                    if (l4 >= this.config().MIN_Y.get() && l4 <= this.config().MAX_Y.get()) {
 
                         pondGenerator.generate(rtgWorld.world(), rand, new BlockPos(i2, l4, i8));
                     }
@@ -49,7 +47,10 @@ public class DecoPond extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(64);
+        this.config().addProperty(this.config().MAX_Y).set(240);
+    }
 
     public int getChunksPerPond() {
 
@@ -59,28 +60,6 @@ public class DecoPond extends DecoBase {
     public DecoPond setChunksPerPond(int chunksPerPond) {
 
         this.chunksPerPond = chunksPerPond;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoPond setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoPond setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

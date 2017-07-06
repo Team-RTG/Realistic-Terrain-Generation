@@ -21,8 +21,6 @@ public class DecoCrop extends DecoBase {
     private int density; //Higher = Crops in fields closer together.
     private int height; //Higher = Crops on more y levels - When higher tends to be less dense.
     private float strengthFactor; // Higher = More frequent spawns.
-    private int minY; // Lower height restriction.
-    private int maxY; // Upper height restriction.
     private int chance; // Higher = more rare.
     private boolean water;
 
@@ -39,8 +37,6 @@ public class DecoCrop extends DecoBase {
         this.density = 50;
         this.height = 2;
         this.setStrengthFactor(2f);
-        this.setMinY(63); // Sensible lower height limit by default.
-        this.setMaxY(255); // No upper height limit by default.
         this.setChance(10); //The higher the number the less common it will be
         this.water = true; //whether or not to spawn water with the crops
 
@@ -48,7 +44,10 @@ public class DecoCrop extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -67,7 +66,7 @@ public class DecoCrop extends DecoBase {
                 int j1 = worldZ + rand.nextInt(16);// + 8;
                 int k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
 
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
+                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
                     if (hasPlacedVillageBlocks) {
@@ -134,28 +133,6 @@ public class DecoCrop extends DecoBase {
     public DecoCrop setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoCrop setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoCrop setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

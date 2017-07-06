@@ -23,8 +23,6 @@ public class DecoBoulder extends DecoBase {
 
     private IBlockState boulderBlock; // This can be any block.
     private float strengthFactor; // Higher = more/bigger boulders.
-    private int minY; // Lower height restriction.
-    private int maxY; // Upper height restriction.
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private boolean water;
@@ -40,8 +38,6 @@ public class DecoBoulder extends DecoBase {
          */
         this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         this.setStrengthFactor(2f);
-        this.setMinY(60); // Sensible lower height limit by default.
-        this.setMaxY(255); // No upper height limit by default.
         this.setHeightType(HeightType.GET_HEIGHT_VALUE);
         this.setChance(10);
         this.water = true;
@@ -59,7 +55,10 @@ public class DecoBoulder extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(60);
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -78,7 +77,7 @@ public class DecoBoulder extends DecoBase {
                 switch (this.heightType) {
 
                     case NEXT_INT:
-                        k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                        k1 = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
                         break;
 
                     case GET_HEIGHT_VALUE:
@@ -91,7 +90,7 @@ public class DecoBoulder extends DecoBase {
 
                 }
 
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
+                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
                     if (hasPlacedVillageBlocks) {
@@ -130,28 +129,6 @@ public class DecoBoulder extends DecoBase {
     public DecoBoulder setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoBoulder setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoBoulder setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

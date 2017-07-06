@@ -171,12 +171,12 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
         decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
+        decoBoulder1.config().MAX_Y.set(80);
         decoBoulder1.setChance(12);
         decoBoulder1.setStrengthFactor(1f);
         DecoBoulder decoBoulder2 = new DecoBoulder();
         decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder2.setMaxY(80);
+        decoBoulder2.config().MAX_Y.set(80);
         decoBoulder2.setChance(12);
         decoBoulder2.setStrengthFactor(1f);
         DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);

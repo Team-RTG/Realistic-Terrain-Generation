@@ -27,8 +27,6 @@ public class DecoSeaweed extends DecoBase {
     protected float conditionNoise2; // Only applies to a noise-related Condition.
     protected int conditionChance; // Only applies to a chance-related Condition.
     protected float conditionFloat; // Multi-purpose float.
-    protected int minY; // Lower height restriction.
-    protected int maxY; // Upper height restriction.
     protected IBlockState seaweedBlock;
     protected int minHeight; // Min seaweed height (only used with certain seaweed presets)
     protected int maxHeight; // Max seaweed height (only used with certain seaweed presets)
@@ -52,8 +50,6 @@ public class DecoSeaweed extends DecoBase {
         this.setConditionNoise2(0f);
         this.setConditionFloat(0f);
         this.setConditionChance(1);
-        this.setMinY(15); // Few blocks below min ocean floor by default.
-        this.setMaxY(58); // No seaweed sticking out of the water by default.
         this.setSeaweedBlock(BlockUtil.getStateLeaf(3));
         this.setMinHeight(1);
         this.setMaxHeight(4);
@@ -63,7 +59,10 @@ public class DecoSeaweed extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(15); // Few blocks below min ocean floor by default.
+        this.config().addProperty(this.config().MAX_Y).set(58); // No seaweed sticking out of the water by default.
+    }
 
     @Override
     public boolean properlyDefined() {
@@ -96,11 +95,11 @@ public class DecoSeaweed extends DecoBase {
 
                 int intX = scatter.get(rand, worldX); // + 8;
                 int intZ = scatter.get(rand, worldZ); // + 8;
-                int intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                int intY = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
 
                 //Logger.info("noise = %f", noise);
 
-                if (intY <= this.maxY && intY >= this.minY && isValidCondition(noise, rand, strength)) {
+                if (intY <= this.config().MAX_Y.get() && intY >= this.config().MIN_Y.get() && isValidCondition(noise, rand, strength)) {
 
                     worldGen.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                 }
@@ -325,28 +324,6 @@ public class DecoSeaweed extends DecoBase {
     public DecoSeaweed setConditionFloat(float conditionFloat) {
 
         this.conditionFloat = conditionFloat;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoSeaweed setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoSeaweed setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

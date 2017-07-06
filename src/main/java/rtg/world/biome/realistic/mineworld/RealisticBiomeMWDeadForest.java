@@ -176,7 +176,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setChance(24);
-        decoBoulder.setMaxY(95);
+        decoBoulder.config().MAX_Y.set(95);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
@@ -188,7 +188,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         decoFallenTree1.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(10);
-        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.config().MAX_Y.set(100);
         decoFallenTree1.setLogBlock(BlockUtil.getStateLog(1));
         decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenTree1.setMinSize(3);
@@ -202,7 +202,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         decoFallenTree2.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(10);
-        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.config().MAX_Y.set(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog(3));
         decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(3));
         decoFallenTree2.setMinSize(3);

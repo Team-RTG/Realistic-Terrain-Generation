@@ -25,8 +25,6 @@ public class DecoShrub extends DecoBase {
     private IBlockState[] randomLogBlocks;
     private IBlockState[] randomLeavesBlocks;
     private float strengthFactor; // Higher = more/bigger shrubs.
-    private int minY; // Height restriction.
-    private int maxY; // Height restriction.
     private int chance; // Higher = more rare.
     private int notEqualsZeroChance;
     private int loops;
@@ -49,8 +47,6 @@ public class DecoShrub extends DecoBase {
         this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
         this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.setMinY(1); // No height limit by default.
-        this.setMaxY(255); // No height limit by default.
         this.setChance(1); // 100% chance of generating by default.
         this.notEqualsZeroChance = 1;
         this.setLoops(1);
@@ -69,7 +65,10 @@ public class DecoShrub extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -106,13 +105,13 @@ public class DecoShrub extends DecoBase {
 
                 if (this.notEqualsZeroChance > 1) {
 
-                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
+                    if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.notEqualsZeroChance) != 0) {
                         generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
                 else {
 
-                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
+                    if (intY >= this.config().MIN_Y.get() && intY <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
                         generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
@@ -194,28 +193,6 @@ public class DecoShrub extends DecoBase {
     public DecoShrub setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoShrub setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoShrub setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

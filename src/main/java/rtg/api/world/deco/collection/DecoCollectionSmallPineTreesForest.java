@@ -36,14 +36,14 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
         oakPine.setTreeType(TreeType.RTG_TREE);
         oakPine.setTreeCondition(TreeCondition.RANDOM_CHANCE);
         oakPine.setTreeConditionChance(4);
-        oakPine.setMaxY(110);
+        oakPine.config().MAX_Y.set(110);
 
         DecoTree vanillaTrees = new DecoTree(new WorldGenTrees(false));
         vanillaTrees.setStrengthFactorForLoops(3f);
         vanillaTrees.setTreeType(TreeType.WORLDGEN);
         vanillaTrees.setTreeCondition(TreeCondition.RANDOM_CHANCE);
         vanillaTrees.setTreeConditionChance(4);
-        vanillaTrees.setMaxY(110);
+        vanillaTrees.config().MAX_Y.set(110);
 
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees};

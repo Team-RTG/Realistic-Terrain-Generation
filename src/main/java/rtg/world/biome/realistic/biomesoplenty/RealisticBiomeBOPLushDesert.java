@@ -199,7 +199,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setChance(16);
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
@@ -218,7 +218,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
 
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
         decoJungleCacti.setStrengthFactor(8f);
-        decoJungleCacti.setMaxY(110);
+        decoJungleCacti.config().MAX_Y.set(110);
         this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
     }
 }

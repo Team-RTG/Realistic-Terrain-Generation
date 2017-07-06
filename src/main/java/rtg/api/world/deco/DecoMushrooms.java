@@ -19,7 +19,6 @@ import rtg.api.world.biome.IRealisticBiome;
 public class DecoMushrooms extends DecoBase {
 
     private float strengthFactor;
-    private int maxY;
     private float randomFloat;
     private RandomType randomType;
     private int chance;
@@ -33,7 +32,6 @@ public class DecoMushrooms extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setMaxY(255); // No height limit by default.
         this.setStrengthFactor(0f); // The higher the value, the more there will be. Disabled by default.
         this.setRandomType(RandomType.USE_CHANCE_VALUE);
         this.setRandomFloat(1f);
@@ -44,7 +42,9 @@ public class DecoMushrooms extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(255);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -78,10 +78,10 @@ public class DecoMushrooms extends DecoBase {
                     if (rand.nextInt(this.chance) == 0) {
 
                         int intX = worldX + rand.nextInt(16);// + 8;
-                        int intY = rand.nextInt(this.maxY);
+                        int intY = rand.nextInt(this.config().MAX_Y.get());
                         int intZ = worldZ + rand.nextInt(16);// + 8;
 
-                        if (intY <= this.maxY) {
+                        if (intY <= this.config().MAX_Y.get()) {
 
                             if (rand.nextBoolean()) {
                                 worldGeneratorBrownShrooms.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
@@ -110,17 +110,6 @@ public class DecoMushrooms extends DecoBase {
     public DecoMushrooms setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoMushrooms setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

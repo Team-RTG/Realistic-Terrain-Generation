@@ -170,7 +170,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setChance(16);
-        decoBoulder.setMaxY(95);
+        decoBoulder.config().MAX_Y.set(95);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
@@ -180,7 +180,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(16);
-        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.config().MAX_Y.set(100);
         decoFallenTree1.setLogBlock(BOPBlocks.log_1.getStateFromMeta(1));
         decoFallenTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree1.setMinSize(3);
@@ -193,7 +193,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(16);
-        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.config().MAX_Y.set(100);
         decoFallenTree2.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenTree2.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree2.setMinSize(3);

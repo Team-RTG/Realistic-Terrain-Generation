@@ -37,8 +37,6 @@ public class DecoTree extends DecoBase {
     protected float treeConditionNoise2; // Only applies to a noise-related TreeCondition.
     protected int treeConditionChance; // Only applies to a chance-related TreeCondition.
     protected float treeConditionFloat; // Multi-purpose float.
-    protected int minY; // Lower height restriction.
-    protected int maxY; // Upper height restriction.
     protected IBlockState logBlock;
     protected IBlockState leavesBlock;
     protected int minSize; // Min tree height (only used with certain tree presets)
@@ -71,8 +69,6 @@ public class DecoTree extends DecoBase {
         this.setTreeConditionNoise2(0f);
         this.setTreeConditionFloat(0f);
         this.setTreeConditionChance(1);
-        this.setMinY(63); // No underwater trees by default.
-        this.setMaxY(230); // Sensible upper height limit by default.
         this.setLogBlock(Blocks.LOG.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         this.setMinSize(2);
@@ -103,8 +99,8 @@ public class DecoTree extends DecoBase {
         this.setTreeConditionNoise2(source.treeConditionNoise2);
         this.setTreeConditionFloat(source.treeConditionFloat);
         this.setTreeConditionChance(source.treeConditionChance);
-        this.setMinY(source.minY);
-        this.setMaxY(source.maxY);
+        this.config().MIN_Y.set(source.config().MIN_Y.get());
+        this.config().MAX_Y.set(source.config().MAX_Y.get());
         this.setLogBlock(source.logBlock);
         this.setLeavesBlock(source.leavesBlock);
         this.setMinSize(source.minSize);
@@ -137,7 +133,10 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(230);
+    }
 
     public boolean properlyDefined() {
 
@@ -211,7 +210,7 @@ public class DecoTree extends DecoBase {
 
                     //Logger.info("noise = %f", noise);
 
-                    if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+                    if (intY <= this.config().MAX_Y.get() && intY >= this.config().MIN_Y.get() && isValidTreeCondition(noise, rand, strength)) {
 
                         // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
@@ -533,28 +532,6 @@ public class DecoTree extends DecoBase {
     public DecoTree setTreeConditionFloat(float treeConditionFloat) {
 
         this.treeConditionFloat = treeConditionFloat;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoTree setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoTree setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

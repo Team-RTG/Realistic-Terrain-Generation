@@ -181,7 +181,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setChance(4);
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.config().MAX_Y.set(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
 
@@ -200,7 +200,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         mangroveTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         mangroveTree.setTreeConditionChance(1);
         mangroveTree.setStrengthFactorForLoops(12f);
-        mangroveTree.setMaxY(110);
+        mangroveTree.config().MAX_Y.set(110);
         mangroveTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(mangroveTree);
 
@@ -219,7 +219,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaPentandraTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         ceibaPentandraTree.setTreeConditionChance(1);
         ceibaPentandraTree.setStrengthFactorForLoops(12f);
-        ceibaPentandraTree.setMaxY(110);
+        ceibaPentandraTree.config().MAX_Y.set(110);
         ceibaPentandraTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(ceibaPentandraTree);
 
@@ -238,7 +238,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         ceibaRoseaTree.setTreeConditionChance(1);
         ceibaRoseaTree.setStrengthFactorForLoops(12f);
-        ceibaRoseaTree.setMaxY(110);
+        ceibaRoseaTree.config().MAX_Y.set(110);
         ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(ceibaRoseaTree);
 
@@ -258,13 +258,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         DecoShrub darkOakShrub = new DecoShrub();
         darkOakShrub.setLogBlock(BlockUtil.getStateLog2(1));
         darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf2(1));
-        darkOakShrub.setMaxY(100);
+        darkOakShrub.config().MAX_Y.set(100);
         darkOakShrub.setStrengthFactor(8f);
 
         DecoShrub oakShrub = new DecoShrub();
         oakShrub.setLogBlock(Blocks.LOG.getDefaultState());
         oakShrub.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        oakShrub.setMaxY(100);
+        oakShrub.config().MAX_Y.set(100);
         oakShrub.setStrengthFactor(8f);
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
@@ -272,14 +272,14 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.setChance(16);
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoCobwebs decoCobwebs = new DecoCobwebs();
         decoCobwebs.setChance(1);
-        decoCobwebs.setMinY(63);
-        decoCobwebs.setMaxY(76);
+        decoCobwebs.config().MIN_Y.set(63);
+        decoCobwebs.config().MAX_Y.set(76);
         decoCobwebs.setStrengthFactor(24f);
         decoCobwebs.setAdjacentBlock(BlockUtil.getStateLog2(1));
         decoCobwebs.setMinAdjacents(2);
@@ -287,16 +287,16 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
-        decoBaseBiomeDecorations.setMaxY(100);
+        decoBaseBiomeDecorations.config().MAX_Y.set(100);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(100);
+        decoGrass.config().MAX_Y.set(100);
         decoGrass.setStrengthFactor(20f);
         this.addDeco(decoGrass);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.setMaxY(100);
+        decoDeadBush.config().MAX_Y.set(100);
         decoDeadBush.setChance(2);
         decoDeadBush.setStrengthFactor(2f);
         this.addDeco(decoDeadBush);

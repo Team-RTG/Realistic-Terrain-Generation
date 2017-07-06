@@ -18,24 +18,24 @@ public class DecoCollectionMesa extends DecoCollectionBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(83);
+        decoBoulder.config().MAX_Y.set(83);
         this.addDeco(decoBoulder);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setLoops(2);
         decoShrub.setChance(4);
-        decoShrub.setMaxY(90);
+        decoShrub.config().MAX_Y.set(90);
         addDeco(decoShrub);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.setMaxY(100);
+        decoDeadBush.config().MAX_Y.set(100);
         decoDeadBush.setLoops(3);
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
         decoCactus.setLoops(18);
-        decoCactus.setMaxY(100);
+        decoCactus.config().MAX_Y.set(100);
         this.addDeco(decoCactus, config.ALLOW_CACTUS.get());
     }
 }

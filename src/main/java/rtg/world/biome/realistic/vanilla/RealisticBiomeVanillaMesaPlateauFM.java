@@ -233,7 +233,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
         decoTree.setTreeConditionChance(1);
         decoTree.setTreeConditionFloat(4f);
         decoTree.setTreeConditionNoise(0f);
-        decoTree.setMinY(74);
+        decoTree.config().MIN_Y.set(74);
         addDeco(decoTree);
     }
 

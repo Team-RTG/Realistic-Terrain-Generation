@@ -24,8 +24,6 @@ public class DecoSponge extends DecoBase {
 
     private IBlockState spongeBlock; // This can be any block.
     private float strengthFactor; // Higher = more/bigger boulders.
-    private int minY; // Lower height restriction.
-    private int maxY; // Upper height restriction.
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private boolean water;
@@ -41,8 +39,6 @@ public class DecoSponge extends DecoBase {
          */
         this.setSpongeBlock(Blocks.SPONGE.getDefaultState().withProperty(BlockSponge.WET, true));
         this.setStrengthFactor(2f);
-        this.setMinY(20);
-        this.setMaxY(45);
         this.setHeightType(HeightType.NEXT_INT);
         this.setChance(10);
         this.water = true;
@@ -60,7 +56,10 @@ public class DecoSponge extends DecoBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(20);
+        this.config().addProperty(this.config().MAX_Y).set(45);
+    }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
@@ -79,7 +78,7 @@ public class DecoSponge extends DecoBase {
                 switch (this.heightType) {
 
                     case NEXT_INT:
-                        k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                        k1 = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
                         break;
 
                     case GET_HEIGHT_VALUE:
@@ -92,7 +91,7 @@ public class DecoSponge extends DecoBase {
 
                 }
 
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
+                if (k1 >= this.config().MIN_Y.get() && k1 <= this.config().MAX_Y.get() && rand.nextInt(this.chance) == 0) {
                     worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
                 }
             }
@@ -123,28 +122,6 @@ public class DecoSponge extends DecoBase {
     public DecoSponge setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoSponge setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoSponge setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

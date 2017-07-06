@@ -133,7 +133,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setChance(16);
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
@@ -145,7 +145,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree1.setLogCondition(RANDOM_CHANCE);
         decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(6);
-        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.config().MAX_Y.set(100);
         decoFallenTree1.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
         decoFallenTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree1.setMinSize(3);
@@ -158,7 +158,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree2.setLogCondition(RANDOM_CHANCE);
         decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(6);
-        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.config().MAX_Y.set(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog(1));
         decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenTree2.setMinSize(3);

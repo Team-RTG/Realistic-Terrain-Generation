@@ -182,13 +182,13 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         DecoShrub decoShrubSugi = new DecoShrub();
         decoShrubSugi.setLogBlock(sugiLogBlock);
         decoShrubSugi.setLeavesBlock(sugiLeavesBlock);
-        decoShrubSugi.setMaxY(90);
+        decoShrubSugi.config().MAX_Y.set(90);
         decoShrubSugi.setStrengthFactor(4f);
         decoShrubSugi.setChance(8);
         this.addDeco(decoShrubSugi);
 
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.setMaxY(90);
+        decoShrubOak.config().MAX_Y.set(90);
         decoShrubOak.setStrengthFactor(4f);
         decoShrubOak.setChance(4);
         this.addDeco(decoShrubOak);
@@ -196,19 +196,19 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setChance(24);
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
+        decoBaseBiomeDecorations.config().MAX_Y.set(105);
         decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(100);
+        decoGrass.config().MIN_Y.set(63);
+        decoGrass.config().MAX_Y.set(100);
         decoGrass.setLoops(1);
         this.addDeco(decoGrass);
     }

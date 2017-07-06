@@ -175,7 +175,7 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
         DecoShrub decoShrubAthura = new DecoShrub();
         decoShrubAthura.setLogBlock(athuraLogBlock);
         decoShrubAthura.setLeavesBlock(athuraLeavesBlock);
-        decoShrubAthura.setMaxY(90);
+        decoShrubAthura.config().MAX_Y.set(90);
         decoShrubAthura.setStrengthFactor(4f);
         decoShrubAthura.setChance(8);
         this.addDeco(decoShrubAthura);
@@ -183,7 +183,7 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setChance(24);
-        decoBoulder.setMaxY(80);
+        decoBoulder.config().MAX_Y.set(80);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
@@ -192,8 +192,8 @@ public class RealisticBiomeBYGAthuraForest extends RealisticBiomeBYGBase {
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(105);
+        decoGrass.config().MIN_Y.set(63);
+        decoGrass.config().MAX_Y.set(105);
         decoGrass.setLoops(1);
         this.addDeco(decoGrass);
     }

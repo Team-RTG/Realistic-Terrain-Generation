@@ -226,11 +226,11 @@ public class DecoCollectionForest extends DecoCollectionBase {
     }
 
     private DecoGrass grass() {
-        DecoGrass decoGrass = new DecoGrass()
-            .setLoops(8);
 
+        DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MIN_Y.set(60);
         decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().LOOPS.set(8);
 
         return decoGrass;
     }

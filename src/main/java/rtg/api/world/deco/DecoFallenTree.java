@@ -18,7 +18,6 @@ import rtg.api.world.gen.feature.WorldGenLog;
  */
 public class DecoFallenTree extends DecoBase {
 
-    private int loops;
     private DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
     private LogCondition logCondition; // Enum for the various conditions/chances for log gen.
     private float logConditionNoise; // Only applies to a noise-related LogCondition.
@@ -38,7 +37,6 @@ public class DecoFallenTree extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setDistribution(new DecoFallenTree.Distribution(100f, 5f, 0.8f));
         this.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         this.setLogConditionNoise(0f);
@@ -55,7 +53,7 @@ public class DecoFallenTree extends DecoBase {
     public DecoFallenTree(DecoFallenTree source) {
 
         this();
-        this.setLoops(source.loops);
+        this.config().LOOPS.set(source.config().LOOPS.get());
         this.setDistribution(source.distribution);
         this.setLogCondition(source.logCondition);
         this.setLogConditionNoise(source.logConditionNoise);
@@ -71,6 +69,7 @@ public class DecoFallenTree extends DecoBase {
     @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(80);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -104,7 +103,8 @@ public class DecoFallenTree extends DecoBase {
                 worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);
             }
 
-            for (int i = 0; i < this.loops; i++) {
+            int loops = this.config().LOOPS.get();
+            for (int i = 0; i < loops; i++) {
                 if (isValidLogCondition(noise, strength, rand)) {
                     int x22 = worldX + rand.nextInt(16);// + 8;
                     int z22 = worldZ + rand.nextInt(16);// + 8;
@@ -215,17 +215,6 @@ public class DecoFallenTree extends DecoBase {
             this.noiseAddend = noiseAddend;
             return this;
         }
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoFallenTree setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
     }
 
     public Distribution getDistribution() {

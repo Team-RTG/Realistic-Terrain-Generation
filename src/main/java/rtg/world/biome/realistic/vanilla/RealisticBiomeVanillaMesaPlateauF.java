@@ -224,7 +224,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
 
         DecoTree decoTree = new DecoTree(new WorldGenTrees(false));
-        decoTree.setLoops(24);
+        decoTree.config().LOOPS.set(24);
         decoTree.setTreeType(DecoTree.TreeType.WORLDGEN);
         decoTree.setTreeCondition(DecoTree.TreeCondition.X_DIVIDED_BY_STRENGTH);
         decoTree.setDistribution(new DecoTree.Distribution(24f, 1f, 0f));

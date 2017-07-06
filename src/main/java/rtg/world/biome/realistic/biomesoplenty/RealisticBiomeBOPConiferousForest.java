@@ -174,7 +174,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLoops(1);
+        decoFallenTree.config().LOOPS.set(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
@@ -189,7 +189,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
         decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(12);
-        decoBOPBaseBiomeDecorations.setLoops(1);
+        decoBOPBaseBiomeDecorations.config().LOOPS.set(1);
         this.addDeco(decoBOPBaseBiomeDecorations);
     }
 }

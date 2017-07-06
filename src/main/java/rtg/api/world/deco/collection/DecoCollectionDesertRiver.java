@@ -31,7 +31,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         DecoTree acaciaTrees = new DecoTree(acaciaTree);
         acaciaTrees.config().CHECK_RIVER.set(true);
         acaciaTrees.config().MIN_RIVER.set(0.86f);
-        acaciaTrees.setLoops(1);
+        acaciaTrees.config().LOOPS.set(1);
         acaciaTrees.setTreeType(TreeType.RTG_TREE);
         acaciaTrees.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
         acaciaTrees.config().MAX_Y.set(65);
@@ -43,7 +43,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaShrub.config().MAX_Y.set(65);
-        acaciaShrub.setLoops(1);
+        acaciaShrub.config().LOOPS.set(1);
         acaciaShrub.setChance(1);
         this.addDeco(acaciaShrub);
 
@@ -61,14 +61,14 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         decoReed.config().CHECK_RIVER.set(true);
         decoReed.config().MIN_RIVER.set(0.7f);
         decoReed.config().MAX_Y.set(68);
-        decoReed.setLoops(3);
+        decoReed.config().LOOPS.set(3);
         this.addDeco(decoReed);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.config().CHECK_RIVER.set(true);
         decoGrassDoubleTallgrass.config().MIN_RIVER.set(0.7f);
         decoGrassDoubleTallgrass.config().MAX_Y.set(128);
-        decoGrassDoubleTallgrass.setLoops(15);
+        decoGrassDoubleTallgrass.config().LOOPS.set(15);
         decoGrassDoubleTallgrass.setDoubleGrassChance(3);
         this.addDeco(decoGrassDoubleTallgrass);
     }

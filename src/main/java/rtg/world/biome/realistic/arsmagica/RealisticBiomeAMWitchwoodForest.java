@@ -191,7 +191,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setLoops(8);
+        decoGrass.config().LOOPS.set(8);
         this.addDeco(decoGrass);
     }
 

@@ -34,7 +34,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         this.addTree(mucronataTree);
 
         DecoTree mangroves = new DecoTree(new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f));
-        mangroves.setLoops(3);
+        mangroves.config().LOOPS.set(3);
         mangroves.setTreeType(DecoTree.TreeType.RTG_TREE);
         mangroves.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         mangroves.setTreeConditionChance(3);
@@ -47,7 +47,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         megaJungle.setMaxTrunkSize(4);
         megaJungle.setMinCrownSize(10);
         megaJungle.setMaxCrownSize(27);
-        megaJungle.setLoops(3);
+        megaJungle.config().LOOPS.set(3);
         megaJungle.setTreeType(DecoTree.TreeType.WORLDGEN);
         megaJungle.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         megaJungle.setTreeConditionChance(3);
@@ -66,7 +66,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         this.addTree(nuciferaTree);
 
         DecoTree palmCustom = new DecoTree(nuciferaTree);
-        palmCustom.setLoops(1);
+        palmCustom.config().LOOPS.set(1);
         palmCustom.setTreeType(DecoTree.TreeType.RTG_TREE);
         palmCustom.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         palmCustom.setTreeConditionChance(4);
@@ -75,7 +75,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
 
         // Jungle logs.
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLoops(1);
+        decoFallenTree.config().LOOPS.set(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(5f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
@@ -91,7 +91,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.setNotEqualsZeroChance(6);
-        decoBaseBiomeDecorations.setLoops(1);
+        decoBaseBiomeDecorations.config().LOOPS.set(1);
         this.addDeco(decoBaseBiomeDecorations);
 
         // A combo-deal of lilypads and vines. (This could probably be pulled out into individual decos.)

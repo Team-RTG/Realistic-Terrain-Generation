@@ -151,7 +151,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLoops(1);
+        decoFallenTree.config().LOOPS.set(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);

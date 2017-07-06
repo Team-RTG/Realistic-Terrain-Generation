@@ -23,7 +23,6 @@ public class DecoFlowersRTG extends DecoBase {
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private int notEqualsZeroChance;
-    private int loops;
 
     /*
      * FLOWER LIST:
@@ -57,7 +56,6 @@ public class DecoFlowersRTG extends DecoBase {
         this.setNotEqualsZeroChance(1);
         this.setHeightType(HeightType.NEXT_INT);
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.setLoops(1);
 
         this.addDecoTypes(DecoType.FLOWER);
     }
@@ -66,6 +64,7 @@ public class DecoFlowersRTG extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(253); // 2 below max build height to account for 2-block tall flowers.
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -77,9 +76,8 @@ public class DecoFlowersRTG extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-
-                for (int i = 0; i < this.loops * 16; i++) {
+                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                for (int i = 0; i < loops * 16; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intZ = worldZ + rand.nextInt(16);// + 8;
 
@@ -175,17 +173,6 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG setNotEqualsZeroChance(int notEqualsZeroChance) {
 
         this.notEqualsZeroChance = notEqualsZeroChance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoFlowersRTG setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

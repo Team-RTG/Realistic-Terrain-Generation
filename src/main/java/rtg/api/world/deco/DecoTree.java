@@ -24,7 +24,6 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
  */
 public class DecoTree extends DecoBase {
 
-    protected int loops;
     protected float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
     protected boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
     protected boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
@@ -56,7 +55,6 @@ public class DecoTree extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setStrengthFactorForLoops(0f);
         this.setStrengthNoiseFactorForLoops(false);
         this.setStrengthNoiseFactorXForLoops(false);
@@ -86,7 +84,7 @@ public class DecoTree extends DecoBase {
     public DecoTree(DecoTree source) {
 
         this();
-        this.setLoops(source.loops);
+        this.config().LOOPS.set(source.config().LOOPS.get());
         this.setStrengthFactorForLoops(source.strengthFactorForLoops);
         this.setStrengthNoiseFactorForLoops(source.strengthNoiseFactorForLoops);
         this.setStrengthNoiseFactorXForLoops(source.strengthNoiseFactorXForLoops);
@@ -136,6 +134,7 @@ public class DecoTree extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(230);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     public boolean properlyDefined() {
@@ -159,7 +158,7 @@ public class DecoTree extends DecoBase {
              * depending on environmental conditions.
              */
             float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            int loopCount = this.loops;
+            int loopCount = this.config().LOOPS.get();
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
@@ -390,17 +389,6 @@ public class DecoTree extends DecoBase {
             this.noiseAddend = noiseAddend;
             return this;
         }
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoTree setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
     }
 
     public float getStrengthFactorForLoops() {

@@ -19,7 +19,6 @@ public class DecoDeadBush extends DecoBase {
 
     private float strengthFactor;
     private int chance;
-    private int loops;
 
     public DecoDeadBush() {
 
@@ -31,7 +30,6 @@ public class DecoDeadBush extends DecoBase {
          */
         this.setStrengthFactor(0f); // The higher the value, the more there will be.
         this.setChance(1);
-        this.setLoops(1);
 
         this.addDecoTypes(DecoType.DEAD_BUSH);
     }
@@ -39,6 +37,7 @@ public class DecoDeadBush extends DecoBase {
     @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class DecoDeadBush extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenDeadBush();
 
-                int loopCount = this.loops;
+                int loopCount = this.config().LOOPS.get();
                 loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -84,17 +83,6 @@ public class DecoDeadBush extends DecoBase {
     public DecoDeadBush setChance(int chance) {
 
         this.chance = chance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoDeadBush setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

@@ -250,7 +250,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         DecoPond decoPond = new DecoPond();
         decoPond.setChunksPerPond(1);
         decoPond.config().MAX_Y.set(67);
-        decoPond.setLoops(8);
+        decoPond.config().LOOPS.set(8);
         this.addDeco(decoPond);
 
 //        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();

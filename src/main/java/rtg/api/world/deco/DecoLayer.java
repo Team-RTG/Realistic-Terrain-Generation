@@ -28,7 +28,6 @@ public class DecoLayer extends DecoBase {
     private float strengthFactor; // Higher = more/bigger shrubs.
     private int chance; // Higher = more rare.
     private int notEqualsZeroChance;
-    private int loops;
 
     public DecoLayer(IBlockState layerBlock, PropertyInteger layerProperty) {
 
@@ -46,7 +45,6 @@ public class DecoLayer extends DecoBase {
         this.setStrengthFactor(2f);
         this.setChance(1); // 100% chance of generating by default.
         this.notEqualsZeroChance = 1;
-        this.setLoops(1);
 
         this.addDecoTypes(DecoType.LAYER, DecoType.LEAVES, DecoType.FALLEN_LEAVES);
     }
@@ -55,6 +53,7 @@ public class DecoLayer extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class DecoLayer extends DecoBase {
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
 
-            int loopCount = this.loops;
+            int loopCount = this.config().LOOPS.get();
             loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
                 int intX = worldX + rand.nextInt(16);// + 8;
@@ -184,17 +183,6 @@ public class DecoLayer extends DecoBase {
     public DecoLayer setNotEqualsZerochance(int notEqualsZeroChance) {
 
         this.notEqualsZeroChance = notEqualsZeroChance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoLayer setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

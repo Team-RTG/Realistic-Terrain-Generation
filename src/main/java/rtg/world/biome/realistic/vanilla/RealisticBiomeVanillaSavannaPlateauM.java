@@ -291,7 +291,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.config().MAX_Y.set(160);
-        decoCactus.setLoops(60);
+        decoCactus.config().LOOPS.set(60);
         decoCactus.setChance(8);
         this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 

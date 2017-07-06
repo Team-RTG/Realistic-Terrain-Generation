@@ -181,7 +181,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
-        decoFallenTree1.setLoops(1);
+        decoFallenTree1.config().LOOPS.set(1);
         decoFallenTree1.getDistribution().setNoiseDivisor(100f);
         decoFallenTree1.getDistribution().setNoiseFactor(6f);
         decoFallenTree1.getDistribution().setNoiseAddend(0.8f);
@@ -195,7 +195,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         decoFallenTree1.setMaxSize(5);
 
         DecoFallenTree decoFallenTree2 = new DecoFallenTree();
-        decoFallenTree2.setLoops(1);
+        decoFallenTree2.config().LOOPS.set(1);
         decoFallenTree2.getDistribution().setNoiseDivisor(100f);
         decoFallenTree2.getDistribution().setNoiseFactor(6f);
         decoFallenTree2.getDistribution().setNoiseAddend(0.8f);

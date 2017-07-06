@@ -17,7 +17,6 @@ import rtg.api.world.gen.feature.WorldGenSeaweed;
  */
 public class DecoSeaweed extends DecoBase {
 
-    protected int loops;
     protected float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
     protected boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
     protected boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
@@ -40,7 +39,6 @@ public class DecoSeaweed extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setStrengthFactorForLoops(0f);
         this.setStrengthNoiseFactorForLoops(false);
         this.setStrengthNoiseFactorXForLoops(false);
@@ -62,6 +60,7 @@ public class DecoSeaweed extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(15); // Few blocks below min ocean floor by default.
         this.config().addProperty(this.config().MAX_Y).set(58); // No seaweed sticking out of the water by default.
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class DecoSeaweed extends DecoBase {
              * depending on environmental conditions.
              */
             float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            int loopCount = this.loops;
+            int loopCount = this.config().LOOPS.get();
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
@@ -215,17 +214,6 @@ public class DecoSeaweed extends DecoBase {
             this.noiseAddend = noiseAddend;
             return this;
         }
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoSeaweed setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
     }
 
     public float getStrengthFactorForLoops() {

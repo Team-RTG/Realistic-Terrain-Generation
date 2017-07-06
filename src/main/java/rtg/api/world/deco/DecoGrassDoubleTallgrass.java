@@ -19,7 +19,6 @@ import rtg.api.world.gen.feature.WorldGenGrass;
 public class DecoGrassDoubleTallgrass extends DecoBase {
 
     private float strengthFactor;
-    private int loops;
     private int grassChance;
     private int doubleGrassChance;
 
@@ -32,7 +31,6 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.setLoops(1);
         this.grassChance = 0; // 50% chance for both grass & double grass by default.
         this.setDoubleGrassChance(0); // 50% chance for both grass & double grass by default. (If set, overrides grass chance.)
 
@@ -42,6 +40,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
     @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -86,8 +85,8 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
                     }
                 }
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-                for (int i = 0; i < this.loops; i++) {
+                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                for (int i = 0; i < loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.config().MAX_Y.get());
                     int intZ = worldZ + rand.nextInt(16) + 8;
@@ -109,17 +108,6 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
     public DecoGrassDoubleTallgrass setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoGrassDoubleTallgrass setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 

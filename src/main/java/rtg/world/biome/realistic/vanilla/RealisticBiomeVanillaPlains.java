@@ -136,7 +136,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         decoShrubOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoShrubOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoShrubOak.config().MAX_Y.set(110);
-        decoShrubOak.setLoops(1);
+        decoShrubOak.config().LOOPS.set(1);
         decoShrubOak.setChance(36);
         this.addDeco(decoShrubOak);
 
@@ -151,7 +151,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MIN_Y.set(60);
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setLoops(6);
+        decoGrass.config().LOOPS.set(6);
         this.addDeco(decoGrass);
 
         // Very rare fat oak/birch trees.

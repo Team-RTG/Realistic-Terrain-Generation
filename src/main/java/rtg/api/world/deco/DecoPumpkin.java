@@ -21,7 +21,6 @@ public class DecoPumpkin extends DecoBase {
     private float randomFloat;
     private RandomType randomType;
     private int chance;
-    private int loops;
 
     public DecoPumpkin() {
 
@@ -35,7 +34,6 @@ public class DecoPumpkin extends DecoBase {
         this.setRandomType(RandomType.USE_CHANCE_VALUE);
         this.setRandomFloat(1f);
         this.setChance(1);
-        this.setLoops(1);
 
         this.addDecoTypes(DecoType.PUMPKIN);
     }
@@ -43,6 +41,7 @@ public class DecoPumpkin extends DecoBase {
     @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -71,8 +70,8 @@ public class DecoPumpkin extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenPumpkin();
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-                for (int i = 0; i < this.loops; i++) {
+                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                for (int i = 0; i < loops; i++) {
                     if (rand.nextInt(this.chance) == 0) {
 
                         int intX = worldX + rand.nextInt(16) + 8;
@@ -135,17 +134,6 @@ public class DecoPumpkin extends DecoBase {
     public DecoPumpkin setChance(int chance) {
 
         this.chance = chance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoPumpkin setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

@@ -19,7 +19,6 @@ import rtg.api.world.gen.feature.WorldGenCacti;
  */
 public class DecoCactus extends DecoBase {
 
-    private int loops;
     private int chance;
     private float strengthFactor;
     private boolean sandOnly;
@@ -33,7 +32,6 @@ public class DecoCactus extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setChance(1);
         this.setStrengthFactor(0f); // The higher the value, the more there will be.
         this.setSandOnly(false);
@@ -45,6 +43,7 @@ public class DecoCactus extends DecoBase {
     @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class DecoCactus extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenCacti(this.sandOnly, 0, this.soilBlock);
 
-                int loopCount = this.loops;
+                int loopCount = this.config().LOOPS.get();
                 loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
                 for (int i = 0; i < loopCount * 10; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -69,17 +68,6 @@ public class DecoCactus extends DecoBase {
                 }
             }
         }
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoCactus setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
     }
 
     public int getChance() {

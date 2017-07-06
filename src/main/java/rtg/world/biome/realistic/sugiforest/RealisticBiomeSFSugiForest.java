@@ -209,7 +209,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MIN_Y.set(63);
         decoGrass.config().MAX_Y.set(100);
-        decoGrass.setLoops(1);
+        decoGrass.config().LOOPS.set(1);
         this.addDeco(decoGrass);
     }
 }

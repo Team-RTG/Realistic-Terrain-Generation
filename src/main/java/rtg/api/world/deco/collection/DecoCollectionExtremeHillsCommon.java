@@ -84,7 +84,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2});
         decoFlowersRTG.config().MAX_Y.set(80);
-        decoFlowersRTG.setLoops(3);
+        decoFlowersRTG.config().LOOPS.set(3);
         return decoFlowersRTG;
     }
 
@@ -108,7 +108,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
         decoDoublePlants.config().MAX_Y.set(128);
         decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
+        decoDoublePlants.config().LOOPS.set(15);
         return decoDoublePlants;
     }
 

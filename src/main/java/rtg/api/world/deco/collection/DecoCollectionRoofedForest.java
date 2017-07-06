@@ -178,10 +178,10 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
 
     private DecoPond ponds() {
         DecoPond decoPond = new DecoPond()
-            .setChunksPerPond(10)
-            .setLoops(1);
+            .setChunksPerPond(10);
 
         decoPond.config().MAX_Y.set(67);
+        decoPond.config().LOOPS.set(1);
 
         return decoPond;
     }

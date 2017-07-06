@@ -27,7 +27,6 @@ public class DecoShrub extends DecoBase {
     private float strengthFactor; // Higher = more/bigger shrubs.
     private int chance; // Higher = more rare.
     private int notEqualsZeroChance;
-    private int loops;
     private int minSize;
     private int maxSize;
     private IBlockState logBlock;
@@ -49,7 +48,6 @@ public class DecoShrub extends DecoBase {
         this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setChance(1); // 100% chance of generating by default.
         this.notEqualsZeroChance = 1;
-        this.setLoops(1);
         this.setMinSize(3);
         this.setMaxSize(4);
         this.setLogBlock(Blocks.LOG.getDefaultState());
@@ -68,6 +66,7 @@ public class DecoShrub extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -96,7 +95,7 @@ public class DecoShrub extends DecoBase {
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand);
 
-            int loopCount = this.loops;
+            int loopCount = this.config().LOOPS.get();
             loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
                 int intX = worldX + rand.nextInt(16);// + 8;
@@ -215,17 +214,6 @@ public class DecoShrub extends DecoBase {
     public DecoShrub setNotEqualsZeroChance(int notEqualsZeroChance) {
 
         this.notEqualsZeroChance = notEqualsZeroChance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoShrub setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 

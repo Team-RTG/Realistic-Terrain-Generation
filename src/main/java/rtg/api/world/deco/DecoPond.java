@@ -18,7 +18,6 @@ import rtg.api.world.gen.feature.WorldGenPond;
 public class DecoPond extends DecoBase {
 
     private int chunksPerPond = 8;
-    private int loops = 1;
 
     private WorldGenerator pondGenerator = new WorldGenPond(Blocks.WATER.getDefaultState());
     private RTGConfig rtgConfig = RTGAPI.config();
@@ -29,7 +28,8 @@ public class DecoPond extends DecoBase {
         if (this.config().ALLOW.get() && rtgConfig.WATER_SURFACE_LAKE_CHANCE.get() > 0 && biome.getConfig().ALLOW_PONDS_WATER.get()) {
 
             //Surface lakes.
-            for (int i = 0; i < this.loops; i++) {
+            int loops = this.config().LOOPS.get();
+            for (int i = 0; i < loops; i++) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int i8 = worldZ + rand.nextInt(16);// + 8;
@@ -50,6 +50,7 @@ public class DecoPond extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(64);
         this.config().addProperty(this.config().MAX_Y).set(240);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     public int getChunksPerPond() {
@@ -60,17 +61,6 @@ public class DecoPond extends DecoBase {
     public DecoPond setChunksPerPond(int chunksPerPond) {
 
         this.chunksPerPond = chunksPerPond;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoPond setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

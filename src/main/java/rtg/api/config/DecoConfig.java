@@ -22,6 +22,7 @@ public class DecoConfig extends Config {
 
     public final ConfigPropertyInt MIN_Y;
     public final ConfigPropertyInt MAX_Y;
+    public final ConfigPropertyInt LOOPS;
 
     public DecoConfig() {
 
@@ -64,5 +65,6 @@ public class DecoConfig extends Config {
 
         MIN_Y = new ConfigPropertyInt("Min Y", "", "", 1, 1, 255);
         MAX_Y = new ConfigPropertyInt("Max Y", "", "", 255, 1, 255);
+        LOOPS = new ConfigPropertyInt("Loops", "", "", 1, -1, Integer.MAX_VALUE);
     }
 }

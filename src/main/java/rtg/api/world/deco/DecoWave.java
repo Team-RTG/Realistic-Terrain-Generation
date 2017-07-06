@@ -19,7 +19,6 @@ import rtg.api.world.gen.feature.WorldGenWave;
 public class DecoWave extends DecoBase {
 
     private IBlockState waveBlock;
-    private int loops;
     private DecoWave.Distribution distribution; // Parameter object for noise calculations.
     private ConditionType conditionType; // Enum for the various conditions/chances for generation.
     private float conditionNoise; // Only applies to a noise-related ConditionType.
@@ -35,7 +34,6 @@ public class DecoWave extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setDistribution(new DecoWave.Distribution(100f, 5f, 0.8f));
         this.setConditionType(ConditionType.NOISE_GREATER_AND_RANDOM_CHANCE);
         this.setConditionNoise(0f);
@@ -51,6 +49,7 @@ public class DecoWave extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(63);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -75,7 +74,8 @@ public class DecoWave extends DecoBase {
                 worldGenerator = new WorldGenWave(finalSize);
             }
 
-            for (int i = 0; i < this.loops; i++) {
+            int loops = this.config().LOOPS.get();
+            for (int i = 0; i < loops; i++) {
                 if (isValidCondition(noise, strength, rand)) {
                     int x22 = worldX + rand.nextInt(16);// + 8;
                     int z22 = worldZ + rand.nextInt(16);// + 8;
@@ -181,17 +181,6 @@ public class DecoWave extends DecoBase {
             this.noiseAddend = noiseAddend;
             return this;
         }
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoWave setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
     }
 
     public Distribution getDistribution() {

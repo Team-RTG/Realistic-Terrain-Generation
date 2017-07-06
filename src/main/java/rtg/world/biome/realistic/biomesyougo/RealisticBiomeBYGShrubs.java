@@ -197,7 +197,7 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MIN_Y.set(63);
         decoGrass.config().MAX_Y.set(105);
-        decoGrass.setLoops(1);
+        decoGrass.config().LOOPS.set(1);
         this.addDeco(decoGrass);
     }
 }

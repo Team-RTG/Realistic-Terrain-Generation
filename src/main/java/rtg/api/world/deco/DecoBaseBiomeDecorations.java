@@ -24,11 +24,6 @@ public class DecoBaseBiomeDecorations extends DecoBase {
      */
     protected int notEqualsZeroChance;
 
-    /**
-     * How many times per chunk do we want the base biome to decorate itself? (Usually only once)
-     */
-    protected int loops;
-
     public DecoBaseBiomeDecorations() {
 
         super();
@@ -39,7 +34,6 @@ public class DecoBaseBiomeDecorations extends DecoBase {
          */
         this.setEqualsZeroChance(0); // Only used if greater than 0
         this.setNotEqualsZeroChance(0); // Only used if greater than 0
-        this.setLoops(1); // You almost always want to loop only once.
 
         this.addDecoTypes(DecoType.BASE_BIOME_DECORATION);
     }
@@ -48,6 +42,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(1);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1); // You almost always want to loop only once.
     }
 
     @Override
@@ -55,6 +50,7 @@ public class DecoBaseBiomeDecorations extends DecoBase {
 
         if (this.config().ALLOW.get()) {
 
+            int loops = this.config().LOOPS.get();
             for (int i = 0; i < loops; i++) {
 
                 int intY = rtgWorld.world().getHeight(new BlockPos(worldX, 0, worldZ)).getY();
@@ -101,17 +97,6 @@ public class DecoBaseBiomeDecorations extends DecoBase {
     public DecoBaseBiomeDecorations setNotEqualsZeroChance(int notEqualsZeroChance) {
 
         this.notEqualsZeroChance = notEqualsZeroChance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoBaseBiomeDecorations setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

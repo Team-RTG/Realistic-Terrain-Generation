@@ -19,7 +19,6 @@ import rtg.api.world.gen.feature.WorldGenGrass;
 public class DecoGrass extends DecoBase {
 
     private float strengthFactor;
-    private int loops;
     private int chance;
     private int notEqualsZeroChance;
     private IBlockState[] randomGrassBlocks;
@@ -41,7 +40,6 @@ public class DecoGrass extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.setLoops(1);
         this.setChance(1);
         this.notEqualsZeroChance = 1;
         this.block = Blocks.TALLGRASS.getStateFromMeta(1);
@@ -83,6 +81,7 @@ public class DecoGrass extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
     }
 
     @Override
@@ -92,9 +91,9 @@ public class DecoGrass extends DecoBase {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-                this.setLoops((this.loops > this.MAX_LOOPS) ? this.MAX_LOOPS : this.loops);
-                for (int i = 0; i < this.loops * 64; i++) {
+                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                loops = (loops > this.MAX_LOOPS) ? this.MAX_LOOPS : loops;
+                for (int i = 0; i < loops * 64; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = this.config().MIN_Y.get() + (rand.nextInt(this.config().MAX_Y.get() - this.config().MIN_Y.get()) + 1);
                     int intZ = worldZ + rand.nextInt(16);// + 8;
@@ -131,17 +130,6 @@ public class DecoGrass extends DecoBase {
     public DecoGrass setStrengthFactor(float strengthFactor) {
 
         this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoGrass setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 

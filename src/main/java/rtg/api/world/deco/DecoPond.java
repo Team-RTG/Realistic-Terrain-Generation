@@ -48,6 +48,9 @@ public class DecoPond extends DecoBase {
         }
     }
 
+    @Override
+    public void initConfig() {}
+
     public int getChunksPerPond() {
 
         return chunksPerPond;

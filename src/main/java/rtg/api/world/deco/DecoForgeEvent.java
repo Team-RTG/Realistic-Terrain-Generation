@@ -25,6 +25,9 @@ public class DecoForgeEvent extends DecoBase {
     }
 
     @Override
+    public void initConfig() {}
+
+    @Override
     public boolean properlyDefined() {
 
         try {

@@ -52,6 +52,9 @@ public class DecoVines extends DecoBase {
     }
 
     @Override
+    public void initConfig() {}
+
+    @Override
     public boolean properlyDefined() {
 
         try {

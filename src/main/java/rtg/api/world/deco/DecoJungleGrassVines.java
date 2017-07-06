@@ -38,6 +38,9 @@ public class DecoJungleGrassVines extends DecoBase {
         this.addDecoTypes(DecoType.GRASS, DecoType.VINE);
     }
 
+    @Override
+    public void initConfig() {}
+
     /**
      * No config options for this one yet. Just ripped it directly from the old code.
      */

@@ -67,6 +67,9 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
+    public void initConfig() {}
+
+    @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.config().ALLOW.get()) {

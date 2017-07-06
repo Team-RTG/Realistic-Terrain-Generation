@@ -16,7 +16,7 @@ import rtg.api.world.biome.IRealisticBiome;
  *
  * @author WhichOnesPink
  */
-public abstract class DecoBase {
+public abstract class DecoBase implements IDeco {
 
     private ArrayList<DecoType> decoTypes;
     private DecoConfig config;

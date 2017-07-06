@@ -63,6 +63,9 @@ public class DecoSeaweed extends DecoBase {
     }
 
     @Override
+    public void initConfig() {}
+
+    @Override
     public boolean properlyDefined() {
         return super.properlyDefined();
     }

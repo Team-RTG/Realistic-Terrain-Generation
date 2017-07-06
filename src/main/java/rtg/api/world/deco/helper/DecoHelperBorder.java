@@ -30,6 +30,9 @@ public class DecoHelperBorder extends DecoBase {
     }
 
     @Override
+    public void initConfig() {}
+
+    @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (strength < noneBelow) {

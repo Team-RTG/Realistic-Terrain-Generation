@@ -136,6 +136,9 @@ public class DecoTree extends DecoBase {
         this.worldGen = worldGen;
     }
 
+    @Override
+    public void initConfig() {}
+
     public boolean properlyDefined() {
 
         if (this.treeType == TreeType.RTG_TREE) {

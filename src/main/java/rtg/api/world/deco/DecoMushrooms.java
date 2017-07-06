@@ -18,7 +18,6 @@ import rtg.api.world.biome.IRealisticBiome;
  */
 public class DecoMushrooms extends DecoBase {
 
-    private float strengthFactor;
     private float randomFloat;
     private RandomType randomType;
 
@@ -30,7 +29,6 @@ public class DecoMushrooms extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(0f); // The higher the value, the more there will be. Disabled by default.
         this.setRandomType(RandomType.USE_CHANCE_VALUE);
         this.setRandomFloat(1f);
 
@@ -42,6 +40,7 @@ public class DecoMushrooms extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class DecoMushrooms extends DecoBase {
                 WorldGenerator worldGeneratorBrownShrooms = new WorldGenBush(Blocks.BROWN_MUSHROOM);
                 WorldGenerator worldGeneratorRedShrooms = new WorldGenBush(Blocks.RED_MUSHROOM);
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
                     if (rand.nextInt(this.config().CHANCE.get()) == 0) {
 
@@ -98,17 +97,6 @@ public class DecoMushrooms extends DecoBase {
         ALWAYS_GENERATE,
         USE_CHANCE_VALUE,
         X_DIVIDED_BY_STRENGTH
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoMushrooms setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public float getRandomFloat() {

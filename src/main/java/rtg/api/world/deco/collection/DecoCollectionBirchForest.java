@@ -83,10 +83,9 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoShrub shrubsOak() {
-        DecoShrub decoShrub = new DecoShrub()
-            .setStrengthFactor(3f);
-
+        DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(120);
+        decoShrub.config().STRENGTH_FACTOR.set(3f);
 
         return decoShrub;
     }
@@ -99,20 +98,19 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
 
     private DecoFlowersRTG flowers() {
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
-            .setFlowers(new int[]{3, 6})
-            .setStrengthFactor(12f);
+            .setFlowers(new int[]{3, 6});
 
         decoFlowersRTG.config().MAX_Y.set(128);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(12f);
 
         return decoFlowersRTG;
     }
 
     private DecoGrass grass() {
-        DecoGrass decoGrass = new DecoGrass()
-            .setStrengthFactor(20f);
-
+        DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MIN_Y.set(60);
         decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(20f);
 
         return decoGrass;
     }

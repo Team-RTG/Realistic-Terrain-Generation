@@ -17,7 +17,6 @@ import rtg.api.world.gen.feature.WorldGenJungleCacti;
  */
 public class DecoJungleCacti extends DecoBase {
 
-    private float strengthFactor;
     private boolean sandOnly;
     private int extraHeight;
     private byte sandMeta;
@@ -30,7 +29,6 @@ public class DecoJungleCacti extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(8f);
         this.setSandOnly(false);
         this.setExtraHeight(7);
         this.setSandMeta((byte) 1);
@@ -41,6 +39,7 @@ public class DecoJungleCacti extends DecoBase {
     @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(8f);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class DecoJungleCacti extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta);
 
-                for (int i = 0; i < this.strengthFactor * strength; i++) {
+                for (int i = 0; i < this.config().STRENGTH_FACTOR.get() * strength; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(160);
                     int intZ = worldZ + rand.nextInt(16);// + 8;
@@ -63,17 +62,6 @@ public class DecoJungleCacti extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoJungleCacti setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public boolean isSandOnly() {

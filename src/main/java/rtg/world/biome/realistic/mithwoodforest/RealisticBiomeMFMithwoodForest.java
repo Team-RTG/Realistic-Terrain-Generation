@@ -263,25 +263,25 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoShrubMithwood.setLogBlock(mithwoodLogBlock);
         decoShrubMithwood.setLeavesBlock(mithwoodLeavesBlock);
         decoShrubMithwood.config().MAX_Y.set(100);
-        decoShrubMithwood.setStrengthFactor(1f);
+        decoShrubMithwood.config().STRENGTH_FACTOR.set(1f);
         decoShrubMithwood.config().CHANCE.set(2);
         this.addDeco(decoShrubMithwood);
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(100);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
         decoShrub.config().CHANCE.set(4);
         this.addDeco(decoShrub);
 
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
         decoFlowers1.setFlowers(new int[]{1, 2, 3, 6, 7, 8});
-        decoFlowers1.setStrengthFactor(2f);
+        decoFlowers1.config().STRENGTH_FACTOR.set(2f);
         decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
         this.addDeco(decoFlowers1);
 
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
         decoFlowers2.setFlowers(new int[]{11, 12, 13, 14});
-        decoFlowers2.setStrengthFactor(1f);
+        decoFlowers2.config().STRENGTH_FACTOR.set(1f);
         decoFlowers2.config().CHANCE.set(1);
         decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
         this.addDeco(decoFlowers2);
@@ -290,7 +290,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(2);
         decoBoulder.config().MAX_Y.set(100);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -343,7 +343,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(24f);
+        decoGrass.config().STRENGTH_FACTOR.set(24f);
         this.addDeco(decoGrass);
     }
 }

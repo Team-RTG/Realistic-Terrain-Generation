@@ -19,7 +19,6 @@ import rtg.api.world.gen.feature.WorldGenFlowersRTG;
 public class DecoFlowersRTG extends DecoBase {
 
     private int[] flowers; // Integer array of flower IDs.
-    private float strengthFactor; // Higher = more flowers.
     private HeightType heightType; // How we determine the Y coord.
 
     /*
@@ -51,7 +50,6 @@ public class DecoFlowersRTG extends DecoBase {
          */
         this.setFlowers(new int[]{0, 9}); // Only roses and dandelions by default.
         this.setHeightType(HeightType.NEXT_INT);
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
 
         this.addDecoTypes(DecoType.FLOWER);
     }
@@ -63,6 +61,7 @@ public class DecoFlowersRTG extends DecoBase {
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -74,7 +73,7 @@ public class DecoFlowersRTG extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops * 16; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intZ = worldZ + rand.nextInt(16);// + 8;
@@ -127,17 +126,6 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG setFlowers(int[] flowers) {
 
         this.flowers = flowers;
-        return this;
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
         return this;
     }
 

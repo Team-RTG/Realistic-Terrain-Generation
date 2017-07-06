@@ -58,7 +58,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setLogBlock(log);
         decoShrub.setLeavesBlock(leaves);
-        decoShrub.setStrengthFactor(4f);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
         decoShrub.config().CHANCE.set(2);
         decoShrub.config().MAX_Y.set(110);
         return decoShrub;
@@ -76,7 +76,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(90);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         return decoBoulder;
     }
 
@@ -115,7 +115,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
     private DecoGrass grass() {
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(10f);
+        decoGrass.config().STRENGTH_FACTOR.set(10f);
         return decoGrass;
     }
 }

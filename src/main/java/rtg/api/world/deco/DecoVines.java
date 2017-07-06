@@ -22,7 +22,6 @@ import rtg.api.world.gen.feature.WorldGenVinesRTG;
  */
 public class DecoVines extends DecoBase {
 
-    private float strengthFactor;
     private Block vineBlock;
     private PropertyBool propNorth;
     private PropertyBool propEast;
@@ -35,7 +34,6 @@ public class DecoVines extends DecoBase {
 
         super();
 
-        this.setStrengthFactor(0f);
         this.vineBlock = Blocks.VINE;
         this.propNorth = BlockVine.NORTH;
         this.propEast = BlockVine.EAST;
@@ -50,6 +48,7 @@ public class DecoVines extends DecoBase {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(200);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class DecoVines extends DecoBase {
 
                 this.worldGenerator = new WorldGenVinesRTG(this.vineBlock, this.config().MAX_Y.get(), this.propNorth, this.propEast, this.propSouth, this.propWest);
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
 
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -89,17 +88,6 @@ public class DecoVines extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoVines setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public Block getVineBlock() {

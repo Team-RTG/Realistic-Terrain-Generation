@@ -123,7 +123,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(20);
         decoBoulder.config().MAX_Y.set(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
@@ -162,30 +162,30 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(110);
-        decoShrub.setStrengthFactor(1f);
+        decoShrub.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoShrub);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.config().MAX_Y.set(128);
-        decoGrassDoubleTallgrass.setStrengthFactor(8f);
+        decoGrassDoubleTallgrass.config().STRENGTH_FACTOR.set(8f);
         decoGrassDoubleTallgrass.setDoubleGrassChance(6);
         this.addDeco(decoGrassDoubleTallgrass);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.config().MAX_Y.set(128);
         decoDeadBush.config().CHANCE.set(16);
-        decoDeadBush.setStrengthFactor(1f);
+        decoDeadBush.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoDeadBush);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(4f);
+        decoGrass.config().STRENGTH_FACTOR.set(4f);
         decoGrass.config().CHANCE.set(2);
         this.addDeco(decoGrass);
 
         DecoGrass decoFern = new DecoGrass(2);
         decoFern.config().MAX_Y.set(128);
-        decoFern.setStrengthFactor(4f);
+        decoFern.config().STRENGTH_FACTOR.set(4f);
         decoFern.config().CHANCE.set(2);
         this.addDeco(decoFern);
 

@@ -26,6 +26,7 @@ public class DecoConfig extends Config {
     public final ConfigPropertyInt CHANCE;
     public final ConfigPropertyInt EQUALS_ZERO_CHANCE;
     public final ConfigPropertyInt NOT_EQUALS_ZERO_CHANCE;
+    public final ConfigPropertyFloat STRENGTH_FACTOR;
 
     public DecoConfig() {
 
@@ -72,5 +73,6 @@ public class DecoConfig extends Config {
         CHANCE = new ConfigPropertyInt("Chance", "", "", 1, 1, Integer.MAX_VALUE);
         EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
         NOT_EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Not Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
+        STRENGTH_FACTOR = new ConfigPropertyFloat("Strength Factor", "", "", 2f, 0f, Float.MAX_VALUE);
     }
 }

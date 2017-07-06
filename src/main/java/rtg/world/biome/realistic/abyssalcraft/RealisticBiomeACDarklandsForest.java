@@ -195,12 +195,12 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
         decoShrubCustom.config().MAX_Y.set(110);
         decoShrubCustom.config().NOT_EQUALS_ZERO_CHANCE.set(3);
-        decoShrubCustom.setStrengthFactor(3f);
+        decoShrubCustom.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoShrubCustom);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(8f);
+        decoGrass.config().STRENGTH_FACTOR.set(8f);
         this.addDeco(decoGrass);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

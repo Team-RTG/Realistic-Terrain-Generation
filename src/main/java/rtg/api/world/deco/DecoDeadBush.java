@@ -17,17 +17,9 @@ import rtg.api.world.biome.IRealisticBiome;
  */
 public class DecoDeadBush extends DecoBase {
 
-    private float strengthFactor;
-
     public DecoDeadBush() {
 
         super();
-
-        /**
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setStrengthFactor(0f); // The higher the value, the more there will be.
 
         this.addDecoTypes(DecoType.DEAD_BUSH);
     }
@@ -37,6 +29,7 @@ public class DecoDeadBush extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -49,7 +42,7 @@ public class DecoDeadBush extends DecoBase {
                 WorldGenerator worldGenerator = new WorldGenDeadBush();
 
                 int loopCount = this.config().LOOPS.get();
-                loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
+                loopCount = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(this.config().MAX_Y.get());
@@ -61,16 +54,5 @@ public class DecoDeadBush extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoDeadBush setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 }

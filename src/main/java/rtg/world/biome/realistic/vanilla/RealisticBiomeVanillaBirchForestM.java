@@ -192,12 +192,12 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
 
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
         decoDoublePlants.config().MAX_Y.set(128);
-        decoDoublePlants.setStrengthFactor(8f);
+        decoDoublePlants.config().STRENGTH_FACTOR.set(8f);
         this.addDeco(decoDoublePlants);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(24f);
+        decoGrass.config().STRENGTH_FACTOR.set(24f);
         this.addDeco(decoGrass);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -211,7 +211,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(110);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoShrub);
     }
 }

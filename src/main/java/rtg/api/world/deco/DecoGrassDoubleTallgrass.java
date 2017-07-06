@@ -18,7 +18,6 @@ import rtg.api.world.gen.feature.WorldGenGrass;
  */
 public class DecoGrassDoubleTallgrass extends DecoBase {
 
-    private float strengthFactor;
     private int grassChance;
     private int doubleGrassChance;
 
@@ -30,7 +29,6 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.grassChance = 0; // 50% chance for both grass & double grass by default.
         this.setDoubleGrassChance(0); // 50% chance for both grass & double grass by default. (If set, overrides grass chance.)
 
@@ -41,6 +39,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
                     }
                 }
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.config().MAX_Y.get());
@@ -98,17 +97,6 @@ public class DecoGrassDoubleTallgrass extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoGrassDoubleTallgrass setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public int getGrassChance() {

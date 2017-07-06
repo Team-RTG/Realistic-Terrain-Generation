@@ -17,17 +17,9 @@ import rtg.api.world.biome.IRealisticBiome;
  */
 public class DecoReed extends DecoBase {
 
-    private float strengthFactor;
-
     public DecoReed() {
 
         super();
-
-        /*
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
 
         this.addDecoTypes(DecoType.REED);
     }
@@ -36,6 +28,7 @@ public class DecoReed extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -47,7 +40,7 @@ public class DecoReed extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenReed();
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.config().MAX_Y.get());
@@ -59,16 +52,5 @@ public class DecoReed extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoReed setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 }

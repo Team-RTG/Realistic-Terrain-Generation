@@ -253,11 +253,10 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
 
         private DecoShrub shrubsOak() {
-            DecoShrub decoShrub = new DecoShrub()
-                .setStrengthFactor(4f);
-
+            DecoShrub decoShrub = new DecoShrub();
             decoShrub.config().CHANCE.set(3);
             decoShrub.config().MAX_Y.set(140);
+            decoShrub.config().STRENGTH_FACTOR.set(4f);
 
             return decoShrub;
         }
@@ -265,21 +264,21 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private DecoShrub shrubsSpruce() {
             DecoShrub decoShrub = new DecoShrub()
                 .setLogBlock(BlockUtil.getStateLog(1))
-                .setLeavesBlock(BlockUtil.getStateLeaf(1))
-                .setStrengthFactor(4f);
+                .setLeavesBlock(BlockUtil.getStateLeaf(1));
 
             decoShrub.config().CHANCE.set(9);
             decoShrub.config().MAX_Y.set(140);
+            decoShrub.config().STRENGTH_FACTOR.set(4f);
 
             return decoShrub;
         }
 
         private DecoFlowersRTG flowers() {
             DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
-                .setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
-                .setStrengthFactor(6f);
+                .setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9});
 
             decoFlowersRTG.config().MAX_Y.set(128);
+            decoFlowersRTG.config().STRENGTH_FACTOR.set(6f);
 
             return decoFlowersRTG;
         }

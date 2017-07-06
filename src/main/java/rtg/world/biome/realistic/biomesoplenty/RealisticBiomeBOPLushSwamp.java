@@ -123,7 +123,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().MAX_Y.set(80);
         decoBoulder.config().CHANCE.set(16);
-        decoBoulder.setStrengthFactor(1f);
+        decoBoulder.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();

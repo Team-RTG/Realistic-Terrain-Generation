@@ -187,7 +187,7 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

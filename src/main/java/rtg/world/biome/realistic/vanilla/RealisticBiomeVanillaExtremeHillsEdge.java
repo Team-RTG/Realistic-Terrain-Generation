@@ -198,14 +198,14 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(100);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(95);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
@@ -222,7 +222,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(10f);
+        decoGrass.config().STRENGTH_FACTOR.set(10f);
         this.addDeco(decoGrass);
     }
 

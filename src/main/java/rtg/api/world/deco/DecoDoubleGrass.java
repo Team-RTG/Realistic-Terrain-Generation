@@ -18,17 +18,9 @@ import rtg.api.world.gen.feature.WorldGenGrass;
  */
 public class DecoDoubleGrass extends DecoBase {
 
-    private float strengthFactor;
-
     public DecoDoubleGrass() {
 
         super();
-
-        /*
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setStrengthFactor(0f); // The higher the value, the more there will be.
 
         this.addDecoTypes(DecoType.GRASS_DOUBLE);
     }
@@ -37,6 +29,7 @@ public class DecoDoubleGrass extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -48,7 +41,7 @@ public class DecoDoubleGrass extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(2), 2);
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.config().MAX_Y.get());
@@ -60,16 +53,5 @@ public class DecoDoubleGrass extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoDoubleGrass setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 }

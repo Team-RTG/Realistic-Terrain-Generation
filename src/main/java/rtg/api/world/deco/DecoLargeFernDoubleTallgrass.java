@@ -21,7 +21,6 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     private final int GRASS_META = 2;
     private final int FERN_META = 3;
 
-    public float strengthFactor;
     public int grassChance;
     public int fernChance;
 
@@ -33,7 +32,6 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.grassChance = 0; // 50% chance for both grass & ferns by default.
         this.fernChance = 0; // 50% chance for both grass & ferns by default. (If set, overrides grass chance.)
 
@@ -44,6 +42,7 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
                 WorldGenerator worldgeneratorDoubleTallgrass = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(GRASS_META), GRASS_META);
                 WorldGenerator worldgeneratorLargeFern = new WorldGenGrass(Blocks.DOUBLE_PLANT.getStateFromMeta(FERN_META), FERN_META);
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
                     int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.config().MAX_Y.get());
@@ -101,17 +100,6 @@ public class DecoLargeFernDoubleTallgrass extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoLargeFernDoubleTallgrass setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public int getGrassChance() {

@@ -18,7 +18,6 @@ import rtg.api.world.gen.feature.WorldGenGrass;
  */
 public class DecoGrass extends DecoBase {
 
-    private float strengthFactor;
     private IBlockState[] randomGrassBlocks;
     private byte[] randomGrassMetas;
 
@@ -37,7 +36,6 @@ public class DecoGrass extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.block = Blocks.TALLGRASS.getStateFromMeta(1);
         this.meta = 1;
         this.randomGrassBlocks = new IBlockState[]{};
@@ -80,6 +78,7 @@ public class DecoGrass extends DecoBase {
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class DecoGrass extends DecoBase {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 loops = (loops > this.MAX_LOOPS) ? this.MAX_LOOPS : loops;
                 for (int i = 0; i < loops * 64; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -118,17 +117,6 @@ public class DecoGrass extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoGrass setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public IBlockState[] getRandomGrassBlocks() {

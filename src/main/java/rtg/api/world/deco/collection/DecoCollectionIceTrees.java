@@ -149,11 +149,11 @@ public class DecoCollectionIceTrees extends DecoCollectionBase {
     private DecoShrub shrubsIce() {
         DecoShrub decoShrub = new DecoShrub()
             .setLogBlock(Blocks.PACKED_ICE.getDefaultState())
-            .setLeavesBlock(Blocks.ICE.getDefaultState())
-            .setStrengthFactor(4f);
+            .setLeavesBlock(Blocks.ICE.getDefaultState());
 
         decoShrub.config().CHANCE.set(3);
         decoShrub.config().MAX_Y.set(140);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
 
         return decoShrub;
     }

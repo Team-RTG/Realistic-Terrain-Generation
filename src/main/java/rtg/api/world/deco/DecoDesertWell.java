@@ -14,17 +14,9 @@ import rtg.api.world.biome.IRealisticBiome;
  */
 public class DecoDesertWell extends DecoBase {
 
-    private float strengthFactor;
-
     public DecoDesertWell() {
 
         super();
-
-        /**
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
 
         this.addDecoTypes(DecoType.DESERT_WELL);
     }
@@ -34,6 +26,7 @@ public class DecoDesertWell extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -43,7 +36,7 @@ public class DecoDesertWell extends DecoBase {
 
             WorldGenerator worldGenerator = new WorldGenDesertWells();
 
-            int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+            int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
             for (int i = 0; i < loops; i++) {
                 if (rand.nextInt(this.config().CHANCE.get()) == 0) {
 
@@ -57,16 +50,5 @@ public class DecoDesertWell extends DecoBase {
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoDesertWell setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 }

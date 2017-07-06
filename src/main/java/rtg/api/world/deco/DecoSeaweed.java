@@ -61,6 +61,7 @@ public class DecoSeaweed extends DecoBase {
         this.config().addProperty(this.config().MIN_Y).set(15); // Few blocks below min ocean floor by default.
         this.config().addProperty(this.config().MAX_Y).set(58); // No seaweed sticking out of the water by default.
         this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override

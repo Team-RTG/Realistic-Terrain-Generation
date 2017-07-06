@@ -214,11 +214,11 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     private DecoShrub darkOakShrubs() {
         DecoShrub decoShrub = new DecoShrub()
             .setLogBlock(BlockUtil.getStateLog2(1))
-            .setLeavesBlock(BlockUtil.getStateLeaf2(1))
-            .setStrengthFactor(40f);
+            .setLeavesBlock(BlockUtil.getStateLeaf2(1));
 
         decoShrub.config().MIN_Y.set(treesMinY);
         decoShrub.config().MAX_Y.set(treesMaxY);
+        decoShrub.config().STRENGTH_FACTOR.set(40f);
 
         return decoShrub;
     }
@@ -226,49 +226,49 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     private DecoShrub oakShrubs() {
         DecoShrub decoShrub = new DecoShrub()
             .setLogBlock(Blocks.LOG.getDefaultState())
-            .setLeavesBlock(Blocks.LEAVES.getDefaultState())
-            .setStrengthFactor(40f);
+            .setLeavesBlock(Blocks.LEAVES.getDefaultState());
 
         decoShrub.config().MIN_Y.set(treesMinY);
         decoShrub.config().MAX_Y.set(treesMaxY);
+        decoShrub.config().STRENGTH_FACTOR.set(40f);
 
         return decoShrub;
     }
 
     private DecoBoulder boulders() {
         DecoBoulder decoBoulder = new DecoBoulder()
-            .setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState())
-            .setStrengthFactor(2f);
+            .setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
 
         decoBoulder.config().CHANCE.set(12);
         decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
 
         return decoBoulder;
     }
 
     private DecoCobwebs cobwebs() {
         DecoCobwebs decoCobwebs = new DecoCobwebs()
-            .setStrengthFactor(24f)
             .setAdjacentBlock(BlockUtil.getStateLog2(1))
             .setMinAdjacents(2);
 
         decoCobwebs.config().CHANCE.set(1);
         decoCobwebs.config().MIN_Y.set(treesMinY);
         decoCobwebs.config().MAX_Y.set(treesMaxY);
+        decoCobwebs.config().STRENGTH_FACTOR.set(24f);
 
         return decoCobwebs;
     }
 
     private DecoGrass grass() {
-        return new DecoGrass()
-            .setStrengthFactor(32f);
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.config().STRENGTH_FACTOR.set(32f);
+        return decoGrass;
     }
 
     private DecoDeadBush deadBushes() {
-        DecoDeadBush decoDeadBush = new DecoDeadBush()
-            .setStrengthFactor(2f);
-
+        DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.config().CHANCE.set(2);
+        decoDeadBush.config().STRENGTH_FACTOR.set(2f);
 
         return decoDeadBush;
     }

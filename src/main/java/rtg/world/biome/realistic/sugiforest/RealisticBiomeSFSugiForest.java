@@ -183,13 +183,13 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoShrubSugi.setLogBlock(sugiLogBlock);
         decoShrubSugi.setLeavesBlock(sugiLeavesBlock);
         decoShrubSugi.config().MAX_Y.set(90);
-        decoShrubSugi.setStrengthFactor(4f);
+        decoShrubSugi.config().STRENGTH_FACTOR.set(4f);
         decoShrubSugi.config().CHANCE.set(8);
         this.addDeco(decoShrubSugi);
 
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.config().MAX_Y.set(90);
-        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.config().STRENGTH_FACTOR.set(4f);
         decoShrubOak.config().CHANCE.set(4);
         this.addDeco(decoShrubOak);
 
@@ -197,7 +197,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

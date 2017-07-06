@@ -177,7 +177,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(95);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();

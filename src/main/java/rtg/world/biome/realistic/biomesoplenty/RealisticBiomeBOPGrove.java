@@ -211,24 +211,24 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoShrubCustom.setLogBlock(BlockUtil.getStateLog(2));
         decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(2));
         decoShrubCustom.config().MAX_Y.set(110);
-        decoShrubCustom.setStrengthFactor(2f);
+        decoShrubCustom.config().STRENGTH_FACTOR.set(2f);
         DecoShrub decoShrubCustom2 = new DecoShrub();
         decoShrubCustom2.setLogBlock(BlockUtil.getStateLog2(1));
         decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf2(1));
         decoShrubCustom2.config().MAX_Y.set(110);
-        decoShrubCustom2.setStrengthFactor(2f);
+        decoShrubCustom2.config().STRENGTH_FACTOR.set(2f);
         DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
         this.addDeco(decoHelperHelper50502);
 
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11});
         decoFlowersRTG.config().MAX_Y.set(128);
-        decoFlowersRTG.setStrengthFactor(2f);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoFlowersRTG);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(12f);
+        decoGrass.config().STRENGTH_FACTOR.set(12f);
         this.addDeco(decoGrass);
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();

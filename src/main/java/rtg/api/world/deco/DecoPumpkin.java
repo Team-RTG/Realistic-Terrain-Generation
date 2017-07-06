@@ -17,7 +17,6 @@ import rtg.api.world.biome.IRealisticBiome;
  */
 public class DecoPumpkin extends DecoBase {
 
-    private float strengthFactor;
     private float randomFloat;
     private RandomType randomType;
 
@@ -29,7 +28,6 @@ public class DecoPumpkin extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(0f); // The higher the value, the more there will be. Disabled by default.
         this.setRandomType(RandomType.USE_CHANCE_VALUE);
         this.setRandomFloat(1f);
 
@@ -41,6 +39,7 @@ public class DecoPumpkin extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class DecoPumpkin extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenPumpkin();
 
-                int loops = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.config().LOOPS.get();
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
                 for (int i = 0; i < loops; i++) {
                     if (rand.nextInt(this.config().CHANCE.get()) == 0) {
 
@@ -90,17 +89,6 @@ public class DecoPumpkin extends DecoBase {
         ALWAYS_GENERATE,
         USE_CHANCE_VALUE,
         X_DIVIDED_BY_STRENGTH
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoPumpkin setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
     }
 
     public float getRandomFloat() {

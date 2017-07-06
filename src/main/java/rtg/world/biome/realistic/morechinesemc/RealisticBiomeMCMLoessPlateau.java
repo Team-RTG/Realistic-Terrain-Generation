@@ -218,7 +218,7 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
         decoShrub.setLogBlock(BlockUtil.getStateLog(1));
         decoShrub.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoShrub.config().MAX_Y.set(90);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
         decoShrub.config().CHANCE.set(12);
         this.addDeco(decoShrub);
 
@@ -226,7 +226,7 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(30);
         decoBoulder.config().MAX_Y.set(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

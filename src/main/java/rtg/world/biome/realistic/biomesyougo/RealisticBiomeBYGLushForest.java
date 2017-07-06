@@ -200,13 +200,13 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
         decoShrubBirch.setLogBlock(BlockUtil.getStateLog(2));
         decoShrubBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
         decoShrubBirch.config().MAX_Y.set(90);
-        decoShrubBirch.setStrengthFactor(6f);
+        decoShrubBirch.config().STRENGTH_FACTOR.set(6f);
         decoShrubBirch.config().CHANCE.set(4);
         this.addDeco(decoShrubBirch);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(100);
-        decoGrass.setStrengthFactor(6f);
+        decoGrass.config().STRENGTH_FACTOR.set(6f);
         this.addDeco(decoGrass);
     }
 }

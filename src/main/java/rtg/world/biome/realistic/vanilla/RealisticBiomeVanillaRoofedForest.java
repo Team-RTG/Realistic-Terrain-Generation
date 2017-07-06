@@ -259,13 +259,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         darkOakShrub.setLogBlock(BlockUtil.getStateLog2(1));
         darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf2(1));
         darkOakShrub.config().MAX_Y.set(100);
-        darkOakShrub.setStrengthFactor(8f);
+        darkOakShrub.config().STRENGTH_FACTOR.set(8f);
 
         DecoShrub oakShrub = new DecoShrub();
         oakShrub.setLogBlock(Blocks.LOG.getDefaultState());
         oakShrub.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         oakShrub.config().MAX_Y.set(100);
-        oakShrub.setStrengthFactor(8f);
+        oakShrub.config().STRENGTH_FACTOR.set(8f);
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
 
@@ -273,14 +273,14 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoCobwebs decoCobwebs = new DecoCobwebs();
         decoCobwebs.config().CHANCE.set(1);
         decoCobwebs.config().MIN_Y.set(63);
         decoCobwebs.config().MAX_Y.set(76);
-        decoCobwebs.setStrengthFactor(24f);
+        decoCobwebs.config().STRENGTH_FACTOR.set(24f);
         decoCobwebs.setAdjacentBlock(BlockUtil.getStateLog2(1));
         decoCobwebs.setMinAdjacents(2);
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
@@ -292,13 +292,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(100);
-        decoGrass.setStrengthFactor(20f);
+        decoGrass.config().STRENGTH_FACTOR.set(20f);
         this.addDeco(decoGrass);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.config().MAX_Y.set(100);
         decoDeadBush.config().CHANCE.set(2);
-        decoDeadBush.setStrengthFactor(2f);
+        decoDeadBush.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoDeadBush);
     }
 

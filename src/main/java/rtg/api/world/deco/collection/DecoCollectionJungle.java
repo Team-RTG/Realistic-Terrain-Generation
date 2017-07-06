@@ -107,12 +107,12 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoFlowersRTG.setFlowers(new int[]{5}); // Only orange tulips fit in with the colour scheme.
         decoFlowersRTG.config().CHANCE.set(4);
         decoFlowersRTG.config().MAX_Y.set(120);
-        decoFlowersRTG.setStrengthFactor(2f);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoFlowersRTG);
 
         // Tall cacti on red sand - matches the colour scheme nicely.
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
-        decoJungleCacti.setStrengthFactor(8f);
+        decoJungleCacti.config().STRENGTH_FACTOR.set(8f);
         decoJungleCacti.config().MAX_Y.set(120);
         decoJungleCacti.setSandOnly(false);
         decoJungleCacti.setExtraHeight(7);
@@ -124,13 +124,13 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(16);
         decoBoulder.config().MAX_Y.set(95);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(12f);
+        decoGrass.config().STRENGTH_FACTOR.set(12f);
         this.addDeco(decoGrass);
     }
 }

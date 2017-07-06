@@ -20,7 +20,6 @@ public class DecoCrop extends DecoBase {
     private int size; //Higher = larger fields.
     private int density; //Higher = Crops in fields closer together.
     private int height; //Higher = Crops on more y levels - When higher tends to be less dense.
-    private float strengthFactor; // Higher = More frequent spawns.
     private boolean water;
 
     public DecoCrop() {
@@ -35,7 +34,6 @@ public class DecoCrop extends DecoBase {
         this.size = 5;//DO NOT PUT HIGHER THAN 30
         this.density = 50;
         this.height = 2;
-        this.setStrengthFactor(2f);
         this.water = true; //whether or not to spawn water with the crops
 
         this.addDecoTypes(DecoType.WHEAT);
@@ -46,6 +44,7 @@ public class DecoCrop extends DecoBase {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().CHANCE).set(10);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(2f);
     }
 
     @Override
@@ -60,7 +59,7 @@ public class DecoCrop extends DecoBase {
                 return;
             }
 
-            for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
+            for (int l1 = 0; l1 < this.config().STRENGTH_FACTOR.get() * strength; ++l1) {
                 int i1 = worldX + rand.nextInt(16);// + 8;
                 int j1 = worldZ + rand.nextInt(16);// + 8;
                 int k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
@@ -121,17 +120,6 @@ public class DecoCrop extends DecoBase {
     public DecoCrop setHeight(int height) {
 
         this.height = height;
-        return this;
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoCrop setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
         return this;
     }
 

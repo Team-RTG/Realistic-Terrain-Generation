@@ -168,7 +168,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         decoShrub.setLogBlock(this.witchwoodLogBlock());
         decoShrub.setLeavesBlock(this.witchwoodLeavesBlock());
         decoShrub.config().MAX_Y.set(110);
-        decoShrub.setStrengthFactor(4f);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
         decoShrub.config().CHANCE.set(6);
         this.addDeco(decoShrub);
 

@@ -144,7 +144,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{0, 2, 3, 4, 5, 6, 7, 8, 9});
         decoFlowersRTG.config().MAX_Y.set(128);
-        decoFlowersRTG.setStrengthFactor(2f);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoFlowersRTG);
 
         // Lots of grass, but not as much as vanilla.

@@ -185,7 +185,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoShrubSpruce.setLogBlock(BlockUtil.getStateLog(1));
         decoShrubSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoShrubSpruce.config().MAX_Y.set(100);
-        decoShrubSpruce.setStrengthFactor(3f);
+        decoShrubSpruce.config().STRENGTH_FACTOR.set(3f);
         decoShrubSpruce.config().CHANCE.set(6);
         this.addDeco(decoShrubSpruce);
 
@@ -193,7 +193,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(20);
         decoBoulder.config().MAX_Y.set(95);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
@@ -210,7 +210,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(grassStrengthFactor);
+        decoGrass.config().STRENGTH_FACTOR.set(grassStrengthFactor);
         this.addDeco(decoGrass);
     }
 }

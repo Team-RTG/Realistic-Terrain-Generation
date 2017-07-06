@@ -154,7 +154,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(100);
-        decoShrub.setStrengthFactor(3f);
+        decoShrub.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoShrub);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -181,7 +181,7 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeVanillaBase {
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(100);
-        decoGrass.setStrengthFactor(12f);
+        decoGrass.config().STRENGTH_FACTOR.set(12f);
         this.addDeco(decoGrass);
     }
 }

@@ -189,13 +189,13 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         decoShrubCika.setLogBlock(cikaLogBlock);
         decoShrubCika.setLeavesBlock(cikaLeavesBlock);
         decoShrubCika.config().MAX_Y.set(90);
-        decoShrubCika.setStrengthFactor(4f);
+        decoShrubCika.config().STRENGTH_FACTOR.set(4f);
         decoShrubCika.config().CHANCE.set(8);
         this.addDeco(decoShrubCika);
 
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.config().MAX_Y.set(90);
-        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.config().STRENGTH_FACTOR.set(4f);
         decoShrubOak.config().CHANCE.set(4);
         this.addDeco(decoShrubOak);
 
@@ -203,7 +203,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         TreeRTG quercusRoburOakTree = new TreeRTGQuercusRobur();

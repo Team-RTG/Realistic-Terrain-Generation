@@ -24,7 +24,6 @@ public class DecoShrub extends DecoBase {
     private boolean sand;
     private IBlockState[] randomLogBlocks;
     private IBlockState[] randomLeavesBlocks;
-    private float strengthFactor; // Higher = more/bigger shrubs.
     private int minSize;
     private int maxSize;
     private IBlockState logBlock;
@@ -43,7 +42,6 @@ public class DecoShrub extends DecoBase {
         this.sand = true; //Whether shrubs generate on sand
         this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
-        this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setMinSize(3);
         this.setMaxSize(4);
         this.setLogBlock(Blocks.LOG.getDefaultState());
@@ -65,6 +63,7 @@ public class DecoShrub extends DecoBase {
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(3f);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class DecoShrub extends DecoBase {
             WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand);
 
             int loopCount = this.config().LOOPS.get();
-            loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
+            loopCount = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
                 int intX = worldX + rand.nextInt(16);// + 8;
                 int intZ = worldZ + rand.nextInt(16);// + 8;
@@ -179,17 +178,6 @@ public class DecoShrub extends DecoBase {
     public DecoShrub setRandomLeavesBlocks(IBlockState[] randomLeavesBlocks) {
 
         this.randomLeavesBlocks = randomLeavesBlocks;
-        return this;
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoShrub setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
         return this;
     }
 

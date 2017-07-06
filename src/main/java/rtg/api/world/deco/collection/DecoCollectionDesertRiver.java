@@ -54,7 +54,7 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         decoRiverCactus.config().CHECK_RIVER.set(true);
         decoRiverCactus.config().MIN_RIVER.set(0.7f);
         decoRiverCactus.config().MAX_Y.set(80);
-        decoRiverCactus.setStrengthFactor(12f);
+        decoRiverCactus.config().STRENGTH_FACTOR.set(12f);
         this.addDeco(decoRiverCactus, config.ALLOW_CACTUS.get());
 
         DecoReed decoReed = new DecoReed();

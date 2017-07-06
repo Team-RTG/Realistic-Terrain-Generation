@@ -171,14 +171,14 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(88);
-        decoShrub.setStrengthFactor(6f);
+        decoShrub.config().STRENGTH_FACTOR.set(6f);
         this.addDeco(decoShrub);
 
         DecoShrub decoShrubBYG = new DecoShrub();
         decoShrubBYG.setLogBlock(willowLogBlock);
         decoShrubBYG.setLeavesBlock(willowLeavesBlock);
         decoShrubBYG.config().MAX_Y.set(88);
-        decoShrubBYG.setStrengthFactor(3f);
+        decoShrubBYG.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoShrubBYG);
     }
 }

@@ -297,7 +297,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.config().MAX_Y.set(90);
-        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.config().STRENGTH_FACTOR.set(4f);
         decoShrubOak.config().CHANCE.set(3);
         this.addDeco(decoShrubOak);
 
@@ -319,13 +319,13 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.config().MAX_Y.set(90);
-        decoGrassDoubleTallgrass.setStrengthFactor(4f);
+        decoGrassDoubleTallgrass.config().STRENGTH_FACTOR.set(4f);
         decoGrassDoubleTallgrass.setDoubleGrassChance(8);
         this.addDeco(decoGrassDoubleTallgrass);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(90);
-        decoGrass.setStrengthFactor(4f);
+        decoGrass.config().STRENGTH_FACTOR.set(4f);
         decoGrass.config().CHANCE.set(2);
         this.addDeco(decoGrass);
 

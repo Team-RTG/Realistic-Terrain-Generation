@@ -167,7 +167,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         decoBoulder.config().CHANCE.set(24);
         decoBoulder.config().MAX_Y.set(95);
         this.addDeco(decoBoulder);
@@ -188,7 +188,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.config().MAX_Y.set(120);
-        decoShrub.setStrengthFactor(3f);
+        decoShrub.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoShrub);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -197,7 +197,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(20f);
+        decoGrass.config().STRENGTH_FACTOR.set(20f);
         this.addDeco(decoGrass);
     }
 }

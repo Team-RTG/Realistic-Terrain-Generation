@@ -270,7 +270,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaShrub.config().MAX_Y.set(160);
-        acaciaShrub.setStrengthFactor(3f);
+        acaciaShrub.config().STRENGTH_FACTOR.set(3f);
         acaciaShrub.config().CHANCE.set(9);
         this.addDeco(acaciaShrub);
 
@@ -297,12 +297,12 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
         decoDoubleGrass.config().MAX_Y.set(128);
-        decoDoubleGrass.setStrengthFactor(3f);
+        decoDoubleGrass.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoDoubleGrass);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.config().MAX_Y.set(128);
-        decoGrass.setStrengthFactor(10f);
+        decoGrass.config().STRENGTH_FACTOR.set(10f);
         this.addDeco(decoGrass);
     }
 }

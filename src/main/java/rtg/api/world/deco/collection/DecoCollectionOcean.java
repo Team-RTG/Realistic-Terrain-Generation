@@ -40,7 +40,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
         decoBoulder.config().MIN_Y.set(22);
         decoBoulder.config().MAX_Y.set(58);
         decoBoulder.setHeightType(DecoBoulder.HeightType.NEXT_INT);
-        decoBoulder.setStrengthFactor(3f);
+        decoBoulder.config().STRENGTH_FACTOR.set(3f);
         return decoBoulder;
     }
 
@@ -51,7 +51,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
         decoSponge.config().MIN_Y.set(22);
         decoSponge.config().MAX_Y.set(39);
         decoSponge.setHeightType(DecoSponge.HeightType.NEXT_INT);
-        decoSponge.setStrengthFactor(8f);
+        decoSponge.config().STRENGTH_FACTOR.set(8f);
         return decoSponge;
     }
 

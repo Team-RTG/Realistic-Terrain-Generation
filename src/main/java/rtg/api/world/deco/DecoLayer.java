@@ -25,8 +25,6 @@ public class DecoLayer extends DecoBase {
     private int layerRange;
     private int layerScatter;
 
-    private float strengthFactor; // Higher = more/bigger shrubs.
-
     public DecoLayer(IBlockState layerBlock, PropertyInteger layerProperty) {
 
         super();
@@ -40,7 +38,6 @@ public class DecoLayer extends DecoBase {
         this.dropHeight = 2;
         this.layerRange = 4;
         this.layerScatter = 3;
-        this.setStrengthFactor(2f);
 
         this.addDecoTypes(DecoType.LAYER, DecoType.LEAVES, DecoType.FALLEN_LEAVES);
     }
@@ -52,6 +49,7 @@ public class DecoLayer extends DecoBase {
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(2f);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class DecoLayer extends DecoBase {
             WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
 
             int loopCount = this.config().LOOPS.get();
-            loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : loopCount;
+            loopCount = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int)(this.config().STRENGTH_FACTOR.get() * strength) : loopCount;
             for (int i = 0; i < loopCount; i++) {
                 int intX = worldX + rand.nextInt(16);// + 8;
                 int intZ = worldZ + rand.nextInt(16);// + 8;
@@ -148,17 +146,6 @@ public class DecoLayer extends DecoBase {
     public DecoLayer setLayerScatter(int layerScatter) {
 
         this.layerScatter = layerScatter;
-        return this;
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoLayer setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
         return this;
     }
 }

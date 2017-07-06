@@ -22,7 +22,6 @@ import rtg.api.world.gen.feature.WorldGenBlob;
 public class DecoBoulder extends DecoBase {
 
     private IBlockState boulderBlock; // This can be any block.
-    private float strengthFactor; // Higher = more/bigger boulders.
     private HeightType heightType; // How we determine the Y coord.
     private boolean water;
     protected ArrayList<Block> validGroundBlocks;
@@ -36,7 +35,6 @@ public class DecoBoulder extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        this.setStrengthFactor(2f);
         this.setHeightType(HeightType.GET_HEIGHT_VALUE);
         this.water = true;
 
@@ -57,6 +55,7 @@ public class DecoBoulder extends DecoBase {
         this.config().addProperty(this.config().MIN_Y).set(60);
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().CHANCE).set(10);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(2f);
     }
 
     @Override
@@ -67,7 +66,7 @@ public class DecoBoulder extends DecoBase {
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
 
-            for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
+            for (int l1 = 0; l1 < this.config().STRENGTH_FACTOR.get() * strength; ++l1) {
 
                 int i1 = worldX + rand.nextInt(16);// + 8;
                 int j1 = worldZ + rand.nextInt(16);// + 8;
@@ -117,17 +116,6 @@ public class DecoBoulder extends DecoBase {
     public DecoBoulder setBoulderBlock(IBlockState boulderBlock) {
 
         this.boulderBlock = boulderBlock;
-        return this;
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoBoulder setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
         return this;
     }
 

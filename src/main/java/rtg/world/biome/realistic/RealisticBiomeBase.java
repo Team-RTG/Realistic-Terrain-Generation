@@ -83,7 +83,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
          *  This also needs to be here so that ores get generated.
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setAllowed(false);
+        decoBaseBiomeDecorations.config().ALLOW.set(false);
         this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes

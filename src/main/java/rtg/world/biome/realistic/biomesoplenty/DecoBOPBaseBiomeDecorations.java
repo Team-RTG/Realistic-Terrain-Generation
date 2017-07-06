@@ -26,7 +26,7 @@ public class DecoBOPBaseBiomeDecorations extends DecoBaseBiomeDecorations {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed && biome instanceof IRealisticBOPBiome) {
+        if (this.config().ALLOW.get() && biome instanceof IRealisticBOPBiome) {
 
             // skip if already decorated (@author Zeno410, lifted from DecoSingleBiomeDecorations)
             ChunkPos position = new ChunkPos(worldX,worldZ);

@@ -37,7 +37,7 @@ public class DecoHelperRandomSplit extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (this.decos.length < 1 || this.chances.length < 1 || this.decos.length != this.chances.length) {
                 throw new RuntimeException("DecoHelperRandomSplit is confused.");

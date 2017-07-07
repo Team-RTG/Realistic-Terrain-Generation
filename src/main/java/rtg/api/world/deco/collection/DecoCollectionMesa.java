@@ -33,7 +33,7 @@ public class DecoCollectionMesa extends DecoCollectionBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
+        decoCactus.config().SOIL_BLOCK.set(BlockUtil.getStateSand(1));
         decoCactus.config().LOOPS.set(18);
         decoCactus.config().MAX_Y.set(100);
         this.addDeco(decoCactus, config.ALLOW_CACTUS.get());

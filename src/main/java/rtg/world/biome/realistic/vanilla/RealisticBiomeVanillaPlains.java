@@ -122,11 +122,11 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
 
         //Sparse wheat
         DecoCrop decoCropWheat = new DecoCrop();
-        decoCropWheat.setSize(8);
-        decoCropWheat.setDensity(5);
+        decoCropWheat.config().CROP_SIZE.set(8);
+        decoCropWheat.config().CROP_DENSITY.set(5);
         decoCropWheat.config().CHANCE.set(this.getConfig().WHEAT_CHANCE.get());
-        decoCropWheat.setType(3);
-        decoCropWheat.setWater(false);
+        decoCropWheat.config().CROP_TYPE.set(3);
+        decoCropWheat.config().CROP_WATER.set(false);
         decoCropWheat.config().MIN_Y.set(this.getConfig().WHEAT_MIN_Y.get());
         decoCropWheat.config().MAX_Y.set(this.getConfig().WHEAT_MAX_Y.get());
         this.addDeco(decoCropWheat, this.getConfig().ALLOW_WHEAT.get());

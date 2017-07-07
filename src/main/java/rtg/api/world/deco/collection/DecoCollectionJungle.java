@@ -114,7 +114,7 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
         decoJungleCacti.config().STRENGTH_FACTOR.set(8f);
         decoJungleCacti.config().MAX_Y.set(120);
-        decoJungleCacti.setSandOnly(false);
+        decoJungleCacti.config().SAND_ONLY.set(false);
         decoJungleCacti.setExtraHeight(7);
         decoJungleCacti.setSandMeta((byte) 1);
         this.addDeco(decoJungleCacti, config.ALLOW_CACTUS.get());

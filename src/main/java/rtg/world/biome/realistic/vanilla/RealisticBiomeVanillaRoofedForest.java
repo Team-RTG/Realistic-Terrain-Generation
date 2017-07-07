@@ -281,8 +281,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoCobwebs.config().MIN_Y.set(63);
         decoCobwebs.config().MAX_Y.set(76);
         decoCobwebs.config().STRENGTH_FACTOR.set(24f);
-        decoCobwebs.setAdjacentBlock(BlockUtil.getStateLog2(1));
-        decoCobwebs.setMinAdjacents(2);
+        decoCobwebs.config().ADJACENT_BLOCK.set(BlockUtil.getStateLog2(1));
+        decoCobwebs.config().MIN_ADJACENTS.set(2);
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

@@ -32,6 +32,15 @@ public class DecoConfig extends Config {
     public final ConfigPropertyFloat STRENGTH_FACTOR;
     public final ConfigPropertyBoolean CHECK_WATER;
     public final ConfigPropertyBlockstate BOULDER_BLOCK;
+    public final ConfigPropertyBoolean SAND_ONLY;
+    public final ConfigPropertyBlockstate SOIL_BLOCK;
+    public final ConfigPropertyBlockstate ADJACENT_BLOCK;
+    public final ConfigPropertyInt MIN_ADJACENTS;
+    public final ConfigPropertyInt CROP_TYPE;
+    public final ConfigPropertyInt CROP_SIZE;
+    public final ConfigPropertyInt CROP_DENSITY;
+    public final ConfigPropertyInt CROP_HEIGHT;
+    public final ConfigPropertyBoolean CROP_WATER;
 
     public DecoConfig() {
 
@@ -81,5 +90,14 @@ public class DecoConfig extends Config {
         STRENGTH_FACTOR = new ConfigPropertyFloat("Strength Factor", "", "", 2f, 0f, Float.MAX_VALUE);
         CHECK_WATER = new ConfigPropertyBoolean("Check Water", "", "", true);
         BOULDER_BLOCK = new ConfigPropertyBlockstate("Boulder Block", "", "", Blocks.COBBLESTONE.getDefaultState());
+        SAND_ONLY = new ConfigPropertyBoolean("Sand Only", "", "", false);
+        SOIL_BLOCK = new ConfigPropertyBlockstate("Soil Block", "", "", Blocks.GRASS.getDefaultState());
+        ADJACENT_BLOCK = new ConfigPropertyBlockstate("Adjacent Block", "", "", Blocks.AIR.getDefaultState());
+        MIN_ADJACENTS = new ConfigPropertyInt("Min Adjacents", "", "", 1, 1, Integer.MAX_VALUE);
+        CROP_TYPE = new ConfigPropertyInt("Crop Type", "", "0 = potatoes, 1 = carrots, 2 = beetroot, 3 = wheat", 3, 0, 3);
+        CROP_SIZE = new ConfigPropertyInt("Crop Size", "", "Higher = larger fields", 5, 1, 30);
+        CROP_DENSITY = new ConfigPropertyInt("Crop Density", "", "Higher = Crops in fields closer together.", 50, 1, 100);
+        CROP_HEIGHT = new ConfigPropertyInt("Crop Height", "", "Higher = Crops on more y levels, but crops tend to be less dense.", 2, 1, 5);
+        CROP_WATER = new ConfigPropertyBoolean("Crop Water", "", "Set to TRUE to generate water with crops.", true);
     }
 }

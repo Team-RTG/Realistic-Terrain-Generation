@@ -74,7 +74,7 @@ public class WorldGenCrops extends WorldGenerator {
 
             if ((b.getBlock() == Blocks.GRASS || b.getBlock() == Blocks.DIRT) && world.isAirBlock(new BlockPos(x + rx, y + ry + 1, z + rz))) {
                 world.setBlockState(new BlockPos(x + rx, y + ry, z + rz), Blocks.FARMLAND.getDefaultState().withProperty(BlockFarmland.MOISTURE,rand.nextInt(8)));
-                world.setBlockState(new BlockPos(x + rx, y +ry + 1, z + rz), ((BlockCrops) farmType).withAge(rand.nextInt(maxGrowth)));
+                world.setBlockState(new BlockPos(x + rx, y + ry + 1, z + rz), ((BlockCrops) farmType).withAge(rand.nextInt(maxGrowth)));
             }
         }
         if(farmWater == true) {

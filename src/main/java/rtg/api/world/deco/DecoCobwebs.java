@@ -2,7 +2,6 @@ package rtg.api.world.deco;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -17,19 +16,9 @@ import rtg.api.world.gen.feature.WorldGenBlock;
  */
 public class DecoCobwebs extends DecoBase {
 
-    private IBlockState adjacentBlock;
-    private int minAdjacents;
-
     public DecoCobwebs() {
 
         super();
-
-        /**
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setAdjacentBlock(Blocks.AIR.getDefaultState());
-        this.setMinAdjacents(1);
 
         this.addDecoTypes(DecoType.COBWEB);
     }
@@ -40,6 +29,8 @@ public class DecoCobwebs extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().CHANCE).set(10);
         this.config().addProperty(this.config().STRENGTH_FACTOR).set(2f);
+        this.config().addProperty(this.config().ADJACENT_BLOCK).set(Blocks.AIR.getDefaultState());
+        this.config().addProperty(this.config().MIN_ADJACENTS).set(1);
     }
 
     @Override
@@ -47,7 +38,7 @@ public class DecoCobwebs extends DecoBase {
 
         if (this.config().ALLOW.get()) {
 
-            WorldGenerator worldGenerator = new WorldGenBlock(Blocks.WEB.getDefaultState(), Blocks.AIR.getDefaultState(), this.adjacentBlock, this.minAdjacents);
+            WorldGenerator worldGenerator = new WorldGenBlock(Blocks.WEB.getDefaultState(), Blocks.AIR.getDefaultState(), this.config().ADJACENT_BLOCK.get(), this.config().MIN_ADJACENTS.get());
 
             for (int l1 = 0; l1 < this.config().STRENGTH_FACTOR.get() * strength; ++l1) {
                 int i1 = worldX + rand.nextInt(16);// + 8;
@@ -59,27 +50,5 @@ public class DecoCobwebs extends DecoBase {
                 }
             }
         }
-    }
-
-    public IBlockState getAdjacentBlock() {
-
-        return adjacentBlock;
-    }
-
-    public DecoCobwebs setAdjacentBlock(IBlockState adjacentBlock) {
-
-        this.adjacentBlock = adjacentBlock;
-        return this;
-    }
-
-    public int getMinAdjacents() {
-
-        return minAdjacents;
-    }
-
-    public DecoCobwebs setMinAdjacents(int minAdjacents) {
-
-        this.minAdjacents = minAdjacents;
-        return this;
     }
 }

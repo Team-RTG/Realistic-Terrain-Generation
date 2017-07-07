@@ -2,7 +2,6 @@ package rtg.api.world.deco;
 
 import java.util.Random;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -19,19 +18,9 @@ import rtg.api.world.gen.feature.WorldGenCacti;
  */
 public class DecoCactus extends DecoBase {
 
-    private boolean sandOnly;
-    private IBlockState soilBlock;
-
     public DecoCactus() {
 
         super();
-
-        /*
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setSandOnly(false);
-        this.setSoilBlock(Blocks.SAND.getDefaultState());
 
         this.addDecoTypes(DecoType.CACTUS);
     }
@@ -42,6 +31,8 @@ public class DecoCactus extends DecoBase {
         this.config().addProperty(this.config().LOOPS).set(1);
         this.config().addProperty(this.config().CHANCE).set(1);
         this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
+        this.config().addProperty(this.config().SAND_ONLY).set(false);
+        this.config().addProperty(this.config().SOIL_BLOCK).set(Blocks.SAND.getDefaultState());
     }
 
     @Override
@@ -51,7 +42,7 @@ public class DecoCactus extends DecoBase {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
 
-                WorldGenerator worldGenerator = new WorldGenCacti(this.sandOnly, 0, this.soilBlock);
+                WorldGenerator worldGenerator = new WorldGenCacti(this.config().SAND_ONLY.get(), 0, this.config().SOIL_BLOCK.get());
 
                 int loopCount = this.config().LOOPS.get();
                 loopCount = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : loopCount;
@@ -66,27 +57,5 @@ public class DecoCactus extends DecoBase {
                 }
             }
         }
-    }
-
-    public boolean isSandOnly() {
-
-        return sandOnly;
-    }
-
-    public DecoCactus setSandOnly(boolean sandOnly) {
-
-        this.sandOnly = sandOnly;
-        return this;
-    }
-
-    public IBlockState getSoilBlock() {
-
-        return soilBlock;
-    }
-
-    public DecoCactus setSoilBlock(IBlockState soilBlock) {
-
-        this.soilBlock = soilBlock;
-        return this;
     }
 }

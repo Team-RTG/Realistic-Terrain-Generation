@@ -16,25 +16,9 @@ import rtg.api.world.gen.feature.WorldGenCrops;
  */
 public class DecoCrop extends DecoBase {
 
-    private int type; // This can the number 0,1,2,3.
-    private int size; //Higher = larger fields.
-    private int density; //Higher = Crops in fields closer together.
-    private int height; //Higher = Crops on more y levels - When higher tends to be less dense.
-    private boolean water;
-
     public DecoCrop() {
 
         super();
-
-        /*
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.type = 3;
-        this.size = 5;//DO NOT PUT HIGHER THAN 30
-        this.density = 50;
-        this.height = 2;
-        this.water = true; //whether or not to spawn water with the crops
 
         this.addDecoTypes(DecoType.WHEAT);
     }
@@ -45,6 +29,11 @@ public class DecoCrop extends DecoBase {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().CHANCE).set(10);
         this.config().addProperty(this.config().STRENGTH_FACTOR).set(2f);
+        this.config().addProperty(this.config().CROP_TYPE).set(3);
+        this.config().addProperty(this.config().CROP_SIZE).set(5);
+        this.config().addProperty(this.config().CROP_DENSITY).set(50);
+        this.config().addProperty(this.config().CROP_HEIGHT).set(2);
+        this.config().addProperty(this.config().CROP_WATER).set(true);
     }
 
     @Override
@@ -53,7 +42,9 @@ public class DecoCrop extends DecoBase {
         if (this.config().ALLOW.get()) {
 
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
-            WorldGenerator worldGenerator = new WorldGenCrops(type, size, density, height, water);
+            WorldGenerator worldGenerator = new WorldGenCrops(
+                this.config().CROP_TYPE.get(), this.config().CROP_SIZE.get(), this.config().CROP_DENSITY.get(), this.config().CROP_HEIGHT.get(), this.config().CROP_WATER.get()
+            );
 
             if (this.config().CHANCE.get() < 1) {
                 return;
@@ -77,60 +68,5 @@ public class DecoCrop extends DecoBase {
                 }
             }
         }
-    }
-
-    public int getType() {
-
-        return type;
-    }
-
-    public DecoCrop setType(int type) {
-
-        this.type = type;
-        return this;
-    }
-
-    public int getSize() {
-
-        return size;
-    }
-
-    public DecoCrop setSize(int size) {
-
-        this.size = size;
-        return this;
-    }
-
-    public int getDensity() {
-
-        return density;
-    }
-
-    public DecoCrop setDensity(int density) {
-
-        this.density = density;
-        return this;
-    }
-
-    public int getHeight() {
-
-        return height;
-    }
-
-    public DecoCrop setHeight(int height) {
-
-        this.height = height;
-        return this;
-    }
-
-    public boolean isWater() {
-
-        return water;
-    }
-
-    public DecoCrop setWater(boolean water) {
-
-        this.water = water;
-        return this;
     }
 }

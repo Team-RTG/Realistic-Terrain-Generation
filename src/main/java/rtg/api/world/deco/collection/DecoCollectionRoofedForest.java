@@ -246,14 +246,13 @@ public class DecoCollectionRoofedForest extends DecoCollectionBase {
     }
 
     private DecoCobwebs cobwebs() {
-        DecoCobwebs decoCobwebs = new DecoCobwebs()
-            .setAdjacentBlock(BlockUtil.getStateLog2(1))
-            .setMinAdjacents(2);
-
+        DecoCobwebs decoCobwebs = new DecoCobwebs();
         decoCobwebs.config().CHANCE.set(1);
         decoCobwebs.config().MIN_Y.set(treesMinY);
         decoCobwebs.config().MAX_Y.set(treesMaxY);
         decoCobwebs.config().STRENGTH_FACTOR.set(24f);
+        decoCobwebs.config().ADJACENT_BLOCK.set(BlockUtil.getStateLog2(1));
+        decoCobwebs.config().MIN_ADJACENTS.set(2);
 
         return decoCobwebs;
     }

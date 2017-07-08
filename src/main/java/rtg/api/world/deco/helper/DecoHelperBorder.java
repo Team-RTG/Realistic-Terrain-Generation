@@ -30,6 +30,11 @@ public class DecoHelperBorder extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Helper Border";
+    }
+
+    @Override
     public void initConfig() {}
 
     @Override

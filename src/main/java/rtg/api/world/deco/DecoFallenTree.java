@@ -67,6 +67,11 @@ public class DecoFallenTree extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Fallen Trees";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(80);
         this.config().addProperty(this.config().LOOPS).set(1);

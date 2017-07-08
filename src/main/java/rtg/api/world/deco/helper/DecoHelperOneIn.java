@@ -26,6 +26,11 @@ public class DecoHelperOneIn extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Helper One In";
+    }
+
+    @Override
     public void initConfig() {}
 
     @Override

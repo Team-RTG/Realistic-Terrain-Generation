@@ -55,7 +55,7 @@ public class DecoConfig extends Config {
          */
         ALLOW = new ConfigPropertyBoolean(
             "Allow",
-            "",
+            "Decos",
             "Set to FALSE to prevent this deco from generating in this biome.",
             true
         );
@@ -63,17 +63,17 @@ public class DecoConfig extends Config {
 
         CHECK_RIVER = new ConfigPropertyBoolean(
             "Check River",
-            "",
+            "Decos",
             "Set to TRUE to have this deco check the river.",
             false
         );
-        this.addProperty(CHECK_RIVER);
+        this.addProperty(CHECK_RIVER).restrict();
 
-        MIN_RIVER = new ConfigPropertyFloat("Min River", "", "Minimum river value required to generate.", -2f, -2f, 2f);
-        this.addProperty(MIN_RIVER);
+        MIN_RIVER = new ConfigPropertyFloat("Min River", "Decos", "Minimum river value required to generate.", -2f, -2f, 2f);
+        this.addProperty(MIN_RIVER).restrict();
 
-        MAX_RIVER = new ConfigPropertyFloat("Min River", "", "Maximum river value required to generate.", -2f, -2f, 2f);
-        this.addProperty(MAX_RIVER);
+        MAX_RIVER = new ConfigPropertyFloat("Min River", "Decos", "Maximum river value required to generate.", -2f, -2f, 2f);
+        this.addProperty(MAX_RIVER).restrict();
 
         /*
          * OPTIONAL CONFIGS
@@ -81,23 +81,23 @@ public class DecoConfig extends Config {
          * These properties get 'added' by the individual decos when relevant, so don't 'add' them here.
          */
 
-        MIN_Y = new ConfigPropertyInt("Min Y", "", "", 1, 1, 255);
-        MAX_Y = new ConfigPropertyInt("Max Y", "", "", 255, 1, 255);
-        LOOPS = new ConfigPropertyInt("Loops", "", "", 1, -1, Integer.MAX_VALUE);
-        CHANCE = new ConfigPropertyInt("Chance", "", "", 1, 1, Integer.MAX_VALUE);
-        EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
-        NOT_EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Not Equals Zero Chance", "", "", 1, 1, Integer.MAX_VALUE);
-        STRENGTH_FACTOR = new ConfigPropertyFloat("Strength Factor", "", "", 2f, 0f, Float.MAX_VALUE);
-        CHECK_WATER = new ConfigPropertyBoolean("Check Water", "", "", true);
-        BOULDER_BLOCK = new ConfigPropertyBlockstate("Boulder Block", "", "", Blocks.COBBLESTONE.getDefaultState());
-        SAND_ONLY = new ConfigPropertyBoolean("Sand Only", "", "", false);
-        SOIL_BLOCK = new ConfigPropertyBlockstate("Soil Block", "", "", Blocks.GRASS.getDefaultState());
-        ADJACENT_BLOCK = new ConfigPropertyBlockstate("Adjacent Block", "", "", Blocks.AIR.getDefaultState());
-        MIN_ADJACENTS = new ConfigPropertyInt("Min Adjacents", "", "", 1, 1, Integer.MAX_VALUE);
-        CROP_TYPE = new ConfigPropertyInt("Crop Type", "", "0 = potatoes, 1 = carrots, 2 = beetroot, 3 = wheat", 3, 0, 3);
-        CROP_SIZE = new ConfigPropertyInt("Crop Size", "", "Higher = larger fields", 5, 1, 30);
-        CROP_DENSITY = new ConfigPropertyInt("Crop Density", "", "Higher = Crops in fields closer together.", 50, 1, 100);
-        CROP_HEIGHT = new ConfigPropertyInt("Crop Height", "", "Higher = Crops on more y levels, but crops tend to be less dense.", 2, 1, 5);
-        CROP_WATER = new ConfigPropertyBoolean("Crop Water", "", "Set to TRUE to generate water with crops.", true);
+        MIN_Y = new ConfigPropertyInt("Min Y", "Decos", "", 1, 1, 255);
+        MAX_Y = new ConfigPropertyInt("Max Y", "Decos", "", 255, 1, 255);
+        LOOPS = new ConfigPropertyInt("Loops", "Decos", "", 1, -1, Integer.MAX_VALUE);
+        CHANCE = new ConfigPropertyInt("Chance", "Decos", "", 1, 1, Integer.MAX_VALUE);
+        EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Equals Zero Chance", "Decos", "", 1, 1, Integer.MAX_VALUE);
+        NOT_EQUALS_ZERO_CHANCE = new ConfigPropertyInt("Not Equals Zero Chance", "Decos", "", 1, 1, Integer.MAX_VALUE);
+        STRENGTH_FACTOR = new ConfigPropertyFloat("Strength Factor", "Decos", "", 2f, 0f, Float.MAX_VALUE);
+        CHECK_WATER = new ConfigPropertyBoolean("Check Water", "Decos", "", true);
+        BOULDER_BLOCK = new ConfigPropertyBlockstate("Boulder Block", "Decos", "", Blocks.COBBLESTONE.getDefaultState());
+        SAND_ONLY = new ConfigPropertyBoolean("Sand Only", "Decos", "", false);
+        SOIL_BLOCK = new ConfigPropertyBlockstate("Soil Block", "Decos", "", Blocks.GRASS.getDefaultState());
+        ADJACENT_BLOCK = new ConfigPropertyBlockstate("Adjacent Block", "Decos", "", Blocks.AIR.getDefaultState());
+        MIN_ADJACENTS = new ConfigPropertyInt("Min Adjacents", "Decos", "", 1, 1, Integer.MAX_VALUE);
+        CROP_TYPE = new ConfigPropertyInt("Crop Type", "Decos", "0 = potatoes, 1 = carrots, 2 = beetroot, 3 = wheat", 3, 0, 3);
+        CROP_SIZE = new ConfigPropertyInt("Crop Size", "Decos", "Higher = larger fields", 5, 1, 30);
+        CROP_DENSITY = new ConfigPropertyInt("Crop Density", "Decos", "Higher = Crops in fields closer together.", 50, 1, 100);
+        CROP_HEIGHT = new ConfigPropertyInt("Crop Height", "Decos", "Higher = Crops on more y levels, but crops tend to be less dense.", 2, 1, 5);
+        CROP_WATER = new ConfigPropertyBoolean("Crop Water", "Decos", "Set to TRUE to generate water with crops.", true);
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
+import rtg.api.config.property.ConfigProperty;
 import rtg.api.util.Accessor;
 import rtg.api.util.BiomeUtils;
 import rtg.api.util.Logger;
@@ -112,6 +113,26 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.surfaceRiver = new SurfaceRiverOasis(config);
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
         initDecos();
+
+        if (this.hasConfig()) {
+            ArrayList<DecoBase> decos = this.getDecos();
+            int decoIndex = 1;
+            for (DecoBase deco : decos) {
+                deco.initConfig();
+
+                ArrayList<ConfigProperty> props = deco.config().getProperties();
+
+                for (ConfigProperty prop : props) {
+                    String cat = prop.category;
+                    cat += "." + String.format("%02d", decoIndex) + " " + deco.friendlyName();
+                    prop.category = cat;
+                }
+
+                deco.config().load(this.configPath());
+
+                decoIndex++;
+            }
+        }
     }
 
     @Override

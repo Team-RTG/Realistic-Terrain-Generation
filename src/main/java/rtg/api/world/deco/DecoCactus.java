@@ -26,6 +26,11 @@ public class DecoCactus extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Cacti";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().MAX_Y).set(255);
         this.config().addProperty(this.config().LOOPS).set(1);

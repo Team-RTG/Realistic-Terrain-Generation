@@ -91,6 +91,10 @@ public abstract class Config {
 
             for (ConfigProperty prop : properties) {
 
+                if (prop.restricted) {
+                    continue;
+                }
+
                 if (prop instanceof ConfigPropertyInt) {
 
                     ConfigPropertyInt propInt = (ConfigPropertyInt)prop;
@@ -103,8 +107,6 @@ public abstract class Config {
                         propInt.maxValueInt,
                         prop.description
                     ));
-
-                    break;
                 }
                 else if (prop instanceof ConfigPropertyFloat) {
 

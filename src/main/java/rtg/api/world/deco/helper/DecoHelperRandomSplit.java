@@ -25,6 +25,11 @@ public class DecoHelperRandomSplit extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Helper Random Split";
+    }
+
+    @Override
     public void initConfig() {}
 
     public boolean properlyDefined() {

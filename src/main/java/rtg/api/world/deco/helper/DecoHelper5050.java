@@ -29,6 +29,11 @@ public class DecoHelper5050 extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Helper 5050";
+    }
+
+    @Override
     public void initConfig() {}
 
     @Override

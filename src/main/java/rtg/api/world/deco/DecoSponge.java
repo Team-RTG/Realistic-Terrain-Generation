@@ -52,6 +52,11 @@ public class DecoSponge extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Sponge";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(20);
         this.config().addProperty(this.config().MAX_Y).set(45);

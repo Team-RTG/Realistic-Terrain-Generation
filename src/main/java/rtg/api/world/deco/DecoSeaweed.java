@@ -57,6 +57,11 @@ public class DecoSeaweed extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Seaweed";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(15); // Few blocks below min ocean floor by default.
         this.config().addProperty(this.config().MAX_Y).set(58); // No seaweed sticking out of the water by default.

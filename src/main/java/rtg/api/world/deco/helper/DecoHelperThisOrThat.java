@@ -35,6 +35,11 @@ public class DecoHelperThisOrThat extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Helper This Or That";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().CHANCE).set(1);
     }

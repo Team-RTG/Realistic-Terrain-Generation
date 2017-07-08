@@ -24,6 +24,11 @@ public class DecoCobwebs extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Cobwebs";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(62);
         this.config().addProperty(this.config().MAX_Y).set(255);

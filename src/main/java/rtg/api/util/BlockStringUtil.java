@@ -9,17 +9,17 @@ import net.minecraft.block.state.IBlockState;
 public class BlockStringUtil {
 
     public static String stateToString(IBlockState blockState) {
-        return blockState.getBlock().getRegistryName() + "/" + blockState.getBlock().getMetaFromState(blockState);
+        return blockState.getBlock().getRegistryName() + ":" + blockState.getBlock().getMetaFromState(blockState);
     }
 
     public static IBlockState stringToState(String string) throws RuntimeException {
-        String[] s = string.split("/");
-        Block b = Block.getBlockFromName(s[0]);
+        String[] s = string.split(":");
+        Block b = Block.getBlockFromName(s[0] + ":" + s[1]);
         IBlockState bs;
         if (b == null)
-            throw new RuntimeException("Expected 'modID:blockId/metaValue', found " + string);
+            throw new RuntimeException("Expected 'modID:blockId:metaValue', found " + string);
         try {
-            bs = b.getStateFromMeta(Integer.valueOf(s[1]));
+            bs = b.getStateFromMeta(Integer.valueOf(s[2]));
         } catch (Exception e) {
             bs = b.getDefaultState();
         }

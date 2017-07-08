@@ -27,6 +27,11 @@ public class DecoJungleLilypadVines extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Jungle Lilypad Vines";
+    }
+
+    @Override
     public void initConfig() {}
 
     /**

@@ -5,4 +5,5 @@ package rtg.api.world.deco;
  */
 public interface IDeco {
     void initConfig();
+    String friendlyName();
 }

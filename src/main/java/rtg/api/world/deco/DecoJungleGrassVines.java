@@ -39,6 +39,11 @@ public class DecoJungleGrassVines extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Jungle Grass Vines";
+    }
+
+    @Override
     public void initConfig() {}
 
     /**

@@ -55,6 +55,11 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Flowers";
+    }
+
+    @Override
     public void initConfig() {
         this.config().addProperty(this.config().MIN_Y).set(63);
         this.config().addProperty(this.config().MAX_Y).set(253); // 2 below max build height to account for 2-block tall flowers.

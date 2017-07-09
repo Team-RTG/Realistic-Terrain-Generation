@@ -11,7 +11,6 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
  * Created by WhichOnesPink on 01/07/2017.
@@ -42,7 +41,7 @@ public class PlateauBand {
             }
 
             try {
-                RealisticBiomeBase rbb = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+                IRealisticBiome rbb = IRealisticBiome.arrRealisticBiomes[Biome.getIdForBiome(biome)];
                 BiomeConfig config = rbb.getConfig();
 
                 if (config.hasProperty(config.ALLOW_PLATEAU_MODIFICATIONS)) {

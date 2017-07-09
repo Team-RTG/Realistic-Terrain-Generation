@@ -148,6 +148,7 @@ public class RTGConfig extends Config {
     // Ocean waves
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    public final ConfigPropertyBoolean ENABLE_OCEAN_WAVES;
     public final ConfigPropertyInt OCEAN_WAVE_DIRECTION;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -687,6 +688,17 @@ public class RTGConfig extends Config {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Ocean waves
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ENABLE_OCEAN_WAVES = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable Ocean Waves",
+            "Ocean Waves",
+            "If TRUE, uses the individual biome settings in relevant biome config files (e.g. Ocean and Deep Ocean)."
+                + Configuration.NEW_LINE +
+                "If FALSE, disables all ocean waves.",
+            true
+        );
+        this.addProperty(ENABLE_OCEAN_WAVES);
 
         OCEAN_WAVE_DIRECTION = new ConfigPropertyInt(
             "Ocean Wave Direction",

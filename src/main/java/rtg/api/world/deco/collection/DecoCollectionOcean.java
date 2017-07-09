@@ -3,6 +3,7 @@ package rtg.api.world.deco.collection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
+import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.*;
@@ -20,7 +21,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
 
         this.addDeco(boulderDecos()) // Mossy cobble & prismarine boulders.
             .addDeco(sponge(), config.ALLOW_SPONGE.get()) // Rare, wet sponge (only in deeper waters).
-            .addDeco(waves(), config.ALLOW_OCEAN_WAVES.get()) // Ocean swells.
+            .addDeco(waves(), (RTGAPI.config().ENABLE_OCEAN_WAVES.get() && config.ALLOW_OCEAN_WAVES.get())) // Ocean swells.
             .addDeco(baseBiomeDecorations()); // Base biome decorations.
     }
 

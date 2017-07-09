@@ -22,6 +22,7 @@ import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeManager;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.helper.DecoHelper;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceGeneric;
@@ -85,7 +86,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
          */
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.config().ALLOW.set(false);
-        this.addDeco(decoBaseBiomeDecorations);
+        this.addDeco(decoBaseBiomeDecorations.restrict());
 
         // set the water feature constants with the config changes
         this.lakeInterval *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
@@ -100,6 +101,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     protected void init() {
+
         initConfig();
 
         // Realistic biomes have configs... organic biomes do not.
@@ -108,16 +110,22 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         }
 
         this.adjustBiomeProperties();
+
         this.terrain = checkTerrain(initTerrain());
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
         this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
+
         initDecos();
 
         if (this.hasConfig()) {
             ArrayList<DecoBase> decos = this.getDecos();
             int decoIndex = 1;
             for (DecoBase deco : decos) {
+
+                if (deco.restricted) {
+                    continue;
+                }
 
                 ArrayList<ConfigProperty> props = deco.config().getProperties();
 
@@ -128,6 +136,31 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
                 }
 
                 deco.config().load(this.configPath());
+
+                if (deco instanceof DecoHelper) {
+                    DecoHelper decoHelper = (DecoHelper)deco;
+                    ArrayList<DecoBase> helperDecos = decoHelper.getHelperDecos();
+
+                    int helperDecoIndex = 1;
+                    for (DecoBase helperDeco : helperDecos) {
+
+                        if (helperDeco instanceof DecoHelper) {
+                            throw new RuntimeException("DecoHelper inception has occurred. BOHHHMMMMM!");
+                        }
+
+                        ArrayList<ConfigProperty> helperDecoProps = helperDeco.config().getProperties();
+
+                        for (ConfigProperty helperDecoProp : helperDecoProps) {
+                            String helperDecoCat = helperDecoProp.category;
+                            helperDecoCat += "." + String.format("%02d", decoIndex) + " " + deco.friendlyName() + ".Helper Decos." + String.format("%02d", helperDecoIndex) + " " + helperDeco.friendlyName();
+                            helperDecoProp.category = helperDecoCat;
+                        }
+
+                        helperDeco.config().load(this.configPath());
+
+                        helperDecoIndex++;
+                    }
+                }
 
                 decoIndex++;
             }

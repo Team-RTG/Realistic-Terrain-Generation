@@ -12,7 +12,7 @@ import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 
-public class DecoHelperOneIn extends DecoBase {
+public class DecoHelperOneIn extends DecoHelper {
 
     private DecoBase deco;
     private int chances;
@@ -23,6 +23,8 @@ public class DecoHelperOneIn extends DecoBase {
 
         this.deco = deco;
         this.chances = chances;
+
+        this.addHelperDecos(this.deco);
     }
 
     @Override

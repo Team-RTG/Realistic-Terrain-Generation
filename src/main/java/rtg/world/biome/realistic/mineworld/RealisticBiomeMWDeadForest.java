@@ -208,9 +208,9 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(5);
 
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
-        decoHelperRandomSplit.chances = new int[]{12, 8};
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit(
+            new DecoBase[]{decoFallenTree2, decoFallenTree1}, new int[]{12, 8}
+        );
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

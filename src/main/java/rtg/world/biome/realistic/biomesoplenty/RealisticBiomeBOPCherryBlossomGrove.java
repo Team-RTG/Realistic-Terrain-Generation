@@ -199,9 +199,9 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(5);
 
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
-        decoHelperRandomSplit.chances = new int[]{15, 1};
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit(
+            new DecoBase[]{decoFallenTree2, decoFallenTree1}, new int[]{15, 1}
+        );
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();

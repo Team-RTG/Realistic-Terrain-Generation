@@ -45,9 +45,7 @@ public class DecoCollectionSmallPineTreesForest extends DecoCollectionBase {
         vanillaTrees.setTreeConditionChance(4);
         vanillaTrees.config().MAX_Y.set(110);
 
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{oakPine, vanillaTrees};
-        decoHelperRandomSplit.chances = new int[]{8, 4};
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit(new DecoBase[]{oakPine, vanillaTrees}, new int[]{8, 4});
         this.addDeco(decoHelperRandomSplit);
     }
 }

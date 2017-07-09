@@ -75,9 +75,9 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         oakPines.setTreeConditionChance(1);
         oakPines.config().MAX_Y.set(100);
 
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{spruceTrees, smallPines, oakPines};
-        decoHelperRandomSplit.chances = new int[]{8, 2, 2};
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit(
+            new DecoBase[]{spruceTrees, smallPines, oakPines}, new int[]{8, 2, 2}
+        );
         this.addDeco(decoHelperRandomSplit);
     }
 }

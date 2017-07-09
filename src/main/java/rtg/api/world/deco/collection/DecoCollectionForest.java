@@ -118,9 +118,7 @@ public class DecoCollectionForest extends DecoCollectionBase {
     }
 
     private DecoHelperRandomSplit randomTrees() {
-        return new DecoHelperRandomSplit()
-            .setDecos(new DecoBase[]{randomPungensTrees(), randomVanillaTrees()})
-            .setChances(new int[]{8, 4});
+        return new DecoHelperRandomSplit(new DecoBase[]{randomPungensTrees(), randomVanillaTrees()}, new int[]{8, 4});
     }
 
     private DecoTree randomPungensTrees() {

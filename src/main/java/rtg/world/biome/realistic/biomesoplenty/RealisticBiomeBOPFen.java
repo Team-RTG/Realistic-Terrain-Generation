@@ -198,9 +198,10 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(5);
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree, decoFallenTree2};
-        decoHelperRandomSplit.chances = new int[]{4, 1};
+
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit(
+            new DecoBase[]{decoFallenTree, decoFallenTree2}, new int[]{4, 1}
+        );
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();

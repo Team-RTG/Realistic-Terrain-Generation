@@ -26,12 +26,10 @@ public class DecoCollectionOcean extends DecoCollectionBase {
     }
 
     private DecoHelperRandomSplit boulderDecos() {
-        return new DecoHelperRandomSplit()
-            .setDecos(new DecoBase[]{
-                boulders(Blocks.MOSSY_COBBLESTONE.getDefaultState(), 6),
-                boulders(Blocks.PRISMARINE.getDefaultState(), 6)
-            })
-            .setChances(new int[]{8, 8});
+        return new DecoHelperRandomSplit(new DecoBase[]{
+            boulders(Blocks.MOSSY_COBBLESTONE.getDefaultState(), 6),
+            boulders(Blocks.PRISMARINE.getDefaultState(), 6)
+        }, new int[]{8, 8});
     }
 
     private DecoBoulder boulders(IBlockState boulderBlock, int chance) {

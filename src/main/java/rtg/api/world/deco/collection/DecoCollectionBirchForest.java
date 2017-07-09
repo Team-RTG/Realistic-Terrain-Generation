@@ -34,9 +34,7 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoHelperRandomSplit randomTrees() {
-        return new DecoHelperRandomSplit()
-            .setDecos(new DecoBase[]{tallBirchTrees(), vanillaTrees()})
-            .setChances(new int[]{10, 4});
+        return new DecoHelperRandomSplit(new DecoBase[]{tallBirchTrees(), vanillaTrees()}, new int[]{10, 4});
     }
 
     private DecoTree tallBirchTrees() {

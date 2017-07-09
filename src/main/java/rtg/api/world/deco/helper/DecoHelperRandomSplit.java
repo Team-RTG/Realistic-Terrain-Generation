@@ -11,17 +11,21 @@ import rtg.api.world.deco.DecoBase;
  *
  * @author WhichOnesPink
  */
-public class DecoHelperRandomSplit extends DecoBase {
+public class DecoHelperRandomSplit extends DecoHelper {
 
-    public DecoBase[] decos;
-    public int[] chances;
+    private DecoBase[] decos;
+    private int[] chances;
 
-    public DecoHelperRandomSplit() {
+    public DecoHelperRandomSplit(DecoBase[] decos, int[] chances) {
 
         super();
 
-        this.decos = new DecoBase[]{};
-        this.chances = new int[]{};
+        this.decos = decos;
+        this.chances = chances;
+
+        for (DecoBase helperDeco : this.decos) {
+            this.addHelperDecos(helperDeco);
+        }
     }
 
     @Override
@@ -67,27 +71,5 @@ public class DecoHelperRandomSplit extends DecoBase {
                 chosen -= chances[i];
             }
         }
-    }
-
-    public DecoBase[] getDecos() {
-
-        return decos;
-    }
-
-    public DecoHelperRandomSplit setDecos(DecoBase[] decos) {
-
-        this.decos = decos;
-        return this;
-    }
-
-    public int[] getChances() {
-
-        return chances;
-    }
-
-    public DecoHelperRandomSplit setChances(int[] chances) {
-
-        this.chances = chances;
-        return this;
     }
 }

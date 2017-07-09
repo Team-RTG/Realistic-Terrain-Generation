@@ -31,6 +31,8 @@ public abstract class DecoBase implements IDeco {
         this.config().CHECK_RIVER.set(false);
         this.config().MIN_RIVER.set(-2f);
         this.config().MAX_RIVER.set(2f);
+
+        this.initConfig();
     }
 
     public DecoConfig config() {

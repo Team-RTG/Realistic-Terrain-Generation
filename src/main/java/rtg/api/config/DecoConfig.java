@@ -72,7 +72,7 @@ public class DecoConfig extends Config {
         MIN_RIVER = new ConfigPropertyFloat("Min River", "Decos", "Minimum river value required to generate.", -2f, -2f, 2f);
         this.addProperty(MIN_RIVER).restrict();
 
-        MAX_RIVER = new ConfigPropertyFloat("Min River", "Decos", "Maximum river value required to generate.", -2f, -2f, 2f);
+        MAX_RIVER = new ConfigPropertyFloat("Max River", "Decos", "Maximum river value required to generate.", -2f, -2f, 2f);
         this.addProperty(MAX_RIVER).restrict();
 
         /*

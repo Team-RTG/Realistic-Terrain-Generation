@@ -118,7 +118,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             ArrayList<DecoBase> decos = this.getDecos();
             int decoIndex = 1;
             for (DecoBase deco : decos) {
-                deco.initConfig();
 
                 ArrayList<ConfigProperty> props = deco.config().getProperties();
 

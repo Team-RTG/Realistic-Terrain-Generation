@@ -690,7 +690,6 @@ public class RTGConfig extends Config {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         ENABLE_OCEAN_WAVES = new ConfigPropertyBoolean(
-            ConfigProperty.Type.BOOLEAN,
             "Enable Ocean Waves",
             "Ocean Waves",
             "If TRUE, uses the individual biome settings in relevant biome config files (e.g. Ocean and Deep Ocean)."

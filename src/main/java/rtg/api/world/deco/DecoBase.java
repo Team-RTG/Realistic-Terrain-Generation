@@ -20,11 +20,12 @@ public abstract class DecoBase implements IDeco {
 
     private ArrayList<DecoType> decoTypes;
     private DecoConfig config;
+    public boolean restricted;
 
     public DecoBase() {
 
         this.decoTypes = new ArrayList<DecoType>();
-
+        this.restricted = false;
         this.config = new DecoConfig();
 
         this.config().ALLOW.set(true);
@@ -142,6 +143,11 @@ public abstract class DecoBase implements IDeco {
     public DecoBase setDecoTypes(ArrayList<DecoType> decoTypes) {
 
         this.decoTypes = decoTypes;
+        return this;
+    }
+
+    public DecoBase restrict() {
+        this.restricted = true;
         return this;
     }
 }

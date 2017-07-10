@@ -28,6 +28,7 @@ import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.TerrainOrganic;
 import rtg.world.RTGWorld;
+import rtg.world.biome.organic.OrganicBiome;
 
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
@@ -140,6 +141,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public static RealisticBiomeBase[] arr() {
         return arrRealisticBiomeIds;
+    }
+
+    public static boolean isRealisticBiome(int id) {
+        RealisticBiomeBase rbb = getBiome(id);
+        return !(rbb instanceof OrganicBiome);
     }
 
     /*

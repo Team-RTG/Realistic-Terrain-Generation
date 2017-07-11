@@ -64,7 +64,7 @@ public class WorldTypeRTG extends WorldType
     {
         if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
 
-            //if (chunkProvider == null) {
+            if (chunkProvider == null) {
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed());
                 RTG.instance.runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
@@ -75,13 +75,13 @@ public class WorldTypeRTG extends WorldType
                 Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG");
 
                 return chunkProvider;
-            //}
+            }
 
             // return a "fake" provider that won't decorate for Streams
-            //ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
-            //result.isFakeGenerator();
+            ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
+            result.isFakeGenerator();
 
-            //return result;
+            return result;
 
             // no server close because it's not supposed to decorate
             //return chunkProvider;

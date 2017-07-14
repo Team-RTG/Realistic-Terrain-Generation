@@ -38,7 +38,10 @@ public interface IRealisticBiome {
     void initConfig();
     boolean hasConfig();
     TerrainBase initTerrain();
+    TerrainBase terrain();
     SurfaceBase initSurface();
+    SurfaceBase surface();
+    SurfaceBase surfaceGeneric();
     void initDecos();
     ArrayList<DecoBase> getDecos();
     ArrayList<TreeRTG> getTrees();
@@ -67,7 +70,19 @@ public interface IRealisticBiome {
         return 0; // Lower equals more frequent.
     }
 
-    void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base);
+    default void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+
+        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
+
+        if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
+
+            this.surface().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+        }
+        else {
+
+            this.surfaceGeneric().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+        }
+    }
 
     default float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
         if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;

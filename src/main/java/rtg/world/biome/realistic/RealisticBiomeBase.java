@@ -307,14 +307,19 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return 0f;
     }
 
-    public TerrainBase getTerrain() {
-
+    @Override
+    public TerrainBase terrain() {
         return this.terrain;
     }
 
-    public SurfaceBase getSurface() {
-
+    @Override
+    public SurfaceBase surface() {
         return this.surface;
+    }
+
+    @Override
+    public SurfaceBase surfaceGeneric() {
+        return this.surfaceGeneric;
     }
 
     private class ChunkDecoration {

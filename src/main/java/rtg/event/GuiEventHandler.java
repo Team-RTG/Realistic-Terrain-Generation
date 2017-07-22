@@ -27,11 +27,11 @@ import rtg.api.util.Logger;
  *         Source: https://github.com/Glitchfiend/BiomesOPlenty/blob/962f1d0db5a8f04d601215ea79944254bcbd48f0/src/main/java/biomesoplenty/common/handler/GuiEventHandler.java
  *         Modified by: WhichOnesPink (https://github.com/whichonespink44)
  */
+@SideOnly(Side.CLIENT)
 public class GuiEventHandler {
 
     public static GuiEventHandler instance = new GuiEventHandler();
 
-    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onPreInitCreateWorld(GuiScreenEvent.InitGuiEvent.Pre event) {
 

@@ -24,12 +24,12 @@ import rtg.client.gui.WorldTypeMessageGUI;
  *         Source: https://github.com/Glitchfiend/BiomesOPlenty/blob/BOP-1.7.10-2.1.x/src/main/java/biomesoplenty/common/eventhandler/client/gui/WorldTypeMessageEventHandler.java
  *         Modified by: WhichOnesPink (https://github.com/whichonespink44)
  */
+@SideOnly(Side.CLIENT)
 public class WorldTypeMessageEventHandler {
 
     public static WorldTypeMessageEventHandler instance = new WorldTypeMessageEventHandler();
 
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
     public void openCreateWorld(GuiOpenEvent event) {
 
         if (event.getGui() instanceof GuiCreateWorld) {

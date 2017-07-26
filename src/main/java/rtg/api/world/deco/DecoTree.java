@@ -275,16 +275,7 @@ public class DecoTree extends DecoBase {
                 noiseGreaterThanMin = noise >= this.treeConditionNoise;
                 noiseLessThanMax = noise <= this.treeConditionNoise2;
                 randomResult = rand.nextInt(this.treeConditionChance) == 0;
-                valid = (noiseGreaterThanMin && noiseLessThanMax && randomResult);
-
-                if (!valid) {
-                    valid = false;
-                }
-                else {
-                    valid = true;
-                }
-
-                return valid;
+                return (noiseGreaterThanMin && noiseLessThanMax && randomResult);
 
             case RANDOM_CHANCE:
                 return rand.nextInt(this.treeConditionChance) == 0;

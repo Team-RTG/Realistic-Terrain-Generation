@@ -534,7 +534,7 @@ public class ChunkProviderRTG implements IChunkProvider
     @SuppressWarnings("unused")
 	public Chunk loadChunk(int par1, int par2)
     {
-        if (1>0) throw new RuntimeException();
+        //if (1>0) throw new RuntimeException();
         return provideChunk(par1, par2);
     }
 

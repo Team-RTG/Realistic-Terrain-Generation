@@ -46,6 +46,7 @@ public class WorldGenBlob extends WorldGenerator {
             Blocks.SAND
         ));
 
+// TODO: [Generator settings] The boulder config check should be removed and all functionality changed to use the generator settings in DecoBoulder#generate
         if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
             if (!rtgConfig.ENABLE_COBBLESTONE_BOULDERS.get()) {
                 booShouldGenerate = false;
@@ -70,6 +71,7 @@ public class WorldGenBlob extends WorldGenerator {
         this.validGroundBlocks = validGroundBlocks;
     }
 
+// TODO: [Generator settings] Remove this method and do a seeded Random check based on the generator setting in DecoBoulder#generate
     public boolean shouldGenerateCobblestoneBoulder(Random rand) {
 
         int chance = rtgConfig.COBBLESTONE_BOULDER_CHANCE.get();
@@ -84,6 +86,7 @@ public class WorldGenBlob extends WorldGenerator {
         return booGenerate;
     }
 
+// TODO: [Generator settings][Clean-up] Remove this unused method
     public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig) {
 
         if (honourConfig) {

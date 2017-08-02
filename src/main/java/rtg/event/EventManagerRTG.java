@@ -27,6 +27,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.event.SurfaceEvent;
 import rtg.api.util.*;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.util.UBColumnCache;
 import rtg.world.WorldTypeRTG;
@@ -47,6 +48,7 @@ public class EventManagerRTG {
     private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
     private final SurfaceEventRTG SURFACE_EVENT_HANDLER = new SurfaceEventRTG();
 
+// TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkProviderRTG
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
     private RTGConfig rtgConfig;
@@ -80,10 +82,13 @@ public class EventManagerRTG {
 
     public class GenerateMinableRTG {
 
+// TODO: [Clean-up] Bump priority to EventPriority.HIGHEST to execute before other mods, until we have a chance to address the issue of extra ore gen in 1.12
+//      @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SubscribeEvent
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
+// TODO: [Clean-up] To be removed. Redundant with (chunkGenerator instanceof ChunkProviderRTG) check below.
             if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
                 return;
             }
@@ -93,6 +98,12 @@ public class EventManagerRTG {
                 return;
             }
 
+// TODO: [Dimensions][Clean-up] Remove the ChunkOreGenTracker's dependence on the static instance of the chunk generator
+// TODO: [Clean-up] Revisit the need to have the ChunkOreGenTracker
+// TODO: [Clean-up] Remove unused local vars
+//          IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
+//          if (chunkGenerator instanceof ChunkProviderRTG) {
+//          ChunkOreGenTracker chunkOreGenTracker = ((ChunkProviderRTG)chunkGenerator).getChunkOreGenTracker();
             ChunkOreGenTracker chunkOreGenTracker = WorldTypeRTG.chunkProvider.getChunkOreGenTracker();
             BlockPos eventPos = event.getPos();
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
@@ -101,6 +112,8 @@ public class EventManagerRTG {
 
             // No switch statements allowed! - Pink
 
+// TODO: [Generator settings] Remove config checks. The config settings are to be removed and they are unnecessary... Ore gen needs to be
+//                            enabled for the event to be created in the first place, in which case the check will always be true.
             if (eventType == ANDESITE) {
                 eventName = "ANDESITE";
                 if (!rtgConfig.GENERATE_ORE_ANDESITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
@@ -179,7 +192,7 @@ public class EventManagerRTG {
                     event.setResult(Event.Result.DENY);
                 }
             }
-
+//          }
             //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, eventPos.getX(), eventPos.getY(), eventPos.getZ(), (eventPos.getX() / 16), (eventPos.getZ() / 16));
         }
     }
@@ -350,6 +363,11 @@ public class EventManagerRTG {
 
         @SubscribeEvent
         public void onWorldLoad(WorldEvent.Load event) {
+
+            // Add an entry in the generator settings repository for every world loaded of WorldTypeRTG
+            if (event.getWorld().getWorldType() instanceof WorldTypeRTG) {
+                GenSettingsRepo.addSettingsForWorld(event.getWorld());
+            }
 
             // This event fires for each dimension loaded (and then one last time in which it returns 0?),
             // so initialise a field to 0 and set it to the world seed and only display it in the log once.

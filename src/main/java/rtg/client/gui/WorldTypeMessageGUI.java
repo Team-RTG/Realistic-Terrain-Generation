@@ -26,6 +26,7 @@ import org.lwjgl.opengl.GL11;
 public class WorldTypeMessageGUI extends GuiScreen {
     private GuiScreen parentGuiScreen;
 
+// TODO: [Clean-up] To be removed
     private File nameHashFile;
     private String nameHash;
 
@@ -35,6 +36,7 @@ public class WorldTypeMessageGUI extends GuiScreen {
 
         this.parentGuiScreen = parentGuiScreen;
 
+// TODO: [Clean-up] To be removed
         this.nameHashFile = nameHashFile;
         this.nameHash = nameHash;
     }
@@ -44,6 +46,7 @@ public class WorldTypeMessageGUI extends GuiScreen {
 
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
+// TODO: [Clean-up] Add a proper translation string -> I18n.format("gui.done") or I18n.format("gui.back")
         this.buttonList.add(new GuiButton(0, this.width / 2 - 175, this.height - 24, 350, 20, I18n.format("OK")));
     }
 
@@ -60,6 +63,9 @@ public class WorldTypeMessageGUI extends GuiScreen {
         {
             if (button.id == 0)
             {
+// TODO: [Clean-up] Remove try-catch; Stop littering the Minecraft root directory with unneeded files.
+//              RTGAPI.config().ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN.set(false);
+//              RTGAPI.config().getConfig().save();
                 try
                 {
                     nameHashFile.createNewFile();

@@ -1,5 +1,4 @@
-generator.RTG=Реалистичный
-generator.RTG.info=Реалистичный world type from Realistic Terrain Generation
+gui.createWorld.worldtypename=RTG - Реалистичный
 
 warning.rtgStartup1=Реалистичный Генератор Ландшафта использует свой тип мира.
 warning.rtgStartup2=Если вы хотите реалистичный рельеф местности, продолжайте нажимать кнопку World Type

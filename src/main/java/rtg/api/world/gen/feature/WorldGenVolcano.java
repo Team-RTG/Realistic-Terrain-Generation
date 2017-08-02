@@ -22,6 +22,7 @@ public class WorldGenVolcano {
     private static final float ventRadius = 7f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
     private static final int lavaHeight = 138 + 3 + (RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? 5 : 0);    // + 3 to account for lava cone tip
     private static final int baseVolcanoHeight = 142 + 8;
+// TODO: [Clean-up] Static access from instance reference
     private static IBlockState volcanoBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_BLOCK_ID.get(), RTGAPI.config().VOLCANO_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_BLOCK);
     private static IBlockState volcanoPatchBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX1_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX1_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX1_BLOCK);
     private static IBlockState volcanoPatchBlock2 = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX2_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX2_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX2_BLOCK);
@@ -217,7 +218,7 @@ public class WorldGenVolcano {
     private static IBlockState getVolcanoBlock(String blockID, int blockMeta, IBlockState defaultBlock) {
 
         IBlockState volcanoBlock;
-
+// TODO: [Clean-up] Do a proper null check instead of a try-catch
         try {
 
             volcanoBlock = Block.getBlockFromName(blockID).getStateFromMeta(blockMeta);

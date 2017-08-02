@@ -3,6 +3,7 @@ package rtg.api.util;
 import java.util.Random;
 import javax.annotation.Nonnull;
 
+// TODO: [Clean-up] Phase out the use of this util in all world gen and use java.util.Random with the world seed
 public class RandomUtil
 {
     public static int getRandomInt(int intStart, int intEnd) {

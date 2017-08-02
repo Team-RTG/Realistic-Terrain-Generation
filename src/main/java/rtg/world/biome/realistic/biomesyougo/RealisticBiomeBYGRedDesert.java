@@ -15,8 +15,10 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.gen.ChunkProviderSettingsRTG;
 
 public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
@@ -51,6 +53,9 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+            ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
+//          float duneHeight = (minDuneHeight + (float) settings.sandDuneHeight);
             float duneHeight = (minDuneHeight + (float) rtgConfig.DUNE_HEIGHT.get());
 
             duneHeight *= (1f + rtgWorld.simplex().octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;

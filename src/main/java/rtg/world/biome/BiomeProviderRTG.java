@@ -23,11 +23,14 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.biome.IBiomeProviderRTG;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
+import rtg.world.gen.ChunkProviderSettingsRTG;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
+// TODO: [Clean-up] Do not @Override methods of the super class whose functionality we do not change.
 public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 {
     private static int[] incidences = new int[100];
@@ -55,6 +58,13 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(world);
+
+// TODO: [Generator Settings] Update these to use the generator setting and not the config setting
+//      this.riverSeparation /= settings.riverFrequency;
+//      this.riverValleyLevel *= settings.riverSize * settings.riverFrequency;
+//      this.largeBendSize *= settings.riverBendMult;
+//      this.smallBendSize *= settings.riverBendMult;
         this.riverSeparation /= RTGAPI.config().RIVER_FREQUENCY_MULTIPLIER.get();
         this.riverValleyLevel *= RTGAPI.config().riverSizeMultiplier();
         this.largeBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
@@ -67,7 +77,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         simplex = new OpenSimplexNoise(seed);
         //simplexCell = new SimplexCellularNoise(seed);
         river = new SpacedCellNoise(seed);
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, "");
+        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, world.getWorldInfo().getGeneratorOptions());
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
@@ -259,6 +269,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     }
 
     @Override
+// TODO: [Clean-up] To be removed. functionality not changes so @Override not needed.
     public BlockPos findBiomePosition(int x, int z, int range, @Nonnull List<Biome> biomes, @Nonnull Random random) {
         IntCache.resetIntCache();
         int i = x - range >> 2;
@@ -286,6 +297,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
     @Override
     @Nonnull
+// TODO: [Clean-up] To be removed. functionality not changes so @Override not needed.
     public GenLayer[] getModdedBiomeGenerators(@Nonnull WorldType worldType, long seed, @Nonnull GenLayer[] original) {
         WorldTypeEvent.InitBiomeGens event = new WorldTypeEvent.InitBiomeGens(worldType, seed, original);
         MinecraftForge.TERRAIN_GEN_BUS.post(event);

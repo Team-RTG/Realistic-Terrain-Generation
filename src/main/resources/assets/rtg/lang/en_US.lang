@@ -1,6 +1,291 @@
-generator.RTG=Realistic
-generator.RTG.info=Realistic world type from Realistic Terrain Generation
+#-----------------------------
+# GUI Customize World Screen
+#-----------------------------
+gui.createWorld.worldtypename=RTG - Realistic
 
+gui.createWorld.customize.clipboard=Copy Settings to Clipboard
+gui.createWorld.customize.clipboard.tooltip=Click This button to copy the current settings to the clipboard for easy pasting into the generator-settings field of a server.properties file.
+
+gui.createWorld.customize.title.maintitle=RTG Custom World Settings
+
+gui.createWorld.customize.title.PAGE1=Terrain & Surface Settings
+
+gui.createWorld.customize.category.WORLD=World Settings
+gui.createWorld.customize.setting.fixedBiome=Fixed Biome
+gui.createWorld.customize.setting.fixedBiome.tooltip=Chooses the biome for a single-biome world
+gui.createWorld.customize.setting.biomeSize=Biome Size
+gui.createWorld.customize.setting.biomeSize.tooltip=Changes the average size of the biomes
+gui.createWorld.customize.setting.seaLevel=Sea Level
+gui.createWorld.customize.setting.seaLevel.tooltip=Changes the worlds sea level
+gui.createWorld.customize.setting.oceanWaves=Ocean Waves
+gui.createWorld.customize.setting.oceanWaves.tooltip=Enables ocean waves
+
+gui.createWorld.customize.category.SURFACE=Surface Settings
+gui.createWorld.customize.setting.useBoulders=Enable Boulders
+gui.createWorld.customize.setting.useBoulders.tooltip=Enables the generation of boulders
+gui.createWorld.customize.setting.boulderChance=Boulder Chance 1/x
+gui.createWorld.customize.setting.boulderChance.tooltip=The chance that a boulder will generate
+gui.createWorld.customize.setting.sandDuneHeight=Sand Dune Height
+gui.createWorld.customize.setting.sandDuneHeight.tooltip=Adjusts the height of sand dunes
+gui.createWorld.customize.setting.snowDuneHeight=Snow Dune Height
+gui.createWorld.customize.setting.snowDuneHeight.tooltip=Adjusts the height of snow dunes
+gui.createWorld.customize.setting.useSnowLayers=Snow Layers
+gui.createWorld.customize.setting.useSnowLayers.tooltip=Enable gradiant snow layers in snowy biomes
+
+gui.createWorld.customize.category.UNDERGROUND=Underground Settings
+gui.createWorld.customize.setting.bedrockLayers=Bedrock Layers
+gui.createWorld.customize.setting.bedrockLayers.tooltip=Sets the number of Bedrock layers
+gui.createWorld.customize.setting.useCaves=Caves
+gui.createWorld.customize.setting.useCaves.tooltip=Enable cave generation
+gui.createWorld.customize.setting.caveChance=Cave Chance
+gui.createWorld.customize.setting.caveChance.tooltip=Chance that a cave will generate in a chunk
+# TODO: [Generator settings] caveDensity to be removed
+gui.createWorld.customize.setting.caveDensity=Cave Density
+gui.createWorld.customize.setting.caveDensity.tooltip=The desity of generated caves
+gui.createWorld.customize.setting.useRavines=Ravines
+gui.createWorld.customize.setting.useRavines.tooltip=Enable ravine generation
+gui.createWorld.customize.setting.ravineChance=Ravine Chance
+gui.createWorld.customize.setting.ravineChance.tooltip=The 1/x chance that ravines will generate
+
+gui.createWorld.customize.category.VOLCANOS=Volcano Settings
+gui.createWorld.customize.setting.useVolcanos=Volcanos
+gui.createWorld.customize.setting.useVolcanos.tooltip=Generate volcanos
+gui.createWorld.customize.setting.volcanosErupt=Volcano Eruptions
+gui.createWorld.customize.setting.volcanosErupt.tooltip=Enable volcano eruptions
+gui.createWorld.customize.setting.volcanosChance=Volcano Chance
+gui.createWorld.customize.setting.volcanosChance.tooltip=The chance that a volcano will generate in a chunk in a valid biome
+gui.createWorld.customize.setting.volcanosCalderaMult=Caldera Size Mult
+gui.createWorld.customize.setting.volcanosCalderaMult.tooltip=Adjusts the size of volcano calderas
+gui.createWorld.customize.setting.volcanoConduits=Volcano Conduits
+gui.createWorld.customize.setting.volcanoConduits.tooltip=Enable volcano conduits
+gui.createWorld.customize.setting.volcanoConduitDepth=Volcano Conduit Depth
+gui.createWorld.customize.setting.volcanoConduitDepth.tooltip=Adjust how deep volcano conduits will generate
+
+
+gui.createWorld.customize.title.PAGE2=Water Feature Settings
+
+gui.createWorld.customize.category.RIVERS=River Settings
+gui.createWorld.customize.setting.riverSize=Size
+gui.createWorld.customize.setting.riverSize.tooltip=Adjusts the width of rivers
+gui.createWorld.customize.setting.riverFrequency=Frequency Multiplier
+gui.createWorld.customize.setting.riverFrequency.tooltip=Adjusts how often rivers will generate
+gui.createWorld.customize.setting.riverBendMult=Bend Multiplier
+gui.createWorld.customize.setting.riverBendMult.tooltip=Adjust how bendy rivers will be
+gui.createWorld.customize.setting.riverCutOffAmpl=Cut-off Amplitude
+gui.createWorld.customize.setting.riverCutOffAmpl.tooltip=Higher numbers make the large-scale cut-off noise have a greater effect
+gui.createWorld.customize.setting.riverCutOffScale=Cut-off Scale
+gui.createWorld.customize.setting.riverCutOffScale.tooltip=Higher numbers make grassy areas near rivers bigger, but also more rare
+
+gui.createWorld.customize.category.RTGLAKES=RTG Lake Settings
+gui.createWorld.customize.setting.RTGlakeSizeMult=Size Multiplier
+gui.createWorld.customize.setting.RTGlakeSizeMult.tooltip=The size of RTG custom lakes (River biome)
+gui.createWorld.customize.setting.RTGlakeFreqMult=Frequency Multiplier
+gui.createWorld.customize.setting.RTGlakeFreqMult.tooltip=The frequency by which RTG custom lakes will generate
+gui.createWorld.customize.setting.RTGlakeShoreBend=Shore Bend Multiplier
+gui.createWorld.customize.setting.RTGlakeShoreBend.tooltip=Adjusts the bendiness of lake shores.
+
+gui.createWorld.customize.category.VANILLASURFACELAKES=Vanilla Surface lakes Settings
+gui.createWorld.customize.setting.useWaterLakes=Water Lakes
+gui.createWorld.customize.setting.useWaterLakes.tooltip=Enable vanilla surface water lakes
+gui.createWorld.customize.setting.waterLakeChance=Water Lake Chance 1/x
+gui.createWorld.customize.setting.waterLakeChance.tooltip=The chance that a vanilla surface water lake will generate
+gui.createWorld.customize.setting.useLavaLakes=Lava Lakes
+gui.createWorld.customize.setting.useLavaLakes.tooltip=Enable vanilla surface lava lakes
+gui.createWorld.customize.setting.lavaLakeChance=Lava Lake Chance 1/x
+gui.createWorld.customize.setting.lavaLakeChance.tooltip=The chance that a vanilla surface lava lake will generate
+
+gui.createWorld.customize.category.VANILLAUNDERGROUNDLAKES=Vanilla Underground Lake Settings
+gui.createWorld.customize.setting.useWaterUndLakes=Water Lakes
+gui.createWorld.customize.setting.useWaterUndLakes.tooltip=Enable vanilla underground water lakes
+gui.createWorld.customize.setting.waterUndLakeChance=Water Lake Chance 1/x
+gui.createWorld.customize.setting.waterUndLakeChance.tooltip=The chance that a vanilla underground water lake will generate
+gui.createWorld.customize.setting.useLavaUndLakes=Lava Lakes
+gui.createWorld.customize.setting.useLavaUndLakes.tooltip=Enable vanilla underground lava lakes
+gui.createWorld.customize.setting.lavaUndLakeChance=Lava Lake Chance 1/x
+gui.createWorld.customize.setting.lavaUndLakeChance.tooltip=The chance that a vanilla underground lava lake will generate
+
+gui.createWorld.customize.category.VANILLASPOUTS=Water and Lava Spouts (1/x chance)
+gui.createWorld.customize.setting.waterSpoutChance=Water Spout Chance
+gui.createWorld.customize.setting.waterSpoutChance.tooltip=A 1/x chance that a water spout will generate on the side of a hill or cave wall
+gui.createWorld.customize.setting.lavaSpoutChance=Lava Spout Chance
+gui.createWorld.customize.setting.lavaSpoutChance.tooltip=A 1/x chance that a lava spout will generate on the side of a hill or cave wall
+
+
+gui.createWorld.customize.title.PAGE3=Structure Settings
+
+gui.createWorld.customize.category.VILLAGES=Village Settings
+gui.createWorld.customize.setting.useVillages=Villages
+gui.createWorld.customize.setting.useVillages.tooltip=Enable village generation
+# TODO: [Generator settings] villageMinDistance to be removed, villageMaxDistance to be renamed to villageDistance
+gui.createWorld.customize.setting.villageMinDistance=Minimum Distance
+gui.createWorld.customize.setting.villageMinDistance.tooltip=The minimum distance between villages
+gui.createWorld.customize.setting.villageMaxDistance=Maximum Distance
+gui.createWorld.customize.setting.villageMaxDistance.tooltip=The maximum distance between villages
+gui.createWorld.customize.setting.villageSize=Village Size
+gui.createWorld.customize.setting.villageSize.tooltip=Adjusts the average size of villages
+
+gui.createWorld.customize.category.MINESHAFTS=Mineshaft Settings
+gui.createWorld.customize.setting.useMineShafts=Mineshafts
+gui.createWorld.customize.setting.useMineShafts.tooltip=Enable mineshaft generation
+gui.createWorld.customize.setting.mineShaftChance=Mineshaft Chance
+gui.createWorld.customize.setting.mineShaftChance.tooltip=The Chance that a mineshaft will generate
+
+gui.createWorld.customize.category.DUNGEONS=Dungeon Settings
+gui.createWorld.customize.setting.useDungeons=Dungeons
+gui.createWorld.customize.setting.useDungeons.tooltip=Enable dungeon generation
+gui.createWorld.customize.setting.dungeonChance=Dungeon Chance
+gui.createWorld.customize.setting.dungeonChance.tooltip=The chance that a dungeon will generate
+
+gui.createWorld.customize.category.TEMPLES=Scattered Feature Settings
+gui.createWorld.customize.setting.useTemples=Scattered Features
+gui.createWorld.customize.setting.useTemples.tooltip=Enable scattered features (desert/jungle temples, witch huts, igloos, etc..)
+# TODO: [Generator settings] templeMinDistance to be removed, templeMaxDistance to be renamed to templeDistance
+gui.createWorld.customize.setting.templeMinDistance=Minimum Distance
+gui.createWorld.customize.setting.templeMinDistance.tooltip=The minimum distance between scattered features
+gui.createWorld.customize.setting.templeMaxDistance=Maximum Distance
+gui.createWorld.customize.setting.templeMaxDistance.tooltip=The maximum distance between scattered features
+
+gui.createWorld.customize.category.MONUMENTS=Ocean Monument Settings
+gui.createWorld.customize.setting.useMonuments=Ocean Monuments
+gui.createWorld.customize.setting.useMonuments.tooltip=Enable Ocean Monument generation
+gui.createWorld.customize.setting.monumentSeparation=Separation
+gui.createWorld.customize.setting.monumentSeparation.tooltip=Ocean Monument Separation
+gui.createWorld.customize.setting.monumentSpacing=Spacing
+gui.createWorld.customize.setting.monumentSpacing.tooltip=Ocean Monument Spacing
+
+gui.createWorld.customize.category.MANSIONS=Woodland Mansion Settings
+gui.createWorld.customize.setting.useMansions=Woodland Mansions
+gui.createWorld.customize.setting.useMansions.tooltip=Enable Woodland Mansion generation
+gui.createWorld.customize.setting.mansionDistance=Distance between
+gui.createWorld.customize.setting.mansionDistance.tooltip=The maximum distance between Woodland Mansions
+
+gui.createWorld.customize.category.STRONGHOLDS=Stronghold Settings
+gui.createWorld.customize.setting.useStrongholds=Strongholds
+gui.createWorld.customize.setting.useStrongholds.tooltip=Enable Strongholds
+gui.createWorld.customize.setting.strongholdCount=Stronghold Count
+gui.createWorld.customize.setting.strongholdCount.tooltip=The amount of strongholds that will generate in a world
+gui.createWorld.customize.setting.strongholdDistance=Distance
+gui.createWorld.customize.setting.strongholdDistance.tooltip=Minimum distance between strongholds?
+gui.createWorld.customize.setting.strongholdSpread=Spread
+gui.createWorld.customize.setting.strongholdSpread.tooltip=Stronghold Spread
+
+
+gui.createWorld.customize.title.PAGE4=Ore Generation Settings
+
+gui.createWorld.customize.category.DIRT=Dirt Generation Settings
+gui.createWorld.customize.setting.dirtSize=Dirt Size
+gui.createWorld.customize.setting.dirtSize.tooltip=The size of dirt pockets generted in the world
+gui.createWorld.customize.setting.dirtCount=Dirt Count
+gui.createWorld.customize.setting.dirtCount.tooltip=The amount of dirt pockets per chunk
+gui.createWorld.customize.setting.dirtMinHeight=Dirt Minimum Height
+gui.createWorld.customize.setting.dirtMinHeight.tooltip=The minimum height of dirt generation
+gui.createWorld.customize.setting.dirtMaxHeight=Dirt Maximum Height
+gui.createWorld.customize.setting.dirtMaxHeight.tooltip=The maximum height of dirt generation
+
+gui.createWorld.customize.category.GRAVEL=Gravel Generation Settings
+gui.createWorld.customize.setting.gravelSize=Gravel Size
+gui.createWorld.customize.setting.gravelSize.tooltip=The size of gravel pockets generted in the world
+gui.createWorld.customize.setting.gravelCount=Gravel Count
+gui.createWorld.customize.setting.gravelCount.tooltip=The amount of gravel pockets per chunk
+gui.createWorld.customize.setting.gravelMinHeight=Gravel Minimum Height
+gui.createWorld.customize.setting.gravelMinHeight.tooltip=The minimum height of gravel generation
+gui.createWorld.customize.setting.gravelMaxHeight=Gravel Maximum Height
+gui.createWorld.customize.setting.gravelMaxHeight.tooltip=The maximum height of gravel generation
+
+gui.createWorld.customize.category.GRANITE=Granite Generation Settings
+gui.createWorld.customize.setting.graniteSize=Granite Size
+gui.createWorld.customize.setting.graniteSize.tooltip=The size of granite pockets generted in the world
+gui.createWorld.customize.setting.graniteCount=Granite Count
+gui.createWorld.customize.setting.graniteCount.tooltip=The amount of granite pockets per chunk
+gui.createWorld.customize.setting.graniteMinHeight=Granite Minimum Height
+gui.createWorld.customize.setting.graniteMinHeight.tooltip=The minimum height of granite generation
+gui.createWorld.customize.setting.graniteMaxHeight=Granite Maximum Height
+gui.createWorld.customize.setting.graniteMaxHeight.tooltip=The maximum height of granite generation
+
+gui.createWorld.customize.category.DIORITE=Diorite Generation Settings
+gui.createWorld.customize.setting.dioriteSize=Diorite Size
+gui.createWorld.customize.setting.dioriteSize.tooltip=The size of diorite pockets generted in the world
+gui.createWorld.customize.setting.dioriteCount=Diorite Count
+gui.createWorld.customize.setting.dioriteCount.tooltip=The amount of diorite pockets per chunk
+gui.createWorld.customize.setting.dioriteMinHeight=Diorite Minimum Height
+gui.createWorld.customize.setting.dioriteMinHeight.tooltip=The minimum height of diorite generation
+gui.createWorld.customize.setting.dioriteMaxHeight=Diorite Maximum Height
+gui.createWorld.customize.setting.dioriteMaxHeight.tooltip=The maximum height of diorite generation
+
+gui.createWorld.customize.category.ANDESITE=Andesite Generation Settings
+gui.createWorld.customize.setting.andesiteSize=Andesite Size
+gui.createWorld.customize.setting.andesiteSize.tooltip=The size of andesite pockets generted in the world
+gui.createWorld.customize.setting.andesiteCount=Andesite Count
+gui.createWorld.customize.setting.andesiteCount.tooltip=The amount of andesite pockets per chunk
+gui.createWorld.customize.setting.andesiteMinHeight=Andesite Minimum Height
+gui.createWorld.customize.setting.andesiteMinHeight.tooltip=The minimum height of andesite generation
+gui.createWorld.customize.setting.andesiteMaxHeight=Andesite Maximum Height
+gui.createWorld.customize.setting.andesiteMaxHeight.tooltip=The maximum height of andesite generation
+
+gui.createWorld.customize.category.COAL=Coal Generation Settings
+gui.createWorld.customize.setting.coalSize=Coal Size
+gui.createWorld.customize.setting.coalSize.tooltip=The size of coal veins generted in the world
+gui.createWorld.customize.setting.coalCount=Coal Count
+gui.createWorld.customize.setting.coalCount.tooltip=The amount of coal veins per chunk
+gui.createWorld.customize.setting.coalMinHeight=Coal Minimum Height
+gui.createWorld.customize.setting.coalMinHeight.tooltip=The minimum height of coal generation
+gui.createWorld.customize.setting.coalMaxHeight=Coal Maximum Height
+gui.createWorld.customize.setting.coalMaxHeight.tooltip=The maximum height of coal generation
+
+gui.createWorld.customize.category.IRON=Iron Generation Settings
+gui.createWorld.customize.setting.ironSize=Iron Size
+gui.createWorld.customize.setting.ironSize.tooltip=The size of iron veins generted in the world
+gui.createWorld.customize.setting.ironCount=Iron Count
+gui.createWorld.customize.setting.ironCount.tooltip=The amount of  veins per chunk
+gui.createWorld.customize.setting.ironMinHeight=Iron Minimum Height
+gui.createWorld.customize.setting.ironMinHeight.tooltip=The minimum height of iron generation
+gui.createWorld.customize.setting.ironMaxHeight=Iron Maximum Height
+gui.createWorld.customize.setting.ironMaxHeight.tooltip=The maximum height of iron generation
+
+gui.createWorld.customize.category.GOLD=Gold Generation Settings
+gui.createWorld.customize.setting.goldSize=Gold Size
+gui.createWorld.customize.setting.goldSize.tooltip=The size of gold veins generted in the world
+gui.createWorld.customize.setting.goldCount=Gold Count
+gui.createWorld.customize.setting.goldCount.tooltip=The amount of gold veins per chunk
+gui.createWorld.customize.setting.goldMinHeight=Gold Minimum Height
+gui.createWorld.customize.setting.goldMinHeight.tooltip=The minimum height of gold generation
+gui.createWorld.customize.setting.goldMaxHeight=Gold Maximum Height
+gui.createWorld.customize.setting.goldMaxHeight.tooltip=The maximum height of gold generation
+
+gui.createWorld.customize.category.REDSTONE=Redstone Generation Settings
+gui.createWorld.customize.setting.redstoneSize=Redstone Size
+gui.createWorld.customize.setting.redstoneSize.tooltip=The size of redstone veins generted in the world
+gui.createWorld.customize.setting.redstoneCount=Redstone Count
+gui.createWorld.customize.setting.redstoneCount.tooltip=The amount of redstone veins per chunk
+gui.createWorld.customize.setting.redstoneMinHeight=Redstone Minimum Height
+gui.createWorld.customize.setting.redstoneMinHeight.tooltip=The minimum height of redstone generation
+gui.createWorld.customize.setting.redstoneMaxHeight=Redstone Maximum Height
+gui.createWorld.customize.setting.redstoneMaxHeight.tooltip=The maximum height of redstone generation
+
+gui.createWorld.customize.category.DIAMOND=Diamond Generation Settings
+gui.createWorld.customize.setting.diamondSize=Diamond Size
+gui.createWorld.customize.setting.diamondSize.tooltip=The size of diamond veins generted in the world
+gui.createWorld.customize.setting.diamondCount=Diamond Count
+gui.createWorld.customize.setting.diamondCount.tooltip=The amount of diamond veins per chunk
+gui.createWorld.customize.setting.diamondMinHeight=Diamond Minimum Height
+gui.createWorld.customize.setting.diamondMinHeight.tooltip=The minimum height of diamond generation
+gui.createWorld.customize.setting.diamondMaxHeight=Diamond Maximum Height
+gui.createWorld.customize.setting.diamondMaxHeight.tooltip=The maximum height of diamond generation
+
+gui.createWorld.customize.category.LAPIS=Lapis Lazuli Generation Settings
+gui.createWorld.customize.setting.lapisSize=Lapis Lazuli Size
+gui.createWorld.customize.setting.lapisSize.tooltip=The size of lapis lazuli veins generted in the world
+gui.createWorld.customize.setting.lapisCount=Lapis Lazuli Count
+gui.createWorld.customize.setting.lapisCount.tooltip=The amount of lapis lazuli veins per chunk
+gui.createWorld.customize.setting.lapisCenterHeight=Lapis Lazuli Height
+gui.createWorld.customize.setting.lapisCenterHeight.tooltip=The average height of lapis lazuli generation
+gui.createWorld.customize.setting.lapisSpread=Lapis Lazuli Spread
+gui.createWorld.customize.setting.lapisSpread.tooltip=The average height spread of lapis lazuli generation
+
+
+#-----------------------------
+# GUI WorldType Message Screen
+#-----------------------------
 warning.rtgStartup1=Realistic Terrain Generation uses a custom world type.
 warning.rtgStartup2=If you want realistic terrain, keep clicking the 'World Type' button
 warning.rtgStartup3=under 'More World Options' until it displays 'Realistic'.
@@ -8,4 +293,8 @@ warning.rtgStartup4=The world type can be used on servers by changing the 'level
 warning.rtgStartup5=server.properties to 'RTG' (without quotes).
 warning.rtgStartup6=This message will only display once.
 
-gui.config.title=Realistic Terrain Generation Global Config Settings
+
+#-----------------------------
+# GUI Config
+#-----------------------------
+gui.config.title=RTG Global Config Settings

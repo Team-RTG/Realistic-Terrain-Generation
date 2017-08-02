@@ -13,15 +13,28 @@ import net.minecraft.world.gen.MapGenRavine;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 
+// TODO: [Clean-up] Clean up this class to fully match the vanilla super class.
+// TODO: [Clean-up] Remove unneccessary overrides, or delegate to the super methods instead of overiding them with cloned functionality that may change in the future
+// TODO: [Clean-up] Remove all biome-specific code
 public class MapGenRavineRTG extends MapGenRavine
 {
+// TODO: [Clean-up] remove fields FLOWING_LAVA and AIR, use the static ones in the super class
     protected static final IBlockState FLOWING_LAVA = Blocks.FLOWING_LAVA.getDefaultState();
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     private final float[] rs = new float[1024];
 
+// TODO: [Generator settings] remove rtgConfig, enableRavines and their checks (Make in CPRTG#provideChunk)
     private RTGConfig rtgConfig = RTGAPI.config();
     private boolean enableRavines;
+// TODO: [Clean-up] make final
+// TODO: [Generator settings] rename to ravineChance
+//  private int ravineChance;
     private int ravineFrequency;
+
+// TODO: [Generator settings] update to use the generator settings (Passed from CPRTG)
+//  MapGenRavineRTG(int ravineChance) {
+//      this.ravineChance = ravineChance;
+//  }
 
     protected void addTunnel(long p_180707_1_, int p_180707_3_, int p_180707_4_, ChunkPrimer p_180707_5_, double p_180707_6_, double p_180707_8_, double p_180707_10_, float p_180707_12_, float p_180707_13_, float p_180707_14_, int p_180707_15_, int p_180707_16_, double p_180707_17_)
     {
@@ -285,10 +298,14 @@ public class MapGenRavineRTG extends MapGenRavine
         {
             if (y - 1 < 10)
             {
+// TODO: [Clean-up] remove field FLOWING_LAVA
+//              data.setBlockState(x, y, z, MapGenRavine.FLOWING_LAVA);
                 data.setBlockState(x, y, z, FLOWING_LAVA);
             }
             else
             {
+// TODO: [Clean-up] remove field AIR
+//              data.setBlockState(x, y, z, MapGenRavine.AIR);
                 data.setBlockState(x, y, z, AIR);
 
                 if (foundTop && data.getBlockState(x, y - 1, z).getBlock() == filler.getBlock())

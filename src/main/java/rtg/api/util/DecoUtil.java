@@ -5,6 +5,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 
+// TODO: [Clean-up] Class should be final to prevent extension, Class should have a private no-params contructor to prevent instantiation.
 public class DecoUtil {
 
     private DecoBase deco;
@@ -21,6 +22,7 @@ public class DecoUtil {
         float biomeMultiplier = biome.getConfig().TREE_DENSITY_MULTIPLIER.get();
 
         if (biomeMultiplier >= 0f) {
+// TODO: [Clean-up] Instance based call to static member.
             multiplier = (biomeMultiplier > rtgConfig.MAX_TREE_DENSITY) ? rtgConfig.MAX_TREE_DENSITY : biomeMultiplier;
         }
 

@@ -21,6 +21,7 @@ import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeManager;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceGeneric;
@@ -29,6 +30,7 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.TerrainOrganic;
 import rtg.world.RTGWorld;
 import rtg.world.biome.organic.OrganicBiome;
+import rtg.world.gen.ChunkProviderSettingsRTG;
 
 
 @SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
@@ -52,6 +54,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     // lake calculations
 
+// TODO [Generator settings] make these fields final
     private float lakeInterval = 649.0f;
     private float lakeShoreLevel = 0.035f;
     private float lakeDepressionLevel = 0.15f;// the lakeStrength below which land should start to be lowered
@@ -59,6 +62,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     private float largeBendSize = 80;
     private float mediumBendSize = 30;
     private float smallBendSize = 12;
+// ...
 
     public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
     public boolean disallowAllBeaches = false;
@@ -86,10 +90,12 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.addDeco(decoBaseBiomeDecorations);
 
         // set the water feature constants with the config changes
+// TODO: [Generator Settings] To be removed. Functionality replaced in rNoise
         this.lakeInterval *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
         this.lakeShoreLevel *= rtgConfig.lakeSizeMultiplier();
         this.lakeDepressionLevel *= rtgConfig.lakeSizeMultiplier();
 
+// TODO: [Generator Settings] To be removed. Functionality replaced in rNoise
         this.largeBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
         this.mediumBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
         this.smallBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
@@ -178,6 +184,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world);
+
         // we now have both lakes and rivers lowering land
         if (!this.getConfig().ALLOW_RIVERS.get()) {
             float borderForRiver = border*2;
@@ -185,11 +194,21 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             river = 1f - (1f-borderForRiver)*(1f-river);
             return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      float interval        = lakeInterval        *= settings.RTGlakeFreqMult;
+//      float shoreLevel      = lakeShoreLevel      *= settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
+//      float depressionLevel = lakeDepressionLevel *= settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
+//      float lgbend          = largeBendSize       *= settings.RTGlakeShoreBend;
+//      float mdbend          = mediumBendSize      *= settings.RTGlakeShoreBend;
+//      float smbend          = smallBendSize       *= settings.RTGlakeShoreBend;
+//      float lakeStrength = lakePressure(rtgWorld, x, y, border, interval, lgbend, mdbend, smbend);
         float lakeStrength = lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize);
         // set the lakeStrength to match river parameters. Changes are needed because the
         // function is much steeper at the edges (rivers) than the center (lakes)
         float //lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
             lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          lakeFlattening = lakeFlattening(lakeStrength, shoreLevel, depressionLevel);
 
         // combine rivers and lakes
         if ((river<1)&&(lakeFlattening<1)) {
@@ -207,6 +226,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         float riverFlattening = river*(1f+riverFlatteningAddend)-riverFlatteningAddend;
         if (riverFlattening <0 ) riverFlattening = 0;
 
+// TODO: [Clean-up] To be removed
         /*if (riverFlattening <0) riverFlattening = 0;
         if (riverFlattening >1) riverFlattening = 1;
         if ((river<1)&&(lakeFlattening<1)) {
@@ -224,6 +244,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise);
     }
 
+// TODO: [Clean-up] Moved to top of class with rest of fields
     public static final float actualRiverProportion = 150f/1600f;
     public static final float riverFlatteningAddend = (actualRiverProportion)/(1f-actualRiverProportion);
 

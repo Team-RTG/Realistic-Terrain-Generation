@@ -146,6 +146,17 @@ public class BlockUtil {
         }
     }
 
+    public static IBlockState getSponge (int meta) {
+        switch (meta) {
+            case 0:
+                return Blocks.SPONGE.getDefaultState();
+            case 1:
+                return Blocks.SPONGE.getDefaultState().withProperty(BlockSponge.WET, true);
+            default:
+                return Blocks.SPONGE.getDefaultState();
+        }
+    }
+
     /*
      * FLOWER LIST:
      * 0	Poppy
@@ -201,5 +212,35 @@ public class BlockUtil {
             default:
                 return Blocks.RED_FLOWER.getStateFromMeta(meta);
         }
+    }
+
+    public static IBlockState getStateStone(StoneType stoneType) {
+
+        switch (stoneType) {
+            case GRANITE:
+                return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE);
+            case POLISHED_GRANITE:
+                return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE_SMOOTH);
+            case DIORITE:
+                return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE);
+            case POLISHED_DIORITE:
+                return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE_SMOOTH);
+            case ANDESITE:
+                return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
+            case POLISHED_ANDESITE:
+                return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE_SMOOTH);
+            default:
+                return Blocks.STONE.getDefaultState();
+        }
+    }
+
+    public enum StoneType {
+        STONE,
+        GRANITE,
+        POLISHED_GRANITE,
+        DIORITE,
+        POLISHED_DIORITE,
+        ANDESITE,
+        POLISHED_ANDESITE
     }
 }

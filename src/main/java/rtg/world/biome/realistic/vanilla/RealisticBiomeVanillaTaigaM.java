@@ -13,10 +13,10 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionTaiga;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.deco.collection.DecoCollectionTaiga;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
 
@@ -26,15 +26,15 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     public RealisticBiomeVanillaTaigaM() {
 
         super(biome, river);
-
-        this.noLakes = true;
     }
 
     @Override
     public void initConfig() {
 
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
 
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
@@ -70,9 +70,9 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandHills(x, y, rtgWorld.simplex, rtgWorld.cell, river, vWidth, vHeight, hWidth, hHeight, bHeight);
+            return terrainGrasslandHills(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, vWidth, vHeight, hWidth, hHeight, bHeight);
         }
     }
 
@@ -94,10 +94,10 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
@@ -168,6 +168,6 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig().ALLOW_LOGS.get(), 10f));
+        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 10f));
     }
 }

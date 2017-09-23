@@ -8,15 +8,24 @@ import rtg.api.config.property.ConfigProperty.Type;
 
 public class BiomeConfig extends Config {
 
+    public static final String MESA_PLATEAU_GRADIENT_METAS = "" +
+        "4,4,4,-1,-1,1,14,14,-1,8,0,-1,-1,-1,1,-1,-1,-1,1,8,0,12,12,12,-1,1,-1,1,-1,1,-1,-1,-1";
+
+    public static final String SAVANNA_PLATEAU_GRADIENT_METAS = "" +
+        "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12";
+
     /*
      * GLOBAL CONFIGS
      */
 
+    public final ConfigPropertyBoolean ALLOW_RIVERS;
+    public final ConfigPropertyBoolean ALLOW_SCENIC_LAKES;
     public final ConfigPropertyBoolean ALLOW_VILLAGES;
     public final ConfigPropertyBoolean ALLOW_VOLCANOES;
     public final ConfigPropertyInt VOLCANO_CHANCE;
     public final ConfigPropertyBoolean USE_RTG_DECORATIONS;
     public final ConfigPropertyBoolean USE_RTG_SURFACES;
+    public final ConfigPropertyBoolean USE_RTG_TERRAIN;
     public final ConfigPropertyString SURFACE_TOP_BLOCK;
     public final ConfigPropertyInt SURFACE_TOP_BLOCK_META;
     public final ConfigPropertyString SURFACE_FILLER_BLOCK;
@@ -25,11 +34,15 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_CLIFF_STONE_BLOCK_META;
     public final ConfigPropertyString SURFACE_CLIFF_COBBLE_BLOCK;
     public final ConfigPropertyInt SURFACE_CLIFF_COBBLE_BLOCK_META;
-    public final ConfigPropertyInt CAVE_DENSITY;
-    public final ConfigPropertyInt CAVE_FREQUENCY;
-    public final ConfigPropertyInt RAVINE_FREQUENCY;
+    //public final ConfigPropertyInt CAVE_DENSITY;
+    //public final ConfigPropertyInt CAVE_FREQUENCY;
+    //public final ConfigPropertyInt RAVINE_FREQUENCY;
     public final ConfigPropertyInt BEACH_BIOME;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
+    public final ConfigPropertyString TEMPERATURE;
+
+    public final ConfigPropertyBoolean SURFACE_BLEED_IN;
+    public final ConfigPropertyBoolean SURFACE_BLEED_OUT;
 
     /*
      * OPTIONAL CONFIGS
@@ -40,19 +53,54 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyInt SURFACE_MIX_BLOCK_META;
     public final ConfigPropertyString SURFACE_MIX_FILLER_BLOCK;
     public final ConfigPropertyInt SURFACE_MIX_FILLER_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_2_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_2_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_3_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_3_BLOCK_META;
+    public final ConfigPropertyString SURFACE_MIX_4_BLOCK;
+    public final ConfigPropertyInt SURFACE_MIX_4_BLOCK_META;
+    public final ConfigPropertyBoolean ALLOW_PLATEAU_MODIFICATIONS;
+    public final ConfigPropertyString PLATEAU_GRADIENT_BLOCK_ID;
+    public final ConfigPropertyString PLATEAU_GRADIENT_METAS;
+    public final ConfigPropertyString PLATEAU_BLOCK_ID;
+    public final ConfigPropertyInt PLATEAU_BLOCK_META;
     public final ConfigPropertyBoolean ALLOW_PALM_TREES;
     public final ConfigPropertyBoolean ALLOW_CACTUS;
     public final ConfigPropertyBoolean ALLOW_COBWEBS;
     public final ConfigPropertyBoolean ALLOW_WHEAT;
+    public final ConfigPropertyBoolean ALLOW_PONDS_WATER;
     public final ConfigPropertyInt WHEAT_CHANCE;
     public final ConfigPropertyInt WHEAT_MIN_Y;
     public final ConfigPropertyInt WHEAT_MAX_Y;
+    public final ConfigPropertyBoolean USE_ARCTIC_SURFACE;
+    public final ConfigPropertyBoolean ALLOW_ICE_TREES;
+    public final ConfigPropertyFloat FALLEN_LOG_DENSITY_MULTIPLIER;
+    public final ConfigPropertyBoolean ALLOW_SPONGE;
+    public final ConfigPropertyBoolean ALLOW_OCEAN_WAVES;
 
     public BiomeConfig() {
 
         /*
          * GLOBAL CONFIGS
          */
+
+        ALLOW_RIVERS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Allow Rivers",
+            "Terrain Features",
+            "Set this to FALSE to prevent rivers from generating in this biome.",
+            true
+        );
+        this.addProperty(ALLOW_RIVERS);
+
+        ALLOW_SCENIC_LAKES = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Allow Scenic Lakes",
+            "Terrain Features",
+            "Set this to FALSE to prevent scenic lakes from generating in this biome.",
+            true
+        );
+        this.addProperty(ALLOW_SCENIC_LAKES);
 
         ALLOW_VILLAGES = new ConfigPropertyBoolean(
             ConfigProperty.Type.BOOLEAN,
@@ -102,6 +150,15 @@ public class BiomeConfig extends Config {
             true
         );
         this.addProperty(USE_RTG_SURFACES);
+
+        USE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Use RTG Terrain",
+            "Terrain",
+            "If FALSE, no realistic terrain will be generated in this biome. Instead, vanilla terrain will be generated.",
+            true
+        );
+        this.addProperty(USE_RTG_TERRAIN);
 
         SURFACE_TOP_BLOCK = new ConfigPropertyString(
             Type.STRING,
@@ -211,38 +268,38 @@ public class BiomeConfig extends Config {
         );
         this.addProperty(SURFACE_CLIFF_COBBLE_BLOCK_META);
 
-        CAVE_DENSITY = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Cave Density",
-            "Caves",
-            "This setting controls the size of caves."
-                + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
-            -1, -1, 40
-        );
-        this.addProperty(CAVE_DENSITY);
-
-        CAVE_FREQUENCY = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Cave Frequency",
-            "Caves",
-            "This setting controls the number of caves that generate."
-                + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
-            -1, -1, 40
-        );
-        this.addProperty(CAVE_FREQUENCY);
-
-        RAVINE_FREQUENCY = new ConfigPropertyInt(
-            Type.INTEGER,
-            "Ravine Frequency",
-            "Ravines",
-            "This setting controls the number of ravines that generate."
-                + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome.",
-            -1, -1, 100
-        );
-        this.addProperty(RAVINE_FREQUENCY);
+//        CAVE_DENSITY = new ConfigPropertyInt(
+//            Type.INTEGER,
+//            "Cave Density",
+//            "Caves",
+//            "This setting controls the size of caves."
+//                + Configuration.NEW_LINE + "HIGHER values = BIGGER caves & MORE lag. (14 = vanilla cave density)"
+//                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
+//            -1, -1, 40
+//        );
+//        this.addProperty(CAVE_DENSITY);
+//
+//        CAVE_FREQUENCY = new ConfigPropertyInt(
+//            Type.INTEGER,
+//            "Cave Frequency",
+//            "Caves",
+//            "This setting controls the number of caves that generate."
+//                + Configuration.NEW_LINE + "LOWER values = MORE caves & MORE lag. (6 = vanilla cave frequency)"
+//                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable caves for this biome.",
+//            -1, -1, 40
+//        );
+//        this.addProperty(CAVE_FREQUENCY);
+//
+//        RAVINE_FREQUENCY = new ConfigPropertyInt(
+//            Type.INTEGER,
+//            "Ravine Frequency",
+//            "Ravines",
+//            "This setting controls the number of ravines that generate."
+//                + Configuration.NEW_LINE + "LOWER values = MORE ravines & MORE lag. (50 = vanilla ravine frequency)"
+//                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable ravines for this biome.",
+//            -1, -1, 100
+//        );
+//        this.addProperty(RAVINE_FREQUENCY);
 
         BEACH_BIOME = new ConfigPropertyInt(
             Type.INTEGER, "Beach Biome", "Beaches",
@@ -283,6 +340,41 @@ public class BiomeConfig extends Config {
             -1.0f, -1.0f, 5.0f
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);
+
+        TEMPERATURE = new ConfigPropertyString(
+            Type.STRING,
+            "Temperature",
+            "Biome Properties",
+            "If you want to change this biome's temperature, enter a valid value here. [range: -2.0 ~ 2.0]"
+                + Configuration.NEW_LINE +
+                "In keeping with vanilla's temperature validation rules, values in the range of 0.1 to 0.2 (non-inclusive) are not valid and will result in a crash on startup."
+                + Configuration.NEW_LINE +
+                "If this value is empty, the biome's default temperature will be used."
+                + Configuration.NEW_LINE +
+                "Please note that changing a biome's temperature does NOT affect its climate type (DESERT, WARM, COOL, ICY)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Biome#Temperature",
+            ""
+        );
+        this.addProperty(TEMPERATURE);
+
+        SURFACE_BLEED_IN = new ConfigPropertyBoolean(
+                Type.BOOLEAN,
+                "Surface Bleed In",
+                "Surface Bleed",
+                "Set to false if other biomes shouldn't bleed into this one",
+                false
+        );
+        this.addProperty(SURFACE_BLEED_IN);
+
+        SURFACE_BLEED_OUT = new ConfigPropertyBoolean(
+                Type.BOOLEAN,
+                "Surface Bleed Out",
+                "Surface Bleed",
+                "Set to false if this biome shouldn't bleed into other biomes",
+                false
+        );
+        this.addProperty(SURFACE_BLEED_OUT);
 
         /*
          * OPTIONAL CONFIGS
@@ -338,14 +430,148 @@ public class BiomeConfig extends Config {
             0, 0, 15
         );
 
+        SURFACE_MIX_2_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 2 Block ID",
+            "Surfaces.Mix 2 Top Block",
+            "If you want to change this biome's 2nd mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_2_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 2 Block Meta (Data Value)",
+            "Surfaces.Mix 2 Top Block",
+            "If you're using a custom 2nd mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 2nd mix block, you would enter minecraft:dirt for the Mix 2 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        SURFACE_MIX_3_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 3 Block ID",
+            "Surfaces.Mix 3 Top Block",
+            "If you want to change this biome's 3rd mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_3_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 3 Block Meta (Data Value)",
+            "Surfaces.Mix 3 Top Block",
+            "If you're using a custom 3rd mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 3rd mix block, you would enter minecraft:dirt for the Mix 3 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        SURFACE_MIX_4_BLOCK = new ConfigPropertyString(
+            Type.STRING,
+            "Mix 4 Block ID",
+            "Surfaces.Mix 4 Top Block",
+            "If you want to change this biome's 4th mix block, enter a valid block ID here (e.g. minecraft:grass)."
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values#Block_IDs",
+            ""
+        );
+
+        SURFACE_MIX_4_BLOCK_META = new ConfigPropertyInt(
+            Type.INTEGER,
+            "Mix 4 Block Meta (Data Value)",
+            "Surfaces.Mix 4 Top Block",
+            "If you're using a custom 4th mix block, enter its numeric data value here."
+                + Configuration.NEW_LINE +
+                "For example, if you want to use podzol for this biome's 4th mix block, you would enter minecraft:dirt for the Mix 4 Block ID,"
+                + Configuration.NEW_LINE +
+                "and you would enter 2 here, because podzol has a data value of 2. (For most blocks, this value will be 0.)"
+                + Configuration.NEW_LINE +
+                "For more info, visit http://minecraft.gamepedia.com/Data_values",
+            0, 0, 15
+        );
+
+        ALLOW_PLATEAU_MODIFICATIONS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Allow Plateau Modifications",
+            "Plateaus",
+            "",
+            false
+        );
+
+        PLATEAU_GRADIENT_BLOCK_ID = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Plateau Gradient Block ID",
+            "Plateaus.Gradient Blocks",
+            "The block to use for this biome's plateau gradients. Defaults to stained hardened clay." +
+                Configuration.NEW_LINE +
+                "This can be any block, but it works best with blocks that have multiple colours, such as stained hardened clay." +
+                Configuration.NEW_LINE +
+                "The various 'meta' options in this section will use this block to configure the plateau gradients.",
+            "minecraft:stained_hardened_clay"
+        );
+
+        PLATEAU_GRADIENT_METAS = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Plateau Gradient Block Meta Values",
+            "Plateaus.Gradient Blocks",
+            getPlateauGradientBlockMetasComment(),
+            MESA_PLATEAU_GRADIENT_METAS
+        );
+
+        PLATEAU_BLOCK_ID = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Plateau Block ID",
+            "Plateaus.Plateau Blocks",
+            "An extra block to use for Mesa & Savanna plateau gradients. Defaults to hardened clay." +
+                Configuration.NEW_LINE +
+                "When configuring the various 'meta' options in this section, use a value of '-1' to reference this block.",
+            "minecraft:hardened_clay"
+        );
+
+        PLATEAU_BLOCK_META = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Plateau Block Meta Value",
+            "Plateaus.Plateau Blocks",
+            "The meta value of the plateau block.",
+            0, 0, 15
+        );
+
         ALLOW_LOGS = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Allow Logs", "Decorations.Logs", "", true);
         ALLOW_PALM_TREES = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Palm Trees", "Decorations.Palm Trees", "", true);
         ALLOW_CACTUS = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Cactus", "Decorations.Cactus", "", true);
         ALLOW_COBWEBS = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Cobwebs", "Decorations.Cobwebs", "", true);
         ALLOW_WHEAT = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Wheat", "Decorations.Wheat", "", true);
+        ALLOW_PONDS_WATER = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Ponds (Water)", "Decorations.Ponds", "", true);
         WHEAT_CHANCE = new ConfigPropertyInt(Type.INTEGER, "Wheat (Chance)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MIN_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Min Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         WHEAT_MAX_Y = new ConfigPropertyInt(Type.INTEGER, "Wheat (Max Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
+        USE_ARCTIC_SURFACE = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Use Arctic Surface", "Surfaces.Arctic Surface", "", true);
+        ALLOW_ICE_TREES = new ConfigPropertyBoolean(ConfigProperty.Type.BOOLEAN, "Allow Ice Trees", "Trees.Ice Trees", "", true);
+
+        FALLEN_LOG_DENSITY_MULTIPLIER = new ConfigPropertyFloat(
+            Type.FLOAT,
+            "Fallen Log Density Multiplier",
+            "Decorations.Logs",
+            "This setting allows you to increase/decrease the number of fallen logs that generate in this biome."
+                + Configuration.NEW_LINE +
+                "1.0 = Default density; 2.0 = Twice as many fallen logs; 0.5 = half as many fallen logs; 0 = No fallen logs",
+            1f, 0f, 5.0f
+        );
+
+        ALLOW_SPONGE = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Sponge", "Decorations.Sponge", "", true);
+        ALLOW_OCEAN_WAVES = new ConfigPropertyBoolean(Type.BOOLEAN, "Allow Ocean Waves", "Decorations.Waves", "", true);
     }
 
     public static String formatSlug(String s) {
@@ -355,5 +581,19 @@ public class BiomeConfig extends Config {
         s = s.replaceAll("\\W", "");
 
         return s;
+    }
+
+    private static String getPlateauGradientBlockMetasComment()
+    {
+        String comment =
+            "Comma-separated list of meta values for the gradient plateau blocks used in this biome."
+                + Configuration.NEW_LINE +
+                "-1 = Plateau block; 0-15 = Plateau gradient block"
+                + Configuration.NEW_LINE +
+                "0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
+                + Configuration.NEW_LINE +
+                "8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black";
+
+        return comment;
     }
 }

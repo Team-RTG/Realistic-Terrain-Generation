@@ -13,10 +13,9 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 
@@ -44,8 +43,8 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 		}
 
 		@Override
-		public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-			return terrainBeach(x, y, rtgWorld.simplex, river, 180f, 35f, 60f);
+		public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+			return terrainBeach(x, y, rtgWorld.simplex(), river, 180f, 35f, 60f);
 		}
 	}
 
@@ -63,9 +62,9 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 		}
 
 		@Override
-		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-			Random rand = rtgWorld.rand;
+			Random rand = rtgWorld.rand();
 			float c = CliffCalculator.calc(x, z, noise);
 			boolean cliff = c > 1.4f ? true : false;
 
@@ -107,8 +106,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 
 	@Override
 	public void initDecos() {
-
-		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-		this.addDeco(decoBaseBiomeDecorations);
+		DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+		this.addDeco(decoBOPBaseBiomeDecorations);
 	}
 }

@@ -19,7 +19,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.google.common.collect.Lists;
 
 import rtg.api.RTGAPI;
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 
 /**
  * Author: Choonster (https://github.com/Choonster)
@@ -69,7 +69,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         {
             if (((String)entry.getKey()).equals("distance"))
             {
-                this.maxDistanceBetweenScatteredFeatures = MathHelper.parseIntWithDefaultAndMax((String)entry.getValue(), this.maxDistanceBetweenScatteredFeatures, 9);
+                this.maxDistanceBetweenScatteredFeatures = MathHelper.getInt((String)entry.getValue(), this.maxDistanceBetweenScatteredFeatures, 9);
             }
         }
     }
@@ -98,7 +98,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 
         int k = chunkX / this.maxDistanceBetweenScatteredFeatures;
         int l = chunkZ / this.maxDistanceBetweenScatteredFeatures;
-        Random random = this.worldObj.setRandomSeed(k, l, 14357617);
+        Random random = this.world.setRandomSeed(k, l, 14357617);
         k *= this.maxDistanceBetweenScatteredFeatures;
         l *= this.maxDistanceBetweenScatteredFeatures;
         k += random.nextInt(this.maxDistanceBetweenScatteredFeatures - this.minDistanceBetweenScatteredFeatures);
@@ -107,7 +107,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
         if (i == k && j == l)
         {
             BlockPos pos = new BlockPos(i * 16 + 8, 0, j * 16 + 8);
-            Biome biome = this.worldObj.getBiomeProvider().getBiome(pos);
+            Biome biome = this.world.getBiomeProvider().getBiome(pos);
 
             if (null == biome) {
                 Logger.error("MapGenScatteredFeatureRTG#canSpawnStructureAtCoords received a null biome at %d %d.", pos.getX(), pos.getZ());
@@ -141,7 +141,7 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenScatteredFeatureRTG.Start(this.worldObj, this.rand, chunkX, chunkZ);
+        return new MapGenScatteredFeatureRTG.Start(this.world, this.rand, chunkX, chunkZ);
     }
 
     @Override

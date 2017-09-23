@@ -13,15 +13,15 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.collection.DecoCollectionSmallPineTreesForest;
-import rtg.world.biome.deco.helper.DecoHelper5050;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.deco.*;
+import rtg.api.world.deco.collection.DecoCollectionSmallPineTreesForest;
+import rtg.api.world.deco.helper.DecoHelper5050;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
 
@@ -37,6 +37,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
@@ -55,9 +56,9 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld.simplex, river, 160f, 10f, 60f, 80f, 65f);
+            return terrainPlains(x, y, rtgWorld.simplex(), river, 160f, 10f, 60f, 80f, 65f);
         }
     }
 
@@ -95,10 +96,10 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -237,7 +238,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         this.addDeco(decoPines);
 
         // More trees.
-        this.addDecoCollection(new DecoCollectionSmallPineTreesForest());
+        this.addDecoCollection(new DecoCollectionSmallPineTreesForest(this.getConfig()));
 
         // Not much free space left, so let's give some space to the base biome.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

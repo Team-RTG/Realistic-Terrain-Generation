@@ -12,11 +12,11 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.deco.collection.DecoCollectionDesertRiver;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
@@ -25,13 +25,15 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     public RealisticBiomeBYGRedDesert(Biome biome) {
 
         super(biome, river);
-
-        this.waterSurfaceLakeChance = 0;
-        this.noLakes = true;
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -47,19 +49,19 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPolar(x, y, simplex, river);
             float duneHeight = (minDuneHeight + (float) rtgConfig.DUNE_HEIGHT.get());
 
-            duneHeight *= (1f + rtgWorld.simplex.octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+            duneHeight *= (1f + rtgWorld.simplex().octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 
             float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
             float stFactor = duneHeight;
             float hPitch = 70;    // Dune scale
             float hDivisor = 40;
 
-            return terrainPolar(x, y, rtgWorld.simplex, river, stPitch, stFactor, hPitch, hDivisor, base) +
-                groundNoise(x, y, 1f, rtgWorld.simplex);
+            return terrainPolar(x, y, rtgWorld.simplex(), river, stPitch, stFactor, hPitch, hDivisor, base) +
+                groundNoise(x, y, 1f, rtgWorld.simplex());
         }
     }
 
@@ -97,10 +99,10 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -170,7 +172,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
@@ -178,9 +180,14 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver());
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 }

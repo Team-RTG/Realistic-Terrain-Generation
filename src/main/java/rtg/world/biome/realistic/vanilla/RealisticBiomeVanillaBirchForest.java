@@ -13,11 +13,11 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.collection.DecoCollectionBirchForest;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.GroundEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.deco.collection.DecoCollectionBirchForest;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase {
 
@@ -33,6 +33,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
 
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
@@ -54,7 +55,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
             return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
@@ -94,10 +95,10 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -168,6 +169,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeVanillaBase 
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig().ALLOW_LOGS.get()));
+        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 }

@@ -28,8 +28,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import rtg.api.RTGAPI;
-import rtg.util.Logger;
-import rtg.world.WorldTypeRTG;
+import rtg.api.dimension.DimensionManagerRTG;
+import rtg.api.util.Logger;
 import rtg.world.biome.BiomeProviderRTG;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -55,11 +55,11 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         {
             if (entry.getKey().equals("spacing"))
             {
-                this.spacing = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.spacing, 1);
+                this.spacing = MathHelper.getInt(entry.getValue(), this.spacing, 1);
             }
             else if (entry.getKey().equals("separation"))
             {
-                this.separation = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.separation, 1);
+                this.separation = MathHelper.getInt(entry.getValue(), this.separation, 1);
             }
         }
     }
@@ -87,7 +87,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
 
         int k = chunkX / this.spacing;
         int l = chunkZ / this.spacing;
-        Random random = this.worldObj.setRandomSeed(k, l, 10387313);
+        Random random = this.world.setRandomSeed(k, l, 10387313);
         k = k * this.spacing;
         l = l * this.spacing;
         k = k + (random.nextInt(this.spacing - this.separation) + random.nextInt(this.spacing - this.separation)) / 2;
@@ -98,7 +98,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             int x = i * 16 + 8;
             int z = j * 16 + 8;
 
-            if (this.worldObj.getBiomeProvider().getBiome(new BlockPos(x, 64, z), Biomes.DEFAULT) != Biomes.DEEP_OCEAN) {
+            if (this.world.getBiomeProvider().getBiome(new BlockPos(x, 64, z), Biomes.DEFAULT) != Biomes.DEEP_OCEAN) {
                 return false;
             }
 
@@ -122,13 +122,13 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     public boolean areBiomesViable(int x, int z, int radius, List<Biome> allowed)
     {
         // Are we in an RTG world?
-        if (!(this.worldObj.getWorldType() instanceof WorldTypeRTG)) {
+        if (!DimensionManagerRTG.isValidDimension(this.world.provider.getDimension())) {
             //Logger.debug("Could not generate ocean monument. This is not an RTG world.");
             return false;
         }
 
         // Do we have RTG's chunk manager?
-        if (!(this.worldObj.getBiomeProvider() instanceof BiomeProviderRTG)) {
+        if (!(this.world.getBiomeProvider() instanceof BiomeProviderRTG)) {
             //Logger.debug("Could not generate ocean monument. Incompatible chunk manager detected.");
             return false;
         }
@@ -141,7 +141,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
         int i1 = k - i + 1;
         int j1 = l - j + 1;
 
-        BiomeProviderRTG cmr = (BiomeProviderRTG) this.worldObj.getBiomeProvider();
+        BiomeProviderRTG cmr = (BiomeProviderRTG) this.world.getBiomeProvider();
         int[] aint = cmr.getBiomesGens(i, j, i1, j1);
 
         try
@@ -175,7 +175,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     @Override @Nonnull
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new StructureOceanMonumentRTG.StartMonument(this.worldObj, this.rand, chunkX, chunkZ);
+        return new StructureOceanMonumentRTG.StartMonument(this.world, this.rand, chunkX, chunkZ);
     }
 
     @Override @Nonnull

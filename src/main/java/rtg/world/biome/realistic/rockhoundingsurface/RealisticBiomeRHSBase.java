@@ -4,7 +4,7 @@ import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.fml.common.Loader;
 
-import rtg.util.Logger;
+import rtg.api.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -15,13 +15,21 @@ public abstract class RealisticBiomeRHSBase extends RealisticBiomeBase {
     public RealisticBiomeRHSBase(Biome b, Biome riverbiome) {
 
         super(b, riverbiome);
-
-        this.lavaSurfaceLakeChance = 0;
     }
 
     @Override
     public String modSlug() {
         return "rockhoundingsurface";
+    }
+
+    @Override
+    public Biome baseBiome() {
+        return this.baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
     }
 
     public static void addBiomes() {

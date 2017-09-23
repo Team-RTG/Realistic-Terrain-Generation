@@ -13,12 +13,11 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.CliffCalculator;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.DecoBaseBiomeDecorations;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.HeightVariation;
-import rtg.world.gen.terrain.HillockEffect;
-import rtg.world.gen.terrain.TerrainBase;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.HillockEffect;
 
 public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
 
@@ -41,7 +40,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
 
     public class TerrainBOPBog extends TerrainBase {
 
-        private final float bottom = 58f;
+        private final float bottom = 62f;
         private final HeightVariation bottomVariation;
         private final HillockEffect smallHills;
         private final HillockEffect mediumHills;
@@ -55,21 +54,21 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
             bottomVariation.wavelength = 40;
 
             smallHills = new HillockEffect();
-            smallHills.height = 6;
-            smallHills.wavelength = 15;
+            smallHills.height = 5;
+            smallHills.wavelength = 25;
             smallHills.minimumSimplex = 0.2f;
             smallHills.octave = 1;
 
             mediumHills = new HillockEffect();
-            mediumHills.height = 12;
-            mediumHills.wavelength = 25;
+            mediumHills.height = 10;
+            mediumHills.wavelength = 40;
             mediumHills.minimumSimplex = 0.2f;
             mediumHills.octave = 2;
 
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
             float increment = bottomVariation.added(rtgWorld, x, y) + smallHills.added(rtgWorld, x, y);
             increment += mediumHills.added(rtgWorld, x, y);
@@ -91,9 +90,9 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
+            Random rand = rtgWorld.rand();
             float c = CliffCalculator.calc(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
@@ -135,8 +134,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 }

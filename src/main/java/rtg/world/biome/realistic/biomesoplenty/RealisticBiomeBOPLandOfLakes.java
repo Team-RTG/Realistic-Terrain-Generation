@@ -15,15 +15,20 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.world.RTGWorld;
-import rtg.world.biome.deco.*;
-import rtg.world.biome.deco.helper.DecoHelper5050;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
-import rtg.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
-import rtg.world.gen.surface.SurfaceBase;
-import rtg.world.gen.terrain.TerrainBase;
-import static rtg.world.biome.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.IRTGWorld;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.helper.DecoHelper5050;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
@@ -39,12 +44,13 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     public void initConfig() {
 
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPLandOfLakes(58f, 76f, 36f);
+        return new TerrainBOPLandOfLakes();//(58f, 76f, 36f);
     }
 
     public class TerrainBOPLandOfLakes extends TerrainBase {
@@ -52,7 +58,35 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         private float minHeight;
         private float maxHeight;
         private float hillStrength;
+        private HeightVariation small;
+        private HeightVariation large;
+        private JitterEffect largeJitter;
+        private JitterEffect smallJitter;
+        
 
+        public TerrainBOPLandOfLakes() {
+            super(63f);
+            small = new HeightVariation();
+            small.height = 2.5f;
+            small.octave = 1;
+            small.wavelength = 10;
+            
+            large = new HeightVariation();
+            large.height = 5;
+            large.octave = 2;
+            large.wavelength = 20;
+            
+            smallJitter = new JitterEffect();
+            smallJitter.amplitude= 2;
+            smallJitter.wavelength = 9;
+            smallJitter.jittered = large.plus(small);
+            
+            largeJitter = new JitterEffect();
+            largeJitter.amplitude = 4;
+            largeJitter.wavelength = 18;
+            largeJitter.jittered = smallJitter;
+
+        }
         public TerrainBOPLandOfLakes(float minHeight, float maxHeight, float hillStrength) {
 
             this.minHeight = minHeight;
@@ -61,16 +95,16 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+            return riverized(largeJitter.added(rtgWorld, x, y)+ this.base,river);
+            //return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
         }
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f);
+        return new SurfaceBOPLandOfLakes(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.10f);
     }
 
     public class SurfaceBOPLandOfLakes extends SurfaceBase {
@@ -101,10 +135,10 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-            Random rand = rtgWorld.rand;
-            OpenSimplexNoise simplex = rtgWorld.simplex;
+            Random rand = rtgWorld.rand();
+            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = CliffCalculator.calc(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -242,7 +276,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 }

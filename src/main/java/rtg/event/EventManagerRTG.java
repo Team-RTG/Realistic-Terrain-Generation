@@ -24,15 +24,14 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.Acceptor;
-import rtg.api.util.ChunkOreGenTracker;
-import rtg.api.util.RandomUtil;
-import rtg.util.Logger;
-import rtg.util.SaplingUtil;
+import rtg.api.dimension.DimensionManagerRTG;
+import rtg.api.event.SurfaceEvent;
+import rtg.api.util.*;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.util.UBColumnCache;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.gen.genlayer.RiverRemover;
 
 
@@ -46,6 +45,7 @@ public class EventManagerRTG {
     private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
     private final SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
     private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
+    private final SurfaceEventRTG SURFACE_EVENT_HANDLER = new SurfaceEventRTG();
 
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
     private long worldSeed;
@@ -67,7 +67,7 @@ public class EventManagerRTG {
         public void loadChunkRTG(ChunkEvent.Load event) {
 
             // Are we in an RTG world?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
+            if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
                 return;
             }
 
@@ -85,6 +85,11 @@ public class EventManagerRTG {
 
             // Are we in an RTG world?
             if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
+                return;
+            }
+
+            // Are we in a valid dimension?
+            if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
                 return;
             }
 
@@ -190,7 +195,13 @@ public class EventManagerRTG {
             }
 
             try {
-                event.setNewBiomeGens(new RiverRemover().riverLess(event.getOriginalBiomeGens()));
+
+                /*
+                 We're using getNewBiomeGens() instead of getOriginalBiomeGens() to ensure that we're not overwriting
+                 the changes made to the gen layers by other mods, like Painted Biomes.
+                 Thanks @superckl!
+                 */
+                event.setNewBiomeGens(new RiverRemover().riverLess(event.getNewBiomeGens()));
             }
             catch (ClassCastException ex) {
                 //throw ex;
@@ -215,7 +226,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG) ||
+            if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
                 return;
             }
@@ -246,7 +257,7 @@ public class EventManagerRTG {
                 return;
             }
 
-            ArrayList<TreeRTG> biomeTrees = rb.rtgTrees;
+            ArrayList<TreeRTG> biomeTrees = rb.getTrees();
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             Logger.debug("Biome = %s", rb.baseBiome.getBiomeName());
@@ -380,7 +391,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG) ||
+            if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
                 !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
                 return;
             }
@@ -395,6 +406,57 @@ public class EventManagerRTG {
              */
             if (eventType == LAKE_WATER || eventType == LAKE_LAVA) {
                 event.setResult(Event.Result.DENY);
+            }
+        }
+    }
+
+    public class SurfaceEventRTG {
+
+        private final ModPresenceTester undergroundBiomesMod = new ModPresenceTester("undergroundbiomes");
+
+        // Create UBColumnCache only if UB is present
+        private final UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
+
+        SurfaceEventRTG() {
+
+            logEventMessage("Initialising SurfaceEventRTG...");
+        }
+
+        @SubscribeEvent
+        public void onHardcodedCobble(SurfaceEvent.HardcodedBlock event) {
+
+            if ((undergroundBiomesMod.present())) {
+                event.setBlock(ubColumnCache.column(event.getWorldX(), event.getWorldZ()).cobblestone(event.getWorldY()));
+            }
+        }
+
+        @SubscribeEvent
+        public void onShadowStone(SurfaceEvent.HardcodedBlock event) {
+
+            if ((undergroundBiomesMod.present()) && rtgConfig.ENABLE_UBC_STONE_SHADOWING.get()) {
+                event.setBlock(Blocks.STONE.getDefaultState());
+            }
+        }
+
+        @SubscribeEvent
+        public void onShadowDesert(SurfaceEvent.HardcodedBlock event) {
+
+            if ((undergroundBiomesMod.present()) && rtgConfig.ENABLE_UBC_DESERT_SHADOWING.get()) {
+                event.setBlock(Blocks.STONE.getDefaultState());
+            }
+        }
+
+        @SubscribeEvent
+        public void onBoulderBlock(SurfaceEvent.BoulderBlock event) {
+
+            IBlockState defaultBlock = event.getBlock();
+
+            if (defaultBlock == Blocks.COBBLESTONE.getDefaultState()) {
+
+                if (undergroundBiomesMod.present() && rtgConfig.ENABLE_UBC_BOULDERS.get()) {
+
+                    event.setBlock(ubColumnCache.column(event.getWorldX(), event.getWorldZ()).cobblestone(event.getWorldY()));
+                }
             }
         }
     }
@@ -416,6 +478,7 @@ public class EventManagerRTG {
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(SURFACE_EVENT_HANDLER);
 
         logEventMessage("RTG's event handlers have been registered successfully.");
     }

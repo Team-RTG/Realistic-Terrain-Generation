@@ -2,6 +2,7 @@ package rtg.util;
 
 import net.minecraft.world.biome.Biome;
 
+import rtg.api.util.Logger;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
@@ -18,6 +19,7 @@ public class RealisticBiomePresenceTester {
             int biomeId = Biome.getIdForBiome(biome);
             String biomeName = biome.getBiomeName();
             String biomeClass = biome.getBiomeClass().getName();
+            boolean isRealistic = true;
 
             switch (biomeId) {
 
@@ -31,12 +33,17 @@ public class RealisticBiomePresenceTester {
                 default:
 
                     try {
-                        RealisticBiomeBase rBiome = RealisticBiomeBase.getBiome(biomeId);
-                        String rBiomeName = rBiome.biomeSlug();
-
-                        Logger.info("Found biome (%d) %s from %s with a %s beach.", biomeId, biomeName, biomeClass, rBiome.beachBiome().getBiomeName());
+                        isRealistic = RealisticBiomeBase.isRealisticBiome(biomeId);
                     }
                     catch (Exception e) {
+                        isRealistic = false;
+                    }
+
+                    if (isRealistic) {
+                        RealisticBiomeBase rbb = RealisticBiomeBase.getBiome(biomeId);
+                        Logger.info("Found biome (%d) %s from %s with a %s beach.", biomeId, biomeName, biomeClass, rbb.beachBiome().getBiomeName());
+                    }
+                    else {
                         Logger.warn("WARNING! RTG could not find a realistic version of %s (%d) from %s. (If %s is a non-Overworld biome, then this is not an error.)", biomeName, biomeId, biomeClass, biomeName);
                     }
 

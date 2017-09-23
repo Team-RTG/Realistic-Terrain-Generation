@@ -2,6 +2,7 @@ package rtg.api.config;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
@@ -10,6 +11,7 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.lang3.ArrayUtils;
 
 import rtg.api.config.property.*;
+import rtg.api.util.MaterialUtil;
 
 public class RTGConfig extends Config {
 
@@ -45,6 +47,7 @@ public class RTGConfig extends Config {
 
     public final ConfigPropertyBoolean ENABLE_RTG_BIOME_DECORATIONS;
     public final ConfigPropertyBoolean ENABLE_RTG_BIOME_SURFACES;
+    public final ConfigPropertyBoolean ENABLE_RTG_TERRAIN;
     public final ConfigPropertyInt PATCH_BIOME_ID;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,6 +100,7 @@ public class RTGConfig extends Config {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN;
+    public final ConfigPropertyBoolean USE_RTG_WORLD_TYPE_DEFAULT;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Lakes (Scenic)
@@ -142,6 +146,13 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInt OCEAN_MONUMENT_SEPARATION;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Ocean waves
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyBoolean ENABLE_OCEAN_WAVES;
+    public final ConfigPropertyInt OCEAN_WAVE_DIRECTION;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ore gen
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -160,18 +171,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean GENERATE_ORE_SILVERFISH;
 
     public final ConfigPropertyBoolean ALLOW_ORE_GEN_EVENT_CANCELLATION;
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Plateaus
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    public final ConfigPropertyString PLATEAU_GRADIENT_BLOCK_ID;
-    public final ConfigPropertyString MESA_BRYCE_GRADIENT_STRING;
-    public final ConfigPropertyString MESA_GRADIENT_STRING;
-    public final ConfigPropertyString SAVANNA_GRADIENT_STRING;
-    public final ConfigPropertyString PLATEAU_BLOCK_ID;
-    public final ConfigPropertyInt PLATEAU_BLOCK_META;
-    public final ConfigPropertyBoolean STONE_SAVANNAS;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ravines
@@ -244,6 +243,7 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE;
     public final ConfigPropertyBoolean ALLOW_BARK_COVERED_LOGS;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
+    public final ConfigPropertyString MATERIALS_TREES_CAN_GROW_INTO;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Villages
@@ -270,6 +270,15 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean ENABLE_VOLCANOES;
     public final ConfigPropertyBoolean ENABLE_VOLCANO_ERUPTIONS;
     public final ConfigPropertyInt VOLCANO_CHANCE;
+    public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS;
+    public final ConfigPropertyInt VOLCANO_CONDUIT_DEPTH;
+    public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER;
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Surface Bleeding
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public final ConfigPropertyInt SURFACE_BLEED_RADIUS;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,6 +337,15 @@ public class RTGConfig extends Config {
             true
         );
         this.addProperty(ENABLE_RTG_BIOME_SURFACES);
+
+        ENABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable RTG Terrain",
+            "Biomes",
+            "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all realistic terrain generation and uses vanilla terrain instead.",
+            true
+        );
+        this.addProperty(ENABLE_RTG_TERRAIN);
 
         PATCH_BIOME_ID = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
@@ -522,6 +540,15 @@ public class RTGConfig extends Config {
         );
         this.addProperty(ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN);
 
+        USE_RTG_WORLD_TYPE_DEFAULT = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Automatically select RTG world type when creating a new world",
+            "GUI",
+            "",
+            true
+        );
+        this.addProperty(USE_RTG_WORLD_TYPE_DEFAULT);
+
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Lakes (Scenic)
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -709,6 +736,32 @@ public class RTGConfig extends Config {
         this.addProperty(OCEAN_MONUMENT_SEPARATION);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Ocean waves
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        ENABLE_OCEAN_WAVES = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable Ocean Waves",
+            "Ocean Waves",
+            "If TRUE, uses the individual biome settings in relevant biome config files (e.g. Ocean and Deep Ocean)."
+                + Configuration.NEW_LINE +
+                "If FALSE, disables all ocean waves.",
+            true
+        );
+        this.addProperty(ENABLE_OCEAN_WAVES);
+
+        OCEAN_WAVE_DIRECTION = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Ocean Wave Direction",
+            "Ocean Waves",
+            "This setting determines the directin that ocean waves are placed."
+                + Configuration.NEW_LINE +
+                "0 = East->West; 1 = North->South",
+            0, 0, 1
+        );
+        this.addProperty(OCEAN_WAVE_DIRECTION);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Ore gen
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -763,81 +816,6 @@ public class RTGConfig extends Config {
             true
         );
         this.addProperty(ALLOW_ORE_GEN_EVENT_CANCELLATION);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // Plateaus
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        PLATEAU_GRADIENT_BLOCK_ID = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block ID",
-            "Plateaus",
-            "The block to use for Mesa & Savanna plateau gradients. Defaults to stained hardened clay." +
-                Configuration.NEW_LINE +
-                "This can be any block, but it works best with blocks that have multiple colours, such as stained hardened clay." +
-                Configuration.NEW_LINE +
-                "The various 'meta' options in this section will use this block to configure the plateau gradients.",
-            "minecraft:stained_hardened_clay"
-        );
-        this.addProperty(PLATEAU_GRADIENT_BLOCK_ID);
-
-        MESA_BRYCE_GRADIENT_STRING = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block Meta Values (Mesa Bryce)",
-            "Plateaus",
-            getPlateauGradientBlockMetasComment("Mesa Bryce biome"),
-            "-1,-1,0,1,0,0,0,14,0,8,0,1,8,0,-1,0,14,0,0,14,0,0,8"
-        );
-        this.addProperty(MESA_BRYCE_GRADIENT_STRING);
-
-        MESA_GRADIENT_STRING = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block Meta Values (Mesa)",
-            "Plateaus",
-            getPlateauGradientBlockMetasComment("Mesa biome variants (doesn't include Mesa Bryce)"),
-            "0,1,8,14,1,8"
-        );
-        this.addProperty(MESA_GRADIENT_STRING);
-
-        SAVANNA_GRADIENT_STRING = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Gradient Plateau Block Meta Values (Savanna)",
-            "Plateaus",
-            getPlateauGradientBlockMetasComment("Savanna biome variants"),
-            "0,0,0,0,8,8,12,12,8,0,8,12,12,8,12,8,0,0,8,12,12"
-        );
-        this.addProperty(SAVANNA_GRADIENT_STRING);
-
-        PLATEAU_BLOCK_ID = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Plateau Block ID",
-            "Plateaus",
-            "An extra block to use for Mesa & Savanna plateau gradients. Defaults to hardened clay." +
-                Configuration.NEW_LINE +
-                "When configuring the various 'meta' options in this section, use a value of '-1' to reference this block.",
-            "minecraft:hardened_clay"
-        );
-        this.addProperty(PLATEAU_BLOCK_ID);
-
-        PLATEAU_BLOCK_META = new ConfigPropertyInt(
-            ConfigProperty.Type.INTEGER,
-            "Plateau Block Meta Value",
-            "Plateaus",
-            "The meta value of the plateau block.",
-            0, 0, 15
-        );
-        this.addProperty(PLATEAU_BLOCK_META);
-
-        STONE_SAVANNAS = new ConfigPropertyBoolean(
-            ConfigProperty.Type.BOOLEAN,
-            "Use stone for most Savanna biome variants",
-            "Plateaus",
-            "If set to TRUE, Savanna biome variants will mostly use stone/cobblestone instead of gradient blocks for cliffs and plateaus."
-                + Configuration.NEW_LINE +
-                "Savanna Plateau M will always use gradient blocks.",
-            true
-        );
-        this.addProperty(STONE_SAVANNAS);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Ravines
@@ -1206,6 +1184,21 @@ public class RTGConfig extends Config {
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);
 
+        MATERIALS_TREES_CAN_GROW_INTO = new ConfigPropertyString(
+            ConfigProperty.Type.STRING,
+            "Materials That Trees Can Grow Into",
+            "Trees",
+            "Comma-separated list of materials that trees can grow into (replace) when generating."
+                + Configuration.NEW_LINE +
+                "Valid values include the following:"
+                + Configuration.NEW_LINE +
+                "AIR,ANVIL,BARRIER,CACTUS,CAKE,CARPET,CIRCUITS,CLAY,CLOTH,CORAL,CRAFTED_SNOW,DRAGON_EGG,FIRE,GLASS,GOURD,GRASS,GROUND,ICE,IRON,LAVA,LEAVES,PACKED_ICE,PISTON,PLANTS,PORTAL,REDSTONE_LIGHT,ROCK,SAND,SNOW,SPONGE,STRUCTURE_VOID,TNT,VINE,WATER,WEB,WOOD"
+                + Configuration.NEW_LINE +
+                "For more information, visit http://minecraft.gamepedia.com/Materials",
+                "AIR,WOOD,LEAVES,GRASS,GROUND,PLANTS,VINE,WATER,SNOW"
+        );
+        this.addProperty(MATERIALS_TREES_CAN_GROW_INTO);
+
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Villages
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1266,7 +1259,7 @@ public class RTGConfig extends Config {
         VOLCANO_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
             "Volcano block ID",
-            "Volcanoes",
+            "Volcanoes.Volcano Blocks.Volcano Block",
             "The main block to use for the surface of the volcano.",
             "minecraft:obsidian"
         );
@@ -1275,7 +1268,7 @@ public class RTGConfig extends Config {
         VOLCANO_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
             "Volcano block meta value",
-            "Volcanoes",
+            "Volcanoes.Volcano Blocks.Volcano Block",
             "The meta value of the volcano block.",
             0, 0, 15
         );
@@ -1283,8 +1276,8 @@ public class RTGConfig extends Config {
 
         VOLCANO_MIX1_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
-            "Volcano mix 1 block ID",
-            "Volcanoes",
+            "Volcano mix block 1 ID",
+            "Volcanoes.Volcano Blocks.Mix Block 1",
             "The block ID of the 1st volcano mix block.",
             "minecraft:cobblestone"
         );
@@ -1292,8 +1285,8 @@ public class RTGConfig extends Config {
 
         VOLCANO_MIX1_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
-            "Volcano mix 1 block meta value",
-            "Volcanoes",
+            "Volcano mix block 1 meta value",
+            "Volcanoes.Volcano Blocks.Mix Block 1",
             "The meta value of the 1st volcano mix block.",
             0, 0, 15
         );
@@ -1301,8 +1294,8 @@ public class RTGConfig extends Config {
 
         VOLCANO_MIX2_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
-            "Volcano mix 2 block ID",
-            "Volcanoes",
+            "Volcano mix block 2 ID",
+            "Volcanoes.Volcano Blocks.Mix Block 2",
             "The block ID of the 2nd volcano mix block.",
             "minecraft:gravel"
         );
@@ -1310,8 +1303,8 @@ public class RTGConfig extends Config {
 
         VOLCANO_MIX2_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
-            "Volcano mix 2 block meta value",
-            "Volcanoes",
+            "Volcano mix block 2 meta value",
+            "Volcanoes.Volcano Blocks.Mix Block 2",
             "The meta value of the 2nd volcano mix block.",
             0, 0, 15
         );
@@ -1319,8 +1312,8 @@ public class RTGConfig extends Config {
 
         VOLCANO_MIX3_BLOCK_ID = new ConfigPropertyString(
             ConfigProperty.Type.STRING,
-            "Volcano mix 3 block ID",
-            "Volcanoes",
+            "Volcano mix block 3 ID",
+            "Volcanoes.Volcano Blocks.Mix Block 3",
             "The block ID of the 3rd volcano mix block.",
             "minecraft:coal_block"
         );
@@ -1328,8 +1321,8 @@ public class RTGConfig extends Config {
 
         VOLCANO_MIX3_BLOCK_META = new ConfigPropertyInt(
             ConfigProperty.Type.INTEGER,
-            "Volcano mix 3 block meta value",
-            "Volcanoes",
+            "Volcano mix block 3 meta value",
+            "Volcanoes.Volcano Blocks.Mix Block 3",
             "The meta value of the 3rd volcano mix block.",
             0, 0, 15
         );
@@ -1364,6 +1357,51 @@ public class RTGConfig extends Config {
         );
         this.addProperty(VOLCANO_CHANCE);
 
+        ENABLE_VOLCANO_CONDUITS = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Enable volcano conduits",
+            "Volcanoes.Volcano Conduits",
+            "Set this to FALSE to prevent volcanoes from generating conduits (lava tubes) below their throats.",
+            true
+        );
+        this.addProperty(ENABLE_VOLCANO_CONDUITS);
+
+        VOLCANO_CONDUIT_DEPTH = new ConfigPropertyInt(
+            ConfigProperty.Type.INTEGER,
+            "Volcano Conduit Depth",
+            "Volcanoes.Volcano Conduits",
+            "The lowest Y value that conduits should reach."
+                + Configuration.NEW_LINE +
+                "Please note that even though conduits can reach to Y=1, they will not replace bedrock.",
+            0, 0, 120
+        );
+        this.addProperty(VOLCANO_CONDUIT_DEPTH);
+
+        VOLCANO_CALDERA_MULTIPLIER = new ConfigPropertyFloat(
+            ConfigProperty.Type.FLOAT,
+            "Volcano Caldera Multiplier",
+            "Volcanoes",
+            "This setting allows you to modify the radius of volcano calderas.",
+            1, 1, 3
+        );
+        this.addProperty(VOLCANO_CALDERA_MULTIPLIER);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Surface Bleeding
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        SURFACE_BLEED_RADIUS = this.addProperty(new ConfigPropertyInt(
+                ConfigProperty.Type.INTEGER,
+                "Surface Bleed Radius",
+                "Surface Bleed",
+                "The maximum distance surfaces will bleed. Set to 0 to disable surface bleeds." +
+                Configuration.NEW_LINE +
+                "Per default surface bleeding is only enabled for beaches. You can control that in biome settings",
+                16, 0, 32
+        ));
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
@@ -1408,5 +1446,27 @@ public class RTGConfig extends Config {
         // With the river system changing frequency also shinks size and that will
         // confuse the heck out of users.
         return RIVER_SIZE_MULTIPLIER.get() * RIVER_FREQUENCY_MULTIPLIER.get();
+    }
+
+    public static ArrayList<Material> getTreeMaterialsFromConfigString(String configString)
+    {
+        String[] strings = configString.split(",");
+        ArrayList<Material> materials = new ArrayList<Material>(){};
+
+        for (int i = 0; i < strings.length; i++) {
+
+            String string = strings[i].trim().toUpperCase();
+
+            try {
+
+                MaterialUtil util = new MaterialUtil(string);
+                materials.add(util.getMaterial());
+            }
+            catch (Exception e) {
+                ;
+            }
+        }
+
+        return materials;
     }
 }

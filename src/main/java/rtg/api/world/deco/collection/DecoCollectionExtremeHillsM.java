@@ -34,11 +34,14 @@ public class DecoCollectionExtremeHillsM extends DecoCollectionExtremeHills {
 
         this.addTree(nigraTree);
 
-        return new DecoTree(nigraTree)
-            .setLoops(4)
+        DecoTree decoTree = new DecoTree(nigraTree)
             .setTreeType(DecoTree.TreeType.RTG_TREE)
             .setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE)
-            .setTreeConditionChance(3)
-            .setMaxY(maxY);
+            .setTreeConditionChance(3);
+
+        decoTree.config().MAX_Y.set(maxY);
+        decoTree.config().LOOPS.set(4);
+
+        return decoTree;
     }
 }

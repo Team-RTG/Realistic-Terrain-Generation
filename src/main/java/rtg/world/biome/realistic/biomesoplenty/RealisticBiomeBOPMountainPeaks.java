@@ -195,10 +195,10 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(90);
-        decoBoulder.setChance(16);
-        decoBoulder.setStrengthFactor(3f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().MAX_Y.set(90);
+        decoBoulder.config().CHANCE.set(16);
+        decoBoulder.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -215,14 +215,14 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(10);
+        decoShrub.config().MAX_Y.set(110);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
+        decoShrub.config().CHANCE.set(10);
         this.addDeco(decoShrub);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(3f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoGrass);
     }
 

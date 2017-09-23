@@ -167,14 +167,14 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(1f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(16);
+        decoBoulder.config().MAX_Y.set(95);
+        decoBoulder.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLoops(1);
+        decoFallenTree.config().LOOPS.set(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
@@ -188,8 +188,8 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(12);
-        decoBOPBaseBiomeDecorations.setLoops(1);
+        decoBOPBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(12);
+        decoBOPBaseBiomeDecorations.config().LOOPS.set(1);
         this.addDeco(decoBOPBaseBiomeDecorations);
     }
 }

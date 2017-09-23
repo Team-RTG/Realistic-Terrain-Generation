@@ -198,10 +198,10 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(16);
-        decoBoulder.setStrengthFactor(1f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().CHANCE.set(16);
+        decoBoulder.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -217,8 +217,8 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
-        decoJungleCacti.setStrengthFactor(8f);
-        decoJungleCacti.setMaxY(110);
+        decoJungleCacti.config().STRENGTH_FACTOR.set(8f);
+        decoJungleCacti.config().MAX_Y.set(110);
         this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
     }
 }

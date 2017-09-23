@@ -17,7 +17,6 @@ import rtg.api.world.gen.feature.WorldGenSeaweed;
  */
 public class DecoSeaweed extends DecoBase {
 
-    protected int loops;
     protected float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
     protected boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
     protected boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
@@ -27,8 +26,6 @@ public class DecoSeaweed extends DecoBase {
     protected float conditionNoise2; // Only applies to a noise-related Condition.
     protected int conditionChance; // Only applies to a chance-related Condition.
     protected float conditionFloat; // Multi-purpose float.
-    protected int minY; // Lower height restriction.
-    protected int maxY; // Upper height restriction.
     protected IBlockState seaweedBlock;
     protected int minHeight; // Min seaweed height (only used with certain seaweed presets)
     protected int maxHeight; // Max seaweed height (only used with certain seaweed presets)
@@ -42,7 +39,6 @@ public class DecoSeaweed extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setStrengthFactorForLoops(0f);
         this.setStrengthNoiseFactorForLoops(false);
         this.setStrengthNoiseFactorXForLoops(false);
@@ -52,14 +48,25 @@ public class DecoSeaweed extends DecoBase {
         this.setConditionNoise2(0f);
         this.setConditionFloat(0f);
         this.setConditionChance(1);
-        this.setMinY(15); // Few blocks below min ocean floor by default.
-        this.setMaxY(58); // No seaweed sticking out of the water by default.
         this.setSeaweedBlock(BlockUtil.getStateLeaf(3));
         this.setMinHeight(1);
         this.setMaxHeight(4);
         this.setScatter(new Scatter(16, 0));
 
         this.addDecoTypes(DecoType.SEAWEED);
+    }
+
+    @Override
+    public String friendlyName() {
+        return "Seaweed";
+    }
+
+    @Override
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(15); // Few blocks below min ocean floor by default.
+        this.config().addProperty(this.config().MAX_Y).set(58); // No seaweed sticking out of the water by default.
+        this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
     }
 
     @Override
@@ -70,7 +77,7 @@ public class DecoSeaweed extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             /*
              * Determine how much seaweed we're going to try to generate (loopCount).
@@ -78,7 +85,7 @@ public class DecoSeaweed extends DecoBase {
              * depending on environmental conditions.
              */
             float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            int loopCount = this.loops;
+            int loopCount = this.config().LOOPS.get();
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
@@ -93,11 +100,11 @@ public class DecoSeaweed extends DecoBase {
 
                 int intX = scatter.get(rand, worldX); // + 8;
                 int intZ = scatter.get(rand, worldZ); // + 8;
-                int intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                int intY = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
 
                 //Logger.info("noise = %f", noise);
 
-                if (intY <= this.maxY && intY >= this.minY && isValidCondition(noise, rand, strength)) {
+                if (intY <= this.config().MAX_Y.get() && intY >= this.config().MIN_Y.get() && isValidCondition(noise, rand, strength)) {
 
                     worldGen.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                 }
@@ -215,17 +222,6 @@ public class DecoSeaweed extends DecoBase {
         }
     }
 
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoSeaweed setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
-    }
-
     public float getStrengthFactorForLoops() {
 
         return strengthFactorForLoops;
@@ -322,28 +318,6 @@ public class DecoSeaweed extends DecoBase {
     public DecoSeaweed setConditionFloat(float conditionFloat) {
 
         this.conditionFloat = conditionFloat;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoSeaweed setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoSeaweed setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

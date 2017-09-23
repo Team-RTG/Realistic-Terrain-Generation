@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 import rtg.api.config.property.*;
+import rtg.api.util.BlockStringUtil;
 
 
 public abstract class Config {
@@ -74,6 +75,11 @@ public abstract class Config {
         return property;
     }
 
+    public ConfigPropertyBlockstate addProperty(ConfigPropertyBlockstate property) {
+        this.addProp(property);
+        return property;
+    }
+
     public void load(String configFile) {
 
         config = new Configuration(new File(configFile));
@@ -85,66 +91,73 @@ public abstract class Config {
 
             for (ConfigProperty prop : properties) {
 
-                switch (prop.type) {
+                if (prop.restricted) {
+                    continue;
+                }
 
-                    case INTEGER:
+                if (prop instanceof ConfigPropertyInt) {
 
-                        ConfigPropertyInt propInt = (ConfigPropertyInt) prop;
+                    ConfigPropertyInt propInt = (ConfigPropertyInt)prop;
 
-                        propInt.set(config.getInt(
-                            propInt.name,
-                            propInt.category,
-                            propInt.valueInt,
-                            propInt.minValueInt,
-                            propInt.maxValueInt,
-                            prop.description
-                        ));
+                    propInt.set(config.getInt(
+                        propInt.name,
+                        propInt.category,
+                        propInt.valueInt,
+                        propInt.minValueInt,
+                        propInt.maxValueInt,
+                        prop.description
+                    ));
+                }
+                else if (prop instanceof ConfigPropertyFloat) {
 
-                        break;
+                    ConfigPropertyFloat propFloat = (ConfigPropertyFloat)prop;
 
-                    case FLOAT:
+                    propFloat.set(config.getFloat(
+                        propFloat.name,
+                        propFloat.category,
+                        propFloat.valueFloat,
+                        propFloat.minValueFloat,
+                        propFloat.maxValueFloat,
+                        propFloat.description
+                    ));
 
-                        ConfigPropertyFloat propFloat = (ConfigPropertyFloat) prop;
+                }
+                else if (prop instanceof ConfigPropertyBoolean) {
 
-                        propFloat.set(config.getFloat(
-                            propFloat.name,
-                            propFloat.category,
-                            propFloat.valueFloat,
-                            propFloat.minValueFloat,
-                            propFloat.maxValueFloat,
-                            propFloat.description
-                        ));
+                    ConfigPropertyBoolean propBool = (ConfigPropertyBoolean)prop;
 
-                        break;
+                    propBool.set(config.getBoolean(
+                        propBool.name,
+                        propBool.category,
+                        propBool.valueBoolean,
+                        propBool.description
+                    ));
 
-                    case BOOLEAN:
+                }
+                else if (prop instanceof ConfigPropertyString) {
 
-                        ConfigPropertyBoolean propBool = (ConfigPropertyBoolean) prop;
+                    ConfigPropertyString propString = (ConfigPropertyString)prop;
 
-                        propBool.set(config.getBoolean(
-                            propBool.name,
-                            propBool.category,
-                            propBool.valueBoolean,
-                            propBool.description
-                        ));
+                    propString.set(config.getString(
+                        propString.name,
+                        propString.category,
+                        propString.valueString,
+                        propString.description
+                    ));
+                }
+                else if (prop instanceof ConfigPropertyBlockstate) {
 
-                        break;
+                    ConfigPropertyBlockstate propBlockstate = (ConfigPropertyBlockstate)prop;
 
-                    case STRING:
-
-                        ConfigPropertyString propString = (ConfigPropertyString) prop;
-
-                        propString.set(config.getString(
-                            propString.name,
-                            propString.category,
-                            propString.valueString,
-                            propString.description
-                        ));
-
-                        break;
-
-                    default:
-                        throw new RuntimeException("ConfigProperty type not supported.");
+                    propBlockstate.set(BlockStringUtil.stringToState(config.getString(
+                        propBlockstate.name,
+                        propBlockstate.category,
+                        BlockStringUtil.stateToString(propBlockstate.valueBlockstate),
+                        propBlockstate.description
+                    )));
+                }
+                else {
+                    throw new RuntimeException("ConfigProperty type not supported.");
                 }
             }
 

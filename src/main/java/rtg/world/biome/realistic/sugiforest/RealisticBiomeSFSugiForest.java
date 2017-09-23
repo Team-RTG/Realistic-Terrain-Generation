@@ -182,34 +182,34 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         DecoShrub decoShrubSugi = new DecoShrub();
         decoShrubSugi.setLogBlock(sugiLogBlock);
         decoShrubSugi.setLeavesBlock(sugiLeavesBlock);
-        decoShrubSugi.setMaxY(90);
-        decoShrubSugi.setStrengthFactor(4f);
-        decoShrubSugi.setChance(8);
+        decoShrubSugi.config().MAX_Y.set(90);
+        decoShrubSugi.config().STRENGTH_FACTOR.set(4f);
+        decoShrubSugi.config().CHANCE.set(8);
         this.addDeco(decoShrubSugi);
 
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.setMaxY(90);
-        decoShrubOak.setStrengthFactor(4f);
-        decoShrubOak.setChance(4);
+        decoShrubOak.config().MAX_Y.set(90);
+        decoShrubOak.config().STRENGTH_FACTOR.set(4f);
+        decoShrubOak.config().CHANCE.set(4);
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(24);
-        decoBoulder.setMaxY(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(24);
+        decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
+        decoBaseBiomeDecorations.config().MAX_Y.set(105);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(100);
-        decoGrass.setLoops(1);
+        decoGrass.config().MIN_Y.set(63);
+        decoGrass.config().MAX_Y.set(100);
+        decoGrass.config().LOOPS.set(1);
         this.addDeco(decoGrass);
     }
 }

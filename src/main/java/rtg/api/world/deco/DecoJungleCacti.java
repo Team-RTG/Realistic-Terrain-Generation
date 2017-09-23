@@ -17,9 +17,6 @@ import rtg.api.world.gen.feature.WorldGenJungleCacti;
  */
 public class DecoJungleCacti extends DecoBase {
 
-    private float strengthFactor;
-    private int maxY;
-    private boolean sandOnly;
     private int extraHeight;
     private byte sandMeta;
 
@@ -31,9 +28,6 @@ public class DecoJungleCacti extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setStrengthFactor(8f);
-        this.setMaxY(255); // No height limit by default.
-        this.setSandOnly(false);
         this.setExtraHeight(7);
         this.setSandMeta((byte) 1);
 
@@ -41,58 +35,37 @@ public class DecoJungleCacti extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Jungle Cacti";
+    }
+
+    @Override
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(8f);
+        this.config().addProperty(this.config().SAND_ONLY).set(false);
+    }
+
+    @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
 
-                WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta);
+                WorldGenerator worldGenerator = new WorldGenJungleCacti(this.config().SAND_ONLY.get(), rand.nextInt(this.extraHeight), this.sandMeta);
 
-                for (int i = 0; i < this.strengthFactor * strength; i++) {
+                for (int i = 0; i < this.config().STRENGTH_FACTOR.get() * strength; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intY = rand.nextInt(160);
                     int intZ = worldZ + rand.nextInt(16);// + 8;
 
-                    if (intY < this.maxY) {
+                    if (intY < this.config().MAX_Y.get()) {
                         worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                     }
                 }
             }
         }
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoJungleCacti setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoJungleCacti setMaxY(int maxY) {
-
-        this.maxY = maxY;
-        return this;
-    }
-
-    public boolean isSandOnly() {
-
-        return sandOnly;
-    }
-
-    public DecoJungleCacti setSandOnly(boolean sandOnly) {
-
-        this.sandOnly = sandOnly;
-        return this;
     }
 
     public int getExtraHeight() {

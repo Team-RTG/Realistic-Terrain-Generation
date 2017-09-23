@@ -11,18 +11,30 @@ import rtg.api.world.deco.DecoBase;
  *
  * @author WhichOnesPink
  */
-public class DecoHelperRandomSplit extends DecoBase {
+public class DecoHelperRandomSplit extends DecoHelper {
 
-    public DecoBase[] decos;
-    public int[] chances;
+    private DecoBase[] decos;
+    private int[] chances;
 
-    public DecoHelperRandomSplit() {
+    public DecoHelperRandomSplit(DecoBase[] decos, int[] chances) {
 
         super();
 
-        this.decos = new DecoBase[]{};
-        this.chances = new int[]{};
+        this.decos = decos;
+        this.chances = chances;
+
+        for (DecoBase helperDeco : this.decos) {
+            this.addHelperDecos(helperDeco);
+        }
     }
+
+    @Override
+    public String friendlyName() {
+        return "Helper Random Split";
+    }
+
+    @Override
+    public void initConfig() {}
 
     public boolean properlyDefined() {
 
@@ -37,7 +49,7 @@ public class DecoHelperRandomSplit extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (this.decos.length < 1 || this.chances.length < 1 || this.decos.length != this.chances.length) {
                 throw new RuntimeException("DecoHelperRandomSplit is confused.");
@@ -59,27 +71,5 @@ public class DecoHelperRandomSplit extends DecoBase {
                 chosen -= chances[i];
             }
         }
-    }
-
-    public DecoBase[] getDecos() {
-
-        return decos;
-    }
-
-    public DecoHelperRandomSplit setDecos(DecoBase[] decos) {
-
-        this.decos = decos;
-        return this;
-    }
-
-    public int[] getChances() {
-
-        return chances;
-    }
-
-    public DecoHelperRandomSplit setChances(int[] chances) {
-
-        this.chances = chances;
-        return this;
     }
 }

@@ -186,16 +186,16 @@ public class RealisticBiomeMCMWarmTaiga extends RealisticBiomeMCMBase {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setLogBlock(BlockUtil.getStateLog(1));
         decoShrub.setLeavesBlock(BlockUtil.getStateLeaf(1));
-        decoShrub.setMaxY(90);
-        decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(12);
+        decoShrub.config().MAX_Y.set(90);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
+        decoShrub.config().CHANCE.set(12);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(30);
-        decoBoulder.setMaxY(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(30);
+        decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();

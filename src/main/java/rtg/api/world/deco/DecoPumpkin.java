@@ -17,12 +17,8 @@ import rtg.api.world.biome.IRealisticBiome;
  */
 public class DecoPumpkin extends DecoBase {
 
-    private float strengthFactor;
-    private int maxY;
     private float randomFloat;
     private RandomType randomType;
-    private int chance;
-    private int loops;
 
     public DecoPumpkin() {
 
@@ -32,34 +28,43 @@ public class DecoPumpkin extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setMaxY(255); // No height limit by default.
-        this.setStrengthFactor(0f); // The higher the value, the more there will be. Disabled by default.
         this.setRandomType(RandomType.USE_CHANCE_VALUE);
         this.setRandomFloat(1f);
-        this.setChance(1);
-        this.setLoops(1);
 
         this.addDecoTypes(DecoType.PUMPKIN);
     }
 
     @Override
+    public String friendlyName() {
+        return "Pumpkins";
+    }
+
+    @Override
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(255);
+        this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
+    }
+
+    @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), PUMPKIN)) {
 
                 // Let's figure out what the rand.nextInt() argument should be.
                 switch (this.randomType) {
                     case ALWAYS_GENERATE:
-                        this.setChance(1);
+                        this.config().CHANCE.set(1);
                         break;
 
                     case USE_CHANCE_VALUE:
                         break;
 
                     case X_DIVIDED_BY_STRENGTH:
-                        this.setChance((int) (this.randomFloat / strength));
+                        this.config().CHANCE.set((int) (this.randomFloat / strength));
                         break;
 
                     default:
@@ -68,15 +73,15 @@ public class DecoPumpkin extends DecoBase {
 
                 WorldGenerator worldGenerator = new WorldGenPumpkin();
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-                for (int i = 0; i < this.loops; i++) {
-                    if (rand.nextInt(this.chance) == 0) {
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
+                for (int i = 0; i < loops; i++) {
+                    if (rand.nextInt(this.config().CHANCE.get()) == 0) {
 
                         int intX = worldX + rand.nextInt(16) + 8;
-                        int intY = rand.nextInt(this.maxY);
+                        int intY = rand.nextInt(this.config().MAX_Y.get());
                         int intZ = worldZ + rand.nextInt(16) + 8;
 
-                        if (intY <= this.maxY) {
+                        if (intY <= this.config().MAX_Y.get()) {
                             worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
@@ -89,28 +94,6 @@ public class DecoPumpkin extends DecoBase {
         ALWAYS_GENERATE,
         USE_CHANCE_VALUE,
         X_DIVIDED_BY_STRENGTH
-    }
-
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoPumpkin setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoPumpkin setMaxY(int maxY) {
-
-        this.maxY = maxY;
-        return this;
     }
 
     public float getRandomFloat() {
@@ -132,28 +115,6 @@ public class DecoPumpkin extends DecoBase {
     public DecoPumpkin setRandomType(RandomType randomType) {
 
         this.randomType = randomType;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoPumpkin setChance(int chance) {
-
-        this.chance = chance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoPumpkin setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

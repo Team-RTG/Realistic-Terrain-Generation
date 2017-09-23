@@ -255,23 +255,23 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
-        decoBoulder1.setChance(24);
+        decoBoulder1.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.config().MAX_Y.set(80);
+        decoBoulder1.config().CHANCE.set(24);
         this.addDeco(decoBoulder1);
 
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMinY(110);
-        decoBoulder2.setChance(24);
+        decoBoulder2.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.config().MIN_Y.set(110);
+        decoBoulder2.config().CHANCE.set(24);
         this.addDeco(decoBoulder2);
 
         DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        acaciaShrub.setMaxY(160);
-        acaciaShrub.setStrengthFactor(3f);
-        acaciaShrub.setChance(9);
+        acaciaShrub.config().MAX_Y.set(160);
+        acaciaShrub.config().STRENGTH_FACTOR.set(3f);
+        acaciaShrub.config().CHANCE.set(9);
         this.addDeco(acaciaShrub);
 
         TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
@@ -286,23 +286,23 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         acaciaTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         acaciaTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         acaciaTrees.setTreeConditionChance(12);
-        acaciaTrees.setMaxY(90);
+        acaciaTrees.config().MAX_Y.set(90);
         this.addDeco(acaciaTrees);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.setMaxY(160);
-        decoCactus.setLoops(60);
-        decoCactus.setChance(8);
+        decoCactus.config().MAX_Y.set(160);
+        decoCactus.config().LOOPS.set(60);
+        decoCactus.config().CHANCE.set(8);
         this.addDeco(decoCactus, this.getConfig().ALLOW_CACTUS.get());
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
-        decoDoubleGrass.setMaxY(128);
-        decoDoubleGrass.setStrengthFactor(3f);
+        decoDoubleGrass.config().MAX_Y.set(128);
+        decoDoubleGrass.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoDoubleGrass);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(10f);
         this.addDeco(decoGrass);
     }
 }

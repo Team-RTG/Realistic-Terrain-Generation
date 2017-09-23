@@ -12,7 +12,7 @@ import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 
-public class DecoHelperOneIn extends DecoBase {
+public class DecoHelperOneIn extends DecoHelper {
 
     private DecoBase deco;
     private int chances;
@@ -23,12 +23,22 @@ public class DecoHelperOneIn extends DecoBase {
 
         this.deco = deco;
         this.chances = chances;
+
+        this.addHelperDecos(this.deco);
     }
+
+    @Override
+    public String friendlyName() {
+        return "Helper One In";
+    }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (rand.nextInt(this.chances) == 0) {
 

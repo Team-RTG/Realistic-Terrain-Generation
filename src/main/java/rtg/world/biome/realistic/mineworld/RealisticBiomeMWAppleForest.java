@@ -166,10 +166,10 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setStrengthFactor(2f);
-        decoBoulder.setChance(24);
-        decoBoulder.setMaxY(95);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
+        decoBoulder.config().CHANCE.set(24);
+        decoBoulder.config().MAX_Y.set(95);
         this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree1 = new DecoFallenTree();
@@ -179,7 +179,7 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
         decoFallenTree1.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(16);
-        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.config().MAX_Y.set(100);
         decoFallenTree1.setLogBlock(mwLogBlock);
         decoFallenTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree1.setMinSize(3);
@@ -187,17 +187,17 @@ public class RealisticBiomeMWAppleForest extends RealisticBiomeMWBase {
         this.addDeco(decoFallenTree1, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(120);
-        decoShrub.setStrengthFactor(3f);
+        decoShrub.config().MAX_Y.set(120);
+        decoShrub.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoShrub);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(4);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(20f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(20f);
         this.addDeco(decoGrass);
     }
 }

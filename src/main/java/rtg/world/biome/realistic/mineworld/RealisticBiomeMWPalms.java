@@ -153,7 +153,7 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
     public void initDecos() {
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setEqualsZeroChance(5);
+        decoBaseBiomeDecorations.config().EQUALS_ZERO_CHANCE.set(5);
         this.addDeco(decoBaseBiomeDecorations);
     }
 }

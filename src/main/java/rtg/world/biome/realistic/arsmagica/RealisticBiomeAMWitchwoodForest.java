@@ -167,9 +167,9 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setLogBlock(this.witchwoodLogBlock());
         decoShrub.setLeavesBlock(this.witchwoodLeavesBlock());
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(4f);
-        decoShrub.setChance(6);
+        decoShrub.config().MAX_Y.set(110);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
+        decoShrub.config().CHANCE.set(6);
         this.addDeco(decoShrub);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -190,8 +190,8 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setLoops(8);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().LOOPS.set(8);
         this.addDeco(decoGrass);
     }
 

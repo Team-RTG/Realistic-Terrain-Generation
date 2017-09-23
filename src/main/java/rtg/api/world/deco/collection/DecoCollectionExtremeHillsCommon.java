@@ -42,7 +42,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         decoFallenTree.setLeavesBlock(leaves);
         decoFallenTree.setMinSize(4);
         decoFallenTree.setMaxSize(7);
-        decoFallenTree.setMaxY(75);
+        decoFallenTree.config().MAX_Y.set(75);
 
         return decoFallenTree;
     }
@@ -58,9 +58,9 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setLogBlock(log);
         decoShrub.setLeavesBlock(leaves);
-        decoShrub.setStrengthFactor(4f);
-        decoShrub.setChance(2);
-        decoShrub.setMaxY(110);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
+        decoShrub.config().CHANCE.set(2);
+        decoShrub.config().MAX_Y.set(110);
         return decoShrub;
     }
 
@@ -73,24 +73,24 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
     private DecoBoulder boulders() {
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(12);
-        decoBoulder.setMaxY(90);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(12);
+        decoBoulder.config().MAX_Y.set(90);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         return decoBoulder;
     }
 
     private DecoFlowersRTG flowers() {
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2});
-        decoFlowersRTG.setMaxY(80);
-        decoFlowersRTG.setLoops(3);
+        decoFlowersRTG.config().MAX_Y.set(80);
+        decoFlowersRTG.config().LOOPS.set(3);
         return decoFlowersRTG;
     }
 
     private DecoMushrooms mushrooms() {
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(70);
+        decoMushrooms.config().MAX_Y.set(70);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(3f);
         return decoMushrooms;
@@ -98,7 +98,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
     private DecoPumpkin pumpkins() {
         DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
+        decoPumpkin.config().MAX_Y.set(90);
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(30f);
         return decoPumpkin;
@@ -106,16 +106,16 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
     private DecoLargeFernDoubleTallgrass doublePlants() {
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
+        decoDoublePlants.config().MAX_Y.set(128);
         decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
+        decoDoublePlants.config().LOOPS.set(15);
         return decoDoublePlants;
     }
 
     private DecoGrass grass() {
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(10f);
         return decoGrass;
     }
 }

@@ -45,7 +45,7 @@ public class DecoCollectionExtremeHillsPlus extends DecoCollectionBase {
         nigraDeco.setTreeType(DecoTree.TreeType.RTG_TREE);
         nigraDeco.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         nigraDeco.setTreeConditionChance(12);
-        nigraDeco.setMaxY(maxY);
+        nigraDeco.config().MAX_Y.set(maxY);
 
         return nigraDeco;
     }

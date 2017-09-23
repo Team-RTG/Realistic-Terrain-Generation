@@ -19,13 +19,7 @@ import rtg.api.world.gen.feature.WorldGenFlowersRTG;
 public class DecoFlowersRTG extends DecoBase {
 
     private int[] flowers; // Integer array of flower IDs.
-    private float strengthFactor; // Higher = more flowers.
-    private int minY; // Height restriction.
-    private int maxY; // Height restriction.
     private HeightType heightType; // How we determine the Y coord.
-    private int chance; // Higher = more rare.
-    private int notEqualsZeroChance;
-    private int loops;
 
     /*
      * FLOWER LIST:
@@ -55,36 +49,44 @@ public class DecoFlowersRTG extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setFlowers(new int[]{0, 9}); // Only roses and dandelions by default.
-        this.setChance(1); // 100% chance of generating by default.
-        this.setNotEqualsZeroChance(1);
-        this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
-        this.setMaxY(253); // 2 below max build height to account for 2-block tall flowers.
         this.setHeightType(HeightType.NEXT_INT);
-        this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
-        this.setLoops(1);
 
         this.addDecoTypes(DecoType.FLOWER);
     }
 
     @Override
+    public String friendlyName() {
+        return "Flowers";
+    }
+
+    @Override
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(253); // 2 below max build height to account for 2-block tall flowers.
+        this.config().addProperty(this.config().LOOPS).set(1);
+        this.config().addProperty(this.config().NOT_EQUALS_ZERO_CHANCE).set(1);
+        this.config().addProperty(this.config().CHANCE).set(1);
+        this.config().addProperty(this.config().STRENGTH_FACTOR).set(0f);
+    }
+
+    @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), FLOWERS)) {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-
-                for (int i = 0; i < this.loops * 16; i++) {
+                int loops = (this.config().STRENGTH_FACTOR.get() > 0f) ? (int) (this.config().STRENGTH_FACTOR.get() * strength) : this.config().LOOPS.get();
+                for (int i = 0; i < loops * 16; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
                     int intZ = worldZ + rand.nextInt(16);// + 8;
 
                     int intY;
                     switch (this.heightType) {
                         case NEXT_INT:
-                            intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                            intY = RandomUtil.getRandomInt(rand, this.config().MIN_Y.get(), this.config().MAX_Y.get());
                             break;
 
                         case GET_HEIGHT_VALUE:
@@ -92,21 +94,21 @@ public class DecoFlowersRTG extends DecoBase {
                             break;
 
                         default:
-                            intY = rand.nextInt(this.maxY);
+                            intY = rand.nextInt(this.config().MAX_Y.get());
                             break;
 
                     }
 
-                    if (this.notEqualsZeroChance > 1) {
+                    if (this.config().NOT_EQUALS_ZERO_CHANCE.get() > 1) {
 
-                        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
+                        if (rand.nextInt(this.config().NOT_EQUALS_ZERO_CHANCE.get()) != 0) {
 
                             worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
                     }
                     else {
 
-                        if (rand.nextInt(this.chance) == 0) {
+                        if (rand.nextInt(this.config().CHANCE.get()) == 0) {
 
                             worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
                         }
@@ -132,39 +134,6 @@ public class DecoFlowersRTG extends DecoBase {
         return this;
     }
 
-    public float getStrengthFactor() {
-
-        return strengthFactor;
-    }
-
-    public DecoFlowersRTG setStrengthFactor(float strengthFactor) {
-
-        this.strengthFactor = strengthFactor;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoFlowersRTG setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoFlowersRTG setMaxY(int maxY) {
-
-        this.maxY = maxY;
-        return this;
-    }
-
     public HeightType getHeightType() {
 
         return heightType;
@@ -173,39 +142,6 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG setHeightType(HeightType heightType) {
 
         this.heightType = heightType;
-        return this;
-    }
-
-    public int getChance() {
-
-        return chance;
-    }
-
-    public DecoFlowersRTG setChance(int chance) {
-
-        this.chance = chance;
-        return this;
-    }
-
-    public int getNotEqualsZeroChance() {
-
-        return notEqualsZeroChance;
-    }
-
-    public DecoFlowersRTG setNotEqualsZeroChance(int notEqualsZeroChance) {
-
-        this.notEqualsZeroChance = notEqualsZeroChance;
-        return this;
-    }
-
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoFlowersRTG setLoops(int loops) {
-
-        this.loops = loops;
         return this;
     }
 }

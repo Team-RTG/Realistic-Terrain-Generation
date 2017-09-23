@@ -26,13 +26,21 @@ public class DecoJungleLilypadVines extends DecoBase {
         this.addDecoTypes(DecoType.LILYPAD, DecoType.VINE);
     }
 
+    @Override
+    public String friendlyName() {
+        return "Jungle Lilypad Vines";
+    }
+
+    @Override
+    public void initConfig() {}
+
     /**
      * No config options for this one yet. Just ripped it directly from the old code.
      */
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), LILYPAD)) {
 

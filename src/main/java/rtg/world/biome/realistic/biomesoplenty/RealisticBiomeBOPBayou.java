@@ -249,8 +249,8 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
         DecoPond decoPond = new DecoPond();
         decoPond.setChunksPerPond(1);
-        decoPond.setMaxY(67);
-        decoPond.setLoops(8);
+        decoPond.config().MAX_Y.set(67);
+        decoPond.config().LOOPS.set(8);
         this.addDeco(decoPond);
 
 //        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
@@ -291,14 +291,14 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 //        this.addDeco(ceibaRoseaTree);
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        decoBOPBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(4);
         this.addDeco(decoBOPBaseBiomeDecorations);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.setMaxY(90);
-        decoShrubOak.setStrengthFactor(4f);
-        decoShrubOak.setChance(3);
+        decoShrubOak.config().MAX_Y.set(90);
+        decoShrubOak.config().STRENGTH_FACTOR.set(4f);
+        decoShrubOak.config().CHANCE.set(3);
         this.addDeco(decoShrubOak);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -318,19 +318,19 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         this.addDeco(decoJungleLilypadVines);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(90);
-        decoGrassDoubleTallgrass.setStrengthFactor(4f);
+        decoGrassDoubleTallgrass.config().MAX_Y.set(90);
+        decoGrassDoubleTallgrass.config().STRENGTH_FACTOR.set(4f);
         decoGrassDoubleTallgrass.setDoubleGrassChance(8);
         this.addDeco(decoGrassDoubleTallgrass);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(90);
-        decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
+        decoGrass.config().MAX_Y.set(90);
+        decoGrass.config().STRENGTH_FACTOR.set(4f);
+        decoGrass.config().CHANCE.set(2);
         this.addDeco(decoGrass);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.config().MAX_Y.set(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
     }

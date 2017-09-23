@@ -174,15 +174,15 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
         this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
-        decoBoulder1.setChance(16);
-        decoBoulder1.setStrengthFactor(1f);
+        decoBoulder1.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.config().MAX_Y.set(80);
+        decoBoulder1.config().CHANCE.set(16);
+        decoBoulder1.config().STRENGTH_FACTOR.set(1f);
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder2.setMaxY(80);
-        decoBoulder2.setChance(16);
-        decoBoulder2.setStrengthFactor(1f);
+        decoBoulder2.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder2.config().MAX_Y.set(80);
+        decoBoulder2.config().CHANCE.set(16);
+        decoBoulder2.config().STRENGTH_FACTOR.set(1f);
         DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
         this.addDeco(decoHelper5050);
 

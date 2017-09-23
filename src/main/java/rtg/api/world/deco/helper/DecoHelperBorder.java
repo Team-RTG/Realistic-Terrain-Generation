@@ -9,7 +9,7 @@ import rtg.api.world.deco.DecoBase;
 /**
  * @author Zeno410
  */
-public class DecoHelperBorder extends DecoBase {
+public class DecoHelperBorder extends DecoHelper {
 
     private DecoBase adjusted;
     private float allAbove;
@@ -27,7 +27,17 @@ public class DecoHelperBorder extends DecoBase {
         if (!toAdjust.properlyDefined()) {
             throw new RuntimeException();
         }
+
+        this.addHelperDecos(this.adjusted);
     }
+
+    @Override
+    public String friendlyName() {
+        return "Helper Border";
+    }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {

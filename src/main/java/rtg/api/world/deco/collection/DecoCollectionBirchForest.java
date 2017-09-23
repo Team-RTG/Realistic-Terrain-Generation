@@ -34,9 +34,7 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoHelperRandomSplit randomTrees() {
-        return new DecoHelperRandomSplit()
-            .setDecos(new DecoBase[]{tallBirchTrees(), vanillaTrees()})
-            .setChances(new int[]{10, 4});
+        return new DecoHelperRandomSplit(new DecoBase[]{tallBirchTrees(), vanillaTrees()}, new int[]{10, 4});
     }
 
     private DecoTree tallBirchTrees() {
@@ -51,19 +49,25 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
 
         this.addTree(birchTree);
 
-        return new DecoTree(birchTree)
+        DecoTree decoTree = new DecoTree(birchTree)
             .setStrengthFactorForLoops(3f)
             .setTreeType(DecoTree.TreeType.RTG_TREE)
-            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE)
-            .setMaxY(100);
+            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+
+        decoTree.config().MAX_Y.set(100);
+
+        return decoTree;
     }
 
     private DecoTree vanillaTrees() {
-        return new DecoTree(new WorldGenTrees(false))
+        DecoTree decoTree = new DecoTree(new WorldGenTrees(false))
             .setTreeType(DecoTree.TreeType.WORLDGEN)
             .setStrengthFactorForLoops(3f)
-            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE)
-            .setMaxY(100);
+            .setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
+
+        decoTree.config().MAX_Y.set(100);
+
+        return decoTree;
     }
 
     private DecoFallenTree logs() {
@@ -77,27 +81,35 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     }
 
     private DecoShrub shrubsOak() {
-        return new DecoShrub()
-            .setMaxY(120)
-            .setStrengthFactor(3f);
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.config().MAX_Y.set(120);
+        decoShrub.config().STRENGTH_FACTOR.set(3f);
+
+        return decoShrub;
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {
-        return new DecoBaseBiomeDecorations()
-            .setNotEqualsZeroChance(3);
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(3);
+        return decoBaseBiomeDecorations;
     }
 
     private DecoFlowersRTG flowers() {
-        return new DecoFlowersRTG()
-            .setFlowers(new int[]{3, 6})
-            .setMaxY(128)
-            .setStrengthFactor(12f);
+        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
+            .setFlowers(new int[]{3, 6});
+
+        decoFlowersRTG.config().MAX_Y.set(128);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(12f);
+
+        return decoFlowersRTG;
     }
 
     private DecoGrass grass() {
-        return new DecoGrass()
-            .setMinY(60)
-            .setMaxY(128)
-            .setStrengthFactor(20f);
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.config().MIN_Y.set(60);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(20f);
+
+        return decoGrass;
     }
 }

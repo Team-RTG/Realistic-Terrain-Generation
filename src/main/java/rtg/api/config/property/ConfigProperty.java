@@ -4,17 +4,25 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ConfigProperty {
 
-    public Type type;
     public String name;
     public String category;
     public String description;
+    public boolean restricted;
 
-    public ConfigProperty(Type type, String name, String category, String description) {
+    public ConfigProperty(String name, String category, String description, boolean restricted) {
 
-        this.type = type;
         this.name = name;
         this.category = category;
         this.description = description;
+        this.restricted = restricted;
+    }
+
+    public ConfigProperty(String name, String category, String description) {
+
+        this.name = name;
+        this.category = category;
+        this.description = description;
+        this.restricted = false;
     }
 
     public void formatDescription() {
@@ -24,10 +32,8 @@ public class ConfigProperty {
         }
     }
 
-    public enum Type {
-        INTEGER,
-        FLOAT,
-        BOOLEAN,
-        STRING
+    public ConfigProperty restrict() {
+        this.restricted = true;
+        return this;
     }
 }

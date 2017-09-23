@@ -163,15 +163,15 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
-        decoBoulder1.setChance(12);
-        decoBoulder1.setStrengthFactor(1f);
+        decoBoulder1.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.config().MAX_Y.set(80);
+        decoBoulder1.config().CHANCE.set(12);
+        decoBoulder1.config().STRENGTH_FACTOR.set(1f);
         DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder2.setMaxY(80);
-        decoBoulder2.setChance(12);
-        decoBoulder2.setStrengthFactor(1f);
+        decoBoulder2.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder2.config().MAX_Y.set(80);
+        decoBoulder2.config().CHANCE.set(12);
+        decoBoulder2.config().STRENGTH_FACTOR.set(1f);
         DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
         this.addDeco(decoHelper5050);
 
@@ -193,14 +193,15 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(16);
-        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.config().MAX_Y.set(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog2(1));
         decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(5);
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree, decoFallenTree2};
-        decoHelperRandomSplit.chances = new int[]{4, 1};
+
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit(
+            new DecoBase[]{decoFallenTree, decoFallenTree2}, new int[]{4, 1}
+        );
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();

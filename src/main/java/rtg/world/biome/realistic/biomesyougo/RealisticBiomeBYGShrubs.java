@@ -184,10 +184,10 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(24);
-        decoBoulder.setMaxY(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(24);
+        decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
@@ -195,9 +195,9 @@ public class RealisticBiomeBYGShrubs extends RealisticBiomeBYGBase {
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(105);
-        decoGrass.setLoops(1);
+        decoGrass.config().MIN_Y.set(63);
+        decoGrass.config().MAX_Y.set(105);
+        decoGrass.config().LOOPS.set(1);
         this.addDeco(decoGrass);
     }
 }

@@ -42,7 +42,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceTrees1.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         bigSpruceTrees1.setTreeConditionNoise(0f);
         bigSpruceTrees1.setTreeConditionChance(1);
-        bigSpruceTrees1.setMaxY(110);
+        bigSpruceTrees1.config().MAX_Y.set(110);
 
         TreeRTG sempervirensSpruceOakTree1 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceOakTree1.setLogBlock(BlockUtil.getStateLog(1));
@@ -62,7 +62,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceOakTrees1.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         bigSpruceOakTrees1.setTreeConditionNoise(0f);
         bigSpruceOakTrees1.setTreeConditionChance(1);
-        bigSpruceOakTrees1.setMaxY(110);
+        bigSpruceOakTrees1.config().MAX_Y.set(110);
 
         DecoHelperThisOrThat decoHelperThisOrThat1 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees1, bigSpruceOakTrees1);
         this.addDeco(decoHelperThisOrThat1);
@@ -85,7 +85,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceTrees2.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         bigSpruceTrees2.setTreeConditionNoise(0f);
         bigSpruceTrees2.setTreeConditionChance(1);
-        bigSpruceTrees2.setMaxY(110);
+        bigSpruceTrees2.config().MAX_Y.set(110);
 
         TreeRTG sempervirensSpruceOakTree2 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceOakTree2.setLogBlock(BlockUtil.getStateLog(1));
@@ -105,7 +105,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceOakTrees2.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         bigSpruceOakTrees2.setTreeConditionNoise(0f);
         bigSpruceOakTrees2.setTreeConditionChance(1);
-        bigSpruceOakTrees2.setMaxY(110);
+        bigSpruceOakTrees2.config().MAX_Y.set(110);
 
         DecoHelperThisOrThat decoHelperThisOrThat2 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees2, bigSpruceOakTrees2);
         this.addDeco(decoHelperThisOrThat2);
@@ -127,7 +127,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceTrees3.getDistribution().setNoiseAddend(-15f);
         bigSpruceTrees3.setTreeCondition(TreeCondition.RANDOM_CHANCE);
         bigSpruceTrees3.setTreeConditionChance(2);
-        bigSpruceTrees3.setMaxY(120);
+        bigSpruceTrees3.config().MAX_Y.set(120);
 
         TreeRTG sempervirensSpruceOakTree3 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceOakTree3.setLogBlock(BlockUtil.getStateLog(1));
@@ -146,7 +146,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceOakTrees3.getDistribution().setNoiseAddend(-15f);
         bigSpruceOakTrees3.setTreeCondition(TreeCondition.RANDOM_CHANCE);
         bigSpruceOakTrees3.setTreeConditionChance(2);
-        bigSpruceOakTrees3.setMaxY(120);
+        bigSpruceOakTrees3.config().MAX_Y.set(120);
 
         DecoHelperThisOrThat decoHelperThisOrThat3 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees3, bigSpruceOakTrees3);
         this.addDeco(decoHelperThisOrThat3);
@@ -165,7 +165,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoTrees.setTreeType(TreeType.RTG_TREE);
         decoTrees.setTreeCondition(TreeCondition.RANDOM_CHANCE);
         decoTrees.setTreeConditionChance(3);
-        decoTrees.setMaxY(120);
+        decoTrees.config().MAX_Y.set(120);
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -184,37 +184,33 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         DecoShrub decoShrubSpruce = new DecoShrub();
         decoShrubSpruce.setLogBlock(BlockUtil.getStateLog(1));
         decoShrubSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
-        decoShrubSpruce.setMaxY(100);
-        decoShrubSpruce.setStrengthFactor(3f);
-        decoShrubSpruce.setChance(6);
+        decoShrubSpruce.config().MAX_Y.set(100);
+        decoShrubSpruce.config().STRENGTH_FACTOR.set(3f);
+        decoShrubSpruce.config().CHANCE.set(6);
         this.addDeco(decoShrubSpruce);
 
-//		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-//		decoBaseBiomeDecorations.setEqualsZeroChance(3);
-//		this.addDeco(decoBaseBiomeDecorations);
-
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(20);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(20);
+        decoBoulder.config().MAX_Y.set(95);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
+        decoPumpkin.config().MAX_Y.set(90);
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(32f);
         this.addDeco(decoPumpkin);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.config().MAX_Y.set(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(24f);
         this.addDeco(decoMushrooms);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(grassStrengthFactor);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(grassStrengthFactor);
         this.addDeco(decoGrass);
     }
 }

@@ -185,7 +185,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.setLogCondition(X_DIVIDED_BY_STRENGTH);
         decoFallenTree1.setLogConditionNoise(8f);
         decoFallenTree1.setLogConditionChance(1);
-        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.config().MAX_Y.set(100);
         decoFallenTree1.setLogBlock(BlockUtil.getStateLog(2));
         decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(2));
         decoFallenTree1.setMinSize(3);
@@ -198,7 +198,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.setLogCondition(X_DIVIDED_BY_STRENGTH);
         decoFallenTree2.setLogConditionNoise(8f);
         decoFallenTree2.setLogConditionChance(1);
-        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.config().MAX_Y.set(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog2(1));
         decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenTree2.setMinSize(3);
@@ -210,25 +210,25 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         DecoShrub decoShrubCustom = new DecoShrub();
         decoShrubCustom.setLogBlock(BlockUtil.getStateLog(2));
         decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(2));
-        decoShrubCustom.setMaxY(110);
-        decoShrubCustom.setStrengthFactor(2f);
+        decoShrubCustom.config().MAX_Y.set(110);
+        decoShrubCustom.config().STRENGTH_FACTOR.set(2f);
         DecoShrub decoShrubCustom2 = new DecoShrub();
         decoShrubCustom2.setLogBlock(BlockUtil.getStateLog2(1));
         decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf2(1));
-        decoShrubCustom2.setMaxY(110);
-        decoShrubCustom2.setStrengthFactor(2f);
+        decoShrubCustom2.config().MAX_Y.set(110);
+        decoShrubCustom2.config().STRENGTH_FACTOR.set(2f);
         DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
         this.addDeco(decoHelperHelper50502);
 
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11});
-        decoFlowersRTG.setMaxY(128);
-        decoFlowersRTG.setStrengthFactor(2f);
+        decoFlowersRTG.config().MAX_Y.set(128);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoFlowersRTG);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(12f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(12f);
         this.addDeco(decoGrass);
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();

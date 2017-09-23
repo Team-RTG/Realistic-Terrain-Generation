@@ -24,7 +24,6 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
  */
 public class DecoTree extends DecoBase {
 
-    protected int loops;
     protected float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
     protected boolean strengthNoiseFactorForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * strength)
     protected boolean strengthNoiseFactorXForLoops; // If true, this overrides and dynamically calculates 'loops' based on (noise * X * strength)
@@ -37,8 +36,6 @@ public class DecoTree extends DecoBase {
     protected float treeConditionNoise2; // Only applies to a noise-related TreeCondition.
     protected int treeConditionChance; // Only applies to a chance-related TreeCondition.
     protected float treeConditionFloat; // Multi-purpose float.
-    protected int minY; // Lower height restriction.
-    protected int maxY; // Upper height restriction.
     protected IBlockState logBlock;
     protected IBlockState leavesBlock;
     protected int minSize; // Min tree height (only used with certain tree presets)
@@ -58,7 +55,6 @@ public class DecoTree extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setStrengthFactorForLoops(0f);
         this.setStrengthNoiseFactorForLoops(false);
         this.setStrengthNoiseFactorXForLoops(false);
@@ -71,8 +67,6 @@ public class DecoTree extends DecoBase {
         this.setTreeConditionNoise2(0f);
         this.setTreeConditionFloat(0f);
         this.setTreeConditionChance(1);
-        this.setMinY(63); // No underwater trees by default.
-        this.setMaxY(230); // Sensible upper height limit by default.
         this.setLogBlock(Blocks.LOG.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         this.setMinSize(2);
@@ -90,7 +84,7 @@ public class DecoTree extends DecoBase {
     public DecoTree(DecoTree source) {
 
         this();
-        this.setLoops(source.loops);
+        this.config().LOOPS.set(source.config().LOOPS.get());
         this.setStrengthFactorForLoops(source.strengthFactorForLoops);
         this.setStrengthNoiseFactorForLoops(source.strengthNoiseFactorForLoops);
         this.setStrengthNoiseFactorXForLoops(source.strengthNoiseFactorXForLoops);
@@ -103,8 +97,8 @@ public class DecoTree extends DecoBase {
         this.setTreeConditionNoise2(source.treeConditionNoise2);
         this.setTreeConditionFloat(source.treeConditionFloat);
         this.setTreeConditionChance(source.treeConditionChance);
-        this.setMinY(source.minY);
-        this.setMaxY(source.maxY);
+        this.config().MIN_Y.set(source.config().MIN_Y.get());
+        this.config().MAX_Y.set(source.config().MAX_Y.get());
         this.setLogBlock(source.logBlock);
         this.setLeavesBlock(source.leavesBlock);
         this.setMinSize(source.minSize);
@@ -136,6 +130,18 @@ public class DecoTree extends DecoBase {
         this.worldGen = worldGen;
     }
 
+    @Override
+    public String friendlyName() {
+        return "Trees";
+    }
+
+    @Override
+    public void initConfig() {
+        this.config().addProperty(this.config().MIN_Y).set(63);
+        this.config().addProperty(this.config().MAX_Y).set(230);
+        this.config().addProperty(this.config().LOOPS).set(1);
+    }
+
     public boolean properlyDefined() {
 
         if (this.treeType == TreeType.RTG_TREE) {
@@ -149,7 +155,7 @@ public class DecoTree extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             /*
              * Determine how many trees we're going to try to generate (loopCount).
@@ -157,7 +163,7 @@ public class DecoTree extends DecoBase {
              * depending on environmental conditions.
              */
             float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            int loopCount = this.loops;
+            int loopCount = this.config().LOOPS.get();
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
@@ -208,7 +214,7 @@ public class DecoTree extends DecoBase {
 
                     //Logger.info("noise = %f", noise);
 
-                    if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+                    if (intY <= this.config().MAX_Y.get() && intY >= this.config().MIN_Y.get() && isValidTreeCondition(noise, rand, strength)) {
 
                         // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
@@ -381,17 +387,6 @@ public class DecoTree extends DecoBase {
         }
     }
 
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoTree setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
-    }
-
     public float getStrengthFactorForLoops() {
 
         return strengthFactorForLoops;
@@ -521,28 +516,6 @@ public class DecoTree extends DecoBase {
     public DecoTree setTreeConditionFloat(float treeConditionFloat) {
 
         this.treeConditionFloat = treeConditionFloat;
-        return this;
-    }
-
-    public int getMinY() {
-
-        return minY;
-    }
-
-    public DecoTree setMinY(int minY) {
-
-        this.minY = minY;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoTree setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

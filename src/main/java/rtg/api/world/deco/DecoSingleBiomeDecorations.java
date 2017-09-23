@@ -16,7 +16,7 @@ public class DecoSingleBiomeDecorations extends DecoBaseBiomeDecorations {
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
             // skip if already decorated
             ChunkPos position = new ChunkPos(worldX,worldZ);
             if (rtgWorld.decoratedChunks().contains(position)) return;

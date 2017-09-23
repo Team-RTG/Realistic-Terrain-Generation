@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 
+import rtg.api.config.DecoConfig;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
@@ -15,26 +16,28 @@ import rtg.api.world.biome.IRealisticBiome;
  *
  * @author WhichOnesPink
  */
-public abstract class DecoBase {
+public abstract class DecoBase implements IDeco {
 
-    /**
-     * If false, the deco won't get generated during chunk decoration.
-     * Currently, the only deco that uses allow=false is the DecoBaseBiomeDecorations deco, and it only gets
-     * set to false when we need to generate ores in biomes that don't let the base biome handle decoration at all.
-     */
-    protected boolean allowed;
-    protected ArrayList<DecoType> decoTypes;
-    protected boolean checkRiver;
-    protected float minRiver; // Minimum river value required to generate.
-    protected float maxRiver; // Maximum river value required to generate.
+    private ArrayList<DecoType> decoTypes;
+    private DecoConfig config;
+    public boolean restricted;
 
     public DecoBase() {
 
-        this.allowed = true;
         this.decoTypes = new ArrayList<DecoType>();
-        this.checkRiver = false;
-        this.minRiver = -2f;
-        this.setMaxRiver(2f);
+        this.restricted = false;
+        this.config = new DecoConfig();
+
+        this.config().ALLOW.set(true);
+        this.config().CHECK_RIVER.set(false);
+        this.config().MIN_RIVER.set(-2f);
+        this.config().MAX_RIVER.set(2f);
+
+        this.initConfig();
+    }
+
+    public DecoConfig config() {
+        return this.config;
     }
 
     public boolean properlyDefined() {
@@ -48,9 +51,9 @@ public abstract class DecoBase {
      */
     public boolean preGenerate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.checkRiver) {
+        if (this.config().CHECK_RIVER.get()) {
 
-            if (river > this.maxRiver || river < this.minRiver) {
+            if (river > this.config().MAX_RIVER.get() || river < this.config().MIN_RIVER.get()) {
                 return false;
             }
         }
@@ -132,17 +135,6 @@ public abstract class DecoBase {
         }
     }
 
-    public boolean isAllowed() {
-
-        return allowed;
-    }
-
-    public DecoBase setAllowed(boolean allowed) {
-
-        this.allowed = allowed;
-        return this;
-    }
-
     public ArrayList<DecoType> getDecoTypes() {
 
         return decoTypes;
@@ -154,36 +146,8 @@ public abstract class DecoBase {
         return this;
     }
 
-    public boolean isCheckRiver() {
-
-        return checkRiver;
-    }
-
-    public DecoBase setCheckRiver(boolean checkRiver) {
-
-        this.checkRiver = checkRiver;
-        return this;
-    }
-
-    public float getMinRiver() {
-
-        return minRiver;
-    }
-
-    public DecoBase setMinRiver(float minRiver) {
-
-        this.minRiver = minRiver;
-        return this;
-    }
-
-    public float getMaxRiver() {
-
-        return maxRiver;
-    }
-
-    public DecoBase setMaxRiver(float maxRiver) {
-
-        this.maxRiver = maxRiver;
+    public DecoBase restrict() {
+        this.restricted = true;
         return this;
     }
 }

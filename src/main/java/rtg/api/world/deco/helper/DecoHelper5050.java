@@ -11,7 +11,7 @@ import rtg.api.world.deco.DecoBase;
  *
  * @author WhichOnesPink
  */
-public class DecoHelper5050 extends DecoBase {
+public class DecoHelper5050 extends DecoHelper {
 
     private DecoBase deco1;
     private DecoBase deco2;
@@ -26,12 +26,22 @@ public class DecoHelper5050 extends DecoBase {
 
         this.deco1 = deco1;
         this.deco2 = deco2;
+
+        this.addHelperDecos(this.deco1, this.deco2);
     }
+
+    @Override
+    public String friendlyName() {
+        return "Helper 5050";
+    }
+
+    @Override
+    public void initConfig() {}
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             if (rand.nextBoolean()) {
                 this.deco1.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
@@ -40,27 +50,5 @@ public class DecoHelper5050 extends DecoBase {
                 this.deco2.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
             }
         }
-    }
-
-    public DecoBase getDeco1() {
-
-        return deco1;
-    }
-
-    public DecoHelper5050 setDeco1(DecoBase deco1) {
-
-        this.deco1 = deco1;
-        return this;
-    }
-
-    public DecoBase getDeco2() {
-
-        return deco2;
-    }
-
-    public DecoHelper5050 setDeco2(DecoBase deco2) {
-
-        this.deco2 = deco2;
-        return this;
     }
 }

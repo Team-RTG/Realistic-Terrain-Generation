@@ -196,7 +196,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         RTGMithwood.setTreeType(DecoTree.TreeType.RTG_TREE);
         RTGMithwood.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         RTGMithwood.setTreeConditionChance(12);
-        RTGMithwood.setMaxY(100);
+        RTGMithwood.config().MAX_Y.set(100);
         this.addDeco(RTGMithwood);
 
         TreeRTG megaOak = new TreeRTGPinusNigra();
@@ -217,7 +217,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         RTGOak.setTreeType(DecoTree.TreeType.RTG_TREE);
         RTGOak.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         RTGOak.setTreeConditionChance(12);
-        RTGOak.setMaxY(100);
+        RTGOak.config().MAX_Y.set(100);
         this.addDeco(RTGOak);
 
         TreeRTG megaBirch = new TreeRTGBetulaPapyrifera();
@@ -234,7 +234,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         RTGBirch.setTreeType(DecoTree.TreeType.RTG_TREE);
         RTGBirch.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         RTGBirch.setTreeConditionChance(24);
-        RTGBirch.setMaxY(100);
+        RTGBirch.config().MAX_Y.set(100);
         this.addDeco(RTGBirch);
 
         TreeRTG megaSpruce = new TreeRTGPinusPonderosa();
@@ -256,46 +256,46 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         RTGSpruce.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         RTGSpruce.setTreeConditionNoise(0f);
         RTGSpruce.setTreeConditionChance(24);
-        RTGSpruce.setMaxY(140);
+        RTGSpruce.config().MAX_Y.set(140);
         this.addDeco(RTGSpruce);
 
         DecoShrub decoShrubMithwood = new DecoShrub();
         decoShrubMithwood.setLogBlock(mithwoodLogBlock);
         decoShrubMithwood.setLeavesBlock(mithwoodLeavesBlock);
-        decoShrubMithwood.setMaxY(100);
-        decoShrubMithwood.setStrengthFactor(1f);
-        decoShrubMithwood.setChance(2);
+        decoShrubMithwood.config().MAX_Y.set(100);
+        decoShrubMithwood.config().STRENGTH_FACTOR.set(1f);
+        decoShrubMithwood.config().CHANCE.set(2);
         this.addDeco(decoShrubMithwood);
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(4);
+        decoShrub.config().MAX_Y.set(100);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
+        decoShrub.config().CHANCE.set(4);
         this.addDeco(decoShrub);
 
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
         decoFlowers1.setFlowers(new int[]{1, 2, 3, 6, 7, 8});
-        decoFlowers1.setStrengthFactor(2f);
+        decoFlowers1.config().STRENGTH_FACTOR.set(2f);
         decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
         this.addDeco(decoFlowers1);
 
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
         decoFlowers2.setFlowers(new int[]{11, 12, 13, 14});
-        decoFlowers2.setStrengthFactor(1f);
-        decoFlowers2.setChance(1);
+        decoFlowers2.config().STRENGTH_FACTOR.set(1f);
+        decoFlowers2.config().CHANCE.set(1);
         decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
         this.addDeco(decoFlowers2);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(2);
-        decoBoulder.setMaxY(100);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(2);
+        decoBoulder.config().MAX_Y.set(100);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(100);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
+        decoBaseBiomeDecorations.config().MAX_Y.set(100);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(8);
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoFallenTree decoFallenMithwoodTree = new DecoFallenTree();
@@ -314,7 +314,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         DecoFallenTree decoFallenOak = new DecoFallenTree();
         decoFallenOak.setLogCondition(RANDOM_CHANCE);
         decoFallenOak.setLogConditionChance(8);
-        decoFallenOak.setMaxY(100);
+        decoFallenOak.config().MAX_Y.set(100);
         decoFallenOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenOak.setMinSize(3);
@@ -324,7 +324,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         DecoFallenTree decoFallenBirch = new DecoFallenTree();
         decoFallenBirch.setLogCondition(RANDOM_CHANCE);
         decoFallenBirch.setLogConditionChance(8);
-        decoFallenBirch.setMaxY(100);
+        decoFallenBirch.config().MAX_Y.set(100);
         decoFallenBirch.setLogBlock(BlockUtil.getStateLog(2));
         decoFallenBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
         decoFallenBirch.setMinSize(3);
@@ -333,7 +333,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
         decoFallenSpruce.setLogConditionChance(8);
-        decoFallenSpruce.setMaxY(100);
+        decoFallenSpruce.config().MAX_Y.set(100);
         decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
         decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenSpruce.setMinSize(3);
@@ -342,8 +342,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(24f);
         this.addDeco(decoGrass);
     }
 }

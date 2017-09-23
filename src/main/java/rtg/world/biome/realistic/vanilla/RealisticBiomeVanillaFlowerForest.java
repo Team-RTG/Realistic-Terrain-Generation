@@ -173,22 +173,22 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(4f);
-        decoShrub.setChance(3);
+        decoShrub.config().MAX_Y.set(110);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
+        decoShrub.config().CHANCE.set(3);
         this.addDeco(decoShrub);
 
         // Flowers are the most aesthetically important feature of this biome, so let's add those next.
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
         decoFlowers1.setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}); //Only colourful 1-block-tall flowers.
-        decoFlowers1.setStrengthFactor(12f); // Lots and lots of flowers!
+        decoFlowers1.config().STRENGTH_FACTOR.set(12f); // Lots and lots of flowers!
         decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
         DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
         decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
-        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-        decoFlowers2.setChance(3);
+        decoFlowers2.config().STRENGTH_FACTOR.set(2f); // Not as many of these.
+        decoFlowers2.config().CHANCE.set(3);
         decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers2);
 
@@ -212,7 +212,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         oakPines.setTreeConditionNoise(0f);
         oakPines.setTreeConditionChance(1);
-        oakPines.setMaxY(140);
+        oakPines.config().MAX_Y.set(140);
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
         ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(1));
@@ -232,7 +232,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         sprucePines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         sprucePines.setTreeConditionNoise(0f);
         sprucePines.setTreeConditionChance(1);
-        sprucePines.setMaxY(140);
+        sprucePines.config().MAX_Y.set(140);
 
         DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
         this.addDeco(decoPines);
@@ -242,14 +242,14 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // Not much free space left, so let's give some space to the base biome.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(4);
         this.addDeco(decoBaseBiomeDecorations);
 
         // Add some fallen trees of the oak and spruce variety (50/50 distribution).
         DecoFallenTree decoFallenOak = new DecoFallenTree();
         decoFallenOak.setLogCondition(RANDOM_CHANCE);
         decoFallenOak.setLogConditionChance(8);
-        decoFallenOak.setMaxY(100);
+        decoFallenOak.config().MAX_Y.set(100);
         decoFallenOak.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenOak.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenOak.setMinSize(3);
@@ -257,7 +257,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         DecoFallenTree decoFallenSpruce = new DecoFallenTree();
         decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
         decoFallenSpruce.setLogConditionChance(8);
-        decoFallenSpruce.setMaxY(100);
+        decoFallenSpruce.config().MAX_Y.set(100);
         decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
         decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
         decoFallenSpruce.setMinSize(3);
@@ -267,8 +267,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(24f);
         this.addDeco(decoGrass);
     }
 }

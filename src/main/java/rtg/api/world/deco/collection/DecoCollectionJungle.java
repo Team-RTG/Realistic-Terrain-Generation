@@ -34,11 +34,11 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         this.addTree(mucronataTree);
 
         DecoTree mangroves = new DecoTree(new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f));
-        mangroves.setLoops(3);
+        mangroves.config().LOOPS.set(3);
         mangroves.setTreeType(DecoTree.TreeType.RTG_TREE);
         mangroves.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         mangroves.setTreeConditionChance(3);
-        mangroves.setMaxY(160);
+        mangroves.config().MAX_Y.set(160);
 
         DecoTree megaJungle = new DecoTree(new WorldGenMegaJungle(false, 10, 27, BlockUtil.getStateLog(3), BlockUtil.getStateLeaf(3)));
         megaJungle.setLogBlock(BlockUtil.getStateLog(3));
@@ -47,11 +47,11 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         megaJungle.setMaxTrunkSize(4);
         megaJungle.setMinCrownSize(10);
         megaJungle.setMaxCrownSize(27);
-        megaJungle.setLoops(3);
+        megaJungle.config().LOOPS.set(3);
         megaJungle.setTreeType(DecoTree.TreeType.WORLDGEN);
         megaJungle.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         megaJungle.setTreeConditionChance(3);
-        megaJungle.setMaxY(160);
+        megaJungle.config().MAX_Y.set(160);
 
         DecoHelperThisOrThat decoHelperThisOrThat = new DecoHelperThisOrThat(3, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, megaJungle, mangroves);
         this.addDeco(decoHelperThisOrThat);
@@ -66,16 +66,16 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         this.addTree(nuciferaTree);
 
         DecoTree palmCustom = new DecoTree(nuciferaTree);
-        palmCustom.setLoops(1);
+        palmCustom.config().LOOPS.set(1);
         palmCustom.setTreeType(DecoTree.TreeType.RTG_TREE);
         palmCustom.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         palmCustom.setTreeConditionChance(4);
-        palmCustom.setMaxY(160);
+        palmCustom.config().MAX_Y.set(160);
         this.addDeco(palmCustom);
 
         // Jungle logs.
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLoops(1);
+        decoFallenTree.config().LOOPS.set(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(5f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
@@ -90,8 +90,8 @@ public class DecoCollectionJungle extends DecoCollectionBase {
 
         // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(6);
-        decoBaseBiomeDecorations.setLoops(1);
+        decoBaseBiomeDecorations.config().NOT_EQUALS_ZERO_CHANCE.set(6);
+        decoBaseBiomeDecorations.config().LOOPS.set(1);
         this.addDeco(decoBaseBiomeDecorations);
 
         // A combo-deal of lilypads and vines. (This could probably be pulled out into individual decos.)
@@ -105,32 +105,32 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         // Flowers.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
         decoFlowersRTG.setFlowers(new int[]{5}); // Only orange tulips fit in with the colour scheme.
-        decoFlowersRTG.setChance(4);
-        decoFlowersRTG.setMaxY(120);
-        decoFlowersRTG.setStrengthFactor(2f);
+        decoFlowersRTG.config().CHANCE.set(4);
+        decoFlowersRTG.config().MAX_Y.set(120);
+        decoFlowersRTG.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoFlowersRTG);
 
         // Tall cacti on red sand - matches the colour scheme nicely.
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
-        decoJungleCacti.setStrengthFactor(8f);
-        decoJungleCacti.setMaxY(120);
-        decoJungleCacti.setSandOnly(false);
+        decoJungleCacti.config().STRENGTH_FACTOR.set(8f);
+        decoJungleCacti.config().MAX_Y.set(120);
+        decoJungleCacti.config().SAND_ONLY.set(false);
         decoJungleCacti.setExtraHeight(7);
         decoJungleCacti.setSandMeta((byte) 1);
         this.addDeco(decoJungleCacti, config.ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(16);
+        decoBoulder.config().MAX_Y.set(95);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(12f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(12f);
         this.addDeco(decoGrass);
     }
 }

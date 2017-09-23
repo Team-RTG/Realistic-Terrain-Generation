@@ -120,10 +120,10 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     public void initDecos() {
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(20);
-        decoBoulder.setMaxY(80);
-        decoBoulder.setStrengthFactor(2f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(20);
+        decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoBoulder);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
@@ -144,7 +144,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         decoTrees.setTreeConditionNoise(0f);
         decoTrees.setTreeConditionChance(1);
-        decoTrees.setMaxY(120);
+        decoTrees.config().MAX_Y.set(120);
         this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -161,39 +161,39 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(1f);
+        decoShrub.config().MAX_Y.set(110);
+        decoShrub.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoShrub);
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(128);
-        decoGrassDoubleTallgrass.setStrengthFactor(8f);
+        decoGrassDoubleTallgrass.config().MAX_Y.set(128);
+        decoGrassDoubleTallgrass.config().STRENGTH_FACTOR.set(8f);
         decoGrassDoubleTallgrass.setDoubleGrassChance(6);
         this.addDeco(decoGrassDoubleTallgrass);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
-        decoDeadBush.setMaxY(128);
-        decoDeadBush.setChance(16);
-        decoDeadBush.setStrengthFactor(1f);
+        decoDeadBush.config().MAX_Y.set(128);
+        decoDeadBush.config().CHANCE.set(16);
+        decoDeadBush.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoDeadBush);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(4f);
+        decoGrass.config().CHANCE.set(2);
         this.addDeco(decoGrass);
 
         DecoGrass decoFern = new DecoGrass(2);
-        decoFern.setMaxY(128);
-        decoFern.setStrengthFactor(4f);
-        decoFern.setChance(2);
+        decoFern.config().MAX_Y.set(128);
+        decoFern.config().STRENGTH_FACTOR.set(4f);
+        decoFern.config().CHANCE.set(2);
         this.addDeco(decoFern);
 
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
+        decoMushrooms.config().MAX_Y.set(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
     }

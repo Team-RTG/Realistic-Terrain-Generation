@@ -5,9 +5,9 @@ public class ConfigPropertyBoolean extends ConfigProperty {
 
     public boolean valueBoolean;
 
-    public ConfigPropertyBoolean(Type type, String name, String category, String description, boolean defaultValue) {
+    public ConfigPropertyBoolean(String name, String category, String description, boolean defaultValue) {
 
-        super(type, name, category, description);
+        super(name, category, description);
 
         this.valueBoolean = defaultValue;
 

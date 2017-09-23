@@ -228,7 +228,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         birchTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         birchTrees.setTreeConditionChance(1);
         birchTrees.setTreeConditionNoise(0f);
-        birchTrees.setMaxY(120);
+        birchTrees.config().MAX_Y.set(120);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
         sitchensisTree.setLogBlock(BlockUtil.getStateLog(1));
@@ -248,7 +248,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         smallPine.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         smallPine.setTreeConditionChance(1);
         smallPine.setTreeConditionNoise(0f);
-        smallPine.setMaxY(120);
+        smallPine.config().MAX_Y.set(120);
 
         DecoHelper5050 decoHelper5050 = new DecoHelper5050(birchTrees, smallPine);
 
@@ -265,15 +265,15 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(3f);
+        decoShrub.config().MAX_Y.set(110);
+        decoShrub.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(12);
-        decoBoulder.setStrengthFactor(1f);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().MAX_Y.set(80);
+        decoBoulder.config().CHANCE.set(12);
+        decoBoulder.config().STRENGTH_FACTOR.set(1f);
         this.addDeco(decoBoulder);
 
         DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();

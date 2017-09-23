@@ -18,12 +18,10 @@ import rtg.api.world.gen.feature.WorldGenLog;
  */
 public class DecoFallenTree extends DecoBase {
 
-    private int loops;
     private DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
     private LogCondition logCondition; // Enum for the various conditions/chances for log gen.
     private float logConditionNoise; // Only applies to a noise-related LogCondition.
     private int logConditionChance; // Only applies to a chance-related LogCondition.
-    private int maxY; // Height restriction.
     private IBlockState logBlock;
     private IBlockState leavesBlock;
     private int minSize; // Min log height (only used with certain log presets)
@@ -39,12 +37,10 @@ public class DecoFallenTree extends DecoBase {
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
-        this.setLoops(1);
         this.setDistribution(new DecoFallenTree.Distribution(100f, 5f, 0.8f));
         this.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         this.setLogConditionNoise(0f);
         this.setLogConditionChance(1);
-        this.setMaxY(80);
         this.setLogBlock(Blocks.LOG.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         this.setMinSize(2);
@@ -57,12 +53,12 @@ public class DecoFallenTree extends DecoBase {
     public DecoFallenTree(DecoFallenTree source) {
 
         this();
-        this.setLoops(source.loops);
+        this.config().LOOPS.set(source.config().LOOPS.get());
         this.setDistribution(source.distribution);
         this.setLogCondition(source.logCondition);
         this.setLogConditionNoise(source.logConditionNoise);
         this.setLogConditionChance(source.logConditionChance);
-        this.setMaxY(source.maxY);
+        this.config().MAX_Y.set(source.config().MAX_Y.get());
         this.setLogBlock(source.logBlock);
         this.setLeavesBlock(source.leavesBlock);
         this.setMinSize(source.minSize);
@@ -71,9 +67,20 @@ public class DecoFallenTree extends DecoBase {
     }
 
     @Override
+    public String friendlyName() {
+        return "Fallen Trees";
+    }
+
+    @Override
+    public void initConfig() {
+        this.config().addProperty(this.config().MAX_Y).set(80);
+        this.config().addProperty(this.config().LOOPS).set(1);
+    }
+
+    @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
+        if (this.config().ALLOW.get()) {
 
             float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
@@ -101,13 +108,14 @@ public class DecoFallenTree extends DecoBase {
                 worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);
             }
 
-            for (int i = 0; i < this.loops; i++) {
+            int loops = this.config().LOOPS.get();
+            for (int i = 0; i < loops; i++) {
                 if (isValidLogCondition(noise, strength, rand)) {
                     int x22 = worldX + rand.nextInt(16);// + 8;
                     int z22 = worldZ + rand.nextInt(16);// + 8;
                     int y22 = rtgWorld.world().getHeight(new BlockPos(x22, 0, z22)).getY();
 
-                    if (y22 <= this.maxY) {
+                    if (y22 <= this.config().MAX_Y.get()) {
 
                         // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
@@ -214,17 +222,6 @@ public class DecoFallenTree extends DecoBase {
         }
     }
 
-    public int getLoops() {
-
-        return loops;
-    }
-
-    public DecoFallenTree setLoops(int loops) {
-
-        this.loops = loops;
-        return this;
-    }
-
     public Distribution getDistribution() {
 
         return distribution;
@@ -266,17 +263,6 @@ public class DecoFallenTree extends DecoBase {
     public DecoFallenTree setLogConditionChance(int logConditionChance) {
 
         this.logConditionChance = logConditionChance;
-        return this;
-    }
-
-    public int getMaxY() {
-
-        return maxY;
-    }
-
-    public DecoFallenTree setMaxY(int maxY) {
-
-        this.maxY = maxY;
         return this;
     }
 

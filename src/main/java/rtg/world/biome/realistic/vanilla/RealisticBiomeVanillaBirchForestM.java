@@ -187,17 +187,17 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         superTallBirch.getDistribution().setNoiseFactor(60f);
         superTallBirch.getDistribution().setNoiseAddend(-15f);
         superTallBirch.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
-        superTallBirch.setMaxY(100);
+        superTallBirch.config().MAX_Y.set(100);
         this.addDeco(superTallBirch);
 
         DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.setStrengthFactor(8f);
+        decoDoublePlants.config().MAX_Y.set(128);
+        decoDoublePlants.config().STRENGTH_FACTOR.set(8f);
         this.addDeco(decoDoublePlants);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(24f);
         this.addDeco(decoGrass);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -210,8 +210,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.config().MAX_Y.set(110);
+        decoShrub.config().STRENGTH_FACTOR.set(2f);
         this.addDeco(decoShrub);
     }
 }

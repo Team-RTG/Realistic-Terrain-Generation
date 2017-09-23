@@ -158,8 +158,8 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
         DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
         decoGrassDoubleTallgrass.setDoubleGrassChance(3);
-        decoGrassDoubleTallgrass.setLoops(15);
-        decoGrassDoubleTallgrass.setMaxY(128);
+        decoGrassDoubleTallgrass.config().LOOPS.set(15);
+        decoGrassDoubleTallgrass.config().MAX_Y.set(128);
         this.addDeco(decoGrassDoubleTallgrass);
     }
 

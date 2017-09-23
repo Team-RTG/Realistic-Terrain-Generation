@@ -68,15 +68,18 @@ public class DecoCollectionIceTrees extends DecoCollectionBase {
 
         this.addTree(pinusPonderosa);
 
-        return new DecoTree(pinusPonderosa)
+        DecoTree decoTree = new DecoTree(pinusPonderosa)
             .setStrengthFactorForLoops(4f)
             .setTreeType(TreeType.RTG_TREE)
             .setDistribution(forestDistribution)
             .setTreeCondition(TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
             .setTreeConditionNoise(noiseMin)
             .setTreeConditionNoise2(noiseMax)
-            .setTreeConditionChance(2)
-            .setMaxY(85);
+            .setTreeConditionChance(2);
+
+        decoTree.config().MAX_Y.set(85);
+
+        return decoTree;
     }
 
     private DecoHelper5050 shortTrees(float noiseMin, float noiseMax) {
@@ -102,15 +105,18 @@ public class DecoCollectionIceTrees extends DecoCollectionBase {
 
         this.addTree(piceaSitchensis);
 
-        return new DecoTree(piceaSitchensis)
+        DecoTree decoTree = new DecoTree(piceaSitchensis)
             .setStrengthFactorForLoops(4f)
             .setTreeType(TreeType.RTG_TREE)
             .setDistribution(forestDistribution)
             .setTreeCondition(TreeCondition.NOISE_BETWEEN_AND_RANDOM_CHANCE)
             .setTreeConditionNoise(noiseMin)
             .setTreeConditionNoise2(noiseMax)
-            .setTreeConditionChance(2)
-            .setMaxY(85);
+            .setTreeConditionChance(2);
+
+        decoTree.config().MAX_Y.set(85);
+
+        return decoTree;
     }
 
     private DecoTree randomPungensTrees() {
@@ -129,20 +135,26 @@ public class DecoCollectionIceTrees extends DecoCollectionBase {
 
         this.addTree(piceaPungens);
 
-        return new DecoTree(piceaPungens)
+        DecoTree decoTree = new DecoTree(piceaPungens)
             .setStrengthFactorForLoops(3f)
             .setTreeType(TreeType.RTG_TREE)
             .setTreeCondition(TreeCondition.RANDOM_CHANCE)
-            .setTreeConditionChance(8)
-            .setMaxY(100);
+            .setTreeConditionChance(8);
+
+        decoTree.config().MAX_Y.set(100);
+
+        return decoTree;
     }
 
     private DecoShrub shrubsIce() {
-        return new DecoShrub()
+        DecoShrub decoShrub = new DecoShrub()
             .setLogBlock(Blocks.PACKED_ICE.getDefaultState())
-            .setLeavesBlock(Blocks.ICE.getDefaultState())
-            .setMaxY(140)
-            .setStrengthFactor(4f)
-            .setChance(3);
+            .setLeavesBlock(Blocks.ICE.getDefaultState());
+
+        decoShrub.config().CHANCE.set(3);
+        decoShrub.config().MAX_Y.set(140);
+        decoShrub.config().STRENGTH_FACTOR.set(4f);
+
+        return decoShrub;
     }
 }

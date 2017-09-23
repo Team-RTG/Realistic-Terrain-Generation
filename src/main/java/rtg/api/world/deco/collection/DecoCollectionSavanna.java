@@ -23,13 +23,13 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         DecoShrub acaciaShrub = new DecoShrub();
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        acaciaShrub.setMaxY(160);
-        acaciaShrub.setStrengthFactor(2f);
-        acaciaShrub.setChance(12);
+        acaciaShrub.config().MAX_Y.set(160);
+        acaciaShrub.config().STRENGTH_FACTOR.set(2f);
+        acaciaShrub.config().CHANCE.set(12);
         this.addDeco(acaciaShrub);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLoops(1);
+        decoFallenTree.config().LOOPS.set(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
@@ -50,7 +50,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         this.addTree(bucheriTree);
 
         DecoTree bucheriTrees = new DecoTree(bucheriTree);
-        bucheriTrees.setLoops(1);
+        bucheriTrees.config().LOOPS.set(1);
         bucheriTrees.setTreeType(TreeType.RTG_TREE);
         bucheriTrees.getDistribution().setNoiseDivisor(80f);
         bucheriTrees.getDistribution().setNoiseFactor(60f);
@@ -61,19 +61,19 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         this.addDeco(bucheriTrees);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(32);
-        decoBoulder.setMaxY(95);
+        decoBoulder.config().BOULDER_BLOCK.set(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.config().CHANCE.set(32);
+        decoBoulder.config().MAX_Y.set(95);
         this.addDeco(decoBoulder);
 
         DecoDoubleGrass decoDoubleGrass = new DecoDoubleGrass();
-        decoDoubleGrass.setMaxY(128);
-        decoDoubleGrass.setStrengthFactor(3f);
+        decoDoubleGrass.config().MAX_Y.set(128);
+        decoDoubleGrass.config().STRENGTH_FACTOR.set(3f);
         this.addDeco(decoDoubleGrass);
 
         DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
+        decoGrass.config().MAX_Y.set(128);
+        decoGrass.config().STRENGTH_FACTOR.set(10f);
         this.addDeco(decoGrass);
     }
 }

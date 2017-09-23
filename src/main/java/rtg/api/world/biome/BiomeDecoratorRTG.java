@@ -25,14 +25,28 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.WorldGenPond;
+import rtg.world.gen.ChunkProviderSettingsRTG;
 
 public class BiomeDecoratorRTG
 {
     public BlockPos pos;
     public IRealisticBiome rbb;
-    public Biome biome;
-
+// TODO: [Generator Settings] To be removed, no longer needed
+      public Biome biome;
+//    public WorldGenerator dirtGen;
+//    public WorldGenerator gravelGen;
+//    public WorldGenerator graniteGen;
+//    public WorldGenerator dioriteGen;
+//    public WorldGenerator andesiteGen;
+//    public WorldGenerator coalGen;
+//    public WorldGenerator ironGen;
+//    public WorldGenerator goldGen;
+//    public WorldGenerator redstoneGen;
+//    public WorldGenerator diamondGen;
+//    public WorldGenerator lapisGen;
+// TODO: [Generator Settings] Revert back to the same as vanilla (Replace fields below with fields above)
     public int dirtSize = -1;
     public int gravelSize = -1;
     public int graniteSize = -1;
@@ -50,6 +64,7 @@ public class BiomeDecoratorRTG
     public BiomeDecoratorRTG(IRealisticBiome rbb, Biome baseBiome) {
 
         this.rbb = rbb;
+// TODO: [Generator Settings] To be removed, no longer needed
         this.biome = baseBiome;
         this.rtgConfig = RTGAPI.config();
     }
@@ -60,9 +75,12 @@ public class BiomeDecoratorRTG
     public void decorateOres(World worldIn, Random random, int worldX, int worldZ) {
 
         //Logger.debug("Started generating ores in %s (%d %d)", this.biome.getBiomeName(), worldX, worldZ);
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(worldIn);
 
+// TODO: [Generator Settings] To be removed, no longer needed
         BiomeDecorator biomeDecorator = biome.theBiomeDecorator;
 
+// TODO: [Generator Settings] To be removed, no longer needed...
         if (biomeDecorator.chunkProviderSettings == null) {
 
             String generatorOptions = worldIn.getWorldInfo().getGeneratorOptions();
@@ -73,8 +91,23 @@ public class BiomeDecoratorRTG
 
         // This local variable has to be declared/initialised AFTER the chunk provider settings have been built.
         ChunkProviderSettings chunkProviderSettings = biomeDecorator.chunkProviderSettings;
+/// ...
+
         pos = new BlockPos(worldX, 0, worldZ);
 
+// TODO: [Clean-up][API] Explore ways of executing ore gen that doesn't involve creating a new instance of WorldGenMinable for every ore for every chunk generated
+// TODO: [Generator Settings] Update these to use the proper generator settings
+//        this.dirtGen     = new WorldGenMinable(Blocks.DIRT.getDefaultState(), settings.dirtSize);
+//        this.gravelGen   = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), settings.gravelSize);
+//        this.graniteGen  = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), settings.graniteSize);
+//        this.dioriteGen  = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), settings.dioriteSize);
+//        this.andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), settings.andesiteSize);
+//        this.coalGen     = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), settings.coalSize);
+//        this.ironGen     = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), settings.ironSize);
+//        this.goldGen     = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), settings.goldSize);
+//        this.redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), settings.redstoneSize);
+//        this.diamondGen  = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), settings.diamondSize);
+//        this.lapisGen    = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), settings.lapisSize);
         biomeDecorator.dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), getSize(chunkProviderSettings.dirtSize, dirtSize));
         biomeDecorator.gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), getSize(chunkProviderSettings.gravelSize, gravelSize));
         biomeDecorator.graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), getSize(chunkProviderSettings.graniteSize, graniteSize));
@@ -88,6 +121,40 @@ public class BiomeDecoratorRTG
         biomeDecorator.lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), getSize(chunkProviderSettings.lapisSize, lapisSize));
 
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldIn, random, pos));
+// TODO: [Generator Settings] Update these to use the proper generator settings / Revert back to the same as vanilla
+//        if (TerrainGen.generateOre(worldIn, random, this.dirtGen, pos, OreGenEvent.GenerateMinable.EventType.DIRT)) {
+//            this.genStandardOre1(worldIn, random, this.settings.dirtCount, this.dirtGen, this.settings.dirtMinHeight, this.settings.dirtMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.gravelGen, pos, OreGenEvent.GenerateMinable.EventType.GRAVEL)) {
+//            this.genStandardOre1(worldIn, random, this.settings.gravelCount, this.gravelGen, this.settings.gravelMinHeight, this.settings.gravelMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.dioriteGen, pos, OreGenEvent.GenerateMinable.EventType.DIORITE)) {
+//            this.genStandardOre1(worldIn, random, this.settings.dioriteCount, this.dioriteGen, this.settings.dioriteMinHeight, this.settings.dioriteMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.graniteGen, pos, OreGenEvent.GenerateMinable.EventType.GRANITE)) {
+//            this.genStandardOre1(worldIn, random, this.settings.graniteCount, this.graniteGen, this.settings.graniteMinHeight, this.settings.graniteMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.andesiteGen, pos, OreGenEvent.GenerateMinable.EventType.ANDESITE)) {
+//            this.genStandardOre1(worldIn, random, this.settings.andesiteCount, this.andesiteGen, this.settings.andesiteMinHeight, this.settings.andesiteMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.coalGen, pos, OreGenEvent.GenerateMinable.EventType.COAL)) {
+//            this.genStandardOre1(worldIn, random, this.settings.coalCount, this.coalGen, this.settings.coalMinHeight, this.settings.coalMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.ironGen, pos, OreGenEvent.GenerateMinable.EventType.IRON)) {
+//            this.genStandardOre1(worldIn, random, this.settings.ironCount, this.ironGen, this.settings.ironMinHeight, this.settings.ironMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.goldGen, pos, OreGenEvent.GenerateMinable.EventType.GOLD)) {
+//            this.genStandardOre1(worldIn, random, this.settings.goldCount, this.goldGen, this.settings.goldMinHeight, this.settings.goldMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.redstoneGen, pos, OreGenEvent.GenerateMinable.EventType.REDSTONE)) {
+//            this.genStandardOre1(worldIn, random, this.settings.redstoneCount, this.redstoneGen, this.settings.redstoneMinHeight, this.settings.redstoneMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.diamondGen, pos, OreGenEvent.GenerateMinable.EventType.DIAMOND)) {
+//            this.genStandardOre1(worldIn, random, this.settings.diamondCount, this.diamondGen, this.settings.diamondMinHeight, this.settings.diamondMaxHeight);
+//        }
+//        if (TerrainGen.generateOre(worldIn, random, this.lapisGen, pos, OreGenEvent.GenerateMinable.EventType.LAPIS)) {
+//            this.genStandardOre2(worldIn, random, this.settings.lapisCount, this.lapisGen, this.settings.lapisCenterHeight, this.settings.lapisSpread);
+//        }
         if (TerrainGen.generateOre(worldIn, random, biomeDecorator.dirtGen, pos, OreGenEvent.GenerateMinable.EventType.DIRT)) {
             this.genStandardOre1(worldIn, random, chunkProviderSettings.dirtCount, biomeDecorator.dirtGen, chunkProviderSettings.dirtMinHeight, chunkProviderSettings.dirtMaxHeight);
         }
@@ -128,6 +195,8 @@ public class BiomeDecoratorRTG
             this.genSilverfishOre(worldIn, random, pos);
         }
         if (rbb.getExtraGoldGenCount() > 0) {
+// TODO: [Generator Settings] Update these to use the proper generator settings
+//          this.genStandardOre1(worldIn, random, rbb.getExtraGoldGenCount(), this.goldGen, rbb.getExtraGoldGenMinHeight(), rbb.getExtraGoldGenMaxHeight());
             this.genStandardOre1(worldIn, random, rbb.getExtraGoldGenCount(), biomeDecorator.goldGen, rbb.getExtraGoldGenMinHeight(), rbb.getExtraGoldGenMaxHeight());
         }
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldIn, random, pos));
@@ -226,30 +295,46 @@ public class BiomeDecoratorRTG
      * When manually decorating biomes, sometimes you want the biome to partially decorate itself.
      * That's what this method does... it calls the biome's decorate() method.
      */
+// TODO: [Generator settings] Also pass the base biome from DecoBaseBiomeDecorations when the 'biome' field is removed
+//  public void rDecorateSeedBiome(Biome biome, World world, Random rand, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
     public void rDecorateSeedBiome(World world, Random rand, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
 
         if (strength > 0.3f) {
+// TODO: [Clean-up] This call to a base biomes `decorate` method is the source of extra ore generation.
+//                  This ore gen happens in addition to the ore gen that takes place when CPRTG#generateOres is called from CPRTG#doPopulate
+// TODO: [Generator settings] To be replaced
+//          biome.decorate(world, rand, new BlockPos(worldX, 0, worldZ));
             this.biome.decorate(world, rand, new BlockPos(worldX, 0, worldZ));
         }
     }
 
+// TODO: [Clean-up] Use less ambiguous local vars
     public void rPopulatePreDecorate(IChunkGenerator ichunkgenerator, World worldObj, Random rand, int chunkX, int chunkZ, boolean villageBuilding) {
 
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
         boolean gen = true;
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(worldObj);
 
+// TODO: [Clean-up] This should be set inside of the block after the check has been made if lakes are enabled/disabled so as not to send an event if lakes are disabled
         gen = TerrainGen.populate(ichunkgenerator, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAKE);
 
         // Underground water lakes.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.useWaterUndLakes) {
         if (rtgConfig.ENABLE_WATER_UNDERGROUND_LAKES.get()) {
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (gen && (rbb.waterUndergroundLakeChance() > 0)) {
             if (gen && (rtgConfig.WATER_UNDERGROUND_LAKE_CHANCE.get() > 0) && (rbb.waterUndergroundLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16);// + 8;
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//              if (rand.nextInt(settings.waterUndLakeChance) == 0 && rand.nextInt(rbb.waterUndergroundLakeChance()) == 0) {
                 if (rand.nextInt(rtgConfig.WATER_UNDERGROUND_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.waterUndergroundLakeChance()) == 0) {
 
                     (new WorldGenLakes(Blocks.WATER)).generate(worldObj, rand, new BlockPos(new BlockPos(i2, l4, i8)));
@@ -258,6 +343,8 @@ public class BiomeDecoratorRTG
         }
 
         // Surface water lakes.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.useWaterLakes && !villageBuilding) {
         if (rtgConfig.ENABLE_WATER_SURFACE_LAKES.get() && !villageBuilding) {
 
             if (gen && (rtgConfig.WATER_SURFACE_LAKE_CHANCE.get() > 0) && (rbb.waterSurfaceLakeChance() > 0)) {
@@ -267,6 +354,8 @@ public class BiomeDecoratorRTG
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//              if (rand.nextInt(settings.waterLakeChance) == 0 && rand.nextInt(rbb.waterSurfaceLakeChance()) == 0) {
                 if (rand.nextInt(rtgConfig.WATER_SURFACE_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.waterSurfaceLakeChance()) == 0) {
 
                     if (l4 > 63) {
@@ -277,17 +366,24 @@ public class BiomeDecoratorRTG
             }
         }
 
+// TODO: [Clean-up] This should be set inside of the block after the check has been made if lakes are enabled/disabled so as not to send an event if lakes are disabled
         gen = TerrainGen.populate(ichunkgenerator, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.LAVA);
 
         // Underground lava lakes.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.useLavaUndLakes) {
         if (rtgConfig.ENABLE_LAVA_UNDERGROUND_LAKES.get()) {
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (gen && (rbb.lavaUndergroundLakeChance() > 0)) {
             if (gen && (rtgConfig.LAVA_UNDERGROUND_LAKE_CHANCE.get() > 0) && (rbb.lavaUndergroundLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
                 int l4 = RandomUtil.getRandomInt(rand, 1, 50);
                 int i8 = worldZ + rand.nextInt(16);// + 8;
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//              if (rand.nextInt(settings.lavaUndLakeChance) == 0 && rand.nextInt(rbb.lavaUndergroundLakeChance()) == 0) {
                 if (rand.nextInt(rtgConfig.LAVA_UNDERGROUND_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.lavaUndergroundLakeChance()) == 0) {
 
                     (new WorldGenLakes(Blocks.LAVA)).generate(worldObj, rand, new BlockPos(i2, l4, i8));
@@ -296,8 +392,12 @@ public class BiomeDecoratorRTG
         }
 
         // Surface lava lakes.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.useLavaLakes && !villageBuilding) {
         if (rtgConfig.ENABLE_LAVA_SURFACE_LAKES.get() && !villageBuilding) {
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (gen && (rbb.lavaSurfaceLakeChance() > 0)) {
             if (gen && (rtgConfig.LAVA_SURFACE_LAKE_CHANCE.get() > 0) && (rbb.lavaSurfaceLakeChance() > 0)) {
 
                 int i2 = worldX + rand.nextInt(16);// + 8;
@@ -305,6 +405,8 @@ public class BiomeDecoratorRTG
                 int l4 = worldObj.getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 //Surface lakes.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//              if (rand.nextInt(settings.lavaLakeChance) == 0 && rand.nextInt(rbb.lavaSurfaceLakeChance()) == 0) {
                 if (rand.nextInt(rtgConfig.LAVA_SURFACE_LAKE_CHANCE.get()) == 0 && rand.nextInt(rbb.lavaSurfaceLakeChance()) == 0) {
 
                     if (l4 > 63) {
@@ -315,12 +417,16 @@ public class BiomeDecoratorRTG
             }
         }
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.useDungeons) {
         if (rtgConfig.GENERATE_DUNGEONS.get()) {
 
             gen = TerrainGen.populate(ichunkgenerator, worldObj, rand, chunkX, chunkZ, villageBuilding, PopulateChunkEvent.Populate.EventType.DUNGEON);
 
             if (gen) {
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//              for(int k1 = 0; k1 < settings.dungeonChance; k1++) {
                 for(int k1 = 0; k1 < rtgConfig.DUNGEON_FREQUENCY.get(); k1++) {
 
                     int j5 = worldX + rand.nextInt(16);// + 8;
@@ -334,8 +440,11 @@ public class BiomeDecoratorRTG
     }
 
     public void rPopulatePostDecorate(World worldObj, Random rand, int chunkX, int chunkZ, boolean flag) {
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(worldObj);
 
         // Are flowing liquid modifications enabled?
+// TODO: [Dimensions][Clean-up] Remove this check and config setting. The individual spouts can be disable separately, and this is not world-specific.
         if (!rtgConfig.ENABLE_FLOWING_LIQUID_MODIFICATIONS.get()) {
             return;
         }
@@ -345,7 +454,11 @@ public class BiomeDecoratorRTG
         int worldHeight = worldObj.provider.getActualHeight();
 
         //Flowing water.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.waterSpoutChance > 0) {
         if (rtgConfig.FLOWING_WATER_CHANCE.get() > 0) {
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (rand.nextInt(settings.waterSpoutChance) == 0) {
             if (rand.nextInt(rtgConfig.FLOWING_WATER_CHANCE.get()) == 0) {
                 for(int l18 = 0; l18 < 50; l18++)
                 {
@@ -358,7 +471,11 @@ public class BiomeDecoratorRTG
         }
 
         //Flowing lava.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.lavaSpoutChance > 0) {
         if (rtgConfig.FLOWING_LAVA_CHANCE.get() > 0) {
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (rand.nextInt(settings.lavaSpoutChance) == 0) {
             if (rand.nextInt(rtgConfig.FLOWING_LAVA_CHANCE.get()) == 0) {
                 for(int i19 = 0; i19 < 20; i19++)
                 {
@@ -371,6 +488,7 @@ public class BiomeDecoratorRTG
         }
     }
 
+// TODO: [Generator settings] To be removed
     private int getSize(int originalSize, int newSize) {
         return (newSize == -1) ? originalSize : newSize;
     }

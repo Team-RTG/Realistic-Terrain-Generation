@@ -46,6 +46,11 @@ public class RealisticBiomeCreator extends RealisticBiomeBase {
     }
 
     @Override
+    public Biome beachBiome() {
+        return this.iRealisticBiome.beachBiome();
+    }
+
+    @Override
     public void initConfig() {
         this.iRealisticBiome.initConfig();
     }

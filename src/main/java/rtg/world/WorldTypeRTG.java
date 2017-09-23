@@ -1,6 +1,6 @@
 package rtg.world;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -20,27 +20,20 @@ import rtg.world.gen.ChunkProviderRTG;
 public class WorldTypeRTG extends WorldType
 {
 
+// TODO: [Generator settings][Dimensions] Remove all use of the static fields: biomeProvider, chunkProvider
     private static BiomeProviderRTG biomeProvider;
     public static ChunkProviderRTG chunkProvider;
-    private final boolean hasNotificationData;
 
     public WorldTypeRTG(String name)
     {
         super(name);
-        this.hasNotificationData = true;
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public boolean showWorldInfoNotice() {
-        return this.hasNotificationData;
-    }
+    public BiomeProvider getBiomeProvider(World world) {
 
-    @Override @Nonnull
-    public BiomeProvider getBiomeProvider(@Nonnull World world)
-    {
-        if (DimensionManagerRTG.isValidDimension(world.provider.getDimension()))
-        {
+        if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
+
             if (biomeProvider == null) {
 
                 biomeProvider = new BiomeProviderRTG(world, this);
@@ -51,34 +44,35 @@ public class WorldTypeRTG extends WorldType
 
             return biomeProvider;
         }
-        else
-        {
+        else {
+
             Logger.debug("WorldTypeRTG#getBiomeProvider() returning vanilla BiomeProvider");
 
             return new BiomeProvider(world.getWorldInfo());
         }
     }
 
-    @Override @Nonnull
-    public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions)
-    {
+    @Override
+    public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
+
         if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
 
             if (chunkProvider == null) {
-                chunkProvider = new ChunkProviderRTG(world, world.getSeed());
+
+                chunkProvider = new ChunkProviderRTG(world, world.getSeed(), generatorOptions);
                 RTG.instance.runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
                 // inform the event manager about the ChunkEvent.Load event
                 RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
                 RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
 
-                Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG");
+                Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG for Dim {}", world.provider.getDimension());
 
                 return chunkProvider;
             }
 
             // return a "fake" provider that won't decorate for Streams
-            ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed());
+            ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed(), generatorOptions);
             result.isFakeGenerator();
 
             return result;
@@ -87,7 +81,8 @@ public class WorldTypeRTG extends WorldType
             //return chunkProvider;
         }
         else {
-            Logger.debug("Invalid dimension. Serving up ChunkProviderOverworld instead of ChunkProviderRTG.");
+
+            Logger.error("Invalid dimension. Serving up ChunkProviderOverworld instead of ChunkProviderRTG.");
             return new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
         }
     }
@@ -98,6 +93,7 @@ public class WorldTypeRTG extends WorldType
         return 256F;
     }
 
+    @Nullable
     private static Runnable clearProvider(Object provider) {
         if (provider instanceof BiomeProviderRTG) {
             Logger.debug("WorldTypeRTG#clearProvider() provider instanceof BiomeProviderRTG (setting to NULL)");
@@ -112,4 +108,24 @@ public class WorldTypeRTG extends WorldType
             return null;
         }
     }
+
+    @Override
+    public boolean isCustomizable() {
+        return true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public String getTranslateName() {
+        return "gui.createWorld.worldtypename";
+    }
+
+    // Keep fully qualified names to avoid client class imports
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onCustomizeButton(net.minecraft.client.Minecraft mc, net.minecraft.client.gui.GuiCreateWorld guiCreateWorld) {
+        mc.displayGuiScreen(new rtg.client.gui.GuiCustomizeWorldScreenRTG(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
+    }
+// TODO: [Generator settings] Add an override for WorldType#getBiomeLayer to allow use of fixedBiome.
+//                            This will likely require a custom GenLayerBiome class to be written.
 }

@@ -6,6 +6,14 @@ import rtg.api.config.property.*;
 import rtg.api.config.property.ConfigProperty.Type;
 
 
+// TODO: [Clean-up] Rewrite this class to have final fields that hold primative values, and have a Factory and Serializer inner classes like ChunkProviderSettings has.
+//                  Biome configs can be Serialize'd and written to files as JSON objects, and looded from files and Deserialize'd into BiomeConfig objects through the Factory.
+//                  All implementation code (eg. creating config objects in the constructor) should be removed and default settings can be passed from the realistic biome
+//                  classes (during init) to a Factory instance before attempting to loaded config file data.
+//                  OPTIONAL: Dummy JSON objects can be used during serialization to create 'comments' for the config settings before writing to files.
+//                  OPTIONAL: Add a GUI interface to change biome config settings from the config GUI screen.
+// TODO: [Clean-up] All biome config settings should be assessed as to their usefulness and ones that are unlikely to be used should be removed to streamline the configs for less bloat
+// TODO: [Clean-up] Convert all BLOCK_ID/BLOCK_META pairs into a single line of "<resource location>/<meta>"
 public class BiomeConfig extends Config {
 
     public static final String MESA_PLATEAU_GRADIENT_METAS = "" +

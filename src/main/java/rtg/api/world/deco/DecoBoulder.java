@@ -14,7 +14,9 @@ import rtg.api.util.RandomUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.WorldGenBlob;
+import rtg.world.gen.ChunkProviderSettingsRTG;
 
 /**
  * @author WhichOnesPink
@@ -63,6 +65,10 @@ public class DecoBoulder extends DecoBase {
 
         if (this.allowed) {
 
+// TODO: [Generator Settings] Update this to use the generator setting and not the config settings found in WorldGenBlob
+            ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
+//          if (settings.useBoulders) {
+
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
 
@@ -100,6 +106,7 @@ public class DecoBoulder extends DecoBase {
                     worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
                 }
             }
+//          }
         }
     }
 

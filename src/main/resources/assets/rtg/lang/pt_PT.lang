@@ -1,5 +1,4 @@
-generator.RTG=Realista
-generator.RTG.info=Realista world type from Realistic Terrain Generation
+gui.createWorld.worldtypename=RTG - Realista
 
 warning.rtgStartup1=Realistic Terrain geração usa um tipo de mundo personalizado.
 warning.rtgStartup2=Se você quiser terreno realista, continue clicando no botão Tipo de Mundo

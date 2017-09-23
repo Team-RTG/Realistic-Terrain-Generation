@@ -7,6 +7,7 @@ import static net.minecraft.world.biome.Biome.REGISTRY;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+// TODO: [Clean-up] Class should be final to prevent extension, Class should have a private no-params contructor to prevent instantiation.
 public class BiomeUtils {
 
     //TODO: Read this from somewhere

@@ -100,6 +100,7 @@ public class RTGConfig extends Config {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN;
+    public final ConfigPropertyBoolean USE_RTG_WORLD_TYPE_DEFAULT;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Lakes (Scenic)
@@ -538,6 +539,15 @@ public class RTGConfig extends Config {
             true
         );
         this.addProperty(ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN);
+
+        USE_RTG_WORLD_TYPE_DEFAULT = new ConfigPropertyBoolean(
+            ConfigProperty.Type.BOOLEAN,
+            "Automatically select RTG world type when creating a new world",
+            "GUI",
+            "",
+            true
+        );
+        this.addProperty(USE_RTG_WORLD_TYPE_DEFAULT);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Lakes (Scenic)

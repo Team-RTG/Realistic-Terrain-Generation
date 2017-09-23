@@ -16,15 +16,27 @@ import com.google.common.base.Objects;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 
-@SuppressWarnings({"NullableProblems", "WeakerAccess", "unused"})
+// TODO: [Clean-up] Clean up this class to fully match the vanilla super class.
+// TODO: [Clean-up] Remove unneccessary overrides, or delegate to the super methods instead of overiding them with cloned functionality that may change in the future
+// TODO: [Clean-up] Remove all biome-specific code
 public class MapGenCavesRTG extends MapGenCaves
 {
     protected static final IBlockState BLK_LAVA = Blocks.LAVA.getDefaultState();
     protected static final IBlockState BLK_AIR = Blocks.AIR.getDefaultState();
     protected static final IBlockState BLK_SANDSTONE = Blocks.SANDSTONE.getDefaultState();
     protected static final IBlockState BLK_RED_SANDSTONE = Blocks.RED_SANDSTONE.getDefaultState();
+// TODO: [Generator settings] remove these fields and their checks (Make in CPRTG#provideChunk)
     private RTGConfig rtgConfig = RTGAPI.config();
     private boolean enableCaves;
+
+// TODO: [Generator settings] update to use the generator settings
+//  private final int caveDensity;
+//  private final int caveChance;
+
+//  MapGenCavesRTG(int caveChance, int caveDensity) {
+//      this.caveChance  = caveChance;
+//      this.caveDensity = caveDensity;
+//  }
 
     protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_,
                            double p_180703_6_, double p_180703_8_, double p_180703_10_) {
@@ -177,12 +189,15 @@ public class MapGenCavesRTG extends MapGenCaves
 
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int p_180701_4_, int p_180701_5_, ChunkPrimer chunkPrimerIn) {
         // Return early if caves are disabled.
+// TODO: [Generator settings] Remove. Check is made in CPRTG#provideChunk
         if (!rtgConfig.ENABLE_CAVES.get()) return;
 
         // Use the global settings by default.
+// TODO: [Generator settings] update to use the generator settings, and the new fields caveDensity, caveChance
         int caveDensity = rtgConfig.CAVE_DENSITY.get();
         int caveFrequency = rtgConfig.CAVE_FREQUENCY.get();
 
+// TODO: [Clean-up] remove all references to biome specific cave generation
         //biome-specific cave features disabled for performance;
 
 //        // If the user has set biome-specific settings, let's use those instead.

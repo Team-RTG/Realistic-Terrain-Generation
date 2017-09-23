@@ -1,5 +1,6 @@
 package rtg.world.gen;
 
+// TODO: [Clean-up] Remove wildcard imports
 import java.util.*;
 import javax.annotation.Nonnull;
 
@@ -41,6 +42,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
 import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.RTGWorld;
 import rtg.util.TimeTracker;
 import rtg.world.WorldTypeRTG;
@@ -56,10 +58,13 @@ import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 
 @SuppressWarnings({"UnusedParameters", "deprecation"})
+// TODO: [Clean-up 1.12] Revisit the need of the delayed decoration system. It's likely things have improved to the point where it's more of a detriment to performance and compatibility
+// TODO: [Clean-up 1.12] Clean up the Time tracker. Make time tracker strings CONSTANTS.
 public class ChunkProviderRTG implements IChunkGenerator
 {
     private static ChunkProviderRTG populatingProvider;
-    private RTGConfig rtgConfig = RTGAPI.config();
+    private final ChunkProviderSettingsRTG settings;
+    private final RTGConfig rtgConfig = RTGAPI.config();
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -70,21 +75,28 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final int sampleSize = 8;
     private final int sampleArraySize;
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
+// TODO: [Clean-up] Find the source of the erroneous flipping and squash it for good. This should not need to be done.
     private int [] xyinverted = analyzer.xyinverted();
     private final LandscapeGenerator landscapeGenerator;
     private final LimitedMap<ChunkPos, Chunk> availableChunks;
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
     private boolean mapFeaturesEnabled;
+// TODO: [Clean-up] To be removed
     private Block bedrockBlock = Block.getBlockFromName(rtgConfig.BEDROCK_BLOCK_ID.get());
+// TODO: [Clean-up] To be removed
     private byte bedrockByte = (byte) rtgConfig.BEDROCK_BLOCK_BYTE.get();
     private Random rand;
+// TODO: [Clean-up] To be removed (duplicate of rand above)
     private Random mapRand;
+// TODO: [Clean-up] rename to 'world' for consistancy with newer MCP mappings, set to private
     public final World worldObj;
     public final RTGWorld rtgWorld;
     private WorldUtil worldUtil;
+// TODO: [Clean-up] rename to something less ambiguous
     private IBiomeProviderRTG cmr;
     private Biome[] baseBiomesList;
     private float[] borderNoise;
+// TODO: [Clean-up] To be removed
     private long worldSeed;
     private RealisticBiomePatcher biomePatcher;
     private HashMap<ChunkPos, Chunk> inGeneration = new HashMap<>();
@@ -128,19 +140,23 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     };
 
-    public ChunkProviderRTG(World world, long seed) {
+    public ChunkProviderRTG(final World world, final long seed, final String generatorOptions) {
 
         Logger.debug("STARTED instantiating CPRTG.");
 
         worldObj = world;
         worldUtil = new WorldUtil(world);
         rtgWorld = new RTGWorld(worldObj);
+        this.settings = GenSettingsRepo.getSettingsForWorld(world);
+        this.worldObj.setSeaLevel(settings.seaLevel);
+// TODO: [Clean-up] No need to cast here as it is stored in cmr as a IBiomeProvider object and BiomeProviderRTG has no custom functionality
         cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
         rand = new Random(seed);
         landscapeGenerator = rtgWorld.landscapeGenerator;
         mapRand = new Random(seed);
         worldSeed = seed;
         volcanoGenerator = new VolcanoGenerator(seed);
+// TODO: [Generator settings] Remove this map, No longer needed.
         Map<String, String> m = new HashMap<>();
         m.put("size", "0");
         m.put("distance", "24");
@@ -150,6 +166,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         plateauBand = PlateauBand.getInstance();
         plateauBand.init(rtgWorld);
 
+// TODO: [Generator Settings] Use only MapGenCavesRTG() to generate caves using generator settings. Replace if-else
+//      caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(settings.caveChance, settings.caveDensity), EventType.CAVE);
         if (isRTGWorld && rtgConfig.ENABLE_CAVE_MODIFICATIONS.get()) {
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCavesRTG(), EventType.CAVE);
         }
@@ -157,6 +175,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             caveGenerator = (MapGenCaves) TerrainGen.getModdedMapGen(new MapGenCaves(), EventType.CAVE);
         }
 
+// TODO: [Generator Settings] Use only MapGenRavineRTG() to generate ravines using generator settings. Replace if-else
+//      ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(settings.ravineChance), EventType.RAVINE);
         if (isRTGWorld && rtgConfig.ENABLE_RAVINE_MODIFICATIONS.get()) {
             ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavineRTG(), EventType.RAVINE);
         }
@@ -164,6 +184,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             ravineGenerator = (MapGenRavine) TerrainGen.getModdedMapGen(new MapGenRavine(), EventType.RAVINE);
         }
 
+// TODO: [Generator settings] Replace the RTG custom village class with a call to the vanilla class. Replace if-else
+//      this.villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(StructureType.VILLAGE.getSettings(settings)), EventType.VILLAGE);
         if (isRTGWorld && rtgConfig.ENABLE_VILLAGE_MODIFICATIONS.get()) {
             villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(), EventType.VILLAGE);
         }
@@ -171,6 +193,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
         }
 
+// TODO: [Generator settings] Replace the RTG custom stronghold class with a call to the vanilla class. Replace if-else
+//      this.strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(StructureType.STRONGHOLD.getSettings(settings)), EventType.STRONGHOLD);
         if (isRTGWorld && rtgConfig.ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
             strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStrongholdRTG(), EventType.STRONGHOLD);
         }
@@ -178,8 +202,12 @@ public class ChunkProviderRTG implements IChunkGenerator
             strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
         }
 
+// TODO: [Generator settings] Pass settings to mineshafts.
+//      mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(StructureType.MINESHAFT.getSettings(settings)), EventType.MINESHAFT);
         mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), EventType.MINESHAFT);
 
+// TODO: [Generator settings] Replace the RTG custom scattered features class with a call to the vanilla class. Replace if-else
+//      scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(StructureType.TEMPLE.getSettings(settings)), EventType.SCATTERED_FEATURE);
         if (isRTGWorld && rtgConfig.ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) {
             scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeatureRTG(), EventType.SCATTERED_FEATURE);
         }
@@ -187,6 +215,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
         }
 
+// TODO: [Generator settings] Replace the RTG custom monument class with a call to the vanilla class. Replace if-else
+//      oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(StructureType.MONUMENT.getSettings(settings)), EventType.OCEAN_MONUMENT);
         if (isRTGWorld && rtgConfig.ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) {
             oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonumentRTG(), EventType.OCEAN_MONUMENT);
         }
@@ -203,12 +233,14 @@ public class ChunkProviderRTG implements IChunkGenerator
         setWeightings();
 
         // check for bogus world
+// TODO: [Clean-up] Remove. worldObj can never be null in this case; A valid World object will always be passed by WorldType#getChunkGenerator
         if (worldObj == null) throw new RuntimeException("Attempt to create chunk provider without a world");
 
         Logger.debug("FINISHED instantiating CPRTG.");
     }
 
     private void setWeightings() {
+// TODO: [Clean-up] Remove this array, it is unused
         float[][] weightings = new float[sampleArraySize * sampleArraySize][256];
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
@@ -235,6 +267,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         return (biomeMapCoordinate - sampleSize) * 8;
     }
 
+    // Streams compatibility
+// TODO: [Clean-up] Remove fake generator functionality as Farseek v2.0+ no longer aquires a 'fake' chunk generator instance from CPRTG
     public void isFakeGenerator() {
 
         this.fakeGenerator = true;
@@ -243,6 +277,7 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     @Nonnull
     public Chunk provideChunk(final int cx, final int cz) {
+// TODO: [Clean-up] The delayed decoration system should be updated to ultilise much faster map implementations such as those found in it.unimi.dsi.fastutil to reduce world gen lag
         final ChunkPos pos = new ChunkPos(cx, cz);
         if (inGeneration.containsKey(pos)) return inGeneration.get(pos);
         //if (availableChunks.size() > 1000) throw new RuntimeException();
@@ -292,6 +327,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         TimeTracker.manager.stop(fill);
         // that routine can change the blocks.
         //get standard biome Data
+// TODO: [Generator settings] Update to use the generator setting
+//      if (settings.useVolcanos) {
         String volcanos = "Volcanos";
         TimeTracker.manager.start(volcanos);
         for (k = 0; k < 256; k++) {
@@ -303,8 +340,11 @@ public class ChunkProviderRTG implements IChunkGenerator
                 baseBiomesList[k] = biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome()));
             }
         }
+// TODO: [Clean-up] Update to get the seed from the world object, and use the existing Random instance
+//      volcanoGenerator.generateMapGen(primer, worldObj.getSeed(), worldObj, cmr, rand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
         volcanoGenerator.generateMapGen(primer, worldSeed, worldObj, cmr, mapRand, cx, cz, rtgWorld.simplex, rtgWorld.cell, landscape.noise);
         TimeTracker.manager.stop(volcanos);
+//      }
 
         String replace = "RTG Replace";
         TimeTracker.manager.start(replace);
@@ -334,10 +374,18 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         String features = "Vanilla Features";
         TimeTracker.manager.start(features);
+// TODO: [Generator settings] Update to use a generator settings check here
+//      if (settings.useCaves) {
         caveGenerator.generate(worldObj, cx, cz, primer);
-        ravineGenerator.generate(worldObj, cx, cz, primer);
-        if (mapFeaturesEnabled) {
+//      }
 
+//      if (settings.useRavines) {
+        ravineGenerator.generate(worldObj, cx, cz, primer);
+//      }
+
+        if (mapFeaturesEnabled) {
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useMineShafts) {
             if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
                     mineshaftGenerator.generate(this.worldObj, cx, cz, primer);
@@ -353,7 +401,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useStrongholds) {
             if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
                 try {
                     strongholdGenerator.generate(this.worldObj, cx, cz, primer);
@@ -369,7 +418,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useVillages) {
             if (rtgConfig.GENERATE_VILLAGES.get()) {
                 try {
                     villageGenerator.generate(this.worldObj, cx, cz, primer);
@@ -385,7 +435,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useTemples) {
             if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
                 try {
                     scatteredFeatureGenerator.generate(this.worldObj, cx, cz, primer);
@@ -401,7 +452,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useMonuments) {
             if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
                 try {
                     oceanMonumentGenerator.generate(this.worldObj, cx, cz, primer);
@@ -417,6 +469,22 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
+// TODO: [Generator Settings] Add this in 1.11+
+//          if (settings.useMansions) {
+//              try {
+//                  mansionGenerator.generate(/*params*/);
+//              }
+//              catch (Exception e) {
+//                  if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
+//                      Logger.fatal("Exception in mansionGenerator");
+//                      throw new RuntimeException(e.getMessage());
+//                  }
+//                  else {
+//                      Logger.error("Exception in mansionGenerator");
+//                      e.printStackTrace();
+//                  }
+//              }
+//          }
         }
 
         TimeTracker.manager.stop(features);
@@ -479,11 +547,10 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, IRealisticBiome[]
-        biomes, Biome[] base, float[] n) {
+// TODO: [Clean-up] Rename to replaceBiomeBlocks to be consistent with vanilla
+    private void replaceBlocksForBiome(int cx, int cz, ChunkPrimer primer, IRealisticBiome[] biomes, Biome[] base, float[] n) {
 
-        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(
-            this, cx, cz, primer, this.worldObj);
+        ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, this.worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Event.Result.DENY) return;
 
@@ -512,6 +579,9 @@ public class ChunkProviderRTG implements IChunkGenerator
                 }
 
                 int rough;
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+// TODO: [Clean-up] remove all references to bedrockBlock
+//              int flatBedrockLayers = settings.bedrockLayers;
                 int flatBedrockLayers = rtgConfig.FLAT_BEDROCK_LAYERS.get();
                 flatBedrockLayers = flatBedrockLayers < 0 ? 0 : (flatBedrockLayers > 5 ? 5 : flatBedrockLayers);
 
@@ -543,6 +613,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     @Override
     public void populate(int x, int z) {
         // check if this is the master provider
+// TODO: [Clean-up] Remove fake generator functionality as Farseek v2.0+ no longer aquires a 'fake' chunk generator instance from CPRTG
         if (this.fakeGenerator) return;
         //if (this.alreadyDecorated.contains(new PlaneLocation.Invariant(chunkX, chunkZ))) return;
         if (this.neighborsDone(x, z)) {
@@ -552,6 +623,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     }
 
     private boolean neighborsDone(int cx, int cz) {
+// TODO: [Clean-up] wrap long line
         return chunkExists(true, cx - 1, cz - 1) && chunkExists(true, cx - 1, cz) && chunkExists(true, cx - 1, cz + 1) && chunkExists(true, cx, cz - 1) && chunkExists(true, cx, cz + 1) && chunkExists(true, cx + 1, cz - 1) && chunkExists(true, cx + 1, cz) && chunkExists(true, cx + 1, cz + 1);
     }
 
@@ -604,6 +676,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         if (mapFeaturesEnabled) {
 
             TimeTracker.manager.start("Mineshafts");
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useMineShafts) {
             if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
                     mineshaftGenerator.generateStructure(worldObj, rand, chunkPos);
@@ -622,6 +696,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Mineshafts");
 
             TimeTracker.manager.start("Strongholds");
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useStrongholds) {
             if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
                 try {
                     strongholdGenerator.generateStructure(worldObj, rand, chunkPos);
@@ -640,6 +716,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Strongholds");
 
             TimeTracker.manager.start("Villages");
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useVillages) {
             if (rtgConfig.GENERATE_VILLAGES.get()) {
                 try {
                     hasPlacedVillageBlocks = villageGenerator.generateStructure(worldObj, rand, chunkPos);
@@ -659,6 +737,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Villages");
 
             TimeTracker.manager.start("Scattered");
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useTemples) {
             if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
                 try {
                     scatteredFeatureGenerator.generateStructure(worldObj, rand, chunkPos);
@@ -677,6 +757,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             TimeTracker.manager.stop("Scattered");
 
             TimeTracker.manager.start("Monuments");
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useMonuments) {
             if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
                 try {
                     oceanMonumentGenerator.generateStructure(this.worldObj, rand, chunkPos);
@@ -726,7 +808,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         //Border noise. (Does this have to be done here? - Pink)
         RealisticBiomeBase realisticBiome;
 
-        TreeSet<Valued<RealisticBiomeBase>> activeBiomes = new TreeSet();
+        TreeSet<Valued<RealisticBiomeBase>> activeBiomes = new TreeSet<>();
         for (int bn = 0; bn < 256; bn++) {
             if (borderNoise[bn] > 0f) {
                 if (borderNoise[bn] >= 1f) borderNoise[bn] = 1f;
@@ -738,7 +820,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
                         "NULL biome (" + bn + ") found when generating border noise.");
                 }
-                activeBiomes.add(new Valued(borderNoise[bn],realisticBiome));
+                activeBiomes.add(new Valued<>(borderNoise[bn],realisticBiome));
 
                 borderNoise[bn] = 0f;
             }
@@ -754,6 +836,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                  * However, there are some mod biomes that crash when they try to decorate themselves,
                  * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
                  */
+// TODO: [Clean-up] ENABLE_RTG_BIOME_DECORATIONS should be renamed to DISABLE_RTG_BIOME_DECORATIONS and put in the debug section of the config and set to FALSE by default
             if (rtgConfig.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
                 realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
@@ -813,6 +896,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
 
                     // Snow.
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//                  if (settings.useSnowLayers && this.worldUtil.canSnowAt(snowPos, true)) {
                     if (rtgConfig.ENABLE_SNOW_LAYERS.get() && this.worldUtil.canSnowAt(snowPos, true)) {
                         this.worldObj.setBlockState(snowPos, snowLayerBlock, 2);
                     }
@@ -829,6 +914,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         populatingProvider = null;
     }
 
+// TODO: [Clean-up] Remove constant condition parameter `limit`
     private void clearDecorations(int limit) {
         if (WorldTypeRTG.chunkProvider != this) return;
         Set<ChunkPos> toProcess = doableLocations(limit);
@@ -863,7 +949,8 @@ public class ChunkProviderRTG implements IChunkGenerator
     @Override
     public boolean generateStructures(@Nonnull Chunk chunkIn, int x, int z) {
         boolean flag = false;
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (settings.useMonuments && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
         if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
             flag = this.oceanMonumentGenerator.generateStructure(this.worldObj, this.rand, new ChunkPos(x, z));
         }
@@ -879,7 +966,8 @@ public class ChunkProviderRTG implements IChunkGenerator
             if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
                 return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (creatureType == EnumCreatureType.MONSTER && settings.useMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
             if (creatureType == EnumCreatureType.MONSTER && rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.worldObj, pos)) {
                 return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
             }
@@ -889,7 +977,8 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     @Override
     public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//      if (!settings.useStrongholds) return null;
         if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
     }
@@ -898,6 +987,8 @@ public class ChunkProviderRTG implements IChunkGenerator
     public void recreateStructures(@Nonnull Chunk chunk, int par1, int par2) {
 
         if (mapFeaturesEnabled) {
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useMineShafts) {
             if (rtgConfig.GENERATE_MINESHAFTS.get()) {
                 try {
                     mineshaftGenerator.generate(worldObj, par1, par2, new ChunkPrimer());
@@ -913,7 +1004,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useStrongholds) {
             if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
                 try {
                     strongholdGenerator.generate(worldObj, par1, par2, new ChunkPrimer());
@@ -929,7 +1021,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useVillages) {
             if (rtgConfig.GENERATE_VILLAGES.get()) {
                 try {
                     villageGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
@@ -945,7 +1038,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useTemples) {
             if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
                 try {
                     scatteredFeatureGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
@@ -961,7 +1055,8 @@ public class ChunkProviderRTG implements IChunkGenerator
                     }
                 }
             }
-
+// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+//          if (settings.useMonuments) {
             if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
                 try {
                     oceanMonumentGenerator.generate(this.worldObj, par1, par2, new ChunkPrimer());
@@ -1021,6 +1116,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         //this.doPopulate(probe.chunkXPos, probe.chunkZPos);
     }
 
+// TODO: [Clean-up] Remove constant condition parameter `checkNeighbours`
     private boolean chunkExists(boolean checkNeighbours, int cx, int cz) {
         //if (chunkExists(cx,cz)) return true;
         ChunkPos location = new ChunkPos(cx, cz);
@@ -1056,6 +1152,7 @@ public class ChunkProviderRTG implements IChunkGenerator
      * Loads or generates the chunk at the chunk location specified.
      */
     @SuppressWarnings("unused")
+// TODO: [Cllean-up] To be removed. This is vestigal from 1.7.10 and is no longer in the interface and never used.
     public Chunk loadChunk(int par1, int par2) {
         throw new RuntimeException();
 //      return provideChunk(par1, par2);
@@ -1106,5 +1203,47 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     public ChunkOreGenTracker getChunkOreGenTracker() {
         return this.chunkOreGenTracker;
+    }
+
+    // A helper class to generate settings maps to configure the vanilla structure classes
+    private enum StructureType {
+
+        MINESHAFT, MONUMENT, STRONGHOLD, TEMPLE, VILLAGE;
+
+        Map<String, String> getSettings(ChunkProviderSettingsRTG settings) {
+
+            Map<String, String> ret = new HashMap<>();
+
+            if (this == MINESHAFT) {
+                ret.put("chance", String.valueOf(settings.mineShaftChance));
+                return ret;
+            }
+
+            if (this == MONUMENT) {
+                ret.put("separation", String.valueOf(settings.monumentSeparation));
+                ret.put("spacing",    String.valueOf(settings.monumentSpacing));
+                return ret;
+            }
+
+            if (this == STRONGHOLD) {
+                ret.put("count",    String.valueOf(settings.strongholdCount));
+                ret.put("distance", String.valueOf(settings.strongholdDistance));
+                ret.put("spread",   String.valueOf(settings.strongholdSpread));
+                return ret;
+            }
+
+            if (this == TEMPLE) {
+                ret.put("distance", String.valueOf(settings.templeMaxDistance));
+                return ret;
+            }
+
+            if (this == VILLAGE) {
+                ret.put("distance", String.valueOf(settings.villageMaxDistance));
+                ret.put("size",     String.valueOf(settings.villageSize));
+                return ret;
+            }
+
+            return ret;
+        }
     }
 }

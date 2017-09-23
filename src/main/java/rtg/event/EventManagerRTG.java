@@ -195,7 +195,13 @@ public class EventManagerRTG {
             }
 
             try {
-                event.setNewBiomeGens(new RiverRemover().riverLess(event.getOriginalBiomeGens()));
+
+                /*
+                 We're using getNewBiomeGens() instead of getOriginalBiomeGens() to ensure that we're not overwriting
+                 the changes made to the gen layers by other mods, like Painted Biomes.
+                 Thanks @superckl!
+                 */
+                event.setNewBiomeGens(new RiverRemover().riverLess(event.getNewBiomeGens()));
             }
             catch (ClassCastException ex) {
                 //throw ex;

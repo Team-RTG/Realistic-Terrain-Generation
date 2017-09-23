@@ -282,11 +282,11 @@ public class BiomeAnalyzer {
             RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
             if (realisticBiome == null) continue;
 
-            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome);
+            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome());
 
             // If stone beaches aren't allowed in this biome, then determine the best beach to use based on the biome's temperature.
             if (realisticBiome.disallowStoneBeaches) {
-                if (Biome.getIdForBiome(realisticBiome.beachBiome) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
+                if (Biome.getIdForBiome(realisticBiome.beachBiome()) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
                     preferredBeach[i] = Biome.getIdForBiome((biome.getTemperature() <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH);
                 }
             }

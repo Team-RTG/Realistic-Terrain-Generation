@@ -39,7 +39,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public final Biome baseBiome;
     public final Biome riverBiome;
-    public final Biome beachBiome;
     public BiomeConfig config;
     public String configPath;
     public TerrainBase terrain;
@@ -72,7 +71,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         baseBiome = biome;
         riverBiome = river;
         this.config = new BiomeConfig();
-        beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this, biome);
 

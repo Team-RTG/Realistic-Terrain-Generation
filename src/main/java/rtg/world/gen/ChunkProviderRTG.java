@@ -925,8 +925,6 @@ public class ChunkProviderRTG implements IChunkProvider
                     }
                 }
             }
-        } else {
-            throw new RuntimeException();
         }
         TimeTracker.manager.stop("Ice");
 

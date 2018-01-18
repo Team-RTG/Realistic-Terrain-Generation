@@ -48,10 +48,6 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 public class ChunkProviderRTG implements IChunkProvider
 {
-    /**
-     * Declare variables.
-     */
-
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -112,15 +108,14 @@ public class ChunkProviderRTG implements IChunkProvider
 
     };
 
-    Accessor<ChunkProviderServer,Set<Long>> forServerLoadingChunks =
-            new Accessor<ChunkProviderServer,Set<Long>>("loadingChunks");
+    Accessor<ChunkProviderServer,Set<Long>> forServerLoadingChunks = new Accessor<ChunkProviderServer,Set<Long>>("loadingChunks");
 
     private Compass compass = new Compass();
     ArrayList<Direction> directions = compass.directions();
     private PlaneLocation.Probe probe = new PlaneLocation.Probe(0, 0);
 
-    public ChunkProviderRTG(World world, long l)
-    {
+    public ChunkProviderRTG(World world, long l) {
+
         worldObj = world;
         cmr = (WorldChunkManagerRTG) worldObj.getWorldChunkManager();
         worldHeight = worldObj.provider.getActualHeight();
@@ -134,7 +129,7 @@ public class ChunkProviderRTG implements IChunkProvider
     	mapRand = new Random(l);
     	worldSeed = l;
 
-        Map m = new HashMap();
+        Map<String, String> m = new HashMap<>();
         m.put("size", "0");
         m.put("distance", "24");
 
@@ -208,19 +203,16 @@ public class ChunkProviderRTG implements IChunkProvider
             }
         }
     }
+
     public void isFakeGenerator() {
         this.mapFeaturesEnabled = false;
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Will return back a chunk, if it doesn't exist and its not a MP client it will generates all the blocks for the
-     * specified chunk from the map seed and chunk seed
-     */
     //private HashSet<PlaneLocation> everGenerated = new HashSet<PlaneLocation>();
     private TimedHashSet<PlaneLocation> chunkMade  = new TimedHashSet<PlaneLocation>(5*1000);
     private final LimitedMap<PlaneLocation,Chunk> availableChunks;
+
+    @Override
     public Chunk provideChunk(final int cx, final int cy)
     {
         final PlaneLocation chunkLocation = new PlaneLocation.Invariant(cx,cy);
@@ -411,8 +403,8 @@ public class ChunkProviderRTG implements IChunkProvider
         //this.doPopulate(world, cx, cy);
     }
 
-    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] noise)
-    {
+    public void generateTerrain(RTGBiomeProvider cmr, int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase biomes[], float[] noise) {
+
     	int p, h;
     	for(int i = 0; i < 16; i++)
     	{
@@ -471,8 +463,8 @@ public class ChunkProviderRTG implements IChunkProvider
     public static String firstBlock;
     public static String biomeLayoutActivity = "Biome Layout";
 
-    public void replaceBlocksForBiome(int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n)
-    {
+    public void replaceBlocksForBiome(int cx, int cy, Block[] blocks, byte[] metadata, RealisticBiomeBase[] biomes, BiomeGenBase[] base, float[] n) {
+
         ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, cx, cy, blocks, metadata, base, worldObj);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getResult() == Result.DENY) return;
@@ -526,14 +518,8 @@ public class ChunkProviderRTG implements IChunkProvider
     	}
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Loads or generates the chunk at the chunk location specified.
-     */
-    @SuppressWarnings("unused")
-	public Chunk loadChunk(int par1, int par2)
-    {
+    @Override
+	public Chunk loadChunk(int par1, int par2) {
         //if (1>0) throw new RuntimeException();
         return provideChunk(par1, par2);
     }
@@ -555,6 +541,7 @@ public class ChunkProviderRTG implements IChunkProvider
         return false;
     }
 
+    @Override
     public boolean chunkExists(int par1, int par2) {
         PlaneLocation location = new PlaneLocation.Invariant(par1, par2);
         return inGeneration.containsKey(location)
@@ -562,11 +549,8 @@ public class ChunkProviderRTG implements IChunkProvider
             || this.chunkMade.contains(location)
             || chunkLoader().chunkExists(worldObj, par1, par2);
     }
-    /**
-     * @see IChunkProvider
-     *
-     * Populates chunk with ores etc etc
-     */
+
+    @Override
     public void populate(IChunkProvider ichunkprovider, int chunkX, int chunkZ){
         // check if this is the master provider
         if (WorldTypeRTG.chunkProvider != this) return;
@@ -664,8 +648,8 @@ public class ChunkProviderRTG implements IChunkProvider
         }
     }
 
-    private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ)
-    {
+    private void doPopulate(IChunkProvider ichunkprovider, int chunkX, int chunkZ) {
+
         // don't populate if already done
 
         PlaneLocation location = new PlaneLocation.Invariant(chunkX, chunkZ);
@@ -954,8 +938,6 @@ public class ChunkProviderRTG implements IChunkProvider
         populatingProvider = null;
     }
 
-
-
     public boolean neighborsDone(IChunkProvider world, int cx, int cz) {
         if (!chunkExists(world,cx - 1, cz - 1)) return false;
         if (!chunkExists(world,cx - 1, cz)) return false;
@@ -967,22 +949,14 @@ public class ChunkProviderRTG implements IChunkProvider
         if (!chunkExists(world,cx + 1, cz + 1)) return false;
         return true;
     }
-    /**
-     * @see IChunkProvider
-     *
-     * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
-     * Return true if all chunks have been saved.
-     */
+
+    @Override
     public boolean saveChunks(boolean par1, IProgressUpdate par2IProgressUpdate)
     {
         return true;
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Unloads chunks that are marked to be unloaded. This is not guaranteed to unload every such chunk.
-     */
+    @Override
     public boolean unloadQueuedChunks()
     {
         return false;
@@ -993,42 +967,28 @@ public class ChunkProviderRTG implements IChunkProvider
         return false;
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Returns if the IChunkProvider supports saving.
-     */
+    @Override
     public boolean canSave()
     {
         return true;
     }
 
-    /**
-     * IChunkProvider
-     *
-     * Converts the instance data to a readable string.
-     */
+    @Override
     public String makeString()
     {
         return "ChunkProviderRTG";
     }
 
-    /**
-     * @see IChunkProvider
-     *
-     * Returns a list of creatures of the specified type that can spawn at the given location.
-     */
-    public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
-    {
+    @Override
+    public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4) {
+
         BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(par2, par4);
         return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
     }
 
-    /**
-     * @see IChunkProvider
-     */
-    public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5)
-    {
+    @Override
+    public ChunkPosition func_147416_a(World par1World, String par2Str, int par3, int par4, int par5) {
+
         if (!ConfigRTG.generateStrongholds) {
             return null;
         }
@@ -1036,19 +996,14 @@ public class ChunkProviderRTG implements IChunkProvider
         return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.func_151545_a(par1World, par3, par4, par5) : null;
     }
 
-    /**
-     * @see IChunkProvider
-     */
+    @Override
     public int getLoadedChunkCount()
     {
         return 0;
     }
 
-    /**
-     * @see IChunkProvider
-     */
-    public void recreateStructures(int par1, int par2)
-    {
+    @Override
+    public void recreateStructures(int par1, int par2) {
 
         if (mapFeaturesEnabled) {
 
@@ -1110,12 +1065,7 @@ public class ChunkProviderRTG implements IChunkProvider
         }
 	}
 
-    /**
-     * @see IChunkProvider
-     *
-     * Save extra data not associated with any Chunk.  Not saved during autosave, only during world unload.
-     * Currently unimplemented.
-     */
+    @Override
     public void saveExtraData() {}
 
 

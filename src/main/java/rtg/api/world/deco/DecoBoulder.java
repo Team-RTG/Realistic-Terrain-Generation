@@ -16,7 +16,7 @@ import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.WorldGenBlob;
-import rtg.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.ChunkProviderSettingsRTG;
 
 /**
  * @author WhichOnesPink
@@ -30,13 +30,14 @@ public class DecoBoulder extends DecoBase {
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private boolean water;
-    protected ArrayList<Block> validGroundBlocks;
+// TODO: [Clean-up] Replace with List
+    private ArrayList<Block> validGroundBlocks;
 
     public DecoBoulder() {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
@@ -48,7 +49,7 @@ public class DecoBoulder extends DecoBase {
         this.setChance(10);
         this.water = true;
 
-        this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(
+        this.validGroundBlocks = new ArrayList<>(Arrays.asList(
             Blocks.GRASS,
             Blocks.DIRT,
             Blocks.STONE,
@@ -63,50 +64,36 @@ public class DecoBoulder extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        if (this.allowed) {
-
-// TODO: [Generator Settings] Update this to use the generator setting and not the config settings found in WorldGenBlob
-            ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
-//          if (settings.useBoulders) {
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
+        if (settings.useBoulders) {
 
             WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
 
-            for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
+            for (int i = 0; i < this.strengthFactor * strength; ++i) {
 
-                int i1 = worldX + rand.nextInt(16);// + 8;
-                int j1 = worldZ + rand.nextInt(16);// + 8;
-                int k1;
+                int x = worldX + rand.nextInt(16);// + 8;
+                int z = worldZ + rand.nextInt(16);// + 8;
+                int y;
 
                 switch (this.heightType) {
-
-                    case NEXT_INT:
-                        k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
-                        break;
-
+                    case NEXT_INT        : y = RandomUtil.getRandomInt(rand, this.minY, this.maxY);break;
                     case GET_HEIGHT_VALUE:
-                        k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
-                        break;
-
-                    default:
-                        k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
-                        break;
-
+                    default              : y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();break;
                 }
 
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
+                if (y >= this.minY && y <= this.maxY && rand.nextInt(this.chance) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
                     if (hasPlacedVillageBlocks) {
-                        if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, i1, k1, j1)) {
+                        if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, x, y, z)) {
                             return;
                         }
                     }
 
-                    worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
+                    worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
                 }
             }
-//          }
         }
     }
 

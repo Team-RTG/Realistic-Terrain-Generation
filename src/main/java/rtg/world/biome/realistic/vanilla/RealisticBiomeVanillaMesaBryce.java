@@ -13,6 +13,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
 import rtg.api.util.PlateauStep;
+import rtg.api.util.PlateauUtil;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
@@ -196,7 +197,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, plateauBand.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaBryce.this, i, k, j));
+                        primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaBryce.this, i, k, j));
                     }
                     else {
 

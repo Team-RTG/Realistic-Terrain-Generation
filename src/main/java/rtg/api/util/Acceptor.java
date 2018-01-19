@@ -6,6 +6,7 @@ package rtg.api.util;
  *
  * @author Zeno410
  */
+// TODO: [Clean-up] If this is still needed, convert into an interface, remove the unused inner classes, move to CPRTG (it's only use), and use as lambda
 public abstract class Acceptor<Type> {
     public abstract void accept(Type accepted);
 

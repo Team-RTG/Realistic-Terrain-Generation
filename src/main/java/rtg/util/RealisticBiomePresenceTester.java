@@ -41,10 +41,10 @@ public class RealisticBiomePresenceTester {
 
                     if (isRealistic) {
                         RealisticBiomeBase rbb = RealisticBiomeBase.getBiome(biomeId);
-                        Logger.info("Found biome (%d) %s from %s with a %s beach.", biomeId, biomeName, biomeClass, rbb.beachBiome().getBiomeName());
+                        Logger.info("Found biome ({}) {} from {} with a {} beach.", biomeId, biomeName, biomeClass, rbb.beachBiome().getBiomeName());
                     }
                     else {
-                        Logger.warn("WARNING! RTG could not find a realistic version of %s (%d) from %s. (If %s is a non-Overworld biome, then this is not an error.)", biomeName, biomeId, biomeClass, biomeName);
+                        Logger.warn("WARNING! RTG could not find a realistic version of {} ({}) from {}. (If {} is a non-Overworld biome, then this is not an error.)", biomeName, biomeId, biomeClass, biomeName);
                     }
 
                     break;

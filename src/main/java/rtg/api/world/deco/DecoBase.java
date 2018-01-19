@@ -15,6 +15,7 @@ import rtg.api.world.biome.IRealisticBiome;
  *
  * @author WhichOnesPink
  */
+// TODO: [Clean-up] Remove unused methods and parameters; Update to Java 8 compliance (remove explicit types, etc..)
 public abstract class DecoBase {
 
     /**

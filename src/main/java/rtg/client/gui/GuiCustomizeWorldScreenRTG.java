@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import rtg.api.util.Logger;
-import rtg.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.ChunkProviderSettingsRTG;
 
 
 @SideOnly(Side.CLIENT)
@@ -85,6 +85,10 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         if (!generatorSettings.isEmpty()) {
             Setting.parseSettings(generatorSettings);
             this.settingsModified = true;
+        }
+        else {
+            // Reset to defaults for a new world
+            Setting.resetToDefaults();
         }
     }
 
@@ -483,12 +487,12 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         oceanWaves          (SettingType.BOOLEAN, defaults.oceanWaves,           null, null, Category.WORLD),
 
         useBoulders         (SettingType.BOOLEAN, defaults.useBoulders,          null, null, Category.SURFACE),
-        boulderChance       (SettingType.INTEGER, defaults.boulderChance,           0,   20, Category.SURFACE),
+        boulderChance       (SettingType.INTEGER, defaults.boulderChance,           1,   20, Category.SURFACE), // value passed to Random, minimum can not be < 1
         sandDuneHeight      (SettingType.INTEGER, defaults.sandDuneHeight,          1,   10, Category.SURFACE),
 //      snowDuneHeight      (SettingType.INTEGER, defaults.snowDuneHeight,          1,   10, Category.SURFACE), // Disabled, no current use
         useSnowLayers       (SettingType.BOOLEAN, defaults.useSnowLayers,        null, null, Category.SURFACE),
 
-        bedrockLayers       (SettingType.INTEGER, defaults.bedrockLayers,           0,   10, Category.UNDERGROUND),
+        bedrockLayers       (SettingType.INTEGER, defaults.bedrockLayers,           1,   10, Category.UNDERGROUND), // value passed to Random, minimum can not be < 1
         useCaves            (SettingType.BOOLEAN, defaults.useCaves,             null, null, Category.UNDERGROUND),
         caveChance          (SettingType.INTEGER, defaults.caveChance,              4,   10, Category.UNDERGROUND),
         caveDensity         (SettingType.INTEGER, defaults.caveDensity,            12,   20, Category.UNDERGROUND),

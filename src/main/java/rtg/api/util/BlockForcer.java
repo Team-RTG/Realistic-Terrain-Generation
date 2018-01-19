@@ -10,6 +10,7 @@ import net.minecraft.world.chunk.Chunk;
  *
  * @author Zeno410
  */
+// TODO: [Clean-up] Unused. To be removed.
 public class BlockForcer {
 
     public void placeBlock(World target, int x, int y , int z, IBlockState  placed) {

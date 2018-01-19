@@ -12,6 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.PlateauUtil;
 import rtg.api.util.PlateauStep;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.IRTGWorld;
@@ -203,7 +204,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, plateauBand.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaPlateau.this, i, k, j));
+                        primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaPlateau.this, i, k, j));
                     }
                     else {
 

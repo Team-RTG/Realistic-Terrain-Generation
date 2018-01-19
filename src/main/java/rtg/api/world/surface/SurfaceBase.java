@@ -13,7 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
 import rtg.api.event.SurfaceEvent;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.PlateauBand;
 import rtg.api.world.IRTGWorld;
 
 public abstract class SurfaceBase {
@@ -24,7 +23,6 @@ public abstract class SurfaceBase {
     protected IBlockState cliffCobbleBlock;
     protected RTGConfig rtgConfig = RTGAPI.config();
     protected BiomeConfig biomeConfig;
-    protected PlateauBand plateauBand;
 
     public IBlockState shadowStoneBlock;
     public IBlockState shadowDesertBlock;
@@ -51,7 +49,6 @@ public abstract class SurfaceBase {
         this.initCliffBlocks();
         this.initShadowBlocks();
         this.assignUserConfigs(config, top, fill);
-        plateauBand = PlateauBand.getInstance();
     }
 
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {

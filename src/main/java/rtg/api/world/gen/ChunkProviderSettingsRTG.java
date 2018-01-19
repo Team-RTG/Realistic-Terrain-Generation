@@ -1,4 +1,4 @@
-package rtg.world.gen;
+package rtg.api.world.gen;
 
 import java.lang.reflect.Type;
 
@@ -22,6 +22,7 @@ public class ChunkProviderSettingsRTG
 // TODO: [Generator settings] Disable fixedBiome and biomeSize for now as they require modification to the GenLayer classes to work.
 //  public final int     fixedBiome;            // Vanilla
 //  public final int     biomeSize;             // Vanilla
+// TODO: [Generator settings] seaLevel requires extensive edits to hard-coded values for it to work correctly.
     public final int     seaLevel;              // Vanilla
     public final boolean oceanWaves;            // RTG
 

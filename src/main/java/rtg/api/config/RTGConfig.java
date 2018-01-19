@@ -1,18 +1,30 @@
 package rtg.api.config;
 
-import java.util.ArrayList;
+import java.util.Set;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 import net.minecraftforge.common.config.Configuration;
 
-import org.apache.commons.lang3.ArrayUtils;
+import rtg.api.config.property.ConfigProperty;
+import rtg.api.config.property.ConfigPropertyBoolean;
+import rtg.api.config.property.ConfigPropertyFloat;
+import rtg.api.config.property.ConfigPropertyInt;
+import rtg.api.config.property.ConfigPropertyString;
+import rtg.api.util.BlockUtil;
 
-import rtg.api.config.property.*;
-import rtg.api.util.MaterialUtil;
-
+// TODO: [Clean-up] Convert all BLOCK_ID/BLOCK_META pairs into a single line of "<resource location>/<meta>" (metadata will be phased out in MC 1.13) and add a utility function
+//                  that returns an IBlockState for a given <resource location>/<meta> string, or returns a fallback in the case the ResourceLocation lookup fails.
+//                  The utility function should run during post initialisation after all mod-added blocks have been initialised so that mod-added blocks can be used.
+// TODO: [Clean-up] Split this config implementation from the fields that hold the config values and move this implementation out of the API. The API class should have
+//                  fields that hold the config values and not the Property objects. The fields should be synched whenever the Configuration changes.
+// TODO: [Clean-up] Convert this config and the Config base class to use native Forge Property objects.
+// TODO: [Clean-up] Add properties to a category heirarchy to better organise config settings.
+@SuppressWarnings("WeakerAccess")
 public class RTGConfig extends Config {
 
     // Maximum tree density.
@@ -25,6 +37,7 @@ public class RTGConfig extends Config {
     public static final int DEFAULT_SHADOW_DESERT_BLOCK_META = 0;
 
     // These constants are used as fallbacks when generating volcanoes, in case the user enters an invalid block ID.
+// TODO: [Clean-up] Move these to WorldGenVolcano where they are used.
     public static final IBlockState DEFAULT_VOLCANO_BLOCK = Blocks.OBSIDIAN.getDefaultState();
     public static final IBlockState DEFAULT_VOLCANO_MIX1_BLOCK = Blocks.COBBLESTONE.getDefaultState();
     public static final IBlockState DEFAULT_VOLCANO_MIX2_BLOCK = Blocks.GRAVEL.getDefaultState();
@@ -34,286 +47,247 @@ public class RTGConfig extends Config {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Bedrock
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    public final ConfigPropertyInt FLAT_BEDROCK_LAYERS;
-    public final ConfigPropertyString BEDROCK_BLOCK_ID;
-    public final ConfigPropertyInt BEDROCK_BLOCK_BYTE;
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Biomes
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_RTG_BIOME_DECORATIONS;
-    public final ConfigPropertyBoolean ENABLE_RTG_BIOME_SURFACES;
-    public final ConfigPropertyBoolean ENABLE_RTG_TERRAIN;
-    public final ConfigPropertyInt PATCH_BIOME_ID;
+    public final ConfigPropertyBoolean ENABLE_RTG_BIOME_DECORATIONS; // TODO: [Clean-up] Rename this to DISABLE_RTG_BIOME_DECORATIONS, put into Debug category
+    public final ConfigPropertyBoolean ENABLE_RTG_BIOME_SURFACES; // TODO: [Clean-up] Rename this to DISABLE_RTG_BIOME_SURFACES, put into Debug category
+    public final ConfigPropertyBoolean ENABLE_RTG_TERRAIN; // TODO: [Clean-up] Rename this to DISABLE_RTG_TERRAIN, put into Debug category
+    public final ConfigPropertyInt PATCH_BIOME_ID; // TODO: [Clean-up] Change to a ResourceLocation (Default: minecraft:plains)
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Boulders
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_COBBLESTONE_BOULDERS;
-    public final ConfigPropertyInt COBBLESTONE_BOULDER_CHANCE;
-    public final ConfigPropertyBoolean ENABLE_UBC_BOULDERS;
+    public final ConfigPropertyBoolean ENABLE_COBBLESTONE_BOULDERS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt COBBLESTONE_BOULDER_CHANCE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_UBC_BOULDERS; // TODO: [Clean-up] Move to 'UBC', or 'Mod Integration' category
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Caves
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_CAVE_MODIFICATIONS;
-    public final ConfigPropertyBoolean ENABLE_CAVES;
-    public final ConfigPropertyInt CAVE_DENSITY;
-    public final ConfigPropertyInt CAVE_FREQUENCY;
+    public final ConfigPropertyBoolean ENABLE_CAVE_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_CAVES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt CAVE_DENSITY; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt CAVE_FREQUENCY; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Debugging
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public final ConfigPropertyBoolean ENABLE_DEBUGGING;
-    public final ConfigPropertyBoolean CRASH_ON_STRUCTURE_EXCEPTIONS;
+    public final ConfigPropertyBoolean CRASH_ON_STRUCTURE_EXCEPTIONS; // TODO: [Clean-up] Deprecate. Not needed anymore for MC >1.7.10 as structure gen is now sychronized
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Dunes
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyInt DUNE_HEIGHT;
+    public final ConfigPropertyInt DUNE_HEIGHT; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Dungeons
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean GENERATE_DUNGEONS;
-    public final ConfigPropertyInt DUNGEON_FREQUENCY;
+    public final ConfigPropertyBoolean GENERATE_DUNGEONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt DUNGEON_FREQUENCY; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Flowing liquids
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_FLOWING_LIQUID_MODIFICATIONS;
-    public final ConfigPropertyInt FLOWING_LAVA_CHANCE;
-    public final ConfigPropertyInt FLOWING_WATER_CHANCE;
+    public final ConfigPropertyBoolean ENABLE_FLOWING_LIQUID_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt FLOWING_LAVA_CHANCE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt FLOWING_WATER_CHANCE; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // GUI
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN;
+    public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN; // TODO: [Clean-up] Rename this to be less ambiguous for what it does after removing the hashfile functionality
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Lakes (Scenic)
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    private final ConfigPropertyFloat LAKE_SIZE_MULTIPLIER; // This is private because we want a transformed version.
-    public final ConfigPropertyFloat LAKE_FREQUENCY_MULTIPLIER;
-    public final ConfigPropertyFloat LAKE_SHORE_BENDINESS_MULTIPLIER;
-    public final ConfigPropertyInt SCENIC_LAKE_BIOME_ID;
-    public final ConfigPropertyInt SCENIC_FROZEN_LAKE_BIOME_ID;
+    private final ConfigPropertyFloat LAKE_SIZE_MULTIPLIER; // This is private because we want a transformed version. // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat LAKE_FREQUENCY_MULTIPLIER; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat LAKE_SHORE_BENDINESS_MULTIPLIER; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt SCENIC_LAKE_BIOME_ID; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt SCENIC_FROZEN_LAKE_BIOME_ID; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Lakes (Surface)
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_WATER_SURFACE_LAKES;
-    public final ConfigPropertyInt WATER_SURFACE_LAKE_CHANCE;
-    public final ConfigPropertyBoolean ENABLE_LAVA_SURFACE_LAKES;
-    public final ConfigPropertyInt LAVA_SURFACE_LAKE_CHANCE;
+    public final ConfigPropertyBoolean ENABLE_WATER_SURFACE_LAKES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt WATER_SURFACE_LAKE_CHANCE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_LAVA_SURFACE_LAKES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt LAVA_SURFACE_LAKE_CHANCE; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Lakes (Underground)
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_WATER_UNDERGROUND_LAKES;
-    public final ConfigPropertyInt WATER_UNDERGROUND_LAKE_CHANCE;
-    public final ConfigPropertyBoolean ENABLE_LAVA_UNDERGROUND_LAKES;
-    public final ConfigPropertyInt LAVA_UNDERGROUND_LAKE_CHANCE;
+    public final ConfigPropertyBoolean ENABLE_WATER_UNDERGROUND_LAKES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt WATER_UNDERGROUND_LAKE_CHANCE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_LAVA_UNDERGROUND_LAKES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt LAVA_UNDERGROUND_LAKE_CHANCE; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Mineshafts
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean GENERATE_MINESHAFTS;
+    public final ConfigPropertyBoolean GENERATE_MINESHAFTS; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ocean monuments
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_OCEAN_MONUMENT_MODIFICATIONS;
-    public final ConfigPropertyBoolean GENERATE_OCEAN_MONUMENTS;
-    public final ConfigPropertyInt OCEAN_MONUMENT_SPACING;
-    public final ConfigPropertyInt OCEAN_MONUMENT_SEPARATION;
+    public final ConfigPropertyBoolean ENABLE_OCEAN_MONUMENT_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_OCEAN_MONUMENTS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt OCEAN_MONUMENT_SPACING; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt OCEAN_MONUMENT_SEPARATION; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ocean waves
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_OCEAN_WAVES;
-    public final ConfigPropertyInt OCEAN_WAVE_DIRECTION;
+    public final ConfigPropertyBoolean ENABLE_OCEAN_WAVES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt OCEAN_WAVE_DIRECTION; // TODO: [Generator settings] Add a generator setting for this?
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ore gen
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean GENERATE_ORE_ANDESITE;
-    public final ConfigPropertyBoolean GENERATE_ORE_COAL;
-    public final ConfigPropertyBoolean GENERATE_ORE_DIAMOND;
-    public final ConfigPropertyBoolean GENERATE_ORE_DIORITE;
-    public final ConfigPropertyBoolean GENERATE_ORE_DIRT;
-    public final ConfigPropertyBoolean GENERATE_ORE_EMERALD;
-    public final ConfigPropertyBoolean GENERATE_ORE_GOLD;
-    public final ConfigPropertyBoolean GENERATE_ORE_GRANITE;
-    public final ConfigPropertyBoolean GENERATE_ORE_GRAVEL;
-    public final ConfigPropertyBoolean GENERATE_ORE_IRON;
-    public final ConfigPropertyBoolean GENERATE_ORE_LAPIS;
-    public final ConfigPropertyBoolean GENERATE_ORE_REDSTONE;
-    public final ConfigPropertyBoolean GENERATE_ORE_SILVERFISH;
+    public final ConfigPropertyBoolean GENERATE_ORE_ANDESITE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_COAL; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_DIAMOND; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_DIORITE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_DIRT; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_EMERALD; // TODO: [Clean-up] Should we really allow configuration for this?
+    public final ConfigPropertyBoolean GENERATE_ORE_GOLD; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_GRANITE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_GRAVEL; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_IRON; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_LAPIS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_REDSTONE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_ORE_SILVERFISH; // TODO: [Clean-up] Should we really allow configuration for this?
 
-    public final ConfigPropertyBoolean ALLOW_ORE_GEN_EVENT_CANCELLATION;
+    public final ConfigPropertyBoolean ALLOW_ORE_GEN_EVENT_CANCELLATION; // TODO: [Clean-up] Move to Debug category until ore gen is fixed.
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Ravines
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_RAVINE_MODIFICATIONS;
-    public final ConfigPropertyBoolean ENABLE_RAVINES;
-    public final ConfigPropertyInt RAVINE_FREQUENCY;
+    public final ConfigPropertyBoolean ENABLE_RAVINE_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_RAVINES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt RAVINE_FREQUENCY; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Rivers
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    private final ConfigPropertyFloat RIVER_SIZE_MULTIPLIER; // This is private because we want a transformed version.
-    public final ConfigPropertyFloat RIVER_FREQUENCY_MULTIPLIER;
-    public final ConfigPropertyFloat RIVER_BENDINESS_MULTIPLIER;
-    public final ConfigPropertyFloat RIVER_CUT_OFF_SCALE;
-    public final ConfigPropertyFloat RIVER_CUT_OFF_AMPLITUDE;
-    public final ConfigPropertyBoolean ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES;
-    public final ConfigPropertyBoolean ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES;
+    private final ConfigPropertyFloat RIVER_SIZE_MULTIPLIER; // This is private because we want a transformed version. // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat RIVER_FREQUENCY_MULTIPLIER; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat RIVER_BENDINESS_MULTIPLIER; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat RIVER_CUT_OFF_SCALE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat RIVER_CUT_OFF_AMPLITUDE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES; // TODO: [Clean-up] Move to 'Mod Integration' category
+    public final ConfigPropertyBoolean ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES; // TODO: [Clean-up] Move to 'Mod Integration' category
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Saplings
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_RTG_SAPLINGS;
-    public final ConfigPropertyInt RTG_TREE_CHANCE;
+    public final ConfigPropertyBoolean ENABLE_RTG_SAPLINGS; // TODO: [Clean-up] Move to 'Trees and Saplings' category
+    public final ConfigPropertyInt RTG_TREE_CHANCE; // TODO: [Clean-up] Move to 'Trees and Saplings' category
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Scattered features
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_SCATTERED_FEATURE_MODIFICATIONS;
-    public final ConfigPropertyBoolean GENERATE_SCATTERED_FEATURES;
-    public final ConfigPropertyInt MIN_DISTANCE_SCATTERED_FEATURES;
-    public final ConfigPropertyInt MAX_DISTANCE_SCATTERED_FEATURES;
+    public final ConfigPropertyBoolean ENABLE_SCATTERED_FEATURE_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_SCATTERED_FEATURES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt MIN_DISTANCE_SCATTERED_FEATURES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt MAX_DISTANCE_SCATTERED_FEATURES; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Snow
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_SNOW_LAYERS;
+    public final ConfigPropertyBoolean ENABLE_SNOW_LAYERS; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Strongholds
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_STRONGHOLD_MODIFICATIONS;
-    public final ConfigPropertyBoolean GENERATE_STRONGHOLDS;
-    public final ConfigPropertyInt STRONGHOLD_COUNT;
-    public final ConfigPropertyInt STRONGHOLD_DISTANCE;
-    public final ConfigPropertyInt STRONGHOLD_SPREAD;
+    public final ConfigPropertyBoolean ENABLE_STRONGHOLD_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_STRONGHOLDS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt STRONGHOLD_COUNT; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt STRONGHOLD_DISTANCE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt STRONGHOLD_SPREAD; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Terrain shadowing
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyString SHADOW_STONE_BLOCK_ID;
-    public final ConfigPropertyInt SHADOW_STONE_BLOCK_META;
-    public final ConfigPropertyString SHADOW_DESERT_BLOCK_ID;
-    public final ConfigPropertyInt SHADOW_DESERT_BLOCK_META;
-    public final ConfigPropertyBoolean ENABLE_UBC_STONE_SHADOWING;
-    public final ConfigPropertyBoolean ENABLE_UBC_DESERT_SHADOWING;
+    public final ConfigPropertyString SHADOW_STONE_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
+    public final ConfigPropertyInt SHADOW_STONE_BLOCK_META; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
+    public final ConfigPropertyString SHADOW_DESERT_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
+    public final ConfigPropertyInt SHADOW_DESERT_BLOCK_META; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
+    public final ConfigPropertyBoolean ENABLE_UBC_STONE_SHADOWING; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
+    public final ConfigPropertyBoolean ENABLE_UBC_DESERT_SHADOWING; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Trees
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ALLOW_TREES_TO_GENERATE_ON_SAND;
-    public final ConfigPropertyBoolean ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE;
-    public final ConfigPropertyBoolean ALLOW_BARK_COVERED_LOGS;
-    public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
-    public final ConfigPropertyString MATERIALS_TREES_CAN_GROW_INTO;
+    public final ConfigPropertyBoolean ALLOW_TREES_TO_GENERATE_ON_SAND; // TODO: [Clean-up] Move to 'Trees and Saplings' category
+    public final ConfigPropertyBoolean ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE; // TODO: [Clean-up] Move to 'Trees and Saplings' category
+    public final ConfigPropertyBoolean ALLOW_BARK_COVERED_LOGS; // TODO: [Clean-up] Move to 'Trees and Saplings' category
+    public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER; // TODO: [Clean-up] Move to 'Trees and Saplings' category
+    public final ConfigPropertyString MATERIALS_TREES_CAN_GROW_INTO; // TODO: [Clean-up] Move to 'Trees and Saplings' category
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Villages
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyBoolean ENABLE_VILLAGE_MODIFICATIONS;
-    public final ConfigPropertyBoolean GENERATE_VILLAGES;
-    public final ConfigPropertyInt VILLAGE_SIZE;
-    public final ConfigPropertyInt MIN_DISTANCE_VILLAGES;
-    public final ConfigPropertyInt MAX_DISTANCE_VILLAGES;
+    public final ConfigPropertyBoolean ENABLE_VILLAGE_MODIFICATIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean GENERATE_VILLAGES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt VILLAGE_SIZE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt MIN_DISTANCE_VILLAGES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt MAX_DISTANCE_VILLAGES; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Volcanoes
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyString VOLCANO_BLOCK_ID;
-    public final ConfigPropertyInt VOLCANO_BLOCK_META;
-    public final ConfigPropertyString VOLCANO_MIX1_BLOCK_ID;
-    public final ConfigPropertyInt VOLCANO_MIX1_BLOCK_META;
-    public final ConfigPropertyString VOLCANO_MIX2_BLOCK_ID;
-    public final ConfigPropertyInt VOLCANO_MIX2_BLOCK_META;
-    public final ConfigPropertyString VOLCANO_MIX3_BLOCK_ID;
-    public final ConfigPropertyInt VOLCANO_MIX3_BLOCK_META;
-    public final ConfigPropertyBoolean ENABLE_VOLCANOES;
-    public final ConfigPropertyBoolean ENABLE_VOLCANO_ERUPTIONS;
-    public final ConfigPropertyInt VOLCANO_CHANCE;
-    public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS;
-    public final ConfigPropertyInt VOLCANO_CONDUIT_DEPTH;
-    public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER;
+    public final ConfigPropertyString VOLCANO_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyInt VOLCANO_BLOCK_META; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyString VOLCANO_MIX1_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyInt VOLCANO_MIX1_BLOCK_META; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyString VOLCANO_MIX2_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyInt VOLCANO_MIX2_BLOCK_META; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyString VOLCANO_MIX3_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyInt VOLCANO_MIX3_BLOCK_META; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
+    public final ConfigPropertyBoolean ENABLE_VOLCANOES; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_VOLCANO_ERUPTIONS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt VOLCANO_CHANCE; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyInt VOLCANO_CONDUIT_DEPTH; // TODO: [Generator settings] To be removed
+    public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER; // TODO: [Generator settings] To be removed
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Surface Bleeding
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public final ConfigPropertyInt SURFACE_BLEED_RADIUS;
+    public final ConfigPropertyInt SURFACE_BLEED_RADIUS; // TODO: [Generator settings] Possibly make this a gen setting so it is World-specific
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public RTGConfig() {
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // Bedrock
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        FLAT_BEDROCK_LAYERS = new ConfigPropertyInt(
-            ConfigProperty.Type.INTEGER,
-            "Number of flat bedrock layers",
-            "Bedrock",
-            "0 = Normal bedrock (rough pattern); 1-5 = Number of flat bedrock layers to generate",
-            0, 0, 5
-        );
-        this.addProperty(FLAT_BEDROCK_LAYERS);
-
-        BEDROCK_BLOCK_ID = new ConfigPropertyString(
-            ConfigProperty.Type.STRING,
-            "Bedrock block ID",
-            "Bedrock",
-            "The block to use for the bottom of the Overworld.",
-            "minecraft:bedrock"
-        );
-        this.addProperty(BEDROCK_BLOCK_ID);
-
-        BEDROCK_BLOCK_BYTE = new ConfigPropertyInt(
-            ConfigProperty.Type.INTEGER,
-            "Bedrock block meta value",
-            "Bedrock",
-            "The meta value of the bedrock block.",
-            0, 0, 15
-        );
-        this.addProperty(BEDROCK_BLOCK_BYTE);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Biomes
@@ -1182,7 +1156,8 @@ public class RTGConfig extends Config {
                 + Configuration.NEW_LINE +
                 "Valid values include the following:"
                 + Configuration.NEW_LINE +
-                "AIR,ANVIL,BARRIER,CACTUS,CAKE,CARPET,CIRCUITS,CLAY,CLOTH,CORAL,CRAFTED_SNOW,DRAGON_EGG,FIRE,GLASS,GOURD,GRASS,GROUND,ICE,IRON,LAVA,LEAVES,PACKED_ICE,PISTON,PLANTS,PORTAL,REDSTONE_LIGHT,ROCK,SAND,SNOW,SPONGE,STRUCTURE_VOID,TNT,VINE,WATER,WEB,WOOD"
+                "AIR,ANVIL,BARRIER,CACTUS,CAKE,CARPET,CIRCUITS,CLAY,CLOTH,CORAL,CRAFTED_SNOW,DRAGON_EGG,FIRE,GLASS,GOURD,GRASS,GROUND,ICE," +
+                "IRON,LAVA,LEAVES,PACKED_ICE,PISTON,PLANTS,PORTAL,REDSTONE_LIGHT,ROCK,SAND,SNOW,SPONGE,STRUCTURE_VOID,TNT,VINE,WATER,WEB,WOOD"
                 + Configuration.NEW_LINE +
                 "For more information, visit http://minecraft.gamepedia.com/Materials",
                 "AIR,WOOD,LEAVES,GRASS,GROUND,PLANTS,VINE,WATER,SNOW"
@@ -1396,67 +1371,30 @@ public class RTGConfig extends Config {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
 
-    public static byte[] getPlateauGradientBlockMetasFromConfigString(String configString)
-    {
-        String[] strings = configString.split(",");
-        ArrayList<Byte> byteList = new ArrayList<Byte>(){};
-
-        for (int i = 0; i < strings.length; i++) {
-            strings[i] = strings[i].trim();
-            if (strings[i].matches("-1|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15")) {
-                byteList.add(Byte.valueOf(strings[i]));
-            }
-        }
-
-        Byte[] bytes = byteList.toArray(new Byte[byteList.size()]);
-        return ArrayUtils.toPrimitive(bytes);
-    }
-
-    private static String getPlateauGradientBlockMetasComment(String biomeName)
-    {
-        String comment =
-            "Comma-separated list of meta values for the gradient plateau blocks used in the " + biomeName + "."
-                + Configuration.NEW_LINE +
-                "-1 = Plateau block; 0-15 = Plateau gradient block"
-                + Configuration.NEW_LINE +
-                "0 = White; 1 = Orange; 2 = Magenta; 3 = Light Blue; 4 = Yellow; 5 = Lime; 6 = Pink; 7 = Gray"
-                + Configuration.NEW_LINE +
-                "8 = Light Gray; 9 = Cyan; 10 = Purple; 11 = Blue; 12 = Brown; 13 = Green; 14 = Red; 15 = Black";
-
-        return comment;
-    }
-
+// TODO: [Generator settings] To be removed. Functionality moved to RealisticBiomeBase#rNoise
     public float lakeSizeMultiplier() {
         // With the river system changing frequency also shinks size and that will
         // confuse the heck out of users.
         return LAKE_SIZE_MULTIPLIER.get() * LAKE_FREQUENCY_MULTIPLIER.get();
     }
 
+// TODO: [Generator settings] To be removed. Functionality moved to the BiomeProviderRTG constructor
     public float riverSizeMultiplier() {
         // With the river system changing frequency also shinks size and that will
         // confuse the heck out of users.
         return RIVER_SIZE_MULTIPLIER.get() * RIVER_FREQUENCY_MULTIPLIER.get();
     }
 
-    public static ArrayList<Material> getTreeMaterialsFromConfigString(String configString)
-    {
-        String[] strings = configString.split(",");
-        ArrayList<Material> materials = new ArrayList<Material>(){};
+    public static Set<Material> getMaterialsFromString(final String configMaterials) {
 
-        for (int i = 0; i < strings.length; i++) {
+        final Set<Material> ret = Sets.newHashSet();
+        final Material[] material = new Material[1];
 
-            String string = strings[i].trim().toUpperCase();
+        Lists.newArrayList(configMaterials.split(",")).forEach(s -> {
+            material[0] = BlockUtil.getMaterial(s.trim().toUpperCase());
+            if (material[0] != null) { ret.add(material[0]); }
+        });
 
-            try {
-
-                MaterialUtil util = new MaterialUtil(string);
-                materials.add(util.getMaterial());
-            }
-            catch (Exception e) {
-                ;
-            }
-        }
-
-        return materials;
+        return ret;
     }
 }

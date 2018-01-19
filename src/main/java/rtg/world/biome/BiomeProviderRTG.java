@@ -23,11 +23,9 @@ import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
 import rtg.api.world.biome.IBiomeProviderRTG;
-import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.world.gen.ChunkProviderSettingsRTG;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 // TODO: [Clean-up] Do not @Override methods of the super class whose functionality we do not change.
@@ -58,9 +56,9 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
-        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(world);
+        //ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(world);
 
-// TODO: [Generator Settings] Update these to use the generator setting and not the config setting
+// TODO: [Generator settings] Update these to use the generator setting and not the config setting
 //      this.riverSeparation /= settings.riverFrequency;
 //      this.riverValleyLevel *= settings.riverSize * settings.riverFrequency;
 //      this.largeBendSize *= settings.riverBendMult;

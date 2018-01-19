@@ -11,7 +11,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-
+// TODO: [Clean-up] Make this class static instead of instance-based.
 public class WorldUtil {
 
     private World world;

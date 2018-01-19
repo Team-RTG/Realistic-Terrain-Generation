@@ -7,8 +7,11 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 
+import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -50,13 +53,11 @@ public class EventManagerRTG {
 
 // TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkProviderRTG
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
-    private long worldSeed;
     private RTGConfig rtgConfig;
 
-    public EventManagerRTG() {
+    public EventManagerRTG() {}
 
-        rtgConfig = RTGAPI.config();
-    }
+    public void init() { rtgConfig = RTGAPI.config(); }
 
     public class LoadChunkRTG {
 
@@ -364,25 +365,23 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void onWorldLoad(WorldEvent.Load event) {
 
-            // Add an entry in the generator settings repository for every world loaded of WorldTypeRTG
-            if (event.getWorld().getWorldType() instanceof WorldTypeRTG) {
-                GenSettingsRepo.addSettingsForWorld(event.getWorld());
-            }
-
-            // This event fires for each dimension loaded (and then one last time in which it returns 0?),
-            // so initialise a field to 0 and set it to the world seed and only display it in the log once.
-            if (worldSeed != event.getWorld().getSeed() && event.getWorld().getSeed() != 0) {
-
-                worldSeed = event.getWorld().getSeed();
-                Logger.info("World Seed: " + worldSeed);
+            if (!event.getWorld().isRemote && event.getWorld().provider.getDimension() == 0) {
+                Logger.info("World Seed: " + event.getWorld().getSeed());
             }
         }
 
         @SubscribeEvent
         public void onWorldUnload(WorldEvent.Unload event) {
 
-            // Reset the world seed so that it logs on the next server start if the seed is the same as the last load.
-            worldSeed = 0;
+
+            int dim = event.getWorld().provider.getDimension();
+
+            IChunkGenerator type = event.getWorld().provider.createChunkGenerator();
+            Logger.error("EMRTG: Dim {} - World is unloading, Side: {}, Type: {}", dim, event.getWorld().isRemote?"Client":"Server", type.getClass().getSimpleName());
+
+            if (!(event.getWorld().isRemote || dim == 1 || dim == -1)) {
+                GenSettingsRepo.removeSettingsForWorld(event.getWorld());
+            }
         }
     }
 

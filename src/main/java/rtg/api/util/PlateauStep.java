@@ -5,6 +5,7 @@ package rtg.api.util;
  *
  * @author Zeno410
  */
+// TODO: [Clean-up] Move this functionality to PlateauUtil
 public class PlateauStep {
     public float height = 32;
     public float start = 0.3f;

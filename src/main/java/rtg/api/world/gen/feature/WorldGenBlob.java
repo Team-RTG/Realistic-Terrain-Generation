@@ -1,9 +1,11 @@
 package rtg.api.world.gen.feature;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,27 +19,24 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.BoulderUtil;
 import rtg.api.util.RandomUtil;
 
-
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class WorldGenBlob extends WorldGenerator {
 
-    protected boolean water;
-    protected BoulderUtil boulderUtil;
-    protected ArrayList<Block> validGroundBlocks;
+    protected boolean water = true;
+// TODO: [Clean-up] Change to List
+    private ArrayList<Block> validGroundBlocks;
     private IBlockState blobBlock;
     private int blobSize;
-    private boolean booShouldGenerate;
-    private RTGConfig rtgConfig = RTGAPI.config();
+    private boolean booShouldGenerate = true;
 
-    public WorldGenBlob(IBlockState b, int s, Random rand) {
+    private WorldGenBlob(IBlockState block, int size, Random rand) {
 
         super(false);
-        this.blobBlock = b;
-        this.blobSize = s;
-        booShouldGenerate = true;
-        this.water = true;
-        this.boulderUtil = new BoulderUtil();
+        this.blobBlock = block;
+        this.blobSize = size;
 
-        this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(
+        this.validGroundBlocks = new ArrayList<>(Arrays.asList(
             Blocks.GRASS,
             Blocks.DIRT,
             Blocks.STONE,
@@ -48,61 +47,31 @@ public class WorldGenBlob extends WorldGenerator {
 
 // TODO: [Generator settings] The boulder config check should be removed and all functionality changed to use the generator settings in DecoBoulder#generate
         if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
-            if (!rtgConfig.ENABLE_COBBLESTONE_BOULDERS.get()) {
+
+            RTGConfig rtgConfig = RTGAPI.config();
+            int chance = rtgConfig.COBBLESTONE_BOULDER_CHANCE.get();
+            chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
+
+            int random = RandomUtil.getRandomInt(rand, 1, chance);
+
+            if (random == 1) {
                 booShouldGenerate = false;
             }
-            else {
-                if (!shouldGenerateCobblestoneBoulder(rand)) {
-                    booShouldGenerate = false;
-                }
-            }
+
+//            }
         }
     }
 
-    public WorldGenBlob(IBlockState b, int s, Random rand, boolean water) {
+    private WorldGenBlob(IBlockState block, int size, Random rand, boolean water) {
 
-        this(b, s, rand);
+        this(block, size, rand);
         this.water = water;
     }
 
-    public WorldGenBlob(IBlockState b, int s, Random rand, boolean water, ArrayList<Block> validGroundBlocks) {
+    public WorldGenBlob(IBlockState block, int size, Random rand, boolean water, ArrayList<Block> validGroundBlocks) {
 
-        this(b, s, rand, water);
+        this(block, size, rand, water);
         this.validGroundBlocks = validGroundBlocks;
-    }
-
-// TODO: [Generator settings] Remove this method and do a seeded Random check based on the generator setting in DecoBoulder#generate
-    public boolean shouldGenerateCobblestoneBoulder(Random rand) {
-
-        int chance = rtgConfig.COBBLESTONE_BOULDER_CHANCE.get();
-        chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
-
-        int random = RandomUtil.getRandomInt(rand, 1, chance);
-
-        boolean booGenerate = (random == 1) ? true : false;
-
-        //Logger.info("Random = %d; Generate? = %b", random, booGenerate);
-
-        return booGenerate;
-    }
-
-// TODO: [Generator settings][Clean-up] Remove this unused method
-    public void generate(World world, Random rand, int x, int y, int z, boolean honourConfig) {
-
-        if (honourConfig) {
-            booShouldGenerate = true;
-
-            if (!rtgConfig.ENABLE_COBBLESTONE_BOULDERS.get()) {
-                booShouldGenerate = false;
-            }
-            else {
-                if (!shouldGenerateCobblestoneBoulder(rand)) {
-                    booShouldGenerate = false;
-                }
-            }
-        }
-
-        generate(world, rand, new BlockPos(x, y, z));
     }
 
     @Override
@@ -116,7 +85,7 @@ public class WorldGenBlob extends WorldGenerator {
         int y = pos.getY();
         int z = pos.getZ();
 
-        IBlockState boulderBlock = this.boulderUtil.getBoulderBlock(this.blobBlock, x, y, z);
+        IBlockState boulderBlock = BoulderUtil.getBoulderBlock(this.blobBlock, x, y, z);
 
         while (true) {
             if (y > 3) {
@@ -202,7 +171,7 @@ public class WorldGenBlob extends WorldGenerator {
         }
     }
 
-    protected void placeBoulderBlock(World world, BlockPos targetPos, IBlockState boulderBlock) {
+    private void placeBoulderBlock(World world, BlockPos targetPos, IBlockState boulderBlock) {
 
 
         Block targetblock = world.getBlockState(targetPos).getBlock();

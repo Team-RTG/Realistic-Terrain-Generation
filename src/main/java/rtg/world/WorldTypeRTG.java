@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rtg.RTG;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
+import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkProviderRTG;
 
@@ -31,6 +32,12 @@ public class WorldTypeRTG extends WorldType
 
     @Override
     public BiomeProvider getBiomeProvider(World world) {
+
+        // Populate the GenSettingsRepo here as it is the earliest possible
+        if (!world.isRemote) {
+            Logger.info("WorldTypeRTG#getBiomeProvider: Adding entry to GenSettingsRepo for Dim {}", world.provider.getDimension());
+            GenSettingsRepo.addSettingsForWorld(world);
+        }
 
         if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
 

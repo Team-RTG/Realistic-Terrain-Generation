@@ -6,9 +6,11 @@ import net.minecraftforge.common.MinecraftForge;
 
 import rtg.api.event.SurfaceEvent;
 
-public class BoulderUtil {
+public final class BoulderUtil {
 
-    public IBlockState getBoulderBlock(IBlockState defaultBlock, int worldX, int worldY, int worldZ) {
+    private BoulderUtil() {}
+
+    public static IBlockState getBoulderBlock(IBlockState defaultBlock, int worldX, int worldY, int worldZ) {
 
         SurfaceEvent.BoulderBlock event = new SurfaceEvent.BoulderBlock(
             worldX, worldY, worldZ, defaultBlock

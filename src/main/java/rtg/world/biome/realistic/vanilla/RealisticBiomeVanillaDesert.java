@@ -17,7 +17,7 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.ChunkProviderSettingsRTG;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 

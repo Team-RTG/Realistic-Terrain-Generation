@@ -66,24 +66,18 @@ public class DecoBaseBiomeDecorations extends DecoBase {
                     if (this.equalsZeroChance > 0) {
 
                         if (rand.nextInt(this.equalsZeroChance) == 0) {
-// TODO: [Generator settings] Also pass the base biome when the 'biome' field is removed in BiomeDecoratorRTG
-//                          biome.rDecorator().rDecorateSeedBiome(biome.baseBiome(), rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
-                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
+                            biome.rDecorator().rDecorateSeedBiome(biome.baseBiome(), rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
                         }
                     }
                     else if (this.notEqualsZeroChance > 0) {
 
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-// TODO: [Generator settings] Also pass the base biome when the 'biome' field is removed in BiomeDecoratorRTG
-//                          biome.rDecorator().rDecorateSeedBiome(biome.baseBiome(), rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
-                            biome.rDecorator().rDecorateSeedBiome(rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
+                            biome.rDecorator().rDecorateSeedBiome(biome.baseBiome(), rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
                         }
                     }
                     else {
 
-// TODO: [Generator settings] Also pass the base biome when the 'biome' field is removed in BiomeDecoratorRTG
-//                      biome.rDecorator().rDecorateSeedBiome(biome.baseBiome(), rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
-                        biome.rDecorator().rDecorateSeedBiome(rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
+                        biome.rDecorator().rDecorateSeedBiome(biome.baseBiome(), rtgWorld.world(), rand, worldX, worldZ, rtgWorld.simplex(), rtgWorld.cell(), strength, river);
                     }
                 }
             }

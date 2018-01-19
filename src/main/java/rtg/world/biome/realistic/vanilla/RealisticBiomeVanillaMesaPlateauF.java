@@ -13,6 +13,7 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.CliffCalculator;
+import rtg.api.util.PlateauUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
@@ -167,7 +168,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeVanillaBase
                     depth++;
 
                     if (cliff) {
-                        primer.setBlockState(x, k, z, plateauBand.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaPlateauF.this, i, k, j));
+                        primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaMesaPlateauF.this, i, k, j));
                     }
                     else {
 

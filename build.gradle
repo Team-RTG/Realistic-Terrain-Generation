@@ -17,7 +17,7 @@ sourceCompatibility = targetCompatibility = 1.8
 
 group = package_base
 archivesBaseName = mod_id.toUpperCase() + '-' + mc_version
-version = mod_version
+version = (prerelease!="") ? mod_version + '-' + prerelease : mod_version
 
 repositories {
     maven { url 'https://dl.bintray.com/shinoow/maven/' } //AbyssalCraft

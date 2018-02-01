@@ -1,18 +1,18 @@
 
 package rtg.util;
 
-import exterminatorjeff.undergroundbiomes.api.UBStrataColumn;
+//import exterminatorjeff.undergroundbiomes.api.UBStrataColumn;
 
-import static exterminatorjeff.undergroundbiomes.api.API.STRATA_COLUMN_PROVIDER;
+//import static exterminatorjeff.undergroundbiomes.api.API.STRATA_COLUMN_PROVIDER;
 
 import rtg.RTG;
-
 
 /**
  *
  * @author Zeno410
  */
 public class UBColumnCache {
+/*
     private UBStrataColumn column;
     private int cachedX = Integer.MIN_VALUE;
     private int cachedY = Integer.MIN_VALUE;
@@ -41,4 +41,5 @@ public class UBColumnCache {
             }
         };
     }
+*/
 }

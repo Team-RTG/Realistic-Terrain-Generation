@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.sugiforest;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -29,7 +28,7 @@ public abstract class RealisticBiomeSFBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "sugiforest";
+        return ModCompat.sugiforest.getPrettyName();
     }
 
     @Override
@@ -39,8 +38,9 @@ public abstract class RealisticBiomeSFBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("sugiforest")) {
+        if (ModCompat.sugiforest.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

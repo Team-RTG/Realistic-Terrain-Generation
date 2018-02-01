@@ -1,7 +1,8 @@
 package rtg.proxy;
 
-import java.io.File;
+import java.nio.file.Paths;
 
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,9 +14,8 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.PlateauUtil;
-import rtg.reference.ModInfo;
+import rtg.util.ModCompat;
 import rtg.util.RealisticBiomePresenceTester;
-import rtg.world.WorldTypeRTG;
 import rtg.world.biome.organic.OrganicBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
@@ -47,13 +47,13 @@ public class CommonProxy
 
     public void preInit(FMLPreInitializationEvent event) {
 
-        new WorldTypeRTG(ModInfo.WORLD_TYPE);
-
-        DimensionManagerRTG.addRTGDimension(DimensionManagerRTG.OVERWORLD);
-
-        RTGAPI.configPath = event.getModConfigurationDirectory() + File.separator + ModInfo.CONFIG_DIRECTORY + File.separator;
+        RTGAPI.configPath = Paths.get(event.getModConfigurationDirectory().getPath(), RTG.MOD_ID.toUpperCase());
         RTGAPI.rtgConfig = new RTGConfig();
-        RTGAPI.rtgConfig.load(RTGAPI.configPath + "rtg.cfg");
+        RTGAPI.rtgConfig.load(RTGAPI.configPath.resolve(event.getSuggestedConfigurationFile().getName()).toFile());
+
+        ModCompat.init();
+
+        DimensionManagerRTG.addRTGDimension(DimensionType.OVERWORLD.getId());
 
 // TODO: [Generator settings][Clean-up] These structure classes are to be removed
         if (RTGAPI.config().ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) { MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG"); }
@@ -65,8 +65,7 @@ public class CommonProxy
 
     public void init(FMLInitializationEvent event) {
 
-        RTG.eventMgr.init();
-        RTG.eventMgr.registerEventHandlers();
+        RTG.getEventMgr().init();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

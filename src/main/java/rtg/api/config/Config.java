@@ -74,9 +74,9 @@ public abstract class Config {
         return property;
     }
 
-    public void load(String configFile) {
+    public void load(File configFile) {
 
-        config = new Configuration(new File(configFile));
+        config = new Configuration(configFile);
 
         try {
             config.load();

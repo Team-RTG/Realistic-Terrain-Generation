@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.atg;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
@@ -36,7 +35,7 @@ public abstract class RealisticBiomeATGBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "atg";
+        return ModCompat.atg.getPrettyName();
     }
 
     @Override
@@ -51,8 +50,9 @@ public abstract class RealisticBiomeATGBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("atg")) {
+        if (ModCompat.atg.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

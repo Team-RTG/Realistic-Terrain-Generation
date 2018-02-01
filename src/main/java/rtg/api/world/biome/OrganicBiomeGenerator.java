@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.ChunkProviderOverworld;
+import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
 import rtg.api.util.LimitedMap;
@@ -22,14 +22,19 @@ import static rtg.api.util.MathUtils.globalToLocal;
 public class OrganicBiomeGenerator {
 
     public static boolean[] organicBiomes = new boolean[256];
-    private final ChunkProviderOverworld organicProvider;
+    private final ChunkGeneratorOverworld organicProvider;
     private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
     private IRTGWorld rtgWorld;
     private NoiseGeneratorPerlin surfaceNoise;
 
     public OrganicBiomeGenerator(IRTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
-        organicProvider = new ChunkProviderOverworld(rtgWorld.world(), rtgWorld.world().getSeed(), rtgWorld.world().getWorldInfo().isMapFeaturesEnabled(), rtgWorld.world().getWorldInfo().getGeneratorOptions());
+        organicProvider = new ChunkGeneratorOverworld(
+            rtgWorld.world(),
+            rtgWorld.world().getSeed(),
+            rtgWorld.world().getWorldInfo().isMapFeaturesEnabled(),
+            rtgWorld.world().getWorldInfo().getGeneratorOptions()
+        );
 
         Field field;
         try {

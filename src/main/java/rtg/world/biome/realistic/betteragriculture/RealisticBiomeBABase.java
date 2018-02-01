@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.betteragriculture;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -29,7 +28,7 @@ public abstract class RealisticBiomeBABase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "betteragriculture";
+        return ModCompat.betteragriculture.getPrettyName();
     }
 
     @Override
@@ -39,8 +38,9 @@ public abstract class RealisticBiomeBABase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("betteragriculture")) {
+        if (ModCompat.betteragriculture.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

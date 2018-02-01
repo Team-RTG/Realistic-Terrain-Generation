@@ -26,14 +26,17 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.crag.get();
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState cragRock = BOPBlocks.crag_rock.getDefaultState();
+    // removed
+    //private static IBlockState cragRock = BOPBlocks.crag_rock.getDefaultState();
 
     public RealisticBiomeBOPCrag() {
 
         super(biome, river);
 
+/* 1.12 property removed
         // Prevent dirt from messing up the surface.
         this.rDecorator().dirtSize = 0;
+*/
     }
 
     @Override
@@ -267,7 +270,8 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
         @Override
         protected IBlockState hcCobble(IRTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
-            return cragRock;
+            // return cragRock; removed
+            return Blocks.STONE.getDefaultState();
         }
     }
 

@@ -173,7 +173,7 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
                             }
                         }
                         else {
-                            primer.setBlockState(x, k, z, ACBlocks.darklands_grass.getDefaultState());
+                            primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
                         }
                     }
                     else if (depth < 6) {

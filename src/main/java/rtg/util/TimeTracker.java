@@ -58,7 +58,7 @@ public class TimeTracker {
     public static class Manager {
         private HashMap<String,TimeTracker> trackers = new HashMap<String,TimeTracker>();
         private Manager() {
-            RTG.instance.runOnServerClose(runReport());
+            RTG.getInstance().runOnServerClose(runReport());
         }
 
         private Runnable runReport() {
@@ -97,9 +97,7 @@ public class TimeTracker {
         }
     }
 
-}
-
-class StringWriter {
+static class StringWriter {
     BufferedWriter output;
     boolean started = false;
 
@@ -135,4 +133,5 @@ class StringWriter {
             throw new RuntimeException(ex);
         }
     }
+}
 }

@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -40,12 +41,12 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected RTGConfig rtgConfig = RTGAPI.config();
     private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
+    private static final String BIOME_CONFIG_SUBDIR = "biomes";
 
     public final Biome baseBiome;
     public final Biome riverBiome;
     public final Biome beachBiome;
     public BiomeConfig config;
-    public String configPath;
     public TerrainBase terrain;
     public SurfaceBase surface;
     public SurfaceBase surfaceRiver;
@@ -111,7 +112,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         // Realistic biomes have configs... organic biomes do not.
         if (this.hasConfig()) {
-            this.getConfig().load(this.configPath());
+            this.getConfig().load(this.configFile());
         }
 
         this.adjustBiomeProperties();
@@ -180,10 +181,12 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     /*
      * Returns the beach biome to use for this biome, with a dynamically-calculated preferred beach.
      */
+    @Override
     public Biome beachBiome() {
         return this.beachBiome(this.getPreferredBeachForBiome(this.baseBiome));
     }
 
+    @Override
     public BiomeDecoratorRTG rDecorator() {
         return rDecorator;
     }
@@ -433,22 +436,24 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
                 Accessor<Biome, Float> biomeTemp = new Accessor<>("temperature", "field_76750_F");
                 biomeTemp.setField(biome, biomeTemperature);
 
-                Logger.info("Set biome temperature to %f for %s", biomeTemperature, biomeName);
+                Logger.info("Set biome temperature to {} for {}", biomeTemperature, biomeName);
             }
             catch (Exception e) {
-                Logger.warn("Unable to set biome temperature to %f for %s. Reason: %s", biomeTemperature, biomeName, e.getMessage());
+                Logger.warn("Unable to set biome temperature to {} for {}. Reason: {}", biomeTemperature, biomeName, e.getMessage());
             }
         }
     }
 
-    public String configPath() {
-        return RTGAPI.configPath + "biomes/" + this.modSlug() + "/" + this.biomeSlug() + ".cfg";
+    private File configFile() {
+        return RTGAPI.configPath.resolve(BIOME_CONFIG_SUBDIR).resolve(this.modSlug()).resolve(this.biomeSlug()+".cfg").toFile();
     }
 
+    @Override
     public String modSlug() {
         throw new RuntimeException("Realistic biomes need a mod slug.");
     }
 
+    @Override
     public String biomeSlug() {
         return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
     }
@@ -480,7 +485,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
          */
 
         float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
-        float temp = biome.getTemperature();
+        float temp = biome.getDefaultTemperature();
 
         // Use a cold beach if the temperature is low enough; otherwise, just use a normal beach.
         Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
@@ -491,7 +496,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         }
 
         // Snowy biomes should always use cold beach; otherwise, the transition looks too abrupt.
-        if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY)) {
+        if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
             beach = Biomes.COLD_BEACH;
         }
 
@@ -500,9 +505,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
 // TODO: [Clean-up] BiomeDictionary.Type.SNOWY is not common to all taiga biomes. This method should be renamed to be less ambiguous or the SNOWY type should be removed from the check
     private boolean isTaigaBiome(Biome biome) {
-        return BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.COLD)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.CONIFEROUS)
-            && BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.FOREST)
-            && !BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.SNOWY);
+        return BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD)
+            && BiomeDictionary.hasType(biome, BiomeDictionary.Type.CONIFEROUS)
+            && BiomeDictionary.hasType(biome, BiomeDictionary.Type.FOREST)
+            && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY);
     }
 }

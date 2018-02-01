@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.vampirism;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
@@ -30,7 +29,7 @@ public abstract class RealisticBiomeVAMPBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "vampirism";
+        return ModCompat.vampirism.getPrettyName();
     }
 
     @Override
@@ -45,8 +44,9 @@ public abstract class RealisticBiomeVAMPBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("vampirism")) {
+        if (ModCompat.vampirism.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

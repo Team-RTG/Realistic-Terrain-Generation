@@ -179,7 +179,7 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
     }
 
     @Override @Nonnull
-    public List<Biome.SpawnListEntry> getScatteredFeatureSpawnList()
+    public List<Biome.SpawnListEntry> getMonsters()
     {
         return MONUMENT_ENEMIES;
     }
@@ -249,8 +249,8 @@ public class StructureOceanMonumentRTG extends StructureOceanMonument
             for (ChunkPos chunkpos : this.processed)
             {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
-                nbttagcompound.setInteger("X", chunkpos.chunkXPos);
-                nbttagcompound.setInteger("Z", chunkpos.chunkZPos);
+                nbttagcompound.setInteger("X", chunkpos.x);
+                nbttagcompound.setInteger("Z", chunkpos.z);
                 nbttaglist.appendTag(nbttagcompound);
             }
 

@@ -83,11 +83,6 @@ public final class GenSettingsRepo {
     @SuppressWarnings("WeakerAccess")
     public static void addSettingsForWorld(final World world) {
 
-Logger.error("GenSettingsRepo#addSettingsForWorld: Dim {}: bedrockLayers: {}",
-    world.provider.getDimension(),
-    (ChunkProviderSettingsRTG.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build()).bedrockLayers
-);
-
         ChunkProviderSettingsRTG entry = SETTINGS_REPOSITORY.put(
             world.provider.getDimension(),
             ChunkProviderSettingsRTG.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build()

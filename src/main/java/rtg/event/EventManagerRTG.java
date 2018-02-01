@@ -7,11 +7,9 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 
-import net.minecraft.world.chunk.IChunkGenerator;
-import net.minecraftforge.common.DimensionManager;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -28,11 +26,9 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
-import rtg.api.event.SurfaceEvent;
 import rtg.api.util.*;
 import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.util.UBColumnCache;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -42,22 +38,36 @@ import rtg.world.gen.genlayer.RiverRemover;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class EventManagerRTG {
 
+    private RTGConfig rtgConfig;
+
     // Event handlers.
-    private final WorldEventRTG WORLD_EVENT_HANDLER = new WorldEventRTG();
-    private final LoadChunkRTG LOAD_CHUNK_EVENT_HANDLER = new LoadChunkRTG();
-    private final GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
-    private final InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
-    private final SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
-    private final DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
-    private final SurfaceEventRTG SURFACE_EVENT_HANDLER = new SurfaceEventRTG();
+    private WorldEventRTG WORLD_EVENT_HANDLER;
+    private LoadChunkRTG LOAD_CHUNK_EVENT_HANDLER;
+    private GenerateMinableRTG GENERATE_MINABLE_EVENT_HANDLER;
+    private InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER;
+    private SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER;
+    private DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER;
+    private SurfaceEventRTG SURFACE_EVENT_HANDLER;
 
 // TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkProviderRTG
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
-    private RTGConfig rtgConfig;
 
     public EventManagerRTG() {}
 
-    public void init() { rtgConfig = RTGAPI.config(); }
+    public void init() {
+
+        this.rtgConfig                       = RTGAPI.config();
+
+        this.WORLD_EVENT_HANDLER             = new WorldEventRTG();
+        this.LOAD_CHUNK_EVENT_HANDLER        = new LoadChunkRTG();
+        this.GENERATE_MINABLE_EVENT_HANDLER  = new GenerateMinableRTG();
+        this.INIT_BIOME_GENS_EVENT_HANDLER   = new InitBiomeGensRTG();
+        this.SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
+        this.DECORATE_BIOME_EVENT_HANDLER    = new DecorateBiomeEventRTG();
+// TODO: [1.12] Contemplate removing UBC support.
+//      this.SURFACE_EVENT_HANDLER           = new SurfaceEventRTG();
+        registerEventHandlers();
+    }
 
     public class LoadChunkRTG {
 
@@ -83,6 +93,8 @@ public class EventManagerRTG {
 
     public class GenerateMinableRTG {
 
+        public GenerateMinableRTG() {}
+
 // TODO: [Clean-up] Bump priority to EventPriority.HIGHEST to execute before other mods, until we have a chance to address the issue of extra ore gen in 1.12
 //      @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SubscribeEvent
@@ -99,9 +111,7 @@ public class EventManagerRTG {
                 return;
             }
 
-// TODO: [Dimensions][Clean-up] Remove the ChunkOreGenTracker's dependence on the static instance of the chunk generator
-// TODO: [Clean-up] Revisit the need to have the ChunkOreGenTracker
-// TODO: [Clean-up] Remove unused local vars
+// TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
 //          IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
 //          if (chunkGenerator instanceof ChunkProviderRTG) {
 //          ChunkOreGenTracker chunkOreGenTracker = ((ChunkProviderRTG)chunkGenerator).getChunkOreGenTracker();
@@ -377,7 +387,7 @@ public class EventManagerRTG {
             int dim = event.getWorld().provider.getDimension();
 
             IChunkGenerator type = event.getWorld().provider.createChunkGenerator();
-            Logger.error("EMRTG: Dim {} - World is unloading, Side: {}, Type: {}", dim, event.getWorld().isRemote?"Client":"Server", type.getClass().getSimpleName());
+            Logger.debug("EMRTG: Dim {} - World is unloading, Side: {}, Type: {}", dim, event.getWorld().isRemote?"Client":"Server", type.getClass().getSimpleName());
 
             if (!(event.getWorld().isRemote || dim == 1 || dim == -1)) {
                 GenSettingsRepo.removeSettingsForWorld(event.getWorld());
@@ -421,8 +431,9 @@ public class EventManagerRTG {
         }
     }
 
+// TODO: [1.12] Contemplate removing UBC support.
     public class SurfaceEventRTG {
-
+/*
         private final ModPresenceTester undergroundBiomesMod = new ModPresenceTester("undergroundbiomes");
 
         // Create UBColumnCache only if UB is present
@@ -470,6 +481,7 @@ public class EventManagerRTG {
                 }
             }
         }
+*/
     }
 
     /*
@@ -489,7 +501,7 @@ public class EventManagerRTG {
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(SURFACE_EVENT_HANDLER);
+//      MinecraftForge.TERRAIN_GEN_BUS.register(SURFACE_EVENT_HANDLER);
 
         logEventMessage("RTG's event handlers have been registered successfully.");
     }

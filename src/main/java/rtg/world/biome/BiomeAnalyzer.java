@@ -287,7 +287,7 @@ public class BiomeAnalyzer {
             // If stone beaches aren't allowed in this biome, then determine the best beach to use based on the biome's temperature.
             if (realisticBiome.disallowStoneBeaches) {
                 if (Biome.getIdForBiome(realisticBiome.beachBiome) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
-                    preferredBeach[i] = Biome.getIdForBiome((biome.getTemperature() <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH);
+                    preferredBeach[i] = Biome.getIdForBiome((biome.getDefaultTemperature() <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH);
                 }
             }
 

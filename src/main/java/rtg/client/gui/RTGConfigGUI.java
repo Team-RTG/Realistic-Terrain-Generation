@@ -10,14 +10,14 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 import rtg.api.RTGAPI;
-import rtg.reference.ModInfo;
+import rtg.RTG;
 
 public class RTGConfigGUI extends GuiConfig {
 
     private static final Configuration CONFIG = RTGAPI.config().getConfig();
 
     public RTGConfigGUI(GuiScreen parentScreen) {
-        super(parentScreen, getElements(), ModInfo.MOD_ID, false, false, I18n.format("gui.config.title"));
+        super(parentScreen, getElements(), RTG.MOD_ID, false, false, I18n.format("gui.config.title"));
     }
 
     //TODO: Localise config element tooltips

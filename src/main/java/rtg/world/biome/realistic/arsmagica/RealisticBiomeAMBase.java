@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.arsmagica;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -29,7 +28,7 @@ public abstract class RealisticBiomeAMBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "arsmagica2";
+        return ModCompat.arsmagica2.getPrettyName();
     }
 
     @Override
@@ -44,8 +43,9 @@ public abstract class RealisticBiomeAMBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("arsmagica2")) {
+        if (ModCompat.arsmagica2.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

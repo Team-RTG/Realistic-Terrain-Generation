@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
@@ -23,7 +24,8 @@ import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.gen.ChunkGeneratorOverworld;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraft.world.gen.ChunkProviderServer;
@@ -35,6 +37,7 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.WoodlandMansion;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -87,6 +90,7 @@ public class ChunkProviderRTG implements IChunkGenerator
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
+    private final WoodlandMansion woodlandMansionGenerator;
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
@@ -132,7 +136,7 @@ public class ChunkProviderRTG implements IChunkGenerator
                 return;
             }
 
-            ChunkPos pos = event.getChunk().getChunkCoordIntPair();
+            ChunkPos pos = event.getChunk().getPos();
 
             if (!toCheck.contains(pos)) {
                 Logger.debug("CPRTG#Acceptor: toCheck contains pos.");
@@ -156,8 +160,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         worldUtil = new WorldUtil(world);
         rtgWorld = new RTGWorld(this.world);
         this.settings = GenSettingsRepo.getSettingsForWorld(world);
-
-        Logger.error("ChunkProviderRTG#~ Dim {}, bedrockLayers: {}", world.provider.getDimension(), settings.bedrockLayers);
 
         this.world.setSeaLevel(settings.seaLevel);
 // TODO: [Clean-up] No need to cast here as it is stored in biomeProvider as a IBiomeProvider object and BiomeProviderRTG has no custom functionality
@@ -207,6 +209,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         else {
             strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
         }
+
+        this.woodlandMansionGenerator = (WoodlandMansion) TerrainGen.getModdedMapGen(new WoodlandMansion(new FakeGeneratorForMansion(this.world)), EventType.WOODLAND_MANSION);
 
 // TODO: [Generator settings] Pass settings to mineshafts.
 //      mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(StructureType.MINESHAFT.getSettings(settings)), EventType.MINESHAFT);
@@ -281,8 +285,8 @@ public class ChunkProviderRTG implements IChunkGenerator
         this.mapFeaturesEnabled = false;
     }
 
-    @Nonnull
-    public Chunk provideChunk(final int cx, final int cz) {
+    @Override
+    public Chunk generateChunk(final int cx, final int cz) {
 // TODO: [Clean-up] The delayed decoration system should be updated to ultilise much faster map implementations such as those found in it.unimi.dsi.fastutil to reduce world gen lag
         final ChunkPos pos = new ChunkPos(cx, cz);
         if (inGeneration.containsKey(pos)) return inGeneration.get(pos);
@@ -611,7 +615,14 @@ public class ChunkProviderRTG implements IChunkGenerator
 
     private boolean neighborsDone(int cx, int cz) {
 // TODO: [Clean-up] wrap long line
-        return chunkExists(true, cx - 1, cz - 1) && chunkExists(true, cx - 1, cz) && chunkExists(true, cx - 1, cz + 1) && chunkExists(true, cx, cz - 1) && chunkExists(true, cx, cz + 1) && chunkExists(true, cx + 1, cz - 1) && chunkExists(true, cx + 1, cz) && chunkExists(true, cx + 1, cz + 1);
+        return chunkExists(true, cx - 1, cz - 1)
+            && chunkExists(true, cx - 1, cz)
+            && chunkExists(true, cx - 1, cz + 1)
+            && chunkExists(true, cx, cz - 1)
+            && chunkExists(true, cx, cz + 1)
+            && chunkExists(true, cx + 1, cz - 1)
+            && chunkExists(true, cx + 1, cz)
+            && chunkExists(true, cx + 1, cz + 1);
     }
 
     private void doPopulate(int chunkX, int chunkZ) {
@@ -907,7 +918,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         Set<ChunkPos> toProcess = doableLocations(limit);
         toProcess.forEach(this::removeFromDecorationList);
         for (ChunkPos location : toProcess) {
-            doPopulate(location.chunkXPos, location.chunkZPos);
+            doPopulate(location.x, location.z);
         }
     }
 
@@ -951,23 +962,27 @@ public class ChunkProviderRTG implements IChunkGenerator
 
         if (this.mapFeaturesEnabled) {
             if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
-                return this.scatteredFeatureGenerator.getScatteredFeatureSpawnList();
+                return this.scatteredFeatureGenerator.getMonsters();
             }
 // TODO: [Generator Settings] Update this to use the generator setting and not the config setting
 //          if (creatureType == EnumCreatureType.MONSTER && settings.useMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
             if (creatureType == EnumCreatureType.MONSTER && rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
-                return this.oceanMonumentGenerator.getScatteredFeatureSpawnList();
+                return this.oceanMonumentGenerator.getMonsters();
             }
         }
         return biome.getSpawnableList(creatureType);
     }
 
+    @Nullable
     @Override
-    public BlockPos getStrongholdGen(@Nonnull World par1World, @Nonnull String par2Str, @Nonnull BlockPos blockPos) {
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//      if (!settings.useStrongholds) return null;
-        if (!rtgConfig.GENERATE_STRONGHOLDS.get()) return null;
-        return "Stronghold".equals(par2Str) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(par1World, blockPos) : null;
+    public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
+        if (!this.mapFeaturesEnabled) { return null; }
+        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) { return this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null) { return this.woodlandMansionGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Monument".equals(structureName) && this.oceanMonumentGenerator != null) { return this.oceanMonumentGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Village".equals(structureName) && this.villageGenerator != null) { return this.villageGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null) { return this.mineshaftGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        return "Temple".equals(structureName) && this.scatteredFeatureGenerator != null ? this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored) : null;
     }
 
     @Override
@@ -1062,7 +1077,18 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
     }
 
-    private void decorateIfOtherwiseSurrounded(IChunkProvider world, ChunkPos pos, Direction fromNewChunk) {
+    @Override
+    public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
+        if (!this.mapFeaturesEnabled) { return false; }
+        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) { return this.strongholdGenerator.isInsideStructure(pos); }
+        if ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null) { return this.woodlandMansionGenerator.isInsideStructure(pos); }
+        if ("Monument".equals(structureName) && this.oceanMonumentGenerator != null) { return this.oceanMonumentGenerator.isInsideStructure(pos); }
+        if ("Village".equals(structureName) && this.villageGenerator != null) { return this.villageGenerator.isInsideStructure(pos); }
+        if ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null) { return this.mineshaftGenerator.isInsideStructure(pos); }
+        return ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null) && this.scatteredFeatureGenerator.isInsideStructure(pos);
+    }
+
+    private void decorateIfOtherwiseSurrounded(IChunkProvider worldIn, ChunkPos pos, Direction fromNewChunk) {
 
         // check if this is the master provider
         if (WorldTypeRTG.chunkProvider != this) {
@@ -1071,11 +1097,11 @@ public class ChunkProviderRTG implements IChunkGenerator
         }
 
         // see if otherwise surrounded besides the new chunk
-        ChunkPos probe = new ChunkPos(pos.chunkXPos + fromNewChunk.xOffset, pos.chunkZPos + fromNewChunk.zOffset);
+        ChunkPos probe = new ChunkPos(pos.x + fromNewChunk.xOffset, pos.z + fromNewChunk.zOffset);
 
         // check to see if already decorated; shouldn't be but just in case
         if (this.alreadyDecorated.contains(probe)) {
-            Logger.debug("Already decorated (%d %d).", pos.chunkXPos, pos.chunkZPos);
+            Logger.debug("Already decorated (%d %d).", pos.x, pos.z);
             return;
         }
 
@@ -1085,12 +1111,12 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (Direction checked : directions) {
 
             if (checked == compass.opposite(fromNewChunk)) {
-                Logger.debug("Chunk checked (%d %d). Continuing...", pos.chunkXPos, pos.chunkZPos);
+                Logger.debug("Chunk checked (%d %d). Continuing...", pos.x, pos.z);
                 continue; // that's the new chunk
             }
 
-            if (!chunkExists(true, probe.chunkXPos + checked.xOffset, probe.chunkZPos + checked.zOffset)) {
-                Logger.debug("Chunk doesn't exist (%d %d). Returning...", pos.chunkXPos, pos.chunkZPos);
+            if (!chunkExists(true, probe.x + checked.xOffset, probe.z + checked.zOffset)) {
+                Logger.debug("Chunk doesn't exist (%d %d). Returning...", pos.x, pos.z);
                 return;// that one's missing
             }
         }
@@ -1098,9 +1124,9 @@ public class ChunkProviderRTG implements IChunkGenerator
         // passed all checks
         addToDecorationList(probe);
 
-        Logger.debug("Chunk added to decoration list (%d %d).", probe.chunkXPos, probe.chunkZPos);
+        Logger.debug("Chunk added to decoration list (%d %d).", probe.x, probe.z);
 
-        //this.doPopulate(probe.chunkXPos, probe.chunkZPos);
+        //this.doPopulate(probe.x, probe.z);
     }
 
 // TODO: [Clean-up] Remove constant condition parameter `checkNeighbours`
@@ -1160,7 +1186,7 @@ public class ChunkProviderRTG implements IChunkGenerator
         while (toProcess.size() > 0) {
             toProcess.forEach(this::removeFromDecorationList);
             for (ChunkPos location : toProcess) {
-                doPopulate(location.chunkXPos, location.chunkZPos);
+                doPopulate(location.x, location.z);
             }
             // and loop because the decorating might have created other chunks to decorate;
             toProcess = doableLocations(0);
@@ -1229,5 +1255,10 @@ public class ChunkProviderRTG implements IChunkGenerator
 
             return ret;
         }
+    }
+
+    private final class FakeGeneratorForMansion extends ChunkGeneratorOverworld {
+        private FakeGeneratorForMansion(World world) { super(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), world.getWorldInfo().getGeneratorOptions()); }
+        @Override public void setBlocksInChunk(int x, int z, ChunkPrimer primer) { super.setBlocksInChunk(x, z, primer); }
     }
 }

@@ -41,7 +41,7 @@ import rtg.api.util.Logger;
 public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
 {
     private static final List<Biome> BIOMELIST = Arrays.<Biome>asList(new Biome[] {Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.JUNGLE, Biomes.JUNGLE_HILLS, Biomes.SWAMPLAND, Biomes.ICE_PLAINS, Biomes.COLD_TAIGA});
-    private final List<Biome.SpawnListEntry> scatteredFeatureSpawnList;
+    private final List<Biome.SpawnListEntry> monsters;
     private int maxDistanceBetweenScatteredFeatures;
     private final int minDistanceBetweenScatteredFeatures;
 
@@ -55,10 +55,10 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
             maxDistance = 32;
         }
 
-        this.scatteredFeatureSpawnList = Lists.<Biome.SpawnListEntry>newArrayList();
+        this.monsters = Lists.<Biome.SpawnListEntry>newArrayList();
         this.maxDistanceBetweenScatteredFeatures = maxDistance;
         this.minDistanceBetweenScatteredFeatures = minDistance;
-        this.scatteredFeatureSpawnList.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
+        this.monsters.add(new Biome.SpawnListEntry(EntityWitch.class, 1, 1, 1));
     }
 
     public MapGenScatteredFeatureRTG(Map<String, String> p_i2061_1_)
@@ -161,9 +161,9 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     @Override
-    public List<Biome.SpawnListEntry> getScatteredFeatureSpawnList()
+    public List<Biome.SpawnListEntry> getMonsters()
     {
-        return this.scatteredFeatureSpawnList;
+        return this.monsters;
     }
 
     public static class Start extends StructureStart
@@ -221,18 +221,18 @@ public class MapGenScatteredFeatureRTG extends MapGenScatteredFeature
     }
 
     private static boolean canSpawnDesertTemple(Biome b) {
-        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SANDY));
+        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.hasType(b, BiomeDictionary.Type.DRY) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SANDY));
     }
 
     private static boolean canSpawnJungleTemple(Biome b) {
-        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.JUNGLE));
+        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.HOT) && BiomeDictionary.hasType(b, BiomeDictionary.Type.WET) && BiomeDictionary.hasType(b, BiomeDictionary.Type.JUNGLE));
     }
 
     private static boolean canSpawnWitchHut(Biome b) {
-        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.WET) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SWAMP));
+        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.WET) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SWAMP));
     }
 
     private static boolean canSpawnIgloo(Biome b) {
-        return (BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.isBiomeOfType(b, BiomeDictionary.Type.PLAINS));
+        return (BiomeDictionary.hasType(b, BiomeDictionary.Type.COLD) && BiomeDictionary.hasType(b, BiomeDictionary.Type.SNOWY) && BiomeDictionary.hasType(b, BiomeDictionary.Type.PLAINS));
     }
 }

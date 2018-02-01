@@ -96,7 +96,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
         for (ChunkPos chunkpos : this.structureCoords)
         {
-            blockpos$mutableblockpos.setPos((chunkpos.chunkXPos << 4) + 8, 32, (chunkpos.chunkZPos << 4) + 8);
+            blockpos$mutableblockpos.setPos((chunkpos.x << 4) + 8, 32, (chunkpos.z << 4) + 8);
             double d1 = blockpos$mutableblockpos.distanceSq(pos);
 
             if (blockpos == null)
@@ -124,7 +124,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
 
         for (ChunkPos chunkpos : this.structureCoords)
         {
-            if (chunkX == chunkpos.chunkXPos && chunkZ == chunkpos.chunkZPos)
+            if (chunkX == chunkpos.x && chunkZ == chunkpos.z)
             {
                 return true;
             }
@@ -196,7 +196,7 @@ public class MapGenStrongholdRTG extends MapGenStronghold
         {
             if (chunkpos != null)
             {
-                list.add(chunkpos.getCenterBlock(64));
+                list.add(chunkpos.getBlock(8, 64, 8));
             }
         }
 

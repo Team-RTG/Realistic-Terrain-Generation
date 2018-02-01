@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.agriculturalrevolution;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
@@ -31,10 +30,9 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
         return this.riverBiome;
     }
 
-    //TODO 1.11: refactor everything 'CookingPlus' to 'AgriculturalRevolution'
     @Override
     public String modSlug() {
-        return Loader.isModLoaded("agriculturalrevolution") ? "agriculturalrevolution" : "cookingplus";
+        return ModCompat.agriculturalrevolution.getPrettyName();
     }
 
     @Override
@@ -44,8 +42,9 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("CookingPlus") || Loader.isModLoaded("agriculturalrevolution")) {
+        if (ModCompat.agriculturalrevolution.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

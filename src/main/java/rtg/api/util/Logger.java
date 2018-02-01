@@ -10,7 +10,7 @@ public class Logger {
 
     private static final org.apache.logging.log4j.Logger LOGGER;
     static {
-        LOGGER = org.apache.logging.log4j.LogManager.getLogger(rtg.reference.ModInfo.MOD_ID.toUpperCase());
+        LOGGER = org.apache.logging.log4j.LogManager.getLogger(rtg.RTG.MOD_ID.toUpperCase());
     }
 
     public static void debug(String format, Object... data) {

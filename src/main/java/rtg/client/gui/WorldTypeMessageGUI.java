@@ -47,12 +47,12 @@ public class WorldTypeMessageGUI extends GuiScreen {
     public void drawScreen(int x, int y, float renderPartialTicks) {
 
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, TextFormatting.WHITE    + I18n.format("warning.rtgStartup1"), this.width / 2, 82, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, TextFormatting.WHITE    + I18n.format("warning.rtgStartup2"), this.width / 2, 94, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, TextFormatting.WHITE    + I18n.format("warning.rtgStartup3"), this.width / 2, 106, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, TextFormatting.WHITE    + I18n.format("warning.rtgStartup4"), this.width / 2, 132, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, TextFormatting.WHITE    + I18n.format("warning.rtgStartup5"), this.width / 2, 144, 0xFFFFFF);
-        this.drawCenteredString(this.fontRendererObj, TextFormatting.DARK_RED + I18n.format("warning.rtgStartup6"), this.width / 2, 168, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup1"), this.width / 2, 82, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup2"), this.width / 2, 94, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup3"), this.width / 2, 106, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup4"), this.width / 2, 132, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup5"), this.width / 2, 144, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.DARK_RED + I18n.format("warning.rtgStartup6"), this.width / 2, 168, 0xFFFFFF);
 
         GL11.glEnable(GL11.GL_BLEND);
         this.mc.getTextureManager().bindTexture(new ResourceLocation("rtg:textures/gui/rtg-logo-worldtype.png"));

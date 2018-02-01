@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
@@ -154,7 +154,7 @@ public class MapGenCavesRTG extends MapGenCaves
 
                                         if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D) {
                                             IBlockState iblockstate1 = p_180702_5_.getBlockState(j3, j2, i2);
-                                            IBlockState iblockstate2 = Objects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), BLK_AIR);
+                                            IBlockState iblockstate2 = MoreObjects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), BLK_AIR);
 
                                             if (isTopBlock(p_180702_5_, j3, j2, i2, p_180702_3_, p_180702_4_)) flag1 = true;
 

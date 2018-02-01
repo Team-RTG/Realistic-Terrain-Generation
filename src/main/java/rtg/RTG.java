@@ -13,26 +13,33 @@ import rtg.client.gui.RTGConfigGUIFactory;
 import rtg.event.EventManagerRTG;
 import rtg.proxy.ClientProxy;
 import rtg.proxy.CommonProxy;
-import rtg.reference.ModInfo;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 @Mod(
-    modid                    = ModInfo.MOD_ID,
-    name                     = ModInfo.MOD_NAME,
-    version                  = ModInfo.MOD_VERSION,
-    dependencies             = "required-after:Forge@[" + ModInfo.MCF_MINVER + "," + ModInfo.MCF_MAXVER + ")" + ModInfo.MOD_DEPS,
+    modid                    = RTG.MOD_ID,
+    name                     = RTG.MOD_NAME,
+    version                  = RTG.MOD_VERSION,
+    dependencies             = "required-after:forge@[" + RTG.MCF_MINVER + "," + RTG.MCF_MAXVER + ")" + RTG.MOD_DEPS,
     guiFactory               = RTGConfigGUIFactory.LOCATION,
     acceptableRemoteVersions = "*"
 )
 public class RTG {
 
-    public static final EventManagerRTG eventMgr = new EventManagerRTG();
+    public static final String MOD_ID = "rtg";
+    public static final String MOD_NAME = "Realistic Terrain Generation";
+    public static final String MOD_VERSION = "@MOD_VERSION@";
+    public static final String MCF_MINVER = "0.0-MCF+MINVER";
+    public static final String MCF_MAXVER = "9001.0-MCF+MAXVER";
+    public static final String MOD_DEPS = ";after:MODDEPS";
+
+    private static final EventManagerRTG eventMgr = new EventManagerRTG();
+
 //  public        final ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     public        final ArrayList<Runnable> serverCloseActions = new ArrayList<>();
 
-    @Mod.Instance(ModInfo.MOD_ID)
-    public static RTG instance;
+    @Mod.Instance(RTG.MOD_ID)
+    private static RTG instance;
 
     @SidedProxy(serverSide = CommonProxy.LOCATION, clientSide = ClientProxy.LOCATION)
     public static CommonProxy proxy;
@@ -67,5 +74,13 @@ public class RTG {
 
     public void runOnNextServerCloseOnly(Runnable action) {
         serverCloseActions.add(action);
+    }
+
+    public static EventManagerRTG getEventMgr() {
+        return eventMgr;
+    }
+
+    public static RTG getInstance() {
+        return instance;
     }
 }

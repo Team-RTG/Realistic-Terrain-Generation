@@ -5,8 +5,8 @@ import javax.annotation.Nullable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.chunk.IChunkGenerator;
-import net.minecraft.world.gen.ChunkProviderOverworld;
+import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.ChunkGeneratorOverworld;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -18,17 +18,25 @@ import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkProviderRTG;
 
-public class WorldTypeRTG extends WorldType
+public final class WorldTypeRTG extends WorldType
 {
+    private static final WorldTypeRTG INSTANCE = new WorldTypeRTG();
+    public static WorldTypeRTG getInstance() {
+//        if (INSTANCE == null) { init(); }
+        return INSTANCE;
+    }
 
 // TODO: [Generator settings][Dimensions] Remove all use of the static fields: biomeProvider, chunkProvider
     private static BiomeProviderRTG biomeProvider;
     public static ChunkProviderRTG chunkProvider;
 
-    public WorldTypeRTG(String name)
-    {
-        super(name);
+    private WorldTypeRTG() {
+        super(RTG.MOD_ID.toUpperCase());
     }
+
+//    public static void init() {
+//        INSTANCE = new WorldTypeRTG(RTG.MOD_ID.toUpperCase());
+//    }
 
     @Override
     public BiomeProvider getBiomeProvider(World world) {
@@ -44,7 +52,7 @@ public class WorldTypeRTG extends WorldType
             if (biomeProvider == null) {
 
                 biomeProvider = new BiomeProviderRTG(world, this);
-                RTG.instance.runOnNextServerCloseOnly(clearProvider(biomeProvider));
+                RTG.getInstance().runOnNextServerCloseOnly(clearProvider(biomeProvider));
             }
 
             Logger.debug("WorldTypeRTG#getBiomeProvider() returning BiomeProviderRTG");
@@ -67,11 +75,11 @@ public class WorldTypeRTG extends WorldType
             if (chunkProvider == null) {
 
                 chunkProvider = new ChunkProviderRTG(world, world.getSeed(), generatorOptions);
-                RTG.instance.runOnNextServerCloseOnly(clearProvider(chunkProvider));
+                RTG.getInstance().runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
                 // inform the event manager about the ChunkEvent.Load event
-                RTG.eventMgr.setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
-                RTG.instance.runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
+                RTG.getEventMgr().setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
+                RTG.getInstance().runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
 
                 Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG for Dim {}", world.provider.getDimension());
 
@@ -90,7 +98,7 @@ public class WorldTypeRTG extends WorldType
         else {
 
             Logger.error("Invalid dimension. Serving up ChunkProviderOverworld instead of ChunkProviderRTG.");
-            return new ChunkProviderOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
+            return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
         }
     }
 
@@ -123,7 +131,7 @@ public class WorldTypeRTG extends WorldType
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String getTranslateName() {
+    public String getTranslationKey() {
         return "gui.createWorld.worldtypename";
     }
 

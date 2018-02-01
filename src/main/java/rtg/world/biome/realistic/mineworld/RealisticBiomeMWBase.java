@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.mineworld;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -34,7 +33,7 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "mineworld";
+        return ModCompat.mw.getPrettyName();
     }
 
     @Override
@@ -49,8 +48,9 @@ public abstract class RealisticBiomeMWBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("mw")) {
+        if (ModCompat.mw.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

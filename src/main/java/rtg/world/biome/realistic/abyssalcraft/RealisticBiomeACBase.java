@@ -1,12 +1,11 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.common.Loader;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
@@ -37,7 +36,7 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "abyssalcraft";
+        return ModCompat.abyssalcraft.getPrettyName();
     }
 
     @Override
@@ -52,24 +51,37 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("abyssalcraft")) {
+        if (ModCompat.abyssalcraft.isLoaded()) {
 
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.coralium_infested_swamp)) {
+            ResourceLocation rl;
+
+            rl = ACBiomes.coralium_infested_swamp.getRegistryName();
+            if (rl != null && Biome.REGISTRY.containsKey(rl)) {
                 acCoraliumInfestedSwamp = new RealisticBiomeACCoraliumInfestedSwamp();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands)) {
+
+            rl = ACBiomes.darklands.getRegistryName();
+            if (rl != null && Biome.REGISTRY.containsKey(rl)) {
                 acDarklands = new RealisticBiomeACDarklands();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_forest)) {
+
+            rl = ACBiomes.darklands_forest.getRegistryName();
+            if (rl != null && Biome.REGISTRY.containsKey(rl)) {
                 acDarklandsForest = new RealisticBiomeACDarklandsForest();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_hills)) {
+
+            rl = ACBiomes.darklands_hills.getRegistryName();
+            if (rl != null && Biome.REGISTRY.containsKey(rl)) {
                 acDarklandsHighland = new RealisticBiomeACDarklandsHighland();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_mountains)) {
+
+            rl = ACBiomes.darklands_mountains.getRegistryName();
+            if (rl != null && Biome.REGISTRY.containsKey(rl)) {
                 acDarklandsMountains = new RealisticBiomeACDarklandsMountains();
             }
-            if (BiomeDictionary.isBiomeRegistered(ACBiomes.darklands_plains)) {
+
+            rl = ACBiomes.darklands_plains.getRegistryName();
+            if (rl != null && Biome.REGISTRY.containsKey(rl)) {
                 acDarklandsPlains = new RealisticBiomeACDarklandsPlains();
             }
         }

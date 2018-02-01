@@ -1,0 +1,32 @@
+// use -DEBUG CLI arguement for a debug session
+tasks.withType(JavaExec) {
+    jvmArgs "-Xms2G", "-Xmx4G"
+    if (System.getProperty("EBUG") != null)
+        jvmArgs "-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y"
+}
+
+// use -Dwarn[=[none|all|unchecked|rawtypes|deprecation]] CLI arguement for verbose compiler warnings
+tasks.withType(JavaCompile) {
+    if (System.getProperty("warn") != null) {
+        if (System.getProperty("warn").toLowerCase() == "none")        options.compilerArgs << "-Xlint:none"
+        if (System.getProperty("warn").toLowerCase() == "all")         options.compilerArgs << "-Xlint:all"
+        if (System.getProperty("warn").toLowerCase() == "unchecked")   options.compilerArgs << "-Xlint:unchecked"
+        if (System.getProperty("warn").toLowerCase() == "rawtypes")    options.compilerArgs << "-Xlint:rawtypes"
+        if (System.getProperty("warn").toLowerCase() == "deprecation") options.compilerArgs << "-Xlint:deprecation"
+        if (System.getProperty("warn") == "") options.compilerArgs << "-Xlint:unchecked" << "-Xlint:rawtypes" << "-Xlint:deprecation"
+    }
+}
+
+// log project header during certain tasks
+def dumpProjectInfo = {
+    def name = "Project      : ${project.name}"
+    def ver  = "Version      : ${project.version}"
+    def ts   = "Started at   : ${java.time.OffsetDateTime.now().toString()}"
+    def sep  = new String(new char[10 + ts.length()]).replace('\0', '~')
+    logger.lifecycle "-=[ ${sep} ]=-"
+    logger.lifecycle "-=[     ${name}${(new String(new char[7 + ts.length() - name.length()]).replace('\0', ' '))}]=-"
+    logger.lifecycle "-=[     ${ver}${(new String(new char[7 + ts.length() - ver.length()]).replace('\0', ' '))}]=-"
+    logger.lifecycle "-=[     ${ts}${(new String(new char[7]).replace('\0', ' '))}]=-"
+    logger.lifecycle "-=[ ${sep} ]=-\n"
+}
+project.gradle.taskGraph.whenReady{dumpProjectInfo.call()}

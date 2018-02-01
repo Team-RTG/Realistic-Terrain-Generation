@@ -2,9 +2,8 @@ package rtg.world.biome.realistic.rockhoundingsurface;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import rtg.api.util.Logger;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -19,7 +18,7 @@ public abstract class RealisticBiomeRHSBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "rockhoundingsurface";
+        return ModCompat.rockhounding_surface.getPrettyName();
     }
 
     @Override
@@ -34,8 +33,9 @@ public abstract class RealisticBiomeRHSBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("rockhounding_surface")) {
+        if (ModCompat.rockhounding_surface.isLoaded()) {
 
+// TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {
 
                 if (biome.getBiomeName().isEmpty()) {

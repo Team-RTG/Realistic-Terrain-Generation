@@ -23,9 +23,9 @@ import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
 import net.minecraft.client.gui.GuiPageButtonList.GuiSlideEntry;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider.FormatHelper;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
@@ -215,7 +215,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         }
     }
 
-    private void createPagedList() throws NullPointerException {
+    private void createPagedList() {
 
         GuiListEntry[][] pages = new GuiListEntry[Page.values().length][];
 
@@ -339,6 +339,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         this.setConfirmationControls(false);
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -348,6 +349,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         }
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
 
         super.mouseReleased(mouseX, mouseY, state);
@@ -361,13 +363,14 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         }
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
         this.drawDefaultBackground();
         this.list.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 2, 16777215);
-        this.drawCenteredString(this.fontRendererObj, this.subtitle, this.width / 2, 12, 16777215);
-        this.drawCenteredString(this.fontRendererObj, this.pageTitle, this.width / 2, 22, 16777215);
+        this.drawCenteredString(this.fontRenderer, this.title, this.width / 2, 2, 16777215);
+        this.drawCenteredString(this.fontRenderer, this.subtitle, this.width / 2, 12, 16777215);
+        this.drawCenteredString(this.fontRenderer, this.pageTitle, this.width / 2, 22, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (this.confirmMode != 0) {
@@ -379,7 +382,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             GlStateManager.disableLighting();
             GlStateManager.disableFog();
             Tessellator tessellator = Tessellator.getInstance();
-            VertexBuffer vertexbuffer = tessellator.getBuffer();
+            BufferBuilder vertexbuffer = tessellator.getBuffer();
             this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -388,11 +391,11 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             vertexbuffer.pos((double)(this.width / 2 + 90), 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();
             vertexbuffer.pos((double)(this.width / 2 - 90), 100.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 64).endVertex();
             tessellator.draw();
-            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirmTitle"), this.width / 2, 105, 16777215);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm1"), this.width / 2, 125, 16777215);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm2"), this.width / 2, 135, 16777215);
-            this.confirm.drawButton(this.mc, mouseX, mouseY);
-            this.cancel.drawButton(this.mc, mouseX, mouseY);
+            this.drawCenteredString(this.fontRenderer, I18n.format("createWorld.customize.custom.confirmTitle"), this.width / 2, 105, 16777215);
+            this.drawCenteredString(this.fontRenderer, I18n.format("createWorld.customize.custom.confirm1"), this.width / 2, 125, 16777215);
+            this.drawCenteredString(this.fontRenderer, I18n.format("createWorld.customize.custom.confirm2"), this.width / 2, 135, 16777215);
+            this.confirm.drawButton(this.mc, mouseX, mouseY, partialTicks);
+            this.cancel.drawButton(this.mc, mouseX, mouseY, partialTicks);
         }
     }
 

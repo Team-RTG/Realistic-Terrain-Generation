@@ -25,7 +25,7 @@ public final class OrganicBiome extends RealisticBiomeBase {
     private static final Map<Biome, IRealisticBiome> ORGANIC_BIOMES = Maps.newHashMap();
 
     private OrganicBiome(Biome biome) {
-        super(biome, biome.getTemperature() < 0.15f ? Biomes.FROZEN_RIVER : Biomes.RIVER);
+        super(biome, biome.getDefaultTemperature() < 0.15f ? Biomes.FROZEN_RIVER : Biomes.RIVER);
     }
 
     @Override

@@ -4,8 +4,6 @@ import java.util.*;
 
 import net.minecraft.world.biome.Biome;
 
-import net.minecraftforge.fml.common.Loader;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.biome.IExtendedBiome;
 import biomesoplenty.api.generation.GeneratorStage;
@@ -15,6 +13,7 @@ import com.google.common.collect.ImmutableCollection;
 import static biomesoplenty.api.generation.GeneratorStage.*;
 
 import rtg.api.world.deco.DecoBase;
+import rtg.util.ModCompat;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implements IRealisticBOPBiome {
@@ -41,7 +40,6 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
     public static RealisticBiomeBase bopGrassland;
     public static RealisticBiomeBase bopGravelBeach;
     public static RealisticBiomeBase bopGrove;
-    public static RealisticBiomeBase bopHeathland;
     public static RealisticBiomeBase bopHighland;
     public static RealisticBiomeBase bopKelpForest;
     public static RealisticBiomeBase bopLandOfLakes;
@@ -146,7 +144,7 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
 
     @Override
     public String modSlug() {
-        return "biomesoplenty";
+        return ModCompat.biomesoplenty.getPrettyName();
     }
 
     @Override
@@ -161,7 +159,8 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
 
     public static void addBiomes() {
 
-        if (Loader.isModLoaded("BiomesOPlenty")) {
+        if (ModCompat.biomesoplenty.isLoaded()) {
+
             if (BOPBiomes.alps.isPresent()) {
                 bopAlps = new RealisticBiomeBOPAlps();
             }
@@ -227,9 +226,6 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
             }
             if (BOPBiomes.grove.isPresent()) {
                 bopGrove = new RealisticBiomeBOPGrove();
-            }
-            if (BOPBiomes.heathland.isPresent()) {
-                bopHeathland = new RealisticBiomeBOPHeathland();
             }
             if (BOPBiomes.highland.isPresent()) {
                 bopHighland = new RealisticBiomeBOPHighland();

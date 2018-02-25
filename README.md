@@ -19,7 +19,7 @@ Check out the **[Wiki](https://github.com/Team-RTG/Realistic-Terrain-Generation/
 
 ## Discord
 
-### Chat with us over at our [Discord server](https://discord.gg/0wIG7mz3g6QKB9EE).
+### Come talk with us in our [![Discord](https://img.shields.io/discord/168326116761665536.svg)](https://discord.gg/anKT7YX)
 
 
 ## Development

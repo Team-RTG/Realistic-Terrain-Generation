@@ -33,6 +33,7 @@ minecraft {
     setVersion mcf_version
     setMappings mcp_mappings
     setMakeObfSourceJar false
+    setRunDir "run"
     replace '@MOD_VERSION@', project.version
     replace '0.0-MCF+MINVER', mcf_minver
     replace '9001.0-MCF+MAXVER', mcf_maxver

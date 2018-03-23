@@ -68,19 +68,19 @@ public interface IRealisticBiome {
 
     int lavaSurfaceLakeChance(); /*{ return 0; } //Lower equals more frequent.*/
 
-    default void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
-
-        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-
-        if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
-
-            this.surface().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-        }
-        else {
-
-            this.surfaceGeneric().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-        }
-    }
+    void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base);
+//    {
+//        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
+//
+//        if (rtgConfig.DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get()) {
+//
+//            this.surfaceGeneric().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+//        }
+//        else {
+//
+//            this.surface().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+//        }
+//    }
 
     default float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
         if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;

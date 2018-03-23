@@ -1,67 +1,37 @@
 package rtg.world.biome.realistic;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.Logger;
+import rtg.api.util.WorldUtil;
 
 
 public class RealisticBiomePatcher {
 
-    private int patchBiomeId;
     private RealisticBiomeBase realisticBiome;
-    private Biome baseBiome;
     private RTGConfig rtgConfig = RTGAPI.config();
 
     public RealisticBiomePatcher() {
 
-        this.patchBiomeId = rtgConfig.PATCH_BIOME_ID.get();
-
-        if (this.patchBiomeId > -1) {
-
-            try {
-                this.realisticBiome = RealisticBiomeBase.getBiome(this.patchBiomeId);
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Realistic patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
-            }
-
-            try {
-                this.baseBiome = realisticBiome.baseBiome;
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Base patch biome " + this.patchBiomeId + " not found. Please make sure this biome is enabled.");
-            }
+        Biome biome = WorldUtil.Biomes.getBiomeFromCfgString(rtgConfig.PATCH_BIOME.get().trim(), Biomes.PLAINS);
+        this.realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+        if (this.realisticBiome == null) {
+            Logger.error("Erroneous patch biome set: [{}], This biome can't not be used as a patch biome as it is unsupported.", biome.getRegistryName());
         }
     }
 
     public RealisticBiomeBase getPatchedRealisticBiome(String exceptionMessage) {
 
-        if (this.patchBiomeId < 0) {
-            throw new RuntimeException(exceptionMessage);
-        }
-        else {
-
-            if (this.realisticBiome == null) {
-                throw new RuntimeException("Problem patching realistic biome.");
-            }
-
-            return this.realisticBiome;
-        }
+        if (rtgConfig.USE_PATCH_BIOME.get() && this.realisticBiome != null) { return this.realisticBiome; }
+        throw new RuntimeException(exceptionMessage);
     }
 
     public Biome getPatchedBaseBiome(String exceptionMessage) {
 
-        if (this.patchBiomeId < 0) {
-            throw new RuntimeException(exceptionMessage);
-        }
-        else {
-
-            if (this.baseBiome == null) {
-                throw new RuntimeException("Problem patching base biome.");
-            }
-
-            return this.baseBiome;
-        }
+        if (rtgConfig.USE_PATCH_BIOME.get() && this.realisticBiome != null) { return this.realisticBiome.baseBiome; }
+        throw new RuntimeException(exceptionMessage);
     }
 }

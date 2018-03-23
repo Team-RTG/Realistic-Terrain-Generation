@@ -311,13 +311,13 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
-        if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
+        if (rtgConfig.DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get()) {
 
-            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
         else {
 
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
     }
 
@@ -325,7 +325,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
-        if (rtgConfig.ENABLE_RTG_BIOME_SURFACES.get() && this.getConfig().USE_RTG_SURFACES.get()) {
+        if (rtgConfig.DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get()) {
+
+            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+        }
+        else {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
 
@@ -333,10 +337,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
                 this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
             }
-        }
-        else {
-
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
     }
 
@@ -475,7 +475,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     protected boolean organicTerrain() {
-        return !rtgConfig.ENABLE_RTG_TERRAIN.get() || !this.config.USE_RTG_TERRAIN.get();
+        return !rtgConfig.DISABLE_RTG_TERRAIN.get() || !this.config.DISABLE_RTG_TERRAIN.get();
     }
 
     protected TerrainBase checkTerrain(TerrainBase terrainIn) {

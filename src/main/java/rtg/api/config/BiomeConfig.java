@@ -31,9 +31,9 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_VILLAGES;
     public final ConfigPropertyBoolean ALLOW_VOLCANOES;
     public final ConfigPropertyInteger VOLCANO_CHANCE;
-    public final ConfigPropertyBoolean USE_RTG_DECORATIONS;
-    public final ConfigPropertyBoolean USE_RTG_SURFACES;
-    public final ConfigPropertyBoolean USE_RTG_TERRAIN;
+    public final ConfigPropertyBoolean DISABLE_RTG_DECORATIONS;
+    public final ConfigPropertyBoolean DISABLE_RTG_SURFACES;
+    public final ConfigPropertyBoolean DISABLE_RTG_TERRAIN;
     public final ConfigPropertyString SURFACE_TOP_BLOCK;
     public final ConfigPropertyString SURFACE_FILLER_BLOCK;
     public final ConfigPropertyString SURFACE_CLIFF_STONE_BLOCK;
@@ -117,31 +117,31 @@ public class BiomeConfig extends Config {
         );
         this.addProperty(VOLCANO_CHANCE);
 
-        USE_RTG_DECORATIONS = new ConfigPropertyBoolean(
-            "Use RTG Decorations",
+        DISABLE_RTG_DECORATIONS = new ConfigPropertyBoolean(
+            "Diesable RTG Decorations",
             "Decorations",
-            "If FALSE, no RTG decorations will generate in this biome. Instead, only vanilla decorations will generate."
+            "If TRUE, RTG decorations will disabled in this biome and only vanilla decorations will generate."
                 + Configuration.NEW_LINE + "RTG decorations include custom trees, shrubs, boulders, etc.",
-            true
+            false
         );
-        this.addProperty(USE_RTG_DECORATIONS);
+        this.addProperty(DISABLE_RTG_DECORATIONS);
 
-        USE_RTG_SURFACES = new ConfigPropertyBoolean(
-            "Use RTG Surfaces",
+        DISABLE_RTG_SURFACES = new ConfigPropertyBoolean(
+            "Disable RTG Surfaces",
             "Surfaces",
-            "If FALSE, no RTG surfaces will be used in this biome. Instead, only vanilla surfaces will be used."
+            "If TRUE, RTG surfaces will be disabled in this biome and only vanilla surfaces will be used."
                 + Configuration.NEW_LINE + "RTG surfaces include custom top & filler blocks, and 'mix' blocks like podzol in Forests.",
-            true
+            false
         );
-        this.addProperty(USE_RTG_SURFACES);
+        this.addProperty(DISABLE_RTG_SURFACES);
 
-        USE_RTG_TERRAIN = new ConfigPropertyBoolean(
-            "Use RTG Terrain",
+        DISABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            "Disable RTG Terrain",
             "Terrain",
-            "If FALSE, no realistic terrain will be generated in this biome. Instead, vanilla terrain will be generated.",
-            true
+            "If TRUE, RTG terrain will be disabled in this biome and only vanilla terrain will be generated.",
+            false
         );
-        this.addProperty(USE_RTG_TERRAIN);
+        this.addProperty(DISABLE_RTG_TERRAIN);
 
         SURFACE_TOP_BLOCK = new ConfigPropertyString(
             "Top Block ID",

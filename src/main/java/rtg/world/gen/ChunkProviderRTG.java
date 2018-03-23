@@ -825,27 +825,14 @@ public class ChunkProviderRTG implements IChunkGenerator
         for (Valued<RealisticBiomeBase> biomeInfluence: activeBiomes.descendingSet()) {
             realisticBiome = biomeInfluence.item();
             float borderNoise = (float)biomeInfluence.value();
-                /*
-                 * When decorating the biome, we need to look at the biome configs to see if RTG is allowed to decorate it.
-                 * If the biome configs don't allow it, then we try to let the base biome decorate itself.
-                 * However, there are some mod biomes that crash when they try to decorate themselves,
-                 * so that's what the try/catch is for. If it fails, then it falls back to RTG decoration.
-                 */
-// TODO: [Clean-up] ENABLE_RTG_BIOME_DECORATIONS should be renamed to DISABLE_RTG_BIOME_DECORATIONS and put in the debug section of the config and set to FALSE by default
-            if (rtgConfig.ENABLE_RTG_BIOME_DECORATIONS.get() && realisticBiome.getConfig().USE_RTG_DECORATIONS.get()) {
 
-                realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
+            if (rtgConfig.DISABLE_RTG_BIOME_DECORATIONS.get() || realisticBiome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
+
+                realisticBiome.baseBiome.decorate(this.world, rand, new BlockPos(worldX, 0, worldZ));
             }
             else {
 
-                try {
-
-                    realisticBiome.baseBiome.decorate(this.world, rand, new BlockPos(worldX, 0, worldZ));
-                }
-                catch (Exception e) {
-
-                    realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
-                }
+                realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
             }
         }
 

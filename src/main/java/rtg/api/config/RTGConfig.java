@@ -19,10 +19,11 @@ public class RTGConfig extends Config
     // Maximum tree density.
     public static final float MAX_TREE_DENSITY = 5f;
 
-    public final ConfigPropertyBoolean ENABLE_RTG_BIOME_DECORATIONS; // TODO: [Clean-up] Rename this to DISABLE_RTG_BIOME_DECORATIONS, put into Debug category
-    public final ConfigPropertyBoolean ENABLE_RTG_BIOME_SURFACES; // TODO: [Clean-up] Rename this to DISABLE_RTG_BIOME_SURFACES, put into Debug category
-    public final ConfigPropertyBoolean ENABLE_RTG_TERRAIN; // TODO: [Clean-up] Rename this to DISABLE_RTG_TERRAIN, put into Debug category
-    public final ConfigPropertyInteger PATCH_BIOME_ID; // TODO: [Clean-up] Change to a ResourceLocation (Default: minecraft:plains)
+    public final ConfigPropertyBoolean DISABLE_RTG_BIOME_DECORATIONS;
+    public final ConfigPropertyBoolean DISABLE_RTG_BIOME_SURFACES;
+    public final ConfigPropertyBoolean DISABLE_RTG_TERRAIN;
+    public final ConfigPropertyBoolean USE_PATCH_BIOME;
+    public final ConfigPropertyString  PATCH_BIOME;
 
     public final ConfigPropertyBoolean ENABLE_CAVE_MODIFICATIONS; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean ENABLE_CAVES; // TODO: [Generator settings] To be removed
@@ -146,43 +147,46 @@ public class RTGConfig extends Config
     public RTGConfig(File configFile) {
         super(configFile);
 
-        ENABLE_RTG_BIOME_DECORATIONS = new ConfigPropertyBoolean(
-            "Enable RTG Biome Decorations",
-            "Biomes",
-            "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG decorations and uses vanilla decorations instead.",
+        DISABLE_RTG_BIOME_DECORATIONS = new ConfigPropertyBoolean(
+            "Disable RTG Biome Decorations",
+            "Debug",
+            "If TRUE, disables all RTG decorations and uses vanilla decorations instead.",
+            false
+        );
+        this.addProperty(DISABLE_RTG_BIOME_DECORATIONS);
+
+        DISABLE_RTG_BIOME_SURFACES = new ConfigPropertyBoolean(
+            "Disable RTG Biome Surfaces",
+            "Debug",
+            "If TRUE, disables all RTG surfaces and uses vanilla surfaces instead.",
+            false
+        );
+        this.addProperty(DISABLE_RTG_BIOME_SURFACES);
+
+        DISABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            "Disable RTG Terrain",
+            "Debug",
+            "If TRUE, disables all realistic terrain generation and uses vanilla terrain instead.",
+            false
+        );
+        this.addProperty(DISABLE_RTG_TERRAIN);
+
+        USE_PATCH_BIOME = new ConfigPropertyBoolean(
+            "Use Patch Biome",
+            "Debug",
+            "If TRUE, when RTG encounters a biome that is unsupported it will use the patch biome instead, otherwise crash.",
             true
         );
-        this.addProperty(ENABLE_RTG_BIOME_DECORATIONS);
 
-        ENABLE_RTG_BIOME_SURFACES = new ConfigPropertyBoolean(
-            "Enable RTG Biome Surfaces",
-            "Biomes",
-            "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all RTG surfaces and uses vanilla surfaces instead.",
-            true
+        PATCH_BIOME = new ConfigPropertyString(
+            "Patch Biome",
+            "Debug",
+            "If RTG encounters an unsupported biome it will generate this biome instead." + Configuration.NEW_LINE +
+            "This uses the standard ResourceLocation format: \"mod_id:biome_registry_name\"" + Configuration.NEW_LINE +
+            "Default = Vanilla Plains",
+            "minecraft:plains"
         );
-        this.addProperty(ENABLE_RTG_BIOME_SURFACES);
-
-        ENABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
-            "Enable RTG Terrain",
-            "Biomes",
-            "If TRUE, uses the individual biome settings in the biome config files. If FALSE, disables all realistic terrain generation and uses vanilla terrain instead.",
-            true
-        );
-        this.addProperty(ENABLE_RTG_TERRAIN);
-
-        PATCH_BIOME_ID = new ConfigPropertyInteger(
-            "Patch Biome ID",
-            "Biomes",
-            "If RTG tries to generate an unsupported biome or a biome that has an ID conflict, it will generate this biome instead."
-                + Configuration.NEW_LINE +
-                "If set to -1, RTG will crash instead of generating the patch biome. You might want to do this if you're making a mod pack"
-                + Configuration.NEW_LINE +
-                "and want to make sure all biomes are generating correctly."
-                + Configuration.NEW_LINE +
-                "Default = Vanilla Plains",
-            1, -1, 255
-        );
-        this.addProperty(PATCH_BIOME_ID);
+        this.addProperty(PATCH_BIOME);
 
         ENABLE_CAVE_MODIFICATIONS = new ConfigPropertyBoolean(
             "Enable Cave Modifications",

@@ -13,7 +13,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBoulder;
@@ -24,7 +24,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_R
 
 public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.snowy_coniferous_forest.get();
+    public static Biome biome = BOPBiomes.snowy_coniferous_forest.orNull();
     public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeBOPSnowyConiferousForest() {
@@ -34,7 +34,6 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -109,7 +108,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

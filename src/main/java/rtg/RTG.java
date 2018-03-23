@@ -24,7 +24,7 @@ import rtg.proxy.CommonProxy;
     guiFactory               = RTGConfigGUIFactory.LOCATION,
     acceptableRemoteVersions = "*"
 )
-public class RTG {
+public final class RTG {
 
     public static final String MOD_ID = "rtg";
     public static final String MOD_NAME = "Realistic Terrain Generation";
@@ -33,13 +33,15 @@ public class RTG {
     public static final String MCF_MAXVER = "9001.0-MCF+MAXVER";
     public static final String MOD_DEPS = ";after:MODDEPS";
 
+    private RTG() {}
+    private static final RTG instance = new RTG();
+    @Mod.InstanceFactory
+    public static RTG getInstance() { return instance; }
+
     private static final EventManagerRTG eventMgr = new EventManagerRTG();
 
 //  public        final ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
     public        final ArrayList<Runnable> serverCloseActions = new ArrayList<>();
-
-    @Mod.Instance(RTG.MOD_ID)
-    private static RTG instance;
 
     @SidedProxy(serverSide = CommonProxy.LOCATION, clientSide = ClientProxy.LOCATION)
     public static CommonProxy proxy;
@@ -78,9 +80,5 @@ public class RTG {
 
     public static EventManagerRTG getEventMgr() {
         return eventMgr;
-    }
-
-    public static RTG getInstance() {
-        return instance;
     }
 }

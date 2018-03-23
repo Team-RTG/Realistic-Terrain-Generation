@@ -9,7 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.WorldUtil;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLayers;
@@ -60,7 +61,6 @@ public class DecoLayer extends DecoBase {
 
         if (this.allowed) {
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenLayers(this.layerBlock, this.layerProperty, this.dropHeight, this.layerRange, this.layerScatter);
 
             int loopCount = this.loops;
@@ -73,28 +73,30 @@ public class DecoLayer extends DecoBase {
                 if (this.notEqualsZeroChance > 1) {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
                 else {
 
                     if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                        generateWorldGenerator(worldGenerator, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
                     }
                 }
             }
         }
     }
 
-    private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
+    private void generateWorldGenerator(WorldGenerator worldGenerator, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
         // If we're in a village, check to make sure the layer has extra room to avoid corrupting the village.
+        BlockPos pos = new BlockPos(x, y, z);
         if (hasPlacedVillageBlocks) {
-            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, x, y, z)) {
-                return false;
+            if (BlockUtil.checkVerticalBlocks(MatchType.ALL, world, pos, -1, Blocks.FARMLAND) ||
+               !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, pos, 2)) {
+                return;
             }
         }
 
-        return worldGenerator.generate(world, rand, new BlockPos(x, y, z));
+        worldGenerator.generate(world, rand, new BlockPos(x, y, z));
     }
 
     public IBlockState getLayerBlock() {

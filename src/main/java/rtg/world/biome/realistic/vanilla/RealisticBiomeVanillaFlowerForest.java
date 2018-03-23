@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
@@ -21,6 +22,17 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
@@ -35,12 +47,9 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -91,7 +100,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -100,7 +109,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 
@@ -179,18 +188,19 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         this.addDeco(decoShrub);
 
         // Flowers are the most aesthetically important feature of this biome, so let's add those next.
-        DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
-        decoFlowers1.setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}); //Only colourful 1-block-tall flowers.
-        decoFlowers1.setStrengthFactor(12f); // Lots and lots of flowers!
-        decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+        DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG()
+            .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
+            .setStrengthFactor(12f)
+            .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
-        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-        decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
-        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-        decoFlowers2.setChance(3);
-        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-        this.addDeco(decoFlowers2);
+// TODO: [1.12] Create a new class for double-plants
+//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+//        decoFlowers2.addFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
+//        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
+//        decoFlowers2.setChance(3);
+//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+//        this.addDeco(decoFlowers2);
 
         // Trees first.
 
@@ -215,8 +225,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         oakPines.setMaxY(140);
 
         TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(1));
-        ponderosaSpruceTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        ponderosaSpruceTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         ponderosaSpruceTree.setMinTrunkSize(11);
         ponderosaSpruceTree.setMaxTrunkSize(21);
         ponderosaSpruceTree.setMinCrownSize(15);
@@ -258,8 +268,8 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
         decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
         decoFallenSpruce.setLogConditionChance(8);
         decoFallenSpruce.setMaxY(100);
-        decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenSpruce.setMinSize(3);
         decoFallenSpruce.setMaxSize(6);
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);

@@ -93,37 +93,4 @@ public class WorldGenGrass extends WorldGenerator {
             super(b, m);
         }
     }
-
-    public static class RandomType extends WorldGenGrass {
-
-        private final IBlockState[] blocks;
-        private final byte[] metas;
-        private int index;// if it gets called without being set there's a bug in passing
-
-        public RandomType(IBlockState[] b, byte[] m) {
-
-            super(b[0], (int) m[0]);// temporary fake cal
-            blocks = b;
-            metas = m;
-        }
-
-        @Override
-        protected IBlockState block() {
-
-            return blocks[index];
-        }
-
-        @Override
-        protected int metadata() {
-
-            return metas[index];
-        }
-
-        @Override
-        protected void setBlock(Random rand) {
-
-            index = rand.nextInt(blocks.length);
-        }
-
-    }
 }

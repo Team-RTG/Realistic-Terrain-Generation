@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -20,7 +20,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.temperate_rainforest.get();
+    public static Biome biome = BOPBiomes.temperate_rainforest.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPTemperateRainforest() {
@@ -86,7 +86,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

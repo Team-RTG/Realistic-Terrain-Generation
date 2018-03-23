@@ -27,7 +27,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
@@ -60,7 +59,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
         public SurfaceVanillaRiver(BiomeConfig config) {
 
-            super(config, Blocks.GRASS, (byte) 0, Blocks.DIRT, (byte) 0);
+            super(config, Blocks.GRASS, Blocks.DIRT);
         }
 
         @Override
@@ -103,11 +102,6 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeVanillaBase {
 
     @Override
     public int waterSurfaceLakeChance() {
-        return 0;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
         return 0;
     }
 }

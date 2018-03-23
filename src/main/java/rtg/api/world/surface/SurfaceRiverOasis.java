@@ -22,7 +22,7 @@ public class SurfaceRiverOasis extends SurfaceBase {
 
     public SurfaceRiverOasis(BiomeConfig config) {
 
-        super(config, Blocks.GRASS, (byte) 0, Blocks.DIRT, (byte) 0);
+        super(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState());
 
         this.cutOffScale = RTGAPI.config().RIVER_CUT_OFF_SCALE.get();
         this.cutOffAmplitude = RTGAPI.config().RIVER_CUT_OFF_AMPLITUDE.get();

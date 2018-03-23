@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBoulder;
@@ -24,7 +25,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.seasonal_forest.get();
+    public static Biome biome = BOPBiomes.seasonal_forest.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPSeasonalForest() {
@@ -34,7 +35,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -111,7 +111,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 
@@ -183,7 +183,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{BlockUtil.getStateLog2(1), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(2)});
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{BlockUtil.getStateLog(EnumType.DARK_OAK), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.BIRCH)});
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());

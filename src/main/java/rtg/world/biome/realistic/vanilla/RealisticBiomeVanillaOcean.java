@@ -10,7 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionOcean;
@@ -29,16 +28,12 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VILLAGES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_SPONGE).set(true);
         this.getConfig().addProperty(this.getConfig().ALLOW_OCEAN_WAVES);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -68,7 +63,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
     public class SurfaceVanillaOcean extends SurfaceBase {
 
-        private final int sandMetadata = 0;
         private IBlockState mixBlock;
         private float width;
         private float height;
@@ -78,7 +72,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
 
             super(config, top, filler);
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
 
             width = mixWidth;
             height = mixHeight;
@@ -114,7 +108,7 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeVanillaBase {
                     }
 
                     else if (depth == 0 && k < 69) {
-                        primer.setBlockState(x, k, z, BlockUtil.getStateSand(sandMetadata));
+                        primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
 
                     }
                 }

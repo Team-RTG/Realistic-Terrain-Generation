@@ -12,9 +12,10 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 import rtg.api.event.DecorateBiomeEventRTG;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.util.DecoUtil;
 import rtg.api.util.RandomUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -54,7 +55,7 @@ public class DecoTree extends DecoBase {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
@@ -136,6 +137,7 @@ public class DecoTree extends DecoBase {
         this.worldGen = worldGen;
     }
 
+// TODO: [1.12] wat
     public boolean properlyDefined() {
 
         if (this.treeType == TreeType.RTG_TREE) {
@@ -167,8 +169,7 @@ public class DecoTree extends DecoBase {
             }
 
             // Now let's check the configs to see if we should increase/decrease this value.
-            DecoUtil decoUtil = new DecoUtil(this);
-            loopCount = decoUtil.calculateLoopCountFromTreeDensity(loopCount, biome);
+            loopCount = DecoUtil.calculateLoopCountFromTreeDensity(loopCount, biome);
 
             if (loopCount < 1) {
                 return;
@@ -197,24 +198,22 @@ public class DecoTree extends DecoBase {
                     return;
                 }
 
-                WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
                 DecoBase.tweakTreeLeaves(this, false, true);
 
                 for (int i = 0; i < loopCount; i++) {
 
-                    int intX = scatter.get(rand, worldX); // + 8;
-                    int intZ = scatter.get(rand, worldZ); // + 8;
-                    int intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
-
+                    int x = scatter.get(rand, worldX); // + 8;
+                    int z = scatter.get(rand, worldZ); // + 8;
+                    int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
+                    BlockPos pos = new BlockPos(x, y, z);
                     //Logger.info("noise = %f", noise);
 
-                    if (intY <= this.maxY && intY >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+                    if (y <= this.maxY && y >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
                         // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
-                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, intX, intY, intZ)) {
-                                return;
-                            }
+                            if (BlockUtil.checkVerticalBlocks(MatchType.ALL, rtgWorld.world(), pos, -1, Blocks.FARMLAND) ||
+                                !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, 2)) { return; }
                         }
 
                         switch (this.treeType) {
@@ -228,14 +227,14 @@ public class DecoTree extends DecoBase {
                                 this.tree.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
                                 this.tree.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
                                 this.tree.setNoLeaves(this.noLeaves);
-                                this.tree.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
+                                this.tree.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
 
                                 break;
 
                             case WORLDGEN:
 
                                 WorldGenerator worldgenerator = this.worldGen;
-                                worldgenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
+                                worldgenerator.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
 
                                 break;
 
@@ -244,7 +243,7 @@ public class DecoTree extends DecoBase {
                         }
                     }
                     else {
-                        //Logger.debug("%d/%d/%d - minY = %d; maxY = %d; noise = %f", intX, intY, intZ, minY, maxY, noise);
+                        //Logger.debug("%d/%d/%d - minY = %d; maxY = %d; noise = %f", x, y, z, minY, maxY, noise);
                     }
                 }
             }
@@ -315,6 +314,7 @@ public class DecoTree extends DecoBase {
         X_DIVIDED_BY_STRENGTH;
     }
 
+// TODO: [1.12] There is no use of this class that is variant. Either remove the use of this class, or move it's functionality to DecoUtil.
     public static class Scatter {
 
         int bound;
@@ -323,6 +323,7 @@ public class DecoTree extends DecoBase {
         public Scatter(int bound, int reach) {
 
             if (bound < 1) {
+                //TODO [1.12] Always force a default value instead of crashing whenever possible.
                 throw new RuntimeException("Scatter bound must be greater than 0.");
             };
 

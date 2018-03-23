@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.agriculturalrevolution;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.util.Logger;
-import rtg.util.ModCompat;
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
@@ -32,7 +32,7 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return ModCompat.agriculturalrevolution.getPrettyName();
+        return Mods.agriculturalrevolution.getPrettyName();
     }
 
     @Override
@@ -42,7 +42,7 @@ public abstract class RealisticBiomeARBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (ModCompat.agriculturalrevolution.isLoaded()) {
+        if (Mods.agriculturalrevolution.isLoaded()) {
 
 // TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {

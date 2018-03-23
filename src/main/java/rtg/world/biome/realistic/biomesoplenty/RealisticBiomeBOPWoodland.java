@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionBase;
@@ -24,9 +25,20 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
+
 public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.woodland.get();
+    public static Biome biome = BOPBiomes.woodland.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPWoodland() {
@@ -84,7 +96,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
@@ -157,7 +169,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private DecoHelper5050 tallTrees(float noiseMin, float noiseMax) {
             return new DecoHelper5050(
                 tallPineTrees(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState(), noiseMin, noiseMax),
-                tallPineTrees(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1), noiseMin, noiseMax)
+                tallPineTrees(BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLeaf(EnumType.SPRUCE), noiseMin, noiseMax)
             );
         }
 
@@ -187,7 +199,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private DecoHelper5050 shortTrees(float noiseMin, float noiseMax) {
             return new DecoHelper5050(
                 shortPineTrees(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState(), noiseMin, noiseMax),
-                shortPineTrees(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1), noiseMin, noiseMax)
+                shortPineTrees(BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLeaf(EnumType.SPRUCE), noiseMin, noiseMax)
             );
         }
 
@@ -234,8 +246,8 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
                 .setLogCondition(DecoFallenTree.LogCondition.RANDOM_CHANCE)
                 .setLogConditionChance(24)
                 .setMaxY(80)
-                .setLogBlock(BlockUtil.getStateLog(1))
-                .setLeavesBlock(BlockUtil.getStateLeaf(1))
+                .setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE))
+                .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE))
                 .setMinSize(3)
                 .setMaxSize(6);
         }
@@ -249,8 +261,8 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
         private DecoShrub shrubsSpruce() {
             return new DecoShrub()
-                .setLogBlock(BlockUtil.getStateLog(1))
-                .setLeavesBlock(BlockUtil.getStateLeaf(1))
+                .setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE))
+                .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE))
                 .setMaxY(140)
                 .setStrengthFactor(4f)
                 .setChance(9);
@@ -258,7 +270,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
         private DecoFlowersRTG flowers() {
             return new DecoFlowersRTG()
-                .setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
+                .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
                 .setMaxY(128)
                 .setStrengthFactor(6f);
         }

@@ -9,6 +9,7 @@ import java.util.Arrays;
  *         Modified by topisani to allow for multiple possible field names.
  *         This is useful for catching both the obfuscated and the deobfuscated field.
  */
+// TODO: [1.12] Replace all usage of this class with FML's ReflectionHelper
 public class Accessor<ObjectType, FieldType> {
 
     private final String[] fieldNames;

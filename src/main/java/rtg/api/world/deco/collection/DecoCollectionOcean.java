@@ -28,16 +28,16 @@ public class DecoCollectionOcean extends DecoCollectionBase {
     private DecoHelperRandomSplit boulderDecos() {
         return new DecoHelperRandomSplit()
             .setDecos(new DecoBase[]{
-                boulders(Blocks.MOSSY_COBBLESTONE.getDefaultState(), 6),
-                boulders(Blocks.PRISMARINE.getDefaultState(), 6)
+                boulders(Blocks.MOSSY_COBBLESTONE.getDefaultState()),
+                boulders(Blocks.PRISMARINE.getDefaultState())
             })
             .setChances(new int[]{8, 8});
     }
 
-    private DecoBoulder boulders(IBlockState boulderBlock, int chance) {
+    private DecoBoulder boulders(IBlockState boulderBlock) {
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(boulderBlock);
-        decoBoulder.setChance(chance);
+        decoBoulder.setChance(6);
         decoBoulder.setMinY(22);
         decoBoulder.setMaxY(58);
         decoBoulder.setHeightType(DecoBoulder.HeightType.NEXT_INT);
@@ -47,7 +47,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
 
     private DecoSponge sponge() {
         DecoSponge decoSponge = new DecoSponge();
-        decoSponge.setSpongeBlock(BlockUtil.getSponge(1));
+        decoSponge.setSpongeBlock(BlockUtil.getSponge(true));
         decoSponge.setChance(1);
         decoSponge.setMinY(22);
         decoSponge.setMaxY(39);

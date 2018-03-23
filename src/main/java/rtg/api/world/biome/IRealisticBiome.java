@@ -66,9 +66,7 @@ public interface IRealisticBiome {
         return 10; // Lower equals more frequent.
     }
 
-    default int lavaSurfaceLakeChance() {
-        return 0; // Lower equals more frequent.
-    }
+    int lavaSurfaceLakeChance(); /*{ return 0; } //Lower equals more frequent.*/
 
     default void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
@@ -137,6 +135,7 @@ public interface IRealisticBiome {
 
     String modSlug();
 
+// TODO: [1.12] Update this to use a biome's ResourceLocation, that way biome config names will be identical to their registry names.
     default String biomeSlug() {
         return BiomeConfig.formatSlug(this.baseBiome().getBiomeName());
     }

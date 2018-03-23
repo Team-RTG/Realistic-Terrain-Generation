@@ -24,6 +24,7 @@ public class DecoHelperRandomSplit extends DecoBase {
         this.chances = new int[]{};
     }
 
+// TODO: [1.12] wat
     public boolean properlyDefined() {
 
         for (int i = 0; i < decos.length; i++) {

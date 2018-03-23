@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.iceandfire;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.util.Logger;
-import rtg.util.ModCompat;
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
@@ -29,7 +29,7 @@ public abstract class RealisticBiomeIAFBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return ModCompat.iceandfire.getPrettyName();
+        return Mods.iceandfire.getPrettyName();
     }
 
     @Override
@@ -44,7 +44,7 @@ public abstract class RealisticBiomeIAFBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (ModCompat.iceandfire.isLoaded()) {
+        if (Mods.iceandfire.isLoaded()) {
 
 // TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {

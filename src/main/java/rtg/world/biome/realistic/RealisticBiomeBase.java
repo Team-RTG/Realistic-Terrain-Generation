@@ -77,7 +77,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         baseBiome = biome;
         riverBiome = river;
-        this.config = new BiomeConfig();
+        this.config = new BiomeConfig(this.configFile());
         beachBiome = this.beachBiome();
 
         rDecorator = new BiomeDecoratorRTG(this);
@@ -96,8 +96,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         // set the water feature constants with the config changes
 // TODO: [Generator Settings] To be removed. Functionality replaced in rNoise
         this.lakeInterval *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
-        this.lakeShoreLevel *= rtgConfig.lakeSizeMultiplier();
-        this.lakeDepressionLevel *= rtgConfig.lakeSizeMultiplier();
+        this.lakeShoreLevel *= this.lakeSizeMultiplier();
+        this.lakeDepressionLevel *= this.lakeSizeMultiplier();
 
 // TODO: [Generator Settings] To be removed. Functionality replaced in rNoise
         this.largeBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
@@ -107,12 +107,18 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.init();
     }
 
+    private float lakeSizeMultiplier() {
+// TODO: [1.12] THIS is confusing. Find a better way of expressing the required variance in the generator settings.
+        // With the river system changing frequency also shinks size and that will confuse the heck out of users.
+        return RTGAPI.config().LAKE_SIZE_MULTIPLIER.get() * RTGAPI.config().LAKE_FREQUENCY_MULTIPLIER.get();
+    }
+
     protected void init() {
         initConfig();
 
         // Realistic biomes have configs... organic biomes do not.
         if (this.hasConfig()) {
-            this.getConfig().load(this.configFile());
+            this.getConfig().loadConfig();
         }
 
         this.adjustBiomeProperties();
@@ -141,6 +147,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     @Override
     public ArrayList<TreeRTG> getTrees() {
         return this.rtgTrees;
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 0;
     }
 
     @Nullable
@@ -446,11 +457,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private File configFile() {
         return RTGAPI.configPath.resolve(BIOME_CONFIG_SUBDIR).resolve(this.modSlug()).resolve(this.biomeSlug()+".cfg").toFile();
-    }
-
-    @Override
-    public String modSlug() {
-        throw new RuntimeException("Realistic biomes need a mod slug.");
     }
 
     @Override

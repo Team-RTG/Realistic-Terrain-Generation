@@ -4,6 +4,8 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -12,10 +14,14 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+import biomesoplenty.api.enums.BOPTrees;
+import biomesoplenty.api.enums.BOPWoods;
+import biomesoplenty.common.block.BlockBOPLeaves;
+import biomesoplenty.common.block.BlockBOPLog;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.Bayesian;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.VoronoiResult;
@@ -24,19 +30,21 @@ import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.RTGWorld;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.bayou.get();
+    public static Biome biome = BOPBiomes.bayou.orNull();
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState mudBlock = BOPBlocks.mud.getDefaultState();
-    private static IBlockState logBlock = BOPBlocks.log_2.getStateFromMeta(5);
-
-    private static IBlockState leavesBlock = BOPBlocks.leaves_4.getStateFromMeta(3)
-        .withProperty(BlockLeaves.CHECK_DECAY, false)
-        .withProperty(BlockLeaves.DECAYABLE, false);
+    private static IBlockState mudBlock    = BOPBlocks.mud.getDefaultState();
+    private static IBlockState logBlock    = BlockBOPLog.paging.getVariantState(BOPWoods.WILLOW)
+                                                .withProperty(BlockLog.LOG_AXIS, EnumAxis.Y);
+    private static IBlockState leavesBlock = BlockBOPLeaves
+                                                .paging.getVariantState(BOPTrees.WILLOW)
+                                                .withProperty(BlockLeaves.CHECK_DECAY, false)
+                                                .withProperty(BlockLeaves.DECAYABLE, false);
 
     public RealisticBiomeBOPBayou() {
 
@@ -45,12 +53,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -101,7 +106,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -110,7 +115,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

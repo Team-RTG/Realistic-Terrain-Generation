@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.betteragriculture;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
@@ -31,7 +32,6 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -71,7 +71,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         return new SurfaceBAFarmlandBiome(config,
             this.baseBiome.topBlock, //Block top
             Blocks.DIRT.getDefaultState(), //Block filler,
-            BlockUtil.getStateDirt(1), //IBlockState mixTop,
+            BlockUtil.getStateDirt(DirtType.COARSE_DIRT), //IBlockState mixTop,
             Blocks.DIRT.getDefaultState(), //IBlockState mixFill,
             80f, //float mixWidth,
             -0.15f, //float mixHeight,
@@ -109,7 +109,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 
@@ -225,7 +225,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
         this.addDeco(decoShrubOak);
 
         DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(BlockUtil.getStateDirt(2));
+        decoBoulder.setBoulderBlock(BlockUtil.getStateDirt(DirtType.PODZOL));
         decoBoulder.setChance(24);
         decoBoulder.setMaxY(80);
         decoBoulder.setStrengthFactor(4f);

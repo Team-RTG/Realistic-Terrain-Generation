@@ -27,11 +27,8 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_VILLAGES.set(false);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -67,7 +64,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
 
             super(config, top, filler);
 
-            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), Blocks.SANDSTONE.getDefaultState());
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), Blocks.SANDSTONE.getDefaultState());
         }
 
         @Override

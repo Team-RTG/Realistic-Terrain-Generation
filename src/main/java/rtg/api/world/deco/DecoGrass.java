@@ -72,17 +72,6 @@ public class DecoGrass extends DecoBase {
         grassGenerator = new WorldGenGrass.SingleType(block, meta);
     }
 
-    public DecoGrass(IBlockState[] randomBlocks, byte[] randomMetas) {
-
-        this();
-        if (randomBlocks.length != randomMetas.length) {
-            throw new RuntimeException("Mismatch in block and metadata arrays for DecoGrass");
-        }
-        this.randomGrassBlocks = randomBlocks;
-        this.randomGrassMetas = randomMetas;
-        grassGenerator = new WorldGenGrass.RandomType(randomGrassBlocks, randomGrassMetas);
-    }
-
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 

@@ -2,16 +2,20 @@ package rtg.api.world.deco;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.api.util.BlockUtil;
+import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.util.RandomUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.GenSettingsRepo;
@@ -30,17 +34,11 @@ public class DecoBoulder extends DecoBase {
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private boolean water;
-// TODO: [Clean-up] Replace with List
-    private ArrayList<Block> validGroundBlocks;
+    private List<Block> validGroundBlocks;
 
     public DecoBoulder() {
-
         super();
-
-        /*
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
+        /*Default values*/
         this.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         this.setStrengthFactor(2f);
         this.setMinY(60); // Sensible lower height limit by default.
@@ -48,28 +46,22 @@ public class DecoBoulder extends DecoBase {
         this.setHeightType(HeightType.GET_HEIGHT_VALUE);
         this.setChance(10);
         this.water = true;
-
-        this.validGroundBlocks = new ArrayList<>(Arrays.asList(
-            Blocks.GRASS,
-            Blocks.DIRT,
-            Blocks.STONE,
-            Blocks.GRAVEL,
-            Blocks.CLAY,
-            Blocks.SAND
-        ));
-
+        this.validGroundBlocks = Arrays.asList(Blocks.GRASS, Blocks.DIRT, Blocks.STONE, Blocks.GRAVEL, Blocks.CLAY, Blocks.SAND);
         this.addDecoTypes(DecoType.BOULDER);
     }
 
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
+        biome.getConfig();
+        //settings.boulderMult
+
         ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
         if (settings.useBoulders) {
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
-            WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, rand, this.water, validGroundBlocks);
+            WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, validGroundBlocks, this.water);
 
+            MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.strengthFactor * strength; ++i) {
 
                 int x = worldX + rand.nextInt(16);// + 8;
@@ -85,22 +77,15 @@ public class DecoBoulder extends DecoBase {
                 if (y >= this.minY && y <= this.maxY && rand.nextInt(this.chance) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
-                    if (hasPlacedVillageBlocks) {
-                        if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, x, y, z)) {
-                            return;
-                        }
+                    if (!hasPlacedVillageBlocks || BlockUtil.checkAreaMaterials(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), mpos.setPos(x, y, z), 2)) {
+                        worldGenerator.generate(rtgWorld.world(), rand, mpos);
                     }
-
-                    worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
                 }
             }
         }
     }
 
-    public enum HeightType {
-        NEXT_INT,
-        GET_HEIGHT_VALUE;
-    }
+    public enum HeightType {NEXT_INT, GET_HEIGHT_VALUE}
 
     public IBlockState getBoulderBlock() {
 
@@ -179,14 +164,14 @@ public class DecoBoulder extends DecoBase {
         return this;
     }
 
-    public ArrayList<Block> getValidGroundBlocks() {
+    public List<Block> getValidGroundBlocks() {
 
-        return validGroundBlocks;
+        return Collections.unmodifiableList(this.validGroundBlocks);
     }
 
     public DecoBoulder setValidGroundBlocks(ArrayList<Block> validGroundBlocks) {
 
-        this.validGroundBlocks = validGroundBlocks;
+        this.validGroundBlocks = Collections.unmodifiableList(validGroundBlocks);
         return this;
     }
 }

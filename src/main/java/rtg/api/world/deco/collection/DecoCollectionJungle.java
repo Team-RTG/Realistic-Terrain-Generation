@@ -1,15 +1,26 @@
 package rtg.api.world.deco.collection;
 
+import net.minecraft.block.BlockFlower.EnumFlowerType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoJungleCacti;
+import rtg.api.world.deco.DecoJungleGrassVines;
+import rtg.api.world.deco.DecoJungleLilypadVines;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
@@ -25,8 +36,8 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         // Blend of the WorldGenMegaJungle collection and some tall RTG Mangrove trees.
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(4, 5, 13f, 0.32f, 0.2f);
-        mucronataTree.setLogBlock(BlockUtil.getStateLog(3));
-        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        mucronataTree.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
+        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         mucronataTree.setMinTrunkSize(3);
         mucronataTree.setMaxTrunkSize(4);
         mucronataTree.setMinCrownSize(10);
@@ -40,9 +51,9 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         mangroves.setTreeConditionChance(3);
         mangroves.setMaxY(160);
 
-        DecoTree megaJungle = new DecoTree(new WorldGenMegaJungle(false, 10, 27, BlockUtil.getStateLog(3), BlockUtil.getStateLeaf(3)));
-        megaJungle.setLogBlock(BlockUtil.getStateLog(3));
-        megaJungle.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        DecoTree megaJungle = new DecoTree(new WorldGenMegaJungle(false, 10, 27, BlockUtil.getStateLog(EnumType.JUNGLE), BlockUtil.getStateLeaf(EnumType.JUNGLE)));
+        megaJungle.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
+        megaJungle.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         megaJungle.setMinTrunkSize(3);
         megaJungle.setMaxTrunkSize(4);
         megaJungle.setMinCrownSize(10);
@@ -82,8 +93,8 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(3);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(3));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         decoFallenTree.setMinSize(4);
         decoFallenTree.setMaxSize(9);
         this.addDeco(decoFallenTree, config.ALLOW_LOGS.get());
@@ -103,11 +114,11 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         this.addDeco(decoJungleGrassVines);
 
         // Flowers.
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.setFlowers(new int[]{5}); // Only orange tulips fit in with the colour scheme.
-        decoFlowersRTG.setChance(4);
-        decoFlowersRTG.setMaxY(120);
-        decoFlowersRTG.setStrengthFactor(2f);
+        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
+            .addFlowers(EnumFlowerType.ORANGE_TULIP) // Only orange tulips fit in with the colour scheme.
+            .setChance(4)
+            .setMaxY(120)
+            .setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
 
         // Tall cacti on red sand - matches the colour scheme nicely.
@@ -116,7 +127,6 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoJungleCacti.setMaxY(120);
         decoJungleCacti.setSandOnly(false);
         decoJungleCacti.setExtraHeight(7);
-        decoJungleCacti.setSandMeta((byte) 1);
         this.addDeco(decoJungleCacti, config.ALLOW_CACTUS.get());
 
         // Mossy boulders for the green.

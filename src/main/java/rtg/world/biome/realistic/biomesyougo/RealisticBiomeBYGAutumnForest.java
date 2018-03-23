@@ -3,6 +3,8 @@ package rtg.world.biome.realistic.biomesyougo;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
@@ -25,8 +27,8 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState cikaLogBlock = Block.getBlockFromName("BiomesYouGo:CikaLog").getDefaultState();
-    private static IBlockState cikaLeavesBlock = Block.getBlockFromName("BiomesYouGo:CikaLeaves").getDefaultState();
+    private static IBlockState cikaLogBlock    = BlockUtil.getBlockStateFromCfgString("BiomesYouGo:CikaLog", BlockUtil.getStateLog(EnumType.OAK));
+    private static IBlockState cikaLeavesBlock = BlockUtil.getBlockStateFromCfgString("BiomesYouGo:CikaLeaves", BlockUtil.getStateLeaf(EnumType.OAK));
 
     public RealisticBiomeBYGAutumnForest(Biome biome) {
 
@@ -35,12 +37,9 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         return new SurfaceBYGAutumnForest(config,
             this.baseBiome.topBlock, //Block top
             this.baseBiome.fillerBlock, //Block filler,
-            BlockUtil.getStateDirt(2), //IBlockState mixTop,
+            BlockUtil.getStateDirt(DirtType.PODZOL), //IBlockState mixTop,
             this.baseBiome.fillerBlock, //IBlockState mixFill,
             80f, //float mixWidth,
             0.35f, //float mixHeight,
@@ -102,7 +101,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
 
             super(config, top, filler);
 
-            blockMixTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
+            blockMixTop    = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
             blockMixFiller = mixFiller;
 
             floMixWidth = mixWidth;
@@ -116,7 +115,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 
@@ -214,7 +213,7 @@ public class RealisticBiomeBYGAutumnForest extends RealisticBiomeBYGBase {
         quercusRoburOakTree.setMinCrownSize(5);
         quercusRoburOakTree.setMaxCrownSize(9);
         quercusRoburOakTree.getValidGroundBlocks().clear();
-        quercusRoburOakTree.getValidGroundBlocks().add(BlockUtil.getStateDirt(2));
+        quercusRoburOakTree.getValidGroundBlocks().add(BlockUtil.getStateDirt(DirtType.PODZOL));
         this.addTree(quercusRoburOakTree);
 
         DecoTree bigOakTrees = new DecoTree(quercusRoburOakTree);

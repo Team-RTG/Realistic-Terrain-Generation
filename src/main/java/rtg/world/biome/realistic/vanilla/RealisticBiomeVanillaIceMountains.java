@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -29,14 +29,10 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-
         this.getConfig().addProperty(this.getConfig().USE_ARCTIC_SURFACE).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -101,8 +97,8 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
-            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
+            mixBlockTop  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), mixFill);
 
             cliffBlock1 = cliff1;
             cliffBlock2 = cliff2;
@@ -118,7 +114,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

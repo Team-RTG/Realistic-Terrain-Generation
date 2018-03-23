@@ -13,7 +13,7 @@ import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -35,12 +35,9 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -101,7 +98,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -110,7 +107,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

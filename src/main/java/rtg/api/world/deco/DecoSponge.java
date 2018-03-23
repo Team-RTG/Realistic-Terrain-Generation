@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.RandomUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenSponge;
@@ -64,7 +63,6 @@ public class DecoSponge extends DecoBase {
 
         if (this.allowed) {
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenSponge(spongeBlock, 0, rand, validGroundBlocks);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {

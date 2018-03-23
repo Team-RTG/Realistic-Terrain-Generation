@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.jikou;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.util.Logger;
-import rtg.util.ModCompat;
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -19,7 +19,7 @@ public abstract class RealisticBiomeJIKBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return ModCompat.jikou.getPrettyName();
+        return Mods.jikou.getPrettyName();
     }
 
     @Override
@@ -40,7 +40,7 @@ public abstract class RealisticBiomeJIKBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (ModCompat.jikou.isLoaded()) {
+        if (Mods.jikou.isLoaded()) {
 
 // TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {

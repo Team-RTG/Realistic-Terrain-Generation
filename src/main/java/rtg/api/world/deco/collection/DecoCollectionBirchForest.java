@@ -1,13 +1,23 @@
 package rtg.api.world.deco.collection;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
@@ -15,8 +25,6 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
  * @author WhichOnesPink
  */
 public class DecoCollectionBirchForest extends DecoCollectionBase {
-
-    private DecoTree.Distribution forestDistribution = new DecoTree.Distribution(80f, 60f, -15f);
 
     public DecoCollectionBirchForest(BiomeConfig config) {
 
@@ -42,8 +50,8 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     private DecoTree tallBirchTrees() {
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera()
-            .setLogBlock(BlockUtil.getStateLog(2))
-            .setLeavesBlock(BlockUtil.getStateLeaf(2))
+            .setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH))
+            .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH))
             .setMinTrunkSize(4)
             .setMaxTrunkSize(10)
             .setMinCrownSize(8)
@@ -70,8 +78,8 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
         return new DecoFallenTree()
             .setLogCondition(RANDOM_CHANCE)
             .setLogConditionChance(8)
-            .setLogBlock(BlockUtil.getStateLog(2))
-            .setLeavesBlock(BlockUtil.getStateLeaf(2))
+            .setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH))
+            .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH))
             .setMinSize(3)
             .setMaxSize(6);
     }
@@ -89,7 +97,7 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
 
     private DecoFlowersRTG flowers() {
         return new DecoFlowersRTG()
-            .setFlowers(new int[]{3, 6})
+            .addFlowers(HOUSTONIA, WHITE_TULIP)
             .setMaxY(128)
             .setStrengthFactor(12f);
     }

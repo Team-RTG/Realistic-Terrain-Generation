@@ -2,6 +2,7 @@ package rtg.api.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,8 +39,8 @@ public class TreeRTGPiceaSitchensis extends TreeRTG {
 
         super();
 
-        this.setLogBlock(BlockUtil.getStateLog(1));
-        this.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        this.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         this.trunkSize = 8;
         this.crownSize = 10;
         this.setNoLeaves(false);

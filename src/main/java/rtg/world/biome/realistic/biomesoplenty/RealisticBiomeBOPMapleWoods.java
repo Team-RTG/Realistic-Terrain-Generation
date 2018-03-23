@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
@@ -22,7 +23,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENG
 
 public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.maple_woods.get();
+    public static Biome biome = BOPBiomes.maple_woods.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPMapleWoods() {
@@ -32,7 +33,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -80,7 +80,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
@@ -129,7 +129,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         decoFallenTree.setLogCondition(X_DIVIDED_BY_STRENGTH);
         decoFallenTree.setLogConditionNoise(8f);
         decoFallenTree.setLogConditionChance(1);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)});
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)});
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());

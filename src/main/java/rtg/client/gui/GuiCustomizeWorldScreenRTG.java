@@ -179,7 +179,9 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             switch (button.id) {
 
                 case BUTTON_DONE:
-                    this.parent.chunkProviderSettingsJson = ChunkProviderSettingsRTG.Factory.jsonToFactory(Setting.buildJson().toString()).toString();
+                    ChunkProviderSettingsRTG.Factory factory = ChunkProviderSettingsRTG.Factory.jsonToFactory(Setting.buildJson().toString());
+                    if (factory != null) { this.parent.chunkProviderSettingsJson = factory.toString(); }
+                    else { Logger.error("Error parsing ChunkProviderSettingsRTG settings from string: {}", Setting.buildJson().toString()); }
                     this.mc.displayGuiScreen(this.parent);
                     break;
 
@@ -258,9 +260,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                               else*/ if (setting.equals(Setting.waterSpoutChance) || setting.equals(Setting.lavaSpoutChance)) { // special handling for waterSpoutChance/lavaSpoutChance
                                   return fname + (((int)fval==0) ? ": Disabled" : ": " + String.format("%d", (int)fval));
                               }
-                              else {
-                                  return fname + ": " + String.format("%d", (int)fval);
-                              }
+                              return fname + ": " + String.format("%d", (int)fval);
                             },
                             setting.minValue().getInt(),
 // TODO: [Generator settings] Disable fixedBiome for now as it requires modification to the GenLayer classes to work.
@@ -386,10 +386,10 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            vertexbuffer.pos((double)(this.width / 2 - 90), 185.0D, 0.0D).tex(0.0D, 2.65625D).color(64, 64, 64, 64).endVertex();
-            vertexbuffer.pos((double)(this.width / 2 + 90), 185.0D, 0.0D).tex(5.625D, 2.65625D).color(64, 64, 64, 64).endVertex();
-            vertexbuffer.pos((double)(this.width / 2 + 90), 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();
-            vertexbuffer.pos((double)(this.width / 2 - 90), 100.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 64).endVertex();
+            vertexbuffer.pos((this.width / 2 - 90), 185.0D, 0.0D).tex(0.0D, 2.65625D).color(64, 64, 64, 64).endVertex();
+            vertexbuffer.pos((this.width / 2 + 90), 185.0D, 0.0D).tex(5.625D, 2.65625D).color(64, 64, 64, 64).endVertex();
+            vertexbuffer.pos((this.width / 2 + 90), 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();
+            vertexbuffer.pos((this.width / 2 - 90), 100.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 64).endVertex();
             tessellator.draw();
             this.drawCenteredString(this.fontRenderer, I18n.format("createWorld.customize.custom.confirmTitle"), this.width / 2, 105, 16777215);
             this.drawCenteredString(this.fontRenderer, I18n.format("createWorld.customize.custom.confirm1"), this.width / 2, 125, 16777215);
@@ -490,7 +490,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         oceanWaves          (SettingType.BOOLEAN, defaults.oceanWaves,           null, null, Category.WORLD),
 
         useBoulders         (SettingType.BOOLEAN, defaults.useBoulders,          null, null, Category.SURFACE),
-        boulderChance       (SettingType.INTEGER, defaults.boulderChance,           1,   20, Category.SURFACE), // value passed to Random, minimum can not be < 1
+        boulderMult         (SettingType.FLOAT  , defaults.boulderMult,          0.2f, 5.0f, Category.SURFACE),
         sandDuneHeight      (SettingType.INTEGER, defaults.sandDuneHeight,          1,   10, Category.SURFACE),
 //      snowDuneHeight      (SettingType.INTEGER, defaults.snowDuneHeight,          1,   10, Category.SURFACE), // Disabled, no current use
         useSnowLayers       (SettingType.BOOLEAN, defaults.useSnowLayers,        null, null, Category.SURFACE),
@@ -660,13 +660,13 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             if (returnValue instanceof Float) {
                 return ((Float)this.returnValue).intValue();
             }
-            else {return (int)this.returnValue;}
+            return (int)this.returnValue;
         }
         public float        getFloat()          {
             if (returnValue instanceof Integer) {
                 return ((Integer)this.returnValue).floatValue();
             }
-            else {return (float)this.returnValue;}
+            return (float)this.returnValue;
         }
 
         public void setCurValue(boolean val)    {this.curValue = val;}
@@ -765,7 +765,13 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
         public static void parseSettings(String generatorSettings) {
 
-            JsonObject json = new JsonParser().parse(ChunkProviderSettingsRTG.Factory.jsonToFactory(generatorSettings).toString()).getAsJsonObject();
+            ChunkProviderSettingsRTG.Factory factory = ChunkProviderSettingsRTG.Factory.jsonToFactory(generatorSettings);
+            if (factory == null) {
+                Logger.error("Error parsing ChunkProviderSettingsRTG settings from string: {}", generatorSettings);
+                return;
+            }
+
+            JsonObject json = new JsonParser().parse(factory.toString()).getAsJsonObject();
 
             final Setting[] setting = new Setting[1]; // final, to appease the lambda gods.
             json.entrySet().forEach(entry -> {

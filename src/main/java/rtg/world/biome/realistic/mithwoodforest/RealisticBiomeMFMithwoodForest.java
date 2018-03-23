@@ -3,6 +3,8 @@ package rtg.world.biome.realistic.mithwoodforest;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
@@ -22,14 +24,21 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState mithwoodLogBlock = Block.getBlockFromName("mithwoodforest:mithwood_log").getDefaultState();
-    private static IBlockState mithwoodLeavesBlock = Block.getBlockFromName("mithwoodforest:mithwood_leaves").getDefaultState();
+    private static IBlockState mithwoodLogBlock    = BlockUtil.getBlockStateFromCfgString("mithwoodforest:mithwood_log", BlockUtil.getStateLog(EnumType.OAK));
+    private static IBlockState mithwoodLeavesBlock = BlockUtil.getBlockStateFromCfgString("mithwoodforest:mithwood_leaves", BlockUtil.getStateLeaf(EnumType.OAK));
 
     public RealisticBiomeMFMithwoodForest(Biome biome) {
 
@@ -38,12 +47,9 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -72,7 +78,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.10f);
+        return new SurfaceMFMithwoodForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.10f);
     }
 
     public class SurfaceMFMithwoodForest extends SurfaceBase {
@@ -98,7 +104,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -107,7 +113,7 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 
@@ -221,8 +227,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(RTGOak);
 
         TreeRTG megaBirch = new TreeRTGBetulaPapyrifera();
-        megaBirch.setLogBlock(BlockUtil.getStateLog(2));
-        megaBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        megaBirch.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        megaBirch.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         megaBirch.setMinTrunkSize(4);
         megaBirch.setMaxTrunkSize(10);
         megaBirch.setMinCrownSize(8);
@@ -238,8 +244,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         this.addDeco(RTGBirch);
 
         TreeRTG megaSpruce = new TreeRTGPinusPonderosa();
-        megaSpruce.setLogBlock(BlockUtil.getStateLog(1));
-        megaSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        megaSpruce.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        megaSpruce.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         megaSpruce.setMinTrunkSize(11);
         megaSpruce.setMaxTrunkSize(21);
         megaSpruce.setMinCrownSize(15);
@@ -273,18 +279,19 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoShrub.setChance(4);
         this.addDeco(decoShrub);
 
-        DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
-        decoFlowers1.setFlowers(new int[]{1, 2, 3, 6, 7, 8});
-        decoFlowers1.setStrengthFactor(2f);
-        decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
+        DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG()
+            .addFlowers(BLUE_ORCHID, ALLIUM, HOUSTONIA, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY)
+            .setStrengthFactor(2f)
+            .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
         this.addDeco(decoFlowers1);
 
-        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-        decoFlowers2.setFlowers(new int[]{11, 12, 13, 14});
-        decoFlowers2.setStrengthFactor(1f);
-        decoFlowers2.setChance(1);
-        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
-        this.addDeco(decoFlowers2);
+// TODO: [1.12] Create a new class for double-plants
+//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+//        decoFlowers2.addFlowers(new int[]{11, 12, 13, 14});
+//        decoFlowers2.setStrengthFactor(1f);
+//        decoFlowers2.setChance(1);
+//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE);
+//        this.addDeco(decoFlowers2);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -325,8 +332,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoFallenBirch.setLogCondition(RANDOM_CHANCE);
         decoFallenBirch.setLogConditionChance(8);
         decoFallenBirch.setMaxY(100);
-        decoFallenBirch.setLogBlock(BlockUtil.getStateLog(2));
-        decoFallenBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoFallenBirch.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        decoFallenBirch.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         decoFallenBirch.setMinSize(3);
         decoFallenBirch.setMaxSize(6);
 
@@ -334,8 +341,8 @@ public class RealisticBiomeMFMithwoodForest extends RealisticBiomeMFBase {
         decoFallenSpruce.setLogCondition(RANDOM_CHANCE);
         decoFallenSpruce.setLogConditionChance(8);
         decoFallenSpruce.setMaxY(100);
-        decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenSpruce.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoFallenSpruce.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenSpruce.setMinSize(3);
         decoFallenSpruce.setMaxSize(6);
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenBirch, decoFallenSpruce);

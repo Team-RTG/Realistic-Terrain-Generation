@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.IRTGWorld;
@@ -29,7 +29,6 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
@@ -132,7 +131,7 @@ public class RealisticBiomeBYGMushroomMountains extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

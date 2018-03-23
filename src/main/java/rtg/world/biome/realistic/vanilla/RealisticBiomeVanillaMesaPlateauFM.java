@@ -3,17 +3,19 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
 import rtg.api.util.PlateauUtil;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
@@ -33,24 +35,14 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_3_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_3_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_4_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_4_BLOCK_META).set(0);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
-        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_ID).set("minecraft:stained_hardened_clay");
-        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_METAS).set(BiomeConfig.MESA_PLATEAU_GRADIENT_METAS);
-        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_ID).set("minecraft:hardened_clay");
-        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_LIST).set(PlateauUtil.getMesaPlateauBlocks());
     }
 
     public TerrainBase initTerrain() {
@@ -109,7 +101,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMesaPlateauFM(config, biome.topBlock, BlockUtil.getStateClay(1), 0, 0.2f, 0.6f);
+        return new SurfaceVanillaMesaPlateauFM(config, biome.topBlock, BlockUtil.getStateClay(EnumDyeColor.ORANGE), 0, 0.2f, 0.6f);
     }
 
     @Override
@@ -145,17 +137,17 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
             this.mix3Height = mix3Height;
             this.mix4Height = mix4Height;
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateClay(1));
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), Blocks.RED_SANDSTONE.getDefaultState());
-            this.mix3Block = this.getConfigBlock(config.SURFACE_MIX_3_BLOCK.get(), config.SURFACE_MIX_3_BLOCK_META.get(), BlockUtil.getStateDirt(1));
-            this.mix4Block = this.getConfigBlock(config.SURFACE_MIX_4_BLOCK.get(), config.SURFACE_MIX_4_BLOCK_META.get(), Blocks.GRASS.getDefaultState());
+            this.mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(),   BlockUtil.getStateClay(EnumDyeColor.ORANGE));
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), Blocks.RED_SANDSTONE.getDefaultState());
+            this.mix3Block = this.getConfigBlock(config.SURFACE_MIX_3_BLOCK.get(), BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
+            this.mix4Block = this.getConfigBlock(config.SURFACE_MIX_4_BLOCK.get(), Blocks.GRASS.getDefaultState());
         }
 
         @Override
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
 

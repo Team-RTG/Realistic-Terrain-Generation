@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
@@ -31,10 +32,8 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(rtgConfig.VOLCANO_CHANCE.get() * 2);
     }
@@ -75,7 +74,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
@@ -128,8 +127,8 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(3));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());

@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -14,7 +15,7 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBase;
@@ -27,7 +28,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_R
 
 public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.dead_forest.get();
+    public static Biome biome = BOPBiomes.dead_forest.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPDeadForest() {
@@ -37,7 +38,6 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -117,7 +117,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 
@@ -203,8 +203,8 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(10);
         decoFallenTree2.setMaxY(100);
-        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(5);
 

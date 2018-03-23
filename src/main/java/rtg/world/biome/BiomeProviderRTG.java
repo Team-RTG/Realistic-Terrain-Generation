@@ -65,7 +65,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 //      this.largeBendSize *= settings.riverBendMult;
 //      this.smallBendSize *= settings.riverBendMult;
         this.riverSeparation /= RTGAPI.config().RIVER_FREQUENCY_MULTIPLIER.get();
-        this.riverValleyLevel *= RTGAPI.config().riverSizeMultiplier();
+        this.riverValleyLevel *= this.riverSizeMultiplier();
         this.largeBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
         this.smallBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
 
@@ -80,6 +80,12 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
+    }
+
+    private float riverSizeMultiplier() {
+// TODO: [1.12] THIS is confusing. Find a better way of expressing the required variance in the generator settings.
+        // With the river system changing frequency also shinks size and that will confuse the heck out of users.
+        return RTGAPI.config().RIVER_SIZE_MULTIPLIER.get() * RTGAPI.config().RIVER_FREQUENCY_MULTIPLIER.get();
     }
 
     @Override

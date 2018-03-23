@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionJungle;
@@ -29,11 +29,9 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(rtgConfig.VOLCANO_CHANCE.get() * 2);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
@@ -99,7 +97,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

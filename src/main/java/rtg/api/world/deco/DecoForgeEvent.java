@@ -25,6 +25,7 @@ public class DecoForgeEvent extends DecoBase {
     }
 
     @Override
+// TODO: [1.12] wat
     public boolean properlyDefined() {
 
         try {

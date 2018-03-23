@@ -1,14 +1,17 @@
 package rtg.api.util;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
-import rtg.api.util.BlockUtil;
-import rtg.api.util.Logger;
+
+@UtilityClass
+public final class SaplingUtil
+{
+    private SaplingUtil() {}
 
 
-public class SaplingUtil {
 
     public static int getMetaFromState(IBlockState state) {
 
@@ -30,26 +33,12 @@ public class SaplingUtil {
 
     public static IBlockState getSaplingFromLeaves(IBlockState leavesBlock) {
 
-        if (leavesBlock == Blocks.LEAVES.getDefaultState()) {
-            return Blocks.SAPLING.getDefaultState();
-        }
-        else if (leavesBlock == BlockUtil.getStateLeaf(1)) {
-            return BlockUtil.getStateSapling(1);
-        }
-        else if (leavesBlock == BlockUtil.getStateLeaf(2)) {
-            return BlockUtil.getStateSapling(2);
-        }
-        else if (leavesBlock == BlockUtil.getStateLeaf(3)) {
-            return BlockUtil.getStateSapling(3);
-        }
-        else if (leavesBlock == Blocks.LEAVES2.getDefaultState()) {
-            return BlockUtil.getStateSapling(4);
-        }
-        else if (leavesBlock == BlockUtil.getStateLeaf2(1)) {
-            return BlockUtil.getStateSapling(5);
-        }
-        else {
-            return Blocks.SAPLING.getDefaultState();
-        }
+        if (leavesBlock == Blocks.LEAVES.getDefaultState()) { return Blocks.SAPLING.getDefaultState(); }
+        else if (leavesBlock == BlockUtil.getStateLeaf(EnumType.SPRUCE)) { return BlockUtil.getStateSapling(EnumType.SPRUCE); }
+        else if (leavesBlock == BlockUtil.getStateLeaf(EnumType.BIRCH)) { return BlockUtil.getStateSapling(EnumType.BIRCH); }
+        else if (leavesBlock == BlockUtil.getStateLeaf(EnumType.JUNGLE)) { return BlockUtil.getStateSapling(EnumType.JUNGLE); }
+        else if (leavesBlock == BlockUtil.getStateLeaf(EnumType.ACACIA)) { return BlockUtil.getStateSapling(EnumType.ACACIA); }
+        else if (leavesBlock == BlockUtil.getStateLeaf(EnumType.DARK_OAK)) { return BlockUtil.getStateSapling(EnumType.DARK_OAK); }
+        else { return Blocks.SAPLING.getDefaultState(); }
     }
 }

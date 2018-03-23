@@ -10,8 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
-import rtg.api.util.SnowHeightCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -30,7 +29,6 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
 	@Override
 	public void initConfig() {
-
 		this.getConfig().addProperty(this.getConfig().USE_ARCTIC_SURFACE).set(true);
 		this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
@@ -95,7 +93,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
 			Random rand = rtgWorld.rand();
-			float c = CliffCalculator.calc(x, z, noise);
+			float c = TerrainUtil.calcCliff(x, z, noise);
 			boolean cliff = c > 1.4f ? true : false;
 
 			for (int k = 255; k > -1; k--) {
@@ -201,7 +199,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 						primer.setBlockState(x, k, z, topBlock);
 
 						if (depth == 0 && k > 61 && k < 254) {
-							SnowHeightCalculator.calc(x, k, z, primer, noise);
+							TerrainUtil.calcSnowHeight(x, k, z, primer, noise);
 						}
 					}
 				}

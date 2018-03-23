@@ -23,10 +23,10 @@ public class WorldGenVinesRTG extends WorldGenerator {
     protected PropertyBool propSouth;
     protected PropertyBool propWest;
 
-    private static final Block volcanoBlock = Block.getBlockFromName(RTGAPI.config().VOLCANO_BLOCK_ID.get());
-    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK_ID.get());
-    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK_ID.get());
-    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK_ID.get());
+    private static final Block volcanoBlock     = Block.getBlockFromName(RTGAPI.config().VOLCANO_MAIN_BLOCK.get());
+    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK.get());
+    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK.get());
+    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK.get());
 
     public WorldGenVinesRTG() {
 

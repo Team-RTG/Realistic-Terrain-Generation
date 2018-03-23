@@ -2,6 +2,7 @@ package rtg.api.world.gen.feature.tree.rtg;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -99,8 +100,8 @@ public class TreeRTGCocosNucifera extends TreeRTG {
 
         super();
 
-        this.setLogBlock(BlockUtil.getStateLog(3));
-        this.setLeavesBlock(BlockUtil.getStateLeaf(3));
+        this.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
+        this.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         this.trunkSize = 8;
         this.crownSize = 7;
     }

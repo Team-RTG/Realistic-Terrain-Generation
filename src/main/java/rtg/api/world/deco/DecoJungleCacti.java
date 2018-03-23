@@ -21,7 +21,6 @@ public class DecoJungleCacti extends DecoBase {
     private int maxY;
     private boolean sandOnly;
     private int extraHeight;
-    private byte sandMeta;
 
     public DecoJungleCacti() {
 
@@ -35,7 +34,6 @@ public class DecoJungleCacti extends DecoBase {
         this.setMaxY(255); // No height limit by default.
         this.setSandOnly(false);
         this.setExtraHeight(7);
-        this.setSandMeta((byte) 1);
 
         this.addDecoTypes(DecoType.CACTUS);
     }
@@ -47,7 +45,7 @@ public class DecoJungleCacti extends DecoBase {
 
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
 
-                WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight), this.sandMeta);
+                WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight));
 
                 for (int i = 0; i < this.strengthFactor * strength; i++) {
                     int intX = worldX + rand.nextInt(16);// + 8;
@@ -103,17 +101,6 @@ public class DecoJungleCacti extends DecoBase {
     public DecoJungleCacti setExtraHeight(int extraHeight) {
 
         this.extraHeight = extraHeight;
-        return this;
-    }
-
-    public byte getSandMeta() {
-
-        return sandMeta;
-    }
-
-    public DecoJungleCacti setSandMeta(byte sandMeta) {
-
-        this.sandMeta = sandMeta;
         return this;
     }
 }

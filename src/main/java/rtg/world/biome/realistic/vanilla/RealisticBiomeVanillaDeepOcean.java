@@ -28,16 +28,12 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VILLAGES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_SPONGE).set(true);
         this.getConfig().addProperty(this.getConfig().ALLOW_OCEAN_WAVES);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -76,7 +72,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
 
             super(config, top, filler);
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
 
             width = mixWidth;
             height = mixHeight;

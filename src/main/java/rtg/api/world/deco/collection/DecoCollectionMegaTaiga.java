@@ -1,5 +1,6 @@
 package rtg.api.world.deco.collection;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.init.Blocks;
 
 import rtg.api.config.BiomeConfig;
@@ -25,8 +26,8 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         super(config);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.setLogBlock(BlockUtil.getStateLog(1));
-        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        sitchensisTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         sitchensisTree.setMinTrunkSize(4);
         sitchensisTree.setMaxTrunkSize(9);
         sitchensisTree.setMinCrownSize(5);
@@ -42,8 +43,8 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
         smallPines.setMaxY(100);
 
         TreeRTG pungensTree = new TreeRTGPiceaPungens();
-        pungensTree.setLogBlock(BlockUtil.getStateLog(1));
-        pungensTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        pungensTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        pungensTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         pungensTree.setMinTrunkSize(2);
         pungensTree.setMaxTrunkSize(7);
         pungensTree.setMinCrownSize(6);

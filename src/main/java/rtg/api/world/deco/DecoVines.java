@@ -52,6 +52,7 @@ public class DecoVines extends DecoBase {
     }
 
     @Override
+// TODO: [1.12] wat... kill this class, I guess.
     public boolean properlyDefined() {
 
         try {

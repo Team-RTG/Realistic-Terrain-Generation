@@ -2,14 +2,16 @@ package rtg.api.world.deco;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenShrubRTG;
@@ -46,8 +48,8 @@ public class DecoShrub extends DecoBase {
         this.size = -1;
         this.useDefaultRandom = false;
         this.sand = true; //Whether shrubs generate on sand
-        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1)};
-        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(1)};
+        this.randomLogBlocks    = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)};
+        this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(EnumType.SPRUCE)};
         this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setMinY(1); // No height limit by default.
         this.setMaxY(255); // No height limit by default.
@@ -69,6 +71,7 @@ public class DecoShrub extends DecoBase {
     }
 
     @Override
+// TODO: [1.12] This seems overly complicated. Simplify.
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed) {
@@ -91,41 +94,34 @@ public class DecoShrub extends DecoBase {
                 this.setLeavesBlock(this.randomLeavesBlocks[rnd]);
             }
 
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
             WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand);
+            final World world = rtgWorld.world();
 
             int loopCount = this.loops;
             loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
+            MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < loopCount; i++) {
-                int intX = worldX + rand.nextInt(16);// + 8;
-                int intZ = worldZ + rand.nextInt(16);// + 8;
-                int intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
+                int x = worldX + rand.nextInt(16);// + 8;
+                int z = worldZ + rand.nextInt(16);// + 8;
+                int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
+                mpos.setPos(x, y, z);
 
-                if (this.notEqualsZeroChance > 1) {
-
-                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.notEqualsZeroChance) != 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                if (hasPlacedVillageBlocks) {
+                    if (BlockUtil.checkVerticalBlocks(MatchType.ALL, world, mpos, -1, Blocks.FARMLAND) ||
+                       !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, mpos, 2)) {
+                        return;
                     }
                 }
-                else {
 
-                    if (intY >= this.minY && intY <= this.maxY && rand.nextInt(this.chance) == 0) {
-                        generateWorldGenerator(worldGenerator, worldUtil, rtgWorld.world(), rand, intX, intY, intZ, hasPlacedVillageBlocks);
+                if (y >= this.minY && y <= this.maxY) {
+
+                    if (this.notEqualsZeroChance > 1) {
+                        if (rand.nextInt(this.notEqualsZeroChance) != 0) { worldGenerator.generate(world, rand, mpos); }
                     }
+                    else if (rand.nextInt(this.chance) == 0) { worldGenerator.generate(world, rand, mpos); }
                 }
             }
         }
-    }
-
-    private boolean generateWorldGenerator(WorldGenerator worldGenerator, WorldUtil worldUtil, World world, Random rand, int x, int y, int z, boolean hasPlacedVillageBlocks) {
-        // If we're in a village, check to make sure the shrub has extra room to grow to avoid corrupting the village.
-        if (hasPlacedVillageBlocks) {
-            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), 2, WorldUtil.SurroundCheckType.CARDINAL, rand, x, y, z)) {
-                return false;
-            }
-        }
-
-        return worldGenerator.generate(world, rand, new BlockPos(x, y, z));
     }
 
     public int getSize() {

@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.morechinesemc;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.util.Logger;
-import rtg.util.ModCompat;
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @SuppressWarnings("WeakerAccess")
@@ -32,7 +32,7 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return ModCompat.morechinesemc.getPrettyName();
+        return Mods.morechinesemc.getPrettyName();
     }
 
     @Override
@@ -47,7 +47,7 @@ public abstract class RealisticBiomeMCMBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (ModCompat.morechinesemc.isLoaded()) {
+        if (Mods.morechinesemc.isLoaded()) {
 
 // TODO: 1.12 Clean up how these rBiomes are initialised. Migrate to looking up ResourceLocations in the registry.
             for (Biome biome : Biome.REGISTRY) {

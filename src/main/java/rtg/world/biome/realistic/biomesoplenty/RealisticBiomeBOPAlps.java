@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -20,7 +20,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.alps.get();
+    public static Biome biome = BOPBiomes.alps.orNull();
     public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeBOPAlps() {
@@ -30,7 +30,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
@@ -41,7 +40,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
         return new TerrainBOPAlps();
     }
 
-    public class TerrainBOPAlps extends TerrainBase {
+    public static class TerrainBOPAlps extends TerrainBase {
 
         // the BoP version has steep slopes and a flat area on top. The RTG version will mimic that.
         private float start = 0f;// this puts a minimum on "ruggedness" on the top. We want to allow flats
@@ -67,7 +66,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
         return new SurfaceBOPAlps(config, biome.topBlock, biome.fillerBlock, 0.45f);
     }
 
-    public class SurfaceBOPAlps extends SurfaceBase {
+    public static class SurfaceBOPAlps extends SurfaceBase {
 
         private float min;
 
@@ -103,7 +102,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

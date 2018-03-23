@@ -3,11 +3,10 @@ package rtg.api.world.gen.feature.tree.rtg;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.Set;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockSand.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +16,6 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
 
 /**
  * The base class for all RTG trees.
@@ -43,19 +41,15 @@ public class TreeRTG extends WorldGenAbstractTree {
     protected int maxCrownSize;
 
     protected ArrayList<IBlockState> validGroundBlocks;
-    protected Set<Material> replaceableMaterials;
 
     protected RTGConfig rtgConfig = RTGAPI.config();
     private boolean allowBarkCoveredLogs;
 
+    public TreeRTG() { this(false); }
+
     public TreeRTG(boolean notify) {
 
         super(notify);
-    }
-
-    public TreeRTG() {
-
-        this(false);
 
         this.setLogBlock(Blocks.LOG.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
@@ -74,16 +68,13 @@ public class TreeRTG extends WorldGenAbstractTree {
         this.setMaxCrownSize(0);
 
         // Each tree sub-class is responsible for using (or not using) this list as part of its generation logic.
-        this.validGroundBlocks = new ArrayList<IBlockState>(Arrays.asList(
+        this.validGroundBlocks = new ArrayList<>(Arrays.asList(
             Blocks.GRASS.getDefaultState(),
             Blocks.DIRT.getDefaultState(),
-            BlockUtil.getStateDirt(2),
+            BlockUtil.getStateDirt(DirtType.PODZOL),
             Blocks.SAND.getDefaultState(),
-            BlockUtil.getStateSand(1)
+            BlockUtil.getStateSand(EnumType.RED_SAND)
         ));
-
-// TODO [Clean-up] Add this to a config synchronisation method to make it volatile and not require a MC restart if the config setting changes
-        this.replaceableMaterials = RTGConfig.getMaterialsFromString(rtgConfig.MATERIALS_TREES_CAN_GROW_INTO.get());
 
         this.allowBarkCoveredLogs = rtgConfig.ALLOW_BARK_COVERED_LOGS.get();
     }
@@ -166,25 +157,8 @@ public class TreeRTG extends WorldGenAbstractTree {
 
     @Override
     public boolean isReplaceable(World world, BlockPos pos) {
-
-        IBlockState state = world.getBlockState(pos);
-
-        return state.getMaterial() == Material.AIR
-            || state.getMaterial() == Material.LEAVES
-            || state.getMaterial() == Material.WOOD
-            || this.replaceableMaterials.contains(state.getMaterial());
-    }
-
-    @Override
-    protected boolean canGrowInto(Block blockType) {
-
-        return this.replaceableMaterials.contains(blockType.getDefaultState().getMaterial());
-    }
-
-    public boolean hasSpaceToGrow(World world, Random rand, BlockPos pos, int treeHeight) {
-
-        WorldUtil worldUtil = new WorldUtil(world);
-        return worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), treeHeight, WorldUtil.SurroundCheckType.UP, rand, pos.getX(), pos.getY(), pos.getZ());
+        IBlockState bs = world.getBlockState(pos);
+        return bs.getMaterial().isReplaceable() || super.canGrowInto(bs.getBlock());
     }
 
     public IBlockState getTrunkLog(IBlockState defaultLog) {

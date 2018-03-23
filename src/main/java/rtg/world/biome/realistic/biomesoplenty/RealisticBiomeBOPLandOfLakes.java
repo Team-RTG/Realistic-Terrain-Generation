@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBoulder;
@@ -32,7 +33,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_R
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.land_of_lakes.get();
+    public static Biome biome = BOPBiomes.land_of_lakes.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPLandOfLakes() {
@@ -42,7 +43,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -139,7 +139,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 
@@ -211,8 +211,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
     public void initDecos() {
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.setLogBlock(BlockUtil.getStateLog(2));
-        birchTree.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        birchTree.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        birchTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         birchTree.setMinTrunkSize(4);
         birchTree.setMaxTrunkSize(10);
         birchTree.setMinCrownSize(8);
@@ -231,8 +231,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         birchTrees.setMaxY(120);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.setLogBlock(BlockUtil.getStateLog(1));
-        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        sitchensisTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         sitchensisTree.setMinTrunkSize(4);
         sitchensisTree.setMaxTrunkSize(9);
         sitchensisTree.setMinCrownSize(5);
@@ -259,7 +259,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(1), BlockUtil.getStateLog(2)});
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLog(EnumType.BIRCH)});
         decoFallenTree.setMinSize(8);
         decoFallenTree.setMaxSize(12);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());

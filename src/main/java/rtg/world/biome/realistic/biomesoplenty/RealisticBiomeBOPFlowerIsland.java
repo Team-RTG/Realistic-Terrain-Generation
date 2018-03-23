@@ -12,14 +12,14 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.flower_island.get();
+    public static Biome biome = BOPBiomes.flower_island.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPFlowerIsland() {
@@ -29,7 +29,6 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -79,7 +78,7 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {

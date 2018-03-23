@@ -2,6 +2,7 @@ package rtg.api.world.deco;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -15,6 +16,7 @@ import rtg.api.world.gen.feature.WorldGenSeaweed;
 /**
  * @author WhichOnesPink
  */
+// TODO: [1.12+] Keep this class for the future?
 public class DecoSeaweed extends DecoBase {
 
     protected int loops;
@@ -54,7 +56,7 @@ public class DecoSeaweed extends DecoBase {
         this.setConditionChance(1);
         this.setMinY(15); // Few blocks below min ocean floor by default.
         this.setMaxY(58); // No seaweed sticking out of the water by default.
-        this.setSeaweedBlock(BlockUtil.getStateLeaf(3));
+        this.setSeaweedBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         this.setMinHeight(1);
         this.setMaxHeight(4);
         this.setScatter(new Scatter(16, 0));
@@ -63,6 +65,7 @@ public class DecoSeaweed extends DecoBase {
     }
 
     @Override
+// TODO: [1.12] wat
     public boolean properlyDefined() {
         return super.properlyDefined();
     }

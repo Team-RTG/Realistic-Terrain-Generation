@@ -1,37 +1,39 @@
-package rtg.api.world.gen.feature;
+package rtg.api.util;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.RTGAPI;
-import rtg.api.util.Logger;
-import rtg.api.util.TerrainMath;
-import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 
 
-public class WorldGenVolcano {
+@UtilityClass
+public final class VolcanoUtil
+{
+    private VolcanoUtil() {}
+
+    private static final IBlockState DEFAULT_VOLCANO_MAIN_BLOCK = Blocks.OBSIDIAN.getDefaultState();
+    private static final IBlockState DEFAULT_VOLCANO_MIX1_BLOCK = Blocks.COBBLESTONE.getDefaultState();
+    private static final IBlockState DEFAULT_VOLCANO_MIX2_BLOCK = Blocks.GRAVEL.getDefaultState();
+    private static final IBlockState DEFAULT_VOLCANO_MIX3_BLOCK = Blocks.COAL_BLOCK.getDefaultState();
 
     // How much stretched the vent/mouth is
-    private static final float ventEccentricity = 8f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
-    private static final float ventRadius = 7f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
-    private static final int lavaHeight = 138 + 3 + (RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? 5 : 0);    // + 3 to account for lava cone tip
-    private static final int baseVolcanoHeight = 142 + 8;
-// TODO: [Clean-up] Static access from instance reference
-    private static IBlockState volcanoBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_BLOCK_ID.get(), RTGAPI.config().VOLCANO_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_BLOCK);
-    private static IBlockState volcanoPatchBlock = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX1_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX1_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX1_BLOCK);
-    private static IBlockState volcanoPatchBlock2 = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX2_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX2_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX2_BLOCK);
-    private static IBlockState volcanoPatchBlock3 = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX3_BLOCK_ID.get(), RTGAPI.config().VOLCANO_MIX3_BLOCK_META.get(), RTGAPI.config().DEFAULT_VOLCANO_MIX3_BLOCK);
-    private static IBlockState lavaBlock = RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
+    private static final float ventEccentricity  = 8f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
+    private static final float ventRadius        = 7f * RTGAPI.config().VOLCANO_CALDERA_MULTIPLIER.get();
+    private static final int lavaHeight          = 138 + 3 + (RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? 5 : 0);    // + 3 to account for lava cone tip
+    private static final int baseVolcanoHeight   = 142 + 8;
+    private static IBlockState volcanoBlock1     = getVolcanoBlock(RTGAPI.config().VOLCANO_MAIN_BLOCK.get(), DEFAULT_VOLCANO_MAIN_BLOCK);
+    private static IBlockState volcanoBlock2     = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX1_BLOCK.get(), DEFAULT_VOLCANO_MIX1_BLOCK);
+    private static IBlockState volcanoBlock3     = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX2_BLOCK.get(), DEFAULT_VOLCANO_MIX2_BLOCK);
+    private static IBlockState volcanoBlock4     = getVolcanoBlock(RTGAPI.config().VOLCANO_MIX3_BLOCK.get(), DEFAULT_VOLCANO_MIX3_BLOCK);
+    private static IBlockState lavaBlock         = RTGAPI.config().ENABLE_VOLCANO_ERUPTIONS.get() ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
     private static boolean enableVolcanoConduits = RTGAPI.config().ENABLE_VOLCANO_CONDUITS.get();
-    private static int volcanoConduitDepth = RTGAPI.config().VOLCANO_CONDUIT_DEPTH.get();
+    private static int volcanoConduitDepth       = RTGAPI.config().VOLCANO_CONDUIT_DEPTH.get();
 
-    public static void build(ChunkPrimer primer, World world, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float[] noise) {
+    public static void build(ChunkPrimer primer, Random mapRand, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, float[] noise) {
 
         int i, j;
         float distanceEll, height, terrainHeight, obsidian;
@@ -45,7 +47,7 @@ public class WorldGenVolcano {
                 j = (chunkY * 16) + z;
 
                 // Distance in blocks from the center of the volcano
-                distanceEll = (float) TerrainMath.dis2Elliptic(i, j, baseX * 16, baseY * 16,
+                distanceEll = (float) TerrainUtil.dis2Elliptic(i, j, baseX * 16, baseY * 16,
                     simplex.noise2(i / 250f, j / 250f) * ventEccentricity,
                     simplex.octave(1).noise2(i / 250f, j / 250f) * ventEccentricity);
 
@@ -65,41 +67,25 @@ public class WorldGenVolcano {
                     for (int y = 255; y > -1; y--) {
                         // Above lava
                         if (y > lavaHeight) {
-                            if (primer.getBlockState(x, y, z) == Blocks.AIR.getDefaultState()) {
-                                primer.setBlockState(x, y, z, Blocks.AIR.getDefaultState());
-                            }
+                            if (primer.getBlockState(x, y, z) == Blocks.AIR.getDefaultState()) { primer.setBlockState(x, y, z, Blocks.AIR.getDefaultState()); }
                         }
                         // Below lava and above obsidian
                         else if (y > obsidian && y < (lavaHeight - 9) + height) {
-
-                            if (enableVolcanoConduits && y >= volcanoConduitDepth) {
-                                primer.setBlockState(x, y, z, lavaBlock);
-                            }
-                            else {
-                                primer.setBlockState(x, y, z, volcanoBlock);
-                            }
+                            if (enableVolcanoConduits && y >= volcanoConduitDepth) { primer.setBlockState(x, y, z, lavaBlock); }
+                            else { primer.setBlockState(x, y, z, volcanoBlock1); }
                         }
                         // In lava
                         else if (y < lavaHeight + 1) {
-                            if (distanceEll + y < lavaHeight + 3) // + 3 to cut the tip of the lava
-                            {
-                                primer.setBlockState(x, y, z, lavaBlock);
-                            }
+                            // + 3 to cut the tip of the lava
+                            if (distanceEll + y < lavaHeight + 3) { primer.setBlockState(x, y, z, lavaBlock); }
                         }
                         // Below obsidian
                         else if (y < obsidian + 1) {
                             if (primer.getBlockState(x, y, z) == Blocks.AIR.getDefaultState()) {
-
-                                if (enableVolcanoConduits && y >= volcanoConduitDepth) {
-                                    primer.setBlockState(x, y, z, lavaBlock);
-                                }
-                                else {
-                                    primer.setBlockState(x, y, z, Blocks.STONE.getDefaultState());
-                                }
+                                if (enableVolcanoConduits && y >= volcanoConduitDepth) { primer.setBlockState(x, y, z, lavaBlock); }
+                                else { primer.setBlockState(x, y, z, Blocks.STONE.getDefaultState()); }
                             }
-                            else {
-                                break;
-                            }
+                            else { break; }
                         }
                     }
                 }
@@ -119,7 +105,7 @@ public class WorldGenVolcano {
                             b = primer.getBlockState(x, y, z);
 
                             if (b == Blocks.AIR.getDefaultState() || b == Blocks.WATER.getDefaultState()) {
-                                /*************************************
+                                /* ************************************
                                  * WARNING: Spaghetti surfacing code *
                                  *************************************/
 
@@ -132,7 +118,7 @@ public class WorldGenVolcano {
                                             patchNoise += simplex.octave(2).noise2(i / 30f, j / 30f) * .9;
                                             patchNoise += simplex.octave(3).noise2(i / 5f, j / 5f) * .6;
                                             if (patchNoise > .85) {
-                                                primer.setBlockState(x, y, z, volcanoPatchBlock); // Cobble
+                                                primer.setBlockState(x, y, z, volcanoBlock2); // Cobble
                                                 continue;
                                             }
                                         }
@@ -142,7 +128,7 @@ public class WorldGenVolcano {
                                             patchNoise += simplex.octave(4).noise2(i / 30f, j / 30f) * .9;
                                             patchNoise += simplex.octave(5).noise2(i / 5f, j / 5f) * .5;
                                             if (patchNoise > .92) {
-                                                primer.setBlockState(x, y, z, volcanoPatchBlock2); // Gravel
+                                                primer.setBlockState(x, y, z, volcanoBlock3); // Gravel
                                                 continue;
                                             }
                                         }
@@ -151,7 +137,7 @@ public class WorldGenVolcano {
                                             patchNoise += simplex.octave(6).noise2(i / 30f, j / 30f) * .7;
                                             patchNoise += simplex.octave(7).noise2(i / 5f, j / 5f) * .7;
                                             if (patchNoise > .93) {
-                                                primer.setBlockState(x, y, z, volcanoPatchBlock3); // Coal block
+                                                primer.setBlockState(x, y, z, volcanoBlock4); // Coal block
                                                 continue;
                                             }
                                         }
@@ -159,43 +145,26 @@ public class WorldGenVolcano {
 
                                     // Surfacing
                                     if (distanceEll < 70 + simplex.noise2(x / 26f, y / 26f) * 5) {
-                                        if (mapRand.nextInt(20) == 0) {
-
-                                            b = volcanoPatchBlock3;
-                                        }
-                                        else {
-
-                                            b = volcanoBlock;
-                                        }
+                                        if (mapRand.nextInt(20) == 0) { b = volcanoBlock4; }
+                                        else { b = volcanoBlock1; }
                                     }
+
                                     else if (distanceEll < 75 + simplex.noise2(x / 26f, y / 26f) * 5) {
                                         // Jittering in the base, to smooth the transition
                                         float powerNoise = simplex.octave(3).noise2(i / 40, j / 40f) * 2;
+
                                         if (mapRand.nextInt(1 + (int) Math.pow(Math.abs(distanceEll - (75 + simplex.noise2(x / 26f, y / 26f) * 5)), 1.5 + powerNoise) + 1) == 0) {
-                                            if (mapRand.nextInt(20) == 0) {
 
-                                                b = volcanoPatchBlock2;
-                                            }
-                                            else {
-
-                                                b = Blocks.STONE.getDefaultState(); // Stone so that surfacing will run (so this usually becomes grass)
-                                            }
+                                            if (mapRand.nextInt(20) == 0) { b = volcanoBlock3; }
+                                            else { b = Blocks.STONE.getDefaultState(); }// Stone so that surfacing will run (so this usually becomes grass)
                                         }
-                                        else {
-                                            b = volcanoBlock;
-                                        }
+                                        else { b = volcanoBlock1; }
                                     }
-                                    else {
-                                        b = Blocks.STONE.getDefaultState(); // Stone so that surfacing will run (so this usually becomes grass)
-                                    }
+                                    else { b = Blocks.STONE.getDefaultState(); }// Stone so that surfacing will run (so this usually becomes grass)
                                 }
-                                else {
-                                    b = Blocks.STONE.getDefaultState();
-                                }
+                                else { b = Blocks.STONE.getDefaultState(); }
                             }
-                            else {
-                                break;
-                            }
+                            else { break; }
 
                             primer.setBlockState(x, y, z, b);
                         }
@@ -206,29 +175,10 @@ public class WorldGenVolcano {
     }
 
     private static boolean isOnSurface(ChunkPrimer primer, int x, int y, int z) {
-
         return primer.getBlockState(x, y + 1, z) == Blocks.AIR.getDefaultState();
     }
 
-    public static int cta(int x, int y, int z) {
-
-        return (x * 16 + z) * 256 + y;
-    }
-
-    private static IBlockState getVolcanoBlock(String blockID, int blockMeta, IBlockState defaultBlock) {
-
-        IBlockState volcanoBlock;
-// TODO: [Clean-up] Do a proper null check instead of a try-catch
-        try {
-
-            volcanoBlock = Block.getBlockFromName(blockID).getStateFromMeta(blockMeta);
-        }
-        catch (Exception e) {
-
-            Logger.warn("Invalid volcano block ID or meta value. Using default block instead.");
-            volcanoBlock = defaultBlock;
-        }
-
-        return volcanoBlock;
+    private static IBlockState getVolcanoBlock(String blockID, IBlockState defaultBlock) {
+        return BlockUtil.getBlockStateFromCfgString(blockID, defaultBlock);
     }
 }

@@ -61,7 +61,6 @@ import rtg.api.util.LimitedSet;
 import rtg.api.util.Logger;
 import rtg.api.util.TimedHashSet;
 import rtg.api.util.Valued;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.ChunkProviderSettingsRTG;
@@ -107,7 +106,6 @@ public class ChunkProviderRTG implements IChunkGenerator
     private Random rand;
     private final World world;
     public final RTGWorld rtgWorld;
-    private WorldUtil worldUtil;
     private IBiomeProviderRTG biomeProvider;
     private Biome[] baseBiomesList;
     private float[] borderNoise;
@@ -157,7 +155,6 @@ public class ChunkProviderRTG implements IChunkGenerator
         Logger.debug("STARTED instantiating CPRTG.");
 
         this.world = world;
-        worldUtil = new WorldUtil(world);
         rtgWorld = new RTGWorld(this.world);
         this.settings = GenSettingsRepo.getSettingsForWorld(world);
 
@@ -895,8 +892,8 @@ public class ChunkProviderRTG implements IChunkGenerator
 
                     // Snow.
 // TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//                  if (settings.useSnowLayers && this.worldUtil.canSnowAt(snowPos, true)) {
-                    if (rtgConfig.ENABLE_SNOW_LAYERS.get() && this.worldUtil.canSnowAt(snowPos, true)) {
+//                  if (settings.useSnowLayers && this.world.canSnowAt(snowPos, true)) {
+                    if (rtgConfig.ENABLE_SNOW_LAYERS.get() && this.world.canSnowAt(snowPos, true)) {
                         this.world.setBlockState(snowPos, snowLayerBlock, 2);
                     }
                 }

@@ -15,7 +15,6 @@ import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.PlateauUtil;
 import rtg.util.ModCompat;
-import rtg.util.RealisticBiomePresenceTester;
 import rtg.world.biome.organic.OrganicBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
@@ -48,8 +47,8 @@ public class CommonProxy
     public void preInit(FMLPreInitializationEvent event) {
 
         RTGAPI.configPath = Paths.get(event.getModConfigurationDirectory().getPath(), RTG.MOD_ID.toUpperCase());
-        RTGAPI.rtgConfig = new RTGConfig();
-        RTGAPI.rtgConfig.load(RTGAPI.configPath.resolve(event.getSuggestedConfigurationFile().getName()).toFile());
+        RTGAPI.rtgConfig  = new RTGConfig(RTGAPI.configPath.resolve(event.getSuggestedConfigurationFile().getName()).toFile());
+        RTGAPI.rtgConfig.loadConfig();
 
         ModCompat.init();
 
@@ -92,6 +91,9 @@ public class CommonProxy
 
         RealisticBiomeBase.addModBiomes();
 
+        // PlateauUtil must init after biomes are setup
+        PlateauUtil.init();
+
         // Process unsupported biomes and initialise OrganicBiomes for them
         Biome.REGISTRY.forEach(biome -> {
             if (RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome)) == null) {
@@ -99,8 +101,6 @@ public class CommonProxy
             }
         });
 
-        RealisticBiomePresenceTester.doBiomeCheck();
-
-        PlateauUtil.init();
+        ModCompat.doBiomeCheck();
     }
 }

@@ -8,19 +8,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.BlockUtil;
-
 public class WorldGenJungleCacti extends WorldGenerator {
 
-    private boolean sand;
-    private byte sandByte;
-    private int eHeight;
+    private boolean sandOnly;
+    private int extraHeight;
 
-    public WorldGenJungleCacti(boolean sandOnly, int extraHeight, byte sandMeta) {
+    public WorldGenJungleCacti(boolean sandOnly, int extraHeight) {
 
-        sand = sandOnly;
-        eHeight = extraHeight;
-        sandByte = sandMeta;
+        this.sandOnly = sandOnly;
+        this.extraHeight = extraHeight;
     }
 
     @Override
@@ -37,13 +33,13 @@ public class WorldGenJungleCacti extends WorldGenerator {
 
             if (world.isAirBlock(new BlockPos(i1, j1, k1))) {
                 b = world.getBlockState(new BlockPos(i1, j1 - 1, k1));
-                if (b == Blocks.SAND.getDefaultState() || (!sand && (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()))) {
+                if (b == Blocks.SAND.getDefaultState() || (!sandOnly && (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()))) {
                     int l1 = 1 + rand.nextInt(rand.nextInt(3) + 1);
                     if (b == Blocks.GRASS.getDefaultState() || b == Blocks.DIRT.getDefaultState()) {
-                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), BlockUtil.getStateSand(sandByte), 2);
+                        world.setBlockState(new BlockPos(i1, j1 - 1, k1), Blocks.SAND.getDefaultState(), 2);
                     }
 
-                    for (int i2 = 0; i2 < l1 + eHeight; ++i2) {
+                    for (int i2 = 0; i2 < l1 + extraHeight; ++i2) {
                         if (Blocks.CACTUS.canBlockStay(world, new BlockPos(i1, j1 + i2, k1))) {
                             world.setBlockState(new BlockPos(i1, j1 + i2, k1), Blocks.CACTUS.getDefaultState(), 2);
                         }

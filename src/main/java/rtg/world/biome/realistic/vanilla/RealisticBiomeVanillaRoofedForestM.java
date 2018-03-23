@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -32,13 +33,11 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
+
     }
 
     @Override
@@ -77,7 +76,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
@@ -127,8 +126,8 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         this.addDeco(decoBoulder);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
-        mucronataTree.setLogBlock(BlockUtil.getStateLog2(1));
-        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        mucronataTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         mucronataTree.setMinTrunkSize(3);
         mucronataTree.setMaxTrunkSize(4);
         mucronataTree.setMinCrownSize(7);
@@ -154,8 +153,8 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(16);
         decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog2(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoFallenTree.setMinSize(4);
         decoFallenTree.setMaxSize(9);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());

@@ -12,8 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -21,7 +20,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.gravel_beach.get();
+    public static Biome biome = BOPBiomes.gravel_beach.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPGravelBeach() {
@@ -31,7 +30,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
@@ -63,7 +61,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
             biome.fillerBlock,
             biome.topBlock,
             biome.fillerBlock,
-            (byte) 0,
             1
         );
     }
@@ -72,16 +69,14 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
-        private byte sandMetadata;
         private int cliffType;
 
-        public SurfaceBOPGravelBeach(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2, byte metadata, int cliff) {
+        public SurfaceBOPGravelBeach(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2, int cliff) {
 
             super(config, top, filler);
 
             cliffBlock1 = cliff1;
             cliffBlock2 = cliff2;
-            sandMetadata = metadata;
             cliffType = cliff;
         }
 
@@ -90,7 +85,7 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f ? true : false;
             boolean dirt = false;
 
@@ -124,7 +119,7 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                             else {
-                                primer.setBlockState(x, k, z, BlockUtil.getStateSand(sandMetadata));
+                                primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
                             }
                         }
                         else if (depth < 4) {
@@ -132,7 +127,7 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
                                 primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {
-                                primer.setBlockState(x, k, z, BlockUtil.getStateSand(sandMetadata));
+                                primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
                             }
                         }
                         else if (!dirt) {

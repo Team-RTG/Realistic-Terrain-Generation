@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
@@ -30,13 +30,10 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().TEMPERATURE.set("0.25");
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -93,7 +90,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -102,7 +99,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

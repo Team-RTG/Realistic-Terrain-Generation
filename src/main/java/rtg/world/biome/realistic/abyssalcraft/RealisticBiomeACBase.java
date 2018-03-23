@@ -5,7 +5,7 @@ import net.minecraft.world.biome.Biome;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
-import rtg.util.ModCompat;
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
@@ -36,7 +36,7 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return ModCompat.abyssalcraft.getPrettyName();
+        return Mods.abyssalcraft.getPrettyName();
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
 
     public static void addBiomes() {
 
-        if (ModCompat.abyssalcraft.isLoaded()) {
+        if (Mods.abyssalcraft.isLoaded()) {
 
             ResourceLocation rl;
 

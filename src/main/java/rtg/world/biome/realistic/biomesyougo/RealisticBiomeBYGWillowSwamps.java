@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesyougo;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -28,8 +29,8 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
 
     public static Biome river = Biomes.RIVER;
 
-    private static IBlockState willowLogBlock = Block.getBlockFromName("BiomesYouGo:WillowLog").getDefaultState();
-    private static IBlockState willowLeavesBlock = Block.getBlockFromName("BiomesYouGo:WillowLeaves").getDefaultState();
+    private static IBlockState willowLogBlock    = BlockUtil.getBlockStateFromCfgString("BiomesYouGo:WillowLog", BlockUtil.getStateLog(EnumType.OAK));
+    private static IBlockState willowLeavesBlock = BlockUtil.getBlockStateFromCfgString("BiomesYouGo:WillowLeaves", BlockUtil.getStateLeaf(EnumType.OAK));
 
     public RealisticBiomeBYGWillowSwamps(Biome biome) {
 
@@ -38,7 +39,6 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -80,7 +80,7 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
@@ -149,8 +149,8 @@ public class RealisticBiomeBYGWillowSwamps extends RealisticBiomeBYGBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog2(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         decoFallenTree.setMaxY(76);

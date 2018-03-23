@@ -27,6 +27,7 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
+import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.WorldTypeRTG;
@@ -47,7 +48,6 @@ public class EventManagerRTG {
     private InitBiomeGensRTG INIT_BIOME_GENS_EVENT_HANDLER;
     private SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER;
     private DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER;
-    private SurfaceEventRTG SURFACE_EVENT_HANDLER;
 
 // TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkProviderRTG
     private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
@@ -64,8 +64,6 @@ public class EventManagerRTG {
         this.INIT_BIOME_GENS_EVENT_HANDLER   = new InitBiomeGensRTG();
         this.SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
         this.DECORATE_BIOME_EVENT_HANDLER    = new DecorateBiomeEventRTG();
-// TODO: [1.12] Contemplate removing UBC support.
-//      this.SURFACE_EVENT_HANDLER           = new SurfaceEventRTG();
         registerEventHandlers();
     }
 
@@ -332,7 +330,7 @@ public class EventManagerRTG {
                         return;
                     }
 
-                    if (!tree.hasSpaceToGrow(event.getWorld(), event.getRand(), event.getPos(), treeHeight)) {
+                    if (!BlockUtil.checkVerticalMaterials(MatchType.ALL_IGNORE_REPLACEABLE, event.getWorld(), event.getPos(), treeHeight)) {
                         Logger.debug("Unable to grow RTG tree with %d height. Something in the way.", treeHeight);
                         return;
                     }
@@ -431,59 +429,6 @@ public class EventManagerRTG {
         }
     }
 
-// TODO: [1.12] Contemplate removing UBC support.
-    public class SurfaceEventRTG {
-/*
-        private final ModPresenceTester undergroundBiomesMod = new ModPresenceTester("undergroundbiomes");
-
-        // Create UBColumnCache only if UB is present
-        private final UBColumnCache ubColumnCache = undergroundBiomesMod.present() ? new UBColumnCache() : null;
-
-        SurfaceEventRTG() {
-
-            logEventMessage("Initialising SurfaceEventRTG...");
-        }
-
-        @SubscribeEvent
-        public void onHardcodedCobble(SurfaceEvent.HardcodedBlock event) {
-
-            if ((undergroundBiomesMod.present())) {
-                event.setBlock(ubColumnCache.column(event.getWorldX(), event.getWorldZ()).cobblestone(event.getWorldY()));
-            }
-        }
-
-        @SubscribeEvent
-        public void onShadowStone(SurfaceEvent.HardcodedBlock event) {
-
-            if ((undergroundBiomesMod.present()) && rtgConfig.ENABLE_UBC_STONE_SHADOWING.get()) {
-                event.setBlock(Blocks.STONE.getDefaultState());
-            }
-        }
-
-        @SubscribeEvent
-        public void onShadowDesert(SurfaceEvent.HardcodedBlock event) {
-
-            if ((undergroundBiomesMod.present()) && rtgConfig.ENABLE_UBC_DESERT_SHADOWING.get()) {
-                event.setBlock(Blocks.STONE.getDefaultState());
-            }
-        }
-
-        @SubscribeEvent
-        public void onBoulderBlock(SurfaceEvent.BoulderBlock event) {
-
-            IBlockState defaultBlock = event.getBlock();
-
-            if (defaultBlock == Blocks.COBBLESTONE.getDefaultState()) {
-
-                if (undergroundBiomesMod.present() && rtgConfig.ENABLE_UBC_BOULDERS.get()) {
-
-                    event.setBlock(ubColumnCache.column(event.getWorldX(), event.getWorldZ()).cobblestone(event.getWorldY()));
-                }
-            }
-        }
-*/
-    }
-
     /*
      * This method registers most of RTG's event handlers.
      *
@@ -501,7 +446,6 @@ public class EventManagerRTG {
         MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
-//      MinecraftForge.TERRAIN_GEN_BUS.register(SURFACE_EVENT_HANDLER);
 
         logEventMessage("RTG's event handlers have been registered successfully.");
     }

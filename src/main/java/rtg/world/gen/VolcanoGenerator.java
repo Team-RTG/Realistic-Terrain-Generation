@@ -11,15 +11,16 @@ import rtg.api.util.LimitedSet;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.biome.IBiomeProviderRTG;
+import rtg.api.util.VolcanoUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import static rtg.world.biome.realistic.RealisticBiomeBase.getBiome;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.api.world.gen.feature.WorldGenVolcano;
 
 /**
  *
  * @author Zeno410
  */
+// TODO: [1.12] Clean this up.
 public class VolcanoGenerator {
     
     private Random mapRand;
@@ -57,15 +58,12 @@ public class VolcanoGenerator {
                 if (noVolcano.contains(probe)) continue;
                 noVolcano.add(probe);
                 mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapVolcanoes(primer, world, cmr, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                rMapVolcanoes(primer, world, cmr, baseX, baseY, chunkX, chunkY, simplex, noise);
             }
         }
     }
     
-    public void rMapVolcanoes(
-        ChunkPrimer primer, World world, IBiomeProviderRTG cmr, 
-            int baseX, int baseY, int chunkX, int chunkY,
-        OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void rMapVolcanoes(ChunkPrimer primer, World world, IBiomeProviderRTG cmr, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, float noise[]) {
 
         // Have volcanoes been disabled in the global config?
         if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
@@ -99,7 +97,7 @@ public class VolcanoGenerator {
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;
                 mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
 
-                WorldGenVolcano.build(primer, world, mapRand, baseX, baseY, chunkX, chunkY, simplex, cell, noise);
+                VolcanoUtil.build(primer, mapRand, baseX, baseY, chunkX, chunkY, simplex, noise);
             }
         }
     }

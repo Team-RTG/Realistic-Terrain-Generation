@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
@@ -30,14 +30,10 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().TEMPERATURE.set("0.25");
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK_META).set(0);
     }
 
     @Override
@@ -87,8 +83,8 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
             super(config, top, filler);
 
-            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixTop);
-            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), config.SURFACE_MIX_FILLER_BLOCK_META.get(), mixFill);
+            mixBlockTop  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), mixFill);
 
             width = mixWidth;
             height = mixHeight;
@@ -101,7 +97,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeVanillaBas
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

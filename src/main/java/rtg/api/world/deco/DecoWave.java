@@ -6,9 +6,9 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.util.WorldUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenWave;
@@ -16,7 +16,7 @@ import rtg.api.world.gen.feature.WorldGenWave;
 /**
  * @author WhichOnesPink
  */
-public class DecoWave extends DecoBase {
+public final class DecoWave extends DecoBase {
 
     private IBlockState waveBlock;
     private int loops;
@@ -33,7 +33,7 @@ public class DecoWave extends DecoBase {
 
         super();
 
-        /**
+        /*
          * Default values.
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
@@ -56,34 +56,26 @@ public class DecoWave extends DecoBase {
 
         if (this.allowed) {
 
-            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
+            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor())
+                * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
 
-            WorldGenerator worldGenerator = null;
-            int finalSize = 8;
-            if (this.maxSize > this.minSize) {
-                finalSize = this.minSize + rand.nextInt(this.maxSize - this.minSize);
-                worldGenerator = new WorldGenWave(finalSize);
-            }
-            else if (this.maxSize == this.minSize) {
-                finalSize = this.minSize;
-                worldGenerator = new WorldGenWave(finalSize);
-            }
-            else {
-                worldGenerator = new WorldGenWave(finalSize);
-            }
+            WorldGenerator worldGenerator;
+            if (this.maxSize > this.minSize) { worldGenerator = new WorldGenWave(this.minSize + rand.nextInt(this.maxSize - this.minSize)); }
+            else if (this.maxSize == this.minSize) { worldGenerator = new WorldGenWave(this.minSize); }
+            else { worldGenerator = new WorldGenWave(8); }
 
+            MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.loops; i++) {
                 if (isValidCondition(noise, strength, rand)) {
-                    int x22 = worldX + rand.nextInt(16);// + 8;
-                    int z22 = worldZ + rand.nextInt(16);// + 8;
-                    int y22 = rtgWorld.world().getHeight(new BlockPos(x22, 0, z22)).getY();
+                    int x = worldX + rand.nextInt(16);// + 8;
+                    int z = worldZ + rand.nextInt(16);// + 8;
+                    int y = rtgWorld.world().getHeight(mpos.setPos(x, 0, z)).getY();
 
                     //Logger.info("Strength = %f @ %d %d", strength, worldX, worldZ);
 
-                    if (y22 >= this.minY && y22 <= this.maxY) {
+                    if (y >= this.minY && y <= this.maxY) {
 
-                        worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x22, y22, z22));
+                        worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
                     }
                 }
             }

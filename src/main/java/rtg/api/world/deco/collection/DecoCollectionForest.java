@@ -1,5 +1,6 @@
 package rtg.api.world.deco.collection;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenTrees;
@@ -7,8 +8,13 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFallenTree.LogCondition;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.DecoTree.TreeCondition;
 import rtg.api.world.deco.DecoTree.TreeType;
 import rtg.api.world.deco.helper.DecoHelper5050;
@@ -17,6 +23,17 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaPungens;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 
 
 /**
@@ -54,7 +71,7 @@ public class DecoCollectionForest extends DecoCollectionBase {
     private DecoHelper5050 tallTrees(float noiseMin, float noiseMax) {
         return new DecoHelper5050(
             tallPineTrees(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState(), noiseMin, noiseMax),
-            tallPineTrees(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1), noiseMin, noiseMax)
+            tallPineTrees(BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLeaf(EnumType.SPRUCE), noiseMin, noiseMax)
         );
     }
 
@@ -84,7 +101,7 @@ public class DecoCollectionForest extends DecoCollectionBase {
     private DecoHelper5050 shortTrees(float noiseMin, float noiseMax) {
         return new DecoHelper5050(
             shortPineTrees(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState(), noiseMin, noiseMax),
-            shortPineTrees(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1), noiseMin, noiseMax)
+            shortPineTrees(BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLeaf(EnumType.SPRUCE), noiseMin, noiseMax)
         );
     }
 
@@ -169,8 +186,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
             .setLogCondition(LogCondition.RANDOM_CHANCE)
             .setLogConditionChance(24)
             .setMaxY(80)
-            .setLogBlock(BlockUtil.getStateLog(1))
-            .setLeavesBlock(BlockUtil.getStateLeaf(1))
+            .setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE))
+            .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE))
             .setMinSize(3)
             .setMaxSize(6);
     }
@@ -184,8 +201,8 @@ public class DecoCollectionForest extends DecoCollectionBase {
 
     private DecoShrub shrubsSpruce() {
         return new DecoShrub()
-            .setLogBlock(BlockUtil.getStateLog(1))
-            .setLeavesBlock(BlockUtil.getStateLeaf(1))
+            .setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE))
+            .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE))
             .setMaxY(140)
             .setStrengthFactor(4f)
             .setChance(9);
@@ -193,7 +210,7 @@ public class DecoCollectionForest extends DecoCollectionBase {
 
     private DecoFlowersRTG flowers() {
         return new DecoFlowersRTG()
-            .setFlowers(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
+            .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
             .setMaxY(128)
             .setStrengthFactor(6f);
     }

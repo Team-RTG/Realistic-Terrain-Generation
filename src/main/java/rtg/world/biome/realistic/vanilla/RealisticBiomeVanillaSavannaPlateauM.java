@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,9 +12,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
 import rtg.api.util.PlateauUtil;
-import rtg.api.util.PlateauStep;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
@@ -36,19 +36,11 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
-        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_ID).set("minecraft:stained_hardened_clay");
-        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_METAS).set(BiomeConfig.SAVANNA_PLATEAU_GRADIENT_METAS);
-        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_ID).set("minecraft:hardened_clay");
-        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_LIST).set(PlateauUtil.getSavannaPlateauBlocks());
     }
 
     @Override
@@ -60,7 +52,9 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
     public static class TerrainRTGSavannaPlateauM extends TerrainBase {
 
-        final PlateauStep step;
+        private static final float stepStart = 0.25f;
+        private static final float stepFinish = 0.4f;
+        private static final float stepHeight = 32;
         final VoronoiPlateauEffect plateau;
         final int groundNoise;
         private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
@@ -72,9 +66,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
         public TerrainRTGSavannaPlateauM(float base) {
             plateau = new VoronoiPlateauEffect();
-            step = new PlateauStep();
-            step.finish = 0.4f;
-            step.start = 0.25f;
             plateau.pointWavelength = 200;
             this.base = base;
             groundNoise = 4;
@@ -97,7 +88,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             float bumpiness = rtgWorld.simplex().octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
             simplex += bumpiness;
             //if (simplex > bordercap) simplex = bordercap;
-            float added = step.increase(simplex)/border;
+            float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight)/border;
             return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
         }
 
@@ -131,7 +122,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
          *
          */
         public TerrainVanillaSavannaPlateauM(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
-            /**
+            /*
              * Values come in pairs per layer. First is how high to step up.
              * 	Second is a value between 0 and 1, signifying when to step up.
              */
@@ -162,21 +153,20 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
         private int grassRaise = 0;
         private IBlockState mixBlock;
-        private IBlockState mix2Block;
 
         public SurfaceVanillaSavannaPlateauM(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
 
             super(config, top, fill);
             grassRaise = grassHeight;
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateDirt(1));
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
         }
 
         @Override
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
 

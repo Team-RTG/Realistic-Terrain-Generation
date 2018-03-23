@@ -3,6 +3,8 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -32,11 +34,9 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -78,7 +78,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
             float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;
@@ -119,7 +119,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
                             primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
                         }
                         else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
-                            primer.setBlockState(x, k, z, BlockUtil.getStateDirt(2));
+                            primer.setBlockState(x, k, z, BlockUtil.getStateDirt(DirtType.PODZOL));
                         }
                         else {
                             primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
@@ -158,8 +158,8 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());

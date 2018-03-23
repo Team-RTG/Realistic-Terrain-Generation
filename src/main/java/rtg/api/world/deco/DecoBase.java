@@ -15,7 +15,7 @@ import rtg.api.world.biome.IRealisticBiome;
  *
  * @author WhichOnesPink
  */
-// TODO: [Clean-up] Remove unused methods and parameters; Update to Java 8 compliance (remove explicit types, etc..)
+// TODO: [1.12] Remove unused methods and parameters; Update to Java 8 compliance (remove explicit types, etc..), Use generic classes like Collection instead of ArrayList
 public abstract class DecoBase {
 
     /**
@@ -23,6 +23,7 @@ public abstract class DecoBase {
      * Currently, the only deco that uses allow=false is the DecoBaseBiomeDecorations deco, and it only gets
      * set to false when we need to generate ores in biomes that don't let the base biome handle decoration at all.
      */
+// TODO: [1.12] To be removed when ore generation is fixed.
     protected boolean allowed;
     protected ArrayList<DecoType> decoTypes;
     protected boolean checkRiver;
@@ -38,6 +39,7 @@ public abstract class DecoBase {
         this.setMaxRiver(2f);
     }
 
+// TODO: [1.12] wat... What is the point of this check? How can a subclass not 'respond properly' to a call to #generate? Functionality target for replacement by an interface.
     public boolean properlyDefined() {
         // this procedure should return true if the deco can respond properly to a generate() call
         // in particular it should not crash.
@@ -63,6 +65,7 @@ public abstract class DecoBase {
      * Generates the decoration.
      * This method should be overridden in the individual deco objects.
      */
+// TODO: [1.12] Make abstract
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
     }
@@ -84,6 +87,7 @@ public abstract class DecoBase {
      *
      * @author WhichOnesPink
      */
+// TODO: [1.12] Combine all double plants.
     public enum DecoType {
         BASE_BIOME_DECORATION,
         BOULDER,

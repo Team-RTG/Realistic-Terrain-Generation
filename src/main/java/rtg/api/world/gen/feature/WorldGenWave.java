@@ -12,7 +12,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import rtg.api.RTGAPI;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.BlockUtil.MatchType;
 
 public class WorldGenWave extends WorldGenerator {
 
@@ -35,13 +36,11 @@ public class WorldGenWave extends WorldGenerator {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
-        return this.generate(world, rand, pos.getX(), pos.getY(), pos.getZ());
-    }
+        int x = pos.getX(),
+            y = pos.getY(),
+            z = pos.getZ(),
+            i;
 
-    public boolean generate(World world, Random rand, int x, int y, int z) {
-
-        WorldUtil worldUtil = new WorldUtil(world);
-        int i;
         IBlockState b;
 
         ArrayList<Integer> aX = new ArrayList<Integer>();
@@ -75,7 +74,7 @@ public class WorldGenWave extends WorldGenerator {
             if (world.canBlockFreezeWater(belowPos)) {
                 continue;
             }
-            if (worldUtil.isSurroundedByBlock(Blocks.WATER.getDefaultState(), 8, WorldUtil.SurroundCheckType.FULL, rand, aX.get(i1), aY.get(i1) - 1, aZ.get(i1))) {
+            if (BlockUtil.checkAreaBlocks(MatchType.ALL, world, pos.down(), 8, Blocks.WATER)) {
                 world.setBlockState(new BlockPos(aX.get(i1), aY.get(i1), aZ.get(i1)), aBlock.get(i1), 0);
             }
         }

@@ -3,15 +3,17 @@ package rtg.world.biome.realistic.biomesyougo;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStone.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.IRTGWorld;
@@ -30,7 +32,6 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
@@ -112,9 +113,9 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
         private float sStrength = 65f;
         private float cCliff = 1.5f;
 
-        private IBlockState redRockStone = Block.getBlockFromName("BiomesYouGo:RedRock").getDefaultState();
-        private IBlockState redRockCobble = Block.getBlockFromName("BiomesYouGo:RedRockCobblestone").getDefaultState();
-        private IBlockState redClay = BlockUtil.getStateClay(14);
+        private IBlockState redRockStone  = BlockUtil.getBlockStateFromCfgString("BiomesYouGo:RedRock", BlockUtil.getStateStone(EnumType.DIORITE));
+        private IBlockState redRockCobble = BlockUtil.getBlockStateFromCfgString("BiomesYouGo:RedRockCobblestone", Blocks.COBBLESTONE.getDefaultState());
+        private IBlockState redClay       = BlockUtil.getStateClay(EnumDyeColor.RED);
 
         public SurfaceBYGRedRockMountains(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff)
         {
@@ -137,7 +138,7 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

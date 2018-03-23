@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -14,13 +15,12 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -28,7 +28,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_R
 
 public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.fen.get();
+    public static Biome biome = BOPBiomes.fen.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPFen() {
@@ -38,7 +38,6 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -106,7 +105,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 
@@ -162,18 +161,12 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
-        decoBoulder1.setChance(12);
-        decoBoulder1.setStrengthFactor(1f);
-        DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder2.setMaxY(80);
-        decoBoulder2.setChance(12);
-        decoBoulder2.setStrengthFactor(1f);
-        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
-        this.addDeco(decoHelper5050);
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(12);
+        decoBoulder.setStrengthFactor(1f);
+        this.addDeco(decoBoulder);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
@@ -194,8 +187,8 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(16);
         decoFallenTree2.setMaxY(100);
-        decoFallenTree2.setLogBlock(BlockUtil.getStateLog2(1));
-        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(5);
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();

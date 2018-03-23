@@ -1,32 +1,41 @@
 package rtg.api.config;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLLog;
 
-import org.apache.logging.log4j.Level;
-
-import rtg.api.config.property.*;
+import rtg.api.config.property.ConfigProperty;
+import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayDouble;
+import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayInteger;
+import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayString;
+import rtg.api.config.property.ConfigPropertyBoolean;
+import rtg.api.config.property.ConfigPropertyFloat;
+import rtg.api.config.property.ConfigPropertyInteger;
+import rtg.api.config.property.ConfigPropertyString;
+import rtg.api.util.Logger;
 
 
 public abstract class Config {
 
-    protected ArrayList<ConfigProperty> properties = new ArrayList<ConfigProperty>();
+    private final File configFile;
     private Configuration config;
+    protected List<ConfigProperty> properties = new ArrayList<>();
 
-    public ArrayList<ConfigProperty> getProperties() {
-
-        return this.properties;
+    protected Config(@Nonnull File configFile) {
+        this.configFile = configFile;
     }
 
-    protected void addProp(ConfigProperty property) {
+    private void addProp(ConfigProperty property) {
 
         for (ConfigProperty prop : this.properties) {
 
-            if (prop.name.contentEquals(property.name)) {
-                removeProp(property.name);
+            if (prop.getName().contentEquals(property.getName())) {
+                removeProp(property.getName());
                 break;
             }
         }
@@ -34,11 +43,11 @@ public abstract class Config {
         this.properties.add(property);
     }
 
-    protected void removeProp(String name) {
+    private void removeProp(String name) {
 
         for (int i = 0; i < this.properties.size(); i++) {
 
-            if (this.properties.get(i).name.contentEquals(name)) {
+            if (this.properties.get(i).getName().contentEquals(name)) {
                 this.properties.remove(i);
                 return;
             }
@@ -46,120 +55,142 @@ public abstract class Config {
     }
 
     public boolean hasProperty(ConfigProperty prop) {
-        for (int i = 0; i < this.properties.size(); i++) {
-            if (this.properties.get(i).category.contentEquals(prop.category) && this.properties.get(i).name.contentEquals(prop.name)) {
-                return true;
-            }
-        }
-        return false;
+        return this.properties.stream().anyMatch(property -> property.getCategory().contentEquals(prop.getCategory()) && property.getName().contentEquals(prop.getName()));
     }
 
-    public ConfigPropertyBoolean addProperty(ConfigPropertyBoolean property) {
+    public final ConfigPropertyBoolean addProperty(ConfigPropertyBoolean property) {
         this.addProp(property);
         return property;
     }
 
-    public ConfigPropertyFloat addProperty(ConfigPropertyFloat property) {
+    public final ConfigPropertyFloat addProperty(ConfigPropertyFloat property) {
         this.addProp(property);
         return property;
     }
 
-    public ConfigPropertyInt addProperty(ConfigPropertyInt property) {
+    public final ConfigPropertyInteger addProperty(ConfigPropertyInteger property) {
         this.addProp(property);
         return property;
     }
 
-    public ConfigPropertyString addProperty(ConfigPropertyString property) {
+    public final ConfigPropertyString addProperty(ConfigPropertyString property) {
         this.addProp(property);
         return property;
     }
 
-    public void load(File configFile) {
+    public final ConfigPropertyArrayInteger addProperty(ConfigPropertyArrayInteger property) {
+        this.addProp(property);
+        return property;
+    }
 
-        config = new Configuration(configFile);
+    public final ConfigPropertyArrayDouble addProperty(ConfigPropertyArrayDouble property) {
+        this.addProp(property);
+        return property;
+    }
+
+    public final ConfigPropertyArrayString addProperty(ConfigPropertyArrayString property) {
+        this.addProp(property);
+        return property;
+    }
+
+    public void loadConfig() {
+
+        config = new Configuration(this.configFile);
 
         try {
             config.load();
 
-            ArrayList<ConfigProperty> properties = this.getProperties();
+            for (ConfigProperty prop : this.properties) {
 
-            for (ConfigProperty prop : properties) {
-
-                switch (prop.type) {
+                switch (prop.getType()) {
 
                     case INTEGER:
-
-                        ConfigPropertyInt propInt = (ConfigPropertyInt) prop;
-
+                        ConfigPropertyInteger propInt = (ConfigPropertyInteger) prop;
                         propInt.set(config.getInt(
-                            propInt.name,
-                            propInt.category,
+                            propInt.getName(),
+                            propInt.getCategory(),
                             propInt.valueInt,
                             propInt.minValueInt,
                             propInt.maxValueInt,
-                            prop.description
+                            propInt.getDescription()
                         ));
+                        break;
 
+                    case INTEGER_ARRAY:
+                        ConfigPropertyArrayInteger propIntArray = (ConfigPropertyArrayInteger) prop;
+                        propIntArray.set(ArrayUtils.toObject(
+                            config.get(
+                                propIntArray.getName(),
+                                propIntArray.getCategory(),
+                                propIntArray.getPrimitives(),
+                                propIntArray.getDescription(),
+                                propIntArray.getMinValue(),
+                                propIntArray.getMaxValue()
+                            ).getIntList()
+                        ));
                         break;
 
                     case FLOAT:
-
                         ConfigPropertyFloat propFloat = (ConfigPropertyFloat) prop;
-
                         propFloat.set(config.getFloat(
-                            propFloat.name,
-                            propFloat.category,
+                            propFloat.getName(),
+                            propFloat.getCategory(),
                             propFloat.valueFloat,
                             propFloat.minValueFloat,
                             propFloat.maxValueFloat,
-                            propFloat.description
+                            propFloat.getDescription()
                         ));
+                        break;
 
+                    case DOUBLE_ARRAY:
+                        ConfigPropertyArrayDouble propDoubleArray = (ConfigPropertyArrayDouble) prop;
+                        propDoubleArray.set(ArrayUtils.toObject(
+                            config.get(
+                                propDoubleArray.getName(),
+                                propDoubleArray.getCategory(),
+                                propDoubleArray.getPrimitives(),
+                                propDoubleArray.getDescription(),
+                                propDoubleArray.getMinValue(),
+                                propDoubleArray.getMaxValue()
+                            ).getDoubleList()
+                        ));
                         break;
 
                     case BOOLEAN:
-
                         ConfigPropertyBoolean propBool = (ConfigPropertyBoolean) prop;
-
                         propBool.set(config.getBoolean(
-                            propBool.name,
-                            propBool.category,
+                            propBool.getName(),
+                            propBool.getCategory(),
                             propBool.valueBoolean,
-                            propBool.description
+                            propBool.getDescription()
                         ));
-
                         break;
 
                     case STRING:
-
                         ConfigPropertyString propString = (ConfigPropertyString) prop;
-
                         propString.set(config.getString(
-                            propString.name,
-                            propString.category,
+                            propString.getName(),
+                            propString.getCategory(),
                             propString.valueString,
-                            propString.description
+                            propString.getDescription()
                         ));
-
                         break;
 
-                    default:
-                        throw new RuntimeException("ConfigProperty type not supported.");
+                    case STRING_ARRAY:
+                        ConfigPropertyArrayString propStringArray = (ConfigPropertyArrayString) prop;
+                        propStringArray.set(config.get(
+                            propStringArray.getName(),
+                            propStringArray.getCategory(),
+                            propStringArray.getValues(),
+                            propStringArray.getDescription()
+                        ).getStringList());
+                        break;
                 }
             }
-
         }
-        catch (Exception e) {
-            FMLLog.log(Level.ERROR, "[RTG-ERROR] RTG had a problem loading config: %s", configFile);
-        }
-        finally {
-            if (config.hasChanged()) {
-                config.save();
-            }
-        }
+        catch (Exception ignored) { Logger.error("RTG had a problem loading config: {}", configFile); }
+        finally { if (config.hasChanged()) { config.save(); } }
     }
 
-    public Configuration getConfig() {
-        return config;
-    }
+    public Configuration getConfig() { return config; }
 }

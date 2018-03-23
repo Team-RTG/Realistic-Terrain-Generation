@@ -13,7 +13,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
@@ -23,7 +23,7 @@ import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.tropical_island.get();
+    public static Biome biome = BOPBiomes.tropical_island.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPTropicalIsland() {
@@ -33,7 +33,6 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -101,7 +100,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

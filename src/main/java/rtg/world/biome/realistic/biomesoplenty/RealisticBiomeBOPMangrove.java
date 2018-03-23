@@ -12,14 +12,14 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 
-	public static Biome biome = BOPBiomes.mangrove.get();
+	public static Biome biome = BOPBiomes.mangrove.orNull();
 	public static Biome river = Biomes.RIVER;
 	
 	public RealisticBiomeBOPMangrove()
@@ -65,7 +65,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 		public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
 			Random rand = rtgWorld.rand();
-			float c = CliffCalculator.calc(x, z, noise);
+			float c = TerrainUtil.calcCliff(x, z, noise);
 			boolean cliff = c > 1.4f ? true : false;
 
 			for (int k = 255; k > -1; k--) {

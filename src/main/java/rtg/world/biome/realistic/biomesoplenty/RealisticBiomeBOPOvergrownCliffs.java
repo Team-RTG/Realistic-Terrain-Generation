@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -20,7 +20,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.overgrown_cliffs.get();
+    public static Biome biome = BOPBiomes.overgrown_cliffs.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPOvergrownCliffs() {
@@ -30,7 +30,6 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -114,7 +113,7 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

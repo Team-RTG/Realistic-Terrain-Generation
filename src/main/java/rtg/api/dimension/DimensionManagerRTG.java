@@ -1,23 +1,20 @@
 package rtg.api.dimension;
 
-import java.util.ArrayList;
+import java.util.Set;
+
+import com.google.common.collect.Sets;
+
+import rtg.api.util.UtilityClass;
 
 /**
  * Created by WhichOnesPink on 28/05/2017.
  */
-public abstract class DimensionManagerRTG {
-
-    public static final int OVERWORLD = 0;
-    private static ArrayList<Integer> rtgDimensions = new ArrayList<Integer>(){};
-
-    public static void addRTGDimension(int dimId) {
-
-        if (!rtgDimensions.contains(dimId)) {
-            rtgDimensions.add(dimId);
-        }
-    }
-
-    public static boolean isValidDimension(int dimId) {
-        return rtgDimensions.contains(dimId);
-    }
+// TODO: [1.12] It's not likely that we will need to manage dimentions, a simple dimension type blacklist should be fine. This class should be removed.
+@UtilityClass
+public final class DimensionManagerRTG
+{
+    private DimensionManagerRTG() {}
+    private static Set<Integer> rtgDimensions = Sets.newHashSet();
+    public static void addRTGDimension(int dimId) { rtgDimensions.add(dimId); }
+    public static boolean isValidDimension(int dimId) { return rtgDimensions.contains(dimId); }
 }

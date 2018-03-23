@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionForest;
@@ -39,14 +40,10 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
     }
 
     @Override
@@ -82,7 +79,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         return new SurfaceVanillaForest(
             config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
             0f, 1.5f, 60f, 65f, 1.5f,
-            BlockUtil.getStateDirt(2), 0.6f, BlockUtil.getStateStone(BlockUtil.StoneType.STONE), -0.4f
+            BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
         );
     }
 
@@ -111,9 +108,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
-            this.mixHeight = mixHeight;
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), mix2);
+            this.mixBlock   = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+            this.mixHeight  = mixHeight;
+            this.mix2Block  = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
             this.mix2Height = mix2Height;
         }
 
@@ -122,7 +119,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -22,7 +23,7 @@ import rtg.api.world.terrain.heighteffect.*;
 
 public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.bamboo_forest.get();
+    public static Biome biome = BOPBiomes.bamboo_forest.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPBambooForest() {
@@ -98,7 +99,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPBambooForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f);
+        return new SurfaceBOPBambooForest(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     public class SurfaceBOPBambooForest extends SurfaceBase {
@@ -133,7 +134,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

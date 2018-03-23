@@ -6,6 +6,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.world.biome.IRealisticBiome;
@@ -61,6 +62,12 @@ public final class OrganicBiome extends RealisticBiomeBase {
     @Override
     public void initDecos() {
         this.addDeco(new DecoBaseBiomeDecorations());
+    }
+
+    @Override
+    public String modSlug() {
+        ResourceLocation rl = baseBiome().getRegistryName();
+        return (rl != null) ? rl.getResourceDomain() : "UNKNOWN_MOD";
     }
 
     public static void newOrganicBiome(Biome biome) {

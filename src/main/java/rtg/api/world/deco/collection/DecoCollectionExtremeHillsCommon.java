@@ -1,12 +1,24 @@
 package rtg.api.world.deco.collection;
 
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoLargeFernDoubleTallgrass;
+import rtg.api.world.deco.DecoMushrooms;
+import rtg.api.world.deco.DecoPumpkin;
+import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.helper.DecoHelper5050;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
@@ -50,7 +62,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
     private DecoHelper5050 logDecos() {
         return new DecoHelper5050(
             logs(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState()),
-            logs(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1))
+            logs(BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLeaf(EnumType.SPRUCE))
         );
     }
 
@@ -67,7 +79,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
     private DecoHelper5050 shrubDecos() {
         return new DecoHelper5050(
             shrubs(Blocks.LOG.getDefaultState(), Blocks.LEAVES.getDefaultState()),
-            shrubs(BlockUtil.getStateLog(1), BlockUtil.getStateLeaf(1))
+            shrubs(BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLeaf(EnumType.SPRUCE))
         );
     }
 
@@ -82,7 +94,8 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
     private DecoFlowersRTG flowers() {
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.setFlowers(new int[]{9, 9, 9, 9, 3, 3, 3, 3, 3, 2, 2, 2});
+// TODO: [1.12] Original flowers list had dupes.. may need to increase flower generation here.
+        decoFlowersRTG.addFlowers(ALLIUM, HOUSTONIA, DANDELION);
         decoFlowersRTG.setMaxY(80);
         decoFlowersRTG.setLoops(3);
         return decoFlowersRTG;

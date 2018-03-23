@@ -5,9 +5,9 @@ public class ConfigPropertyString extends ConfigProperty {
 
     public String valueString;
 
-    public ConfigPropertyString(Type type, String name, String category, String description, String defaultValue) {
+    public ConfigPropertyString(String name, String category, String description, String defaultValue) {
 
-        super(type, name, category, description);
+        super(Type.STRING, name, category, description);
 
         this.valueString = defaultValue;
 

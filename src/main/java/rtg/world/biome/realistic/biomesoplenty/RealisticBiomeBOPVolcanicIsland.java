@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoGrassDoubleTallgrass;
@@ -21,7 +21,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.volcanic_island.get();
+    public static Biome biome = BOPBiomes.volcanic_island.orNull();
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPVolcanicIsland() {
@@ -31,7 +31,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VOLCANOES.set(true);
@@ -100,7 +99,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

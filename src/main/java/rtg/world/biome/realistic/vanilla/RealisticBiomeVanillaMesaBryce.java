@@ -6,14 +6,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
-import rtg.api.util.PlateauStep;
 import rtg.api.util.PlateauUtil;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
@@ -35,18 +35,11 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_VILLAGES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
-        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_ID).set("minecraft:stained_hardened_clay");
-        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_METAS).set(BiomeConfig.MESA_PLATEAU_GRADIENT_METAS);
-        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_ID).set("minecraft:hardened_clay");
-        this.getConfig().addProperty(this.getConfig().PLATEAU_BLOCK_META).set(0);
+        this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_LIST).set(PlateauUtil.getMesaPlateauBlocks());
     }
 
     @Override
@@ -56,7 +49,9 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     }
     public static class TerrainRTGMesaBryce extends TerrainBase {
 
-        final PlateauStep step;
+        private static final float stepFinish = 0.9f;
+        private static final float stepStart = 0.55f;
+        private static final float stepHeight = 50;
         final VoronoiBasinEffect plateau;
         final int groundNoise;
         private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
@@ -68,10 +63,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         
         public TerrainRTGMesaBryce(float base) {
             plateau = new VoronoiBasinEffect();
-            step = new PlateauStep();
-            step.finish = 0.9f;
-            step.start = 0.55f;
-            step.height = 50;
             plateau.pointWavelength = 100;
             this.base = base;
             groundNoise = 4;
@@ -91,7 +82,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
             simplex += bumpiness;
             //if (simplex > bordercap) simplex = bordercap;
-            float added = step.increase(simplex);
+            float added = PlateauUtil.stepIncrease(simplex, stepFinish, stepStart, stepHeight);
             return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
         }
         
@@ -144,7 +135,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMesaBryce(config, biome.topBlock, BlockUtil.getStateClay(1), 0);
+        return new SurfaceVanillaMesaBryce(config, biome.topBlock, BlockUtil.getStateClay(EnumDyeColor.ORANGE), 0);
     }
 
     @Override
@@ -174,15 +165,15 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
             super(config, top, fill);
             grassRaise = grassHeight;
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), BlockUtil.getStateClay(1));
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), Blocks.RED_SANDSTONE.getDefaultState());
+            this.mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(),   BlockUtil.getStateClay(EnumDyeColor.ORANGE));
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), Blocks.RED_SANDSTONE.getDefaultState());
         }
 
         @Override
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
 

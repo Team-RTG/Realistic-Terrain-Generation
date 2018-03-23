@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.morechinesemc;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -33,10 +34,8 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -145,7 +144,7 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 
@@ -208,15 +207,15 @@ public class RealisticBiomeMCMLoessPlateau extends RealisticBiomeMCMBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(24);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setLogBlock(BlockUtil.getStateLog(1));
-        decoShrub.setLeavesBlock(BlockUtil.getStateLeaf(1));
+        decoShrub.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoShrub.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoShrub.setMaxY(90);
         decoShrub.setStrengthFactor(2f);
         decoShrub.setChance(12);

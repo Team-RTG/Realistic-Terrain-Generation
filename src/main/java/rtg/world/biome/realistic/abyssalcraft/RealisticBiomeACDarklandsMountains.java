@@ -10,10 +10,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.FunctionalTerrainBase;
@@ -36,7 +35,6 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
@@ -126,7 +124,7 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

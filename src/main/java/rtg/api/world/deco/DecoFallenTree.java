@@ -4,11 +4,13 @@ import java.util.Random;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+import rtg.api.util.BlockUtil;
+import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.util.DecoUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLog;
@@ -29,7 +31,6 @@ public class DecoFallenTree extends DecoBase {
     private int minSize; // Min log height (only used with certain log presets)
     private int maxSize; // Max log height (only used with certain log presets)
     private IBlockState[] randomLogBlocks;
-    private DecoUtil decoUtil = new DecoUtil(this);
 
     public DecoFallenTree() {
 
@@ -54,6 +55,7 @@ public class DecoFallenTree extends DecoBase {
         this.addDecoTypes(DecoType.FALLEN_TREE);
     }
 
+// TODO: [1.12] Remove this unused constructor.
     public DecoFallenTree(DecoFallenTree source) {
 
         this();
@@ -75,8 +77,8 @@ public class DecoFallenTree extends DecoBase {
 
         if (this.allowed) {
 
-            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
-            WorldUtil worldUtil = new WorldUtil(rtgWorld.world());
+            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor());
+            noise *= this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
 
             //Do we want to choose a random log?
             if (this.randomLogBlocks.length > 0) {
@@ -87,7 +89,7 @@ public class DecoFallenTree extends DecoBase {
             int finalSize = 4;
 
             // Adjust the chance according to biome config.
-            this.setLogConditionChance(decoUtil.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
+            this.setLogConditionChance(DecoUtil.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
 
             if (this.maxSize > this.minSize) {
                 finalSize = this.minSize + rand.nextInt(this.maxSize - this.minSize);
@@ -101,22 +103,25 @@ public class DecoFallenTree extends DecoBase {
                 worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);
             }
 
+            final World world = rtgWorld.world();
+            MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.loops; i++) {
                 if (isValidLogCondition(noise, strength, rand)) {
-                    int x22 = worldX + rand.nextInt(16);// + 8;
-                    int z22 = worldZ + rand.nextInt(16);// + 8;
-                    int y22 = rtgWorld.world().getHeight(new BlockPos(x22, 0, z22)).getY();
+                    int x = worldX + rand.nextInt(16);// + 8;
+                    int z = worldZ + rand.nextInt(16);// + 8;
+                    int y = rtgWorld.world().getHeight(mpos.setPos(x, 0, z)).getY();
+                    mpos.setPos(x, y, z);
 
-                    if (y22 <= this.maxY) {
+                    if (y <= this.maxY) {
 
                         // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
-                            if (!worldUtil.isSurroundedByBlock(Blocks.AIR.getDefaultState(), finalSize, WorldUtil.SurroundCheckType.CARDINAL, rand, x22, y22, z22)) {
+// TODO: [1.12] May need to add a check to prevent fallen logs from generating over village farmland. [LOLOL IT'S A FEATURE NOT A BUG!]
+                            if (!BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, mpos, finalSize)) {
                                 return;
                             }
                         }
-
-                        worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(x22, y22, z22));
+                        worldGenerator.generate(world, rand, mpos);
                     }
                 }
             }

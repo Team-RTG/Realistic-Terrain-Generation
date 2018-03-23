@@ -1,5 +1,6 @@
 package rtg.api.world.gen;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
@@ -16,7 +17,7 @@ import net.minecraft.util.JsonUtils;
 
 
 @SuppressWarnings("WeakerAccess")
-public class ChunkProviderSettingsRTG
+public final class ChunkProviderSettingsRTG
 {
 // TODO: [Generator settings] Requires an extension of net.minecraft.world.gen.layer.GenLayerBiome for this to work.
 // TODO: [Generator settings] Disable fixedBiome and biomeSize for now as they require modification to the GenLayer classes to work.
@@ -27,7 +28,7 @@ public class ChunkProviderSettingsRTG
     public final boolean oceanWaves;            // RTG
 
     public final boolean useBoulders;           // RTG
-    public final int     boulderChance;         // RTG
+    public final float   boulderMult;           // RTG
     public final int     sandDuneHeight;        // RTG
 //  public final int     snowDuneHeight;        // RTG - No current use
     public final boolean useSnowLayers;         // RTG
@@ -167,7 +168,7 @@ public class ChunkProviderSettingsRTG
         this.oceanWaves             = settingsFactory.oceanWaves;
 
         this.useBoulders            = settingsFactory.useBoulders;
-        this.boulderChance          = settingsFactory.boulderChance;
+        this.boulderMult            = settingsFactory.boulderMult;
         this.sandDuneHeight         = settingsFactory.sandDuneHeight;
 //      this.snowDuneHeight         = settingsFactory.snowDuneHeight;
         this.useSnowLayers          = settingsFactory.useSnowLayers;
@@ -306,7 +307,7 @@ public class ChunkProviderSettingsRTG
         public boolean  oceanWaves           = true;
 
         public boolean  useBoulders          = true;
-        public int      boulderChance        = 1;
+        public float    boulderMult          = 1.0f;
         public int      sandDuneHeight       = 4;
 //      public int      snowDuneHeight       = 4;
         public boolean  useSnowLayers        = true;
@@ -435,18 +436,17 @@ public class ChunkProviderSettingsRTG
         public int      lapisSpread          = 16;  
 
 
+        @Nullable
         public static ChunkProviderSettingsRTG.Factory jsonToFactory(String generatorSettings) {
 
             if (generatorSettings.isEmpty()) {
                 return new ChunkProviderSettingsRTG.Factory();
             }
-            else {
-                try {
-                    return JsonUtils.gsonDeserialize(JSON_ADAPTER, generatorSettings, Factory.class);
-                }
-                catch (Exception ignored) {
-                    return new ChunkProviderSettingsRTG.Factory();
-                }
+            try {
+                return JsonUtils.gsonDeserialize(JSON_ADAPTER, generatorSettings, Factory.class);
+            }
+            catch (Exception ignored) {
+                return new ChunkProviderSettingsRTG.Factory();
             }
         }
 
@@ -462,7 +462,7 @@ public class ChunkProviderSettingsRTG
             this.oceanWaves             = true;
 
             this.useBoulders            = true;
-            this.boulderChance          = 1;
+            this.boulderMult            = 1.0f;
             this.sandDuneHeight         = 4;
 //          this.snowDuneHeight         = 4;
             this.useSnowLayers          = true;
@@ -598,7 +598,15 @@ public class ChunkProviderSettingsRTG
 
     public static class Serializer implements JsonDeserializer<Factory>, JsonSerializer<Factory> {
 
-        public Factory deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+        /**
+         * @param element .
+         * @param type .
+         * @param context .
+         * @return .
+         * @throws JsonParseException .
+         */
+        @Override
+        public Factory deserialize(JsonElement element, Type type, JsonDeserializationContext context) {
 
             JsonObject json = element.getAsJsonObject();
             Factory    settings   = new Factory();
@@ -611,7 +619,7 @@ public class ChunkProviderSettingsRTG
                 settings.oceanWaves             = JsonUtils.getBoolean(json,"oceanWaves",           settings.oceanWaves);
 
                 settings.useBoulders            = JsonUtils.getBoolean(json,"useBoulders",          settings.useBoulders);
-                settings.boulderChance          = JsonUtils.getInt(json,    "boulderChance",        settings.boulderChance);
+                settings.boulderMult            = JsonUtils.getFloat(json,  "boulderMult",          settings.boulderMult);
                 settings.sandDuneHeight         = JsonUtils.getInt(json,    "sandDuneHeight",       settings.sandDuneHeight);
 //              settings.snowDuneHeight         = JsonUtils.getInt(json,    "snowDuneHeight",       settings.snowDuneHeight);
                 settings.useSnowLayers          = JsonUtils.getBoolean(json,"useSnowLayers",        settings.useSnowLayers);
@@ -743,6 +751,7 @@ public class ChunkProviderSettingsRTG
             return settings;
         }
 
+        @Override
         public JsonElement serialize(ChunkProviderSettingsRTG.Factory factory, Type type, JsonSerializationContext context) {
 
             JsonObject json = new JsonObject();
@@ -754,7 +763,7 @@ public class ChunkProviderSettingsRTG
             json.addProperty("oceanWaves",           factory.oceanWaves);
 
             json.addProperty("useBoulders",          factory.useBoulders);
-            json.addProperty("boulderChance",        factory.boulderChance);
+            json.addProperty("boulderMult",          factory.boulderMult);
             json.addProperty("sandDuneHeight",       factory.sandDuneHeight);
 //          json.addProperty("snowDuneHeight",       factory.snowDuneHeight);
             json.addProperty("useSnowLayers",        factory.useSnowLayers);

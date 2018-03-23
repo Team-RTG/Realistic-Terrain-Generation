@@ -1,5 +1,6 @@
 package rtg.api.world.deco.collection;
 
+import net.minecraft.block.BlockSand;
 import net.minecraft.init.Blocks;
 
 import rtg.api.config.BiomeConfig;
@@ -33,7 +34,7 @@ public class DecoCollectionMesa extends DecoCollectionBase {
         this.addDeco(decoDeadBush);
 
         DecoCactus decoCactus = new DecoCactus();
-        decoCactus.setSoilBlock(BlockUtil.getStateSand(1));
+        decoCactus.setSoilBlock(BlockUtil.getStateSand(BlockSand.EnumType.RED_SAND));
         decoCactus.setLoops(18);
         decoCactus.setMaxY(100);
         this.addDeco(decoCactus, config.ALLOW_CACTUS.get());

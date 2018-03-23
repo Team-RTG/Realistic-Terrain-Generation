@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.world.biome.Biome;
 
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
@@ -83,12 +84,7 @@ public abstract class RealisticBiomeVanillaBase extends RealisticBiomeBase {
 
     @Override
     public String modSlug() {
-        return "vanilla";
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 0;
+        return Mods.minecraft.getPrettyName();
     }
 
     public static void addBiomes() {

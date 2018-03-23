@@ -3,6 +3,7 @@ package rtg.world.biome.realistic.atg;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -31,9 +32,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase {
     @Override
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK_META).set(0);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase {
 
         return new SurfaceATGTundra(
             config, this.baseBiome.topBlock, this.baseBiome.fillerBlock,
-            BlockUtil.getStateDirt(1), 12f, -0.6f,
+            BlockUtil.getStateDirt(DirtType.COARSE_DIRT), 12f, -0.6f,
             Blocks.GRAVEL.getDefaultState(), 0.6f
         );
     }
@@ -85,11 +84,11 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase {
 
             super(config, top, filler);
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mixBlock);
-            this.mixWidth = mixWidth;
-            this.mixHeight = mixHeight;
+            this.mixBlock   = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixBlock);
+            this.mixWidth   = mixWidth;
+            this.mixHeight  = mixHeight;
 
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), config.SURFACE_MIX_2_BLOCK_META.get(), mix2Block);
+            this.mix2Block  = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2Block);
             this.mix2Height = mix2Height;
         }
 
@@ -98,7 +97,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             float mixNoise;
             boolean cliff = c > 1.4f;
 

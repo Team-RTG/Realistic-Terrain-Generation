@@ -1,13 +1,23 @@
 package rtg.api.world.deco;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
+import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.event.terraingen.TerrainGen;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 
+import rtg.api.util.Logger;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
@@ -18,7 +28,7 @@ import rtg.api.world.gen.feature.WorldGenFlowersRTG;
  */
 public class DecoFlowersRTG extends DecoBase {
 
-    private int[] flowers; // Integer array of flower IDs.
+    private final Collection<EnumFlowerType> flowers = Sets.newHashSet();
     private float strengthFactor; // Higher = more flowers.
     private int minY; // Height restriction.
     private int maxY; // Height restriction.
@@ -27,7 +37,7 @@ public class DecoFlowersRTG extends DecoBase {
     private int notEqualsZeroChance;
     private int loops;
 
-    /*
+    /**
      * FLOWER LIST:
      * 0	Poppy
      * 1	Blue Orchid
@@ -49,16 +59,11 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG() {
 
         super();
-
-        /**
-         * Default values.
-         * These can be overridden when configuring the Deco object in the realistic biome.
-         */
-        this.setFlowers(new int[]{0, 9}); // Only roses and dandelions by default.
+        this.addFlowers(POPPY, DANDELION); // Only POPPY and DANDELION by default.
         this.setChance(1); // 100% chance of generating by default.
         this.setNotEqualsZeroChance(1);
         this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
-        this.setMaxY(253); // 2 below max build height to account for 2-block tall flowers.
+        this.setMaxY(255);
         this.setHeightType(HeightType.NEXT_INT);
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setLoops(1);
@@ -69,9 +74,17 @@ public class DecoFlowersRTG extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
+        BlockPos pos = new BlockPos(worldX, 0, worldZ);
+
+        if (this.flowers==null || this.flowers.isEmpty()) {
+            Logger.error("DecoFlowerRTG called with a null or empty flower list in biome {} at {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), pos.toString());
+            return;
+        }
+
+
         if (this.allowed) {
 
-            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), FLOWERS)) {
+            if (TerrainGen.decorate(rtgWorld.world(), rand, pos, FLOWERS)) {
 
                 WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
 
@@ -118,18 +131,17 @@ public class DecoFlowersRTG extends DecoBase {
 
     public enum HeightType {
         NEXT_INT,
-        GET_HEIGHT_VALUE;
+        GET_HEIGHT_VALUE
     }
 
-    public int[] getFlowers() {
-
-        return flowers;
-    }
-
-    public DecoFlowersRTG setFlowers(int[] flowers) {
-
-        this.flowers = flowers;
+// TODO: [1.12] Maybe add a method for adding flowers with weight, so that some in a list are more predominant.
+    public DecoFlowersRTG addFlowers(EnumFlowerType... flowers) {
+        this.flowers.addAll(Lists.newArrayList(flowers));
         return this;
+    }
+
+    public Collection<EnumFlowerType> getFlowers() {
+        return Collections.unmodifiableCollection(this.flowers);
     }
 
     public float getStrengthFactor() {

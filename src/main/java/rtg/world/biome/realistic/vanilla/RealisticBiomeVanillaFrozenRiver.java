@@ -27,7 +27,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
@@ -60,7 +59,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
 
         public SurfaceVanillaFrozenRiver(BiomeConfig config) {
 
-            super(config, Blocks.GRASS, (byte) 0, Blocks.DIRT, (byte) 0);
+            super(config, Blocks.GRASS, Blocks.DIRT);
         }
 
         @Override

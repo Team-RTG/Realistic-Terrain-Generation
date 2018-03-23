@@ -1,193 +1,125 @@
 package rtg.api.world.gen.feature;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import rtg.api.RTGAPI;
-import rtg.api.config.RTGConfig;
-import rtg.api.util.BoulderUtil;
-import rtg.api.util.RandomUtil;
+import net.minecraftforge.common.MinecraftForge;
 
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
+import rtg.api.event.CustomizeBlockEvent;
+import rtg.api.util.BlockUtil;
+import rtg.api.util.BlockUtil.MatchType;
+
 public class WorldGenBlob extends WorldGenerator {
 
-    protected boolean water = true;
-// TODO: [Clean-up] Change to List
-    private ArrayList<Block> validGroundBlocks;
-    private IBlockState blobBlock;
-    private int blobSize;
-    private boolean booShouldGenerate = true;
+    private final IBlockState blobBlock;
+    private final int blobSize;
+    private boolean allowInWater;
+    private Collection<Block> validGroundBlocks;
+    private boolean enabled = true;
 
-    private WorldGenBlob(IBlockState block, int size, Random rand) {
+    public WorldGenBlob(IBlockState block, int size, Collection<Block> validGroundBlocks, boolean allowInWater) {
 
         super(false);
         this.blobBlock = block;
         this.blobSize = size;
-
-        this.validGroundBlocks = new ArrayList<>(Arrays.asList(
-            Blocks.GRASS,
-            Blocks.DIRT,
-            Blocks.STONE,
-            Blocks.GRAVEL,
-            Blocks.CLAY,
-            Blocks.SAND
-        ));
-
-// TODO: [Generator settings] The boulder config check should be removed and all functionality changed to use the generator settings in DecoBoulder#generate
-        if (blobBlock == Blocks.MOSSY_COBBLESTONE.getDefaultState() || blobBlock == Blocks.COBBLESTONE.getDefaultState()) {
-
-            RTGConfig rtgConfig = RTGAPI.config();
-            int chance = rtgConfig.COBBLESTONE_BOULDER_CHANCE.get();
-            chance = (chance < 1) ? 1 : ((chance > 100) ? 100 : chance);
-
-            int random = RandomUtil.getRandomInt(rand, 1, chance);
-
-            if (random == 1) {
-                booShouldGenerate = false;
-            }
-
-//            }
-        }
-    }
-
-    private WorldGenBlob(IBlockState block, int size, Random rand, boolean water) {
-
-        this(block, size, rand);
-        this.water = water;
-    }
-
-    public WorldGenBlob(IBlockState block, int size, Random rand, boolean water, ArrayList<Block> validGroundBlocks) {
-
-        this(block, size, rand, water);
-        this.validGroundBlocks = validGroundBlocks;
+        this.validGroundBlocks = Collections.unmodifiableCollection(validGroundBlocks);
+        this.allowInWater = allowInWater;
     }
 
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
-        if (!booShouldGenerate) {
-            return false;
-        }
+        if (this.enabled) {
 
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
+            CustomizeBlockEvent event = new CustomizeBlockEvent(world, pos, this.blobBlock);
+            MinecraftForge.TERRAIN_GEN_BUS.post(event);
+            IBlockState boulderBlock = event.getBlockState();
 
-        IBlockState boulderBlock = BoulderUtil.getBoulderBlock(this.blobBlock, x, y, z);
+            int x = pos.getX();
+            int y = pos.getY();
+            int z = pos.getZ();
 
-        while (true) {
-            if (y > 3) {
-                label63:
-                {
-                    if (!world.isAirBlock(new BlockPos(x, y - 1, z))) {
-                        IBlockState block = world.getBlockState(new BlockPos(x, y - 1, z));
+            MutableBlockPos mpos = new MutableBlockPos(pos);
+            IBlockState blockstate;
+            while (true) {
 
-                        // Water check.
-                        if (!this.water) {
+// TODO: [1.12] Rewrite this to be less convoluted
+                mpos.move(EnumFacing.DOWN);
+                if (mpos.getY() > 3) {
+                    label63:
+                    {
+                        if (!world.isAirBlock(mpos)) {
+                            blockstate = world.getBlockState(mpos);
 
-                            if (block.getMaterial() == Material.WATER) {
-                                return false;
+                            // Water check.
+                            if (!this.allowInWater) {
+                                if (blockstate.getMaterial() == Material.WATER || BlockUtil.checkAreaMaterials(MatchType.ANY, world, mpos, 1, Material.WATER)) {
+                                    return false;
+                                }
                             }
-                            if (world.getBlockState(new BlockPos(x, y - 1, z - 1)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x, y - 1, z + 1)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z - 1)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x - 1, y - 1, z + 1)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z - 1)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
-                            if (world.getBlockState(new BlockPos(x + 1, y - 1, z + 1)).getMaterial() == Material.WATER) {
-                                return false;
-                            }
+                            if (validGroundBlocks.contains(blockstate.getBlock())) { break label63; }
                         }
 
-                        if (validGroundBlocks.contains(block.getBlock())) {
-                            break label63;
-                        }
-                    }
-
-                    --y;
-                    continue;
-                }
-            }
-
-            if (y <= 3) {
-                return false;
-            }
-
-            int k2 = this.blobSize;
-
-            for (int l = 0; k2 >= 0 && l < 3; ++l) {
-                int i1 = k2 + rand.nextInt(2);
-                int j1 = k2 + rand.nextInt(2);
-                int k1 = k2 + rand.nextInt(2);
-                float f = (float) (i1 + j1 + k1) * 0.333F + 0.5F;
-
-                for (int l1 = x - i1; l1 <= x + i1; ++l1) {
-                    for (int i2 = z - k1; i2 <= z + k1; ++i2) {
-                        for (int j2 = y - j1; j2 <= y + j1; ++j2) {
-                            float f1 = (float) (l1 - x);
-                            float f2 = (float) (i2 - z);
-                            float f3 = (float) (j2 - y);
-
-                            if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
-                                this.placeBoulderBlock(world, new BlockPos(l1, j2, i2), boulderBlock);
-                            }
-                        }
+                        --y;
+                        continue;
                     }
                 }
 
-                x += -(k2 + 1) + rand.nextInt(2 + k2 * 2);
-                z += -(k2 + 1) + rand.nextInt(2 + k2 * 2);
-                y += 0 - rand.nextInt(2);
-            }
+                if (mpos.getY() <= 3) { return false; }
 
-            return true;
+                int k2 = this.blobSize;
+
+                for (int l = 0; this.blobSize >= 0 && l < 3; ++l) {
+                    int sizeX = this.blobSize + rand.nextInt(2);
+                    int sizeY = this.blobSize + rand.nextInt(2);
+                    int sizeZ = this.blobSize + rand.nextInt(2);
+                    float f = (sizeX + sizeY + sizeZ) * 0.333F + 0.5F;
+
+                    for (int bx = x - sizeX; bx <= x + sizeX; ++bx) {
+                        for (int bz = z - sizeZ; bz <= z + sizeZ; ++bz) {
+                            for (int by = y - sizeY; by <= y + sizeY; ++by) {
+                                float f1 = (bx - x);
+                                float f2 = (bz - z);
+                                float f3 = (by - y);
+
+                                if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
+                                    this.placeBoulderBlock(world, new BlockPos(bx, by, bz), boulderBlock);
+                                }
+                            }
+                        }
+                    }
+
+                    x += -(this.blobSize + 1) + rand.nextInt(2 + k2 * 2);
+                    z += -(this.blobSize + 1) + rand.nextInt(2 + k2 * 2);
+                    y += 0 - rand.nextInt(2);
+                }
+
+                return true;
+            }
         }
+        return false;
     }
 
     private void placeBoulderBlock(World world, BlockPos targetPos, IBlockState boulderBlock) {
 
-
-        Block targetblock = world.getBlockState(targetPos).getBlock();
-
-
-        if (targetblock.isReplaceable(world, targetPos)) {
+        MutableBlockPos mpos = new MutableBlockPos(targetPos);
+        if (world.getBlockState(targetPos).getBlock().isReplaceable(world, targetPos)) {
 
             world.setBlockState(targetPos, boulderBlock, 2);
-
             // Double-plant check.
-            BlockPos aboveTargetPos = targetPos.up();
-            Block abovetargetblock = world.getBlockState(aboveTargetPos).getBlock();
-
-            if (abovetargetblock == Blocks.DOUBLE_PLANT) {
-                world.setBlockState(aboveTargetPos, Blocks.AIR.getDefaultState(), 2);
-                //Logger.debug("Replaced double plant at %d %d %d.", aboveTargetPos.getX(), aboveTargetPos.getY(), aboveTargetPos.getZ());
+            if (world.getBlockState(mpos.move(EnumFacing.UP)).getBlock() == Blocks.DOUBLE_PLANT) {
+                world.setBlockState(mpos, Blocks.AIR.getDefaultState(), 2);
             }
         }
     }

@@ -10,10 +10,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoPond;
@@ -23,7 +22,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.crag.get();
+    public static Biome biome = BOPBiomes.crag.orNull();
     public static Biome river = Biomes.RIVER;
 
     // removed
@@ -41,12 +40,9 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -187,7 +183,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -196,7 +192,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

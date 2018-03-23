@@ -3,6 +3,8 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
@@ -37,13 +39,10 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_COBWEBS).set(true);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaRoofedForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.08f);
+        return new SurfaceVanillaRoofedForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.08f);
     }
 
     public class SurfaceVanillaRoofedForest extends SurfaceBase {
@@ -96,7 +95,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
 
             mixHeight = mixSize;
         }
@@ -106,7 +105,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 
@@ -186,8 +185,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(decoMushrooms);
 
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
-        mucronataTree.setLogBlock(BlockUtil.getStateLog2(1));
-        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        mucronataTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         mucronataTree.setMinTrunkSize(2);
         mucronataTree.setMaxTrunkSize(3);
         mucronataTree.setMinCrownSize(10);
@@ -205,8 +204,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(mangroveTree);
 
         TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
-        pentandraTree.setLogBlock(BlockUtil.getStateLog2(1));
-        pentandraTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        pentandraTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        pentandraTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         pentandraTree.setMinTrunkSize(2);
         pentandraTree.setMaxTrunkSize(3);
         pentandraTree.setMinCrownSize(10);
@@ -224,8 +223,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         this.addDeco(ceibaPentandraTree);
 
         TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
-        roseaTree.setLogBlock(BlockUtil.getStateLog2(1));
-        roseaTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        roseaTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        roseaTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         roseaTree.setMinTrunkSize(2);
         roseaTree.setMaxTrunkSize(3);
         roseaTree.setMinCrownSize(10);
@@ -249,15 +248,15 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(16);
         decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog2(1));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoFallenTree.setMinSize(4);
         decoFallenTree.setMaxSize(9);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub darkOakShrub = new DecoShrub();
-        darkOakShrub.setLogBlock(BlockUtil.getStateLog2(1));
-        darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf2(1));
+        darkOakShrub.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         darkOakShrub.setMaxY(100);
         darkOakShrub.setStrengthFactor(8f);
 
@@ -281,7 +280,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeVanillaBase
         decoCobwebs.setMinY(63);
         decoCobwebs.setMaxY(76);
         decoCobwebs.setStrengthFactor(24f);
-        decoCobwebs.setAdjacentBlock(BlockUtil.getStateLog2(1));
+        decoCobwebs.setAdjacentBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         decoCobwebs.setMinAdjacents(2);
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 

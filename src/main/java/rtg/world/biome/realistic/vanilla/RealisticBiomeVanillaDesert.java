@@ -31,11 +31,8 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
-        this.getConfig().SURFACE_FILLER_BLOCK_META.set(0);
-
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 

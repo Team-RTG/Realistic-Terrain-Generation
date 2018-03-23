@@ -3,6 +3,8 @@ package rtg.world.biome.realistic.biomesyougo;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -11,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.CliffCalculator;
+import rtg.api.util.TerrainUtil;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -34,12 +36,9 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK_META).set(0);
     }
 
     @Override
@@ -73,7 +72,14 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBYGLushForest(config, this.baseBiome.topBlock, this.baseBiome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(2), 0.15f);
+        return new SurfaceBYGLushForest(
+            config,
+            this.baseBiome.topBlock,
+            this.baseBiome.fillerBlock,
+            0f, 1.5f, 60f, 65f, 1.5f,
+            BlockUtil.getStateDirt(DirtType.PODZOL),
+            0.15f
+        );
     }
 
     public class SurfaceBYGLushForest extends SurfaceBase {
@@ -99,7 +105,7 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), config.SURFACE_MIX_BLOCK_META.get(), mix);
+            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -108,7 +114,7 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = CliffCalculator.calc(x, z, noise);
+            float c = TerrainUtil.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 
@@ -186,8 +192,8 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(24);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(2));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
@@ -197,8 +203,8 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
         this.addDeco(decoBaseBiomeDecorations);
 
         DecoShrub decoShrubBirch = new DecoShrub();
-        decoShrubBirch.setLogBlock(BlockUtil.getStateLog(2));
-        decoShrubBirch.setLeavesBlock(BlockUtil.getStateLeaf(2));
+        decoShrubBirch.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        decoShrubBirch.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         decoShrubBirch.setMaxY(90);
         decoShrubBirch.setStrengthFactor(6f);
         decoShrubBirch.setChance(4);

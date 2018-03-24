@@ -11,10 +11,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper.UnableToAccessFieldException;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.Accessor;
 import rtg.api.util.Logger;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexCellularNoise;
@@ -36,7 +38,7 @@ import rtg.world.biome.organic.OrganicBiome;
 import rtg.api.world.gen.ChunkProviderSettingsRTG;
 
 
-@SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
+//@SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
 public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     protected RTGConfig rtgConfig = RTGAPI.config();
@@ -423,35 +425,17 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private void adjustBiomeProperties() {
 
-        Biome biome = this.baseBiome;
-        int biomeId = Biome.getIdForBiome(biome);
-        String biomeName = biome.getBiomeName();
+        float biometemp = this.getConfig().BIOME_TEMPERATURE.get();
+        biometemp = (biometemp > 2.0f) ? 2.0f : ((biometemp < -2.0f) ? -2.0f : biometemp) ;
+        biometemp = (biometemp > 0.1f && biometemp < 0.2f) ? 0.2f : biometemp;
 
-        // Temperature.
-
-        String configTemperature = this.getConfig().TEMPERATURE.get();
-
-        if (!configTemperature.isEmpty()) {
-
-            float biomeTemperature = Float.valueOf(configTemperature);
-
-            if (biomeTemperature > 0.1f && biomeTemperature < 0.2f)
-            {
-                throw new RuntimeException("Invalid biome temperature for " + biomeName + ".");
-            }
-            else if (biomeTemperature < -2f || biomeTemperature > 2f) {
-                throw new RuntimeException("Biome temperature out of range for " + biomeName + ".");
-            }
-
-            try {
-                Accessor<Biome, Float> biomeTemp = new Accessor<>("temperature", "field_76750_F");
-                biomeTemp.setField(biome, biomeTemperature);
-
-                Logger.info("Set biome temperature to {} for {}", biomeTemperature, biomeName);
-            }
-            catch (Exception e) {
-                Logger.warn("Unable to set biome temperature to {} for {}. Reason: {}", biomeTemperature, biomeName, e.getMessage());
-            }
+        try {
+            ReflectionHelper.setPrivateValue(Biome.class, this.baseBiome, biometemp, "temperature", "field_76750_F");
+            Logger.info("Set biome temperature for {} to: {}", this.baseBiome.getBiomeName(), this.baseBiome.getDefaultTemperature());
+        }
+        catch (UnableToAccessFieldException ex) {
+            Logger.error("Unable to set biome temperature for {} to: {}.", this.baseBiome.getBiomeName(), biometemp);
+            ex.printStackTrace();
         }
     }
 

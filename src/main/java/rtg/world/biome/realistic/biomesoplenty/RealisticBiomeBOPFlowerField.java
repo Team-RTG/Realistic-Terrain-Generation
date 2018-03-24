@@ -10,7 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import biomesoplenty.api.biome.BOPBiomes;
-import biomesoplenty.api.generation.GeneratorStage;
 
 import static biomesoplenty.api.generation.GeneratorStage.FLOWERS;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
@@ -25,7 +24,7 @@ import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.TerrainUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoFlowersRTG;
@@ -106,7 +105,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = TerrainUtil.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

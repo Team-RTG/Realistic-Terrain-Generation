@@ -2,6 +2,7 @@ package rtg.event;
 
 import java.util.ArrayList;
 import java.util.WeakHashMap;
+import java.util.function.Consumer;
 
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
@@ -33,7 +34,6 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
-import rtg.world.gen.genlayer.RiverRemover;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -50,7 +50,7 @@ public class EventManagerRTG {
     private DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER;
 
 // TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkProviderRTG
-    private WeakHashMap<Integer, Acceptor<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
+    private WeakHashMap<Integer, Consumer<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
 
     public EventManagerRTG() {}
 
@@ -82,10 +82,8 @@ public class EventManagerRTG {
                 return;
             }
 
-            Acceptor<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
-            if (acceptor != null) {
-                acceptor.accept(event);
-            }
+            Consumer<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
+            if (acceptor != null) acceptor.accept(event);
         }
     }
 
@@ -211,18 +209,8 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
-            // Are we in an RTG world?
-            if (!(event.getWorldType() instanceof WorldTypeRTG)) {
-                return;
-            }
-
-            try {
-                event.setNewBiomeGens(new RiverRemover().riverLess(event.getOriginalBiomeGens()));
-            }
-            catch (ClassCastException ex) {
-                //throw ex;
-                // failed attempt because the GenLayers don't end with GenLayerRiverMix
-            }
+            // Remove the river GenLayer if we are in an RTG world.
+            if ((event.getWorldType() instanceof WorldTypeRTG)) event.setNewBiomeGens(WorldUtil.Biomes.removeRivers(event.getOriginalBiomeGens()));
         }
     }
 
@@ -237,15 +225,12 @@ public class EventManagerRTG {
         public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
 
             // Are RTG saplings enabled?
-            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get()) {
-                return;
-            }
+            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get()) return;
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
             if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
-                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
-                return;
-            }
+// TODO: [1.12] 'instanceof' checks are spurious with Plugin Platforms (Sponge) that wrap WorldType specific objects in their own classes. Find another way to do checks here.
+                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
 
             // Should we generate a vanilla tree instead?
             if (event.getRand().nextInt(rtgConfig.RTG_TREE_CHANCE.get()) != 0) {
@@ -291,13 +276,10 @@ public class EventManagerRTG {
                     Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
                     Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
 
-                    if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) {
+                    if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
 
-                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
-
-                            validTrees.add(biomeTrees.get(i));
-                            Logger.debug("Valid tree found!");
-                        }
+                        validTrees.add(biomeTrees.get(i));
+                        Logger.debug("Valid tree found!");
                     }
                 }
 
@@ -313,16 +295,10 @@ public class EventManagerRTG {
                     Logger.debug("Tree = %s", tree.getClass().getName());
 
                     // Set the trunk size if min/max values have been set.
-                    if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) {
-
-                        tree.setTrunkSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
-                    }
+                    if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) tree.setTrunkSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
 
                     // Set the crown size if min/max values have been set.
-                    if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) {
-
-                        tree.setCrownSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinCrownSize(), tree.getMaxCrownSize()));
-                    }
+                    if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) tree.setCrownSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinCrownSize(), tree.getMaxCrownSize()));
 
                     int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
                     if (treeHeight < 1) {
@@ -346,19 +322,10 @@ public class EventManagerRTG {
                     boolean generated = tree.generate(event.getWorld(), event.getRand(), event.getPos());
                     tree.setGenerateFlag(oldFlag);
 
-                    if (generated) {
-
-                        // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
-                        if (event.getWorld().getBlockState(event.getPos()) == saplingBlock) {
-                            event.getWorld().setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
-                        }
-                    }
+                    // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
+                    if (generated) if (event.getWorld().getBlockState(event.getPos()) == saplingBlock) event.getWorld().setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
                 }
-                else {
-
-                    Logger.debug("There are no RTG trees associated with the sapling on the ground." +
-                        " Generating a vanilla tree instead.");
-                }
+                else Logger.debug("There are no RTG trees associated with the sapling on the ground." + " Generating a vanilla tree instead.");
             }
         }
     }
@@ -373,9 +340,7 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void onWorldLoad(WorldEvent.Load event) {
 
-            if (!event.getWorld().isRemote && event.getWorld().provider.getDimension() == 0) {
-                Logger.info("World Seed: " + event.getWorld().getSeed());
-            }
+            if (!event.getWorld().isRemote && event.getWorld().provider.getDimension() == 0) Logger.info("World Seed: " + event.getWorld().getSeed());
         }
 
         @SubscribeEvent
@@ -387,9 +352,7 @@ public class EventManagerRTG {
             IChunkGenerator type = event.getWorld().provider.createChunkGenerator();
             Logger.debug("EMRTG: Dim {} - World is unloading, Side: {}, Type: {}", dim, event.getWorld().isRemote?"Client":"Server", type.getClass().getSimpleName());
 
-            if (!(event.getWorld().isRemote || dim == 1 || dim == -1)) {
-                GenSettingsRepo.removeSettingsForWorld(event.getWorld());
-            }
+            if (!(event.getWorld().isRemote || dim == 1 || dim == -1)) GenSettingsRepo.removeSettingsForWorld(event.getWorld());
         }
     }
 
@@ -455,7 +418,7 @@ public class EventManagerRTG {
         Logger.debug("RTG Event System: " + message);
     }
 
-    public void setDimensionChunkLoadEvent(int dimension, Acceptor<ChunkEvent.Load> action) {
+    public void setDimensionChunkLoadEvent(int dimension, Consumer<ChunkEvent.Load> action) {
 
         chunkLoadEvents.put(dimension, action);
     }

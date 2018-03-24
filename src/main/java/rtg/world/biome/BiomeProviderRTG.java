@@ -19,7 +19,7 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.RTGAPI;
 import rtg.api.dimension.DimensionManagerRTG;
-import rtg.api.util.Bayesian;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.SpacedCellNoise;
@@ -122,7 +122,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         //return (float) cellBorder(results, riverValleyLevel, 1.0);
         float riverFactor = (float)river.octave(0).eval(xRiver, zRiver).interiorValue();
         // the output is a curved function of relative distance from the center, so adjust to make it flatter
-        riverFactor = Bayesian.adjustment(riverFactor, .5f);
+        riverFactor = Terrain.bayesianAdjustment(riverFactor, .5f);
         if (riverFactor>riverValleyLevel) return 0; // no river effect
         return (float)(riverFactor/riverValleyLevel) -1f;
     }

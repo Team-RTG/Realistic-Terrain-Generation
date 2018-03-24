@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.TerrainUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
@@ -32,7 +32,8 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().TEMPERATURE.set("0.25");
+        this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.set(true);
+        this.getConfig().BIOME_TEMPERATURE.set(0.25f);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
     }
 
@@ -99,7 +100,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = TerrainUtil.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

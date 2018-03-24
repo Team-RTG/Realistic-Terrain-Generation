@@ -2,7 +2,7 @@ package rtg.api.world.terrain;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.Bayesian;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.CellNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
@@ -161,7 +161,7 @@ public abstract class TerrainBase {
         }
         // experimental adjustment to make riverbanks more varied
         float adjustment = (height - 62.45f)/10f + .6f;
-        river = Bayesian.adjustment(river, adjustment);
+        river = Terrain.bayesianAdjustment(river, adjustment);
         return 62.45f + (height - 62.45f) * river;
         }
 

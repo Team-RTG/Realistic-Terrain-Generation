@@ -10,15 +10,11 @@ public class CircularSearchCreator {
     private int size;
     private float center;
 
-    public int [] pattern() {
-        return pattern(12f,16);
-    }
-    
     public int[] pattern(float maxRadius, int requestedSize) {
         if (active) throw new RuntimeException();
         active = true;
         size = requestedSize;
-        center = ((float)(size-1f))/2f;
+        center = (size-1f) /2f;
         int [] result = new int[size*size];
         boolean [] found = new boolean[size*size];
         int nextResult = 0;
@@ -32,7 +28,7 @@ public class CircularSearchCreator {
             // upper right
             for (int y = 0;y<largerHalfSize;y++) {
                 for (int x = smallerHalfSize;x<size;x++) {
-                    int index = (int)x*size+y;
+                    int index = x *size+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -44,7 +40,7 @@ public class CircularSearchCreator {
             //lower right
             for (int x = size-1;x>=smallerHalfSize;x--) {// out to in
                 for (int y = largerHalfSize;y<size;y++) {
-                    int index = (int)x*size+y;
+                    int index = x * size + y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -56,7 +52,7 @@ public class CircularSearchCreator {
             //lower left
             for (int y = size-1;y>=largerHalfSize-1;y--) {// out to in
                 for (int x = smallerHalfSize-1;x>-1;x--) {
-                    int index = (int)x*size+y;
+                    int index = x *size+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -68,7 +64,7 @@ public class CircularSearchCreator {
             //upper left
             for (int x = 0;x<smallerHalfSize;x++) {// out to in
                 for (int y = largerHalfSize-1;y>-1;y--) {
-                    int index = (int)x*size+y;
+                    int index = x *size+y;
                     if (found[index]) continue;// skip to next block; this is already in the patter
                     float distance = distanceFromCenter(x,y);
                     if (distance>radius) continue;// still too far; skip
@@ -81,17 +77,13 @@ public class CircularSearchCreator {
         active=false;
         if (nextResult < result.length) {
             int [] newResult = new int [nextResult];
-            for (int i = 0; i <nextResult ; i++) {
-                newResult[i] = result[i];
-            }
+            System.arraycopy(result, 0, newResult, 0, nextResult);
             result = newResult;
         }
         return result;
     }
 
-    float distanceFromCenter(int x, int y) {
-        float xDist = ((float)x-center);
-        float yDist = ((float)y-center);
-        return (float)Math.sqrt(xDist*xDist+yDist*yDist);
+    private float distanceFromCenter(int x, int y) {
+        return (float)Math.sqrt(MathUtils.pow2(x - this.center)+MathUtils.pow2(y - this.center));
     }
 }

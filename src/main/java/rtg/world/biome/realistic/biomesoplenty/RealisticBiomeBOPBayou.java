@@ -20,8 +20,7 @@ import biomesoplenty.common.block.BlockBOPLeaves;
 import biomesoplenty.common.block.BlockBOPLog;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.Bayesian;
-import rtg.api.util.TerrainUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexOctave;
 import rtg.api.util.noise.VoronoiResult;
@@ -115,7 +114,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             OpenSimplexNoise simplex = rtgWorld.simplex();
-            float c = TerrainUtil.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 
@@ -204,7 +203,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         float result = (float)(results.interiorValue());
         // that will leave rivers too small
         
-        result = Bayesian.adjustment(result, 0.25f);
+        result = Terrain.bayesianAdjustment(result, 0.25f);
         return result;
 
     }

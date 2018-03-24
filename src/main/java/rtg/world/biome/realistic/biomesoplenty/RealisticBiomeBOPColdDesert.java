@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.TerrainUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -140,7 +140,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
                         primer.setBlockState(x, k, z, topBlock);
 
                         if (depth == 0 && k > 61 && k < 254) {
-                            TerrainUtil.calcSnowHeight(x, k, z, primer, noise);
+                            Terrain.calcSnowHeight(x, k, z, primer, noise);
                         }
                     }
                 }

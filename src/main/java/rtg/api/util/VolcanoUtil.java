@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.RTGAPI;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 
 
@@ -47,7 +48,7 @@ public final class VolcanoUtil
                 j = (chunkY * 16) + z;
 
                 // Distance in blocks from the center of the volcano
-                distanceEll = (float) TerrainUtil.dis2Elliptic(i, j, baseX * 16, baseY * 16,
+                distanceEll = (float) Terrain.dis2Elliptic(i, j, baseX * 16, baseY * 16,
                     simplex.noise2(i / 250f, j / 250f) * ventEccentricity,
                     simplex.octave(1).noise2(i / 250f, j / 250f) * ventEccentricity);
 

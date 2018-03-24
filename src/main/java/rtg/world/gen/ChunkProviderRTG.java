@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -52,7 +53,6 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
-import rtg.api.util.Acceptor;
 import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.Compass;
 import rtg.api.util.Direction;
@@ -125,29 +125,12 @@ public class ChunkProviderRTG implements IChunkGenerator
     private VolcanoGenerator volcanoGenerator;
 
     // we have to store this callback because it's a WeakReference in the event manager
-    public final Acceptor<ChunkEvent.Load> delayedDecorator = new Acceptor<ChunkEvent.Load>() {
-        @Override
-        public void accept(ChunkEvent.Load event) {
-
-            if (event.isCanceled()) {
-                Logger.debug("CPRTG#Acceptor: event is cancelled.");
-                return;
-            }
-
-            ChunkPos pos = event.getChunk().getPos();
-
-            if (!toCheck.contains(pos)) {
-                Logger.debug("CPRTG#Acceptor: toCheck contains pos.");
-                return;
-            }
-
-            toCheck.remove(pos);
-
-            for (Direction forPopulation : directions) {
-                decorateIfOtherwiseSurrounded(event.getWorld().getChunkProvider(), pos, forPopulation);
-            }
-            //clearDecorations(0);
-        }
+    public final Consumer<ChunkEvent.Load> delayedDecorator = event -> {
+        if (event.isCanceled()) { Logger.debug("DelayedDecorator: event is cancelled."); return; }
+        ChunkPos pos = event.getChunk().getPos();
+        if (!toCheck.contains(pos)) { Logger.debug("DelayedDecorator: toCheck contains pos."); return; }
+        toCheck.remove(pos);
+        for (Direction forPopulation : directions) { decorateIfOtherwiseSurrounded(event.getWorld().getChunkProvider(), pos, forPopulation); }
     };
 
     public ChunkProviderRTG(final World world, final long seed, final String generatorOptions) {

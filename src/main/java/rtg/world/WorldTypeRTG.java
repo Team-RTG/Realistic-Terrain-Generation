@@ -1,7 +1,5 @@
 package rtg.world;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
@@ -16,7 +14,7 @@ import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
 import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.biome.BiomeProviderRTG;
-import rtg.world.gen.ChunkProviderRTG;
+import rtg.world.gen.ChunkGeneratorRTG;
 
 public final class WorldTypeRTG extends WorldType
 {
@@ -28,7 +26,7 @@ public final class WorldTypeRTG extends WorldType
 
 // TODO: [Generator settings][Dimensions] Remove all use of the static fields: biomeProvider, chunkProvider
     private static BiomeProviderRTG biomeProvider;
-    public static ChunkProviderRTG chunkProvider;
+    public static ChunkGeneratorRTG chunkProvider;
 
     private WorldTypeRTG() {
         super(RTG.MOD_ID.toUpperCase());
@@ -74,32 +72,21 @@ public final class WorldTypeRTG extends WorldType
 
             if (chunkProvider == null) {
 
-                chunkProvider = new ChunkProviderRTG(world, world.getSeed(), generatorOptions);
+                chunkProvider = new ChunkGeneratorRTG(world, world.getSeed(), generatorOptions);
                 RTG.getInstance().runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
                 // inform the event manager about the ChunkEvent.Load event
                 RTG.getEventMgr().setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
                 RTG.getInstance().runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
 
-                Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkProviderRTG for Dim {}", world.provider.getDimension());
+                Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkGeneratorRTG for Dim {}", world.provider.getDimension());
 
                 return chunkProvider;
             }
-
-            // return a "fake" provider that won't decorate for Streams
-            ChunkProviderRTG result = new ChunkProviderRTG(world, world.getSeed(), generatorOptions);
-            result.isFakeGenerator();
-
-            return result;
-
-            // no server close because it's not supposed to decorate
-            //return chunkProvider;
+            else return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
         }
-        else {
-
-            Logger.error("Invalid dimension. Serving up ChunkProviderOverworld instead of ChunkProviderRTG.");
-            return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
-        }
+        Logger.error("Invalid dimension. Serving up ChunkGeneratorOverworld instead of ChunkGeneratorRTG.");
+        return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
     }
 
     @Override
@@ -108,20 +95,16 @@ public final class WorldTypeRTG extends WorldType
         return 256F;
     }
 
-    @Nullable
     private static Runnable clearProvider(Object provider) {
         if (provider instanceof BiomeProviderRTG) {
             Logger.debug("WorldTypeRTG#clearProvider() provider instanceof BiomeProviderRTG (setting to NULL)");
             return () -> biomeProvider = null;
         }
-        else if (provider instanceof ChunkProviderRTG) {
-            Logger.debug("WorldTypeRTG#clearProvider() provider instanceof ChunkProviderRTG (setting to NULL)");
+        else if (provider instanceof ChunkGeneratorRTG) {
+            Logger.debug("WorldTypeRTG#clearProvider() provider instanceof ChunkGeneratorRTG (setting to NULL)");
             return () -> chunkProvider = null;
         }
-        else {
-            Logger.debug("WorldTypeRTG#clearProvider() returning NULL");
-            return null;
-        }
+        return () -> {};
     }
 
     @Override

@@ -49,7 +49,7 @@ public class EventManagerRTG {
     private SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER;
     private DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER;
 
-// TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkProviderRTG
+// TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkGeneratorRTG
     private WeakHashMap<Integer, Consumer<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
 
     public EventManagerRTG() {}
@@ -97,7 +97,7 @@ public class EventManagerRTG {
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
-// TODO: [Clean-up] To be removed. Redundant with (chunkGenerator instanceof ChunkProviderRTG) check below.
+// TODO: [Clean-up] To be removed. Redundant with (chunkGenerator instanceof ChunkGeneratorRTG) check below.
             if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
                 return;
             }
@@ -109,8 +109,8 @@ public class EventManagerRTG {
 
 // TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
 //          IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
-//          if (chunkGenerator instanceof ChunkProviderRTG) {
-//          ChunkOreGenTracker chunkOreGenTracker = ((ChunkProviderRTG)chunkGenerator).getChunkOreGenTracker();
+//          if (chunkGenerator instanceof ChunkGeneratorRTG) {
+//          ChunkOreGenTracker chunkOreGenTracker = ((ChunkGeneratorRTG)chunkGenerator).getChunkOreGenTracker();
             ChunkOreGenTracker chunkOreGenTracker = WorldTypeRTG.chunkProvider.getChunkOreGenTracker();
             BlockPos eventPos = event.getPos();
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();

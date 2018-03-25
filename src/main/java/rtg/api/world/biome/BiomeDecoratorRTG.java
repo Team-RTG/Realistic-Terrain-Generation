@@ -36,7 +36,7 @@ public class BiomeDecoratorRTG
     }
 
     /*
-     * This method should only be called by ChunkProviderRTG#generateOres.
+     * This method should only be called by ChunkGeneratorRTG#generateOres.
      */
 // TODO: [Clean-up] *CRITICAL* #decorateOres should be called from somewhere in the decoration process instead of from CPRTG, and checked against what biome decoration method is
 //                  being called to prevent it from being called when the realistic biome is calling the base biomes native decoration method via #rDecorateSeedBiome

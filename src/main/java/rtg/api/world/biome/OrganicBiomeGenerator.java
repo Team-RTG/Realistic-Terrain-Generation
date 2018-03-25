@@ -1,24 +1,26 @@
 package rtg.api.world.biome;
 
-import java.lang.reflect.Field;
-
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import rtg.api.util.LimitedMap;
-import rtg.api.util.Logger;
+import rtg.api.util.MathUtils;
 import rtg.api.util.PlaneLocation;
 import rtg.api.world.IRTGWorld;
-import static rtg.api.util.MathUtils.globalToChunk;
-import static rtg.api.util.MathUtils.globalToLocal;
 
 /**
  * @author topisani
  */
+// TODO: [1.12] Creating an instance of ChunkGeneratorOverworld will send a InitNoiseGensEvent.ContextOverworld event to be sent which
+//              Could interfere with the intended funtionality of this class as any event listeners could potentially alter the
+//              NoiseGeneratorPerlin instance (surfaceNoise) that is used to generate the surface.
+//              Currently this class doesn't perform as it should. The terrain will not match the biome it is in and the terrain provided
+//              by the ChunkGeneratorOverworld#setBlocksInChunk has random noise on the surface.
+//              Possible solution: Make a generic RealisticBiome class for biomes not supported by RTG that has a proper terrain generator.
 public class OrganicBiomeGenerator {
 
     public static boolean[] organicBiomes = new boolean[256];
@@ -29,33 +31,14 @@ public class OrganicBiomeGenerator {
 
     public OrganicBiomeGenerator(IRTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
-        organicProvider = new ChunkGeneratorOverworld(
+        this.organicProvider = new ChunkGeneratorOverworld(
             rtgWorld.world(),
             rtgWorld.world().getSeed(),
             rtgWorld.world().getWorldInfo().isMapFeaturesEnabled(),
             rtgWorld.world().getWorldInfo().getGeneratorOptions()
         );
-
-        Field field;
-        try {
-            // Obf name
-            field = organicProvider.getClass().getDeclaredField("field_185994_m");
-            field.setAccessible(true);
-            this.surfaceNoise = (NoiseGeneratorPerlin) field.get(organicProvider);
-        } catch (Exception e) {
-            // Either we are in a dev environment or something is very wrong
-            try {
-                // Deobf name
-                field = organicProvider.getClass().getDeclaredField("surfaceNoise");
-                field.setAccessible(true);
-                this.surfaceNoise = (NoiseGeneratorPerlin) field.get(organicProvider);
-            } catch (Exception e2) {
-                Logger.fatal(
-                    "Failed to access private field 'surfaceNoise' in ChunkProviderOverworld. Are you in a deobfuscated environment with other mappings?",
-                    e2
-                );
-            }
-        }
+        try { this.surfaceNoise = ReflectionHelper.getPrivateValue(ChunkGeneratorOverworld.class, this.organicProvider, "surfaceNoise", "field_185994_m"); }
+        catch (Exception ignore) { this.surfaceNoise = new NoiseGeneratorPerlin(rtgWorld.world().rand, 4); }
     }
 
     public boolean isOrganicBiome(int id) {
@@ -63,7 +46,7 @@ public class OrganicBiomeGenerator {
     }
 
     public int getHeightAt(int x, int z) {
-        return this.getHeightsAt(globalToChunk(x), globalToChunk(z))[globalToLocal(x) * 16 + globalToLocal(z)];
+        return this.getHeightsAt(MathUtils.globalToChunk(x), MathUtils.globalToChunk(z))[(MathUtils.globalToLocal(x) << 4) + MathUtils.globalToLocal(z)];
     }
 
     public int[] getHeightsAt(int cx, int cz) {
@@ -83,8 +66,7 @@ public class OrganicBiomeGenerator {
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 for (int y = 255; y >= 0; --y) {
-                    IBlockState iblockstate = primer.getBlockState(x, y, z);
-                    if (iblockstate != null && iblockstate != Blocks.AIR.getDefaultState()) {
+                    if (primer.getBlockState(x, y, z) != Blocks.AIR.getDefaultState()) {
                         heights[x * 16 + z] = y;
                         break;
                     }

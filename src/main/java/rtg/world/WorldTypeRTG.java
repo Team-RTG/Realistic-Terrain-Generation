@@ -20,9 +20,9 @@ import rtg.world.gen.ChunkProviderRTG;
 
 public final class WorldTypeRTG extends WorldType
 {
-    private static final WorldTypeRTG INSTANCE = new WorldTypeRTG();
+    private static WorldTypeRTG INSTANCE;
     public static WorldTypeRTG getInstance() {
-//        if (INSTANCE == null) { init(); }
+        if (INSTANCE == null) { init(); }
         return INSTANCE;
     }
 
@@ -34,9 +34,9 @@ public final class WorldTypeRTG extends WorldType
         super(RTG.MOD_ID.toUpperCase());
     }
 
-//    public static void init() {
-//        INSTANCE = new WorldTypeRTG(RTG.MOD_ID.toUpperCase());
-//    }
+    public static void init() {
+        INSTANCE = new WorldTypeRTG();
+    }
 
     @Override
     public BiomeProvider getBiomeProvider(World world) {

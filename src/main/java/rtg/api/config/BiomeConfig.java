@@ -219,7 +219,7 @@ public class BiomeConfig extends Config {
                 + Configuration.NEW_LINE + "If this value is empty, the biome's default temperature will be used."
                 + Configuration.NEW_LINE + "Please note that changing a biome's temperature does NOT affect its climate type (DESERT, WARM, COOL, ICY)."
                 + Configuration.NEW_LINE + "For more info, visit http://minecraft.gamepedia.com/Biome#Temperature",
-            -2f, 2f, -999f
+            1f, -2f, 2f
         );
         this.addProperty(BIOME_TEMPERATURE);
 

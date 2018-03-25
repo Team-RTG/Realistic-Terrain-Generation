@@ -425,17 +425,19 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private void adjustBiomeProperties() {
 
-        float biometemp = this.getConfig().BIOME_TEMPERATURE.get();
-        biometemp = (biometemp > 2.0f) ? 2.0f : ((biometemp < -2.0f) ? -2.0f : biometemp) ;
-        biometemp = (biometemp > 0.1f && biometemp < 0.2f) ? 0.2f : biometemp;
+        if (this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.get()) {
 
-        try {
-            ReflectionHelper.setPrivateValue(Biome.class, this.baseBiome, biometemp, "temperature", "field_76750_F");
-            Logger.info("Set biome temperature for {} to: {}", this.baseBiome.getBiomeName(), this.baseBiome.getDefaultTemperature());
-        }
-        catch (UnableToAccessFieldException ex) {
-            Logger.error("Unable to set biome temperature for {} to: {}.", this.baseBiome.getBiomeName(), biometemp);
-            ex.printStackTrace();
+            float biometemp = this.getConfig().BIOME_TEMPERATURE.get();
+            biometemp = (biometemp > 2.0f) ? 2.0f : ((biometemp < -2.0f) ? -2.0f : biometemp);
+            biometemp = (biometemp > 0.1f && biometemp < 0.2f) ? 0.2f : biometemp;
+
+            try {
+                ReflectionHelper.setPrivateValue(Biome.class, this.baseBiome, biometemp, "temperature", "field_76750_F");
+                Logger.info("Set biome temperature for {} to: {}", this.baseBiome.getBiomeName(), this.baseBiome.getDefaultTemperature());
+            } catch (UnableToAccessFieldException ex) {
+                Logger.error("Unable to set biome temperature for {} to: {}.", this.baseBiome.getBiomeName(), biometemp);
+                ex.printStackTrace();
+            }
         }
     }
 

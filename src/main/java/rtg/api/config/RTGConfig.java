@@ -223,7 +223,7 @@ public class RTGConfig extends Config
 
         ENABLE_DEBUGGING = new ConfigPropertyBoolean(
             "Enable Debugging",
-            "Debugging",
+            "Debug",
             "WARNING: This should only be enabled if you know what you're doing.",
             false
         );
@@ -231,7 +231,7 @@ public class RTGConfig extends Config
 
         CRASH_ON_STRUCTURE_EXCEPTIONS = new ConfigPropertyBoolean(
             "Crash on Structure Exceptions",
-            "Debugging",
+            "Debug",
             "Instead of crashing when it experiences 'java.util.ConcurrentModificationException' (or any other exception)"
                 + Configuration.NEW_LINE +
                 "during structure generation, RTG will stop trying to generate that structure and continue generating the world."

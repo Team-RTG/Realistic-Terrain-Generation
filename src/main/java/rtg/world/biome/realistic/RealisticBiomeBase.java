@@ -461,7 +461,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     protected boolean organicTerrain() {
-        return !rtgConfig.DISABLE_RTG_TERRAIN.get() || !this.config.DISABLE_RTG_TERRAIN.get();
+        return rtgConfig.DISABLE_RTG_TERRAIN.get() || this.config.DISABLE_RTG_TERRAIN.get();
     }
 
     protected TerrainBase checkTerrain(TerrainBase terrainIn) {

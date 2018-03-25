@@ -6,12 +6,14 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import rtg.api.util.Logger;
+import rtg.api.util.UtilityClass;
 import rtg.world.WorldTypeRTG;
 
 /**
  * @author srs-bsns
  * @since 1.0.0
  */
+@UtilityClass
 public final class GenSettingsRepo {
 
     private GenSettingsRepo() {} // This is a utility class, so prevent instantiation.

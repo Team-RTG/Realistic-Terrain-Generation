@@ -1,6 +1,7 @@
 package rtg.api.world.gen;
 
-import javax.annotation.Nullable;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
@@ -12,8 +13,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.stream.JsonReader;
 
 import net.minecraft.util.JsonUtils;
+
+import rtg.api.util.Logger;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -436,16 +440,20 @@ public final class ChunkProviderSettingsRTG
         public int      lapisSpread          = 16;  
 
 
-        @Nullable
         public static ChunkProviderSettingsRTG.Factory jsonToFactory(String generatorSettings) {
 
             if (generatorSettings.isEmpty()) {
                 return new ChunkProviderSettingsRTG.Factory();
             }
             try {
-                return JsonUtils.gsonDeserialize(JSON_ADAPTER, generatorSettings, Factory.class);
+                JsonReader reader = new JsonReader(new StringReader(generatorSettings));
+                reader.setLenient(true);
+                return JSON_ADAPTER.getAdapter(Factory.class).read(reader);
             }
-            catch (Exception ignored) {
+            catch (IOException ex)
+            {
+                Logger.error("Error parsing chunk generator settings: {}", ex.getMessage());
+                Logger.error("Settings: {}", generatorSettings);
                 return new ChunkProviderSettingsRTG.Factory();
             }
         }
@@ -454,7 +462,7 @@ public final class ChunkProviderSettingsRTG
 
         public Factory() {this.setDefaults();}
 
-        public void setDefaults() {
+        public final void setDefaults() {
 
 //          this.fixedBiome             = -1;
 //          this.biomeSize              = 4;

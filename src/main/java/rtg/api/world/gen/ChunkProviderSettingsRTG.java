@@ -80,8 +80,7 @@ public final class ChunkProviderSettingsRTG
 
     public final boolean useVillages;           // Vanilla
     public final int     villageSize;           // RTG
-    public final int     villageMinDistance;    // RTG : TODO: [Generator settings] Deprecated. To be removed.
-    public final int     villageMaxDistance;    // RTG : TODO: [Generator settings] Rename to villageDistance when villageMinDistance is removed.
+    public final int     villageDistance;       // RTG
 
     public final boolean useMineShafts;         // Vanilla
     public final float   mineShaftChance;       // RTG
@@ -90,16 +89,15 @@ public final class ChunkProviderSettingsRTG
     public final int     dungeonChance;         // Vanilla
 
     public final boolean useTemples;            // Vanilla (Scattered Features)
-    public final int     templeMinDistance;     // RTG : TODO: [Generator settings] Deprecated. To be removed.
-    public final int     templeMaxDistance;     // RTG : TODO: [Generator settings] Rename to templeDistance when templeMinDistance is removed.
+    public final int     templeDistance;        // RTG
 
     public final boolean useMonuments;          // Vanilla
     public final int     monumentSpacing;       // RTG
     public final int     monumentSeparation;    // RTG
 
-// TODO: [Generator settings] Disabled until >= MC 1.11... requires a custom structure class as vanilla settings are hardcoded
-//  public final boolean useMansions;           // Vanilla
-//  public final int     mansionSpacing;        // RTG
+    public final boolean useMansions;           // Vanilla
+    public final int     mansionSpacing;        // RTG
+    public final int     mansionSeparation;     // RTG
 
     public final boolean useStrongholds;        // Vanilla
     public final int     strongholdCount;       // RTG
@@ -218,8 +216,7 @@ public final class ChunkProviderSettingsRTG
 
         this.useVillages            = settingsFactory.useVillages;
         this.villageSize            = settingsFactory.villageSize;
-        this.villageMinDistance     = settingsFactory.villageMinDistance;
-        this.villageMaxDistance     = settingsFactory.villageMaxDistance;
+        this.villageDistance        = settingsFactory.villageDistance;
 
         this.useMineShafts          = settingsFactory.useMineShafts;
         this.mineShaftChance        = settingsFactory.mineShaftChance;
@@ -228,16 +225,15 @@ public final class ChunkProviderSettingsRTG
         this.dungeonChance          = settingsFactory.dungeonChance;
 
         this.useTemples             = settingsFactory.useTemples;
-        this.templeMinDistance      = settingsFactory.templeMinDistance;
-        this.templeMaxDistance      = settingsFactory.templeMaxDistance;
+        this.templeDistance         = settingsFactory.templeDistance;
 
         this.useMonuments           = settingsFactory.useMonuments;
         this.monumentSpacing        = settingsFactory.monumentSpacing;
         this.monumentSeparation     = settingsFactory.monumentSeparation;
 
-// TODO: Disabled until >= MC 1.11
-//      this.useMansions            = settingsFactory.useMansions;
-//      this.mansionSpacing         = settingsFactory.mansionSpacing;
+        this.useMansions            = settingsFactory.useMansions;
+        this.mansionSpacing         = settingsFactory.mansionSpacing;
+        this.mansionSeparation      = settingsFactory.mansionSeparation;
 
         this.useStrongholds         = settingsFactory.useStrongholds;
         this.strongholdCount        = settingsFactory.strongholdCount;
@@ -357,8 +353,7 @@ public final class ChunkProviderSettingsRTG
 
         public boolean  useVillages          = true;
         public int      villageSize          = 0;
-        public int      villageMinDistance   = 12;
-        public int      villageMaxDistance   = 48;
+        public int      villageDistance      = 48;
 
         public boolean  useMineShafts        = true;
         public float    mineShaftChance      = 0.004f;
@@ -367,16 +362,15 @@ public final class ChunkProviderSettingsRTG
         public int      dungeonChance        = 8;   
 
         public boolean  useTemples           = true;
-        public int      templeMinDistance    = 12;
-        public int      templeMaxDistance    = 48;
+        public int      templeDistance       = 48;
 
         public boolean  useMonuments         = true;
         public int      monumentSpacing      = 32;
         public int      monumentSeparation   = 5;
 
-// TODO: Disabled until >= MC 1.11
-//      public boolean  useMansions          = true;
-//      public int      mansionSpacing       = 80;
+        public boolean  useMansions          = true;
+        public int      mansionSpacing       = 80;
+        public int      mansionSeparation    = 20;
 
         public boolean  useStrongholds       = true;
         public int      strongholdCount      = 128;
@@ -516,8 +510,7 @@ public final class ChunkProviderSettingsRTG
 
             this.useVillages            = true;
             this.villageSize            = 0;
-            this.villageMinDistance     = 12;
-            this.villageMaxDistance     = 48;
+            this.villageDistance        = 48;
 
             this.useMineShafts          = true;
             this.mineShaftChance        = 0.004f;
@@ -526,16 +519,15 @@ public final class ChunkProviderSettingsRTG
             this.dungeonChance          = 8;   
 
             this.useTemples             = true;
-            this.templeMinDistance      = 12;
-            this.templeMaxDistance      = 48;
+            this.templeDistance         = 48;
 
             this.useMonuments           = true;
             this.monumentSpacing        = 32;
             this.monumentSeparation     = 5;
 
-// TODO: Disabled until >= MC 1.11
-//          this.useMansions            = true;
-//          this.mansionSpacing         = 80;
+            this.useMansions            = true;
+            this.mansionSpacing         = 80;
+            this.mansionSeparation      = 20;
 
             this.useStrongholds         = true;
             this.strongholdCount        = 128;
@@ -673,8 +665,7 @@ public final class ChunkProviderSettingsRTG
 
                 settings.useVillages            = JsonUtils.getBoolean(json,"useVillages",          settings.useVillages);
                 settings.villageSize            = JsonUtils.getInt(json,    "villageSize",          settings.villageSize);
-                settings.villageMinDistance     = JsonUtils.getInt(json,    "villageMinDistance",   settings.villageMinDistance);
-                settings.villageMaxDistance     = JsonUtils.getInt(json,    "villageMaxDistance",   settings.villageMaxDistance);
+                settings.villageDistance        = JsonUtils.getInt(json,    "villageDistance",      settings.villageDistance);
 
                 settings.useMineShafts          = JsonUtils.getBoolean(json,"useMineShafts",        settings.useMineShafts);
                 settings.mineShaftChance        = JsonUtils.getFloat(  json,"mineShaftChance",      settings.mineShaftChance);
@@ -683,16 +674,15 @@ public final class ChunkProviderSettingsRTG
                 settings.dungeonChance          = JsonUtils.getInt(json,    "dungeonChance",        settings.dungeonChance);
 
                 settings.useTemples             = JsonUtils.getBoolean(json,"useTemples",           settings.useTemples);
-                settings.templeMinDistance      = JsonUtils.getInt(json,    "templeMinDistance",    settings.templeMinDistance);
-                settings.templeMaxDistance      = JsonUtils.getInt(json,    "templeMaxDistance",    settings.templeMaxDistance);
+                settings.templeDistance         = JsonUtils.getInt(json,    "templeMaxDistance",    settings.templeDistance);
 
                 settings.useMonuments           = JsonUtils.getBoolean(json,"useMonuments",         settings.useMonuments);
                 settings.monumentSpacing        = JsonUtils.getInt(json,    "monumentSpacing",      settings.monumentSpacing);
                 settings.monumentSeparation     = JsonUtils.getInt(json,    "monumentSeparation",   settings.monumentSeparation);
 
-// TODO: Disabled until >= MC 1.11
-//              settings.useMansions            = JsonUtils.getBoolean(json,"useMansions",          settings.useMansions);
-//              settings.mansionSpacing         = JsonUtils.getInt(json,    "mansionSpacing",       settings.mansionSpacing);
+                settings.useMansions            = JsonUtils.getBoolean(json,"useMansions",          settings.useMansions);
+                settings.mansionSpacing         = JsonUtils.getInt(json,    "mansionSpacing",       settings.mansionSpacing);
+                settings.mansionSeparation      = JsonUtils.getInt(json,    "mansionSeparation",    settings.mansionSeparation);
 
                 settings.useStrongholds         = JsonUtils.getBoolean(json,"useStrongholds",       settings.useStrongholds);
                 settings.strongholdCount        = JsonUtils.getInt(json,    "strongholdCount",      settings.strongholdCount);
@@ -817,8 +807,7 @@ public final class ChunkProviderSettingsRTG
 
             json.addProperty("useVillages",          factory.useVillages);
             json.addProperty("villageSize",          factory.villageSize);
-            json.addProperty("villageMinDistance",   factory.villageMinDistance);
-            json.addProperty("villageMaxDistance",   factory.villageMaxDistance);
+            json.addProperty("villageDistance",      factory.villageDistance);
 
             json.addProperty("useMineShafts",        factory.useMineShafts);
             json.addProperty("mineShaftChance",      factory.mineShaftChance);
@@ -827,16 +816,15 @@ public final class ChunkProviderSettingsRTG
             json.addProperty("dungeonChance",        factory.dungeonChance);
 
             json.addProperty("useTemples",           factory.useTemples);
-            json.addProperty("templeMinDistance",    factory.templeMinDistance);
-            json.addProperty("templeMaxDistance",    factory.templeMaxDistance);
+            json.addProperty("templeDistance",       factory.templeDistance);
 
             json.addProperty("useMonuments",         factory.useMonuments);
             json.addProperty("monumentSpacing",      factory.monumentSpacing);
             json.addProperty("monumentSeparation",   factory.monumentSeparation);
 
-// TODO: Disabled until >= MC 1.11
-//          json.addProperty("useMansions",          factory.useMansions);
-//          json.addProperty("mansionSpacing",       factory.mansionSpacing);
+            json.addProperty("useMansions",          factory.useMansions);
+            json.addProperty("mansionSpacing",       factory.mansionSpacing);
+            json.addProperty("mansionSeparation",    factory.mansionSeparation);
 
             json.addProperty("useStrongholds",       factory.useStrongholds);
             json.addProperty("strongholdCount",      factory.strongholdCount);

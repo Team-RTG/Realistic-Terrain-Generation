@@ -4,7 +4,6 @@ import java.nio.file.Paths;
 
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -35,10 +34,6 @@ import rtg.world.biome.realistic.rockhoundingsurface.RealisticBiomeRHSBase;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
-import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
-import rtg.world.gen.structure.MapGenStrongholdRTG;
-import rtg.world.gen.structure.MapGenVillageRTG;
-import rtg.world.gen.structure.StructureOceanMonumentRTG;
 
 public class CommonProxy
 {
@@ -53,13 +48,6 @@ public class CommonProxy
         ModCompat.init();
 
         DimensionManagerRTG.addRTGDimension(DimensionType.OVERWORLD.getId());
-
-// TODO: [Generator settings][Clean-up] These structure classes are to be removed
-        if (RTGAPI.config().ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) { MapGenStructureIO.registerStructure(MapGenScatteredFeatureRTG.Start.class, "rtg_MapGenScatteredFeatureRTG"); }
-        if (RTGAPI.config().ENABLE_VILLAGE_MODIFICATIONS.get()) { MapGenStructureIO.registerStructure(MapGenVillageRTG.Start.class, "rtg_MapGenVillageRTG"); }
-        if (RTGAPI.config().ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) { MapGenStructureIO.registerStructure(StructureOceanMonumentRTG.StartMonument.class, "rtg_MapGenOceanMonumentRTG"); }
-        if (RTGAPI.config().ENABLE_STRONGHOLD_MODIFICATIONS.get()) { MapGenStructureIO.registerStructure(MapGenStrongholdRTG.Start.class, "rtg_MapGenStrongholdRTG"); }
-// ...
     }
 
     public void init(FMLInitializationEvent event) {

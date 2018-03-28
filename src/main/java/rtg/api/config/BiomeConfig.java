@@ -20,11 +20,6 @@ import rtg.api.config.property.ConfigPropertyString;
 // TODO: [Clean-up] All biome config settings should be assessed as to their usefulness and ones that are unlikely to be used should be removed to streamline the configs for less bloat
 public class BiomeConfig extends Config {
 
-    private static final String BLOCKSTATE_HELP =
-        Configuration.NEW_LINE + "Syntax : <ResourceLocation> [<IProperty name> = <value>, <IProperty name> = <value>, ...]" +
-        Configuration.NEW_LINE + "Example: minecraft:stone[variant=diorite], or minecraft:stained_glass_pane[color=pink,north=true,east=false,south=true,west=false]" +
-        Configuration.NEW_LINE + "For a list of property names and values, see: https://minecraft.gamepedia.com/Block_states";
-
     /* GLOBAL CONFIGS */
     public final ConfigPropertyBoolean ALLOW_RIVERS;
     public final ConfigPropertyBoolean ALLOW_SCENIC_LAKES;

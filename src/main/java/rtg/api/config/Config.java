@@ -22,6 +22,11 @@ import rtg.api.util.Logger;
 
 public abstract class Config {
 
+    static final String BLOCKSTATE_HELP =
+        Configuration.NEW_LINE + "Syntax : <ResourceLocation> [<IProperty name> = <value>, <IProperty name> = <value>, ...]" +
+        Configuration.NEW_LINE + "Example: minecraft:stone[variant=diorite], or minecraft:stained_glass_pane[color=pink,north=true,east=false,south=true,west=false]" +
+        Configuration.NEW_LINE + "For a list of property names and values, see: https://minecraft.gamepedia.com/Block_states";
+
     private final File configFile;
     private Configuration config;
     protected List<ConfigProperty> properties = new ArrayList<>();

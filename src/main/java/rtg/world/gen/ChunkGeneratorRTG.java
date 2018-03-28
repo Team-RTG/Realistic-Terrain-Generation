@@ -34,7 +34,6 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
-import net.minecraft.world.gen.structure.WoodlandMansion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
@@ -47,10 +46,10 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.Compass;
 import rtg.api.util.Direction;
+import rtg.api.util.LimitedArrayCacheMap;
 import rtg.api.util.LimitedMap;
 import rtg.api.util.LimitedSet;
 import rtg.api.util.Logger;
@@ -67,10 +66,7 @@ import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
-import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
-import rtg.world.gen.structure.MapGenStrongholdRTG;
-import rtg.world.gen.structure.MapGenVillageRTG;
-import rtg.world.gen.structure.StructureOceanMonumentRTG;
+import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
 // TODO: [Clean-up 1.12] Revisit the need of the delayed decoration system. It's likely things have improved to the point where it's more of a detriment to performance and compatibility
@@ -83,7 +79,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
-    private final WoodlandMansion woodlandMansionGenerator;
+    private final WoodlandMansionRTG woodlandMansionGenerator;
     private final MapGenMineshaft mineshaftGenerator;
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
@@ -94,6 +90,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 // TODO: [Clean-up] Find the source of the erroneous flipping and squash it for good. This should not need to be done.
     private int [] xyinverted = analyzer.xyinverted();
     private final LandscapeGenerator landscapeGenerator;
+    private final LimitedArrayCacheMap<Long, float[]> noiseCache = new LimitedArrayCacheMap<>(50);// cache the noise array for the last 50 chunks
     private final LimitedMap<ChunkPos, Chunk> availableChunks;
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
     private boolean mapFeaturesEnabled;
@@ -140,57 +137,16 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         this.rand = new Random(seed);
         this.landscapeGenerator = this.rtgWorld.landscapeGenerator;
         this.volcanoGenerator = new VolcanoGenerator(seed);
-// TODO: [Generator settings] Remove this map, No longer needed.
-        Map<String, String> m = new HashMap<>();
-        m.put("size", "0");
-        m.put("distance", "24");
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
-        boolean isRTGWorld = DimensionManagerRTG.isValidDimension(world.provider.getDimension());
 
-        this.caveGenerator   = TerrainGen.getModdedMapGen(new MapGenCavesRTG(this.settings.caveChance, this.settings.caveDensity), EventType.CAVE);
-        this.ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(this.settings.ravineChance), EventType.RAVINE);
-
-// TODO: [Generator settings] Replace the RTG custom village class with a call to the vanilla class. Replace if-else
-//      this.villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(StructureType.VILLAGE.getSettings(settings)), EventType.VILLAGE);
-        if (isRTGWorld && rtgConfig.ENABLE_VILLAGE_MODIFICATIONS.get()) {
-            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillageRTG(), EventType.VILLAGE);
-        }
-        else {
-            villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(m), EventType.VILLAGE);
-        }
-
-// TODO: [Generator settings] Replace the RTG custom stronghold class with a call to the vanilla class. Replace if-else
-//      this.strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(StructureType.STRONGHOLD.getSettings(settings)), EventType.STRONGHOLD);
-        if (isRTGWorld && rtgConfig.ENABLE_STRONGHOLD_MODIFICATIONS.get()) {
-            strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStrongholdRTG(), EventType.STRONGHOLD);
-        }
-        else {
-            strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(), EventType.STRONGHOLD);
-        }
-
-        this.woodlandMansionGenerator = (WoodlandMansion) TerrainGen.getModdedMapGen(new WoodlandMansion(new FakeGeneratorForMansion(this.world)), EventType.WOODLAND_MANSION);
-
-// TODO: [Generator settings] Pass settings to mineshafts.
-//      mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(StructureType.MINESHAFT.getSettings(settings)), EventType.MINESHAFT);
-        mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(), EventType.MINESHAFT);
-
-// TODO: [Generator settings] Replace the RTG custom scattered features class with a call to the vanilla class. Replace if-else
-//      scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(StructureType.TEMPLE.getSettings(settings)), EventType.SCATTERED_FEATURE);
-        if (isRTGWorld && rtgConfig.ENABLE_SCATTERED_FEATURE_MODIFICATIONS.get()) {
-            scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeatureRTG(), EventType.SCATTERED_FEATURE);
-        }
-        else {
-            scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(), EventType.SCATTERED_FEATURE);
-        }
-
-// TODO: [Generator settings] Replace the RTG custom monument class with a call to the vanilla class. Replace if-else
-//      oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(StructureType.MONUMENT.getSettings(settings)), EventType.OCEAN_MONUMENT);
-        if (isRTGWorld && rtgConfig.ENABLE_OCEAN_MONUMENT_MODIFICATIONS.get()) {
-            oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonumentRTG(), EventType.OCEAN_MONUMENT);
-        }
-        else {
-            oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(), EventType.OCEAN_MONUMENT);
-        }
+        this.caveGenerator             =                          TerrainGen.getModdedMapGen(new MapGenCavesRTG(this.settings.caveChance, this.settings.caveDensity), EventType.CAVE);
+        this.ravineGenerator           =                          TerrainGen.getModdedMapGen(new MapGenRavineRTG(this.settings.ravineChance), EventType.RAVINE);
+        this.villageGenerator          = (MapGenVillage)          TerrainGen.getModdedMapGen(new MapGenVillage(StructureType.VILLAGE.getSettings(this.settings)), EventType.VILLAGE);
+        this.strongholdGenerator       = (MapGenStronghold)       TerrainGen.getModdedMapGen(new MapGenStronghold(StructureType.STRONGHOLD.getSettings(this.settings)), EventType.STRONGHOLD);
+        this.woodlandMansionGenerator  = (WoodlandMansionRTG)     TerrainGen.getModdedMapGen(new WoodlandMansionRTG(new FakeGeneratorForMansion(this.world), this.settings), EventType.WOODLAND_MANSION);
+        this.mineshaftGenerator        = (MapGenMineshaft)        TerrainGen.getModdedMapGen(new MapGenMineshaft(StructureType.MINESHAFT.getSettings(this.settings)), EventType.MINESHAFT);
+        this.scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(StructureType.TEMPLE.getSettings(this.settings)), EventType.SCATTERED_FEATURE);
+        this.oceanMonumentGenerator    = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(StructureType.MONUMENT.getSettings(this.settings)), EventType.OCEAN_MONUMENT);
 
         this.sampleArraySize = this.sampleSize * 2 + 5;
         this.baseBiomesList = new Biome[256];
@@ -269,12 +225,13 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         String landscaping = "RTG Landscape";
         TimeTracker.manager.start(landscaping);
         ChunkLandscape landscape = this.landscapeGenerator.landscape(this.biomeProvider, cx * 16, cz * 16);
+        this.noiseCache.put(ChunkPos.asLong(cx, cz), landscape.noise);
 
         TimeTracker.manager.stop(landscaping);
 
         String fill = "RTG Fill";
         TimeTracker.manager.start(fill);
-        generateTerrain(this.biomeProvider, cx, cz, primer, landscape.biome, landscape.noise);
+        generateTerrain(primer, landscape.noise);
         TimeTracker.manager.stop(fill);
         // that routine can change the blocks.
         //get standard biome Data
@@ -324,111 +281,15 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         String features = "Vanilla Features";
         TimeTracker.manager.start(features);
 
-        if (this.settings.useCaves)   { this.caveGenerator.generate(this.world, cx, cz, primer); }
-        if (this.settings.useRavines) { this.ravineGenerator.generate(this.world, cx, cz, primer); }
-
+        if (this.settings.useCaves)      { this.caveGenerator.generate(this.world, cx, cz, primer); }
+        if (this.settings.useRavines)    { this.ravineGenerator.generate(this.world, cx, cz, primer); }
         if (this.mapFeaturesEnabled) {
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useMineShafts) {
-            if (rtgConfig.GENERATE_MINESHAFTS.get()) {
-                try {
-                    mineshaftGenerator.generate(this.world, cx, cz, primer);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in mineshaftGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in mineshaftGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useStrongholds) {
-            if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
-                try {
-                    strongholdGenerator.generate(this.world, cx, cz, primer);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in strongholdGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in strongholdGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useVillages) {
-            if (rtgConfig.GENERATE_VILLAGES.get()) {
-                try {
-                    villageGenerator.generate(this.world, cx, cz, primer);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in villageGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in villageGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useTemples) {
-            if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
-                try {
-                    scatteredFeatureGenerator.generate(this.world, cx, cz, primer);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in scatteredFeatureGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in scatteredFeatureGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useMonuments) {
-            if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
-                try {
-                    oceanMonumentGenerator.generate(this.world, cx, cz, primer);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in oceanMonumentGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in oceanMonumentGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Add this in 1.11+
-//          if (settings.useMansions) {
-//              try {
-//                  mansionGenerator.generate(/*params*/);
-//              }
-//              catch (Exception e) {
-//                  if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-//                      Logger.fatal("Exception in mansionGenerator");
-//                      throw new RuntimeException(e.getMessage());
-//                  }
-//                  else {
-//                      Logger.error("Exception in mansionGenerator");
-//                      e.printStackTrace();
-//                  }
-//              }
-//          }
+            if (settings.useMineShafts)  { this.mineshaftGenerator.generate(this.world, cx, cz, primer); }
+            if (settings.useStrongholds) { this.strongholdGenerator.generate(this.world, cx, cz, primer); }
+            if (settings.useVillages)    { this.villageGenerator.generate(this.world, cx, cz, primer); }
+            if (settings.useTemples)     { this.scatteredFeatureGenerator.generate(this.world, cx, cz, primer); }
+            if (settings.useMonuments)   { this.oceanMonumentGenerator.generate(this.world, cx, cz, primer); }
+            if (settings.useMansions)    { this.woodlandMansionGenerator.generate(this.world, cx, cz, primer); }
         }
 
         TimeTracker.manager.stop(features);
@@ -466,24 +327,24 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         return chunk;
     }
 
-    private void generateTerrain(IBiomeProviderRTG cmr, int cx, int cz, ChunkPrimer primer, IRealisticBiome biomes[], float[] noise) {
+    private void generateTerrain(ChunkPrimer primer, float[] noise) {
 
-        int h;
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                h = (int) noise[i * 16 + j];
+        int height;
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                height = (int) noise[x * 16 + z];
 
-                for (int k = 0; k < 256; k++) {
-                    if (k > h) {
-                        if (k < this.settings.seaLevel) {
-                            primer.setBlockState(i, k, j, Blocks.WATER.getDefaultState());
+                for (int y = 0; y < 256; y++) {
+                    if (y > height) {
+                        if (y < this.settings.seaLevel) {
+                            primer.setBlockState(x, y, z, Blocks.WATER.getDefaultState());
                         }
                         else {
-                            primer.setBlockState(i, k, j, Blocks.AIR.getDefaultState());
+                            primer.setBlockState(x, y, z, Blocks.AIR.getDefaultState());
                         }
                     }
                     else {
-                        primer.setBlockState(i, k, j, Blocks.STONE.getDefaultState());
+                        primer.setBlockState(x, y, z, Blocks.STONE.getDefaultState());
                     }
                 }
             }
@@ -600,116 +461,20 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         long i1 = this.rand.nextLong() / 2L * 2L + 1L;
         long j1 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long) chunkX * i1 + (long) chunkZ * j1 ^ this.world.getSeed());
-        boolean hasPlacedVillageBlocks = false;
+        boolean gennedVillage = false;
 
         ForgeEventFactory.onChunkPopulate(true, this, this.world, this.rand, chunkX, chunkZ, false);
 
         if (this.mapFeaturesEnabled) {
-
-            TimeTracker.manager.start("Mineshafts");
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useMineShafts) {
-            if (rtgConfig.GENERATE_MINESHAFTS.get()) {
-                try {
-                    mineshaftGenerator.generateStructure(world, rand, chunkPos);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in mineshaftGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in mineshaftGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-            TimeTracker.manager.stop("Mineshafts");
-
-            TimeTracker.manager.start("Strongholds");
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useStrongholds) {
-            if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
-                try {
-                    strongholdGenerator.generateStructure(world, rand, chunkPos);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in strongholdGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in strongholdGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-            TimeTracker.manager.stop("Strongholds");
-
-            TimeTracker.manager.start("Villages");
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useVillages) {
-            if (rtgConfig.GENERATE_VILLAGES.get()) {
-                try {
-                    hasPlacedVillageBlocks = villageGenerator.generateStructure(world, rand, chunkPos);
-                }
-                catch (Exception e) {
-                    hasPlacedVillageBlocks = false;
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in villageGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in villageGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-            TimeTracker.manager.stop("Villages");
-
-            TimeTracker.manager.start("Scattered");
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useTemples) {
-            if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
-                try {
-                    scatteredFeatureGenerator.generateStructure(world, rand, chunkPos);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in scatteredFeatureGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in scatteredFeatureGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-            TimeTracker.manager.stop("Scattered");
-
-            TimeTracker.manager.start("Monuments");
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useMonuments) {
-            if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
-                try {
-                    oceanMonumentGenerator.generateStructure(this.world, rand, chunkPos);
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in oceanMonumentGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in oceanMonumentGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-            TimeTracker.manager.stop("Monuments");
+            if (settings.useMineShafts)  { mineshaftGenerator.generateStructure(world, rand, chunkPos); }
+            if (settings.useStrongholds) { strongholdGenerator.generateStructure(world, rand, chunkPos); }
+            if (settings.useVillages)    { gennedVillage = villageGenerator.generateStructure(world, rand, chunkPos); }
+            if (settings.useTemples)     { scatteredFeatureGenerator.generateStructure(world, rand, chunkPos); }
+            if (settings.useMonuments)   { oceanMonumentGenerator.generateStructure(this.world, rand, chunkPos); }
         }
 
         TimeTracker.manager.start("Pools");
-        biome.rDecorator().rPopulatePreDecorate(this, this.world, this.rand, this.settings, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator().rPopulatePreDecorate(this, this.world, this.rand, this.settings, chunkX, chunkZ, gennedVillage);
         TimeTracker.manager.stop("Pools");
 
         /*
@@ -731,6 +496,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         Logger.debug("DecorateBiomeEvent.Pre (%d %d)", worldX, worldZ);
 
         // Ore gen.
+// TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
         this.generateOres(biome, this.settings, new BlockPos(worldX, 0, worldZ));
 
         //Initialise variables.
@@ -768,7 +534,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
             }
             else {
 
-                realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, hasPlacedVillageBlocks);
+                realisticBiome.rDecorate(this.rtgWorld, this.rand, worldX, worldZ, borderNoise, river, gennedVillage);
             }
         }
 
@@ -785,17 +551,17 @@ public class ChunkGeneratorRTG implements IChunkGenerator
          */
 
         TimeTracker.manager.start("Post-decorations");
-        biome.rDecorator().rPopulatePostDecorate(this.world, this.rand, this.settings, chunkX, chunkZ, hasPlacedVillageBlocks);
+        biome.rDecorator().rPopulatePostDecorate(this.world, this.rand, this.settings, chunkX, chunkZ, gennedVillage);
         TimeTracker.manager.stop("Post-decorations");
 
         TimeTracker.manager.start("Entities");
-        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
+        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, gennedVillage, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
             WorldEntitySpawner.performWorldGenSpawning(this.world, biome.baseBiome(), worldX + 8, worldZ + 8, 16, 16, this.rand);
         }
         TimeTracker.manager.stop("Entities");
 
         TimeTracker.manager.start("Ice");
-        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, gennedVillage, PopulateChunkEvent.Populate.EventType.ICE)) {
 
             int i4, j4;
             IBlockState snowLayerBlock = Blocks.SNOW_LAYER.getDefaultState();
@@ -824,7 +590,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         }
         TimeTracker.manager.stop("Ice");
 
-        ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, chunkX, chunkZ, hasPlacedVillageBlocks);
+        ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, chunkX, chunkZ, gennedVillage);
 
         BlockFalling.fallInstantly = false;
         TimeTracker.manager.stop("RTG populate");
@@ -867,9 +633,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     @Override
     public boolean generateStructures(Chunk chunkIn, int x, int z) {
         boolean flag = false;
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//      if (settings.useMonuments && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
-        if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
+        if (settings.useMonuments && this.mapFeaturesEnabled && chunkIn.getInhabitedTime() < 3600L) {
             flag = this.oceanMonumentGenerator.generateStructure(this.world, this.rand, new ChunkPos(x, z));
         }
         return flag;
@@ -878,14 +642,11 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     @Override
     public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
         Biome biome = this.world.getBiome(pos);
-
         if (this.mapFeaturesEnabled) {
             if (creatureType == EnumCreatureType.MONSTER && this.scatteredFeatureGenerator.isSwampHut(pos)) {
                 return this.scatteredFeatureGenerator.getMonsters();
             }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (creatureType == EnumCreatureType.MONSTER && settings.useMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
-            if (creatureType == EnumCreatureType.MONSTER && rtgConfig.GENERATE_OCEAN_MONUMENTS.get() && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
+            if (creatureType == EnumCreatureType.MONSTER && settings.useMonuments && this.oceanMonumentGenerator.isPositionInStructure(this.world, pos)) {
                 return this.oceanMonumentGenerator.getMonsters();
             }
         }
@@ -896,103 +657,25 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     @Override
     public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
         if (!this.mapFeaturesEnabled) { return null; }
-        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) { return this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null) { return this.woodlandMansionGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Monument".equals(structureName) && this.oceanMonumentGenerator != null) { return this.oceanMonumentGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Village".equals(structureName) && this.villageGenerator != null) { return this.villageGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null) { return this.mineshaftGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        return "Temple".equals(structureName) && this.scatteredFeatureGenerator != null ? this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored) : null;
+        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null)       { return this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Mansion".equals(structureName)    && this.woodlandMansionGenerator != null)  { return this.woodlandMansionGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Monument".equals(structureName)   && this.oceanMonumentGenerator != null)    { return this.oceanMonumentGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Village".equals(structureName)    && this.villageGenerator != null)          { return this.villageGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Mineshaft".equals(structureName)  && this.mineshaftGenerator != null)        { return this.mineshaftGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if ("Temple".equals(structureName)     && this.scatteredFeatureGenerator != null) { this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        return null;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
-    public void recreateStructures(Chunk chunk, int par1, int par2) {
-
+    public void recreateStructures(Chunk chunk, int cx, int cz) {
         if (this.mapFeaturesEnabled) {
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useMineShafts) {
-            if (rtgConfig.GENERATE_MINESHAFTS.get()) {
-                try {
-                    mineshaftGenerator.generate(world, par1, par2, new ChunkPrimer());
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in mineshaftGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in mineshaftGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useStrongholds) {
-            if (rtgConfig.GENERATE_STRONGHOLDS.get()) {
-                try {
-                    strongholdGenerator.generate(world, par1, par2, new ChunkPrimer());
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in strongholdGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in strongholdGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useVillages) {
-            if (rtgConfig.GENERATE_VILLAGES.get()) {
-                try {
-                    villageGenerator.generate(this.world, par1, par2, new ChunkPrimer());
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in villageGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in villageGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useTemples) {
-            if (rtgConfig.GENERATE_SCATTERED_FEATURES.get()) {
-                try {
-                    scatteredFeatureGenerator.generate(this.world, par1, par2, new ChunkPrimer());
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in scatteredFeatureGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in scatteredFeatureGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          if (settings.useMonuments) {
-            if (rtgConfig.GENERATE_OCEAN_MONUMENTS.get()) {
-                try {
-                    oceanMonumentGenerator.generate(this.world, par1, par2, new ChunkPrimer());
-                }
-                catch (Exception e) {
-                    if (rtgConfig.CRASH_ON_STRUCTURE_EXCEPTIONS.get()) {
-                        Logger.fatal("Exception in oceanMonumentGenerator");
-                        throw new RuntimeException(e.getMessage());
-                    }
-                    else {
-                        Logger.error("Exception in oceanMonumentGenerator");
-                        e.printStackTrace();
-                    }
-                }
-            }
+            if (this.settings.useMineShafts)  { this.mineshaftGenerator.generate(this.world, cx, cz, null); }
+            if (this.settings.useVillages)    { this.villageGenerator.generate(this.world, cx, cz, null); }
+            if (this.settings.useStrongholds) { this.strongholdGenerator.generate(this.world, cx, cz, null); }
+            if (this.settings.useTemples)     { this.scatteredFeatureGenerator.generate(this.world, cx, cz, null); }
+            if (this.settings.useMonuments)   { this.oceanMonumentGenerator.generate(this.world, cx, cz, null); }
+            if (this.settings.useMansions)    { this.woodlandMansionGenerator.generate(this.world, cx, cz, null);}
         }
     }
 
@@ -1000,10 +683,10 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
         if (!this.mapFeaturesEnabled) { return false; }
         if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) { return this.strongholdGenerator.isInsideStructure(pos); }
-        if ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null) { return this.woodlandMansionGenerator.isInsideStructure(pos); }
-        if ("Monument".equals(structureName) && this.oceanMonumentGenerator != null) { return this.oceanMonumentGenerator.isInsideStructure(pos); }
-        if ("Village".equals(structureName) && this.villageGenerator != null) { return this.villageGenerator.isInsideStructure(pos); }
-        if ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null) { return this.mineshaftGenerator.isInsideStructure(pos); }
+        if ("Mansion".equals(structureName)    && this.woodlandMansionGenerator != null) { return this.woodlandMansionGenerator.isInsideStructure(pos); }
+        if ("Monument".equals(structureName)   && this.oceanMonumentGenerator != null) { return this.oceanMonumentGenerator.isInsideStructure(pos); }
+        if ("Village".equals(structureName)    && this.villageGenerator != null) { return this.villageGenerator.isInsideStructure(pos); }
+        if ("Mineshaft".equals(structureName)  && this.mineshaftGenerator != null) { return this.mineshaftGenerator.isInsideStructure(pos); }
         return ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null) && this.scatteredFeatureGenerator.isInsideStructure(pos);
     }
 
@@ -1098,6 +781,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         }
     }
 
+// TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
     private void generateOres(IRealisticBiome rBiome, ChunkProviderSettingsRTG settings, BlockPos pos) {
 
         // Have we already generated ores for this chunk?
@@ -1142,12 +826,12 @@ public class ChunkGeneratorRTG implements IChunkGenerator
             }
 
             if (this == TEMPLE) {
-                ret.put("distance", String.valueOf(settings.templeMaxDistance));
+                ret.put("distance", String.valueOf(settings.templeDistance));
                 return ret;
             }
 
             if (this == VILLAGE) {
-                ret.put("distance", String.valueOf(settings.villageMaxDistance));
+                ret.put("distance", String.valueOf(settings.villageDistance));
                 ret.put("size",     String.valueOf(settings.villageSize));
                 return ret;
             }
@@ -1157,7 +841,24 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     }
 
     private final class FakeGeneratorForMansion extends ChunkGeneratorOverworld {
-        private FakeGeneratorForMansion(World world) { super(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), world.getWorldInfo().getGeneratorOptions()); }
-        @Override public void setBlocksInChunk(int x, int z, ChunkPrimer primer) { super.setBlocksInChunk(x, z, primer); }
+
+        private FakeGeneratorForMansion(World world) {
+            super(
+                world,
+                world.getSeed(),
+                world.getWorldInfo().isMapFeaturesEnabled(),
+                world.getWorldInfo().getGeneratorOptions()
+            );
+        }
+
+        @Override public void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer) {
+            float[] noise = ChunkGeneratorRTG.this.noiseCache.get(ChunkPos.asLong(chunkX, chunkZ));
+            if (noise == null) {
+                ChunkLandscape landscape = new ChunkLandscape();
+                ChunkGeneratorRTG.this.landscapeGenerator.getNewerNoise(ChunkGeneratorRTG.this.biomeProvider, chunkX, chunkZ, landscape);
+                noise = landscape.noise;
+            }
+            ChunkGeneratorRTG.this.generateTerrain(primer, noise);
+        }
     }
 }

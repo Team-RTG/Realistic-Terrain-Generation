@@ -96,7 +96,7 @@ public class LandscapeGenerator {
         return result;
     }
 
-    private synchronized void getNewerNoise(IBiomeProviderRTG cmr, int cx, int cz, ChunkLandscape landscape) {
+    synchronized void getNewerNoise(IBiomeProviderRTG cmr, int cx, int cz, ChunkLandscape landscape) {
         // get area biome map
         TimeTracker.manager.start("RTG Noise");
         TimeTracker.manager.start("Biome Layout");

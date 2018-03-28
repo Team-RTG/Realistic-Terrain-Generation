@@ -432,7 +432,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     enum Page {
         PAGE1 (Category.WORLD, Category.SURFACE, Category.UNDERGROUND, Category.VOLCANOS),
         PAGE2 (Category.RIVERS, Category.RTGLAKES, Category.VANILLASURFACELAKES, Category.VANILLAUNDERGROUNDLAKES, Category.VANILLASPOUTS),
-        PAGE3 (Category.VILLAGES, Category.MINESHAFTS, Category.DUNGEONS, Category.TEMPLES, Category.MONUMENTS, /*Category.MANSIONS,*/ Category.STRONGHOLDS),
+        PAGE3 (Category.VILLAGES, Category.MINESHAFTS, Category.DUNGEONS, Category.TEMPLES, Category.MONUMENTS, Category.MANSIONS, Category.STRONGHOLDS),
         PAGE4 (Category.DIRT, Category.GRAVEL, Category.GRANITE, Category.DIORITE,  Category.ANDESITE,
                Category.COAL, Category.IRON,   Category.GOLD,    Category.REDSTONE, Category.DIAMOND, Category.LAPIS);
 
@@ -473,7 +473,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     enum Category {
         WORLD, SURFACE, UNDERGROUND, VOLCANOS,
         RIVERS, RTGLAKES, VANILLASURFACELAKES, VANILLAUNDERGROUNDLAKES, VANILLASPOUTS,
-        VILLAGES, MINESHAFTS, DUNGEONS, TEMPLES, MONUMENTS, /*MANSIONS,*/ STRONGHOLDS,
+        VILLAGES, MINESHAFTS, DUNGEONS, TEMPLES, MONUMENTS, MANSIONS, STRONGHOLDS,
         DIRT, GRAVEL, GRANITE, DIORITE, ANDESITE, COAL, IRON, GOLD, REDSTONE, DIAMOND, LAPIS;
         public String getTitle() {
             return I18n.format(LANG_KEY_PREFIX_CATEGORY + name());
@@ -536,8 +536,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
         useVillages         (SettingType.BOOLEAN, defaults.useVillages,          null, null, Category.VILLAGES),
         villageSize         (SettingType.INTEGER, defaults.villageSize,             0,    5, Category.VILLAGES),
-        villageMinDistance  (SettingType.INTEGER, defaults.villageMinDistance,      8,  256, Category.VILLAGES),
-        villageMaxDistance  (SettingType.INTEGER, defaults.villageMaxDistance,     24, 1024, Category.VILLAGES),
+        villageDistance     (SettingType.INTEGER, defaults.villageDistance,        24, 1024, Category.VILLAGES),
 
         useMineShafts       (SettingType.BOOLEAN, defaults.useMineShafts,        null, null, Category.MINESHAFTS),
         mineShaftChance     (SettingType.FLOAT,   defaults.mineShaftChance,    0.001f,0.01f, Category.MINESHAFTS),
@@ -546,17 +545,15 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         dungeonChance       (SettingType.INTEGER, defaults.dungeonChance,           5,   20, Category.DUNGEONS),
 
         useTemples          (SettingType.BOOLEAN, defaults.useTemples,           null, null, Category.TEMPLES),
-        templeMinDistance   (SettingType.INTEGER, defaults.templeMinDistance,       4,   16, Category.TEMPLES),
-        templeMaxDistance   (SettingType.INTEGER, defaults.templeMaxDistance,      16,   64, Category.TEMPLES),
+        templeDistance      (SettingType.INTEGER, defaults.templeDistance,         16,   64, Category.TEMPLES),
 
         useMonuments        (SettingType.BOOLEAN, defaults.useMonuments,         null, null, Category.MONUMENTS),
         monumentSpacing     (SettingType.INTEGER, defaults.monumentSpacing,        16,   64, Category.MONUMENTS),
         monumentSeparation  (SettingType.INTEGER, defaults.monumentSeparation,      3,    8, Category.MONUMENTS),
 
-// TODO: Disabled until >= MC 1.11
-//      useMansions         (SettingType.BOOLEAN, defaults.useMansions,          null, null, Category.MANSIONS),
-//      mansionSpacing      (SettingType.BOOLEAN, defaults.mansionSpacing,         40,  160, Category.MANSIONS),
-//      mansionSeparation   (SettingType.BOOLEAN, defaults.mansionSeparation,      10,   40, Category.MANSIONS),
+        useMansions         (SettingType.BOOLEAN, defaults.useMansions,          null, null, Category.MANSIONS),
+        mansionSpacing      (SettingType.INTEGER, defaults.mansionSpacing,         40,  160, Category.MANSIONS),
+        mansionSeparation   (SettingType.INTEGER, defaults.mansionSeparation,      10,   40, Category.MANSIONS),
 
         useStrongholds      (SettingType.BOOLEAN, defaults.useStrongholds,       null, null, Category.STRONGHOLDS),
         strongholdCount     (SettingType.INTEGER, defaults.strongholdCount,         0,  256, Category.STRONGHOLDS),

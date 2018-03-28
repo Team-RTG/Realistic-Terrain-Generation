@@ -19,7 +19,9 @@ public class RealisticBiomePatcher {
         Biome biome = WorldUtil.Biomes.getBiomeFromCfgString(rtgConfig.PATCH_BIOME.get().trim(), Biomes.PLAINS);
         this.realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
         if (this.realisticBiome == null) {
-            Logger.error("Erroneous patch biome set: [{}], This biome can't not be used as a patch biome as it is unsupported.", biome.getRegistryName());
+            Logger.error("Erroneous patch biome set: [{}], This biome can't not be used as a patch" +
+                " biome as it is unsupported. Using minecraft:plains instead.", biome.getRegistryName());
+            this.realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(Biomes.PLAINS));
         }
     }
 

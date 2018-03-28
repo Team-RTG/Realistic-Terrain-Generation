@@ -6,10 +6,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 
 import rtg.api.util.TimedHashMap;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.world.RTGWorld;
-import rtg.util.TimeTracker;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -26,21 +23,17 @@ public class LandscapeGenerator {
     private final int[] biomeData;
     private float[] [] weightings;
     private final RTGWorld rtgWorld;
-    private final OpenSimplexNoise simplex;
-    private final CellNoise cell;
     private float [] weightedBiomes = new float [256];
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
     private TimedHashMap<ChunkPos,ChunkLandscape> storage = new TimedHashMap<>(60 * 1000);
     private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
-    private final WeakHashMap<ChunkPos,float[]> cache = new WeakHashMap();
+    private final WeakHashMap<ChunkPos,float[]> cache = new WeakHashMap<>();
     private MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
 
     public LandscapeGenerator(RTGWorld rtgWorld) {
         this.rtgWorld = rtgWorld;
         sampleArraySize = sampleSize * 2 + 5;
         biomeData = new int[sampleArraySize * sampleArraySize];
-        this.simplex = rtgWorld.simplex;
-        this.cell = rtgWorld.cell;
         setWeightings();
     }
 
@@ -48,7 +41,6 @@ public class LandscapeGenerator {
         weightings = new float [sampleArraySize * sampleArraySize][256];
         for (int i = 0; i < 16; i++) {
             for (int j=0; j<16; j++) {
-                TimeTracker.manager.start("Weighting");
                 float limit = (float)Math.pow((56f*56f),.7);
                 // float limit = 56f;
 
@@ -98,9 +90,6 @@ public class LandscapeGenerator {
 
     synchronized void getNewerNoise(IBiomeProviderRTG cmr, int cx, int cz, ChunkLandscape landscape) {
         // get area biome map
-        TimeTracker.manager.start("RTG Noise");
-        TimeTracker.manager.start("Biome Layout");
-
         for(int i = -sampleSize; i < sampleSize + 5; i++) {
             for(int j = -sampleSize; j < sampleSize + 5; j++) {
                 biomeData[(i + sampleSize) * sampleArraySize + (j + sampleSize)] =
@@ -108,13 +97,9 @@ public class LandscapeGenerator {
             }
         }
 
-        TimeTracker.manager.stop("Biome Layout");
-        float river;
-
         // fill the old smallRender
         for (int i = 0; i < 16; i++) {
             for (int j=0; j<16; j++) {
-                TimeTracker.manager.start("Weighting");
                 float totalWeight = 0;
                 for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
                     for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
@@ -135,13 +120,10 @@ public class LandscapeGenerator {
                 
                 landscape.noise[i * 16 + j] = 0f;
 
-                TimeTracker.manager.stop("Weighting");
-                TimeTracker.manager.start("Generating");
-                river = cmr.getRiverStrength(cx + i, cz + j);
+                float river = cmr.getRiverStrength(cx + i, cz + j);
                 landscape.river[i * 16 + j] = -river;
                 float totalBorder = 0f;
 
-                
                 for(int k = 0; k < 256; k++)
                 {
                     if(weightedBiomes[k] > 0f)
@@ -162,20 +144,16 @@ public class LandscapeGenerator {
                     }
                 }
                 if (totalBorder <.999||totalBorder>1.001) throw new RuntimeException("" + totalBorder);
-                TimeTracker.manager.stop("Generating");
             }
         }
 
         //fill biomes array with biomeData
 
-        TimeTracker.manager.start("Biome Layout");
         for (int i = 0; i < 16; i++) {
             for (int j=0; j<16; j++) {
                 landscape.biome[i*16+j] =  cmr.getBiomeDataAt(cx + (((i-7) * 8+4)), cz + (((j-7) * 8+4)));
             }
         }
-        TimeTracker.manager.stop("Biome Layout");
-        TimeTracker.manager.stop("RTG Noise");
     }
 
     public float [] noiseFor(IBiomeProviderRTG cmr, int worldX, int worldZ) {
@@ -187,15 +165,12 @@ public class LandscapeGenerator {
         result = new float[256];
         final int adjust = 24;// seems off? but decorations aren't matching their chunks.
 
-        TimeTracker.manager.start("Biome Layout");
         for (int bx = -4; bx <= 4; bx++) {
 
             for (int bz = -4; bz <= 4; bz++) {
                 result[getBiomeDataAt(cmr, worldX + adjust + bx * 4, worldZ + adjust + bz * 4)] += 0.01234569f;
             }
         }
-        TimeTracker.manager.stop("Biome Layout");
-        TimeTracker.manager.stop("Features"); 
         cache.put(location, result);
         return result;
     }

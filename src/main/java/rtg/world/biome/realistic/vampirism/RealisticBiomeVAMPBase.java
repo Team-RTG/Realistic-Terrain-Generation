@@ -11,7 +11,7 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 public abstract class RealisticBiomeVAMPBase extends RealisticBiomeBase {
 
     private static final String VAMPIRISM_MODID   = "vampirism";
-    private static final String VAMP_FOREST_BIOME = "vampireforest";
+    private static final String VAMP_FOREST_BIOME = "vampireForest";
 
     public static RealisticBiomeBase vampireForest;
 

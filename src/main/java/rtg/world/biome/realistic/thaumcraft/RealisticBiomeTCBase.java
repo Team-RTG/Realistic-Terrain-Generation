@@ -10,11 +10,8 @@ import rtg.world.biome.realistic.RealisticBiomeBase;
 @SuppressWarnings("unused")
 public abstract class RealisticBiomeTCBase extends RealisticBiomeBase
 {
-    private static final String MAGFOR_BIOME_CLASS = "thaumcraft.common.world.biomes.BiomeGenMagicalForest";
-    private static final String EERIE_BIOME_CLASS  = "thaumcraft.common.world.biomes.BiomeGenEerie";
-
     private static RealisticBiomeBase magicalForest;
-    private static RealisticBiomeBase eerie;
+    private static RealisticBiomeBase eerie;// Add Eerie biome, even though it doesn't generate normally
 
     RealisticBiomeTCBase(Biome biome, Biome river) {
 
@@ -25,13 +22,6 @@ public abstract class RealisticBiomeTCBase extends RealisticBiomeBase
     }
 
     @Override public String modSlug() { return "thaumcraft"; }
-
-    /**
-     * Thaumcraft biomes with their default biome Ids:
-     * 193: minecraft:magical_forest | Magical Forest
-     * 194: minecraft:eerie          | Eerie
-     * 195: minecraft:eldritch       | Outer Lands (not an Overworld biome)
-     */
 
     public static void addBiomes() {
 
@@ -45,12 +35,10 @@ public abstract class RealisticBiomeTCBase extends RealisticBiomeBase
                     continue;
                 }
 
-// TODO: Replace check against class names with a check against the ResLoc domain when TC biomes are registered correctly.
-                if (loc.getResourcePath().equals("magical_forest") &&
-                    biome.getBiomeClass().getName().equals(MAGFOR_BIOME_CLASS)) { setMagicalForest(biome); }
-
-                if (loc.getResourcePath().equals("eerie") &&
-                    biome.getBiomeClass().getName().equals(EERIE_BIOME_CLASS)) { setEerie(biome); }
+                if (loc.getResourceDomain().equals("thaumcraft")) {
+                    if (loc.getResourcePath().equals("magical_forest")) { setMagicalForest(biome); }
+                    if (loc.getResourcePath().equals("eerie")) { setEerie(biome); }
+                }
             }
         }
     }

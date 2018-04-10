@@ -13,6 +13,8 @@ import rtg.world.biome.deco.DecoBaseBiomeDecorations;
 import rtg.world.gen.surface.SurfaceBase;
 import rtg.world.gen.terrain.TerrainBase;
 
+// This biome doesn't generate naturally in the Overworld during chunk generation, it spreads from nothing near certain nodes.
+// Support is added for this biome in case someone does something weird which would require RTG support.
 public class RealisticBiomeTCEerie extends RealisticBiomeTCBase
 {
     RealisticBiomeTCEerie(Biome biome) { super(biome, Biomes.RIVER); }

@@ -1,15 +1,15 @@
 package rtg.api.world.biome;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import rtg.api.util.LimitedMap;
+import rtg.api.util.LimitedArrayCacheMap;
 import rtg.api.util.MathUtils;
-import rtg.api.util.PlaneLocation;
 import rtg.api.world.IRTGWorld;
 
 /**
@@ -25,7 +25,7 @@ public class OrganicBiomeGenerator {
 
     public static boolean[] organicBiomes = new boolean[256];
     private final ChunkGeneratorOverworld organicProvider;
-    private LimitedMap<PlaneLocation.Invariant, int[]> chunkHeights = new LimitedMap<>(64); //Keep the heights for the last 64 chunks around for a bit. We might need them
+    private final LimitedArrayCacheMap<Long, int[]> chunkHeights = new LimitedArrayCacheMap<>(256);// ChunkPos encoded to Long
     private IRTGWorld rtgWorld;
     private NoiseGeneratorPerlin surfaceNoise;
 
@@ -50,11 +50,7 @@ public class OrganicBiomeGenerator {
     }
 
     public int[] getHeightsAt(int cx, int cz) {
-        PlaneLocation.Invariant inLoc = new PlaneLocation.Invariant(cx, cz);
-        int[] heights = null;
-        for (PlaneLocation.Invariant location : chunkHeights.keySet()) {
-            if (location.equals(inLoc)) heights = chunkHeights.get(location);
-        }
+        int[] heights = this.chunkHeights.get(ChunkPos.asLong(cx, cz));
         if (heights == null) heights = this.organicTerrain(cx, cz);
         return heights;
     }
@@ -73,7 +69,7 @@ public class OrganicBiomeGenerator {
                 }
             }
         }
-        chunkHeights.put(new PlaneLocation.Invariant(cx, cz), heights);
+        this.chunkHeights.put(ChunkPos.asLong(cx, cz), heights);
         return heights;
     }
 

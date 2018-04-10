@@ -19,6 +19,8 @@ public class RTGConfig extends Config
     // Maximum tree density.
     public static final float MAX_TREE_DENSITY = 5f;
 
+    public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN; // TODO: [Clean-up] Rename this to be less ambiguous for what it does after removing the hashfile functionality
+
     public final ConfigPropertyBoolean ENABLE_DEBUGGING;
     public final ConfigPropertyBoolean DISABLE_RTG_BIOME_DECORATIONS;
     public final ConfigPropertyBoolean DISABLE_RTG_BIOME_SURFACES;
@@ -31,8 +33,6 @@ public class RTGConfig extends Config
     public final ConfigPropertyBoolean ENABLE_FLOWING_LIQUID_MODIFICATIONS; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger FLOWING_LAVA_CHANCE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger FLOWING_WATER_CHANCE; // TODO: [Generator settings] To be removed
-
-    public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN; // TODO: [Clean-up] Rename this to be less ambiguous for what it does after removing the hashfile functionality
 
     public final ConfigPropertyFloat LAKE_SIZE_MULTIPLIER; // This is private because we want a transformed version. // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat LAKE_FREQUENCY_MULTIPLIER; // TODO: [Generator settings] To be removed
@@ -107,46 +107,14 @@ public class RTGConfig extends Config
     public RTGConfig(File configFile) {
         super(configFile);
 
-        DISABLE_RTG_BIOME_DECORATIONS = new ConfigPropertyBoolean(
-            "Disable RTG Biome Decorations",
-            "Debug",
-            "If TRUE, disables all RTG decorations and uses vanilla decorations instead.",
-            false
-        );
-        this.addProperty(DISABLE_RTG_BIOME_DECORATIONS);
-
-        DISABLE_RTG_BIOME_SURFACES = new ConfigPropertyBoolean(
-            "Disable RTG Biome Surfaces",
-            "Debug",
-            "If TRUE, disables all RTG surfaces and uses vanilla surfaces instead.",
-            false
-        );
-        this.addProperty(DISABLE_RTG_BIOME_SURFACES);
-
-        DISABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
-            "Disable RTG Terrain",
-            "Debug",
-            "If TRUE, disables all realistic terrain generation and uses vanilla terrain instead.",
-            false
-        );
-        this.addProperty(DISABLE_RTG_TERRAIN);
-
-        USE_PATCH_BIOME = new ConfigPropertyBoolean(
-            "Use Patch Biome",
-            "Debug",
-            "If TRUE, when RTG encounters a biome that is unsupported it will use the patch biome instead, otherwise crash.",
+        ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN = new ConfigPropertyBoolean(
+            "Enable World Type Notification Screen",
+            "Client",
+            "When enabled, this will display an informational message about RTG when entering the Customize World screen." + Configuration.NEW_LINE +
+                "This will display once and automatically disable itself.",
             true
         );
-
-        PATCH_BIOME = new ConfigPropertyString(
-            "Patch Biome",
-            "Debug",
-            "If RTG encounters an unsupported biome it will generate this biome instead." + Configuration.NEW_LINE +
-            "This uses the standard ResourceLocation format: \"mod_id:biome_registry_name\"" + Configuration.NEW_LINE +
-            "Default = Vanilla Plains",
-            "minecraft:plains"
-        );
-        this.addProperty(PATCH_BIOME);
+        this.addProperty(ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN);
 
         ENABLE_DEBUGGING = new ConfigPropertyBoolean(
             "Enable Debugging",
@@ -155,6 +123,47 @@ public class RTGConfig extends Config
             false
         );
         this.addProperty(ENABLE_DEBUGGING);
+
+        DISABLE_RTG_BIOME_DECORATIONS = new ConfigPropertyBoolean(
+            "Disable RTG Biome Decorations",
+            "Debug.RTG Features",
+            "If TRUE, disables all RTG decorations and uses vanilla decorations instead.",
+            false
+        );
+        this.addProperty(DISABLE_RTG_BIOME_DECORATIONS);
+
+        DISABLE_RTG_BIOME_SURFACES = new ConfigPropertyBoolean(
+            "Disable RTG Biome Surfaces",
+            "Debug.RTG Features",
+            "If TRUE, disables all RTG surfaces and uses vanilla surfaces instead.",
+            false
+        );
+        this.addProperty(DISABLE_RTG_BIOME_SURFACES);
+
+        DISABLE_RTG_TERRAIN = new ConfigPropertyBoolean(
+            "Disable RTG Terrain",
+            "Debug.RTG Features",
+            "If TRUE, disables all realistic terrain generation and uses vanilla terrain instead.",
+            false
+        );
+        this.addProperty(DISABLE_RTG_TERRAIN);
+
+        USE_PATCH_BIOME = new ConfigPropertyBoolean(
+            "Use Patch Biome",
+            "Debug.Patch Biome",
+            "If TRUE, when RTG encounters a biome that is unsupported it will use the patch biome instead, otherwise crash.",
+            true
+        );
+        this.addProperty(USE_PATCH_BIOME);
+
+        PATCH_BIOME = new ConfigPropertyString(
+            "Patch Biome",
+            "Debug.Patch Biome",
+            "If RTG encounters an unsupported biome it will generate this biome instead." + Configuration.NEW_LINE +
+                "This uses the standard ResourceLocation format: mod_id:biome_registry_name",
+            "minecraft:plains"
+        );
+        this.addProperty(PATCH_BIOME);
 
         DUNE_HEIGHT = new ConfigPropertyInteger(
             "Height of Dunes",
@@ -196,14 +205,6 @@ public class RTGConfig extends Config
             200, 0, Integer.MAX_VALUE
         );
         this.addProperty(FLOWING_WATER_CHANCE);
-
-        ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN = new ConfigPropertyBoolean(
-            "Enable World Type Notification Screen",
-            "GUI",
-            "",
-            true
-        );
-        this.addProperty(ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN);
 
         LAKE_SIZE_MULTIPLIER = new ConfigPropertyFloat(
             "Lake Size Multiplier",
@@ -549,7 +550,7 @@ public class RTGConfig extends Config
 
         VOLCANO_MAIN_BLOCK = new ConfigPropertyString(
             "Volcano Main block",
-            "Volcanoes.Volcano Blocks.Volcano Block",
+            "Volcanoes.Volcano Blocks",
             "The main block to use for the surface of the volcano." + BLOCKSTATE_HELP,
             "minecraft:obsidian"
         );
@@ -557,15 +558,15 @@ public class RTGConfig extends Config
 
         VOLCANO_MIX1_BLOCK = new ConfigPropertyString(
             "Volcano mix block 1",
-            "Volcanoes.Volcano Blocks.Mix Block 1" + BLOCKSTATE_HELP,
-            "The 1st volcano mix block.",
+            "Volcanoes.Volcano Blocks",
+            "The 1st volcano mix block." + BLOCKSTATE_HELP,
             "minecraft:cobblestone"
         );
         this.addProperty(VOLCANO_MIX1_BLOCK);
 
         VOLCANO_MIX2_BLOCK = new ConfigPropertyString(
             "Volcano mix block 2",
-            "Volcanoes.Volcano Blocks.Mix Block 2",
+            "Volcanoes.Volcano Blocks",
             "The 2nd volcano mix block." + BLOCKSTATE_HELP,
             "minecraft:gravel"
         );
@@ -573,7 +574,7 @@ public class RTGConfig extends Config
 
         VOLCANO_MIX3_BLOCK = new ConfigPropertyString(
             "Volcano mix block 3",
-            "Volcanoes.Volcano Blocks.Mix Block 3",
+            "Volcanoes.Volcano Blocks",
             "The 3rd volcano mix block." + BLOCKSTATE_HELP,
             "minecraft:coal_block"
         );

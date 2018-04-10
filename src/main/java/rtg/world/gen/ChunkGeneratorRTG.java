@@ -50,7 +50,6 @@ import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.Compass;
 import rtg.api.util.Direction;
 import rtg.api.util.LimitedArrayCacheMap;
-import rtg.api.util.LimitedMap;
 import rtg.api.util.LimitedSet;
 import rtg.api.util.Logger;
 import rtg.api.util.TimedHashSet;
@@ -88,7 +87,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     private int [] xyinverted = analyzer.xyinverted();
     private final LandscapeGenerator landscapeGenerator;
     private final LimitedArrayCacheMap<Long, float[]> noiseCache = new LimitedArrayCacheMap<>(50);// cache the noise array for the last 50 chunks
-    private final LimitedMap<ChunkPos, Chunk> availableChunks;
+    private final LimitedArrayCacheMap<Long, Chunk> availableChunks = new LimitedArrayCacheMap<>(1000);// set up the cache of available chunks
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
     private boolean mapFeaturesEnabled;
     private Random rand;
@@ -145,9 +144,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         this.baseBiomesList = new Biome[256];
         this.biomePatcher = new RealisticBiomePatcher();
 
-        // set up the cache of available chunks
-        this.availableChunks = new LimitedMap<>(1000);
-
         Logger.debug("FINISHED instantiating CPRTG.");
     }
 
@@ -157,13 +153,11 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         final ChunkPos pos = new ChunkPos(cx, cz);
         if (this.inGeneration.containsKey(pos)) return this.inGeneration.get(pos);
         if (this.chunkMade.contains(pos)) {
-            Chunk available;
-            available = this.availableChunks.get(pos);
-            // this should never be happening but it came up when Forge/MC re-requested an already
-            // made chunk for a lighting check (???)
+            Chunk available = this.availableChunks.get(ChunkPos.asLong(cx, cz));
 
             // we are having a problem with Forge complaining about double entity registration
             // so we'll unload any loaded entities
+// TODO [1.12] If we are generating a new chunk, there couldn't possibly already be any entities in it, so something else has to be going on.
             if (available != null) {
                 ClassInheritanceMultiMap<Entity>[] entityLists = available.getEntityLists();
                 for (ClassInheritanceMultiMap<Entity> entityList : entityLists) {
@@ -248,7 +242,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         // remove from in process pile
         this.inGeneration.remove(pos);
         this.chunkMade.add(pos);
-        this.availableChunks.put(pos, chunk);
+        this.availableChunks.put(ChunkPos.asLong(cx, cz), chunk);
         return chunk;
     }
 

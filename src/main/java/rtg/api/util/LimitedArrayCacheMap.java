@@ -1,6 +1,6 @@
 /*
  * File         : LimitedArrayCacheMap.java
- * Last Modified: 20180328-02:19:46-0400
+ * Last Modified: 20180410-02:42:58-0400
  *
  * Copyright (c) 2018 srs_bsns (forfrdm [at] gmail.com)
  *
@@ -33,15 +33,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.Spliterators;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -61,43 +57,76 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
         this.entries = new ImmutableEntry[capacity];
     }
 
+    public int getCapacity()
+    {
+        return this.capacity;
+    }
+
     @Override
     public int size()
     {
-        return (int) Arrays.stream(this.entries)
-                         .filter(Objects::nonNull).count();
+        int count = 0;
+        for (ImmutableEntry<K, V> entry : this.entries)
+        {
+            if (entry != null)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public boolean isEmpty()
     {
-        return Arrays.stream(this.entries)
-                   .noneMatch(Objects::nonNull);
+        for (ImmutableEntry<K, V> entry : this.entries)
+        {
+            if (entry != null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean containsKey(final Object key)
     {
-        return IntStream.range(0, this.capacity)
-                   .anyMatch(i -> this.entries[i].getKey().equals(key));
+        for (ImmutableEntry<K, V> entry : this.entries)
+        {
+            if (entry != null && entry.getKey().equals(key))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsValue(final Object value)
     {
-        return IntStream.range(0, this.capacity)
-                   .anyMatch(i -> this.entries[i].getValue().equals(value));
+        for (ImmutableEntry<K, V> entry : this.entries)
+        {
+            if (entry != null && entry.getValue().equals(value))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Nullable
     @Override
     public V get(final Object key)
     {
-        return Arrays.stream(this.entries)
-                   .filter(e -> e != null && e.getKey().equals(key))
-                   .findFirst()
-                   .map(ImmutableEntry::getValue)
-                   .orElse(null);
+        for (ImmutableEntry<K, V> entry : this.entries)
+        {
+            if (entry != null && entry.getKey().equals(key))
+            {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     @Nullable
@@ -111,12 +140,7 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
         }
         this.entries[this.index] = new ImmutableEntry<>(key, value);
         this.removeDuplicates();
-        if (this.index == this.capacity - 1) {
-            this.index = 0;
-        }
-        else {
-            this.index++;
-        }
+        this.index = (this.index == this.capacity - 1) ? 0 : this.index + 1 ;
         return ret;
     }
 
@@ -136,37 +160,49 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
     public void clear()
     {
         this.index = 0;
-        IntStream.range(0, this.capacity)
-            .forEach(i -> this.entries[i] = null);
+        for (int i = 0; i < this.capacity; i++)
+        {
+            this.entries[i] = null;
+        }
     }
 
     @Nonnull
     @Override
     public Set<K> keySet()
     {
-        return Arrays.stream(this.entries)
-                   .filter(Objects::nonNull)
-                   .map(ImmutableEntry::getKey)
-                   .collect(Collectors.toCollection(LinkedHashSet::new));
+        LinkedHashSet<K> keySet = new LinkedHashSet<>();
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null) {
+                keySet.add(entry.getKey());
+            }
+        }
+        return keySet;
     }
 
     @Nonnull
     @Override
     public Collection<V> values()
     {
-        return Arrays.stream(this.entries)
-                   .filter(Objects::nonNull)
-                   .map(ImmutableEntry::getValue)
-                   .collect(Collectors.toCollection(LinkedHashSet::new));
+        LinkedHashSet<V> valueSet = new LinkedHashSet<>();
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null) {
+                valueSet.add(entry.getValue());
+            }
+        }
+        return valueSet;
     }
 
     @Nonnull
     @Override
     public Set<Entry<K, V>> entrySet()
     {
-        return Arrays.stream(this.entries)
-                   .filter(Objects::nonNull)
-                   .collect(Collectors.toCollection(LinkedHashSet::new));
+        LinkedHashSet<Entry<K, V>> entrySet = new LinkedHashSet<>();
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null) {
+                entrySet.add(entry);
+            }
+        }
+        return entrySet;
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
@@ -186,21 +222,37 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
         {
             return true;
         }
+
         if (!(o instanceof LimitedArrayCacheMap))
         {
             return false;
         }
         LimitedArrayCacheMap<?, ?> other = (LimitedArrayCacheMap<?, ?>) o;
-        return this.capacity == other.capacity &&
-               IntStream.range(0, this.capacity)
-                   .allMatch(i -> this.entries[i].equals(other.entries[i]));
+
+        if (this.getCapacity() != other.getCapacity())
+        {
+            return false;
+        }
+
+        for (int i = 0; i < this.getCapacity(); i++)
+        {
+            if (this.entries[i] == null && other.entries[i] != null ||
+                this.entries[i] != null && !this.entries[i].equals(other.entries[i]))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public int hashCode()
     {
-        int ret = 1;
-        ret += this.entrySet().stream().mapToInt(Entry::hashCode).sum();
+        int ret = 0;
+        for (Entry<K, V> entry : this.entrySet())// We only care about the key
+        {
+            ret += entry.hashCode();
+        }
         return ret;
     }
 
@@ -233,9 +285,13 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
 
     private void removeDuplicates()
     {
-        IntStream.range(0, this.capacity)
-            .filter(i -> i != this.index && this.entries[i] != null && this.entries[i].equals(this.entries[this.index]))
-            .forEach(i -> this.entries[i] = null);
+        for (int i = 0; i < this.capacity; i++)
+        {
+            if (i != this.index && this.entries[i] != null && this.entries[i].equals(this.entries[this.index]))
+            {
+                this.entries[i] = null;
+            }
+        }
     }
 
     @Immutable
@@ -273,13 +329,13 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
         @Override
         public boolean equals(@Nullable Object o)
         {
-            return (o != null) && (o instanceof Entry && this.getKey().equals(((Entry) o).getKey()));// We only care about the key
+            return (o != null) && (o instanceof Entry<?, ?> && this.getKey().equals(((Entry<?, ?>) o).getKey()));// We only care about the key
         }
 
         @Override
         public int hashCode()
         {
-            return this.getKey() == null ? 0 : this.getKey().hashCode();// We only care about the key
+            return this.getKey().hashCode();// We only care about the key
         }
 
         @Override

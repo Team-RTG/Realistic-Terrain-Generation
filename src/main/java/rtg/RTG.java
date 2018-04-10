@@ -30,6 +30,7 @@ import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBABase;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBase;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIBase;
 import rtg.world.biome.realistic.flowercraft.RealisticBiomeFCBase;
 import rtg.world.biome.realistic.jikou.RealisticBiomeJIKBase;
 import rtg.world.biome.realistic.mineworld.RealisticBiomeMWBase;
@@ -37,6 +38,8 @@ import rtg.world.biome.realistic.mithwoodforest.RealisticBiomeMFBase;
 import rtg.world.biome.realistic.morechinesemc.RealisticBiomeMCMBase;
 import rtg.world.biome.realistic.rockhoundingsurface.RealisticBiomeRHSBase;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFBase;
+import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCBase;
+import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBase;
 import rtg.world.gen.structure.MapGenScatteredFeatureRTG;
 import rtg.world.gen.structure.MapGenStrongholdRTG;
@@ -105,13 +108,16 @@ public class RTG {
         RealisticBiomeBOPBase.addBiomes();
         RealisticBiomeBYGBase.addBiomes();
         RealisticBiomeFCBase.addBiomes();
+        RealisticBiomeFLORIBase.addBiomes();
         RealisticBiomeJIKBase.addBiomes();
         RealisticBiomeMCMBase.addBiomes();
         RealisticBiomeMFBase.addBiomes();
         RealisticBiomeMWBase.addBiomes();
         RealisticBiomeRHSBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
-        
+        RealisticBiomeTCBase.addBiomes();
+        RealisticBiomeVAMPBase.addBiomes();
+
         RealisticBiomePresenceTester.doBiomeCheck();
     }
 

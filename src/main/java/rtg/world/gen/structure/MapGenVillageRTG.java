@@ -42,10 +42,10 @@ public class MapGenVillageRTG extends MapGenVillage
 
         for (Entry<String, String> entry : map.entrySet()) {
             if (entry.getKey().equals("size")) {
-                this.size = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.size, 0);
+                this.size = MathHelper.getInt(entry.getValue(), this.size, 0);
             }
             else if (entry.getKey().equals("distance")) {
-                this.distance = MathHelper.parseIntWithDefaultAndMax(entry.getValue(), this.distance, 9);
+                this.distance = MathHelper.getInt(entry.getValue(), this.distance, 9);
             }
         }
     }
@@ -66,7 +66,7 @@ public class MapGenVillageRTG extends MapGenVillage
 
         int k = chunkX / this.distance;
         int l = chunkZ / this.distance;
-        Random random = this.worldObj.setRandomSeed(k, l, 10387312);
+        Random random = this.world.setRandomSeed(k, l, 10387312);
         k = k * this.distance;
         l = l * this.distance;
         k = k + random.nextInt(this.distance - 8);
@@ -74,15 +74,15 @@ public class MapGenVillageRTG extends MapGenVillage
 
         if (i == k && j == l) {
 
-            boolean booRTGWorld = worldObj.getWorldType() instanceof WorldTypeRTG;
-            boolean booRTGChunkManager = worldObj.getBiomeProvider() instanceof BiomeProviderRTG;
+            boolean booRTGWorld = world.getWorldType() instanceof WorldTypeRTG;
+            boolean booRTGChunkManager = world.getBiomeProvider() instanceof BiomeProviderRTG;
 
             int worldX = i * 16 + 8;
             int worldZ = j * 16 + 8;
 
             if (booRTGWorld && booRTGChunkManager) {
 
-                BiomeProviderRTG cmr = (BiomeProviderRTG) worldObj.getBiomeProvider();
+                BiomeProviderRTG cmr = (BiomeProviderRTG) world.getBiomeProvider();
                 //Why are we flipping XZ here? No idea, but it works. - Pink
                 RealisticBiomeBase realisticBiome = cmr.getBiomeDataAt(worldX, worldZ);
 
@@ -91,7 +91,7 @@ public class MapGenVillageRTG extends MapGenVillage
                     Logger.debug("Potential village in %s at %d %d", realisticBiome.baseBiome.getBiomeName(), worldX, worldZ);
                 }
             }
-            else canSpawnVillage = this.worldObj.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);
+            else canSpawnVillage = this.world.getBiomeProvider().areBiomesViable(worldX, worldZ, 0, VILLAGE_SPAWN_BIOMES);
         }
         return canSpawnVillage;
     }

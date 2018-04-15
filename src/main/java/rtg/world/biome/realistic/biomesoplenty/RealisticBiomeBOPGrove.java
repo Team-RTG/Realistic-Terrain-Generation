@@ -76,7 +76,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
             // no ground noise
 
-            return terrainGrasslandHills(x, y, rtgWorld.simplex(), rtgWorld.cell(), river,
+            return terrainGrasslandHills(x, y, rtgWorld.simplex(), river,
                 smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength, baseHeight);
         }
     }

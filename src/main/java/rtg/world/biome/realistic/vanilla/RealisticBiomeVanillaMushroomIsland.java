@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandFlats(x, y, rtgWorld.simplex(), river, 40f, 25f, 68f);
+            return terrainGrasslandFlats(x, y, rtgWorld.simplex(), river, 40f, 68f);
         }
     }
 

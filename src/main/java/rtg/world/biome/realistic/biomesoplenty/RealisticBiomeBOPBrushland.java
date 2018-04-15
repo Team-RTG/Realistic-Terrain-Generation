@@ -57,7 +57,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
 
             groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex());
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex(), river);
+            float m = hills(x, y, hillStrength, rtgWorld.simplex());
 
             return riverized(baseHeight + groundNoise + m,river);
         }

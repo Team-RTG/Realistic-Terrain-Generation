@@ -51,7 +51,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainSwampMountain(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, width, heigth, 140f, 39f, 65f);
+            return terrainSwampMountain(x, y, rtgWorld.simplex(), river, width, heigth, 140f, 39f, 65f);
         }
     }
 

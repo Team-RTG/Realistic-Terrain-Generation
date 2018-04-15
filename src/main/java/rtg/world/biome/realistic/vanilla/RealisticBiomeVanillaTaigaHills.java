@@ -61,7 +61,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, 10f, 68f, hillStrength, base - 62f);
+            return terrainHighland(x, y, rtgWorld.simplex(), river, 10f, 68f, hillStrength, base - 62f);
         }
     }
 

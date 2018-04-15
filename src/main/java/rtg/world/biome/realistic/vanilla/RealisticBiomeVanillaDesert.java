@@ -51,11 +51,9 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
-            //return terrainPolar(x, y, simplex, river);
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
+
             ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
-//          float duneHeight = (minDuneHeight + (float) settings.sandDuneHeight);
-            float duneHeight = (minDuneHeight + (float) rtgConfig.DUNE_HEIGHT.get());
+            float duneHeight = (minDuneHeight + settings.sandDuneHeight);
 
             duneHeight *= (1f + rtgWorld.simplex().octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
 

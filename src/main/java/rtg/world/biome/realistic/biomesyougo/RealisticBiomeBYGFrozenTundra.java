@@ -49,7 +49,7 @@ public class RealisticBiomeBYGFrozenTundra extends RealisticBiomeBYGBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, start, width, height, base - 62f);
+            return terrainHighland(x, y, rtgWorld.simplex(), river, start, width, height, base - 62f);
             //return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
         }
     }

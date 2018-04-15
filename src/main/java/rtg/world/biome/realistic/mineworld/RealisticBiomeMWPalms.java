@@ -46,7 +46,7 @@ public class RealisticBiomeMWPalms extends RealisticBiomeMWBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBeach(x, y, rtgWorld.simplex(), river, 160f, 30f, 65f);
+            return terrainBeach(x, y, rtgWorld.simplex(), river, 65f);
         }
     }
 

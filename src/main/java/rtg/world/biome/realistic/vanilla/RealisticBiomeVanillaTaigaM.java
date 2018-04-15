@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandHills(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, vWidth, vHeight, hWidth, hHeight, bHeight);
+            return terrainGrasslandHills(x, y, rtgWorld.simplex(), river, vWidth, vHeight, hWidth, hHeight, bHeight);
         }
     }
 

@@ -68,7 +68,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, start, width, height, 10f);
+            return terrainHighland(x, y, rtgWorld.simplex(), river, start, width, height, 10f);
         }
     }
 

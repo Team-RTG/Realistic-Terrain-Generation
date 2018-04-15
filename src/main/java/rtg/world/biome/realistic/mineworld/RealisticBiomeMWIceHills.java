@@ -54,7 +54,7 @@ public class RealisticBiomeMWIceHills extends RealisticBiomeMWBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainLonelyMountain(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, strength, width, terrainHeight);
+            return terrainLonelyMountain(x, y, rtgWorld.simplex(), river, strength, width, terrainHeight);
         }
     }
 

@@ -59,7 +59,7 @@ class RealisticBiomeBAFarmlandBiome extends rtg.world.biome.realistic.betteragri
 
             groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex());
 
-            float h = terrainGrasslandHills(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+            float h = terrainGrasslandHills(x, y, rtgWorld.simplex(), river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
             return riverized(groundNoise + h, river);
         }

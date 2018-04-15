@@ -71,7 +71,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
             rtgWorld.simplex().riverJitter().evaluateNoise((float) x / wavelength, (float) y / wavelength, jitter);
             int pX = (int) Math.round(x + jitter.deltax() * amplitude);
             int pY = (int) Math.round(y + jitter.deltay() * amplitude);
-            float h = this.terrainGrasslandHills(pX, pY, rtgWorld.simplex(), rtgWorld.cell(), river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+            float h = this.terrainGrasslandHills(pX, pY, rtgWorld.simplex(), river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
             return groundNoise*river + h;
         }

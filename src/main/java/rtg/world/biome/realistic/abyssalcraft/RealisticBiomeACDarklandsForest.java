@@ -60,7 +60,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
             groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex());
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex(), river);
+            float m = hills(x, y, hillStrength, rtgWorld.simplex());
 
             float floNoise = 65f + groundNoise + m;
 

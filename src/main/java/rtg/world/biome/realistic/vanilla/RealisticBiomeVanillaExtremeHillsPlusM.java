@@ -58,7 +58,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeVanill
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainLonelyMountain(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, strength, width, base);
+            return terrainLonelyMountain(x, y, rtgWorld.simplex(), river, strength, width, base);
         }
     }
 

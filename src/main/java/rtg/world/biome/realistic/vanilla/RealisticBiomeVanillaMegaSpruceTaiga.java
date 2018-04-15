@@ -53,9 +53,10 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
 
         }
 
+        @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex(), river, 14f, 66f);
+            return terrainFlatLakes(x, y, rtgWorld.simplex(), river, 66f);
         }
     }
 

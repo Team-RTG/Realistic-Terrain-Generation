@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandMountains(x, y, rtgWorld.simplex(), rtgWorld.cell(), river, 4f, 90f, 67f);
+            return terrainGrasslandMountains(x, y, rtgWorld.simplex(), river, 4f, 90f, 67f);
         }
     }
 

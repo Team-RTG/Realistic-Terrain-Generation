@@ -128,7 +128,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBryce(x, y, rtgWorld.simplex(), river, height, border);
+            return terrainBryce(x, y, rtgWorld.simplex(), river, height);
         }
     }
 

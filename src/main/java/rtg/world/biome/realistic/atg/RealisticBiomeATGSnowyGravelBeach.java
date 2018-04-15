@@ -46,7 +46,7 @@ public class RealisticBiomeATGSnowyGravelBeach extends RealisticBiomeATGBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBeach(x, y, rtgWorld.simplex(), river, 180f, 35f, 63f);
+            return terrainBeach(x, y, rtgWorld.simplex(), river, 63f);
         }
     }
 

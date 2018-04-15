@@ -69,7 +69,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld.simplex(), river, hillStrength, maxHeight, groundNoise, deadForestGroundAmplitude, 0f);
+            return terrainRollingHills(x, y, rtgWorld.simplex(), river, hillStrength, maxHeight, deadForestGroundAmplitude, 0f);
         }
     }
 

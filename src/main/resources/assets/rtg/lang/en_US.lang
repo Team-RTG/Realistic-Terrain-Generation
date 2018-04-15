@@ -2,6 +2,11 @@
 # GUI Customize World Screen
 #-----------------------------
 gui.createWorld.worldtypename=RTG - Realistic
+gui.createWorld.worldtype.line1=Realistic Terrain Generation uses a custom world type.
+gui.createWorld.worldtype.line2=If you want to use the RTG world type, keep clicking the 'World Type' button
+gui.createWorld.worldtype.line3=under 'More World Options' until it displays 'RTG - Realistic'.
+gui.createWorld.worldtype.line4=The world type can be used on servers by changing the 'level-type' in
+gui.createWorld.worldtype.line5=server.properties to 'RTG' (without quotes).
 
 gui.createWorld.customize.clipboard=Copy Settings to Clipboard
 gui.createWorld.customize.clipboard.tooltip=Click This button to copy the current settings to the clipboard for easy pasting into the generator-settings field of a server.properties file.
@@ -281,17 +286,6 @@ gui.createWorld.customize.setting.lapisCenterHeight=Lapis Lazuli Height
 gui.createWorld.customize.setting.lapisCenterHeight.tooltip=The average height of lapis lazuli generation
 gui.createWorld.customize.setting.lapisSpread=Lapis Lazuli Spread
 gui.createWorld.customize.setting.lapisSpread.tooltip=The average height spread of lapis lazuli generation
-
-
-#-----------------------------
-# GUI WorldType Message Screen
-#-----------------------------
-warning.rtgStartup1=Realistic Terrain Generation uses a custom world type.
-warning.rtgStartup2=If you want realistic terrain, keep clicking the 'World Type' button
-warning.rtgStartup3=under 'More World Options' until it displays 'Realistic'.
-warning.rtgStartup4=The world type can be used on servers by changing the 'level-type' in
-warning.rtgStartup5=server.properties to 'RTG' (without quotes).
-warning.rtgStartup6=This message will only display once.
 
 
 #-----------------------------

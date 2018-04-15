@@ -1,29 +1,52 @@
 package rtg.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
+import rtg.RTG;
 import rtg.api.RTGAPI;
 
-/**
- * Displays a notification screen when creating a new world.
- */
 @SideOnly(Side.CLIENT)
-public class WorldTypeMessageGUI extends GuiScreen {
+@EventBusSubscriber(modid = RTG.MOD_ID, value = Side.CLIENT)
+public final class WorldTypeMessageGUI extends GuiScreen
+{
+    private WorldTypeMessageGUI() { }
 
-    private final GuiScreen parentGuiScreen;
+    private static final WorldTypeMessageGUI INSTANCE;
+    private static final ResourceLocation    LOGO_LOCATION = new ResourceLocation(RTG.MOD_ID, "textures/gui/rtg-logo-worldtype.png");
+    private static final String              LANG_KEY      = "gui.createWorld.worldtype";
 
-    public WorldTypeMessageGUI(GuiScreen parentGuiScreen) {
+    static { INSTANCE = new WorldTypeMessageGUI(); }
 
-        this.parentGuiScreen = parentGuiScreen;
+    @SubscribeEvent
+    public static void openCreateWorld(GuiOpenEvent event) {
+
+        if (RTGAPI.config().RTG_WORLDTYPE_NOTIFICATION.getBoolean() && event.getGui() instanceof GuiCreateWorld) {
+
+            RTGAPI.config().RTG_WORLDTYPE_NOTIFICATION.set(false);
+            RTGAPI.config().getConfig().save();
+
+            INSTANCE.setParentScreen(event.getGui());
+            event.setGui(INSTANCE);
+        }
+    }
+
+    private GuiScreen parentScreen;
+
+    private void setParentScreen(GuiScreen parentScreen) {
+        this.parentScreen = parentScreen;
     }
 
     @Override
@@ -37,9 +60,7 @@ public class WorldTypeMessageGUI extends GuiScreen {
     protected void actionPerformed(GuiButton button) {
 
         if (button.enabled && button.id == 0) {
-            RTGAPI.config().ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN.set(false);
-            RTGAPI.config().getConfig().save();
-            this.mc.displayGuiScreen(this.parentGuiScreen);
+            this.mc.displayGuiScreen(this.parentScreen);
         }
     }
 
@@ -47,15 +68,14 @@ public class WorldTypeMessageGUI extends GuiScreen {
     public void drawScreen(int x, int y, float renderPartialTicks) {
 
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup1"), this.width / 2, 82, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup2"), this.width / 2, 94, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup3"), this.width / 2, 106, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup4"), this.width / 2, 132, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE    + I18n.format("warning.rtgStartup5"), this.width / 2, 144, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, TextFormatting.DARK_RED + I18n.format("warning.rtgStartup6"), this.width / 2, 168, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE + I18n.format(LANG_KEY + ".line1"), this.width / 2, 82, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE + I18n.format(LANG_KEY + ".line2"), this.width / 2, 94, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE + I18n.format(LANG_KEY + ".line3"), this.width / 2, 106, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE + I18n.format(LANG_KEY + ".line4"), this.width / 2, 132, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, TextFormatting.WHITE + I18n.format(LANG_KEY + ".line5"), this.width / 2, 144, 0xFFFFFF);
 
         GL11.glEnable(GL11.GL_BLEND);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("rtg:textures/gui/rtg-logo-worldtype.png"));
+        this.mc.getTextureManager().bindTexture(LOGO_LOCATION);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         this.drawTexturedModalRect(this.width / 2 - 168 / 2, 0, 0, 0, 168, 80);

@@ -3,6 +3,7 @@ package rtg.api.config;
 import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 import rtg.api.config.property.ConfigPropertyBoolean;
 import rtg.api.config.property.ConfigPropertyFloat;
@@ -19,7 +20,7 @@ public class RTGConfig extends Config
     // Maximum tree density.
     public static final float MAX_TREE_DENSITY = 5f;
 
-    public final ConfigPropertyBoolean ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN; // TODO: [Clean-up] Rename this to be less ambiguous for what it does after removing the hashfile functionality
+    public Property RTG_WORLDTYPE_NOTIFICATION;
 
     public final ConfigPropertyBoolean ENABLE_DEBUGGING;
     public final ConfigPropertyBoolean DISABLE_RTG_BIOME_DECORATIONS;
@@ -106,15 +107,6 @@ public class RTGConfig extends Config
 
     public RTGConfig(File configFile) {
         super(configFile);
-
-        ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN = new ConfigPropertyBoolean(
-            "Enable World Type Notification Screen",
-            "Client",
-            "When enabled, this will display an informational message about RTG when entering the Customize World screen." + Configuration.NEW_LINE +
-                "This will display once and automatically disable itself.",
-            true
-        );
-        this.addProperty(ENABLE_WORLD_TYPE_NOTIFICATION_SCREEN);
 
         ENABLE_DEBUGGING = new ConfigPropertyBoolean(
             "Enable Debugging",
@@ -640,5 +632,24 @@ public class RTGConfig extends Config
                 "Per default surface bleeding is only enabled for beaches. You can control that in biome settings",
                 16, 0, 32
         ));
+    }
+
+// TODO: [1.12] Stop-gap until the main config class is rewritten. It is currently impossible to save config setting changes after the config is loaded.
+    @Override
+    public void loadConfig() {
+
+        super.loadConfig();
+
+        RTG_WORLDTYPE_NOTIFICATION = this.getConfig().get(
+            "Client",
+            "RTG WorldType Notification",
+            true,
+            "When enabled, this will display an informational message about RTG when entering the Customize World screen." + Configuration.NEW_LINE +
+                "This will display once and automatically disable itself."
+        );
+
+        if (this.getConfig().hasChanged()) {
+            this.getConfig().save();
+        }
     }
 }

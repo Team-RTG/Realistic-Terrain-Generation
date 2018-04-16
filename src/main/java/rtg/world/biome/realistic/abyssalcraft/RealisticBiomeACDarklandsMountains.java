@@ -15,8 +15,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
-import rtg.api.world.terrain.FunctionalTerrainBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
@@ -45,12 +45,13 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
         return new TerrainACDarklandsMountains(120f, 100f);
     }
 
-    public class TerrainACDarklandsMountains extends FunctionalTerrainBase {
+    public class TerrainACDarklandsMountains extends TerrainBase {
 
         private float width;
         private float strength;
         private float spikeWidth = 40;
         private float spikeHeight = 60;
+        protected HeightEffect height;
 
         public TerrainACDarklandsMountains(float mountainWidth, float mountainStrength) {
 
@@ -77,7 +78,12 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
             passHeight.wavelength = 70;
 
             height = height.plus(passHeight);
+        }
 
+        @Override
+        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return riverized(height.added(rtgWorld, x, y) + base, river);
         }
     }
 

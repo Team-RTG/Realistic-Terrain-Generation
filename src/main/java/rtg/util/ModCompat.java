@@ -39,7 +39,7 @@ public final class ModCompat
         if (Mods.biomesoplenty.isLoaded()) {
             Lists.newArrayList(
                 BOPBiomes.corrupted_sands.orNull(), BOPBiomes.fungi_forest.orNull(), BOPBiomes.phantasmagoric_inferno.orNull(),
-                BOPBiomes.polar_chasm.orNull(), BOPBiomes.undergarden.orNull(), BOPBiomes.visceral_heap.orNull())
+                BOPBiomes.undergarden.orNull(), BOPBiomes.visceral_heap.orNull())
                 .stream().filter(Objects::nonNull).forEach(invalidBiomes::add);
         }
 

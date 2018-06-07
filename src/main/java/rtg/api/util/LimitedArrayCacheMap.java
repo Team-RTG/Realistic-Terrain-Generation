@@ -1,6 +1,6 @@
 /*
  * File         : LimitedArrayCacheMap.java
- * Last Modified: 20180410-02:42:58-0400
+ * Last Modified: 20180607-05:28:54-0400
  *
  * Copyright (c) 2018 srs_bsns (forfrdm [at] gmail.com)
  *
@@ -42,7 +42,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 
-public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements Map<K, V>, Serializable
+public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
 {
     private static final long serialVersionUID = 7161452652266833375L;
 
@@ -127,6 +127,12 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
             }
         }
         return null;
+    }
+
+    @Override
+    public V getOrDefault(final Object key, V defaultValue) {
+        V ret;
+        return ((ret = this.get(key)) != null) ? ret : defaultValue;
     }
 
     @Nullable
@@ -249,9 +255,12 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
     public int hashCode()
     {
         int ret = 0;
-        for (Entry<K, V> entry : this.entrySet())// We only care about the key
+        for (Entry<K, V> entry : this.entries)// We only care about the key
         {
-            ret += entry.hashCode();
+            if (entry != null)
+            {
+                ret += entry.hashCode();
+            }
         }
         return ret;
     }
@@ -295,7 +304,7 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
     }
 
     @Immutable
-    private static final class ImmutableEntry<K extends Comparable<K>, V> implements Entry<K, V>, Comparable<ImmutableEntry<K, V>>, Serializable
+    private static final class ImmutableEntry<K, V> implements Entry<K, V>, Serializable
     {
         private static final long serialVersionUID = -4241056911694303514L;
 
@@ -342,12 +351,6 @@ public final class LimitedArrayCacheMap<K extends Comparable<K>, V> implements M
         public String toString()
         {
             return this.getKey() + "=" + this.getValue();
-        }
-
-        @Override
-        public int compareTo(@Nonnull final ImmutableEntry<K, V> o)
-        {
-            return this.getKey().compareTo(o.getKey());// We only care about the key
         }
     }
 }

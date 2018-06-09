@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
@@ -53,9 +53,9 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex());
+            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex());
+            float m = hills(x, y, hillStrength, rtgWorld);
 
             float floNoise = 65f + groundNoise + m;
 
@@ -106,7 +106,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
@@ -136,7 +136,7 @@ public class RealisticBiomeAMWitchwoodForest extends RealisticBiomeAMBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
+                            if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
                                 * floSmallStrength > floMixHeight) {
                                 primer.setBlockState(x, k, z, blockMixTop);
 

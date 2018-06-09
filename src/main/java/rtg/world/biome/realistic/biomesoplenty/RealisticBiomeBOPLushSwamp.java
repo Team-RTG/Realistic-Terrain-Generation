@@ -51,7 +51,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex(), 61.5f,river);
+            return terrainMarsh(x, y, rtgWorld, 61.5f,river);
             //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
         }
     }

@@ -13,7 +13,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.helper.DecoHelperBorder;
@@ -98,15 +98,16 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
             //b *= b / cStrength;
             river *= 1.3f;
             river = river > 1f ? 1f : river;
-            float r = rtgWorld.simplex().noise2(x / 100f, y / 100f) * 50f;
+            float r = simplex.noise2f(x / 100f, y / 100f) * 50f;
             r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
             float b = (17f + r) * river;
 
-            float hn = rtgWorld.simplex().noise2(x / 12f, y / 12f) * 0.5f;
+            float hn = simplex.noise2f(x / 12f, y / 12f) * 0.5f;
             float sb = 0f;
             if(b > 0f)
             {
@@ -145,7 +146,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             }
             else if(b < 5f)
             {
-                bn = (rtgWorld.simplex().noise2(x / 7f, y / 7f) * 1.3f + rtgWorld.simplex().noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+                bn = (simplex.noise2f(x / 7f, y / 7f) * 1.3f + simplex.noise2f(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
             }
 
             b += cTotal - bn;
@@ -191,7 +192,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -207,7 +208,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
                     if (depth == 0) {
 
-                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -236,7 +237,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
 
                             if (rand.nextInt(3) != 0) {
                                 primer.setBlockState(x, k, z, mixBlock);

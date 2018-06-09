@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
@@ -136,7 +136,7 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean gravel = false;
@@ -158,7 +158,7 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
                             }
                         }
 
-                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -191,7 +191,7 @@ public class RealisticBiomeARBambooGrove extends RealisticBiomeARBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
                             primer.setBlockState(x, k, z, mix);
                             m = true;
                         }

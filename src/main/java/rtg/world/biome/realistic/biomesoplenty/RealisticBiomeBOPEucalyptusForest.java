@@ -15,7 +15,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
@@ -60,9 +60,9 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex());
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
 
-            float h = terrainGrasslandHills(x, y, rtgWorld.simplex(), river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+            float h = terrainGrasslandHills(x, y, rtgWorld, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
 
             return riverized(groundNoise + h, river);
         }
@@ -111,7 +111,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
@@ -141,7 +141,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
+                            if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
                                 * floSmallStrength > floMixHeight) {
                                 primer.setBlockState(x, k, z, blockMixTop);
 

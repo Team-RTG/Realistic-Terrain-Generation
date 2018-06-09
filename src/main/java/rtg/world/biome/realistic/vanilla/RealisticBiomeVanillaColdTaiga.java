@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionTaiga;
 import rtg.api.world.surface.SurfaceBase;
@@ -50,7 +50,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex(), river, 66f);
+            return terrainFlatLakes(x, y, rtgWorld, river, 66f);
         }
     }
 
@@ -70,8 +70,8 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
-            float p = simplex.noise2(i / 8f, j / 8f) * 0.5f;
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
+            float p = simplex.noise2f(i / 8f, j / 8f) * 0.5f;
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
 
@@ -112,7 +112,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
                         else if (cliff == 3) {
                             primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
                         }
-                        else if (simplex.noise2(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
+                        else if (simplex.noise2f(i / 50f, j / 50f) + p * 0.6f > 0.24f) {
                             primer.setBlockState(x, k, z, BlockUtil.getStateDirt(DirtType.PODZOL));
                         }
                         else {

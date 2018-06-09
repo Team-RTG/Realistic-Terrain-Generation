@@ -14,6 +14,7 @@ import biomesoplenty.api.block.BOPBlocks;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -84,6 +85,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
+            SimplexNoise simplex = rtgWorld.simplexInstance(2);
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
@@ -113,7 +115,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
                     else {
                         if (depth == 0 && k > 61) {
                             
-                            if (rtgWorld.simplex().octave(2).noise2(i / 12f, j / 12f) > mixHeight + (noise[x * 16 + z]-63f)/10f) {
+                            if (simplex.noise2f(i / 12f, j / 12f) > mixHeight + (noise[x * 16 + z]-63f)/10f) {
                                 primer.setBlockState(x, k, z, mix);
                             }
                             else {

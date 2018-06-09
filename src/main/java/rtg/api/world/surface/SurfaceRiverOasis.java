@@ -1,7 +1,5 @@
 package rtg.api.world.surface;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -10,7 +8,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 
 public class SurfaceRiverOasis extends SurfaceBase {
@@ -31,9 +28,6 @@ public class SurfaceRiverOasis extends SurfaceBase {
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
-        Random rand = rtgWorld.rand();
-        OpenSimplexNoise simplex = rtgWorld.simplex();
-
         IBlockState blockState;
         int highestY;
 
@@ -45,11 +39,11 @@ public class SurfaceRiverOasis extends SurfaceBase {
         }
 
         float amplitude = 0.25f;
-        float noiseValue = 	(simplex.octave(0).noise2(i / 21f, j / 21f) * amplitude/1f);
-        noiseValue += 	(simplex.octave(1).noise2(i / 12f, j / 12f) * amplitude/2f);
+        float noiseValue = rtgWorld.simplexInstance(0).noise2f(i / 21f, j / 21f) * amplitude / 1f
+                         + rtgWorld.simplexInstance(1).noise2f(i / 12f, j / 12f) * amplitude / 2f;
 
         // Large scale noise cut-off
-        float noiseNeg = (simplex.octave(2).noise2(i / cutOffScale, j / cutOffScale) * cutOffAmplitude);
+        float noiseNeg = rtgWorld.simplexInstance(2).noise2f(i / cutOffScale, j / cutOffScale) * cutOffAmplitude;
         noiseValue -= noiseNeg;
 
         // Height cut-off

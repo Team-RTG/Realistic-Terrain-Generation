@@ -13,8 +13,9 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -45,9 +46,6 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
         private float peakyHillStrength = 40f;
         private float smoothHillWavelength = 60f;
         private float smoothHillStrength = 30f;
-
-
-        private SimplexOctave.Derivative jitter = new SimplexOctave.Derivative();
         private float wavelength = 10f;// of jitter
         private float amplitude = 2f;// of jitter
 
@@ -64,15 +62,17 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex());
+            this.groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
 
             //float m = hills(x, y, peakyHillStrength, simplex, river);
 
-            rtgWorld.simplex().riverJitter().evaluateNoise((float) x / wavelength, (float) y / wavelength, jitter);
-            int pX = (int) Math.round(x + jitter.deltax() * amplitude);
-            int pY = (int) Math.round(y + jitter.deltay() * amplitude);
-            float h = this.terrainGrasslandHills(pX, pY, rtgWorld.simplex(), river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
+// TODO [1.12] This is the only use of SimplexData2D$Derivative - investigate removing this data type to simplify SimplexData2D
+            ISimplexData2D jitterData = SimplexData2D.newDerivative();
+            rtgWorld.simplexInstance(1).multiEval2D(x / wavelength, y / wavelength, jitterData);
+            int pX = (int) Math.round(x + jitterData.getDeltaX() * amplitude);
+            int pY = (int) Math.round(y + jitterData.getDeltaY() * amplitude);
 
+            float h = terrainGrasslandHills(pX, pY, rtgWorld, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
             return groundNoise*river + h;
         }
     }
@@ -103,7 +103,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
@@ -132,7 +132,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
+                            if (simplex.noise2f(i / width, j / width) > height) // > 0.27f, i / 12f
                             {
                                 primer.setBlockState(x, k, z, mixBlock);
                             }

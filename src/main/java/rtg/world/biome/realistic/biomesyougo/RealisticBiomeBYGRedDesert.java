@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
@@ -54,15 +54,14 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
             ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
             float duneHeight = (minDuneHeight + settings.sandDuneHeight);
 
-            duneHeight *= (1f + rtgWorld.simplex().octave(2).noise2((float) x / 330f, (float) y / 330f)) / 2f;
+            duneHeight *= (1f + rtgWorld.simplexInstance(2).noise2f(x / 330f, y / 330f)) / 2f;
 
             float stPitch = 200f;    // The higher this is, the more smoothly dunes blend with the terrain
             float stFactor = duneHeight;
             float hPitch = 70;    // Dune scale
             float hDivisor = 40;
 
-            return terrainPolar(x, y, rtgWorld.simplex(), river, stPitch, stFactor, hPitch, hDivisor, base) +
-                groundNoise(x, y, 1f, rtgWorld.simplex());
+            return terrainPolar(x, y, rtgWorld, river, stPitch, stFactor, hPitch, hDivisor, base) + groundNoise(x, y, 1f, rtgWorld);
         }
     }
 
@@ -103,7 +102,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -119,7 +118,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
 
                     if (depth == 0) {
 
-                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -148,7 +147,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
                             primer.setBlockState(x, k, z, mixBlock);
                             m = true;
                         }

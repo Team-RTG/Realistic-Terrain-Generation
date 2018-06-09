@@ -13,7 +13,6 @@ import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
@@ -47,7 +46,7 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld.simplex(), 61.5f, river);
+            return terrainMarsh(x, y, rtgWorld, 61.5f, river);
         }
     }
 
@@ -68,7 +67,6 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 

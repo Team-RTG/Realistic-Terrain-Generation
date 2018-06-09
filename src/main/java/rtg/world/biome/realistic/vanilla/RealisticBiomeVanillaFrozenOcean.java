@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainOcean(x, y, rtgWorld.simplex(), river, 50f);
+            return terrainOcean(x, y, rtgWorld, river, 50f);
         }
     }
 
@@ -79,7 +79,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();
@@ -90,7 +90,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeVanillaBase 
                     depth++;
 
                     if (depth == 0 && k > 0 && k < 63) {
-                        mixCheck = simplex.noise2(i / width, j / width);
+                        mixCheck = simplex.noise2f(i / width, j / width);
 
                         if (mixCheck > height) // > 0.27f, i / 12f
                         {

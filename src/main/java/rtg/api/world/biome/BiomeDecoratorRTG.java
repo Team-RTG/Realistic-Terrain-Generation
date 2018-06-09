@@ -20,8 +20,6 @@ import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.world.gen.feature.WorldGenPond;
 import rtg.api.world.gen.ChunkProviderSettingsRTG;
 
@@ -195,7 +193,7 @@ public class BiomeDecoratorRTG
      */
 // TODO: [Clean-up] This call to a base biomes `decorate` method is the source of extra ore generation.
 //                  This ore gen happens in addition to the ore gen that takes place when CPRTG#generateOres is called from CPRTG#doPopulate
-    public void rDecorateSeedBiome(Biome biome, World world, Random rand, int worldX, int worldZ, OpenSimplexNoise simplex, CellNoise cell, float strength, float river) {
+    public void rDecorateSeedBiome(Biome biome, World world, Random rand, int worldX, int worldZ, float strength) {
 
         if (strength > 0.3f) {
             biome.decorate(world, rand, new BlockPos(worldX, 0, worldZ));

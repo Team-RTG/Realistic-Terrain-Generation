@@ -54,6 +54,8 @@ import rtg.api.util.LimitedSet;
 import rtg.api.util.Logger;
 import rtg.api.util.TimedHashSet;
 import rtg.api.util.Valued;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.ChunkProviderSettingsRTG;
@@ -122,13 +124,13 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         Logger.debug("Instantiating CPRTG using generator settings: {}", generatorOptions);
 
         this.world = world;
-        this.rtgWorld = new RTGWorld(this.world);
+        this.rtgWorld = RTGWorld.getInstance(world);
         this.settings = GenSettingsRepo.getSettingsForWorld(world);
 
         this.world.setSeaLevel(this.settings.seaLevel);
         this.biomeProvider = (BiomeProviderRTG) this.world.getBiomeProvider();
         this.rand = new Random(seed);
-        this.landscapeGenerator = this.rtgWorld.landscapeGenerator;
+        this.landscapeGenerator = new LandscapeGenerator(this.rtgWorld);
         this.volcanoGenerator = new VolcanoGenerator(seed);
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
@@ -178,8 +180,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         generateTerrain(primer, landscape.noise);
 
         //get standard biome Data
-// TODO: [Generator settings] Update to use the generator setting
-//      if (settings.useVolcanos) {
         for (k = 0; k < 256; k++) {
 
             try {
@@ -189,23 +189,27 @@ public class ChunkGeneratorRTG implements IChunkGenerator
                 this.baseBiomesList[k] = this.biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[k].baseBiome()));
             }
         }
-        volcanoGenerator.generateMapGen(primer, this.world.getSeed(), this.world, this.biomeProvider, this.rand, cx, cz, this.rtgWorld.simplex, this.rtgWorld.cell, landscape.noise);
-//      }
+
+        if (this.settings.useVolcanos) {
+            this.volcanoGenerator.generateMapGen(primer, this.rtgWorld, this.biomeProvider, cx, cz, landscape.noise);
+        }
 
         this.borderNoise = this.landscapeGenerator.noiseFor(this.biomeProvider, cx * 16, cz * 16);
 
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
         IRealisticBiome[] jitteredBiomes = new IRealisticBiome[256];
-
-        IRealisticBiome jittered, actual;
+        IRealisticBiome jitterbiome, actualbiome;
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
-                this.rtgWorld.simplex.evaluateNoise(cx * 16 + i, cz * 16 + j, this.rtgWorld.surfaceJitter);
-                int pX = (int) Math.round(cx * 16 + i + this.rtgWorld.surfaceJitter.deltax() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
-                int pZ = (int) Math.round(cz * 16 + j + this.rtgWorld.surfaceJitter.deltay() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
-                actual = RealisticBiomeBase.getBiome(this.rtgWorld.getRepairedBiomeAt(this.biomeProvider, cx * 16 + i, cz * 16 + j));
-                jittered = RealisticBiomeBase.getBiome(this.rtgWorld.getRepairedBiomeAt(this.biomeProvider, pX, pZ));
-                if (actual != null && jittered != null) {
-                    jitteredBiomes[i * 16 + j] = (actual.getConfig().SURFACE_BLEED_IN.get() && jittered.getConfig().SURFACE_BLEED_OUT.get()) ? jittered : actual;
+                int x = cx * 16 + i;
+                int z = cz * 16 + j;
+                this.rtgWorld.simplexInstance(0).multiEval2D(x, z, jitterData);
+                int pX = (int) Math.round(x + jitterData.getDeltaX() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
+                int pZ = (int) Math.round(z + jitterData.getDeltaY() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
+                actualbiome = RealisticBiomeBase.getBiome(this.landscapeGenerator.getBiomeDataAt(this.biomeProvider, x, z));
+                jitterbiome = RealisticBiomeBase.getBiome(this.landscapeGenerator.getBiomeDataAt(this.biomeProvider, pX, pZ));
+                if (actualbiome != null && jitterbiome != null) {
+                    jitteredBiomes[i * 16 + j] = (actualbiome.getConfig().SURFACE_BLEED_IN.get() && jitterbiome.getConfig().SURFACE_BLEED_OUT.get()) ? jitterbiome : actualbiome;
                 }
             }
         }
@@ -291,9 +295,9 @@ public class ChunkGeneratorRTG implements IChunkGenerator
                 river = -this.biomeProvider.getRiverStrength(cx * 16 + i, cz * 16 + j);
                 depth = -1;
 
-                if (this.rtgWorld.organicBiomeGenerator.isOrganicBiome(Biome.getIdForBiome(biome.baseBiome()))) {
+                if (this.rtgWorld.organicBiomeGenerator().isOrganicBiome(Biome.getIdForBiome(biome.baseBiome()))) {
 
-                    this.rtgWorld.organicBiomeGenerator.organicSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome());
+                    this.rtgWorld.organicBiomeGenerator().organicSurface(cx * 16 + i, cz * 16 + j, primer, biome.baseBiome());
                 }
                 else {
 

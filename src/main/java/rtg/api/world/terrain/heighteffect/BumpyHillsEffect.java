@@ -27,10 +27,9 @@ public class BumpyHillsEffect extends HeightEffect {
 
     @Override
     public final float added(IRTGWorld rtgWorld, float x, float y) {
-
-        float noise = rtgWorld.simplex().octave(hillOctave).noise2(x / hillWavelength, y / hillWavelength);
+        float noise = rtgWorld.simplexInstance(hillOctave).noise2f(x / hillWavelength, y / hillWavelength);
         noise = TerrainBase.blendedHillHeight(noise);
-        float spikeNoise = rtgWorld.simplex().octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
+        float spikeNoise = rtgWorld.simplexInstance(spikeOctave).noise2f(x / spikeWavelength, y / spikeWavelength);
         spikeNoise = TerrainBase.blendedHillHeight(spikeNoise * noise);
         return noise * hillHeight + spikeNoise * spikeHeight;
     }

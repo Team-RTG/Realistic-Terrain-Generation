@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
@@ -63,9 +63,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld.simplex());
+            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex());
+            float m = hills(x, y, hillStrength, rtgWorld);
 
             float floNoise = 65f + groundNoise + m;
 
@@ -118,7 +118,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -134,7 +134,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
 
                     if (depth == 0) {
 
-                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -164,7 +164,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeVanillaBase {
                             }
                         }
                         else {
-                            float mixNoise = simplex.noise2(i / 12f, j / 12f);
+                            float mixNoise = simplex.noise2f(i / 12f, j / 12f);
 
                             if (mixNoise < mix2Height) {
                                 primer.setBlockState(x, k, z, mix2Block);

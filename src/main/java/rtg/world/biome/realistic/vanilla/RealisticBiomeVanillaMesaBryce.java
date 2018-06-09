@@ -14,7 +14,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.PlateauUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
@@ -54,13 +55,11 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
         private static final float stepHeight = 50;
         final VoronoiBasinEffect plateau;
         final int groundNoise;
-        private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         private float jitterWavelength = 15;
         private float jitterAmplitude = 4;
         private float bumpinessMultiplier = 0.1f;
         private float bumpinessWavelength = 10f;
-        private int bumpinessOctave = 2;
-        
+
         public TerrainRTGMesaBryce(float base) {
             plateau = new VoronoiBasinEffect();
             plateau.pointWavelength = 100;
@@ -72,64 +71,17 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
          
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            rtgWorld.simplex().riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
-            float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
-            float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
-            float simplex = plateau.added(rtgWorld, x, y);
-            simplex *= river;
-            float bumpiness = rtgWorld.simplex().octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
-            bumpiness += rtgWorld.simplex().octave(bumpinessOctave+1).noise2(x / bumpinessWavelength/2f, y / bumpinessWavelength/2f) * bumpinessMultiplier/2f;
-
-            simplex += bumpiness;
-            //if (simplex > bordercap) simplex = bordercap;
+            ISimplexData2D jitterData = SimplexData2D.newDisk();
+            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
+            float x = (float)(passedX + jitterData.getDeltaX() * jitterAmplitude);
+            float y = (float)(passedY + jitterData.getDeltaY() * jitterAmplitude);
+            float bumpiness = rtgWorld.simplexInstance(2).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier
+                            + rtgWorld.simplexInstance(3).noise2f(x / bumpinessWavelength / 2f, y / bumpinessWavelength / 2f) * bumpinessMultiplier / 2f;
+            float simplex = plateau.added(rtgWorld, x, y) * river + bumpiness;
             float added = PlateauUtil.stepIncrease(simplex, stepFinish, stepStart, stepHeight);
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
+            return riverized(base + groundNoise(x, y, groundNoise, rtgWorld), river) + added;
         }
         
-    }
-    public class TerrainVanillaMesaBryce extends TerrainBase {
-
-        private float height;
-        private float density;
-        private float base;
-
-        /*
-         * Example parameters:
-         *
-         * allowed to generate rivers?
-         * riverGen = true
-         *
-         * canyon jump heights
-         * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-         *
-         * strength of canyon jump heights
-         * heightStrength = 35f
-         *
-         * canyon width (cliff to cliff)
-         * canyonWidth = 160f
-         *
-         * canyon heigth (total heigth)
-         * canyonHeight = 60f
-         *
-         * canyon strength
-         * canyonStrength = 40f
-         *
-         */
-        public TerrainVanillaMesaBryce(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
-            /**
-             * Values come in pairs per layer. First is how high to step up.
-             * 	Second is a value between 0 and 1, signifying when to step up.
-             */
-            height = 20f;
-            density = 0.7f;
-            base = 69f;
-        }
-
-        @Override
-        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainBryce(x, y, rtgWorld.simplex(), river, height);
-        }
     }
 
     @Override

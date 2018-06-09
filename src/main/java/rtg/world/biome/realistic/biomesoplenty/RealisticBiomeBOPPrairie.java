@@ -54,7 +54,7 @@ public class RealisticBiomeBOPPrairie extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return this.terrainPlains(x, y, rtgWorld.simplex(), river, 200f, 1f, 30f, 1f, maxHeight);
+            return terrainPlains(x, y, rtgWorld, river, 200f, 1f, 30f, 1f, maxHeight);
         }
     }
 

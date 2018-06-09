@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -67,7 +67,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld.simplex(), river, hillStrength, maxHeight, deadForestGroundAmplitude, 0f);
+            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, deadForestGroundAmplitude, 0f);
         }
     }
 
@@ -114,7 +114,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
@@ -144,7 +144,7 @@ public class RealisticBiomeMWDeadForest extends RealisticBiomeMWBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2(i / floMixWidth, j / floMixWidth) + simplex.noise2(i / floSmallWidth, j / floSmallWidth)
+                            if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
                                 * floSmallStrength > floMixHeight) {
                                 primer.setBlockState(x, k, z, blockMixTop);
 

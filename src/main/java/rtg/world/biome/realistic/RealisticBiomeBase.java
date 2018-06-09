@@ -18,8 +18,6 @@ import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.Logger;
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.noise.SimplexCellularNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.api.world.biome.IRealisticBiome;
@@ -206,7 +204,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world);
+        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
 
         // we now have both lakes and rivers lowering land
         if (!this.getConfig().ALLOW_RIVERS.get()) {
@@ -286,8 +284,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         if (riverFlattening < 0) riverFlattening = 0;
 
         if ((r < 1f && biomeHeight > 55f)) {
-            float irregularity = rtgWorld.simplex.noise2(x / 12f, y / 12f) *
-                2f + rtgWorld.simplex.noise2(x / 8f, y / 8f);
+            float irregularity = rtgWorld.simplexInstance(0).noise2f(x / 12f, y / 12f) * 2f + rtgWorld.simplexInstance(0).noise2f(x / 8f, y / 8f);
             // less on the bottom and more on the sides
             irregularity = irregularity*(1+r);
             return (biomeHeight * (r)) + ((55f + irregularity) * 1.0f) * (1f-r);
@@ -391,36 +388,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             }
             decoStack.remove(decoStack.size() - 1);
         }
-    }
-
-    public boolean compareTerrain(RTGWorld rtgWorld, TerrainBase oldTerrain) {
-
-        OpenSimplexNoise simplex = new OpenSimplexNoise(4444);
-        SimplexCellularNoise cell = new SimplexCellularNoise(4444);
-        Random rand = new Random(4444);
-
-        float oldNoise;
-
-        TerrainBase newTerrain = this.initTerrain();
-        float newNoise;
-
-        for (int x = -64; x <= 64; x++) {
-            for (int z = -64; z <= 64; z++) {
-
-                oldNoise = oldTerrain.generateNoise(rtgWorld, x, z, 0.5f, 0.5f);
-                newNoise = newTerrain.generateNoise(rtgWorld, x, z, 0.5f, 0.5f);
-
-                //Logger.info("%s (%d) = oldNoise = %f | newNoise = %f", this.baseBiome.getBiomeName(), Biome.getIdForBiome(this.baseBiome), oldNoise, newNoise);
-
-                if (oldNoise != newNoise) {
-                    throw new RuntimeException(
-                        "Terrains do not match in biome ID " + Biome.getIdForBiome(this.baseBiome) + " (" + this.baseBiome.getBiomeName() + ")."
-                    );
-                }
-            }
-        }
-
-        return true;
     }
 
     private void adjustBiomeProperties() {

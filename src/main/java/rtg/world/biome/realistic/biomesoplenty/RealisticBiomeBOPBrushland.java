@@ -13,7 +13,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -55,9 +55,9 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld.simplex());
+            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
 
-            float m = hills(x, y, hillStrength, rtgWorld.simplex());
+            float m = hills(x, y, hillStrength, rtgWorld);
 
             return riverized(baseHeight + groundNoise + m,river);
         }
@@ -89,7 +89,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
@@ -118,7 +118,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2(i / width, j / width) > height) // > 0.27f, i / 12f
+                            if (simplex.noise2f(i / width, j / width) > height) // > 0.27f, i / 12f
                             {
                                 primer.setBlockState(x, k, z, mixBlock);
                             }

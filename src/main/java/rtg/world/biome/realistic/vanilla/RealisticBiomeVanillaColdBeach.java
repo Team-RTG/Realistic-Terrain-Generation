@@ -46,7 +46,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBeach(x, y, rtgWorld.simplex(), river, 63f);
+            return terrainBeach(x, y, rtgWorld, river, 63f);
         }
     }
 

@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionMegaTaiga;
@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld.simplex(), river, 10f, 68f, hillStrength, base - 62f);
+            return terrainHighland(x, y, rtgWorld, river, 10f, 68f, hillStrength, base - 62f);
         }
     }
 
@@ -102,7 +102,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
 
@@ -117,7 +117,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeVanill
 
                     if (depth == 0) {
 
-                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }

@@ -62,7 +62,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return riverized(baseHeight + withJitter.added(rtgWorld, x, y) + this.groundNoise(x, y, 6, rtgWorld.simplex()), river);
+            return riverized(baseHeight + withJitter.added(rtgWorld, x, y) + groundNoise(x, y, 6, rtgWorld), river);
             //return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
         }
     }

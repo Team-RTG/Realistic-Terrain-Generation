@@ -1,3 +1,5 @@
+// TODO: [1.12] This whole HeightEffect system should be rewritten eventually. HeightEffects should have private data with setter/getters, or have a builder with method chaining.
+
 // TODO: [1.12] Uhh.. licenced by whom? Where? Will make no difference after conversion to interface.
 /*
  * Available under the Lesser GPL License 3.0

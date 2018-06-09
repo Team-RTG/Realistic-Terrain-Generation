@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionSavanna;
@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandMountains(x, y, rtgWorld.simplex(), river, 4f, 90f, 67f);
+            return terrainGrasslandMountains(x, y, rtgWorld, river, 4f, 90f, 67f);
         }
     }
 
@@ -99,7 +99,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -113,7 +113,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
                 else if (b == Blocks.STONE) {
                     depth++;
 
-                    float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                    float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
 
                     if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                         cliff = 1;

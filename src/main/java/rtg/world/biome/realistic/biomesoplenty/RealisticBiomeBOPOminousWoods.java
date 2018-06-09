@@ -58,7 +58,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld.simplex(), river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 0f);
+            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 0f);
         }
     }
 

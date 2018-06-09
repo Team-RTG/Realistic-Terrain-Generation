@@ -2,14 +2,12 @@ package rtg.world.gen;
 
 import java.util.Random;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.LimitedSet;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.util.VolcanoUtil;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -38,7 +36,7 @@ public class VolcanoGenerator {
             l = (mapRand.nextLong() / 2L) * 2L + 1L;
             l1 = (mapRand.nextLong() / 2L) * 2L + 1L;
     }
-    public void generateMapGen(ChunkPrimer primer, Long unusedSeed, World world, IBiomeProviderRTG cmr, Random unusedMapRand, int chunkX, int chunkY, OpenSimplexNoise simplex, CellNoise cell, float noise[]) {
+    public void generateMapGen(ChunkPrimer primer, IRTGWorld rtgWorld, IBiomeProviderRTG cmr, int chunkX, int chunkY, float[] noise) {
 
         // Have volcanoes been disabled in the global config?
         if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
@@ -58,12 +56,12 @@ public class VolcanoGenerator {
                 if (noVolcano.contains(probe)) continue;
                 noVolcano.add(probe);
                 mapRand.setSeed((long) baseX * l + (long) baseY * l1 ^ seed);
-                rMapVolcanoes(primer, world, cmr, baseX, baseY, chunkX, chunkY, simplex, noise);
+                rMapVolcanoes(primer, rtgWorld, cmr, baseX, baseY, chunkX, chunkY, noise);
             }
         }
     }
     
-    public void rMapVolcanoes(ChunkPrimer primer, World world, IBiomeProviderRTG cmr, int baseX, int baseY, int chunkX, int chunkY, OpenSimplexNoise simplex, float noise[]) {
+    public void rMapVolcanoes(ChunkPrimer primer, IRTGWorld rtgWorld, IBiomeProviderRTG cmr, int baseX, int baseY, int chunkX, int chunkY, float[] noise) {
 
         // Have volcanoes been disabled in the global config?
         if (!rtgConfig.ENABLE_VOLCANOES.get()) return;
@@ -95,9 +93,9 @@ public class VolcanoGenerator {
                 
                 long i1 = mapRand.nextLong() / 2L * 2L + 1L;
                 long j1 = mapRand.nextLong() / 2L * 2L + 1L;
-                mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ world.getSeed());
+                mapRand.setSeed((long) chunkX * i1 + (long) chunkY * j1 ^ rtgWorld.seed());
 
-                VolcanoUtil.build(primer, mapRand, baseX, baseY, chunkX, chunkY, simplex, noise);
+                VolcanoUtil.build(primer, mapRand, baseX, baseY, chunkX, chunkY, rtgWorld, noise);
             }
         }
     }

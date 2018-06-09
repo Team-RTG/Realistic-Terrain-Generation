@@ -14,7 +14,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.PlateauUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
@@ -57,7 +58,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         private static final float stepHeight = 32;
         final VoronoiPlateauEffect plateau;
         final int groundNoise;
-        private SimplexOctave.Disk jitter = new SimplexOctave.Disk();
         private float jitterWavelength = 30;
         private float jitterAmplitude = 10;
         private float bumpinessMultiplier = 0.05f;
@@ -75,9 +75,10 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
 
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            rtgWorld.simplex().riverJitter().evaluateNoise((float) passedX / jitterWavelength, (float) passedY / jitterWavelength, jitter);
-            float x = (float)(passedX + jitter.deltax() * jitterAmplitude);
-            float y = (float)(passedY + jitter.deltay() * jitterAmplitude);
+            ISimplexData2D jitterData = SimplexData2D.newDisk();
+            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
+            float x = (float)(passedX + jitterData.getDeltaX() * jitterAmplitude);
+            float y = (float)(passedY + jitterData.getDeltaY() * jitterAmplitude);
             float simplex = plateau.added(rtgWorld, x, y);
             //if (simplex > river) simplex = river;
             float bordercap = border *3.5f -2.5f;
@@ -85,11 +86,11 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
             float rivercap = 3f*river;
             if (rivercap > 1) rivercap = 1;
             simplex *= rivercap*bordercap;
-            float bumpiness = rtgWorld.simplex().octave(bumpinessOctave).noise2(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            float bumpiness = rtgWorld.simplexInstance(bumpinessOctave).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
             simplex += bumpiness;
             //if (simplex > bordercap) simplex = bordercap;
             float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight)/border;
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld.simplex()),river) + added;
+            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld),river) + added;
         }
 
     }
@@ -134,7 +135,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeVanillaB
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlateau(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, 50f, true);
+            return terrainPlateau(x, y, rtgWorld, river, height, border, strength, heightLength, 50f, true);
         }
     }
 

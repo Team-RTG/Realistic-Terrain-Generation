@@ -15,8 +15,7 @@ public class HeightVariation extends HeightEffect {
 
     @Override
     public final float added(IRTGWorld rtgWorld, float x, float y) {
-
-        return rtgWorld.simplex().octave(octave).noise2(x / wavelength, y / wavelength) * height;
+        return rtgWorld.simplexInstance(octave).noise2f(x / wavelength, y / wavelength) * height;
     }
 
 }

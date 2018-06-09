@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandMountains(x, y, rtgWorld.simplex(), river, 4f, 50f, 68f);
+            return terrainGrasslandMountains(x, y, rtgWorld, river, 4f, 50f, 68f);
         }
     }
 

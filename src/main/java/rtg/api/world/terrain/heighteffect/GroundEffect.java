@@ -6,6 +6,7 @@ import rtg.api.world.terrain.TerrainBase;
 /**
  * @author Zeno410
  */
+// TODO: [1.12] This class is a pointless delegation. TerrainBase#groundNoise can just be called directly by the source.
 public class GroundEffect extends HeightEffect {
 
     // the standard ground effect
@@ -18,8 +19,7 @@ public class GroundEffect extends HeightEffect {
 
     @Override
     public final float added(IRTGWorld rtgWorld, float x, float y) {
-
-        return TerrainBase.groundNoise(x, y, amplitude, rtgWorld.simplex());
+        return TerrainBase.groundNoise(x, y, amplitude, rtgWorld);
     }
 
 }

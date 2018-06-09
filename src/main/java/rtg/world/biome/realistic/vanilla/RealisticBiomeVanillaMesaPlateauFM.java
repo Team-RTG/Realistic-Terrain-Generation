@@ -48,54 +48,6 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
     public TerrainBase initTerrain() {
 
         return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
-        //return new TerrainVanillaMesaPlateauFM(false, 35f, 160f, 60f, 40f, 69f);
-    }
-
-    public class TerrainVanillaMesaPlateauFM extends TerrainBase {
-
-        private float[] height;
-        private int heightLength;
-        private float strength;
-        private float base;
-
-        /*
-         * Example parameters:
-         *
-         * allowed to generate rivers?
-         * riverGen = true
-         *
-         * canyon jump heights
-         * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-         *
-         * strength of canyon jump heights
-         * heightStrength = 35f
-         *
-         * canyon width (cliff to cliff)
-         * canyonWidth = 160f
-         *
-         * canyon heigth (total heigth)
-         * canyonHeight = 60f
-         *
-         * canyon strength
-         * canyonStrength = 40f
-         *
-         */
-        public TerrainVanillaMesaPlateauFM(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
-            /**
-             * Values come in pairs per layer. First is how high to step up.
-             * 	Second is a value between 0 and 1, signifying when to step up.
-             */
-            height = new float[]{18.5f, 0.4f};
-            strength = 20f;
-            heightLength = height.length;
-            base = 69f;
-        }
-
-        @Override
-        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainPlateau(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, 100f, false);
-        }
     }
 
     @Override
@@ -166,7 +118,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeVanillaBas
                     }
                     else {
 
-                        float mixNoise = rtgWorld.simplex().noise2(i / 12f, j / 12f);
+                        float mixNoise = rtgWorld.simplexInstance(0).noise2f(i / 12f, j / 12f);
 
                         if (k > 74 + grassRaise)
                         {

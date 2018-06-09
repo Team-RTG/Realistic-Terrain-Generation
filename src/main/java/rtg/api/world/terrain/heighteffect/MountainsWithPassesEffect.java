@@ -26,13 +26,11 @@ public class MountainsWithPassesEffect extends HeightEffect {
     @Override
     public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        float noise = rtgWorld.simplex().octave(hillOctave).noise2(x / mountainWavelength, y / mountainWavelength);
+        float noise = rtgWorld.simplexInstance(hillOctave).noise2f(x / mountainWavelength, y / mountainWavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, 0.2f);
         noise = 1f - (1f - noise) / (1f - adjustedBottom);
-        float spikeNoise = rtgWorld.simplex().octave(spikeOctave).noise2(x / spikeWavelength, y / spikeWavelength);
-        spikeNoise = Math.abs(noise);
-        spikeNoise = TerrainBase.blendedHillHeight(noise, 0.1f);
+        float spikeNoise = TerrainBase.blendedHillHeight(noise, 0.1f);
         spikeNoise *= spikeNoise;
         spikeNoise = TerrainBase.blendedHillHeight(spikeNoise * noise);
         if (noise > 1.01) {

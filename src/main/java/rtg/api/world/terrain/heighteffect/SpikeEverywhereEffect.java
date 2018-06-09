@@ -9,6 +9,7 @@ import rtg.api.world.terrain.TerrainBase;
  */
 public class SpikeEverywhereEffect extends HeightEffect {
 
+// TODO: [1.12] No, Don't just crash, provide protection for erroneous values!
     // not going to bother to set up a creator shell to make sure everything is set
     // set defaults to absurd values to crash if they're not set
     // a trio of parameters frequently used together
@@ -23,7 +24,7 @@ public class SpikeEverywhereEffect extends HeightEffect {
     @Override
     public final float added(IRTGWorld rtgWorld, float x, float y) {
 
-        float noise = rtgWorld.simplex().octave(octave).noise2((float) x / wavelength, (float) y / wavelength);
+        float noise = rtgWorld.simplexInstance(octave).noise2f((float) x / wavelength, (float) y / wavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, minimumSimplex);
         noise = TerrainBase.unsignedPower(noise, power);

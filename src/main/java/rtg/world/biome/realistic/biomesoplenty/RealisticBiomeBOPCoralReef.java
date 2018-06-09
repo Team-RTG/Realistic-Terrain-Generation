@@ -86,7 +86,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainOceanCanyon(x, y, rtgWorld.simplex(), river, height, border, strength, heightLength, booRiver);
+            return terrainOceanCanyon(x, y, rtgWorld, river, height, border, strength, heightLength, booRiver);
         }
     }
 

@@ -3,8 +3,8 @@ package rtg.api.world.terrain;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.CellNoise;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.CellularNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
 
@@ -73,12 +73,12 @@ public abstract class TerrainBase {
         return (-1f) * (float) Math.pow((-1f) * number, power);
     }
 
-    public static float hills(float x, float y, float hillStrength, OpenSimplexNoise simplex) {
+    public static float hills(float x, float y, float hillStrength, IRTGWorld rtgWorld) {
 
-        float m = simplex.noise2(x / 150f, y / 150f);
+        float m = rtgWorld.simplexInstance(0).noise2f(x / 150f, y / 150f);
         m = blendedHillHeight(m, 0.2f);
 
-        float sm = simplex.octave(2).noise2(x / 55, y / 55);// there are artifacts if this is close to a multiple of 16
+        float sm = rtgWorld.simplexInstance(2).noise2f(x / 55, y / 55);// there are artifacts if this is close to a multiple of 16
         sm = blendedHillHeight(sm, 0.2f);
         //sm = sm*0.8f;
         sm *= sm * m;
@@ -87,19 +87,19 @@ public abstract class TerrainBase {
         return m * hillStrength ;
     }
 
-    public static float groundNoise(int x, int y, float amplitude, OpenSimplexNoise simplex) {
+    public static float groundNoise(int x, int y, float amplitude, IRTGWorld rtgWorld) {
 
-        float h = blendedHillHeight(simplex.noise2(x / 49f, y / 49f), 0.2f) * amplitude;
-        h += blendedHillHeight(simplex.octave(1).noise2(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
-        h += blendedHillHeight(simplex.octave(2).noise2(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
+        float h = blendedHillHeight(rtgWorld.simplexInstance(0).noise2f(x / 49f, y / 49f), 0.2f) * amplitude;
+        h += blendedHillHeight(rtgWorld.simplexInstance(1).noise2f(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
+        h += blendedHillHeight(rtgWorld.simplexInstance(2).noise2f(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
         return h;
     }
 
-    public static float groundNoise(float x, float y, float amplitude, OpenSimplexNoise simplex) {
+    public static float groundNoise(float x, float y, float amplitude, IRTGWorld rtgWorld) {
 
-        float h = blendedHillHeight(simplex.noise2(x / 49f, y / 49f), 0.2f) * amplitude;
-        h += blendedHillHeight(simplex.octave(1).noise2(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
-        h += blendedHillHeight(simplex.octave(2).noise2(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
+        float h = blendedHillHeight(rtgWorld.simplexInstance(0).noise2f(x / 49f, y / 49f), 0.2f) * amplitude;
+        h += blendedHillHeight(rtgWorld.simplexInstance(1).noise2f(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
+        h += blendedHillHeight(rtgWorld.simplexInstance(2).noise2f(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
         return h;
     }
 
@@ -136,35 +136,37 @@ public abstract class TerrainBase {
         return 62.45f + (height - 62.45f) * river;
         }
 
-    public static float terrainBeach(int x, int y, OpenSimplexNoise simplex, float river, float baseHeight) {
-        return riverized(baseHeight + TerrainBase.groundNoise(x, y, 4f, simplex),river);
+    public static float terrainBeach(int x, int y, IRTGWorld rtgWorld, float river, float baseHeight) {
+        return riverized(baseHeight + TerrainBase.groundNoise(x, y, 4f, rtgWorld),river);
     }
 
-    public static float terrainBryce(int x, int y, OpenSimplexNoise simplex, float river, float height) {
+    public static float terrainBryce(int x, int y, IRTGWorld rtgWorld, float river, float height) {
 
         float b = 0;
         float n;
-        float sn = simplex.noise2(x / 2f, y / 2f) * 0.5f + 0.5f;
-        sn += simplex.noise2(x, y) * 0.2 + 0.2;
-        sn += simplex.noise2(x / 4f, y / 4f) * 4f + 4f;
-        sn += simplex.noise2(x / 8f, y / 8f) * 2f + 2f;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        float sn = simplex.noise2f(x / 2f, y / 2f) * 0.5f + 0.5f;
+        sn += simplex.noise2f(x, y) * 0.2 + 0.2;
+        sn += simplex.noise2f(x / 4f, y / 4f) * 4f + 4f;
+        sn += simplex.noise2f(x / 8f, y / 8f) * 2f + 2f;
         n = height / sn * 2;
-        n += simplex.noise2(x / 64f, y / 64f) * 4f;
+        n += simplex.noise2f(x / 64f, y / 64f) * 4f;
         n = (sn < 6) ? n : 0f;
         b += n;
         return riverized(getTerrainBase() + b, river);
     }
 
-    public static float terrainCanyon(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, boolean booRiver) {
-        //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
+    public static float terrainCanyon(int x, int y, IRTGWorld rtgWorld, float river, float[] height, float border, float strength, int heightLength, boolean booRiver) {
+        //float b = simplex.noise2f(x / cWidth, y / cWidth) * cHeigth * river;
         //b *= b / cStrength;
         //river *= 1.3f;
         //river = river > 1f ? 1f : river;
-        float r = simplex.noise2(x / 100f, y / 100f) * 50f * river;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        float r = simplex.noise2f(x / 100f, y / 100f) * 50f * river;
         r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
         float b = (17f + r) * river;
 
-        float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
+        float hn = simplex.noise2f(x / 12f, y / 12f) * 0.5f;
         float sb = 0f;
         if (b > 0f) {
             sb = b;
@@ -196,7 +198,7 @@ public abstract class TerrainBase {
             }
         }
         else if (b < 5f) {
-            bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+            bn = (simplex.noise2f(x / 7f, y / 7f) * 1.3f + simplex.noise2f(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
         }
 
         b += cTotal - bn;
@@ -204,64 +206,68 @@ public abstract class TerrainBase {
         return getTerrainBase(river) + b;
     }
 
-    public static float terrainFlatLakes(int x, int y, OpenSimplexNoise simplex, float river, float baseHeight) {
-        /*float h = simplex.noise2(x / 300f, y / 300f) * 40f * river;
+    public static float terrainFlatLakes(int x, int y, IRTGWorld rtgWorld, float river, float baseHeight) {
+        /*float h = simplex.noise2f(x / 300f, y / 300f) * 40f * river;
         h = h > hMax ? hMax : h;
-        h += simplex.noise2(x / 50f, y / 50f) * (12f - h) * 0.4f;
-        h += simplex.noise2(x / 15f, y / 15f) * (12f - h) * 0.15f;*/
+        h += simplex.noise2f(x / 50f, y / 50f) * (12f - h) * 0.4f;
+        h += simplex.noise2f(x / 15f, y / 15f) * (12f - h) * 0.15f;*/
 
-        float ruggedNoise = simplex.octave(1).noise2(x / VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH
-            , y / VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH);
+        float ruggedNoise = rtgWorld.simplexInstance(1).noise2f(
+            x / VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH,
+            y / VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH
+        );
 
         ruggedNoise = blendedHillHeight(ruggedNoise);
-        float h = groundNoise(x, y, 2f * (ruggedNoise + 1f), simplex);// ground noise
+        float h = groundNoise(x, y, 2f * (ruggedNoise + 1f), rtgWorld);// ground noise
         return riverized(baseHeight + h, river);
     }
 
-    public static float terrainGrasslandFlats(int x, int y, OpenSimplexNoise simplex, float river, float mPitch, float baseHeight) {
+    public static float terrainGrasslandFlats(int x, int y, IRTGWorld rtgWorld, float river, float mPitch, float baseHeight) {
 
-        float h = simplex.noise2(x / 100f, y / 100f) * 7;
-        h += simplex.noise2(x / 20f, y / 20f) * 2;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        float h = simplex.noise2f(x / 100f, y / 100f) * 7;
+        h += simplex.noise2f(x / 20f, y / 20f) * 2;
 
-        float m = simplex.noise2(x / 180f, y / 180f) * 35f * river;
+        float m = simplex.noise2f(x / 180f, y / 180f) * 35f * river;
         m *= m / mPitch;
 
-        float sm = blendedHillHeight(simplex.noise2(x / 30f, y / 30f)) * 8f;
+        float sm = blendedHillHeight(simplex.noise2f(x / 30f, y / 30f)) * 8f;
         sm *= m / 20f > 3.75f ? 3.75f : m / 20f;
         m += sm;
 
         return riverized(baseHeight + h + m, river);
     }
 
-    public static float terrainGrasslandHills(int x, int y, OpenSimplexNoise simplex, float river, float vWidth, float vHeight, float hWidth, float hHeight, float bHeight) {
+    public static float terrainGrasslandHills(int x, int y, IRTGWorld rtgWorld, float river, float vWidth, float vHeight, float hWidth, float hHeight, float bHeight) {
 
-        float h = simplex.noise2(x / vWidth, y / vWidth);
+        float h = rtgWorld.simplexInstance(0).noise2f(x / vWidth, y / vWidth);
         h = blendedHillHeight(h, 0.3f);
 
-        float m = simplex.octave(1).noise2(x / hWidth, y / hWidth);
+        float m = rtgWorld.simplexInstance(1).noise2f(x / hWidth, y / hWidth);
         m = blendedHillHeight(m, 0.3f) * h;
         m *= m;
 
         h *= vHeight * river;
         m *= hHeight * river;
 
-        h += TerrainBase.groundNoise(x, y, 4f, simplex);
+        h += TerrainBase.groundNoise(x, y, 4f, rtgWorld);
 
         return riverized(bHeight + h, river)  + m;
     }
 
-    public static float terrainGrasslandMountains(int x, int y, OpenSimplexNoise simplex, float river, float hFactor, float mFactor, float baseHeight) {
+    public static float terrainGrasslandMountains(int x, int y, IRTGWorld rtgWorld, float river, float hFactor, float mFactor, float baseHeight) {
 
-        float h = simplex.noise2(x / 100f, y / 100f) * hFactor;
-        h += simplex.noise2(x / 20f, y / 20f) * 2;
+        SimplexNoise simplex0 = rtgWorld.simplexInstance(0);
+        float h = simplex0.noise2f(x / 100f, y / 100f) * hFactor;
+        h += simplex0.noise2f(x / 20f, y / 20f) * 2;
 
-        float m = simplex.noise2(x / 230f, y / 230f) * mFactor * river;
+        float m = simplex0.noise2f(x / 230f, y / 230f) * mFactor * river;
         m *= m / 35f;
         m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 
-        float c = (float) simplex.octave(4).noise(x / 30f, y / 30f, 1D) * (m * 0.30f);
+        float c = rtgWorld.simplexInstance(4).noise3f(x / 30f, y / 30f, 1f) * (m * 0.30f);
 
-        float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
+        float sm = simplex0.noise2f(x / 30f, y / 30f) * 8f + simplex0.noise2f(x / 8f, y / 8f);
         sm *= m / 20f > 2.5f ? 2.5f : m / 20f;
         m += sm;
 
@@ -270,9 +276,9 @@ public abstract class TerrainBase {
         return riverized(baseHeight + h + m, river);
     }
 
-    public static float terrainHighland(float x, float y, OpenSimplexNoise simplex, float river, float start, float width, float height, float baseAdjust) {
+    public static float terrainHighland(float x, float y, IRTGWorld rtgWorld, float river, float start, float width, float height, float baseAdjust) {
 
-        float h = simplex.noise2(x / width, y / width) * height * river; //-140 to 140
+        float h = rtgWorld.simplexInstance(0).noise2f(x / width, y / width) * height * river; //-140 to 140
         h = h < start ? start + ((h - start) / 4.5f) : h;
 
         if (h < 0f) {
@@ -280,13 +286,13 @@ public abstract class TerrainBase {
         }
         if (h > 0f) {
             float st = h * 1.5f > 15f ? 15f : h * 1.5f;// 0 to 15
-            h += simplex.octave(4).noise(x / 70D, y / 70D, 1D) * st;// 0 to 155
+            h += rtgWorld.simplexInstance(4).noise3f(x / 70f, y / 70f, 1f) * st;// 0 to 155
             h = h * river;
         }
 
-        h += blendedHillHeight(simplex.noise2(x / 20f, y / 20f), 0f) * 4f;
-        h += blendedHillHeight(simplex.noise2(x / 12f, y / 12f), 0f) * 2f;
-        h += blendedHillHeight(simplex.noise2(x / 5f, y / 5f), 0f) * 1f;
+        h += blendedHillHeight(rtgWorld.simplexInstance(0).noise2f(x / 20f, y / 20f), 0f) * 4f;
+        h += blendedHillHeight(rtgWorld.simplexInstance(0).noise2f(x / 12f, y / 12f), 0f) * 2f;
+        h += blendedHillHeight(rtgWorld.simplexInstance(0).noise2f(x / 5f, y / 5f), 0f) * 1f;
 
         if (h < 0) {
             h = h / 2f;
@@ -299,20 +305,21 @@ public abstract class TerrainBase {
         return getTerrainBase(river) + (h + baseAdjust) * river;
     }
 
-    public static float terrainLonelyMountain(int x, int y, OpenSimplexNoise simplex, float river, float strength, float width, float terrainHeight) {
+    public static float terrainLonelyMountain(int x, int y, IRTGWorld rtgWorld, float river, float strength, float width, float terrainHeight) {
 
-        float h = blendedHillHeight(simplex.noise2(x / 20f, y / 20f), 0) * 3;
-        h += blendedHillHeight(simplex.noise2(x / 7f, y / 7f), 0) * 1.3f;
+        SimplexNoise simplex0 = rtgWorld.simplexInstance(0);
+        float h = blendedHillHeight(simplex0.noise2f(x / 20f, y / 20f), 0) * 3;
+        h += blendedHillHeight(simplex0.noise2f(x / 7f, y / 7f), 0) * 1.3f;
 
-        float m = simplex.noise2(x / width, y / width) * strength * river;
+        float m = simplex0.noise2f(x / width, y / width) * strength * river;
         m *= m / 35f;
         m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 
         float st = m * 0.7f;
         st = st > 20f ? 20f : st;
-        float c = (float) simplex.octave(4).noise(x / 30f, y / 30f, 1D) * (5f + st);
+        float c = rtgWorld.simplexInstance(4).noise3f(x / 30f, y / 30f, 1f) * (5f + st);
 
-        float sm = simplex.noise2(x / 30f, y / 30f) * 8f + simplex.noise2(x / 8f, y / 8f);
+        float sm = simplex0.noise2f(x / 30f, y / 30f) * 8f + simplex0.noise2f(x / 8f, y / 8f);
         sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
         m += sm;
 
@@ -329,29 +336,31 @@ public abstract class TerrainBase {
         return riverized(terrainHeight + h + m, river);
     }
 
-    public static float terrainMarsh(int x, int y, OpenSimplexNoise simplex, float baseHeight, float river) {
+    public static float terrainMarsh(int x, int y, IRTGWorld rtgWorld, float baseHeight, float river) {
 
-        float h = simplex.noise2(x / 130f, y / 130f) * 20f;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        float h = simplex.noise2f(x / 130f, y / 130f) * 20f;
 
-        h += simplex.noise2(x / 12f, y / 12f) * 2f;
-        h += simplex.noise2(x / 18f, y / 18f) * 4f;
+        h += simplex.noise2f(x / 12f, y / 12f) * 2f;
+        h += simplex.noise2f(x / 18f, y / 18f) * 4f;
 
         h = h < 8f ? 0f : h - 8f;
 
         if (h == 0f) {
-            h += simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
+            h += simplex.noise2f(x / 20f, y / 20f) + simplex.noise2f(x / 5f, y / 5f);
             h *= 2f;
         }
 
         return riverized(baseHeight + h,river);
     }
 
-    public static float terrainOcean(int x, int y, OpenSimplexNoise simplex, float river, float averageFloor) {
+    public static float terrainOcean(int x, int y, IRTGWorld rtgWorld, float river, float averageFloor) {
 
-        float h = simplex.noise2(x / 300f, y / 300f) * 8f * river;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        float h = simplex.noise2f(x / 300f, y / 300f) * 8f * river;
         //h = h > 3f ? 3f : h;
-        h += simplex.noise2(x / 50f, y / 50f) * 2f;
-        h += simplex.noise2(x / 15f, y / 15f) * 1f;
+        h += simplex.noise2f(x / 50f, y / 50f) * 2f;
+        h += simplex.noise2f(x / 15f, y / 15f) * 1f;
 
         float floNoise = averageFloor + h;
         floNoise = floNoise < minimumOceanFloor ? minimumOceanFloor : floNoise;
@@ -359,16 +368,17 @@ public abstract class TerrainBase {
         return floNoise;
     }
 
-    public static float terrainOceanCanyon(int x, int y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, boolean booRiver) {
-        //float b = simplex.noise2(x / cWidth, y / cWidth) * cHeigth * river;
+    public static float terrainOceanCanyon(int x, int y, IRTGWorld rtgWorld, float river, float[] height, float border, float strength, int heightLength, boolean booRiver) {
+        //float b = simplex.noise2f(x / cWidth, y / cWidth) * cHeigth * river;
         //b *= b / cStrength;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
         river *= 1.3f;
         river = river > 1f ? 1f : river;
-        float r = simplex.noise2(x / 100f, y / 100f) * 50f;
+        float r = simplex.noise2f(x / 100f, y / 100f) * 50f;
         r = r < -7.4f ? -7.4f : r > 7.4f ? 7.4f : r;
         float b = (17f + r) * river;
 
-        float hn = simplex.noise2(x / 12f, y / 12f) * 0.5f;
+        float hn = simplex.noise2f(x / 12f, y / 12f) * 0.5f;
         float sb = 0f;
         if (b > 0f) {
             sb = b;
@@ -400,7 +410,7 @@ public abstract class TerrainBase {
             }
         }
         else if (b < 5f) {
-            bn = (simplex.noise2(x / 7f, y / 7f) * 1.3f + simplex.noise2(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
+            bn = (simplex.noise2f(x / 7f, y / 7f) * 1.3f + simplex.noise2f(x / 15f, y / 15f) * 2f) * (5f - b) * 0.2f;
         }
 
         b += cTotal - bn;
@@ -411,13 +421,14 @@ public abstract class TerrainBase {
         return floNoise;
     }
 
-    public static float terrainPlains(int x, int y, OpenSimplexNoise simplex, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight) {
+    public static float terrainPlains(int x, int y, IRTGWorld rtgWorld, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight) {
 
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
         float floNoise;
-        float st = (simplex.noise2(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
+        float st = (simplex.noise2f(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
         st = st < 0.2f ? 0.2f : st;
 
-        float h = simplex.noise2(x / hPitch, y / hPitch) * st * 2f;
+        float h = simplex.noise2f(x / hPitch, y / hPitch) * st * 2f;
         h = h > 0f ? -h : h;
         h += st;
         h *= h / hDivisor;
@@ -427,18 +438,19 @@ public abstract class TerrainBase {
         return floNoise;
     }
 
-    public static float terrainPlateau(float x, float y, OpenSimplexNoise simplex, float river, float[] height, float border, float strength, int heightLength, float selectorWaveLength, boolean isM) {
+    public static float terrainPlateau(float x, float y, IRTGWorld rtgWorld, float river, float[] height, float border, float strength, int heightLength, float selectorWaveLength, boolean isM) {
 
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
         river = river > 1f ? 1f : river;
         float border2 = border * 4 - 2.5f;
         border2 = border2 > 1f ? 1f : (border2 < 0f) ? 0f : border2;
-        float b = simplex.noise2(x / 40f, y / 40f) * 1.5f;
+        float b = simplex.noise2f(x / 40f, y / 40f) * 1.5f;
 
-        float sn = simplex.noise2(x / selectorWaveLength, y / selectorWaveLength) * 0.5f + 0.5f;
+        float sn = simplex.noise2f(x / selectorWaveLength, y / selectorWaveLength) * 0.5f + 0.5f;
         sn *= border2;
         sn *= river;
-        sn += simplex.noise2(x / 4f, y / 4f) * 0.01f + 0.01f;
-        sn += simplex.noise2(x / 2f, y / 2f) * 0.01f + 0.01f;
+        sn += simplex.noise2f(x / 4f, y / 4f) * 0.01f + 0.01f;
+        sn += simplex.noise2f(x / 2f, y / 2f) * 0.01f + 0.01f;
         float n, hn, stepUp;
         for (int i = 0; i < heightLength; i += 2) {
             n = (sn - height[i + 1]) / (1 - height[i + 1]);
@@ -450,9 +462,9 @@ public abstract class TerrainBase {
             if (sn > height[i + 1]) {
                 stepUp += (height[i] * n);
                 if (isM) {
-                    stepUp += simplex.noise2(x / 20f, y / 20f) * 3f * n;
-                    stepUp += simplex.noise2(x / 12f, y / 12f) * 2f * n;
-                    stepUp += simplex.noise2(x / 5f, y / 5f) * 1f * n;
+                    stepUp += simplex.noise2f(x / 20f, y / 20f) * 3f * n;
+                    stepUp += simplex.noise2f(x / 12f, y / 12f) * 2f * n;
+                    stepUp += simplex.noise2f(x / 5f, y / 5f) * 1f * n;
                 }
             }
             if (i == 0 && stepUp < hn) {
@@ -462,7 +474,7 @@ public abstract class TerrainBase {
             b += stepUp;
         }
         if (isM) {
-            b += simplex.noise2(x / 12, y / 12) * sn;
+            b += simplex.noise2f(x / 12, y / 12) * sn;
         }
         //Counteracts smoothing
         b /= border;
@@ -470,13 +482,14 @@ public abstract class TerrainBase {
         return riverized(getTerrainBase(), river) + b;
     }
 
-    public static float terrainPolar(float x, float y, OpenSimplexNoise simplex, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight) {
+    public static float terrainPolar(float x, float y, IRTGWorld rtgWorld, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight) {
 
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
         float floNoise;
-        float st = (simplex.noise2(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
+        float st = (simplex.noise2f(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
         st = st < 0.1f ? 0.1f : st;
 
-        float h = simplex.noise2(x / hPitch, y / hPitch) * st * 2f;
+        float h = simplex.noise2f(x / hPitch, y / hPitch) * st * 2f;
         h = h > 0f ? -h : h;
         h += st;
         h *= h / hDivisor;
@@ -486,80 +499,76 @@ public abstract class TerrainBase {
         return floNoise;
     }
 
-    public static float terrainRollingHills(int x, int y, OpenSimplexNoise simplex, float river, float hillStrength, float addedHeight, float groundNoiseAmplitudeHills, float lift) {
+    public static float terrainRollingHills(int x, int y, IRTGWorld rtgWorld, float river, float hillStrength, float addedHeight, float groundNoiseAmplitudeHills, float lift) {
 
-        float groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-
-        float m = hills(x, y, hillStrength, simplex);
-
+        float groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
+        float m = hills(x, y, hillStrength, rtgWorld);
         float floNoise = addedHeight + groundNoise + m;
-
         return riverized(floNoise + lift, river);
     }
 
-    public static float terrainRollingHills(int x, int y, OpenSimplexNoise simplex, float river, float hillStrength, float groundNoiseAmplitudeHills, float baseHeight) {
+    public static float terrainRollingHills(int x, int y, IRTGWorld rtgWorld, float river, float hillStrength, float groundNoiseAmplitudeHills, float baseHeight) {
 
-        float groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, simplex);
-
-        float m = hills(x, y, hillStrength, simplex);
-
+        float groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
+        float m = hills(x, y, hillStrength, rtgWorld);
         float floNoise = groundNoise + m;
-
         return riverized(floNoise + baseHeight, river);
     }
 
-    public static float terrainSwampMountain(int x, int y, OpenSimplexNoise simplex, float river, float width, float heigth, float hMax, float hDivisor, float baseHeight) {
+    public static float terrainSwampMountain(int x, int y, IRTGWorld rtgWorld, float river, float width, float heigth, float hMax, float hDivisor, float baseHeight) {
 
-        float h = simplex.noise2(x / width, y / width) * heigth * river;
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        float h = simplex.noise2f(x / width, y / width) * heigth * river;
         h *= h / hDivisor;
         h = h > hMax ? hMax : h;
 
         if (h < 14f) {
-            h += simplex.noise2(x / 25f, y / 25f) * (14f - h) * 0.8f;
+            h += simplex.noise2f(x / 25f, y / 25f) * (14f - h) * 0.8f;
         }
 
         if (h < 6) {
-            h = 6f - ((6f - h) * 0.07f) + simplex.noise2(x / 20f, y / 20f) + simplex.noise2(x / 5f, y / 5f);
+            h = 6f - ((6f - h) * 0.07f) + simplex.noise2f(x / 20f, y / 20f) + simplex.noise2f(x / 5f, y / 5f);
         }
 
         if (h > 10f) {
             float d = (h - 10f) / 2f > 8f ? 8f : (h - 10f) / 2f;
-            h += simplex.noise2(x / 35f, y / 35f) * d;
-            h += simplex.noise2(x / 60f, y / 60f) * d * 0.5f;
+            h += simplex.noise2f(x / 35f, y / 35f) * d;
+            h += simplex.noise2f(x / 60f, y / 60f) * d * 0.5f;
 
             if (h > 35f) {
                 float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += simplex.octave(4).noise(x / 25D, y / 25D, 1D) * d2;
+                h += rtgWorld.simplexInstance(4).noise3f(x / 25f, y / 25f, 1f) * d2;
             }
         }
 
         if (h > 2f) {
             float d = (h - 2f) / 2f > 4f ? 4f : (h - 2f) / 2f;
-            h += simplex.noise2(x / 28f, y / 28f) * d;
-            h += simplex.noise2(x / 18f, y / 18f) * (d / 2f);
-            h += simplex.noise2(x / 8f, y / 8f) * (d / 2f);
+            h += simplex.noise2f(x / 28f, y / 28f) * d;
+            h += simplex.noise2f(x / 18f, y / 18f) * (d / 2f);
+            h += simplex.noise2f(x / 8f, y / 8f) * (d / 2f);
         }
 
         return riverized(h + baseHeight, river);
     }
 
-    public static float terrainVolcano(int x, int y, OpenSimplexNoise simplex, CellNoise cell, float border, float baseHeight) {
+    public static float terrainVolcano(int x, int y, IRTGWorld rtgWorld, float border, float baseHeight) {
 
-        float st = 15f - ((cell.noise(x / 500D, y / 500D, 1D) * 42f) + (simplex.noise2(x / 30f, y / 30f) * 2f));
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+        CellularNoise cellularNoise = rtgWorld.cellularInstance(0);
 
-        st = st < 0f ? 0f : st;
+        float st = 15f - (float)(cellularNoise.eval2D(x / 500d, y / 500d).getShortestDistance() * 42d) + (simplex.noise2f(x / 30f, y / 30f) * 2f);
 
-        float h = st;
+        float h = st < 0f ? 0f : st;
         h = h < 0f ? 0f : h;
         h += (h * 0.4f) * ((h * 0.4f) * 2f);
 
         if (h > 10f) {
             float d2 = (h - 10f) / 1.5f > 30f ? 30f : (h - 10f) / 1.5f;
-            h += cell.noise(x / 25D, y / 25D, 1D) * d2;
+            h += cellularNoise.eval2D(x / 25D, y / 25D).getShortestDistance() * d2;
         }
 
-        h += simplex.noise2(x / 18f, y / 18f) * 3;
-        h += simplex.noise2(x / 8f, y / 8f) * 2;
+        h += simplex.noise2f(x / 18f, y / 18f) * 3;
+        h += simplex.noise2f(x / 8f, y / 8f) * 2;
 
         return baseHeight + h * border;
     }

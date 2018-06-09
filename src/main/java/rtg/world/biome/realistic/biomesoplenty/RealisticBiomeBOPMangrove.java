@@ -44,7 +44,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
 
 		@Override
 		public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
-			return terrainBeach(x, y, rtgWorld.simplex(), river, 60f);
+			return terrainBeach(x, y, rtgWorld, river, 60f);
 		}
 	}
 

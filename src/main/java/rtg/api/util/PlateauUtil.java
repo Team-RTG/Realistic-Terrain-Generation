@@ -11,8 +11,10 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeMesa;
 
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -35,23 +37,14 @@ public final class PlateauUtil
 {
     private PlateauUtil() {}
 
-    private static final HashMap<IRealisticBiome, List<IBlockState>> BIOME_PLATEAU_BANDS;
-    private static final IBlockState        DEFAULT_PLATEAU_BLOCK;
-    private static final Collection<String> MESA_PLATEAU_BLOCKS;
-    private static final Collection<String> SAVANNA_PLATEAU_BLOCKS;
-
-    public static String[] getMesaPlateauBlocks() {
-        return MESA_PLATEAU_BLOCKS.toArray(new String[MESA_PLATEAU_BLOCKS.size()]);
-    }
-
-    public static String[] getSavannaPlateauBlocks() {
-        return SAVANNA_PLATEAU_BLOCKS.toArray(new String[SAVANNA_PLATEAU_BLOCKS.size()]);
-    }
+    private static final HashMap<IRealisticBiome, List<IBlockState>> BIOME_PLATEAU_BANDS   = Maps.newHashMap();
+    private static final IBlockState                                 DEFAULT_PLATEAU_BLOCK = Blocks.HARDENED_CLAY.getDefaultState();
+    private static final BiomeMesa                                   MESA                  = (BiomeMesa)Biomes.MESA;
+    private static final Collection<String>                          MESA_PLATEAU_BLOCKS;
+    private static final Collection<String>                          SAVANNA_PLATEAU_BLOCKS;
 
     static {
-        BIOME_PLATEAU_BANDS   = Maps.newHashMap();
-        DEFAULT_PLATEAU_BLOCK = Blocks.HARDENED_CLAY.getDefaultState();
-        MESA_PLATEAU_BLOCKS   = Collections.unmodifiableCollection(Arrays.asList(
+        MESA_PLATEAU_BLOCKS = Collections.unmodifiableCollection(Arrays.asList(
             "minecraft:stained_hardened_clay[color=yellow]",
             "minecraft:stained_hardened_clay[color=yellow]",
             "minecraft:stained_hardened_clay[color=yellow]",
@@ -111,7 +104,19 @@ public final class PlateauUtil
         ));
     }
 
-    public static void init() {
+    public static String[] getMesaPlateauBlocks() {
+        return MESA_PLATEAU_BLOCKS.toArray(new String[0]);
+    }
+
+    public static String[] getSavannaPlateauBlocks() {
+        return SAVANNA_PLATEAU_BLOCKS.toArray(new String[0]);
+    }
+
+// TODO: [1.12] PlateauUtil should only use RTG layers. Use of vanilla layers (only an option that is unlikely to be used in most cases) should be removed.
+//              The vanilla layers require a world seed in order to initialise, which can be problematic when dealing with multiple dims with different seeds.
+    public static void init(long seed) {
+
+        MESA.generateBands(seed);
 
         Biome.REGISTRY.forEach(biome -> {
 
@@ -136,13 +141,15 @@ public final class PlateauUtil
     }
 
     public static IBlockState getPlateauBand(final IRTGWorld rtgWorld, final IRealisticBiome rBiome, final int x, final int y, final int z) {
-
-        return (rBiome.getConfig().ALLOW_PLATEAU_MODIFICATIONS.get() && BIOME_PLATEAU_BANDS.containsKey(rBiome))
-            ? BIOME_PLATEAU_BANDS.get(rBiome).get(y)
-            : rtgWorld.mesaBiome().getBand(x, y, z);
+        return (rBiome.getConfig().ALLOW_PLATEAU_MODIFICATIONS.get() && BIOME_PLATEAU_BANDS.containsKey(rBiome)) ? getBand(rBiome, y) : MESA.getBand(x, y, z);
     }
 
     public static float stepIncrease(final float simplexVal, final float start, final float finish, final float height) {
         return (simplexVal <= start) ? 0 : (simplexVal >= finish) ? height : ((simplexVal-start) / (finish-start)) * height;
+    }
+
+    private static IBlockState getBand(IRealisticBiome rBiome, int index) {
+        List<IBlockState> bands = BIOME_PLATEAU_BANDS.get(rBiome);
+        return bands.get(index % bands.size());
     }
 }

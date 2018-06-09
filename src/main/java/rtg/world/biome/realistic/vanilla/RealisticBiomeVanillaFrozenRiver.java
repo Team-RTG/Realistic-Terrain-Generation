@@ -9,7 +9,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
@@ -45,7 +45,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainFlatLakes(x, y, rtgWorld.simplex(), river, 60f);
+            return terrainFlatLakes(x, y, rtgWorld, river, 60f);
         }
     }
 
@@ -66,9 +66,9 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeVanillaBase 
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
 
-            if (river > 0.05f && river + (simplex.noise2(i / 10f, j / 10f) * 0.15f) > 0.8f) {
+            if (river > 0.05f && river + (simplex.noise2f(i / 10f, j / 10f) * 0.15f) > 0.8f) {
                 Block b;
                 for (int k = 255; k > -1; k--) {
                     b = primer.getBlockState(x, k, z).getBlock();

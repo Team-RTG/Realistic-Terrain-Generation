@@ -80,7 +80,8 @@ public class DecoSeaweed extends DecoBase {
              * The actual amount of seaweed that ends up being generated could be *less* than this value,
              * depending on environmental conditions.
              */
-            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.noiseDivisor, worldZ / this.distribution.noiseDivisor) * this.distribution.noiseFactor + this.distribution.noiseAddend;
+            float noise = rtgWorld.simplexInstance(0).noise2f(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor())
+                * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
             int loopCount = this.loops;
             loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
             loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;

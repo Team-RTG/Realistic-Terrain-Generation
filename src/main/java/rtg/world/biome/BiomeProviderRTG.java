@@ -20,9 +20,8 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import rtg.api.RTGAPI;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.noise.SimplexOctave;
-import rtg.api.util.noise.SpacedCellNoise;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -34,14 +33,12 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 {
     private static int[] incidences = new int[100];
     private static int references = 0;
+
+    private final RTGWorld rtgWorld;
     /** A GenLayer containing the indices into Biome.biomeList[] */
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private List<Biome> biomesToSpawnIn;
-    private RTGWorld rtgWorld;
-    private OpenSimplexNoise simplex;
-    //private SimplexCellularNoise simplexCell;
-    private SpacedCellNoise river;
     private float[] borderNoise;
     private RealisticBiomePatcher biomePatcher;
     private double riverValleyLevel = 140.0 / 450.0;//60.0/450.0;
@@ -53,7 +50,7 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         super(world.getWorldInfo());
 
-        this.rtgWorld = new RTGWorld(world);
+        this.rtgWorld = RTGWorld.getInstance(world); //new RTGWorld(world)
         this.biomesToSpawnIn = new ArrayList<>();
         this.borderNoise = new float[256];
         this.biomePatcher = new RealisticBiomePatcher();
@@ -73,13 +70,14 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         if (!DimensionManagerRTG.isValidDimension(world.provider.getDimension())) throw new RuntimeException();
 
-        simplex = new OpenSimplexNoise(seed);
-        //simplexCell = new SimplexCellularNoise(seed);
-        river = new SpacedCellNoise(seed);
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, ChunkGeneratorSettings.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build());
         agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
         this.genBiomes = agenlayer[0]; //maybe this will be needed
         this.biomeIndexLayer = agenlayer[1];
+    }
+
+    public final RTGWorld getRTGWorld() {
+        return this.rtgWorld;
     }
 
     private float riverSizeMultiplier() {
@@ -102,25 +100,28 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
     }
 
     @Override
-    public float getRiverStrength(int x, int z) {
+    public float getRiverStrength(final int x, final int z) {
+
+        double pX = x;
+        double pZ = z;
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
+
         //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        simplex.riverJitter().evaluateNoise((float) x / 240.0, (float) z / 240.0, jitter);
-        double pX = x + jitter.deltax() * largeBendSize;
-        double pZ = z + jitter.deltay() * largeBendSize;
+        this.rtgWorld.simplexInstance(1).multiEval2D((float) x / 240.0, (float) z / 240.0, jitterData);
+        pX += jitterData.getDeltaX() * largeBendSize;
+        pZ += jitterData.getDeltaY() * largeBendSize;
 
-        simplex.octave(2).evaluateNoise((float) x / 80.0, (float) z / 80.0, jitter);
-        pX += jitter.deltax() * smallBendSize;
-        pZ += jitter.deltay() * smallBendSize;
+        this.rtgWorld.simplexInstance(2).multiEval2D((float) x / 80.0, (float) z / 80.0, jitterData);
+        pX += jitterData.getDeltaX() * smallBendSize;
+        pZ += jitterData.getDeltaY() * smallBendSize;
 
-        double xRiver = pX / riverSeparation;
-        double zRiver = pZ / riverSeparation;
+        pX /= riverSeparation;
+        pZ /= riverSeparation;
 
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        //double[] results = cell.river().eval(xRiver,zRiver );
-        //return (float) cellBorder(results, riverValleyLevel, 1.0);
-        float riverFactor = (float)river.octave(0).eval(xRiver, zRiver).interiorValue();
+        float riverFactor = (float)rtgWorld.cellularInstance(0).eval2D(pX, pZ).interiorValue();
+
         // the output is a curved function of relative distance from the center, so adjust to make it flatter
         riverFactor = Terrain.bayesianAdjustment(riverFactor, .5f);
         if (riverFactor>riverValleyLevel) return 0; // no river effect

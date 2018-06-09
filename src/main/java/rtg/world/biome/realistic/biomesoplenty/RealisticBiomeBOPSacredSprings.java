@@ -56,7 +56,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainLonelyMountain(x, y, rtgWorld.simplex(), river, strength, width, terrainHeight);
+            return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, terrainHeight);
 
         }
     }

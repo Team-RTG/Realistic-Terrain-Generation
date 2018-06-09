@@ -16,7 +16,7 @@ public class VoronoiBorderEffect extends HeightEffect {
     
     @Override
     public float added(IRTGWorld rtgWorld, float x, float y) {
-         VoronoiResult points = rtgWorld.cell().octave(1).eval((float) x / pointWavelength, (float) y / pointWavelength);
+         VoronoiResult points = rtgWorld.cellularInstance(1).eval2D(x / pointWavelength, y / pointWavelength);
          float raise = (float) (points.interiorValue());
          raise = 1.0f-raise;
          //raise = TerrainBase.blendedHillHeight(raise, floor);

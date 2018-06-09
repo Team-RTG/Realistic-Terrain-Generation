@@ -56,7 +56,7 @@ public final class DecoWave extends DecoBase {
 
         if (this.allowed) {
 
-            float noise = rtgWorld.simplex().noise2(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor())
+            float noise = rtgWorld.simplexInstance(0).noise2f(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor())
                 * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
 
             WorldGenerator worldGenerator;

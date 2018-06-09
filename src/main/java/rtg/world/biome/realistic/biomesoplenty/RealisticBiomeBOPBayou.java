@@ -21,9 +21,9 @@ import biomesoplenty.common.block.BlockBOPLog;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.OpenSimplexNoise;
-import rtg.api.util.noise.SimplexOctave;
-import rtg.api.util.noise.VoronoiResult;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
@@ -72,7 +72,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld.simplex(), river, 80f, 1f, 40f, 20f, 62f);
+            return terrainPlains(x, y, rtgWorld, river, 80f, 1f, 40f, 20f, 62f);
         }
     }
 
@@ -113,7 +113,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            OpenSimplexNoise simplex = rtgWorld.simplex();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
@@ -129,7 +129,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
                     if (depth == 0) {
 
-                        float p = simplex.noise3(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
                         if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
                             cliff = 1;
                         }
@@ -158,7 +158,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2(i / 12f, j / 12f) > mixHeight) {
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
                             primer.setBlockState(x, k, z, mixBlock);
                             m = true;
                         }
@@ -183,30 +183,19 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize)
-            // so, rather than lakes, we have a bayou network
-    {
-    	//this code is borrowed from WorldChunkManagerRTG with vars changes
-            SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-            rtgWorld.simplex().riverJitter().evaluateNoise((float)x / 40.0, (float)y / 40.0, jitter);
-            double pX = x + jitter.deltax() * 35f;
-            double pY = y + jitter.deltay() * 35f;
-            /*double[] simplexResults = new double[2];
-    	    OpenSimplexNoise.noise(x / 240.0, y / 240.0, riverOpenSimplexNoiseInstances, simplexResults);
-            double pX = x + simplexResults[0] * 220f;
-            double pY = y + simplexResults[1] * 220f;*/
+    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
 
-        //New cellular noise.
-        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        VoronoiResult results = rtgWorld.cell().river().eval(pX / 150.0, pY / 150.0);
-        if (border<.5) border = .5f;
-        float result = (float)(results.interiorValue());
-        // that will leave rivers too small
-        
-        result = Terrain.bayesianAdjustment(result, 0.25f);
-        return result;
-
+        double pX = x;
+        double pY = y;
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
+        // rather than lakes, we have a bayou network
+        rtgWorld.simplexInstance(1).multiEval2D(x / 40.0d, y / 40.0d, jitterData);
+        pX += jitterData.getDeltaX() * 35d;
+        pY += jitterData.getDeltaY() * 35d;
+        return Terrain.bayesianAdjustment((float) rtgWorld.cellularInstance(0).eval2D(pX / 150.0, pY / 150.0).interiorValue(), 0.25f);
     }
+
+    @Override
     public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         // Bayou has a higher river bottom
         float r;
@@ -225,8 +214,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         if (riverFlattening < 0) riverFlattening = 0;
         
         if ((r < 1f && biomeHeight > 57f)) {
-            float irregularity = rtgWorld.simplex.noise2(x / 12f, y / 12f) *
-                2f + rtgWorld.simplex.noise2(x / 8f, y / 8f);
+            float irregularity = rtgWorld.simplexInstance(0).noise2f(x / 12f, y / 12f) * 2f + rtgWorld.simplexInstance(0).noise2f(x / 8f, y / 8f);
             // less on the bottom and more on the sides
             irregularity = irregularity*(1+r);
             return (biomeHeight * (r)) + ((57f + irregularity) * 1.0f) * (1f-r);

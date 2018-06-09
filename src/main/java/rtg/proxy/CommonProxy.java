@@ -12,7 +12,6 @@ import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
-import rtg.api.util.PlateauUtil;
 import rtg.util.ModCompat;
 import rtg.world.biome.organic.OrganicBiome;
 import rtg.world.biome.realistic.RealisticBiomeBase;
@@ -78,9 +77,6 @@ public class CommonProxy
         RealisticBiomeVAMPBase.addBiomes();
 
         RealisticBiomeBase.addModBiomes();
-
-        // PlateauUtil must init after biomes are setup
-        PlateauUtil.init();
 
         // Process unsupported biomes and initialise OrganicBiomes for them
         Biome.REGISTRY.forEach(biome -> {

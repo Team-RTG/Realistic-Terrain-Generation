@@ -21,15 +21,15 @@ public class VoronoiPlateauEffect extends HeightEffect {
     @Override
     public float added(IRTGWorld rtgWorld, float x, float y) {
         Point2D.Float evaluateAt = new Point2D.Float((float) x / pointWavelength,(float) y / pointWavelength);
-         VoronoiResult points = rtgWorld.voronoi().octave(1).eval(evaluateAt.x, evaluateAt.y);
+        VoronoiResult points = rtgWorld.cellularInstance(1).eval2D(evaluateAt.x, evaluateAt.y);
          float raise = (float) (points.interiorValue());
          // now we're going to get an adjustment value which will be the same
          // for all points on a given vector from the voronoi basin center
          Point2D.Float adjustAt = points.toLength(evaluateAt, adjustmentRadius);
          float multiplier = 1.3f;
          float noZeros = 0.1f;
-         float adjustment = (float)rtgWorld.voronoi().octave(2).eval(adjustAt.x,adjustAt.y).interiorValue()*multiplier + noZeros;
-         float reAdjustment = (float)rtgWorld.voronoi().octave(3).eval(adjustAt.x,adjustAt.y).interiorValue()*multiplier + noZeros;;
+        float adjustment   = (float) rtgWorld.cellularInstance(2).eval2D(adjustAt.x, adjustAt.y).interiorValue() * multiplier + noZeros;
+        float reAdjustment = (float) rtgWorld.cellularInstance(3).eval2D(adjustAt.x, adjustAt.y).interiorValue() * multiplier + noZeros;
          // 0 to 1 which is currently undesirable so increase to average closer to 1
          adjustment = Terrain.bayesianAdjustment(adjustment, reAdjustment);
          raise = Terrain.bayesianAdjustment(raise, adjustment);

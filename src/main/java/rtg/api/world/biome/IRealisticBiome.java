@@ -9,7 +9,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
-import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBase;
@@ -69,38 +70,35 @@ public interface IRealisticBiome {
     int lavaSurfaceLakeChance(); /*{ return 0; } //Lower equals more frequent.*/
 
     void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base);
-//    {
-//        float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-//
-//        if (rtgConfig.DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get()) {
-//
-//            this.surfaceGeneric().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-//        }
-//        else {
-//
-//            this.surface().paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-//        }
-//    }
 
     default float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
-        if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) return 1f;
-        SimplexOctave.Disk jitter = new SimplexOctave.Disk();
-        rtgWorld.simplex().riverJitter().evaluateNoise((float)x / 240.0, (float)y / 240.0, jitter);
-        double pX = x + jitter.deltax() * largeBendSize;
-        double pY = y + jitter.deltay() * largeBendSize;
-        rtgWorld.simplex().mountain().evaluateNoise((float)x / 80.0, (float)y / 80.0, jitter);
-        pX += jitter.deltax() * mediumBendSize;
-        pY += jitter.deltay() * mediumBendSize;
-        rtgWorld.simplex().octave(4).evaluateNoise((float)x / 30.0, (float)y / 30.0, jitter);
-        pX += jitter.deltax() * smallBendSize;
-        pY += jitter.deltay() * smallBendSize;
-        //double results =simplexCell.river().noise(pX / lakeInterval, pY / lakeInterval,1.0);
-        VoronoiResult lakeResults = rtgWorld.cell().river().eval((float)pX/ lakeInterval, (float)pY/ lakeInterval);
-        float results = 1f-(float)(lakeResults.interiorValue());
-        if (results >1.01) throw new RuntimeException("" + lakeResults.shortestDistance+ " , "+lakeResults.nextDistance);
-        if (results<-.01) throw new RuntimeException("" + lakeResults.shortestDistance+ " , "+lakeResults.nextDistance);
-        //return simplexCell.river().noise((float)x/ lakeInterval, (float)y/ lakeInterval,1.0);
-        return results;
+
+        if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) { return 1f; }
+
+        double pX = x;
+        double pY = y;
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
+
+        rtgWorld.simplexInstance(1).multiEval2D(x / 240.0d, y / 240.0d, jitterData);
+        pX += jitterData.getDeltaX() * largeBendSize;
+        pY += jitterData.getDeltaY() * largeBendSize;
+
+        rtgWorld.simplexInstance(0).multiEval2D(x / 80.0d, y / 80.0d, jitterData);
+        pX += jitterData.getDeltaX() * mediumBendSize;
+        pY += jitterData.getDeltaY() * mediumBendSize;
+
+        rtgWorld.simplexInstance(4).multiEval2D(x / 30.0d, y / 30.0d, jitterData);
+        pX += jitterData.getDeltaX() * smallBendSize;
+        pY += jitterData.getDeltaY() * smallBendSize;
+
+        VoronoiResult lakeResults = rtgWorld.cellularInstance(0).eval2D(pX / lakeInterval, pY / lakeInterval);
+        double result = 1.0d - lakeResults.interiorValue();
+
+// TODO: [1.12] Oh look.. It's more RuntimeExceptions, because we should just crash at every opertunity. *sigh*
+        if (result >  1.01d) throw new RuntimeException("" + lakeResults.getShortestDistance()+ " , "+lakeResults.getNextDistance());
+        if (result < -0.01d) throw new RuntimeException("" + lakeResults.getShortestDistance()+ " , "+lakeResults.getNextDistance());
+
+        return (float)result;
     }
 
     /**

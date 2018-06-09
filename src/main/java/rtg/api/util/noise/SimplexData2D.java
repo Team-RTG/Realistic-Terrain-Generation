@@ -51,8 +51,8 @@ public abstract class SimplexData2D implements ISimplexData2D
             return (double attn, double extrapolation, double gx, double gy, int gi_sph2, double dx, double dy) -> {
                 double attnSq = MathUtils.pow2(attn);
                 double extrap = MathUtils.pow2(attnSq) * extrapolation;
-                this.addToDeltaX(extrap * SimplexOctave.GRADIENTS_SPH2[gi_sph2]);
-                this.addToDeltaY(extrap * SimplexOctave.GRADIENTS_SPH2[gi_sph2 + 1]);
+                this.addToDeltaX(extrap * OpenSimplexNoise.GRADIENTS_SPH2[gi_sph2]);
+                this.addToDeltaY(extrap * OpenSimplexNoise.GRADIENTS_SPH2[gi_sph2 + 1]);
             };
         }
     }

@@ -23,7 +23,7 @@ import rtg.api.util.MathUtils;
  * @since   1.0.0
  * @version 1.0.0
  */
-public class SimplexOctave implements SimplexNoise
+public class OpenSimplexNoise implements SimplexNoise
 {
     private static final double STRETCH_2D = -0.211324865405187; //(1/Math.sqrt(2+1)-1)/2;
     private static final double SQUISH_2D  =  0.366025403784439; //(Math.sqrt(2+1)-1)/2;
@@ -35,7 +35,7 @@ public class SimplexOctave implements SimplexNoise
     private int[] perm2D_sph2;
     private int[] perm3D;
 
-    public SimplexOctave(long seed) {
+    public OpenSimplexNoise(long seed) {
 
         this.perm        = new int[1024];
         this.perm2D      = new int[1024];

@@ -11,7 +11,7 @@ import rtg.api.util.PlateauUtil;
 import rtg.api.util.TimedHashSet;
 import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.SimplexNoise;
-import rtg.api.util.noise.SimplexOctave;
+import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SpacedCellularNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.OrganicBiomeGenerator;
@@ -47,7 +47,7 @@ public final class RTGWorld implements IRTGWorld
 // Ultimately, setting up proper octaves of SimplexNoise would be most beneficial, but the amount of time and effort that it would take to update and tweak
 // all of the terrain processes to use those octaves, instead of the currently employed inline division, would be most impratical at this point.
         for (int i = 0; i < SIMPLEX_INSTANCE_COUNT; i++) {
-            this.simplexNoiseInstances[i] = new SimplexOctave(this.seed() + i);
+            this.simplexNoiseInstances[i] = new OpenSimplexNoise(this.seed() + i);
         }
         for (int i = 0; i < CELLULAR_INSTANCE_COUNT; i++) {
             this.cellularNoiseInstances[i] = new SpacedCellularNoise(this.seed() + i);

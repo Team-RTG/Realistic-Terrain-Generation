@@ -247,26 +247,6 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
         return biomes;
     }
 
-    @Override
-    public boolean areBiomesViable(int x, int z, int radius, @Nonnull List<Biome> allowed) {
-
-        float centerNoise = getNoiseAt(x, z);
-        if (centerNoise < 62) return false;
-
-        float lowestNoise = centerNoise;
-        float highestNoise = centerNoise;
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <= 2; j++) {
-                if (i != 0 && j != 0) {
-                    float n = getNoiseAt(x + i * 16, z + j * 16);
-                    if (n < lowestNoise)  lowestNoise = n;
-                    if (n > highestNoise) highestNoise = n;
-                }
-            }
-        }
-        return highestNoise - lowestNoise < 22;
-    }
-
     public float getNoiseAt(int x, int y) {
 
         float river = getRiverStrength(x, y) + 1f;

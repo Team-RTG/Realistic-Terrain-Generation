@@ -40,9 +40,9 @@ public class CommonProxy
 
     public void preInit(FMLPreInitializationEvent event) {
 
-        RTGAPI.configPath = Paths.get(event.getModConfigurationDirectory().getPath(), RTG.MOD_ID.toUpperCase());
-        RTGAPI.rtgConfig  = new RTGConfig(RTGAPI.configPath.resolve(event.getSuggestedConfigurationFile().getName()).toFile());
-        RTGAPI.rtgConfig.loadConfig();
+        RTGAPI.setConfigPath(Paths.get(event.getModConfigurationDirectory().getPath(), RTG.MOD_ID.toUpperCase()));
+        RTGAPI.setConfig(new RTGConfig(RTGAPI.getConfigPath().resolve(event.getSuggestedConfigurationFile().getName()).toFile()));
+        RTGAPI.config().loadConfig();
 
         ModCompat.init();
 
@@ -86,5 +86,9 @@ public class CommonProxy
         });
 
         ModCompat.doBiomeCheck();
+    }
+
+    public void loadComplete() {
+        RTGAPI.RTG_BIOMES.setLocked();// We don't want the biome map to change after this point, so we lock it.
     }
 }

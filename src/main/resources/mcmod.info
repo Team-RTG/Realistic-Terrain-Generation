@@ -1,5 +1,5 @@
 [{
-  "modid": "${modid}",
+  "modid": "rtg",
   "name": "Realistic Terrain Generation",
   "description": "Adds a new world type which generates realistic terrain for Overworld biomes.",
   "version": "${version}",

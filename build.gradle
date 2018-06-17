@@ -2,54 +2,76 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            name = 'forge'
-            url = 'http://files.minecraftforge.net/maven'
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply from: 'build-common.gradle'
+apply plugin: "net.minecraftforge.gradle.forge"
+apply from: "build-common.gradle"
 
 sourceCompatibility = targetCompatibility = 1.8
 
-group = package_base
-archivesBaseName = mod_id.toUpperCase() + '-' + mc_version
-version = (prerelease!="") ? mod_version + '-' + prerelease : mod_version
+group = "${project.package_base}"
+archivesBaseName = "${project.name}-${project.mc_version}"
+version = (project.prerelease != "") ? "${project.mod_version}-${project.prerelease}" : "${project.mod_version}"
 
 repositories {
-    maven { url 'https://dl.bintray.com/shinoow/maven/' } //AbyssalCraft
-    maven { url 'http://files.minecraftforge.net/maven' } //BiomesOPlenty
+    maven { url "https://dl.bintray.com/shinoow/maven/" } //AbyssalCraft
+    maven { url "http://files.minecraftforge.net/maven" } //BiomesOPlenty
 }
 
 dependencies {
-    provided 'com.shinoow.abyssalcraft:AbyssalCraft:'+ac_ver+':api'
-    provided 'com.github.glitchfiend.biomesoplenty:BiomesOPlenty:'+bop_ver+':deobf'
+    provided "com.shinoow.abyssalcraft:AbyssalCraft:${ac_ver}:api"
+    provided "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:${bop_ver}:deobf"
 }
 
 minecraft {
-    setVersion mcf_version
-    setMappings mcp_mappings
+    setVersion "${project.mcf_version}"
+    setMappings "${project.mcp_mappings}"
     setMakeObfSourceJar false
     setRunDir "run"
-    replace '@MOD_VERSION@', project.version
-    replace '0.0-MCF+MINVER', mcf_minver
-    replace '9001.0-MCF+MAXVER', mcf_maxver
-    if (depstring!='') replace ';after:MODDEPS', ';' + depstring
-    else replace ';after:MODDEPS', ''
-    replaceIn 'RTG.java'
+    replace "@MOD_VERSION@", "${project.version}"
+    replace "@API_VERSION@", "${project.api_version}"
+    replace "0.0-MCF+MINVER", "${project.mcf_minver}"
+    if (project.depstring != "") {replace("after:MODDEPS", "${project.depstring}")} else {replace "after:MODDEPS", ""}
+    replaceIn "RTG.java"
+    replaceIn "RTGAPI.java"
 }
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+        include "mcmod.info"
 		expand ([
-			'modid':mod_id,
-			'version':mod_version,
-			'mcversion':mc_version
+			"version"  :mod_version,
+			"mcversion":mc_version
 		])
 	}
-	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
+	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}
+}
+
+reobf { apiJar { mappingType = "SEARGE" } }
+
+task apiJar(type: Jar) {
+    from(sourceSets.main.allJava) {
+        include "rtg/api/**"
+        filter { it.replaceAll("@API_VERSION@", "${project.api_version}") }
+    }
+    from(sourceSets.main.output) { include "/rtg/api/**" }
+    setBaseName "${project.name}-${project.mc_version}-API"
+    setVersion project.api_version
+    manifest { attributes(["Maven-Artifact": "${project.group}:${baseName}:${project.api_version}"]) }
+}
+
+jar {
+    exclude "rtg/api/**"
+    from(tasks.apiJar.archivePath.absolutePath) {}
+    manifest { attributes([
+        "ContainedDeps" : tasks.apiJar.archivePath.name,
+        "Maven-Artifact": "${project.group}:${archivesBaseName}:${project.version}"
+    ]) }
+    dependsOn reobfApiJar
 }

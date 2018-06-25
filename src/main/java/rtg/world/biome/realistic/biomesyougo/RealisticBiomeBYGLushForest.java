@@ -42,12 +42,6 @@ public class RealisticBiomeBYGLushForest extends RealisticBiomeBYGBase {
     }
 
     @Override
-    public String biomeSlug() {
-
-        return "lushforest";
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBYGLushForest();

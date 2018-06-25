@@ -14,7 +14,7 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SpacedCellularNoise;
 import rtg.api.world.IRTGWorld;
-import rtg.api.world.biome.OrganicBiomeGenerator;
+import rtg.api.world.gen.RTGChunkGenSettings;
 
 /**
  *  A wrapper class for a {@link World} that contains collections of noise generator instances used in terrain gen.
@@ -33,14 +33,15 @@ public final class RTGWorld implements IRTGWorld
     private static final int CELLULAR_INSTANCE_COUNT = 5;
 
     private final World                  world;
+    private final RTGChunkGenSettings    generatorSettings;
     private final SimplexNoise[]         simplexNoiseInstances  = new SimplexNoise[SIMPLEX_INSTANCE_COUNT];
     private final CellularNoise[]        cellularNoiseInstances = new CellularNoise[CELLULAR_INSTANCE_COUNT];
     private final TimedHashSet<ChunkPos> decoratedChunks        = new TimedHashSet<>(5000);
-    private final OrganicBiomeGenerator  organicBiomeGenerator;
 
     private RTGWorld(World world) {
 
         this.world = world;
+        this.generatorSettings = RTGChunkGenSettings.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build();
 
 //TODO: [1.12] KdotJPG's implemetation uses D. Knuth's LCG internally in a loop to generate the permutation tables, perhaps we should use a different LCG
 // to create new instances of OpenSimplex and Cell noise, for better randomisation, instead of just adding 1 to the seed value value.
@@ -55,16 +56,6 @@ public final class RTGWorld implements IRTGWorld
 
 // TODO: [1.12] To be moved to the common proxy initialiser. See PlateauUtil
         PlateauUtil.init(this.seed());
-
-        this.organicBiomeGenerator = new OrganicBiomeGenerator(this);
-
-        addToCache();
-    }
-
-    private void addToCache() {
-        if (!INSTANCE_CACHE.containsKey(this.world())) {
-            INSTANCE_CACHE.put(this.world(), this);
-        }
     }
 
     /**
@@ -77,7 +68,21 @@ public final class RTGWorld implements IRTGWorld
      * @since 1.0.0
      */
     public static RTGWorld getInstance(World world) {
-        return INSTANCE_CACHE.containsKey(world) ? INSTANCE_CACHE.get(world) : new RTGWorld(world);
+        if (!INSTANCE_CACHE.containsKey(world)) { INSTANCE_CACHE.put(world, new RTGWorld(world)); }
+        return INSTANCE_CACHE.get(world);
+    }
+
+    /**
+     *  Removes an instance of RTGWorld from the cache. This should be done when worlds are unloaded
+     *
+     * @param world the world to remove an instance of RTGWorld for
+     *
+     * @return true if an instance was removed, false otherwise
+     *
+     * @since 1.0.0
+     */
+    public static boolean removeInstance(World world) {
+        return (INSTANCE_CACHE.remove(world) != null);
     }
 
     /**
@@ -90,6 +95,18 @@ public final class RTGWorld implements IRTGWorld
     @Override
     public World world() {
         return this.world;
+    }
+
+    /**
+     *  Gets the stored {@link RTGChunkGenSettings} instance for the world of this wrapper.
+     *
+     * @return The stored RTGChunkGenSettings object
+     *
+     * @since 1.0.0
+     */
+    @Override
+    public RTGChunkGenSettings getGeneratorSettings() {
+        return this.generatorSettings;
     }
 
     /**
@@ -117,19 +134,19 @@ public final class RTGWorld implements IRTGWorld
     }
 
     /**
-     *  Gets an new instance of Random for a chunk of the {@link World} object for this wrapper.
+     *  Calculates the seed for a Chunk based on the coord parameters.
      *
      * @param chunkX The chunk X coord
      * @param chunkZ The chunk Z coord
      *
-     * @return A new instance of Random for a chunk
+     * @return the chunk seed value
      *
      * @since 1.0.0
      */
     @Override
-    public Random getChunkRand(int chunkX, int chunkZ) {
+    public long getChunkSeed(final int chunkX, final int chunkZ) {
         this.rand().setSeed(this.seed());
-        return new Random(chunkX * (this.rand().nextLong() / 2L * 2L + 1L) + chunkZ * (this.rand().nextLong() / 2L * 2L + 1L) ^ this.seed());
+        return (chunkX * (this.rand().nextLong() / 2L * 2L + 1L)) + (chunkZ * (this.rand().nextLong() / 2L * 2L + 1L)) ^ this.seed();
     }
 
     /**
@@ -166,13 +183,5 @@ public final class RTGWorld implements IRTGWorld
     @Deprecated // To be removed when the decoration system is rewritten.
     public TimedHashSet<ChunkPos> decoratedChunks() {
         return this.decoratedChunks;
-    }
-
-    @Override
-    @Deprecated // To be removed.
-// TODO: [1.12] This should be replaced with a generic IRealisticBiome that non-supported biomes can use. This generic IRealisticBiome can be configured
-//              on a 'best guess' basis of the base biomes BiomeDictionary tags, base Biome class, vanilla height values, temperature, etc..
-    public OrganicBiomeGenerator organicBiomeGenerator() {
-        return this.organicBiomeGenerator;
     }
 }

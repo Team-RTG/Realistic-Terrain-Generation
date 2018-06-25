@@ -71,26 +71,12 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
         this.removeStages();// Remove any relevant stages from decoration, as designated in the individual biome's initDecos().
     }
 
-    @Override
-    public Biome baseBiome() {
-        return this.baseBiome;
-    }
-
     private void cacheBiome() {
         CACHED_BOP_BIOMES.add(this);
     }
 
     @Override
-    public Biome riverBiome() {
-        return this.riverBiome;
-    }
-
-    @Override
-    public String modSlug() {
-        return Mods.biomesoplenty.getPrettyName();
-    }
-
-    @Override
+// TODO: [1.12] Verify that this should be over-ridden for all BoP biomes, and not just for bayou.
     public int waterSurfaceLakeChance() {
         return 0;
     }

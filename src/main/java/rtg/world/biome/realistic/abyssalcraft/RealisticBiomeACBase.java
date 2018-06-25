@@ -25,27 +25,7 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
     }
 
     @Override
-    public Biome baseBiome() {
-        return this.baseBiome;
-    }
-
-    @Override
-    public Biome riverBiome() {
-        return this.riverBiome;
-    }
-
-    @Override
-    public String modSlug() {
-        return Mods.abyssalcraft.getPrettyName();
-    }
-
-    @Override
     public int waterSurfaceLakeChance() {
-        return 0;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
         return 0;
     }
 

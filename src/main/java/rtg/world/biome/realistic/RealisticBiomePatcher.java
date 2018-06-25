@@ -7,25 +7,26 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.Logger;
 import rtg.api.util.WorldUtil;
+import rtg.api.world.biome.IRealisticBiome;
 
-
+// TODO: [1.12] To be removed when the generic IRealisticBiome is set up for unknown biomes.
 public class RealisticBiomePatcher {
 
-    private RealisticBiomeBase realisticBiome;
+    private IRealisticBiome realisticBiome;
     private RTGConfig rtgConfig = RTGAPI.config();
 
     public RealisticBiomePatcher() {
 
         Biome biome = WorldUtil.Biomes.getBiomeFromCfgString(rtgConfig.PATCH_BIOME.get().trim(), Biomes.PLAINS);
-        this.realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+        this.realisticBiome = RTGAPI.getRTGBiome(Biome.getIdForBiome(biome));
         if (this.realisticBiome == null) {
             Logger.error("Erroneous patch biome set: [{}], This biome can't not be used as a patch" +
                 " biome as it is unsupported. Using minecraft:plains instead.", biome.getRegistryName());
-            this.realisticBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(Biomes.PLAINS));
+            this.realisticBiome = RTGAPI.getRTGBiome(Biome.getIdForBiome(Biomes.PLAINS));
         }
     }
 
-    public RealisticBiomeBase getPatchedRealisticBiome(String exceptionMessage) {
+    public IRealisticBiome getPatchedRealisticBiome(String exceptionMessage) {
 
         if (rtgConfig.USE_PATCH_BIOME.get() && this.realisticBiome != null) { return this.realisticBiome; }
         throw new RuntimeException(exceptionMessage);
@@ -33,7 +34,7 @@ public class RealisticBiomePatcher {
 
     public Biome getPatchedBaseBiome(String exceptionMessage) {
 
-        if (rtgConfig.USE_PATCH_BIOME.get() && this.realisticBiome != null) { return this.realisticBiome.baseBiome; }
+        if (rtgConfig.USE_PATCH_BIOME.get() && this.realisticBiome != null) { return this.realisticBiome.baseBiome(); }
         throw new RuntimeException(exceptionMessage);
     }
 }

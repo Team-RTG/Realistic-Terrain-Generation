@@ -18,9 +18,8 @@ import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.WorldGenBlob;
-import rtg.api.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.RTGChunkGenSettings;
 
 /**
  * @author WhichOnesPink
@@ -53,10 +52,7 @@ public class DecoBoulder extends DecoBase {
     @Override
     public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
-        biome.getConfig();
-        //settings.boulderMult
-
-        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
+        RTGChunkGenSettings settings = rtgWorld.getGeneratorSettings();
         if (settings.useBoulders) {
 
             WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, validGroundBlocks, this.water);

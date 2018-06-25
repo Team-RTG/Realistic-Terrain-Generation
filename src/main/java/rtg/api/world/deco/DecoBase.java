@@ -49,26 +49,15 @@ public abstract class DecoBase {
     /**
      * Performs pre-generation checks to determine if the deco is allowed to generate.
      */
-    public boolean preGenerate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
-
-        if (this.checkRiver) {
-
-            if (river > this.maxRiver || river < this.minRiver) {
-                return false;
-            }
-        }
-
-        return true;
+    public boolean preGenerate(float river) {
+        return !this.checkRiver || !(river > this.maxRiver) && !(river < this.minRiver);
     }
 
     /**
      * Generates the decoration.
      * This method should be overridden in the individual deco objects.
      */
-// TODO: [1.12] Make abstract
-    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
-
-    }
+    abstract public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks);
 
     /**
      * Adds one or more deco types.

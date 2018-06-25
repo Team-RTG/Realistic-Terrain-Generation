@@ -8,9 +8,9 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -29,11 +29,11 @@ import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
 import rtg.api.util.BlockUtil.MatchType;
-import rtg.api.world.gen.GenSettingsRepo;
+import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.world.RTGWorld;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -250,7 +250,7 @@ public class EventManagerRTG {
             BiomeProviderRTG cmr = (BiomeProviderRTG) event.getWorld().getBiomeProvider();
             //Biome bgg = cmr.getBiomeGenAt(x, z);
             Biome bgg = event.getWorld().getBiome(event.getPos());
-            RealisticBiomeBase rb = RealisticBiomeBase.getBiome(Biome.getIdForBiome(bgg));
+            IRealisticBiome rb = RTGAPI.getRTGBiome(Biome.getIdForBiome(bgg));
 
             // Instead of patching the biome, we should just return early here to allow vanilla logic to kick in.
             if (rb == null) {
@@ -261,7 +261,7 @@ public class EventManagerRTG {
             ArrayList<TreeRTG> biomeTrees = rb.getTrees();
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
-            Logger.debug("Biome = %s", rb.baseBiome.getBiomeName());
+            Logger.debug("Biome = %s", rb.baseBiomeResLoc());
             Logger.debug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
             Logger.debug("Ground Sapling Meta = %d", saplingMeta);
 
@@ -346,13 +346,13 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void onWorldUnload(WorldEvent.Unload event) {
 
-
-            int dim = event.getWorld().provider.getDimension();
-
-            IChunkGenerator type = event.getWorld().provider.createChunkGenerator();
-            Logger.debug("EMRTG: Dim {} - World is unloading, Side: {}, Type: {}", dim, event.getWorld().isRemote?"Client":"Server", type.getClass().getSimpleName());
-
-            if (!(event.getWorld().isRemote || dim == 1 || dim == -1)) GenSettingsRepo.removeSettingsForWorld(event.getWorld());
+            World world = event.getWorld();
+            if (!world.isRemote) {
+                // Cached instances of RTGWorld need to be removed because they contain a strong reference to the World object, which should be GC'd.
+                if (!RTGWorld.removeInstance(world) && WorldTypeRTG.getInstance().equals(world.getWorldType())) {
+                    Logger.warn("Failed to remove a cached instance of RTGWorld for dimension: {}", world.provider.getDimension());
+                }
+            }
         }
     }
 

@@ -14,10 +14,9 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesert;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
-import rtg.api.world.gen.GenSettingsRepo;
+import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.gen.ChunkProviderSettingsRTG;
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
@@ -52,7 +51,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
         @Override
         public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
+            RTGChunkGenSettings settings = rtgWorld.getGeneratorSettings();
             float duneHeight = (minDuneHeight + settings.sandDuneHeight);
 
             duneHeight *= (1f + rtgWorld.simplexInstance(2).noise2f(x / 330f, y / 330f)) / 2f;
@@ -80,7 +79,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
 
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(Biomes.BEACH);
+        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceVanillaDesert extends SurfaceBase {

@@ -158,8 +158,4 @@ public class RealisticBiomeARKelpForest extends RealisticBiomeARBase {
         return 0;
     }
 
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 0;
-    }
 }

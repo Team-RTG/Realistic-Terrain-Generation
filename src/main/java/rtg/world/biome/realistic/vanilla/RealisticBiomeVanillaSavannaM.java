@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
 
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(Biomes.BEACH);
+        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceVanillaSavannaM extends SurfaceBase {

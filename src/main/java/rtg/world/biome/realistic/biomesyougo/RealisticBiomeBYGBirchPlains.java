@@ -42,12 +42,6 @@ public class RealisticBiomeBYGBirchPlains extends RealisticBiomeBYGBase {
     }
 
     @Override
-    public String biomeSlug() {
-
-        return "birchplains";
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBYGBirchPlains();

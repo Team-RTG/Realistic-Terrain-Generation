@@ -5,14 +5,14 @@ import java.util.Random;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.structure.WoodlandMansion;
 
-import rtg.api.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.RTGChunkGenSettings;
 
 public class WoodlandMansionRTG extends WoodlandMansion
 {
     private final int spacing;
     private final int separation;
 
-    public WoodlandMansionRTG(ChunkGeneratorOverworld providerIn, ChunkProviderSettingsRTG settings) {
+    public WoodlandMansionRTG(ChunkGeneratorOverworld providerIn, RTGChunkGenSettings settings) {
         super(providerIn);
         this.spacing    = settings.mansionSpacing;
         this.separation = settings.mansionSeparation;

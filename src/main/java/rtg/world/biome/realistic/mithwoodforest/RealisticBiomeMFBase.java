@@ -16,26 +16,6 @@ public abstract class RealisticBiomeMFBase extends RealisticBiomeBase {
         super(b, riverbiome);
     }
 
-    @Override
-    public Biome baseBiome() {
-        return this.baseBiome;
-    }
-
-    @Override
-    public Biome riverBiome() {
-        return this.riverBiome;
-    }
-
-    @Override
-    public String modSlug() {
-        return Mods.mithwoodforest.getPrettyName();
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 0;
-    }
-
     public static void addBiomes() {
 
         if (Mods.mithwoodforest.isLoaded()) {

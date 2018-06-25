@@ -21,7 +21,7 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 import rtg.api.world.gen.feature.WorldGenPond;
-import rtg.api.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.RTGChunkGenSettings;
 
 // TODO: [Clean-up] Remove unused parameters from class members
 public class BiomeDecoratorRTG
@@ -38,7 +38,7 @@ public class BiomeDecoratorRTG
      */
 // TODO: [Clean-up] *CRITICAL* #decorateOres should be called from somewhere in the decoration process instead of from CPRTG, and checked against what biome decoration method is
 //                  being called to prevent it from being called when the realistic biome is calling the base biomes native decoration method via #rDecorateSeedBiome
-    public void decorateOres(World worldIn, Random random, ChunkProviderSettingsRTG settings, BlockPos pos) {
+    public void decorateOres(World worldIn, Random random, RTGChunkGenSettings settings, BlockPos pos) {
 
 // TODO: [Clean-up][API] Explore ways of executing ore gen that doesn't involve creating a new instance of WorldGenMinable for every ore for every chunk generated
 //                       This must be world-specific, which instances of BiomeDecoratorRTG are not. Perhaps store the instances in CPRTG and pass them during population
@@ -200,7 +200,7 @@ public class BiomeDecoratorRTG
         }
     }
 
-    public void rPopulatePreDecorate(IChunkGenerator ichunkgenerator, World worldObj, Random rand, ChunkProviderSettingsRTG settings, int chunkX, int chunkZ, boolean villageBuilding) {
+    public void rPopulatePreDecorate(IChunkGenerator ichunkgenerator, World worldObj, Random rand, RTGChunkGenSettings settings, int chunkX, int chunkZ, boolean villageBuilding) {
 
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;
@@ -306,7 +306,7 @@ public class BiomeDecoratorRTG
         }
     }
 
-    public void rPopulatePostDecorate(World worldObj, Random rand, ChunkProviderSettingsRTG settings, int chunkX, int chunkZ, boolean flag) {
+    public void rPopulatePostDecorate(World worldObj, Random rand, RTGChunkGenSettings settings, int chunkX, int chunkZ, boolean flag) {
 
         int worldX = chunkX * 16;
         int worldZ = chunkZ * 16;

@@ -17,27 +17,6 @@ public abstract class RealisticBiomeJIKBase extends RealisticBiomeBase {
         super(b, riverbiome);
     }
 
-    @Override
-    public String modSlug() {
-        return Mods.jikou.getPrettyName();
-    }
-
-    @Override
-    public Biome baseBiome() {
-        return this.baseBiome;
-    }
-
-    @Override
-    public Biome riverBiome() {
-        return this.riverBiome;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-
-        return 0;
-    }
-
     public static void addBiomes() {
 
         if (Mods.jikou.isLoaded()) {

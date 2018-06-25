@@ -16,21 +16,6 @@ public abstract class RealisticBiomeRHSBase extends RealisticBiomeBase {
         super(b, riverbiome);
     }
 
-    @Override
-    public String modSlug() {
-        return Mods.rockhounding_surface.getPrettyName();
-    }
-
-    @Override
-    public Biome baseBiome() {
-        return this.baseBiome;
-    }
-
-    @Override
-    public Biome riverBiome() {
-        return this.riverBiome;
-    }
-
     public static void addBiomes() {
 
         if (Mods.rockhounding_surface.isLoaded()) {

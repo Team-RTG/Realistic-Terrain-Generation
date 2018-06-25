@@ -10,9 +10,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import rtg.RTG;
+import rtg.api.RTGAPI;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
-import rtg.api.world.gen.GenSettingsRepo;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkGeneratorRTG;
 
@@ -29,7 +29,7 @@ public final class WorldTypeRTG extends WorldType
     public static ChunkGeneratorRTG chunkProvider;
 
     private WorldTypeRTG() {
-        super(RTG.MOD_ID.toUpperCase());
+        super(RTGAPI.RTG_WORLDTYPE_ID);
     }
 
     public static void init() {
@@ -39,17 +39,11 @@ public final class WorldTypeRTG extends WorldType
     @Override
     public BiomeProvider getBiomeProvider(World world) {
 
-        // Populate the GenSettingsRepo here as it is the earliest possible
-        if (!world.isRemote) {
-            Logger.info("WorldTypeRTG#getBiomeProvider: Adding entry to GenSettingsRepo for Dim {}", world.provider.getDimension());
-            GenSettingsRepo.addSettingsForWorld(world);
-        }
-
         if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
 
             if (biomeProvider == null) {
 
-                biomeProvider = new BiomeProviderRTG(world, this);
+                biomeProvider = new BiomeProviderRTG(RTGWorld.getInstance(world));
                 RTG.getInstance().runOnNextServerCloseOnly(clearProvider(biomeProvider));
             }
 
@@ -72,7 +66,7 @@ public final class WorldTypeRTG extends WorldType
 
             if (chunkProvider == null) {
 
-                chunkProvider = new ChunkGeneratorRTG(world, world.getSeed(), generatorOptions);
+                chunkProvider = new ChunkGeneratorRTG(RTGWorld.getInstance(world));
                 RTG.getInstance().runOnNextServerCloseOnly(clearProvider(chunkProvider));
 
                 // inform the event manager about the ChunkEvent.Load event
@@ -126,4 +120,9 @@ public final class WorldTypeRTG extends WorldType
     }
 // TODO: [Generator settings] Add an override for WorldType#getBiomeLayer to allow use of fixedBiome.
 //                            This will likely require a custom GenLayerBiome class to be written.
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o || o instanceof WorldTypeRTG;
+    }
 }

@@ -3,7 +3,6 @@ package rtg.proxy;
 import java.nio.file.Paths;
 
 import net.minecraft.world.DimensionType;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -13,8 +12,6 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.util.ModCompat;
-import rtg.world.biome.organic.OrganicBiome;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACBase;
 import rtg.world.biome.realistic.agriculturalrevolution.RealisticBiomeARBase;
 import rtg.world.biome.realistic.arsmagica.RealisticBiomeAMBase;
@@ -75,15 +72,6 @@ public class CommonProxy
         RealisticBiomeRHSBase.addBiomes();
         RealisticBiomeSFBase.addBiomes();
         RealisticBiomeVAMPBase.addBiomes();
-
-        RealisticBiomeBase.addModBiomes();
-
-        // Process unsupported biomes and initialise OrganicBiomes for them
-        Biome.REGISTRY.forEach(biome -> {
-            if (RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome)) == null) {
-                OrganicBiome.newOrganicBiome(biome);
-            }
-        });
 
         ModCompat.doBiomeCheck();
     }

@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import rtg.api.util.Logger;
-import rtg.api.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.RTGChunkGenSettings;
 
 
 @SideOnly(Side.CLIENT)
@@ -51,7 +51,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     private static final int    BUTTON_YES                  = 0x45;
     private static final int    BUTTON_NO                   = 0x46;
 
-    private static final ChunkProviderSettingsRTG defaults  = new ChunkProviderSettingsRTG.Factory().build();
+    private static final RTGChunkGenSettings defaults  = new RTGChunkGenSettings.Factory().build();
 // TODO: [Generator settings] Disable fixedBiome for now as it requires modification to the GenLayer classes to work.
 //  private static final List<Biome> biomeList              = createBiomeList();
 
@@ -179,9 +179,9 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             switch (button.id) {
 
                 case BUTTON_DONE:
-                    ChunkProviderSettingsRTG.Factory factory = ChunkProviderSettingsRTG.Factory.jsonToFactory(Setting.buildJson().toString());
+                    RTGChunkGenSettings.Factory factory = RTGChunkGenSettings.Factory.jsonToFactory(Setting.buildJson().toString());
                     if (factory != null) { this.parent.chunkProviderSettingsJson = factory.toString(); }
-                    else { Logger.error("Error parsing ChunkProviderSettingsRTG settings from string: {}", Setting.buildJson().toString()); }
+                    else { Logger.error("Error parsing RTGChunkGenSettings settings from string: {}", Setting.buildJson().toString()); }
                     this.mc.displayGuiScreen(this.parent);
                     break;
 
@@ -762,9 +762,9 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
         public static void parseSettings(String generatorSettings) {
 
-            ChunkProviderSettingsRTG.Factory factory = ChunkProviderSettingsRTG.Factory.jsonToFactory(generatorSettings);
+            RTGChunkGenSettings.Factory factory = RTGChunkGenSettings.Factory.jsonToFactory(generatorSettings);
             if (factory == null) {
-                Logger.error("Error parsing ChunkProviderSettingsRTG settings from string: {}", generatorSettings);
+                Logger.error("Error parsing RTGChunkGenSettings settings from string: {}", generatorSettings);
                 return;
             }
 

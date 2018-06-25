@@ -1,5 +1,6 @@
 package rtg.api;
 
+import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.Set;
 
@@ -7,12 +8,14 @@ import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.DimensionManager;
 
 import rtg.api.config.RTGConfig;
 import rtg.api.util.UtilityClass;
 import rtg.api.util.storage.BiomeMap;
+import rtg.api.world.biome.IRealisticBiome;
 
 @UtilityClass
 public final class RTGAPI
@@ -25,7 +28,7 @@ public final class RTGAPI
     public static final String RTG_WORLDTYPE_ID = "RTG";
 
     private static final Set<DimensionType> ALLOWED_DIMENSION_TYPES = new ObjectArraySet<>();
-    public  static final BiomeMap RTG_BIOMES                        = new BiomeMap();
+    public  static final BiomeMap           RTG_BIOMES              = new BiomeMap();
 
     private static Path      configPath;
     private static RTGConfig rtgConfig;
@@ -48,4 +51,7 @@ public final class RTGAPI
         DimensionType type = (DimensionManager.isDimensionRegistered(dimId)) ? DimensionManager.getProviderType(dimId) : null;
         return type != null && ALLOWED_DIMENSION_TYPES.contains(type);
     }
+
+    @Nullable public static IRealisticBiome getRTGBiome(Biome biome) { return RTG_BIOMES.get(biome); }
+    @Nullable public static IRealisticBiome getRTGBiome(int biomeId) { return RTG_BIOMES.getValueAt(biomeId); }
 }

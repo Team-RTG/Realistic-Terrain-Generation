@@ -1,18 +1,18 @@
 package rtg.api.world.biome;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
-import rtg.api.util.noise.ISimplexData2D;
-import rtg.api.util.noise.SimplexData2D;
-import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -21,92 +21,69 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.RTGWorld;
 
 /**
  * Created by WhichOnesPink on 06/02/2017.
  */
-public interface IRealisticBiome {
+// TODO: [1.12] The name of this interface can be shortened to `RTGBiome`. Basically the whole mod codebase can do a find&replace of `realistic` -> `RTG`
+// TODO: [1.12] All default implementations can be removed. Implementation can go in the base class.
+public interface IRealisticBiome
+{
+    Biome            baseBiome();
+    ResourceLocation baseBiomeResLoc();
+    int              baseBiomeId();
+    Biome            beachBiome();
+    Biome            riverBiome();
+    IRealisticBiome  getRTGRiverBiome();
 
-    IRealisticBiome[] arrRealisticBiomes = new IRealisticBiome[256];
-
-    Biome baseBiome();
-    Biome riverBiome();
-    Biome beachBiome();
-
-    BiomeDecoratorRTG rDecorator();
-
+// TODO: [1.12] This should not return a BiomeConfig object, but an object holder class that holds the raw config values that can be resynced on-demand.
     BiomeConfig getConfig();
-    void initConfig();
-    boolean hasConfig();
-    TerrainBase initTerrain();
+
+// TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     TerrainBase terrain();
-    SurfaceBase initSurface();
+
+// TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     SurfaceBase surface();
-    SurfaceBase surfaceGeneric();
-    void initDecos();
-    ArrayList<DecoBase> getDecos();
-    ArrayList<TreeRTG> getTrees();
-
-    default boolean generatesEmeralds() {
-        return false;
-    }
-
-    default boolean generatesSilverfish() {
-        return false;
-    }
-
-    default int waterUndergroundLakeChance() {
-        return 1; // Lower equals more frequent.
-    }
-
-    default int lavaUndergroundLakeChance() {
-        return 1; // Lower equals more frequent.
-    }
-
-    default int waterSurfaceLakeChance() {
-        return 10; // Lower equals more frequent.
-    }
-
-    int lavaSurfaceLakeChance(); /*{ return 0; } //Lower equals more frequent.*/
 
     void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base);
 
-    default float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+    float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 
-        if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) { return 1f; }
+    int waterUndergroundLakeChance();
+    int lavaUndergroundLakeChance();
+    int waterSurfaceLakeChance();
+    int lavaSurfaceLakeChance();
 
-        double pX = x;
-        double pY = y;
-        ISimplexData2D jitterData = SimplexData2D.newDisk();
+    BiomeDecoratorRTG rDecorator();
 
-        rtgWorld.simplexInstance(1).multiEval2D(x / 240.0d, y / 240.0d, jitterData);
-        pX += jitterData.getDeltaX() * largeBendSize;
-        pY += jitterData.getDeltaY() * largeBendSize;
+    float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);
 
-        rtgWorld.simplexInstance(0).multiEval2D(x / 80.0d, y / 80.0d, jitterData);
-        pX += jitterData.getDeltaX() * mediumBendSize;
-        pY += jitterData.getDeltaY() * mediumBendSize;
 
-        rtgWorld.simplexInstance(4).multiEval2D(x / 30.0d, y / 30.0d, jitterData);
-        pX += jitterData.getDeltaX() * smallBendSize;
-        pY += jitterData.getDeltaY() * smallBendSize;
 
-        VoronoiResult lakeResults = rtgWorld.cellularInstance(0).eval2D(pX / lakeInterval, pY / lakeInterval);
-        double result = 1.0d - lakeResults.interiorValue();
+/* TO BE MOVED TO THE BIOME DECORATOR */
 
-// TODO: [1.12] Oh look.. It's more RuntimeExceptions, because we should just crash at every opertunity. *sigh*
-        if (result >  1.01d) throw new RuntimeException("" + lakeResults.getShortestDistance()+ " , "+lakeResults.getNextDistance());
-        if (result < -0.01d) throw new RuntimeException("" + lakeResults.getShortestDistance()+ " , "+lakeResults.getNextDistance());
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated void initDecos();
+    @Deprecated ArrayList<DecoBase> getDecos();
+    @Deprecated ArrayList<TreeRTG> getTrees();
 
-        return (float)result;
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default boolean generatesEmeralds() {
+        return false;
     }
 
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default boolean generatesSilverfish() {
+        return false;
+    }
     /**
      * Returns the number of extra blocks of gold ore to generate in this biome.
      * Defaults to 0, but can be overridden by sub-classed biomes.
      * Currently only used by vanilla Mesa biome variants.
      */
-    default int getExtraGoldGenCount() {
+// TODO: [1.12] To be moved to the biome decorator. Extra gold should be determined by the decorator and should not be in this interface.
+    @Deprecated default int getExtraGoldGenCount() {
         return 0;
     }
 
@@ -117,7 +94,8 @@ public interface IRealisticBiome {
      *
      * @see net.minecraft.world.biome.BiomeMesa
      */
-    default int getExtraGoldGenMinHeight() {
+// TODO: [1.12] To be moved to the biome decorator. Extra gold should be determined by the decorator and should not be in this interface.
+    @Deprecated default int getExtraGoldGenMinHeight() {
         return 32;
     }
 
@@ -127,22 +105,17 @@ public interface IRealisticBiome {
      *
      * @see net.minecraft.world.biome.BiomeMesa
      */
-    default int getExtraGoldGenMaxHeight() {
+// TODO: [1.12] To be moved to the biome decorator. Extra gold should be determined by the decorator and should not be in this interface.
+    @Deprecated default int getExtraGoldGenMaxHeight() {
         return 80;
-    }
-
-    String modSlug();
-
-// TODO: [1.12] Update this to use a biome's ResourceLocation, that way biome config names will be identical to their registry names.
-    default String biomeSlug() {
-        return BiomeConfig.formatSlug(this.baseBiome().getBiomeName());
     }
 
     /**
      * Adds a deco object to the list of biome decos.
      * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
      */
-    default void addDeco(DecoBase deco, boolean allowed) {
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default void addDeco(DecoBase deco, boolean allowed) {
 
         if (allowed) {
 
@@ -169,12 +142,14 @@ public interface IRealisticBiome {
     /**
      * Convenience method for addDeco() where 'allowed' is assumed to be true.
      */
-    default void addDeco(DecoBase deco) {
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default void addDeco(DecoBase deco) {
         if (!deco.properlyDefined()) throw new RuntimeException(deco.toString());
         this.addDeco(deco, true);
     }
 
-    default void addDecoCollection(DecoCollectionBase decoCollection) {
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default void addDecoCollection(DecoCollectionBase decoCollection) {
 
         // Don't add the desert river deco collection if the user has disabled it.
         if (decoCollection instanceof DecoCollectionDesertRiver) {
@@ -202,7 +177,8 @@ public interface IRealisticBiome {
      * Adds a tree to the list of RTG trees associated with this biome.
      * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
      */
-    default void addTree(TreeRTG tree, boolean allowed) {
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default void addTree(TreeRTG tree, boolean allowed) {
 
         if (allowed) {
 
@@ -228,7 +204,33 @@ public interface IRealisticBiome {
     /**
      * Convenience method for addTree() where 'allowed' is assumed to be true.
      */
-    default void addTree(TreeRTG tree) {
+// TODO: [1.12] To be moved to the biome decorator.
+    @Deprecated default void addTree(TreeRTG tree) {
         this.addTree(tree, true);
     }
+
+// TODO: [1.12] To be moved to the biome decorator. Added to this interface temporarily.
+    @Deprecated void rDecorate(RTGWorld rtgWorld, Random rand, BlockPos pos, float strength, float river, boolean hasPlacedVillageBlocks);
+
+
+
+/* TO BE REMOVED */
+
+// TODO: [1.12] To be removed. Initialisation should take place in the constructor.
+    @Deprecated TerrainBase initTerrain();
+
+// TODO: [1.12] To be removed. Initialisation should take place in the constructor.
+    @Deprecated SurfaceBase initSurface();
+
+// TODO: [1.12] To be removed. This should not be part of the API and should be done in the constructor
+    @Deprecated void initConfig();
+
+// TODO: [1.12] To be removed. All RTGbiomes will have a config.
+    @Deprecated boolean hasConfig();
+
+// TODO: [1.12] To be removed. Added temporarily until beach handling can be sorted out in the API.
+    @Deprecated boolean disallowBeaches();
+
+// TODO: [1.12] To be removed. Added temporarily until beach handling can be sorted out in the API.
+    @Deprecated boolean disallowStoneBeaches();
 }

@@ -15,6 +15,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
  * @author Zeno410, Modified by srs_bsns 20160914
  */
 public class BiomeAnalyzer {
+// TODO: [1.12] These should be unmodifiable Collections<Biome> using #contains for checks and they should be poplated from the BiomeDictionary
     private boolean [] riverBiome;
     private boolean [] oceanBiome;
     private boolean [] swampBiome;
@@ -22,8 +23,8 @@ public class BiomeAnalyzer {
     private boolean [] landBiome;
     private int [] preferredBeach;
     private IRealisticBiome [] savedJittered;
-    private RealisticBiomeBase scenicLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
-    private RealisticBiomeBase scenicFrozenLakeBiome = RealisticBiomeBase.getBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
+    private IRealisticBiome scenicLakeBiome       = RTGAPI.getRTGBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
+    private IRealisticBiome scenicFrozenLakeBiome = RTGAPI.getRTGBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
     private SmoothingSearchStatus beachSearch;
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;
@@ -202,6 +203,7 @@ public class BiomeAnalyzer {
 
     }
 
+// TODO: [1.12] Use BiomeDictionary
     private void determineRiverBiomes() {
         riverBiome = new boolean[256];
         for (int i = 0; i < riverBiome.length; i++) {
@@ -211,6 +213,7 @@ public class BiomeAnalyzer {
         }
     }
 
+// TODO: [1.12] Use BiomeDictionary
     private void determineOceanBiomes() {
         oceanBiome = new boolean[256];
         for (int i = 0; i < oceanBiome.length; i++) {
@@ -224,6 +227,7 @@ public class BiomeAnalyzer {
         oceanBiome[Biome.getIdForBiome(Biomes.DEEP_OCEAN)]=true;// not getting set?
     }
 
+// TODO: [1.12] Use BiomeDictionary
     private void determineSwampBiomes() {
         swampBiome = new boolean[256];
         for (int i = 0; i < swampBiome.length; i++) {
@@ -249,6 +253,7 @@ public class BiomeAnalyzer {
         }
     }
 
+// TODO: [1.12] Use BiomeDictionary
     private void determineLandBiomes() {
         landBiome = new boolean[256];
         for (int i = 0; i < landBiome.length; i++) {
@@ -260,6 +265,7 @@ public class BiomeAnalyzer {
         }
     }
 
+// TODO: [1.12] Use BiomeDictionary
     private void determineBeachBiomes() {
         beachBiome = new boolean[256];
         for (int i = 0; i < beachBiome.length; i++) {
@@ -270,6 +276,7 @@ public class BiomeAnalyzer {
         }
     }
 
+// TODO: [1.12] A biomes 'prefered beach' should be added to the API in IRealisticBiome with the data stored in RealisticBiomeBase. Should use the BiomeConfig beach entry.
     private void setupBeachesForBiomes() {
 
         preferredBeach = new int[256];
@@ -279,20 +286,21 @@ public class BiomeAnalyzer {
             // We need to work with the realistic biome, so let's try to get it from the base biome, aborting if necessary.
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            RealisticBiomeBase realisticBiome = RealisticBiomeBase.getBiome(i);
+            IRealisticBiome realisticBiome = RTGAPI.getRTGBiome(i);
             if (realisticBiome == null) continue;
 
-            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome);
+            preferredBeach[i] = Biome.getIdForBiome(realisticBiome.beachBiome());
 
+// TODO: [1.12] `disallowStoneBeaches` and `disallowAllBeaches` are both constant conditions (always false).
             // If stone beaches aren't allowed in this biome, then determine the best beach to use based on the biome's temperature.
-            if (realisticBiome.disallowStoneBeaches) {
-                if (Biome.getIdForBiome(realisticBiome.beachBiome) == Biome.getIdForBiome(Biomes.STONE_BEACH)) {
+            if (realisticBiome.disallowStoneBeaches()) {
+                if (realisticBiome.beachBiome() == Biomes.STONE_BEACH) {
                     preferredBeach[i] = Biome.getIdForBiome((biome.getDefaultTemperature() <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH);
                 }
             }
 
             // If beaches aren't allowed in this biome, then use this biome as the beach.
-            if (realisticBiome.disallowAllBeaches) {
+            if (realisticBiome.disallowBeaches()) {
                 preferredBeach[i] = i;
             }
         }
@@ -302,23 +310,24 @@ public class BiomeAnalyzer {
      *
      */
 
+// TODO: [1.12] genLayerBiomes should be a Biome[] where we can just grab the IRealisticBiome from the new BiomeMap
     public void newRepair(int [] genLayerBiomes, IRealisticBiome[] jitteredBiomes, int [] biomeNeighborhood, int neighborhoodSize, float [] noise, float [] riverStrength) {
 
         int sampleSize = 8;
-        RealisticBiomeBase realisticBiome;
+        IRealisticBiome realisticBiome;
         int realisticBiomeId;
         if (neighborhoodSize != sampleSize) throw new RuntimeException("mismatch between chunk and analyzer neighborhood sizes");
 
         // currently just stuffs the genLayer into the jitter;
         for (int i = 0; i < 256; i++) {
 
-            realisticBiome = RealisticBiomeBase.getBiome(genLayerBiomes[i]);
+            realisticBiome = RTGAPI.getRTGBiome(genLayerBiomes[i]);
             // Do we need to patch the biome?
             if (realisticBiome == null) {
                 realisticBiome = biomePatcher.getPatchedRealisticBiome(
                     "NULL biome (" + i + ") found when performing new repair.");
             }
-            realisticBiomeId = Biome.getIdForBiome(realisticBiome.baseBiome);
+            realisticBiomeId = Biome.getIdForBiome(realisticBiome.baseBiome());
 
             boolean canBeRiver = riverStrength[i] > 0.7;
 
@@ -333,8 +342,7 @@ public class BiomeAnalyzer {
                 // check for river
                 if (canBeRiver && !oceanBiome[realisticBiomeId] && !swampBiome[realisticBiomeId]) {
                     // make river
-                    int riverBiomeID = Biome.getIdForBiome(realisticBiome.riverBiome);
-                    jitteredBiomes[i] =  RealisticBiomeBase.getBiome(riverBiomeID);
+                    jitteredBiomes[i] = realisticBiome.getRTGRiverBiome();
                 } else {
                     // replace
                     jitteredBiomes[i] = realisticBiome;
@@ -363,7 +371,7 @@ public class BiomeAnalyzer {
                     foundBiome = preferredBeach[nearestLandBiome];
                 }
 
-                realisticBiome = RealisticBiomeBase.getBiome(foundBiome);
+                realisticBiome = RTGAPI.getRTGBiome(foundBiome);
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
@@ -398,7 +406,7 @@ public class BiomeAnalyzer {
 
             if (foundBiome != NO_BIOME) {
 
-                realisticBiome = RealisticBiomeBase.getBiome(foundBiome);
+                realisticBiome = RTGAPI.getRTGBiome(foundBiome);
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
@@ -424,7 +432,7 @@ public class BiomeAnalyzer {
 
             if (foundBiome != NO_BIOME) {
 
-                realisticBiome = RealisticBiomeBase.getBiome(foundBiome);
+                realisticBiome = RTGAPI.getRTGBiome(foundBiome);
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
@@ -441,7 +449,7 @@ public class BiomeAnalyzer {
                 if (!oceanBiome[biomeID] &&
                     !swampBiome[biomeID] &&
                     !beachBiome[biomeID]) {
-                    int riverReplacement = Biome.getIdForBiome(jitteredBiomes[i].riverBiome()); // make river
+                    int riverReplacement = jitteredBiomes[i].getRTGRiverBiome().baseBiomeId(); // make river
                     if (riverReplacement == Biome.getIdForBiome(Biomes.FROZEN_RIVER))
                         jitteredBiomes[i] = scenicFrozenLakeBiome;
                     else jitteredBiomes[i] = scenicLakeBiome;

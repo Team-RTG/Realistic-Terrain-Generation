@@ -6,19 +6,21 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import com.google.common.collect.Lists;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 @UtilityClass
 public final class ModCompat
@@ -37,23 +39,36 @@ public final class ModCompat
         List<Biome> invalidBiomes = Lists.newArrayList(Biomes.HELL, Biomes.SKY, Biomes.VOID);
 
         if (Mods.biomesoplenty.isLoaded()) {
-            Lists.newArrayList(
-                BOPBiomes.corrupted_sands.orNull(), BOPBiomes.fungi_forest.orNull(), BOPBiomes.phantasmagoric_inferno.orNull(),
-                BOPBiomes.polar_chasm.orNull(), BOPBiomes.undergarden.orNull(), BOPBiomes.visceral_heap.orNull())
-                .stream().filter(Objects::nonNull).forEach(invalidBiomes::add);
+
+            String modid = Mods.biomesoplenty.name();
+            Stream.of(
+                new ResourceLocation(modid, "corrupted_sands"),
+                new ResourceLocation(modid, "fungi_forest"),
+                new ResourceLocation(modid, "phantasmagoric_inferno"),
+                new ResourceLocation(modid, "undergarden"),
+                new ResourceLocation(modid, "visceral_heap")
+            )
+                .map(Biome.REGISTRY::getObject)
+                .filter(Objects::nonNull)
+                .forEach(invalidBiomes::add);
         }
 
         if (Mods.abyssalcraft.isLoaded()) {
-            invalidBiomes.addAll(Lists.newArrayList(
-                ACBiomes.abyssal_wastelands, ACBiomes.dark_realm, ACBiomes.dreadlands, ACBiomes.dreadlands_forest,
-                ACBiomes.dreadlands_mountains, ACBiomes.omothol, ACBiomes.purified_dreadlands
+            invalidBiomes.addAll(Arrays.asList(
+                ACBiomes.abyssal_wastelands,
+                ACBiomes.dark_realm,
+                ACBiomes.dreadlands,
+                ACBiomes.dreadlands_forest,
+                ACBiomes.dreadlands_mountains,
+                ACBiomes.omothol,
+                ACBiomes.purified_dreadlands
             ));
         }
 
         Collection<Biome> biomes = ForgeRegistries.BIOMES.getValuesCollection();
 
         biomes = biomes.stream()
-            .filter(b -> !invalidBiomes.contains(b) && !RealisticBiomeBase.isRealisticBiome(Biome.getIdForBiome(b)))
+            .filter(b -> !invalidBiomes.contains(b) && !RTGAPI.RTG_BIOMES.containsKey(b))
             .sorted(Comparator.comparingInt(Biome::getIdForBiome))
             .collect(Collectors.toList());
 

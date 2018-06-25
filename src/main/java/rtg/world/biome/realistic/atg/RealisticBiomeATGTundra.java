@@ -68,7 +68,7 @@ public class RealisticBiomeATGTundra extends RealisticBiomeATGBase {
 
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(Biomes.BEACH);
+        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceATGTundra extends SurfaceBase {

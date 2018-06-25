@@ -19,10 +19,10 @@ import net.minecraft.world.biome.BiomeMesa;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
+import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 /**
  * A Utility for storing and retrieving plateau band configurations for specific biomes.
@@ -120,7 +120,7 @@ public final class PlateauUtil
 
         Biome.REGISTRY.forEach(biome -> {
 
-            IRealisticBiome rBiome = RealisticBiomeBase.getBiome(Biome.getIdForBiome(biome));
+            IRealisticBiome rBiome = RTGAPI.getRTGBiome(biome);
             if (rBiome != null) {
 
                 BiomeConfig biomeConfig = rBiome.getConfig();

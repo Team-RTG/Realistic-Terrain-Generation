@@ -119,9 +119,4 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     public int waterSurfaceLakeChance() {
         return 0;
     }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 0;
-    }
 }

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -16,117 +17,104 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper.UnableToAccessFieldExc
 
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.RTGConfig;
 import rtg.api.util.Logger;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
+import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.IRTGWorld;
 import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.api.world.biome.RealisticBiomeManager;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.gen.GenSettingsRepo;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
-import rtg.api.world.surface.SurfaceGeneric;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.terrain.TerrainOrganic;
 import rtg.world.RTGWorld;
-import rtg.world.biome.organic.OrganicBiome;
-import rtg.api.world.gen.ChunkProviderSettingsRTG;
+import rtg.api.world.gen.RTGChunkGenSettings;
 
 
-//@SuppressWarnings({"WeakerAccess", "UnusedParameters", "unused"})
-public abstract class RealisticBiomeBase implements IRealisticBiome {
-
-    protected RTGConfig rtgConfig = RTGAPI.config();
-    private static final RealisticBiomeBase[] arrRealisticBiomeIds = new RealisticBiomeBase[256];
+public abstract class RealisticBiomeBase implements IRealisticBiome
+{
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
 
-    public final Biome baseBiome;
-    public final Biome riverBiome;
-    public final Biome beachBiome;
-    public BiomeConfig config;
-    public TerrainBase terrain;
-    public SurfaceBase surface;
-    public SurfaceBase surfaceRiver;
-    public SurfaceBase surfaceGeneric;
-    public BiomeDecoratorRTG rDecorator;
+    public static final float actualRiverProportion = 150f/1600f;
+    public static final float riverFlatteningAddend = actualRiverProportion / (1f - actualRiverProportion);
 
-    private ArrayList<DecoBase> decos;
-    private ArrayList<TreeRTG> rtgTrees;
+// TODO: [1.12] These fields should all be private and final, all should be set in the constructor and #init removed. Use the interface!
+    public  final Biome             baseBiome;
+    private final ResourceLocation  baseBiomeResLoc;
+    private final int               baseBiomeId;
+    private final Biome             riverBiome;
+    private final Biome             beachBiome;
+    public  final BiomeConfig       config;
+    private final TerrainBase       terrain;
+    private final SurfaceBase       surface;
+    private final SurfaceBase       surfaceRiver;
+    private final BiomeDecoratorRTG rDecorator;
 
     // lake calculations
+    private final float             lakeInterval        = 649.0f;
+    private final float             lakeShoreLevel      = 0.035f;
+    private final float             lakeDepressionLevel = 0.15f;// the lakeStrength below which land should start to be lowered
+    private final float             largeBendSize       = 80;
+    private final float             mediumBendSize      = 30;
+    private final float             smallBendSize       = 12;
 
-// TODO [Generator settings] make these fields final
-    private float lakeInterval = 649.0f;
-    private float lakeShoreLevel = 0.035f;
-    private float lakeDepressionLevel = 0.15f;// the lakeStrength below which land should start to be lowered
-
-    private float largeBendSize = 80;
-    private float mediumBendSize = 30;
-    private float smallBendSize = 12;
+// TODO: [1.12] To be removed.
+    private boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
+    private boolean disallowAllBeaches   = false;
+    private ArrayList<DecoBase> decos;
+    private ArrayList<TreeRTG> rtgTrees;
 // ...
 
-    public boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
-    public boolean disallowAllBeaches = false;
 
     public RealisticBiomeBase(Biome biome, Biome river) {
 
-        arrRealisticBiomeIds[Biome.getIdForBiome(biome)] = this;
+        this.baseBiome = biome;
+        ResourceLocation resloc = baseBiome().getRegistryName();
+        if (resloc == null) {
+            throw new IllegalStateException(String.format("Biome with ID: %s, of class: %s, does not have a registry name set.",
+                Biome.getIdForBiome(baseBiome()), baseBiome().getClass().getName()));
+        }
+        this.baseBiomeResLoc = resloc;
+        this.baseBiomeId = Biome.getIdForBiome(biome);
+        this.riverBiome = river;
+        this.beachBiome = getBeachBiome(getPreferredBeachForBiome(baseBiome));
+        this.config = new BiomeConfig(getConfigFile());
+        this.terrain = initTerrain();
+        this.surface = initSurface();
+        this.surfaceRiver = new SurfaceRiverOasis(config);
+        this.rDecorator = new BiomeDecoratorRTG(this);
 
-        baseBiome = biome;
-        riverBiome = river;
-        this.config = new BiomeConfig(this.configFile());
-        beachBiome = this.beachBiome();
-
-        rDecorator = new BiomeDecoratorRTG(this);
-
-        decos = new ArrayList<>();
-        rtgTrees = new ArrayList<>();
+        this.decos = new ArrayList<>();
+        this.rtgTrees = new ArrayList<>();
 
         /*
          *  Disable base biome decorations by default.
          *  This also needs to be here so that ores get generated.
          */
+// TODO: [1.12] To be removed. This will not be required with the planned overhaul of the decoration system.
         DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         decoBaseBiomeDecorations.setAllowed(false);
         this.addDeco(decoBaseBiomeDecorations);
 
-        // set the water feature constants with the config changes
-// TODO: [Generator Settings] To be removed. Functionality replaced in rNoise
-        this.lakeInterval *= rtgConfig.LAKE_FREQUENCY_MULTIPLIER.get();
-        this.lakeShoreLevel *= this.lakeSizeMultiplier();
-        this.lakeDepressionLevel *= this.lakeSizeMultiplier();
-
-// TODO: [Generator Settings] To be removed. Functionality replaced in rNoise
-        this.largeBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
-        this.mediumBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
-        this.smallBendSize *= rtgConfig.LAKE_SHORE_BENDINESS_MULTIPLIER.get();
-
-        this.init();
-    }
-
-    private float lakeSizeMultiplier() {
-// TODO: [1.12] THIS is confusing. Find a better way of expressing the required variance in the generator settings.
-        // With the river system changing frequency also shinks size and that will confuse the heck out of users.
-        return RTGAPI.config().LAKE_SIZE_MULTIPLIER.get() * RTGAPI.config().LAKE_FREQUENCY_MULTIPLIER.get();
-    }
-
-    protected void init() {
         initConfig();
 
         // Realistic biomes have configs... organic biomes do not.
-        if (this.hasConfig()) {
-            this.getConfig().loadConfig();
-        }
+// TODO: [1.12] To be removed.
+        if (this.hasConfig()) { this.getConfig().loadConfig(); }
 
         this.adjustBiomeProperties();
-        this.terrain = checkTerrain(initTerrain());
-        this.surface = initSurface();
-        this.surfaceRiver = new SurfaceRiverOasis(config);
-        this.surfaceGeneric = new SurfaceGeneric(config, this.surface.getTopBlock(), this.surface.getFillerBlock());
+
         initDecos();
+
+
+// TODO: [1.12] #init functionality should be moved here since it gets called from here.
+        this.init();
+    }
+
+    protected void init() {
     }
 
     @Override
@@ -140,6 +128,22 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     @Override
+    public final Biome baseBiome() {
+        return baseBiome;
+    }
+
+    @Override
+    public Biome riverBiome() {
+        return this.riverBiome;
+    }
+
+    @Nullable
+    @Override
+    public IRealisticBiome getRTGRiverBiome() {
+        return RTGAPI.getRTGBiome(riverBiome());
+    }
+
+    @Override
     public ArrayList<DecoBase> getDecos() {
         return this.decos;
     }
@@ -150,23 +154,24 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     @Override
+    public int waterUndergroundLakeChance() {
+        return 1; // Lower equals more frequent.
+    }
+
+    @Override
+    public int lavaUndergroundLakeChance() {
+        return 1; // Lower equals more frequent.
+    }
+
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 10;
+    }
+
+    @Override
     public int lavaSurfaceLakeChance() {
         return 0;
-    }
-
-    @Nullable
-    public static RealisticBiomeBase getBiome(int id) {
-        return arrRealisticBiomeIds[id];
-    }
-
-// TODO: [Clean-up] Remove, unused
-    public static RealisticBiomeBase[] arr() {
-        return arrRealisticBiomeIds;
-    }
-
-    public static boolean isRealisticBiome(int id) {
-        RealisticBiomeBase rbb = getBiome(id);
-        return !(rbb instanceof OrganicBiome);
     }
 
     /*
@@ -174,7 +179,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
      * By default, it uses the beach that has been set in the biome config.
      * If automatic beach detection is enabled (-1), it uses the supplied preferred beach.
      */
-    protected Biome beachBiome(Biome preferredBeach) {
+    protected Biome getBeachBiome(Biome preferredBeach) {
 
         Biome beach;
         int configBeachId = this.getConfig().BEACH_BIOME.get();
@@ -189,12 +194,22 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return beach;
     }
 
+    @Override
+    public ResourceLocation baseBiomeResLoc() {
+        return baseBiomeResLoc;
+    }
+
+    @Override
+    public int baseBiomeId() {
+        return this.baseBiomeId;
+    }
+
     /*
      * Returns the beach biome to use for this biome, with a dynamically-calculated preferred beach.
      */
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(this.getPreferredBeachForBiome(this.baseBiome));
+        return this.beachBiome;
     }
 
     @Override
@@ -202,32 +217,28 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return rDecorator;
     }
 
+    @Override
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(rtgWorld.world());
+        RTGChunkGenSettings settings = rtgWorld.getGeneratorSettings();
 
         // we now have both lakes and rivers lowering land
+// TODO: [1.12] This config setting should be replaced by a generator setting. (Configurable per world, not per biome.)
         if (!this.getConfig().ALLOW_RIVERS.get()) {
             float borderForRiver = border*2;
             if (borderForRiver >1f) borderForRiver = 1;
             river = 1f - (1f-borderForRiver)*(1f-river);
             return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//      float interval        = lakeInterval        *= settings.RTGlakeFreqMult;
-//      float shoreLevel      = lakeShoreLevel      *= settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
-//      float depressionLevel = lakeDepressionLevel *= settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
-//      float lgbend          = largeBendSize       *= settings.RTGlakeShoreBend;
-//      float mdbend          = mediumBendSize      *= settings.RTGlakeShoreBend;
-//      float smbend          = smallBendSize       *= settings.RTGlakeShoreBend;
-//      float lakeStrength = lakePressure(rtgWorld, x, y, border, interval, lgbend, mdbend, smbend);
-        float lakeStrength = lakePressure(rtgWorld, x, y, border, lakeInterval, largeBendSize, mediumBendSize, smallBendSize);
-        // set the lakeStrength to match river parameters. Changes are needed because the
-        // function is much steeper at the edges (rivers) than the center (lakes)
-        float //lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeDepressionLevel);
-            lakeFlattening = lakeFlattening(lakeStrength, lakeShoreLevel, lakeDepressionLevel);
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//          lakeFlattening = lakeFlattening(lakeStrength, shoreLevel, depressionLevel);
+
+        float interval        = lakeInterval        * settings.RTGlakeFreqMult;
+        float shoreLevel      = lakeShoreLevel      * settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
+        float depressionLevel = lakeDepressionLevel * settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
+        float lgbend          = largeBendSize       * settings.RTGlakeShoreBend;
+        float mdbend          = mediumBendSize      * settings.RTGlakeShoreBend;
+        float smbend          = smallBendSize       * settings.RTGlakeShoreBend;
+        float lakeStrength    = lakePressure(rtgWorld, x, y, border, interval, lgbend, mdbend, smbend);
+        float lakeFlattening  = lakeFlattening(lakeStrength, shoreLevel, depressionLevel);
 
         // combine rivers and lakes
         if ((river<1)&&(lakeFlattening<1)) {
@@ -245,18 +256,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         float riverFlattening = river*(1f+riverFlatteningAddend)-riverFlatteningAddend;
         if (riverFlattening <0 ) riverFlattening = 0;
 
-// TODO: [Clean-up] To be removed
-        /*if (riverFlattening <0) riverFlattening = 0;
-        if (riverFlattening >1) riverFlattening = 1;
-        if ((river<1)&&(lakeFlattening<1)) {
-            riverFlattening = (1f-riverFlattening)/riverFlattening+(1f-lakeFlattening)/lakeFlattening;
-            riverFlattening = (1f/(riverFlattening+1f));
-        }
-        else if (lakeFlattening < riverFlattening) riverFlattening = lakeFlattening;
-        // the lakes have to have a little less flattening to avoid the rocky edges
-        lakeFlattening = lakeFlattening(lakeStrength, lakeWaterLevel, lakeShoreLevel);*/
-
-
         // flatten terrain to set up for the water features
         float terrainNoise = terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
         // place water features
@@ -264,8 +263,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
 // TODO: [Clean-up] Moved to top of class with rest of fields
-    public static final float actualRiverProportion = 150f/1600f;
-    public static final float riverFlatteningAddend = (actualRiverProportion)/(1f-actualRiverProportion);
 
     public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         float r;
@@ -292,13 +289,44 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         else return biomeHeight;
     }
 
+    @Override
+    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+
+        if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) { return 1f; }
+
+        double pX = x;
+        double pY = y;
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
+
+        rtgWorld.simplexInstance(1).multiEval2D(x / 240.0d, y / 240.0d, jitterData);
+        pX += jitterData.getDeltaX() * largeBendSize;
+        pY += jitterData.getDeltaY() * largeBendSize;
+
+        rtgWorld.simplexInstance(0).multiEval2D(x / 80.0d, y / 80.0d, jitterData);
+        pX += jitterData.getDeltaX() * mediumBendSize;
+        pY += jitterData.getDeltaY() * mediumBendSize;
+
+        rtgWorld.simplexInstance(4).multiEval2D(x / 30.0d, y / 30.0d, jitterData);
+        pX += jitterData.getDeltaX() * smallBendSize;
+        pY += jitterData.getDeltaY() * smallBendSize;
+
+        VoronoiResult lakeResults = rtgWorld.cellularInstance(0).eval2D(pX / lakeInterval, pY / lakeInterval);
+        double result = 1.0d - lakeResults.interiorValue();
+
+// TODO: [1.12] Oh look.. It's more RuntimeExceptions, because we should just crash at every opertunity. *sigh*
+        if (result >  1.01d) throw new RuntimeException("" + lakeResults.getShortestDistance()+ " , "+lakeResults.getNextDistance());
+        if (result < -0.01d) throw new RuntimeException("" + lakeResults.getShortestDistance()+ " , "+lakeResults.getNextDistance());
+
+        return (float)result;
+    }
+
     public float lakeFlattening(float pressure, float shoreLevel, float topLevel) {
         // adjusts the lake pressure to the river numbers. The lake shoreLevel is mapped
         // to become equivalent to actualRiverProportion
         if (pressure > topLevel) return 1;
         if (pressure<shoreLevel){
             return (pressure/shoreLevel)*actualRiverProportion;
-        };
+        }
         // proportion between top and shore becomes proportion between 1 and actual river
         float proportion = (pressure-shoreLevel)/(topLevel - shoreLevel);
         return actualRiverProportion + proportion*(1f-actualRiverProportion);
@@ -310,11 +338,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
-        if (rtgConfig.DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get()) {
-
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-        }
-        else {
+        if (!(RTGAPI.config().DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get())) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
@@ -323,25 +347,13 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-
-        if (rtgConfig.DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get()) {
-
-            this.surfaceGeneric.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-        }
-        else {
+        if (!(RTGAPI.config().DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get())) {
 
             this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-
-            if (rtgConfig.ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES.get()) {
-
+            if (RTGAPI.config().ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES.get()) {
                 this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
             }
         }
-    }
-
-    public float r3Dnoise(float z) {
-
-        return 0f;
     }
 
     @Override
@@ -354,15 +366,10 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return this.surface;
     }
 
-    @Override
-    public SurfaceBase surfaceGeneric() {
-        return this.surfaceGeneric;
-    }
-
     private class ChunkDecoration {
-        ChunkPos chunkLocation;
+        BlockPos chunkLocation;
         DecoBase decoration;
-        ChunkDecoration(ChunkPos chunkLocation,DecoBase decoration) {
+        ChunkDecoration(BlockPos chunkLocation,DecoBase decoration) {
             this.chunkLocation = chunkLocation;
             this.decoration = decoration;
         }
@@ -370,12 +377,14 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
 
-    public void rDecorate(RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    @Override
+// TODO: [1.12] This should be a proxy call to RTGBiomeDecorator#decorate
+    public void rDecorate(RTGWorld rtgWorld, Random rand, BlockPos pos, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         ArrayList<DecoBase> decos = this.getDecos();
 
         for (DecoBase deco : decos) {
-            decoStack.add(new ChunkDecoration(new ChunkPos(worldX, worldZ), deco));
+            decoStack.add(new ChunkDecoration(pos, deco));
             if (decoStack.size() > 20) {
                 String problem = "";
                 for (ChunkDecoration inStack : decoStack) {
@@ -383,13 +392,15 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
                 }
                 throw new RuntimeException(problem);
             }
-            if (deco.preGenerate(this, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks)) {
-                deco.generate(this, rtgWorld, rand, worldX, worldZ, strength, river, hasPlacedVillageBlocks);
+            if (deco.preGenerate(river)) {
+// TODO: [1.12] Decorators need to be updated to accept BlockPos
+                deco.generate(this, rtgWorld, rand, pos.getX(), pos.getZ(), strength, river, hasPlacedVillageBlocks);
             }
             decoStack.remove(decoStack.size() - 1);
         }
     }
 
+// TODO: [1.12] Why are we adjusting biome temperatures again? Currently only used in Taigas. 0.2f -> 0.25f
     private void adjustBiomeProperties() {
 
         if (this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.get()) {
@@ -408,65 +419,37 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         }
     }
 
-    private File configFile() {
-        return RTGAPI.getConfigPath().resolve(BIOME_CONFIG_SUBDIR).resolve(this.modSlug()).resolve(this.biomeSlug()+".cfg").toFile();
-    }
-
-    @Override
-    public String biomeSlug() {
-        return BiomeConfig.formatSlug(this.baseBiome.getBiomeName());
-    }
-
-    public static void addModBiomes() {
-        ArrayList<IRealisticBiome> realisticBiomes = RealisticBiomeManager.getBiomes();
-        RealisticBiomeBase rbb;
-        for (IRealisticBiome irb : realisticBiomes) {
-            rbb = new RealisticBiomeCreator(irb);
-            rbb.decos = irb.getDecos();
-            rbb.rtgTrees = irb.getTrees();
-        }
-    }
-
-    protected boolean organicTerrain() {
-        return rtgConfig.DISABLE_RTG_TERRAIN.get() || this.config.DISABLE_RTG_TERRAIN.get();
-    }
-
-    protected TerrainBase checkTerrain(TerrainBase terrainIn) {
-
-        return organicTerrain() ? new TerrainOrganic() : terrainIn;
+    private File getConfigFile() {
+        return RTGAPI.getConfigPath()
+            .resolve(BIOME_CONFIG_SUBDIR)
+            .resolve(baseBiomeResLoc().getResourceDomain())
+            .resolve(baseBiomeResLoc().getResourcePath()+".cfg")
+            .toFile();
     }
 
     private Biome getPreferredBeachForBiome(Biome biome) {
 
-        /*
-         * Some of this code is from Climate Control, and it's still a bit crude. - Zeno
-         * Some of this code is from Pink's brain, and it's also a bit crude. - Pink
-         */
-
         float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
-        float temp = biome.getDefaultTemperature();
-
-        // Use a cold beach if the temperature is low enough; otherwise, just use a normal beach.
-        Biome beach = (temp <= 0.05f) ? Biomes.COLD_BEACH : Biomes.BEACH;
-
-        // If this is a mountainous biome or a Taiga variant, then let's use a stone beach.
-        if ((height > (1.0f + 0.5f) && temp > 0.05f) || this.isTaigaBiome(biome)) {
-            beach = Biomes.STONE_BEACH;
-        }
-
-        // Snowy biomes should always use cold beach; otherwise, the transition looks too abrupt.
-        if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
-            beach = Biomes.COLD_BEACH;
-        }
-
-        return beach;
+        // Use a cold beach if the temperature is low enough or the biome has the BiomeDictionary tag 'SNOWY',
+        // or use a stone beach if this is a mountainous biome or a Taiga variant, or use normal beach.
+        return (biome.getDefaultTemperature() <= 0.05f || BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY))
+            ? Biomes.COLD_BEACH
+            : (height > 1.5f || isTaigaBiome(biome) ? Biomes.STONE_BEACH : Biomes.BEACH);
     }
 
-// TODO: [Clean-up] BiomeDictionary.Type.SNOWY is not common to all taiga biomes. This method should be renamed to be less ambiguous or the SNOWY type should be removed from the check
+    @Override
+    public boolean disallowBeaches() {
+        return disallowAllBeaches;
+    }
+
+    @Override
+    public boolean disallowStoneBeaches() {
+        return disallowStoneBeaches;
+    }
+
     private boolean isTaigaBiome(Biome biome) {
         return BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD)
             && BiomeDictionary.hasType(biome, BiomeDictionary.Type.CONIFEROUS)
-            && BiomeDictionary.hasType(biome, BiomeDictionary.Type.FOREST)
-            && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY);
+            && BiomeDictionary.hasType(biome, BiomeDictionary.Type.FOREST);
     }
 }

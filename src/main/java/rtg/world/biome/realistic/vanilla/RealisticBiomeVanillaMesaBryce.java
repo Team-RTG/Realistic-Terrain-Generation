@@ -103,7 +103,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(Biomes.BEACH);
+        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceVanillaMesaBryce extends SurfaceBase {
@@ -190,11 +190,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeVanillaBase {
 
     @Override
     public int waterSurfaceLakeChance() {
-        return 0;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
         return 0;
     }
 }

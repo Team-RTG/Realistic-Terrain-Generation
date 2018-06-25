@@ -1,117 +1,83 @@
 package rtg.world.biome;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nonnull;
-
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.gen.ChunkGeneratorSettings;
-import net.minecraft.world.gen.layer.GenLayer;
-import net.minecraft.world.gen.layer.IntCache;
-
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.terraingen.WorldTypeEvent;
 
 import rtg.api.RTGAPI;
-import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.biome.IBiomeProviderRTG;
+import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.world.RTGWorld;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
-// TODO: [Clean-up] Do not @Override methods of the super class whose functionality we do not change.
 public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 {
-    private static int[] incidences = new int[100];
-    private static int references = 0;
-
     private final RTGWorld rtgWorld;
-    /** A GenLayer containing the indices into Biome.biomeList[] */
-    private GenLayer genBiomes;
-    private GenLayer biomeIndexLayer;
-    private List<Biome> biomesToSpawnIn;
+    private final RTGChunkGenSettings generatorSettings;
+// TODO: [1.12] Keep these fields for when the custom GenLayer classes are written.
+//  private GenLayer genBiomes;
+//  private GenLayer biomeIndexLayer;
     private float[] borderNoise;
     private RealisticBiomePatcher biomePatcher;
-    private double riverValleyLevel = 140.0 / 450.0;//60.0/450.0;
-    private float riverSeparation = 975;
-    private float largeBendSize = 140;
-    private float smallBendSize = 30;
+    private double riverValleyLevel;
+    private double  riverSeparation;
+    private double  largeBendSize;
+    private double  smallBendSize;
 
-    public BiomeProviderRTG(World world, WorldType worldType) {
+    public BiomeProviderRTG(RTGWorld rtgWorld) {
 
-        super(world.getWorldInfo());
+        super(rtgWorld.world().getWorldInfo());
 
-        this.rtgWorld = RTGWorld.getInstance(world); //new RTGWorld(world)
-        this.biomesToSpawnIn = new ArrayList<>();
+        this.rtgWorld = rtgWorld; //new RTGWorld(world)
+        this.generatorSettings = rtgWorld.getGeneratorSettings();
+
         this.borderNoise = new float[256];
-        this.biomePatcher = new RealisticBiomePatcher();
-        //ChunkProviderSettingsRTG settings = GenSettingsRepo.getSettingsForWorld(world);
+        this.biomePatcher = new RealisticBiomePatcher();// TODO: [1.12] To be removed.
 
-// TODO: [Generator settings] Update these to use the generator setting and not the config setting
-//      this.riverSeparation /= settings.riverFrequency;
-//      this.riverValleyLevel *= settings.riverSize * settings.riverFrequency;
-//      this.largeBendSize *= settings.riverBendMult;
-//      this.smallBendSize *= settings.riverBendMult;
-        this.riverSeparation /= RTGAPI.config().RIVER_FREQUENCY_MULTIPLIER.get();
-        this.riverValleyLevel *= this.riverSizeMultiplier();
-        this.largeBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
-        this.smallBendSize *= RTGAPI.config().RIVER_BENDINESS_MULTIPLIER.get();
+// TODO: [1.12] These 4 fields are a part of #getRiverStrength
+        this.riverSeparation  = 975d / generatorSettings.riverFrequency;
+        this.riverValleyLevel = 140.0d / 450.0d * generatorSettings.riverSize * generatorSettings.riverFrequency;
+        this.largeBendSize    = 140d * generatorSettings.riverBendMult;
+        this.smallBendSize    = 30d * generatorSettings.riverBendMult;
 
-        long seed = world.getSeed();
-
-        if (!DimensionManagerRTG.isValidDimension(world.provider.getDimension())) throw new RuntimeException();
-
-        GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, ChunkGeneratorSettings.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build());
-        agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
-        this.genBiomes = agenlayer[0]; //maybe this will be needed
-        this.biomeIndexLayer = agenlayer[1];
-    }
-
-    public final RTGWorld getRTGWorld() {
-        return this.rtgWorld;
-    }
-
-    private float riverSizeMultiplier() {
-// TODO: [1.12] THIS is confusing. Find a better way of expressing the required variance in the generator settings.
-        // With the river system changing frequency also shinks size and that will confuse the heck out of users.
-        return RTGAPI.config().RIVER_SIZE_MULTIPLIER.get() * RTGAPI.config().RIVER_FREQUENCY_MULTIPLIER.get();
+//      GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldType, ChunkGeneratorSettings.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build());
+//      agenlayer = getModdedBiomeGenerators(worldType, seed, agenlayer);
+//      this.genBiomes = agenlayer[0]; //maybe this will be needed
+//      this.biomeIndexLayer = agenlayer[1];
     }
 
     @Override
-    public int[] getBiomesGens(int x, int z, int par3, int par4) {
+// TODO: [1.12] To be removed. This is an anitquated method that does the same thing as BiomeProvider#getBiomes but returns a int[] instead of Biome[].
+    public int[] getBiomesGens(int worldX, int worldZ, int areaX, int areaZ) {
 
-        int[] d = new int[par3 * par4];
+        int[] d = new int[areaX * areaZ];
 
-        for (int i = 0; i < par3; i++) {
-            for (int j = 0; j < par4; j++) {
-                d[i * par3 + j] = Biome.getIdForBiome(getBiomeGenAt(x + i, z + j));
+        for (int i = 0; i < areaX; i++) {
+            for (int j = 0; j < areaZ; j++) {
+                d[i * areaX + j] = Biome.getIdForBiome(getBiomeGenAt(worldX + i, worldZ + j));
             }
         }
         return d;
     }
 
     @Override
-    public float getRiverStrength(final int x, final int z) {
+// TODO: [1.12] To be moved to ChunkGeneratorRTG
+    public float getRiverStrength(final int worldX, final int worldZ) {
 
-        double pX = x;
-        double pZ = z;
+        double pX = worldX;
+        double pZ = worldZ;
         ISimplexData2D jitterData = SimplexData2D.newDisk();
 
         //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-        this.rtgWorld.simplexInstance(1).multiEval2D((float) x / 240.0, (float) z / 240.0, jitterData);
+        this.rtgWorld.simplexInstance(1).multiEval2D((float) worldX / 240.0, (float) worldZ / 240.0, jitterData);
         pX += jitterData.getDeltaX() * largeBendSize;
         pZ += jitterData.getDeltaY() * largeBendSize;
 
-        this.rtgWorld.simplexInstance(2).multiEval2D((float) x / 80.0, (float) z / 80.0, jitterData);
+        this.rtgWorld.simplexInstance(2).multiEval2D((float) worldX / 80.0, (float) worldZ / 80.0, jitterData);
         pX += jitterData.getDeltaX() * smallBendSize;
         pZ += jitterData.getDeltaY() * smallBendSize;
 
@@ -120,55 +86,38 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
 
         //New cellular noise.
         //TODO move the initialization of the results in a way that's more efficient but still thread safe.
-        float riverFactor = (float)rtgWorld.cellularInstance(0).eval2D(pX, pZ).interiorValue();
+        double riverFactor = rtgWorld.cellularInstance(0).eval2D(pX, pZ).interiorValue();
 
         // the output is a curved function of relative distance from the center, so adjust to make it flatter
-        riverFactor = Terrain.bayesianAdjustment(riverFactor, .5f);
-        if (riverFactor>riverValleyLevel) return 0; // no river effect
-        return (float)(riverFactor/riverValleyLevel) -1f;
+        riverFactor = Terrain.bayesianAdjustment((float) riverFactor, 0.5f);
+        if (riverFactor > riverValleyLevel) return 0; // no river effect
+        return (float)(riverFactor / riverValleyLevel - 1d);
     }
 
-    /**
-     * @see IBiomeProviderRTG
-     */
     @Override
-    public Biome getBiomeGenAt(int x, int z) {
-        return this.getBiome(new BlockPos(x, 0, z));
+// TODO: [1.12] To be removed. Unneeded proxy of BiomeProvider#getBiome
+    public Biome getBiomeGenAt(int worldX, int worldZ) {
+        return this.getBiome(new BlockPos(worldX, 0, worldZ));
     }
 
-    /**
-     * @see IBiomeProviderRTG
-     */
     @Override
-    public RealisticBiomeBase getBiomeDataAt(int par1, int par2) {
-        /*long coords = ChunkCoordIntPair.chunkXZ2Int(par1, par2);
-        if (biomeDataMap.containsKey(coords)) {
-            return biomeDataMap.get(coords);
-        }*/
-        RealisticBiomeBase output;
+// TODO: [1.12] To be removed. Unneeded proxy of RTGAPI.getRTGBiome(BiomeProvider.getBiome(BlockPos))
+    public IRealisticBiome getBiomeDataAt(int worldX, int worldZ) {
 
-        output = RealisticBiomeBase.getBiome(Biome.getIdForBiome(this.getBiomeGenAt(par1, par2)));
-        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + par1 + " " + par2);
-
-        /*if (biomeDataMap.size() > 4096) {
-            biomeDataMap.clear();
-        }
-
-        biomeDataMap.put(coords, output);*/
-
+        IRealisticBiome output = RTGAPI.getRTGBiome(getBiome(new BlockPos(worldX, 0, worldZ)));
+        if (output == null) output = biomePatcher.getPatchedRealisticBiome("No biome " + worldX + " " + worldZ);
         return output;
     }
 
-    /**
-     * @see IBiomeProviderRTG
-     */
     @Override
-    public boolean isBorderlessAt(int x, int z) {
+// TODO: [1.12] To be moved. The only usage is in the volcano generator.
+    public boolean isBorderlessAt(int chunkX, int chunkZ) {
 
         int bx, bz;
         for (bx = -2; bx <= 2; bx++) {
             for (bz = -2; bz <= 2; bz++) {
-                borderNoise[Biome.getIdForBiome(getBiomeDataAt(x + bx * 16, z + bz * 16).baseBiome)] += 0.04f;
+// TODO: [1.12] This is just ridiculous. Replace the call to #getBiomeDataAt with #getBiome
+                borderNoise[Biome.getIdForBiome(getBiomeDataAt(chunkX + bx * 16, chunkZ + bz * 16).baseBiome())] += 0.04f;
             }
         }
 
@@ -178,135 +127,5 @@ public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG
             borderNoise[bx] = 0;
         }
         return bz == 1;
-    }
-
-    public boolean diff(float sample1, float sample2, float base) {
-        return (sample1 < base && sample2 > base) || (sample1 > base && sample2 < base);
-    }
-
-    public float[] getRainfall(float[] par1ArrayOfFloat, int par2, int par3, int par4, int par5) {
-        IntCache.resetIntCache();
-
-        if (par1ArrayOfFloat == null || par1ArrayOfFloat.length < par4 * par5) {
-            par1ArrayOfFloat = new float[par4 * par5];
-        }
-
-        int[] aint = this.biomeIndexLayer.getInts(par2, par3, par4, par5);
-
-        for (int i1 = 0; i1 < par4 * par5; ++i1) {
-            float f = 0;
-            int biome = aint[i1];
-
-            try {
-                if (biome > 255) throw new RuntimeException(biomeIndexLayer.toString());
-                f = RealisticBiomeBase.getBiome(biome).baseBiome.getRainfall() / 65536.0F;
-            }
-            catch (Exception e) {
-                if (biome > 255) throw new RuntimeException(biomeIndexLayer.toString());
-                if (RealisticBiomeBase.getBiome(biome) == null) {
-                    f = biomePatcher.getPatchedRealisticBiome("Problem with biome " + biome + " from " +
-                        e.getMessage()).baseBiome.getRainfall() / 65536.0F;
-                }
-            }
-            if (f > 1.0F) f = 1.0F;
-            par1ArrayOfFloat[i1] = f;
-        }
-        return par1ArrayOfFloat;
-    }
-
-    @Override
-    @Nonnull
-    public List<Biome> getBiomesToSpawnIn() {
-        return this.biomesToSpawnIn;
-    }
-
-    @Override
-    public float getTemperatureAtHeight(float p_76939_1_, int p_76939_2_) {
-        return p_76939_1_;
-    }
-
-    @Override
-    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
-
-        IntCache.resetIntCache();
-
-        if (biomes == null || biomes.length < width * height) {
-            biomes = new Biome[width * height];
-        }
-
-        int[] aint = this.genBiomes.getInts(x, z, width, height);
-
-        for (int i1 = 0; i1 < width * height; ++i1) {
-            biomes[i1] = Biome.getBiomeForId(aint[i1]);
-
-            if (biomes[i1] == null) {
-                biomes[i1] = biomePatcher.getPatchedBaseBiome(
-                    "BPRTG.getBiomesForGeneration() could not find biome " + aint[i1]);
-            }
-        }
-        return biomes;
-    }
-
-    @Override
-    public boolean areBiomesViable(int x, int z, int radius, @Nonnull List<Biome> allowed) {
-
-        float centerNoise = getNoiseAt(x, z);
-        if (centerNoise < 62) return false;
-
-        float lowestNoise = centerNoise;
-        float highestNoise = centerNoise;
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <= 2; j++) {
-                if (i != 0 && j != 0) {
-                    float n = getNoiseAt(x + i * 16, z + j * 16);
-                    if (n < lowestNoise)  lowestNoise = n;
-                    if (n > highestNoise) highestNoise = n;
-                }
-            }
-        }
-        return highestNoise - lowestNoise < 22;
-    }
-
-    public float getNoiseAt(int x, int y) {
-
-        float river = getRiverStrength(x, y) + 1f;
-        if (river < 0.5f) return 59f;
-        return getBiomeDataAt(x, y).rNoise(this.rtgWorld, x, y, 1f, river);
-    }
-
-    @Override
-// TODO: [Clean-up] To be removed. functionality not changes so @Override not needed.
-    public BlockPos findBiomePosition(int x, int z, int range, @Nonnull List<Biome> biomes, @Nonnull Random random) {
-        IntCache.resetIntCache();
-        int i = x - range >> 2;
-        int j = z - range >> 2;
-        int k = x + range >> 2;
-        int l = z + range >> 2;
-        int i1 = k - i + 1;
-        int j1 = l - j + 1;
-        int[] aint = this.genBiomes.getInts(i, j, i1, j1);
-        BlockPos blockpos = null;
-        int k1 = 0;
-
-        for (int l1 = 0; l1 < i1 * j1; ++l1) {
-            int i2 = i + l1 % i1 << 2;
-            int j2 = j + l1 / i1 << 2;
-            Biome biome = Biome.getBiome(aint[l1]);
-
-            if (biomes.contains(biome) && (blockpos == null || random.nextInt(k1 + 1) == 0)) {
-                blockpos = new BlockPos(i2, 0, j2);
-                ++k1;
-            }
-        }
-        return blockpos;
-    }
-
-    @Override
-    @Nonnull
-// TODO: [Clean-up] To be removed. functionality not changes so @Override not needed.
-    public GenLayer[] getModdedBiomeGenerators(@Nonnull WorldType worldType, long seed, @Nonnull GenLayer[] original) {
-        WorldTypeEvent.InitBiomeGens event = new WorldTypeEvent.InitBiomeGens(worldType, seed, original);
-        MinecraftForge.TERRAIN_GEN_BUS.post(event);
-        return event.getNewBiomeGens();
     }
 }

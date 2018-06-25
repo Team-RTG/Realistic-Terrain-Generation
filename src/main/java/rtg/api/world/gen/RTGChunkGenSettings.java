@@ -21,7 +21,7 @@ import rtg.api.util.Logger;
 
 
 @SuppressWarnings("WeakerAccess")
-public final class ChunkProviderSettingsRTG
+public final class RTGChunkGenSettings
 {
 // TODO: [Generator settings] Requires an extension of net.minecraft.world.gen.layer.GenLayerBiome for this to work.
 // TODO: [Generator settings] Disable fixedBiome and biomeSize for now as they require modification to the GenLayer classes to work.
@@ -161,7 +161,7 @@ public final class ChunkProviderSettingsRTG
     public final int     lapisSpread;           // Vanilla
 
 
-    private ChunkProviderSettingsRTG(ChunkProviderSettingsRTG.Factory settingsFactory) {
+    private RTGChunkGenSettings(RTGChunkGenSettings.Factory settingsFactory) {
 
 // TODO: [Generator settings] Disable fixedBiome and biomeSize for now as they require modification to the GenLayer classes to work.
 //      this.fixedBiome             = settingsFactory.fixedBiome;
@@ -299,7 +299,7 @@ public final class ChunkProviderSettingsRTG
 
     public static class Factory {
 
-        static final Gson JSON_ADAPTER = (new GsonBuilder()).registerTypeAdapter(ChunkProviderSettingsRTG.Factory.class, new ChunkProviderSettingsRTG.Serializer()).create();
+        static final Gson JSON_ADAPTER = (new GsonBuilder()).registerTypeAdapter(RTGChunkGenSettings.Factory.class, new RTGChunkGenSettings.Serializer()).create();
 
 //      public int      fixedBiome           = -1;
 //      public int      biomeSize            = 4;
@@ -434,10 +434,10 @@ public final class ChunkProviderSettingsRTG
         public int      lapisSpread          = 16;  
 
 
-        public static ChunkProviderSettingsRTG.Factory jsonToFactory(String generatorSettings) {
+        public static RTGChunkGenSettings.Factory jsonToFactory(String generatorSettings) {
 
             if (generatorSettings.isEmpty()) {
-                return new ChunkProviderSettingsRTG.Factory();
+                return new RTGChunkGenSettings.Factory();
             }
             try {
                 JsonReader reader = new JsonReader(new StringReader(generatorSettings));
@@ -448,7 +448,7 @@ public final class ChunkProviderSettingsRTG
             {
                 Logger.error("Error parsing chunk generator settings: {}", ex.getMessage());
                 Logger.error("Settings: {}", generatorSettings);
-                return new ChunkProviderSettingsRTG.Factory();
+                return new RTGChunkGenSettings.Factory();
             }
         }
 
@@ -591,8 +591,8 @@ public final class ChunkProviderSettingsRTG
             this.lapisSpread            = 16;  
         }
 
-        public ChunkProviderSettingsRTG build() {
-            return new ChunkProviderSettingsRTG(this);
+        public RTGChunkGenSettings build() {
+            return new RTGChunkGenSettings(this);
         }
     }
 
@@ -750,7 +750,7 @@ public final class ChunkProviderSettingsRTG
         }
 
         @Override
-        public JsonElement serialize(ChunkProviderSettingsRTG.Factory factory, Type type, JsonSerializationContext context) {
+        public JsonElement serialize(RTGChunkGenSettings.Factory factory, Type type, JsonSerializationContext context) {
 
             JsonObject json = new JsonObject();
 

@@ -29,7 +29,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
 
     @Override
     public Biome beachBiome() {
-        return this.beachBiome(Biomes.MUSHROOM_ISLAND_SHORE);
+        return this.getBeachBiome(Biomes.MUSHROOM_ISLAND_SHORE);
     }
 
     @Override

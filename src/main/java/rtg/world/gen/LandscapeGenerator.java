@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.RTGAPI;
 import rtg.api.util.TimedHashMap;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.RTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomePatcher;

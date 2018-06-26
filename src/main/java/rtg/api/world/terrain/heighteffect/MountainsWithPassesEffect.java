@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 /**
@@ -24,7 +24,7 @@ public class MountainsWithPassesEffect extends HeightEffect {
     private float adjustedBottom = TerrainBase.blendedHillHeight(0, .2f);
 
     @Override
-    public final float added(IRTGWorld rtgWorld, float x, float y) {
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
         float noise = rtgWorld.simplexInstance(hillOctave).noise2f(x / mountainWavelength, y / mountainWavelength);
         noise = Math.abs(noise);

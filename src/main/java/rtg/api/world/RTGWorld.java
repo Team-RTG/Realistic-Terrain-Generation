@@ -1,4 +1,4 @@
-package rtg.world;
+package rtg.api.world;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,6 @@ import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SpacedCellularNoise;
-import rtg.api.world.IRTGWorld;
 import rtg.api.world.gen.RTGChunkGenSettings;
 
 /**
@@ -24,8 +23,7 @@ import rtg.api.world.gen.RTGChunkGenSettings;
  *
  * @since 1.0.0
  */
-// TODO: [API] Because this is a simple wrapper class and is final it doesn't require an interface and it can just go into the API.
-public final class RTGWorld implements IRTGWorld
+public final class RTGWorld
 {
     private static final Map<World, RTGWorld> INSTANCE_CACHE = new HashMap<>();
 
@@ -92,7 +90,6 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public World world() {
         return this.world;
     }
@@ -104,7 +101,6 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public RTGChunkGenSettings getGeneratorSettings() {
         return this.generatorSettings;
     }
@@ -116,7 +112,6 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public long seed() {
         return this.world().getSeed();
     }
@@ -128,7 +123,6 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public Random rand() {
         return this.world().rand;
     }
@@ -143,7 +137,6 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public long getChunkSeed(final int chunkX, final int chunkZ) {
         this.rand().setSeed(this.seed());
         return (chunkX * (this.rand().nextLong() / 2L * 2L + 1L)) + (chunkZ * (this.rand().nextLong() / 2L * 2L + 1L)) ^ this.seed();
@@ -158,7 +151,6 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public SimplexNoise simplexInstance(int index) {
         if (index >= this.simplexNoiseInstances.length) { index = 0; }
         return this.simplexNoiseInstances[index];
@@ -173,13 +165,11 @@ public final class RTGWorld implements IRTGWorld
      *
      * @since 1.0.0
      */
-    @Override
     public CellularNoise cellularInstance(int index) {
         if (index >= this.cellularNoiseInstances.length) { index = 0; }
         return this.cellularNoiseInstances[index];
     }
 
-    @Override
     @Deprecated // To be removed when the decoration system is rewritten.
     public TimedHashSet<ChunkPos> decoratedChunks() {
         return this.decoratedChunks;

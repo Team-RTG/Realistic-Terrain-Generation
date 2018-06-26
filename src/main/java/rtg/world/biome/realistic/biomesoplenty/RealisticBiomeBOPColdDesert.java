@@ -14,7 +14,7 @@ import biomesoplenty.api.biome.BOPBiomes;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -49,7 +49,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             float result = terrainPlains(x, y, rtgWorld, river, ruggednessWavelength, ruggedness, heightPitch, heightDivisor, base);
             // no indentations; cutoff is not noticeable with these low slopes
@@ -96,7 +96,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);

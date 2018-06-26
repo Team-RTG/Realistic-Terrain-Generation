@@ -7,7 +7,7 @@
 
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -16,7 +16,7 @@ import rtg.api.world.IRTGWorld;
 public abstract class HeightEffect {
 
 // TODO: [1.12] The naming of this method makes little syntactical sense. Lack of documentation is also unhelpful.
-    public abstract float added(IRTGWorld rtgWorld, float x, float y);
+    public abstract float added(RTGWorld rtgWorld, float x, float y);
 
 //  TODO: [1.12] This functionality should be a member of SummedHeightEffect or a static utility method
     public HeightEffect plus(HeightEffect added) {

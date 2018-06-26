@@ -11,7 +11,7 @@ import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.RTGChunkGenSettings;
-import rtg.world.RTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 public class BiomeProviderRTG extends BiomeProvider implements IBiomeProviderRTG

@@ -12,7 +12,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.RTGChunkGenSettings;
@@ -48,7 +48,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             RTGChunkGenSettings settings = rtgWorld.getGeneratorSettings();
             float duneHeight = (minDuneHeight + settings.sandDuneHeight);
@@ -98,7 +98,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
@@ -171,7 +171,7 @@ public class RealisticBiomeBYGRedDesert extends RealisticBiomeBYGBase {
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }

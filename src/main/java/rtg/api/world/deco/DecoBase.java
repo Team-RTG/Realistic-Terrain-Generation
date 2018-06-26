@@ -6,7 +6,7 @@ import java.util.Random;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
 /**
@@ -57,7 +57,7 @@ public abstract class DecoBase {
      * Generates the decoration.
      * This method should be overridden in the individual deco objects.
      */
-    abstract public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks);
+    abstract public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks);
 
     /**
      * Adds one or more deco types.

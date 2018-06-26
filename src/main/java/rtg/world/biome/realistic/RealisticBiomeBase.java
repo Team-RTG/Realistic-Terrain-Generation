@@ -21,7 +21,7 @@ import rtg.api.util.Logger;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.VoronoiResult;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.BiomeDecoratorRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
@@ -30,7 +30,6 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.RTGWorld;
 import rtg.api.world.gen.RTGChunkGenSettings;
 
 
@@ -290,7 +289,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     }
 
     @Override
-    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
 
         if (!this.getConfig().ALLOW_SCENIC_LAKES.get()) { return 1f; }
 
@@ -334,7 +333,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
 
@@ -344,7 +343,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
         }
     }
 
-    protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
         if (!(RTGAPI.config().DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get())) {

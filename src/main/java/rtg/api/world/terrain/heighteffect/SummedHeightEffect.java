@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 
 // TODO: [1.12] The functionality of this class could probably be handled by a static utility.
 class SummedHeightEffect extends HeightEffect {
@@ -15,7 +15,7 @@ class SummedHeightEffect extends HeightEffect {
     }
 
     @Override
-    public float added(IRTGWorld rtgWorld, float x, float y) {
+    public float added(RTGWorld rtgWorld, float x, float y) {
 
         return one.added(rtgWorld, x, y) + two.added(rtgWorld, x, y);
     }

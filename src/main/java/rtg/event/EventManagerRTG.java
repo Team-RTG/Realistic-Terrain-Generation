@@ -31,7 +31,7 @@ import rtg.api.util.*;
 import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.world.RTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 

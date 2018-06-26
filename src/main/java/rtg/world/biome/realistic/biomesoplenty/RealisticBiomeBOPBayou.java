@@ -24,11 +24,10 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.RTGWorld;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
@@ -70,7 +69,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             return terrainPlains(x, y, rtgWorld, river, 80f, 1f, 40f, 20f, 62f);
         }
@@ -110,7 +109,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
@@ -183,7 +182,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
 
         double pX = x;
         double pY = y;

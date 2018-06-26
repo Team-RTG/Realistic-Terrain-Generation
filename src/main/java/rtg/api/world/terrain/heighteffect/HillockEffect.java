@@ -1,6 +1,6 @@
 package rtg.api.world.terrain.heighteffect;
 
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 
 /**
  * @author Zeno410
@@ -18,7 +18,7 @@ public class HillockEffect extends HeightEffect {
     public int octave;
 
     @Override
-    public final float added(IRTGWorld rtgWorld, float x, float y) {
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
         float noise = rtgWorld.simplexInstance(octave).noise2f(x / wavelength, y / wavelength);
         if (noise < minimumSimplex) {

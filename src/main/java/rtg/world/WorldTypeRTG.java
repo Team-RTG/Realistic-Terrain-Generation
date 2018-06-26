@@ -13,6 +13,7 @@ import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
+import rtg.api.world.RTGWorld;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkGeneratorRTG;
 

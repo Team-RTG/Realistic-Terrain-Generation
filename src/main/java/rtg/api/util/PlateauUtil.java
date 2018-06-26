@@ -21,7 +21,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
 /**
@@ -140,7 +140,7 @@ public final class PlateauUtil
         });
     }
 
-    public static IBlockState getPlateauBand(final IRTGWorld rtgWorld, final IRealisticBiome rBiome, final int x, final int y, final int z) {
+    public static IBlockState getPlateauBand(final RTGWorld rtgWorld, final IRealisticBiome rBiome, final int x, final int y, final int z) {
         return (rBiome.getConfig().ALLOW_PLATEAU_MODIFICATIONS.get() && BIOME_PLATEAU_BANDS.containsKey(rBiome)) ? getBand(rBiome, y) : MESA.getBand(x, y, z);
     }
 

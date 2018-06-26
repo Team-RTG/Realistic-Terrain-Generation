@@ -18,7 +18,7 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -65,7 +65,7 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public float generateNoise(IRTGWorld rtgWorld, int x, int y, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             float pX = x;
             float pY = y;
@@ -131,7 +131,7 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
@@ -211,19 +211,19 @@ public class RealisticBiomeBYGRedRockMountains extends RealisticBiomeBYGBase {
         }
 
         @Override
-        protected IBlockState hcStone(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+        protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
             //return redRockStone;
             return Blocks.STONE.getDefaultState();
         }
 
         @Override
-        protected IBlockState hcCobble(IRTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+        protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
             //return redRockCobble;
             return Blocks.COBBLESTONE.getDefaultState();
         }
 
         @Override
-        protected IBlockState getShadowStoneBlock(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+        protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
             //return redClay;
             return redRockStone;
         }

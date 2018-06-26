@@ -8,7 +8,7 @@ import net.minecraft.util.math.ChunkPos;
 import biomesoplenty.api.generation.GeneratorStage;
 import com.google.common.collect.Sets;
 
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 
@@ -25,7 +25,7 @@ public class DecoBOPBaseBiomeDecorations extends DecoBaseBiomeDecorations {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, IRTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
 
         if (this.allowed && biome instanceof IRealisticBOPBiome) {
 

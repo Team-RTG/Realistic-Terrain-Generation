@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.VoronoiResult;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 
 
 /**
@@ -20,7 +20,7 @@ public class VoronoiBasinEffect extends HeightEffect {
     public float adjustmentRadius = 1f;
     
     @Override
-    public float added(IRTGWorld rtgWorld, float x, float y) {
+    public float added(RTGWorld rtgWorld, float x, float y) {
         Point2D.Float evaluateAt = new Point2D.Float((float) x / pointWavelength,(float) y / pointWavelength);
          VoronoiResult points = rtgWorld.cellularInstance(1).eval2D(evaluateAt.x, evaluateAt.y);
          float raise = (float) (points.borderValue());

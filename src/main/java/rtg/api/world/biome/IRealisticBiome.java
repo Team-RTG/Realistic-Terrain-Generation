@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.SaplingUtil;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionBase;
@@ -21,7 +21,6 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.RTGWorld;
 
 /**
  * Created by WhichOnesPink on 06/02/2017.
@@ -46,7 +45,7 @@ public interface IRealisticBiome
 // TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     SurfaceBase surface();
 
-    void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base);
+    void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base);
 
     float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 
@@ -57,7 +56,7 @@ public interface IRealisticBiome
 
     BiomeDecoratorRTG rDecorator();
 
-    float lakePressure(IRTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);
+    float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);
 
 
 

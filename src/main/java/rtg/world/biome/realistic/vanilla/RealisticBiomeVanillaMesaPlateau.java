@@ -16,7 +16,7 @@ import rtg.api.util.PlateauUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
@@ -69,7 +69,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public float generateNoise(IRTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
             ISimplexData2D jitterData = SimplexData2D.newDisk();
             rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
             float x = (float)(passedX + jitterData.getDeltaX() * jitterAmplitude);
@@ -91,7 +91,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
     }
 
     @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
@@ -122,7 +122,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeVanillaBase 
         }
 
         @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);

@@ -2,7 +2,7 @@ package rtg.api.world.terrain.heighteffect;
 
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 
 /**
  * This class returns a height effect with a jitter on the position.
@@ -30,7 +30,7 @@ public class JitterEffect extends HeightEffect {
     }
 
     @Override
-    public final float added(IRTGWorld rtgWorld, float x, float y) {
+    public final float added(RTGWorld rtgWorld, float x, float y) {
 
         if (running) {
 // TODO: [1.12] WHY ALWAYS RUNTIME EXCEPTIONS?! WHY?! :SUPERDUPERRAGE:

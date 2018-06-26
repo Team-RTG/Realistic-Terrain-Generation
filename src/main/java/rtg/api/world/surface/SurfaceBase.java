@@ -15,7 +15,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
 import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.IRTGWorld;
+import rtg.api.world.RTGWorld;
 
 // TODO: [1.12] Fix parameter names in this class, and their origins
 public abstract class SurfaceBase {
@@ -46,30 +46,30 @@ public abstract class SurfaceBase {
         this.assignUserConfigs(config, top, fill);
     }
 
-    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, IRTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+    public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
     }
 
-    protected IBlockState getShadowStoneBlock(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         CustomizeBlockEvent event = new CustomizeBlockEvent(rtgWorld.world(), new BlockPos(i, k, j), shadowStoneBlock);
         MinecraftForge.TERRAIN_GEN_BUS.post(event);
         return event.getBlockState();
     }
 
-    protected IBlockState getShadowDesertBlock(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         CustomizeBlockEvent event = new CustomizeBlockEvent(rtgWorld.world(), new BlockPos(i, k, j), shadowDesertBlock);
         MinecraftForge.TERRAIN_GEN_BUS.post(event);
         return event.getBlockState();
     }
 
-    protected IBlockState hcStone(IRTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
 
         return cliffStoneBlock;
     }
 
-    protected IBlockState hcCobble(IRTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+    protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
 
         CustomizeBlockEvent event = new CustomizeBlockEvent(rtgWorld.world(), new BlockPos(worldX, worldY, worldZ), cliffCobbleBlock);
         MinecraftForge.TERRAIN_GEN_BUS.post(event);

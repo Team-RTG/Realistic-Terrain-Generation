@@ -20,16 +20,18 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusNigra;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.EXTREME_HILLS_EDGE;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaExtremeHillsEdge() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -75,7 +77,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeVanilla
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsEdge(config, biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+        return new SurfaceVanillaExtremeHillsEdge(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
     public class SurfaceVanillaExtremeHillsEdge extends SurfaceBase {

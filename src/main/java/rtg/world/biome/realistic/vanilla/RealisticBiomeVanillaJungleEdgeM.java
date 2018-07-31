@@ -19,16 +19,18 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_JUNGLE_EDGE;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaJungleEdgeM() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeVanillaBase 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaJungleEdgeM(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaJungleEdgeM(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaJungleEdgeM extends SurfaceBase {

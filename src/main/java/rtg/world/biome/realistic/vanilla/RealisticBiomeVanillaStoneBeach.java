@@ -14,15 +14,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.STONE_BEACH;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaStoneBeach() {
 
-        super(biome, river);
+        super(biome, BeachType.STONE);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaBeach(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState());
+        return new SurfaceVanillaBeach(getConfig(), Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState());
     }
 
     public class SurfaceVanillaBeach extends SurfaceBase {

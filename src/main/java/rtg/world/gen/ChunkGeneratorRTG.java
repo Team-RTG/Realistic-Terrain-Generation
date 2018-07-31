@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
 import net.minecraft.block.BlockFalling;
@@ -18,11 +19,11 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
@@ -57,10 +58,10 @@ import rtg.api.util.TimedHashSet;
 import rtg.api.util.Valued;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
-import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.TerrainBase;
 import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
@@ -68,10 +69,10 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
 import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
-// TODO: [Clean-up 1.12] Revisit the need of the delayed decoration system. It's likely things have improved to the point where it's more of a detriment to performance and compatibility
-// TODO: [Clean-up 1.12] Clean up the Time tracker. Make time tracker strings CONSTANTS.
+@SuppressWarnings("deprecation")
 public class ChunkGeneratorRTG implements IChunkGenerator
 {
+    @Nullable
     private static ChunkGeneratorRTG populatingProvider;
     private final RTGChunkGenSettings settings;
     private final RTGConfig rtgConfig = RTGAPI.config();
@@ -86,15 +87,13 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
 // TODO: [1.12] Find the source of the erroneous flipping and squash it for good. This should not need to be done.
     private int [] xyinverted = analyzer.xyinverted();
-    private final LandscapeGenerator landscapeGenerator;
-    private final LimitedArrayCacheMap<Long, float[]> noiseCache = new LimitedArrayCacheMap<>(50);// cache the noise array for the last 50 chunks
-    private final LimitedArrayCacheMap<Long, Chunk> availableChunks = new LimitedArrayCacheMap<>(1000);// set up the cache of available chunks
+    private final LimitedArrayCacheMap<ChunkPos, Chunk> availableChunks = new LimitedArrayCacheMap<>(1024);// set up the cache of available chunks
     private final HashSet<ChunkPos> toDecorate = new HashSet<>();
     private boolean mapFeaturesEnabled;
     private Random rand;
     private final World world;
     public final RTGWorld rtgWorld;
-    private IBiomeProviderRTG biomeProvider;
+    private BiomeProviderRTG biomeProvider;
     private Biome[] baseBiomesList;
     private float[] borderNoise;
     private RealisticBiomePatcher biomePatcher;
@@ -130,7 +129,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 //        this.world.setSeaLevel(this.settings.seaLevel);
         this.biomeProvider = (BiomeProviderRTG) this.world.getBiomeProvider();
         this.rand = new Random(rtgWorld.seed());
-        this.landscapeGenerator = new LandscapeGenerator(rtgWorld);
         this.volcanoGenerator = new VolcanoGenerator(rtgWorld);
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
@@ -146,6 +144,8 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         this.baseBiomesList = new Biome[256];
         this.biomePatcher = new RealisticBiomePatcher();
 
+        setWeightings();// landscape generator init
+
         Logger.debug("FINISHED instantiating CPRTG.");
     }
 
@@ -157,7 +157,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 
         if (this.inGeneration.containsKey(chunkPos)) return this.inGeneration.get(chunkPos);
         if (this.chunkMade.contains(chunkPos)) {
-            Chunk available = this.availableChunks.get(ChunkPos.asLong(cx, cz));
+            Chunk available = this.availableChunks.get(chunkPos);
 
             // we are having a problem with Forge complaining about double entity registration
             // so we'll unload any loaded entities
@@ -176,8 +176,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         ChunkPrimer primer = new ChunkPrimer();
         int k;
 
-        ChunkLandscape landscape = this.landscapeGenerator.landscape(this.biomeProvider, blockPos.getX(), blockPos.getZ());
-        this.noiseCache.put(ChunkPos.asLong(cx, cz), landscape.noise);
+        ChunkLandscape landscape = this.landscape(this.biomeProvider, blockPos);
 
         generateTerrain(primer, landscape.noise);
 
@@ -196,7 +195,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
             this.volcanoGenerator.generate(primer, this.biomeProvider, chunkPos, landscape.noise);
         }
 
-        this.borderNoise = this.landscapeGenerator.noiseFor(this.biomeProvider, blockPos.getX(), blockPos.getZ());
+        this.borderNoise = this.noiseFor(this.biomeProvider, blockPos);
 
         ISimplexData2D jitterData = SimplexData2D.newDisk();
         IRealisticBiome[] jitteredBiomes = new IRealisticBiome[256];
@@ -208,8 +207,8 @@ public class ChunkGeneratorRTG implements IChunkGenerator
                 this.rtgWorld.simplexInstance(0).multiEval2D(x, z, jitterData);
                 int pX = (int) Math.round(x + jitterData.getDeltaX() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
                 int pZ = (int) Math.round(z + jitterData.getDeltaY() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
-                actualbiome = RTGAPI.getRTGBiome(this.landscapeGenerator.getBiomeDataAt(this.biomeProvider, x, z));
-                jitterbiome = RTGAPI.getRTGBiome(this.landscapeGenerator.getBiomeDataAt(this.biomeProvider, pX, pZ));
+                actualbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(this.biomeProvider, x, z));
+                jitterbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(this.biomeProvider, pX, pZ));
                 if (actualbiome != null && jitterbiome != null) {
                     jitteredBiomes[i * 16 + j] = (actualbiome.getConfig().SURFACE_BLEED_IN.get() && jitterbiome.getConfig().SURFACE_BLEED_OUT.get()) ? jitterbiome : actualbiome;
                 }
@@ -248,7 +247,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         // remove from in process pile
         this.inGeneration.remove(chunkPos);
         this.chunkMade.add(chunkPos);
-        this.availableChunks.put(ChunkPos.asLong(cx, cz), chunk);
+        this.availableChunks.put(chunkPos, chunk);
         return chunk;
     }
 
@@ -276,7 +275,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         }
     }
 
-    private void replaceBiomeBlocks(int cx, int cz, ChunkPrimer primer, IRealisticBiome[] biomes, Biome[] base, float[] n) {
+    private void replaceBiomeBlocks(int cx, int cz, ChunkPrimer primer, IRealisticBiome[] biomes, Biome[] base, float[] noise) {
 
         ChunkGeneratorEvent.ReplaceBiomeBlocks event = new ChunkGeneratorEvent.ReplaceBiomeBlocks(this, cx, cz, primer, this.world);
         MinecraftForge.EVENT_BUS.post(event);
@@ -284,33 +283,27 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 
         int worldX = cx * 16;
         int worldZ = cz * 16;
-        int depth;
-        float river;
-        IRealisticBiome biome;
 
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
+        MutableBlockPos mpos = new MutableBlockPos();
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                mpos.setPos(worldX + x, 0, worldZ + z);
 
-                /*
-                 * Some of the 'i' and 'j' parameters have been flipped when passing them.
-                 * Prior to flipping, the surface was being XZ-chunk-flipped. - WhichOnesPink
-                 */
-                biome = biomes[i * 16 + j];
-                river = -this.biomeProvider.getRiverStrength(worldX + i, worldZ + j);
-                depth = -1;
-
-                biome.rReplace(primer, worldX + i, worldZ + j, i, j, depth, this.rtgWorld, n, river, base);
+                float river = -TerrainBase.getRiverStrength(mpos, rtgWorld);
+                int depth = -1;
+// TODO: [1.12] From this point forward 'x' and 'z' can be derived by applying a bitmask (& 15) to the block position instead of passing both as arguments all the way through to surfacing.
+                biomes[x * 16 + z].rReplace(primer, mpos, x, z, depth, rtgWorld, noise, river, base);
 
                 // sparse bedrock layers above y=0
                 if (this.settings.bedrockLayers > 1) {
                     for (int bl = 9; bl >= 0; --bl) {
                         if (bl <= this.rand.nextInt(this.settings.bedrockLayers)) {
-                            primer.setBlockState(i, bl, j, Blocks.BEDROCK.getDefaultState());
+                            primer.setBlockState(x, bl, z, Blocks.BEDROCK.getDefaultState());
                         }
                     }
                 }
                 else {
-                    primer.setBlockState(i, 0, j, Blocks.BEDROCK.getDefaultState());
+                    primer.setBlockState(x, 0, z, Blocks.BEDROCK.getDefaultState());
                 }
             }
         }
@@ -362,7 +355,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         BlockFalling.fallInstantly = true;
 
         //Flippy McFlipperson.
-        IRealisticBiome biome = RTGAPI.getRTGBiome(((BiomeProvider)biomeProvider).getBiome(blockPos.add(16, 0, 16)));
+        IRealisticBiome biome = RTGAPI.getRTGBiome(biomeProvider.getBiome(blockPos.add(16, 0, 16)));
         if (biome == null) {
             biome = biomePatcher.getPatchedRealisticBiome("No biome " + blockPos.getX() + " " + blockPos.getZ());
         }
@@ -391,7 +384,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
          * Answer: building a frequency table of nearby biomes - Zeno.
          */
 
-        this.borderNoise = this.landscapeGenerator.noiseFor(this.biomeProvider, blockPos);
+        this.borderNoise = this.noiseFor(this.biomeProvider, blockPos);
 
         /*
          * ########################################################################
@@ -409,9 +402,11 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 
         //Initialise variables.
 // TODO: [1.12] Why is this being off-set by 16?
-        float river = -this.biomeProvider.getRiverStrength(blockPos.getX() + 16, blockPos.getZ() + 16);
+        float river = -TerrainBase.getRiverStrength(blockPos.getX() + 16, blockPos.getZ() + 16, rtgWorld);
 
         //Border noise. (Does this have to be done here? - Pink)
+// TODO: [1.12] Does this have to be done at all? This process makes absolutely no sense. The 'biome' has already been chosen earlier
+//              in this method and it is the ONLY biome that should have it's decorator executed.
         IRealisticBiome realisticBiome;
 
         TreeSet<Valued<IRealisticBiome>> activeBiomes = new TreeSet<>();
@@ -742,13 +737,157 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         }
 
         @Override public void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer) {
-            float[] noise = ChunkGeneratorRTG.this.noiseCache.get(ChunkPos.asLong(chunkX, chunkZ));
-            if (noise == null) {
-                ChunkLandscape landscape = new ChunkLandscape();
-                ChunkGeneratorRTG.this.landscapeGenerator.getNewerNoise(ChunkGeneratorRTG.this.biomeProvider, chunkX, chunkZ, landscape);
-                noise = landscape.noise;
-            }
-            ChunkGeneratorRTG.this.generateTerrain(primer, noise);
+            ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
+            ChunkLandscape landscape = ((landscape = ChunkGeneratorRTG.this.landscapeCache.get(chunkPos)) != null)
+                ? landscape
+                : landscape(ChunkGeneratorRTG.this.biomeProvider, new BlockPos(chunkX * 16, 0, chunkZ * 16));
+            ChunkGeneratorRTG.this.generateTerrain(primer, landscape.noise);
         }
+    }
+
+
+    /* Landscape Geneator */
+
+    private final LimitedArrayCacheMap<ChunkPos, ChunkLandscape> landscapeCache = new LimitedArrayCacheMap<>(1024);// cache ChunkLandscape objects
+
+    private final int       sampleSize      = 8;
+    private final int       sampleArraySize = sampleSize * 2 + 5;
+    private final int[]     biomeData       = new int[sampleArraySize * sampleArraySize];
+    private final float[]   weightedBiomes  = new float[256];
+    private final float[][] weightings      = new float[sampleArraySize * sampleArraySize][256];
+
+    private final WeakHashMap<BlockPos, float[]> cache        = new WeakHashMap<>();
+    private final MesaBiomeCombiner              mesaCombiner = new MesaBiomeCombiner();
+
+    private void setWeightings() {
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                float limit = (float)Math.pow((56f * 56f), 0.7D);
+                for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
+                    for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
+                        float xDist = (x - (mapX - sampleSize) * 8);
+                        float zDist = (z - (mapZ - sampleSize) * 8);
+                        float distanceSquared = xDist * xDist + zDist * zDist;
+                        float distance = (float)Math.pow(distanceSquared, 0.7D);
+                        float weight = 1f - distance / limit;
+                        if (weight < 0) { weight = 0; }
+                        weightings[mapX * sampleArraySize + mapZ][x * 16 + z] = weight;
+                    }
+                }
+            }
+        }
+    }
+
+    private int getBiomeDataAt(final BiomeProviderRTG biomeProvider, final int worldX, final int worldZ) {
+        int x = worldX & 15;
+        int z = worldZ & 15;
+        ChunkLandscape target = this.landscape(biomeProvider, new BlockPos(worldX - x, 0, worldZ - z));
+        return target.biome[x * 16 + z].baseBiomeId();
+    }
+
+    private synchronized ChunkLandscape landscape(final BiomeProviderRTG biomeProvider, BlockPos blockPos) {
+        ChunkPos chunkPos = new ChunkPos(blockPos);
+        ChunkLandscape landscape = landscapeCache.get(chunkPos);
+        if (landscape != null) { return landscape; }
+
+        landscape = new ChunkLandscape();
+        getNewerNoise(biomeProvider, blockPos.getX(), blockPos.getZ(), landscape);
+
+        Biome[] biomes = new Biome[256];
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                biomes[x * 16 + z] = biomeProvider.getBiome(blockPos.add(x, 0, z));
+            }
+        }
+        analyzer.newRepair(biomes, landscape.biome, this.biomeData, this.sampleSize, landscape.noise, landscape.river);
+        landscapeCache.put(chunkPos, landscape);
+        return landscape;
+    }
+
+// TODO: [1.12] This method needs verification that it is doing what it is supposed a the coords that is supposed to.
+    private synchronized void getNewerNoise(final BiomeProviderRTG biomeProvider, final int worldX, final int worldZ, ChunkLandscape landscape) {
+
+        // get area biome map
+        for(int x = -sampleSize; x < sampleSize + 5; x++) {
+            for(int z = -sampleSize; z < sampleSize + 5; z++) {
+                biomeData[(x + sampleSize) * sampleArraySize + (z + sampleSize)] = Biome.getIdForBiome(biomeProvider.getBiome(new BlockPos(worldX + ((x * 8)), 0, worldZ + ((z * 8)))));
+            }
+        }
+
+        // fill the old smallRender
+// TODO: [1.12] This process should be verified for it's usefulness. This is 112,896 iterations per chunk
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                float totalWeight = 0;
+                for (int mapX = 0; mapX < sampleArraySize; mapX++) {
+                    for (int mapZ = 0; mapZ < sampleArraySize; mapZ++) {
+                        float weight = weightings[mapX * sampleArraySize + mapZ][x * 16 + z];
+                        if (weight > 0) {
+                            totalWeight += weight;
+                            weightedBiomes[biomeData[mapX * sampleArraySize + mapZ]] += weight;
+                        }
+                    }
+                }
+
+                // normalize biome weights
+                for (int biomeIndex = 0; biomeIndex < weightedBiomes.length; biomeIndex++) {
+                    weightedBiomes[biomeIndex] /= totalWeight;
+                }
+
+                // combine mesa biomes
+                mesaCombiner.adjust(weightedBiomes);
+
+                landscape.noise[x * 16 + z] = 0f;
+
+                float river = TerrainBase.getRiverStrength(worldX + x, worldZ + z, rtgWorld);
+                landscape.river[x * 16 + z] = -river;
+
+                for(int i = 0; i < 256; i++) {
+
+                    if(weightedBiomes[i] > 0f) {
+
+                        IRealisticBiome realisticBiome = ((realisticBiome = RTGAPI.getRTGBiome(i)) != null)
+                            ? realisticBiome
+                            : biomePatcher.getPatchedRealisticBiome("NULL biome (" + i + ") found when getting newer noise.");
+
+                        landscape.noise[x * 16 + z] += realisticBiome.rNoise(this.rtgWorld, worldX + x, worldZ + z, weightedBiomes[i], river + 1f) * weightedBiomes[i];
+
+                        // 0 for the next column
+                        weightedBiomes[i] = 0f;
+                    }
+                }
+            }
+        }
+
+        //fill biomes array with biomeData
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+// TODO: [1.12] This call is using absolutely whacky coordinates that make no sense,
+// TODO: [1.12] given the world coordinates worldX=0, worldZ=0 this call will check worldX= -52 -> 68, worldZ= -52 -> 68 in increments of 8
+                BlockPos pos = new BlockPos(worldX + (x - 7) * 8 + 4, 0, worldZ + (z - 7) * 8 + 4);
+                IRealisticBiome rbiome = RTGAPI.getRTGBiome(biomeProvider.getBiome(pos));
+                if (rbiome == null) {
+                    rbiome = biomePatcher.getPatchedRealisticBiome("No biome " + pos.getX() + " " + pos.getZ());
+                }
+                landscape.biome[x * 16 + z] = rbiome;
+            }
+        }
+    }
+
+// TODO: [1.12] This should be removed. It's only used during population to allow more than one biome to populate a chunk if more than one is present
+//              in it, but only one biome should ever be used in population. This also gets biomes from improper locations with a spurious offset.
+    private float [] noiseFor(final BiomeProviderRTG biomeProvider, final BlockPos blockPos) {
+        float[] result = cache.get(blockPos);
+        if (result != null) { return result; }
+
+        final int adjust = 24;// seems off? but decorations aren't matching their chunks.
+        result = new float[256];
+        for (int bx = -4; bx <= 4; bx++) {
+            for (int bz = -4; bz <= 4; bz++) {
+                result[getBiomeDataAt(biomeProvider, blockPos.getX() + adjust + bx * 4, blockPos.getZ() + adjust + bz * 4)] += 0.01234569f;
+            }
+        }
+        cache.put(blockPos, result);
+        return result;
     }
 }

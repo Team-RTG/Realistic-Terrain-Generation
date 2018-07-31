@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import rtg.RTG;
 import rtg.api.RTGAPI;
-import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.BiomeProviderRTG;
@@ -40,7 +39,7 @@ public final class WorldTypeRTG extends WorldType
     @Override
     public BiomeProvider getBiomeProvider(World world) {
 
-        if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
+        if (RTGAPI.isAllowedDimensionType(world.provider.getDimension())) {
 
             if (biomeProvider == null) {
 
@@ -63,7 +62,7 @@ public final class WorldTypeRTG extends WorldType
     @Override
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
 
-        if (DimensionManagerRTG.isValidDimension(world.provider.getDimension())) {
+        if (RTGAPI.isAllowedDimensionType(world.provider.getDimension())) {
 
             if (chunkProvider == null) {
 

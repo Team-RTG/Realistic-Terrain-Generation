@@ -21,17 +21,18 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 
-public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.PLAINS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaPlains() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaPlains(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaPlains(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaPlains extends SurfaceBase {

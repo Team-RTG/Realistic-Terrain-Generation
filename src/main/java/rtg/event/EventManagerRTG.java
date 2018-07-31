@@ -8,9 +8,11 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -26,7 +28,6 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.api.dimension.DimensionManagerRTG;
 import rtg.api.util.*;
 import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.biome.IRealisticBiome;
@@ -67,6 +68,7 @@ public class EventManagerRTG {
         registerEventHandlers();
     }
 
+// TODO [1.12] To be removed when the delayed decorator is removed.
     public class LoadChunkRTG {
 
         LoadChunkRTG() {
@@ -78,15 +80,14 @@ public class EventManagerRTG {
         public void loadChunkRTG(ChunkEvent.Load event) {
 
             // Are we in an RTG world?
-            if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
-                return;
+            if (RTGAPI.checkWorldType(event.getWorld().getWorldType())) {
+                Consumer<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
+                if (acceptor != null) acceptor.accept(event);
             }
-
-            Consumer<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
-            if (acceptor != null) acceptor.accept(event);
         }
     }
 
+// TODO [1.12] To be removed.
     public class GenerateMinableRTG {
 
         public GenerateMinableRTG() {}
@@ -98,14 +99,7 @@ public class EventManagerRTG {
 
             // Are we in an RTG world?
 // TODO: [Clean-up] To be removed. Redundant with (chunkGenerator instanceof ChunkGeneratorRTG) check below.
-            if (!(event.getWorld().getWorldType() instanceof WorldTypeRTG)) {
-                return;
-            }
-
-            // Are we in a valid dimension?
-            if (!DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) {
-                return;
-            }
+            if (!(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) { return; }
 
 // TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
 //          IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
@@ -204,13 +198,16 @@ public class EventManagerRTG {
         }
     }
 
+// TODO [1.12] To be removed after custom GenLayers ae added
     public class InitBiomeGensRTG {
 
         @SubscribeEvent
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
             // Remove the river GenLayer if we are in an RTG world.
-            if ((event.getWorldType() instanceof WorldTypeRTG)) event.setNewBiomeGens(WorldUtil.Biomes.removeRivers(event.getOriginalBiomeGens()));
+            if (RTGAPI.checkWorldType(event.getWorldType())) {
+                event.setNewBiomeGens(WorldUtil.Biomes.removeRivers(event.getOriginalBiomeGens()));
+            }
         }
     }
 
@@ -224,13 +221,8 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
 
-            // Are RTG saplings enabled?
-            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get()) return;
-
-            // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
-// TODO: [1.12] 'instanceof' checks are spurious with Plugin Platforms (Sponge) that wrap WorldType specific objects in their own classes. Find another way to do checks here.
-                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) return;
+            // skip if RTG saplings are disabled or this is not an RTG world
+            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get() || !(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) { return; }
 
             // Should we generate a vanilla tree instead?
             if (event.getRand().nextInt(rtgConfig.RTG_TREE_CHANCE.get()) != 0) {
@@ -349,8 +341,11 @@ public class EventManagerRTG {
             World world = event.getWorld();
             if (!world.isRemote) {
                 // Cached instances of RTGWorld need to be removed because they contain a strong reference to the World object, which should be GC'd.
-                if (!RTGWorld.removeInstance(world) && WorldTypeRTG.getInstance().equals(world.getWorldType())) {
-                    Logger.warn("Failed to remove a cached instance of RTGWorld for dimension: {}", world.provider.getDimension());
+                if (!RTGWorld.removeInstance(world) && RTGAPI.checkWorldType(world.getWorldType())) {
+                    DimensionType dimtype = DimensionManager.getProviderType(world.provider.getDimension());
+                    if (dimtype != DimensionType.NETHER && dimtype != DimensionType.THE_END) {
+                        Logger.warn("Failed to remove a cached instance of RTGWorld (non-existant) for dimension: {}", world.provider.getDimension());
+                    }
                 }
             }
         }
@@ -373,10 +368,7 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (!(DimensionManagerRTG.isValidDimension(event.getWorld().provider.getDimension())) ||
-                !(event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG)) {
-                return;
-            }
+            if (RTGAPI.checkWorldType(event.getWorld().getWorldType())) { return; }
 
             DecorateBiomeEvent.Decorate.EventType eventType = event.getType();
 

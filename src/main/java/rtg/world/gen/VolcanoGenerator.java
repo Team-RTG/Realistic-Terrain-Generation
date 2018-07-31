@@ -5,20 +5,19 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.RTGAPI;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.storage.LimitedArrayCacheSet;
-import rtg.api.world.biome.IBiomeProviderRTG;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 /**
@@ -68,7 +67,7 @@ public class VolcanoGenerator
         this.volcanoMixBlock3  = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX3_BLOCK.get(), DEFAULT_VOLCANO_MIX3_BLOCK);
     }
 
-    public void generate(ChunkPrimer primer, IBiomeProviderRTG cmr, final ChunkPos origin, float[] noise) {
+    public void generate(ChunkPrimer primer, BiomeProviderRTG biomeProvider, final ChunkPos origin, float[] noise) {
 
         for (int baseX = origin.x - VOLCANO_GEN_RADIUS; baseX <= origin.x + VOLCANO_GEN_RADIUS; baseX++) {
             for (int baseZ = origin.z - VOLCANO_GEN_RADIUS; baseZ <= origin.z + VOLCANO_GEN_RADIUS; baseZ++) {
@@ -79,9 +78,11 @@ public class VolcanoGenerator
                 // Let's go ahead and generate the volcano. Exciting!!! :D
                 if (baseX % 4 == 0 && baseZ % 4 == 0) {
 // TODO: [1.12] This call should be fixed later with the new IBiomeProvider
-                    IRealisticBiome realisticBiome = RTGAPI.getRTGBiome(((BiomeProvider)cmr).getBiome(new BlockPos(baseX * 16, 0, baseZ * 16)));
-                    // Do we need to patch the biome?
-                    if (realisticBiome == null) { realisticBiome = new RealisticBiomePatcher().getPatchedRealisticBiome("NULL biome found when mapping volcanoes."); }
+                    BlockPos pos = new BlockPos(baseX * 16, 0, baseZ * 16);
+                    IRealisticBiome realisticBiome = RTGAPI.getRTGBiome(biomeProvider.getBiome(pos));
+                    if (realisticBiome == null) {
+                        realisticBiome = new RealisticBiomePatcher().getPatchedRealisticBiome("No biome " + pos.getX() + " " + pos.getZ());
+                    }
                     if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
 
                     // Have volcanoes been disabled via frequency?
@@ -93,9 +94,8 @@ public class VolcanoGenerator
                     Random rand = new Random(rtgWorld.getChunkSeed(baseX, baseZ));
                     if (rand.nextInt(chance)>0) return;
 
-                    if (cmr.getRiverStrength(baseX * 16, baseZ * 16) + 1f > 0.98f &&
-// TODO: [1.12] This call should be fixed later with the new IBiomeProvider
-                        isBorderlessAt((BiomeProvider)cmr, baseX * 16, baseZ * 16)) {
+                    if (TerrainBase.getRiverStrength(baseX * 16, baseZ * 16, rtgWorld) + 1f > 0.98f &&
+                        isBorderlessAt(biomeProvider, new BlockPos(baseX * 16, 0, baseZ * 16))) {
 
                          // we have to pull it out of noVolcano. We do it this way to avoid having to make a ChunkPos twice
                         noVolcano.remove(new ChunkPos(baseX, baseZ));
@@ -251,14 +251,13 @@ public class VolcanoGenerator
         }
     }
 
-    private boolean isBorderlessAt(BiomeProvider provider, int worldX, int worldZ) {
+    private boolean isBorderlessAt(final BiomeProviderRTG biomeProvider, final BlockPos pos) {
 
-        MutableBlockPos mpos = new MutableBlockPos(worldX, 0, worldZ);
-        Biome biome = provider.getBiome(mpos);
-// TODO: [1.12] Why is this sampling such a small area?
+        Biome originBiome = biomeProvider.getBiome(pos);
         for (int x = -2; x <= 2; x++) {
             for (int z = -2; z <= 2; z++) {
-                if (provider.getBiome(mpos.setPos(mpos.getX() + x, 0, mpos.getZ() + z)) == biome) {
+                if (x == 0 && z == 0) { continue; }// no need to check origin
+                if (biomeProvider.getBiome(pos.add(x * 16, 0, z * 16)) != originBiome) {
                     return false;
                 }
             }

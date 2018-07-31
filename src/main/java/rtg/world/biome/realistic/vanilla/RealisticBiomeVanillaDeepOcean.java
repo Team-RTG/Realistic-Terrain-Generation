@@ -15,15 +15,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionOcean;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.DEEP_OCEAN;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaDeepOcean() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaDeepOcean(config, Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f);
+        return new SurfaceVanillaDeepOcean(getConfig(), Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f);
     }
 
     public class SurfaceVanillaDeepOcean extends SurfaceBase {

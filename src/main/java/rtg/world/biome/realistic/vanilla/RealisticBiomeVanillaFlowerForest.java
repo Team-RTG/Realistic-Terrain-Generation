@@ -22,6 +22,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
@@ -35,14 +36,14 @@ import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_FOREST;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaFlowerForest() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeVanillaBase
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaFlowerForest(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f);
+        return new SurfaceVanillaFlowerForest(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.05f);
     }
 
     public class SurfaceVanillaFlowerForest extends SurfaceBase {

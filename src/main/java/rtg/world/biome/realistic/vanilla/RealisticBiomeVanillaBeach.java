@@ -16,16 +16,17 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCocosNucifera;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.BEACH;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaBeach() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaBeach(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaBeach(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaBeach extends SurfaceBase {

@@ -20,15 +20,16 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.EXTREME_HILLS_WITH_TREES;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaExtremeHillsPlus() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeVanilla
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsPlus(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f);
+        return new SurfaceVanillaExtremeHillsPlus(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRAVEL.getDefaultState(), 0.08f);
     }
 
     public class SurfaceVanillaExtremeHillsPlus extends SurfaceBase {

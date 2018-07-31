@@ -24,15 +24,16 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.SAVANNA_PLATEAU;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaSavannaPlateau() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -149,12 +150,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeVanillaBa
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaSavannaPlateau(config, biome.topBlock, biome.fillerBlock, 0);
-    }
-
-    @Override
-    public Biome beachBiome() {
-        return this.getBeachBiome(Biomes.BEACH);
+        return new SurfaceVanillaSavannaPlateau(getConfig(), biome.topBlock, biome.fillerBlock, 0);
     }
 
     public class SurfaceVanillaSavannaPlateau extends SurfaceBase {

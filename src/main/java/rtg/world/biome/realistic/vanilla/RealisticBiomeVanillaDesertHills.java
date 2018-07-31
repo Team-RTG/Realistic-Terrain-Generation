@@ -15,15 +15,16 @@ import rtg.api.world.deco.collection.DecoCollectionDesert;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaDesertHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.DESERT_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaDesertHills() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -61,18 +62,13 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeVanillaBase 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaDesertHills(config, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f);
+        return new SurfaceVanillaDesertHills(getConfig(), Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f);
     }
 
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
-    }
-
-    @Override
-    public Biome beachBiome() {
-        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceVanillaDesertHills extends SurfaceBase {

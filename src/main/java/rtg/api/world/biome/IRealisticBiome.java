@@ -21,6 +21,8 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase.BeachType;
+import rtg.world.biome.realistic.RealisticBiomeBase.RiverType;
 
 /**
  * Created by WhichOnesPink on 06/02/2017.
@@ -32,9 +34,10 @@ public interface IRealisticBiome
     Biome            baseBiome();
     ResourceLocation baseBiomeResLoc();
     int              baseBiomeId();
-    Biome            beachBiome();
-    Biome            riverBiome();
-    IRealisticBiome  getRTGRiverBiome();
+    RiverType        getRiverType();
+    BeachType        getBeachType();
+    IRealisticBiome  getRiverBiome();
+    IRealisticBiome  getBeachBiome();
 
 // TODO: [1.12] This should not return a BiomeConfig object, but an object holder class that holds the raw config values that can be resynced on-demand.
     BiomeConfig getConfig();
@@ -44,6 +47,8 @@ public interface IRealisticBiome
 
 // TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     SurfaceBase surface();
+
+    void rReplace(final ChunkPrimer primer, final BlockPos blockPos, final int x, final int y, final int depth, final RTGWorld rtgWorld, final float[] noise, final float river, final Biome[] base);
 
     void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base);
 
@@ -223,13 +228,4 @@ public interface IRealisticBiome
 
 // TODO: [1.12] To be removed. This should not be part of the API and should be done in the constructor
     @Deprecated void initConfig();
-
-// TODO: [1.12] To be removed. All RTGbiomes will have a config.
-    @Deprecated boolean hasConfig();
-
-// TODO: [1.12] To be removed. Added temporarily until beach handling can be sorted out in the API.
-    @Deprecated boolean disallowBeaches();
-
-// TODO: [1.12] To be removed. Added temporarily until beach handling can be sorted out in the API.
-    @Deprecated boolean disallowStoneBeaches();
 }

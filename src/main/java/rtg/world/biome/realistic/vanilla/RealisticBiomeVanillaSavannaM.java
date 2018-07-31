@@ -19,15 +19,16 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionSavanna;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_SAVANNA;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaSavannaM() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -62,12 +63,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaSavannaM(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
-    }
-
-    @Override
-    public Biome beachBiome() {
-        return this.getBeachBiome(Biomes.BEACH);
+        return new SurfaceVanillaSavannaM(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
     }
 
     public class SurfaceVanillaSavannaM extends SurfaceBase {

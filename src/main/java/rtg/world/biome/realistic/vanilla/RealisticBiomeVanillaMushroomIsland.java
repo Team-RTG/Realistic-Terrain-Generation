@@ -16,20 +16,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUSHROOM_ISLAND;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMushroomIsland() {
 
-        super(biome, river);
-    }
-
-    @Override
-    public Biome beachBiome() {
-        return this.getBeachBiome(Biomes.MUSHROOM_ISLAND_SHORE);
+        super(biome, BeachType.STONE);
     }
 
     @Override
@@ -63,7 +59,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeVanillaBa
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMushroomIsland(config, biome.topBlock, biome.fillerBlock, 0f);
+        return new SurfaceVanillaMushroomIsland(getConfig(), biome.topBlock, biome.fillerBlock, 0f);
     }
 
     public class SurfaceVanillaMushroomIsland extends SurfaceBase {

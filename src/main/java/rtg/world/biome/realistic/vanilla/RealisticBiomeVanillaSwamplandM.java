@@ -20,15 +20,16 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_SWAMPLAND;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaSwamplandM() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaSwamplandM(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaSwamplandM(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaSwamplandM extends SurfaceBase {

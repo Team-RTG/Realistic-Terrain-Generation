@@ -17,15 +17,16 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.DESERT;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaDesert() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -68,18 +69,13 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaDesert(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaDesert(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
-    }
-
-    @Override
-    public Biome beachBiome() {
-        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceVanillaDesert extends SurfaceBase {

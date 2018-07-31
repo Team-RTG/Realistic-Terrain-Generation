@@ -25,15 +25,19 @@ public final class BiomeMap implements IntegerLIMap<Biome, IRealisticBiome>
     private static final long serialVersionUID = -5276712268351774212L;
 
     @SuppressWarnings("unchecked")
-    private final IndexMapEntry<Biome, IRealisticBiome, Integer>[] entries = new IndexMapEntry[getCapacity()];
+    transient private final IndexMapEntry<Biome, IRealisticBiome, Integer>[] entries = new IndexMapEntry[getCapacity()];
     private boolean locked = false;
 
     public BiomeMap() { }
 
+
     /* BiomeMap exclusive */
-    public void addBiome(IRealisticBiome rBiome) {
-        put(rBiome.baseBiome(), rBiome);
+
+    public void addBiomes(IRealisticBiome... rbiomes)
+    {
+        Arrays.stream(rbiomes).forEach(b-> put(b.baseBiome(), b));
     }
+
 
     /* LimitedIndexedMap Overrides */
 

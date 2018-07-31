@@ -16,15 +16,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
 
 	public static Biome biome = Biomes.ICE_PLAINS;
 	public static Biome river = Biomes.FROZEN_RIVER;
 	
 	public RealisticBiomeVanillaIcePlains() {
 
-		super(biome, river);
+		super(biome, RiverType.FROZEN, BeachType.COLD);
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
 
 	    if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
 
-            return new SurfacePolar(config,
+            return new SurfacePolar(getConfig(),
                 Blocks.SNOW.getDefaultState(), //Block top
                 biome.fillerBlock, //Block filler,
                 Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
@@ -71,7 +72,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeVanillaBase {
         }
         else {
 
-            return new SurfaceVanillaIcePlains(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock);
+            return new SurfaceVanillaIcePlains(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock);
         }
 
 	}

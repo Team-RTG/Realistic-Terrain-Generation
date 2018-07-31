@@ -16,15 +16,16 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionIceTrees;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_ICE_FLATS;
     public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeVanillaIcePlainsSpikes() {
 
-        super(biome, river);
+        super(biome, RiverType.FROZEN, BeachType.COLD);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeVanillaB
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaIcePlainsSpikes(config, biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock);
+        return new SurfaceVanillaIcePlainsSpikes(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock);
     }
 
     public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {

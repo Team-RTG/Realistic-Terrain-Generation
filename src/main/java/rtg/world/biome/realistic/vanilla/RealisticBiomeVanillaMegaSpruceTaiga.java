@@ -20,16 +20,18 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_REDWOOD_TAIGA;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMegaSpruceTaiga() {
 
-        super(biome, river);
+        super(biome, BeachType.STONE);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeVanillaB
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMegaSpruceTaiga(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaMegaSpruceTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {

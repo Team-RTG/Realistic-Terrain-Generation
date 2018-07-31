@@ -18,15 +18,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.FOREST_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaForestHills() {
 
-        super(biome, river);
+        super(biome);
 
 /* 1.12 properties removed
         // Prevent ores from messing up the surface.
@@ -80,7 +81,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeVanillaBase 
     public SurfaceBase initSurface() {
 
         return new SurfaceVanillaForestHills(
-            config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
+            getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
             0f, 1.5f, 60f, 65f, 1.5f,
             BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
         );

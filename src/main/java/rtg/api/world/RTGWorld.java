@@ -25,10 +25,14 @@ import rtg.api.world.gen.RTGChunkGenSettings;
  */
 public final class RTGWorld
 {
-    private static final Map<World, RTGWorld> INSTANCE_CACHE = new HashMap<>();
+    private static final double RIVER_LARGE_BEND_SIZE_BASE = 140D;
+    private static final double RIVER_SMALL_BEND_SIZE_BASE = 30D;
+    private static final double RIVER_SEPARATION_BASE      = 975D;
+    private static final double RIVER_VALLEY_LEVEL_BASE    = 140D / 450D;
+    private static final int    SIMPLEX_INSTANCE_COUNT     = 10;
+    private static final int    CELLULAR_INSTANCE_COUNT    = 5;
 
-    private static final int SIMPLEX_INSTANCE_COUNT = 10;
-    private static final int CELLULAR_INSTANCE_COUNT = 5;
+    private static final Map<World, RTGWorld> INSTANCE_CACHE = new HashMap<>();
 
     private final World                  world;
     private final RTGChunkGenSettings    generatorSettings;
@@ -169,6 +173,51 @@ public final class RTGWorld
         if (index >= this.cellularNoiseInstances.length) { index = 0; }
         return this.cellularNoiseInstances[index];
     }
+
+    /**
+     *  Gets the large bend size value of rivers for this world.
+     *
+     * @return the river large bend size
+     *
+     * @since 1.0.0
+     */
+    public double getRiverLargeBendSize() {
+        return RIVER_LARGE_BEND_SIZE_BASE * generatorSettings.riverBendMult;
+    }
+
+    /**
+     *  Gets the small bend size value of rivers for this world.
+     *
+     * @return the river small bend size
+     *
+     * @since 1.0.0
+     */
+    public double getRiverSmallBendSize() {
+        return RIVER_SMALL_BEND_SIZE_BASE * generatorSettings.riverBendMult;
+    }
+
+    /**
+     *  Gets the river separation for this world.
+     *
+     * @return the river separation
+     *
+     * @since 1.0.0
+     */
+    public double getRiverSeparation() {
+        return RIVER_SEPARATION_BASE / generatorSettings.riverFrequency;
+    }
+
+    /**
+     *  Gets the river valley level for this world.
+     *
+     * @return the river valley level
+     *
+     * @since 1.0.0
+     */
+    public double getRiverValleyLevel() {
+        return RIVER_VALLEY_LEVEL_BASE * generatorSettings.riverSizeMult * generatorSettings.riverFrequency;
+    }
+
 
     @Deprecated // To be removed when the decoration system is rewritten.
     public TimedHashSet<ChunkPos> decoratedChunks() {

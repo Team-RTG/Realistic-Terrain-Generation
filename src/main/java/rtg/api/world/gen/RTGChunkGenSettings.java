@@ -54,7 +54,7 @@ public final class RTGChunkGenSettings
     public final int     volcanoConduitDepth;   // RTG
 
 
-    public final float   riverSize;             // Vanilla (repurposed)
+    public final float   riverSizeMult;         // Vanilla (repurposed)
     public final float   riverFrequency;        // RTG
     public final float   riverBendMult;         // RTG
     public final float   riverCutOffAmpl;       // RTG
@@ -190,7 +190,7 @@ public final class RTGChunkGenSettings
         this.volcanoConduitDepth    = settingsFactory.volcanoConduitDepth;
 
 
-        this.riverSize              = settingsFactory.riverSize;
+        this.riverSizeMult          = settingsFactory.riverSizeMult;
         this.riverFrequency         = settingsFactory.riverFrequency;
         this.riverBendMult          = settingsFactory.riverBendMult;
         this.riverCutOffAmpl        = settingsFactory.riverCutOffAmpl;
@@ -327,7 +327,7 @@ public final class RTGChunkGenSettings
         public int      volcanoConduitDepth  = 0;
 
 
-        public float    riverSize            = 4.0f;
+        public float    riverSizeMult        = 1.0f;
         public float    riverFrequency       = 1.0f;
         public float    riverBendMult        = 1.0f;
         public float    riverCutOffAmpl      = 0.5f;
@@ -484,7 +484,7 @@ public final class RTGChunkGenSettings
             this.volcanoConduitDepth    = 0;
 
 
-            this.riverSize              = 4.0f;
+            this.riverSizeMult          = 1.0f;
             this.riverFrequency         = 1.0f;
             this.riverBendMult          = 1.0f;
             this.riverCutOffAmpl        = 0.5f;
@@ -639,7 +639,7 @@ public final class RTGChunkGenSettings
                 settings.volcanoConduitDepth    = JsonUtils.getInt(json,    "volcanoConduitDepth",  settings.volcanoConduitDepth);
 
 
-                settings.riverSize              = JsonUtils.getFloat(json,  "riverSize",            settings.riverSize);
+                settings.riverSizeMult          = JsonUtils.getFloat(json,  "riverSizeMult",        settings.riverSizeMult);
                 settings.riverFrequency         = JsonUtils.getFloat(json,  "riverFrequency",       settings.riverFrequency);
                 settings.riverBendMult          = JsonUtils.getFloat(json,  "riverBendMult",        settings.riverBendMult);
                 settings.riverCutOffAmpl        = JsonUtils.getFloat(json,  "riverCutOffAmpl",      settings.riverCutOffAmpl);
@@ -781,7 +781,7 @@ public final class RTGChunkGenSettings
             json.addProperty("volcanoConduitDepth",  factory.volcanoConduitDepth);
 
 
-            json.addProperty("riverSize",            factory.riverSize);
+            json.addProperty("riverSizeMult",        factory.riverSizeMult);
             json.addProperty("riverFrequency",       factory.riverFrequency);
             json.addProperty("riverBendMult",        factory.riverBendMult);
             json.addProperty("riverCutOffAmpl",      factory.riverCutOffAmpl);

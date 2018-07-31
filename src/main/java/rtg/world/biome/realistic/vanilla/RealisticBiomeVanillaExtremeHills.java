@@ -18,15 +18,16 @@ import rtg.api.world.deco.collection.DecoCollectionExtremeHillsCommon;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.*;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.EXTREME_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaExtremeHills() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -155,7 +156,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeVanillaBase
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHills(config, biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+        return new SurfaceVanillaExtremeHills(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
     public class SurfaceVanillaExtremeHills extends SurfaceBase {

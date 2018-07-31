@@ -18,15 +18,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionBirchForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.BIRCH_FOREST_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaBirchForestHills() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeVanilla
     public SurfaceBase initSurface() {
 
         return new SurfaceVanillaBirchForestHills(
-            config,
+            getConfig(),
             Blocks.GRASS.getDefaultState(),
             Blocks.DIRT.getDefaultState(),
             0f, 1.5f, 60f, 65f, 1.5f,

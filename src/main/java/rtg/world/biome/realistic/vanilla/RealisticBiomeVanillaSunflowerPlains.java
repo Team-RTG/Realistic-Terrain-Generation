@@ -16,15 +16,16 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_PLAINS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaSunflowerPlains() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeVanillaB
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaSunflowerPlains(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaSunflowerPlains(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaSunflowerPlains extends SurfaceBase {

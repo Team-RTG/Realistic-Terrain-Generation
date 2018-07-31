@@ -1,6 +1,6 @@
 package rtg.world.biome.realistic;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,15 +38,14 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
 
     public static final float actualRiverProportion = 150f/1600f;
-    public static final float riverFlatteningAddend = actualRiverProportion / (1f - actualRiverProportion);
+    private static final float riverFlatteningAddend = actualRiverProportion / (1f - actualRiverProportion);
 
-// TODO: [1.12] These fields should all be private and final, all should be set in the constructor and #init removed. Use the interface!
-    public  final Biome             baseBiome;
+    private final Biome             baseBiome;
     private final ResourceLocation  baseBiomeResLoc;
     private final int               baseBiomeId;
-    private final Biome             riverBiome;
-    private final Biome             beachBiome;
-    public  final BiomeConfig       config;
+    private final RiverType         riverType;
+    private final BeachType         beachType;
+    private final BiomeConfig       config;
     private final TerrainBase       terrain;
     private final SurfaceBase       surface;
     private final SurfaceBase       surfaceRiver;
@@ -61,33 +60,42 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     private final float             smallBendSize       = 12;
 
 // TODO: [1.12] To be removed.
-    private boolean disallowStoneBeaches = false; // this is for rugged biomes that should have sand beaches
-    private boolean disallowAllBeaches   = false;
     private ArrayList<DecoBase> decos;
     private ArrayList<TreeRTG> rtgTrees;
 // ...
 
+    public RealisticBiomeBase(@Nonnull final Biome baseBiome) {
+        this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
+    }
 
-    public RealisticBiomeBase(Biome biome, Biome river) {
+    public RealisticBiomeBase(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+        this(baseBiome, riverType, BeachType.NORMAL);
+    }
 
-        this.baseBiome = biome;
-        ResourceLocation resloc = baseBiome().getRegistryName();
+    public RealisticBiomeBase(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+        this(baseBiome, RiverType.NORMAL, beachType);
+    }
+
+    public RealisticBiomeBase(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
+        ResourceLocation resloc = baseBiome.getRegistryName();
         if (resloc == null) {
             throw new IllegalStateException(String.format("Biome with ID: %s, of class: %s, does not have a registry name set.",
-                Biome.getIdForBiome(baseBiome()), baseBiome().getClass().getName()));
+                Biome.getIdForBiome(baseBiome), baseBiome.getClass().getName()));
         }
-        this.baseBiomeResLoc = resloc;
-        this.baseBiomeId = Biome.getIdForBiome(biome);
-        this.riverBiome = river;
-        this.beachBiome = getBeachBiome(getPreferredBeachForBiome(baseBiome));
-        this.config = new BiomeConfig(getConfigFile());
-        this.terrain = initTerrain();
-        this.surface = initSurface();
-        this.surfaceRiver = new SurfaceRiverOasis(config);
-        this.rDecorator = new BiomeDecoratorRTG(this);
 
-        this.decos = new ArrayList<>();
-        this.rtgTrees = new ArrayList<>();
+        this.baseBiome          = baseBiome;
+        this.baseBiomeResLoc    = resloc;
+        this.baseBiomeId        = Biome.getIdForBiome(baseBiome);
+        this.riverType          = riverType;
+        this.beachType          = beachType;
+        this.config             = new BiomeConfig(getConfigFile());
+        this.terrain            = initTerrain();
+        this.surface            = initSurface();
+        this.surfaceRiver       = new SurfaceRiverOasis(config);
+        this.rDecorator         = new BiomeDecoratorRTG(this);
+        this.decos              = new ArrayList<>();
+        this.rtgTrees           = new ArrayList<>();
 
         /*
          *  Disable base biome decorations by default.
@@ -100,20 +108,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
 
         initConfig();
 
-        // Realistic biomes have configs... organic biomes do not.
-// TODO: [1.12] To be removed.
-        if (this.hasConfig()) { this.getConfig().loadConfig(); }
+        getConfig().loadConfig();
 
-        this.adjustBiomeProperties();
+        adjustBiomeProperties();
 
         initDecos();
-
-
-// TODO: [1.12] #init functionality should be moved here since it gets called from here.
-        this.init();
-    }
-
-    protected void init() {
     }
 
     @Override
@@ -122,24 +121,28 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     }
 
     @Override
-    public boolean hasConfig() {
-        return true;
-    }
-
-    @Override
     public final Biome baseBiome() {
         return baseBiome;
     }
 
     @Override
-    public Biome riverBiome() {
-        return this.riverBiome;
+    public RiverType getRiverType() {
+        return riverType;
     }
 
-    @Nullable
     @Override
-    public IRealisticBiome getRTGRiverBiome() {
-        return RTGAPI.getRTGBiome(riverBiome());
+    public BeachType getBeachType() {
+        return beachType;
+    }
+
+    @Override
+    public IRealisticBiome getRiverBiome() {
+        return this.riverType.getRTGBiome();
+    }
+
+    @Override
+    public IRealisticBiome getBeachBiome() {
+        return this.beachType.getRTGBiome();
     }
 
     @Override
@@ -173,26 +176,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
         return 0;
     }
 
-    /*
-     * Returns the beach biome to use for this biome.
-     * By default, it uses the beach that has been set in the biome config.
-     * If automatic beach detection is enabled (-1), it uses the supplied preferred beach.
-     */
-    protected Biome getBeachBiome(Biome preferredBeach) {
-
-        Biome beach;
-        int configBeachId = this.getConfig().BEACH_BIOME.get();
-
-        if (configBeachId > -1 && configBeachId < 256) {
-            beach = Biome.getBiome(configBeachId, preferredBeach);
-        }
-        else {
-            beach = preferredBeach;
-        }
-
-        return beach;
-    }
-
     @Override
     public ResourceLocation baseBiomeResLoc() {
         return baseBiomeResLoc;
@@ -201,14 +184,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     @Override
     public int baseBiomeId() {
         return this.baseBiomeId;
-    }
-
-    /*
-     * Returns the beach biome to use for this biome, with a dynamically-calculated preferred beach.
-     */
-    @Override
-    public Biome beachBiome() {
-        return this.beachBiome;
     }
 
     @Override
@@ -333,6 +308,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     }
 
     @Override
+    public void rReplace(ChunkPrimer primer, BlockPos blockPos, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+        rReplace(primer, blockPos.getX(), blockPos.getZ(), x, y, depth, rtgWorld, noise, river, base);
+    }
+
+    @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
@@ -363,6 +343,63 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     @Override
     public SurfaceBase surface() {
         return this.surface;
+    }
+
+    public enum BeachType {
+        NORMAL,
+        STONE,
+        COLD;
+
+        private IRealisticBiome rtgBiome;
+        private boolean locked = false;
+
+        public Biome getBiome() {
+            return (this == STONE) ? Biomes.STONE_BEACH : ((this == COLD) ? Biomes.COLD_BEACH : Biomes.BEACH);
+        }
+
+        public IRealisticBiome getRTGBiome() {
+            return rtgBiome;
+        }
+
+        public IRealisticBiome setRTGBiome(IRealisticBiome rtgBiome) {
+            if (!locked) {
+                this.rtgBiome = rtgBiome;
+                this.locked   = true;
+            }
+            return rtgBiome;
+        }
+
+        public BeachType getTypeFromBiome(Biome beachBiome) {
+            return (beachBiome == Biomes.STONE_BEACH) ? STONE : ((beachBiome == Biomes.COLD_BEACH) ? COLD : NORMAL);
+        }
+    }
+
+    public enum RiverType {
+        NORMAL,
+        FROZEN;
+
+        private IRealisticBiome rtgBiome;
+        private boolean locked = false;
+
+        public Biome getBiome() {
+            return this == NORMAL ? Biomes.RIVER : Biomes.FROZEN_RIVER ;
+        }
+
+        public IRealisticBiome getRTGBiome() {
+            return rtgBiome;
+        }
+
+        public IRealisticBiome setRTGBiome(IRealisticBiome rtgBiome) {
+            if (!locked) {
+                this.rtgBiome = rtgBiome;
+                this.locked   = true;
+            }
+            return rtgBiome;
+        }
+
+        public static RiverType getTypeFromBiome(Biome riverBiome) {
+            return (riverBiome == Biomes.FROZEN_RIVER) ? FROZEN : NORMAL;
+        }
     }
 
     private class ChunkDecoration {
@@ -426,24 +463,15 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
             .toFile();
     }
 
-    private Biome getPreferredBeachForBiome(Biome biome) {
+    protected BeachType determineBeachType() {
 
-        float height = biome.getBaseHeight() + (biome.getHeightVariation() * 2f);
-        // Use a cold beach if the temperature is low enough or the biome has the BiomeDictionary tag 'SNOWY',
-        // or use a stone beach if this is a mountainous biome or a Taiga variant, or use normal beach.
-        return (biome.getDefaultTemperature() <= 0.05f || BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY))
-            ? Biomes.COLD_BEACH
-            : (height > 1.5f || isTaigaBiome(biome) ? Biomes.STONE_BEACH : Biomes.BEACH);
-    }
+        if (baseBiome().getDefaultTemperature() <= 0.05f || BiomeDictionary.hasType(baseBiome(), BiomeDictionary.Type.SNOWY)) { return BeachType.COLD; }
 
-    @Override
-    public boolean disallowBeaches() {
-        return disallowAllBeaches;
-    }
+// TODO: [1.12] This may not be the best way to determine BeachType.STONE - Biome#getHeightVariation is spurious; #isTaigaBiome is ineffective for determining Taiga
+        float height = baseBiome().getBaseHeight() + (baseBiome().getHeightVariation() * 2f);
+        if (height > 1.5f || isTaigaBiome(baseBiome())) { return BeachType.STONE; }
 
-    @Override
-    public boolean disallowStoneBeaches() {
-        return disallowStoneBeaches;
+        return BeachType.NORMAL;
     }
 
     private boolean isTaigaBiome(Biome biome) {

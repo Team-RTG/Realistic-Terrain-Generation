@@ -16,6 +16,7 @@ import rtg.api.config.RTGConfig;
 import rtg.api.util.UtilityClass;
 import rtg.api.util.storage.BiomeMap;
 import rtg.api.world.biome.IRealisticBiome;
+import rtg.world.WorldTypeRTG;
 
 @UtilityClass
 public final class RTGAPI
@@ -32,17 +33,14 @@ public final class RTGAPI
 
     private static Path      configPath;
     private static RTGConfig rtgConfig;
-    private static WorldType rtgWorldType;
 
     public static void setConfigPath(Path path)     { if (configPath   == null) configPath   = path; }
     public static void setConfig(RTGConfig config)  { if (rtgConfig    == null) rtgConfig    = config; }
-    public static void setWorldType(WorldType type) { if (rtgWorldType == null) rtgWorldType = type; }
 
     public static Path      getConfigPath() { return configPath; }
     public static RTGConfig config()        { return rtgConfig; }
-    public static WorldType getWorldType()  { return rtgWorldType; }
 
-    public static boolean checkWorldType(WorldType worldType) { return rtgWorldType.getClass().isInstance(worldType); }
+    public static boolean checkWorldType(WorldType worldType) { return WorldTypeRTG.getInstance().equals(worldType); }
 
     public static void    addAllowedDimensionType(DimensionType dimType)    { ALLOWED_DIMENSION_TYPES.add(dimType); }
     public static void    removeAllowedDimensionType(DimensionType dimType) { ALLOWED_DIMENSION_TYPES.remove(dimType); }

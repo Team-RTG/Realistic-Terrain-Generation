@@ -16,15 +16,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.ICE_MOUNTAINS;
     public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeVanillaIceMountains() {
 
-        super(biome, river);
+        super(biome, RiverType.FROZEN, BeachType.COLD);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
             return new SurfaceVanillaIceMountains(
-                config, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
+                getConfig(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
                 Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
                 Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
                 60f, -0.14f, 14f, 0.25f
@@ -74,7 +75,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeVanillaBase
         }
         else {
             return new SurfaceVanillaIceMountains(
-                config, biome.topBlock, biome.fillerBlock,
+                getConfig(), biome.topBlock, biome.fillerBlock,
                 Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
                 Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
                 60f, -0.14f, 14f, 0.25f

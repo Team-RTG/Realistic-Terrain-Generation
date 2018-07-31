@@ -19,16 +19,18 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_ROOFED_FOREST;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaRoofedForestM() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeVanillaBas
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaRoofedForestM(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaRoofedForestM(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaRoofedForestM extends SurfaceBase {

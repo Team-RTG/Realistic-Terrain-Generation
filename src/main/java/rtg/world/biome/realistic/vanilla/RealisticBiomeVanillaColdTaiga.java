@@ -18,15 +18,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionTaiga;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.COLD_TAIGA;
     public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeVanillaColdTaiga() {
 
-        super(biome, river);
+        super(biome, RiverType.FROZEN, BeachType.COLD);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaColdTaiga(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaColdTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
     }
     public class SurfaceVanillaColdTaiga extends SurfaceBase {
 

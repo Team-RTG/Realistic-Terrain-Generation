@@ -17,15 +17,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionJungle;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaJungleHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.JUNGLE_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaJungleHills() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeVanillaBase 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaJungleHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 1f, 1.5f, 60f, 65f, 1.5f);
+        return new SurfaceVanillaJungleHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 1f, 1.5f, 60f, 65f, 1.5f);
     }
 
     public class SurfaceVanillaJungleHills extends SurfaceBase {

@@ -20,16 +20,18 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MUTATED_BIRCH_FOREST;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaBirchForestM() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeVanillaBase
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaBirchForestM(config, biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState(), 0.15f);
+        return new SurfaceVanillaBirchForestM(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.DIRT.getDefaultState(), 0.15f);
     }
 
     public class SurfaceVanillaBirchForestM extends SurfaceBase {

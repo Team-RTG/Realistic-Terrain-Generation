@@ -18,15 +18,16 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionTaiga;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.TAIGA_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaTaigaHills() {
 
-        super(biome, river);
+        super(biome, BeachType.STONE);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaTaigaHills(config, biome.topBlock, biome.fillerBlock);
+        return new SurfaceVanillaTaigaHills(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaTaigaHills extends SurfaceBase {

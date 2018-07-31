@@ -20,15 +20,16 @@ import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.world.biome.realistic.RealisticBiomeBase;
 
-public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaMesa extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.MESA;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMesa() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMesa(config, biome.topBlock, BlockUtil.getStateClay(EnumDyeColor.ORANGE), 0);
+        return new SurfaceVanillaMesa(getConfig(), biome.topBlock, BlockUtil.getStateClay(EnumDyeColor.ORANGE), 0);
     }
 
     @Override
@@ -76,11 +77,6 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeVanillaBase {
     @Override
     public int getExtraGoldGenCount() {
         return 20;
-    }
-
-    @Override
-    public Biome beachBiome() {
-        return this.getBeachBiome(Biomes.BEACH);
     }
 
     public class SurfaceVanillaMesa extends SurfaceBase {

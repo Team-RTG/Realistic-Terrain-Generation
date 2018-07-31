@@ -1,9 +1,13 @@
 package rtg.api.world.terrain;
 
+import net.minecraft.util.math.BlockPos;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.CellularNoise;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
@@ -572,6 +576,39 @@ public abstract class TerrainBase {
 
         return baseHeight + h * border;
     }
+
+    public static float getRiverStrength(final BlockPos blockPos, final RTGWorld rtgWorld) {
+        return getRiverStrength(blockPos.getX(), blockPos.getZ(), rtgWorld);
+    }
+
+    public static float getRiverStrength(final int worldX, final int worldZ, final RTGWorld rtgWorld) {
+
+        double pX = worldX;
+        double pZ = worldZ;
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
+
+        //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
+        rtgWorld.simplexInstance(1).multiEval2D((float) worldX / 240.0, (float) worldZ / 240.0, jitterData);
+        pX += jitterData.getDeltaX() * rtgWorld.getRiverLargeBendSize();
+        pZ += jitterData.getDeltaY() * rtgWorld.getRiverLargeBendSize();
+
+        rtgWorld.simplexInstance(2).multiEval2D((float) worldX / 80.0, (float) worldZ / 80.0, jitterData);
+        pX += jitterData.getDeltaX() * rtgWorld.getRiverSmallBendSize();
+        pZ += jitterData.getDeltaY() * rtgWorld.getRiverSmallBendSize();
+
+        pX /= rtgWorld.getRiverSeparation();
+        pZ /= rtgWorld.getRiverSeparation();
+
+        //New cellular noise.
+        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
+        double riverFactor = rtgWorld.cellularInstance(0).eval2D(pX, pZ).interiorValue();
+
+        // the output is a curved function of relative distance from the center, so adjust to make it flatter
+        riverFactor = Terrain.bayesianAdjustment((float) riverFactor, 0.5f);
+        if (riverFactor > rtgWorld.getRiverValleyLevel()) { return 0; }// no river effect
+        return (float) (riverFactor / rtgWorld.getRiverValleyLevel() - 1d);
+    }
+
 
     public abstract float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 }

@@ -19,16 +19,18 @@ import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionMegaTaiga;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.RealisticBiomeBase;
+
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
-public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBase {
+public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeBase {
 
     public static Biome biome = Biomes.REDWOOD_TAIGA_HILLS;
     public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeVanillaMegaTaigaHills() {
 
-        super(biome, river);
+        super(biome);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class RealisticBiomeVanillaMegaTaigaHills extends RealisticBiomeVanillaBa
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaMegaTaigaHills(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f);
+        return new SurfaceVanillaMegaTaigaHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f);
     }
 
     public class SurfaceVanillaMegaTaigaHills extends SurfaceBase {

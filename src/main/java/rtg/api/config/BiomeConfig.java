@@ -114,7 +114,7 @@ public class BiomeConfig extends Config {
         this.addProperty(VOLCANO_CHANCE);
 
         DISABLE_RTG_DECORATIONS = new ConfigPropertyBoolean(
-            "Diesable RTG Decorations",
+            "Disable RTG Decorations",
             "Decorations",
             "If TRUE, RTG decorations will disabled in this biome and only vanilla decorations will generate."
                 + Configuration.NEW_LINE + "RTG decorations include custom trees, shrubs, boulders, etc.",
@@ -307,15 +307,5 @@ public class BiomeConfig extends Config {
         ALLOW_ICE_TREES    = new ConfigPropertyBoolean("Allow Ice Trees",    "Decorations.Ice Trees", "", true);
         ALLOW_SPONGE       = new ConfigPropertyBoolean("Allow Sponge",       "Decorations.Sponge", "", true);
         ALLOW_OCEAN_WAVES  = new ConfigPropertyBoolean("Allow Ocean Waves",  "Decorations.Waves", "", true);
-    }
-
-// TODO: [1.12] Remove this after updating IRealisticBiome#biomeSlug
-    public static String formatSlug(String s) {
-
-        s = s.toLowerCase();
-        s = s.replaceAll("\\+", "plus");
-        s = s.replaceAll("\\W", "");
-
-        return s;
     }
 }

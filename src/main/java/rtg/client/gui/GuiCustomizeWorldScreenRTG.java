@@ -510,9 +510,9 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         volcanoConduitDepth (SettingType.INTEGER, defaults.volcanoConduitDepth,     0,  128, Category.VOLCANOS),
 
 
-        riverSize           (SettingType.FLOAT,   defaults.riverSize,            0.0f, 8.0f, Category.RIVERS),
+        riverSize           (SettingType.FLOAT,   defaults.riverSizeMult,        0.5f, 2.0f, Category.RIVERS),
         riverFrequency      (SettingType.FLOAT,   defaults.riverFrequency,       0.0f, 8.0f, Category.RIVERS),
-        riverBendMult       (SettingType.FLOAT,   defaults.riverBendMult,        0.0f, 2.0f, Category.RIVERS),
+        riverBendMult       (SettingType.FLOAT,   defaults.riverBendMult,        0.5f, 2.0f, Category.RIVERS),
         riverCutOffAmpl     (SettingType.FLOAT,   defaults.riverCutOffAmpl,      0.0f, 2.0f, Category.RIVERS),
         riverCutOffScale    (SettingType.FLOAT,   defaults.riverCutOffScale,    50.0f,750.0f,Category.RIVERS),
 

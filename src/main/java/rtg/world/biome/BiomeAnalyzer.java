@@ -5,6 +5,7 @@ import java.util.Arrays;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
+import net.minecraftforge.common.BiomeDictionary;
 import rtg.api.RTGAPI;
 import rtg.api.util.CircularSearchCreator;
 import rtg.api.world.biome.IRealisticBiome;
@@ -16,7 +17,7 @@ import rtg.world.biome.realistic.RealisticBiomePatcher;
  * @author Zeno410, Modified by srs_bsns 20160914
  */
 public class BiomeAnalyzer {
-// TODO: [1.12] These should be unmodifiable Collections<Biome> using #contains for checks and they should be poplated from the BiomeDictionary
+    // TODO: [1.12] These should be unmodifiable Collections<Biome> using #contains for checks and they should be poplated from the BiomeDictionary
     private boolean [] riverBiome;
     private boolean [] oceanBiome;
     private boolean [] swampBiome;
@@ -216,81 +217,63 @@ public class BiomeAnalyzer {
             this.notHunted = true;
         }
     }
-
-// TODO: [1.12] Use BiomeDictionary
+    
     private void determineRiverBiomes() {
         riverBiome = new boolean[256];
         for (int i = 0; i < riverBiome.length; i++) {
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            if (biome.getBiomeName().toLowerCase().contains("river")) riverBiome[i] = true;
+            if (BiomeDictionary.hasType(biome,BiomeDictionary.Type.RIVER)) riverBiome[i] = true;
         }
     }
-
-// TODO: [1.12] Use BiomeDictionary
+    
     private void determineOceanBiomes() {
         oceanBiome = new boolean[256];
         for (int i = 0; i < oceanBiome.length; i++) {
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            if (biome.getBiomeName().toLowerCase().contains("ocean")) oceanBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("kelp"))  oceanBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("coral")) oceanBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("reef")) oceanBiome[i] = true;
+            if (BiomeDictionary.hasType(biome,BiomeDictionary.Type.OCEAN)) oceanBiome[i] = true;
         }
         oceanBiome[Biome.getIdForBiome(Biomes.DEEP_OCEAN)]=true;// not getting set?
     }
-
-// TODO: [1.12] Use BiomeDictionary
+    
     private void determineSwampBiomes() {
         swampBiome = new boolean[256];
         for (int i = 0; i < swampBiome.length; i++) {
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            if (biome.getBiomeName().toLowerCase().contains("swamp"))             swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("bayou"))             swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("bog"))               swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("wetland"))           swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("sludge"))            swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("marsh"))             swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("fen"))               swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("moor"))              swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("quagmire"))          swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("ephemeral lake"))    swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("rainforest valley")) swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("riparian zone"))     swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("ice sheet"))         swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("woodland lake"))     swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().contains("archipelago"))       swampBiome[i] = true;
-            if (biome.getBiomeName().toLowerCase().equals("shield"))              swampBiome[i] = true;
+            if (BiomeDictionary.hasType(biome,BiomeDictionary.Type.SWAMP))             swampBiome[i] = true;
             if (Biome.getIdForBiome(biome) == Biome.getIdForBiome(Biomes.FROZEN_RIVER)) swampBiome[i] = true;
         }
     }
-
-// TODO: [1.12] Use BiomeDictionary
+    
     private void determineLandBiomes() {
         landBiome = new boolean[256];
         for (int i = 0; i < landBiome.length; i++) {
-            if (!oceanBiome[i] && !riverBiome[i] && !beachBiome[i]) {
-                Biome biome = Biome.getBiome(i);
-                if (biome == null) continue;
-                if (!biome.getBiomeName().toLowerCase().equals("lake")) landBiome[i] = true;
-            }
+            landBiome[i] = true;   
         }
+        
+        // There is no LAKE Type, so code below is oblivious
+//        for (int i = 0; i < landBiome.length; i++) {
+//            if (!oceanBiome[i] && !riverBiome[i] && !beachBiome[i]) {
+//                Biome biome = Biome.getBiome(i);
+//                if (biome == null) continue;
+//                
+//                if (!biome.getBiomeName().toLowerCase().equals("lake")) landBiome[i] = true;
+//            }
+//        }
     }
-
-// TODO: [1.12] Use BiomeDictionary
+    
     private void determineBeachBiomes() {
         beachBiome = new boolean[256];
         for (int i = 0; i < beachBiome.length; i++) {
             Biome biome = Biome.getBiome(i);
             if (biome == null) continue;
-            if (biome.getBiomeName().toLowerCase().contains("beach") ||
-                biome.getBiomeName().toLowerCase().contains("mangrove")) beachBiome[i] = true;
+            if (BiomeDictionary.hasType(biome,BiomeDictionary.Type.BEACH)) beachBiome[i] = true;
         }
     }
 
-// TODO: [1.12] A biomes 'prefered beach' should be added to the API in IRealisticBiome with the data stored in RealisticBiomeBase. Should use the BiomeConfig beach entry.
+    // TODO: [1.12] A biomes 'prefered beach' should be added to the API in IRealisticBiome with the data stored in RealisticBiomeBase. Should use the BiomeConfig beach entry.
     private void setupBeachesForBiomes() {
 
         preferredBeach = new int[256];
@@ -311,7 +294,7 @@ public class BiomeAnalyzer {
      *
      */
 
-// TODO: [1.12] genLayerBiomes should be a Biome[] where we can just grab the IRealisticBiome from the new BiomeMap
+    // TODO: [1.12] genLayerBiomes should be a Biome[] where we can just grab the IRealisticBiome from the new BiomeMap
     public void newRepair(Biome[] genLayerBiomes, IRealisticBiome[] jitteredBiomes, int[] biomeNeighborhood, int neighborhoodSize, float[] noise, float[] riverStrength) {
 
         int sampleSize = 8;
@@ -326,7 +309,7 @@ public class BiomeAnalyzer {
             // Do we need to patch the biome?
             if (realisticBiome == null) {
                 realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                    "NULL biome (" + i + ") found when performing new repair.");
+                        "NULL biome (" + i + ") found when performing new repair.");
             }
             realisticBiomeId = Biome.getIdForBiome(realisticBiome.baseBiome());
 
@@ -376,7 +359,7 @@ public class BiomeAnalyzer {
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + i + ") found when performing new repair.");
+                            "NULL biome (" + i + ") found when performing new repair.");
                 }
                 jitteredBiomes[i] = realisticBiome;
             }
@@ -396,7 +379,7 @@ public class BiomeAnalyzer {
             if (swampBiome[biomeID]) continue;
             if (landSearch.isNotHunted()) landSearch.hunt(biomeNeighborhood);
             int foundBiome = landSearch.biomes[i];
-            
+
             if (foundBiome == NO_BIOME) {
                 // no land found; try for a beach
                 if (beachSearch.isNotHunted()) {
@@ -411,7 +394,7 @@ public class BiomeAnalyzer {
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + i + ") found when performing new repair.");
+                            "NULL biome (" + i + ") found when performing new repair.");
                 }
                 jitteredBiomes[i] = realisticBiome;
             }
@@ -437,7 +420,7 @@ public class BiomeAnalyzer {
                 // Do we need to patch the biome?
                 if (realisticBiome == null) {
                     realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + i + ") found when performing new repair.");
+                            "NULL biome (" + i + ") found when performing new repair.");
                 }
                 jitteredBiomes[i] = realisticBiome;
             }

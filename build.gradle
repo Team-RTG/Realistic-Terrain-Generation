@@ -53,8 +53,6 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}
 }
 
-reobf { apiJar { mappingType = "SEARGE" } }
-
 task apiJar(type: Jar) {
     from(sourceSets.main.allJava) {
         include "rtg/api/**"
@@ -67,11 +65,9 @@ task apiJar(type: Jar) {
 }
 
 jar {
-    exclude "rtg/api/**"
-    from(tasks.apiJar.archivePath.absolutePath) {}
-    manifest { attributes([
-        "ContainedDeps" : tasks.apiJar.archivePath.name,
-        "Maven-Artifact": "${project.group}:${archivesBaseName}:${project.version}"
-    ]) }
-    dependsOn reobfApiJar
+    manifest { attributes(["Maven-Artifact": "${project.group}:${archivesBaseName}:${project.version}"]) }
+}
+
+artifacts {
+    archives apiJar
 }

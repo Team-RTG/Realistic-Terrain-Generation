@@ -118,7 +118,7 @@ public final class BlockUtil
      * should be written identically as how they appear from a call to {@link BlockStateBase#toString()}
      * eg: <b>minecraft:stained_glass_pane[color=pink,east=false,north=true,south=true,west=false]</b>
      * The strings can contain spaces, for easier reading, which will be stripped when parsing.
-     * The strings must fallow the regular expression in {@link BlockUtil#BLOCKSTATE_PATTERN}
+     * The strings must follow the regular expression in {@link BlockUtil#BLOCKSTATE_PATTERN}
      *
      * @param configString A config string for a IBlockState.
      * @param fallback     A fallback IBlockState to return if the config is invalid, or does not exist.
@@ -135,7 +135,7 @@ public final class BlockUtil
      * should be written identically as how they appear from a call to {@link BlockStateBase#toString()}
      * eg: <b>minecraft:stained_glass_pane[color=pink,east=false,north=true,south=true,west=false]</b>
      * The strings can contain spaces, for easier reading, which will be stripped when parsing.
-     * The strings must fallow the regular expression in {@link BlockUtil#BLOCKSTATE_PATTERN}
+     * The strings must follow the regular expression in {@link BlockUtil#BLOCKSTATE_PATTERN}
      *
      * @param configString A config string for a IBlockState.
      * @return             The requested IBlockState from the config string, or <b>null</b> if the

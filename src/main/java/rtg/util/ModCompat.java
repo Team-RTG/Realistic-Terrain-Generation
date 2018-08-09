@@ -80,7 +80,7 @@ public final class ModCompat
                   + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
                   + " =.");
 
-        Logger.warn("|| " + String.format("%-91s",       "                RTG could not find realistic versions of the fallowing biomes")
+        Logger.warn("|| " + String.format("%-91s",       "                RTG could not find realistic versions of the following biomes")
                   + " ||");
 
         Logger.warn("|| " + String.format(ID_FORMAT,     new String(new char[ID_LENGTH])    .replace('\0', '='))

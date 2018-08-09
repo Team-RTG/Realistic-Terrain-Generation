@@ -80,7 +80,7 @@ public class SpacedCellularNoise implements CellularNoise
         // evaluate the points for that square;
         result.evaluate(this.areaPoints(square), x, y);
 
-// TODO: [1.12] At which point would any of the fallowing if statements be false?
+// TODO: [1.12] At which point would any of the following if statements be false?
         // now horizontally adjacent squares as appropriate
         double distance = y - yInt;
         if (distance != result.getNextDistance()) {

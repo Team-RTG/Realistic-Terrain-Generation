@@ -91,8 +91,8 @@ public class DecoFlowersRTG extends DecoBase {
                 this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
 
                 for (int i = 0; i < this.loops * 16; i++) {
-                    int intX = worldX + rand.nextInt(16);// + 8;
-                    int intZ = worldZ + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16) + 8;
+                    int intZ = worldZ + rand.nextInt(16) + 8;
 
                     int intY;
                     switch (this.heightType) {

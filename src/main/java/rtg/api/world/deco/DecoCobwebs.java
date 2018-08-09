@@ -50,8 +50,8 @@ public class DecoCobwebs extends DecoBase {
             WorldGenerator worldGenerator = new WorldGenBlock(Blocks.WEB.getDefaultState(), Blocks.AIR.getDefaultState(), this.adjacentBlock, this.minAdjacents);
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
-                int i1 = worldX + rand.nextInt(16);// + 8;
-                int j1 = worldZ + rand.nextInt(16);// + 8;
+                int i1 = worldX + rand.nextInt(16) + 8;
+                int j1 = worldZ + rand.nextInt(16) + 8;
                 int k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
 
                 if (rand.nextInt(this.chance) == 0) {

@@ -1,14 +1,11 @@
 package rtg;
 
-import java.util.ArrayList;
-
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 
 import rtg.api.RTGAPI;
 import rtg.client.gui.RTGConfigGUIFactory;
@@ -40,9 +37,6 @@ public final class RTG {
 
     private static final EventManagerRTG eventMgr = new EventManagerRTG();
 
-//  public        final ArrayList<Runnable> oneShotServerCloseActions = new ArrayList<>();
-    public        final ArrayList<Runnable> serverCloseActions = new ArrayList<>();
-
     @SidedProxy(serverSide = CommonProxy.LOCATION, clientSide = ClientProxy.LOCATION)
     public static CommonProxy proxy;
 
@@ -64,23 +58,6 @@ public final class RTG {
     @Mod.EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {
         proxy.loadComplete();
-    }
-
-    @Mod.EventHandler
-    public void onServerStopped(FMLServerStoppedEvent event) {
-
-        serverCloseActions.forEach(Runnable::run);
-//      oneShotServerCloseActions.forEach(Runnable::run);
-//      oneShotServerCloseActions.clear();
-    }
-
-    // TImeTracker, UBColumnCache
-    public void runOnServerClose(Runnable action) {
-        serverCloseActions.add(action);
-    }
-
-    public void runOnNextServerCloseOnly(Runnable action) {
-        serverCloseActions.add(action);
     }
 
     public static EventManagerRTG getEventMgr() {

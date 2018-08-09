@@ -67,8 +67,8 @@ public final class DecoWave extends DecoBase {
             MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.loops; i++) {
                 if (isValidCondition(noise, strength, rand)) {
-                    int x = worldX + rand.nextInt(16);// + 8;
-                    int z = worldZ + rand.nextInt(16);// + 8;
+                    int x = worldX + rand.nextInt(16) + 8;
+                    int z = worldZ + rand.nextInt(16) + 8;
                     int y = rtgWorld.world().getHeight(mpos.setPos(x, 0, z)).getY();
 
                     //Logger.info("Strength = %f @ %d %d", strength, worldX, worldZ);

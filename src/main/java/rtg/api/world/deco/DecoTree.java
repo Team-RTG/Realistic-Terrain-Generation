@@ -203,8 +203,8 @@ public class DecoTree extends DecoBase {
 
                 for (int i = 0; i < loopCount; i++) {
 
-                    int x = scatter.get(rand, worldX); // + 8;
-                    int z = scatter.get(rand, worldZ); // + 8;
+                    int x = scatter.get(rand, worldX) + 8;
+                    int z = scatter.get(rand, worldZ) + 8;
                     int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
                     BlockPos pos = new BlockPos(x, y, z);
                     //Logger.info("noise = %f", noise);

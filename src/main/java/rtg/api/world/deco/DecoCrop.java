@@ -53,8 +53,8 @@ public class DecoCrop extends DecoBase {
 
                 for (int i = 0; i < this.strengthFactor * strength; ++i) {
 
-                    int x = worldX + rand.nextInt(16);// + 8;
-                    int z = worldZ + rand.nextInt(16);// + 8;
+                    int x = worldX + rand.nextInt(16) + 8;
+                    int z = worldZ + rand.nextInt(16) + 8;
                     int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
                     if (y >= this.minY && y <= this.maxY) {
                         new WorldGenCrops(type, size, density, height, water).generate(rtgWorld.world(), rand, new BlockPos(x, y, z));

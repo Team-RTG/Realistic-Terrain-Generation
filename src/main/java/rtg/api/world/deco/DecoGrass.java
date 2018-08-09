@@ -82,9 +82,9 @@ public class DecoGrass extends DecoBase {
                 this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
                 this.setLoops((this.loops > this.MAX_LOOPS) ? this.MAX_LOOPS : this.loops);
                 for (int i = 0; i < this.loops * 64; i++) {
-                    int intX = worldX + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16) + 8;
                     int intY = this.minY + (rand.nextInt(this.maxY - this.minY) + 1);
-                    int intZ = worldZ + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16) + 8;
 
                     //Do we want to choose a random grass?
                     if (this.useRandomGrass) {

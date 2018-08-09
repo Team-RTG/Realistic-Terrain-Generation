@@ -48,9 +48,9 @@ public class DecoJungleCacti extends DecoBase {
                 WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight));
 
                 for (int i = 0; i < this.strengthFactor * strength; i++) {
-                    int intX = worldX + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(160);
-                    int intZ = worldZ + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16) + 8;
 
                     if (intY < this.maxY) {
                         worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));

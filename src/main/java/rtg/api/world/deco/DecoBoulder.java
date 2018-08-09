@@ -60,8 +60,8 @@ public class DecoBoulder extends DecoBase {
             MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.strengthFactor * strength; ++i) {
 
-                int x = worldX + rand.nextInt(16);// + 8;
-                int z = worldZ + rand.nextInt(16);// + 8;
+                int x = worldX + rand.nextInt(16) + 8;
+                int z = worldZ + rand.nextInt(16) + 8;
                 int y;
 
                 switch (this.heightType) {

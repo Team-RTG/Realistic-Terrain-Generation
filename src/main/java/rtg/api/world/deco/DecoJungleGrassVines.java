@@ -49,9 +49,9 @@ public class DecoJungleGrassVines extends DecoBase {
             if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), GRASS)) {
 
                 for (int l14 = 0; l14 < 16f * strength; l14++) {
-                    int l19 = worldX + rand.nextInt(16);// + 8;
+                    int l19 = worldX + rand.nextInt(16) + 8;
                     int k22 = rand.nextInt(128);
-                    int j24 = worldZ + rand.nextInt(16);// + 8;
+                    int j24 = worldZ + rand.nextInt(16) + 8;
 
                     if (rand.nextInt(8) == 0) {
                         if (rand.nextBoolean()) {

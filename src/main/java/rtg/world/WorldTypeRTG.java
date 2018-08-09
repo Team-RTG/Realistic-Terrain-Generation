@@ -4,12 +4,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.ChunkGeneratorOverworld;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
@@ -24,10 +22,6 @@ public final class WorldTypeRTG extends WorldType
         return INSTANCE;
     }
 
-// TODO: [Generator settings][Dimensions] Remove all use of the static fields: biomeProvider, chunkProvider
-    private static BiomeProviderRTG biomeProvider;
-    public static ChunkGeneratorRTG chunkProvider;
-
     private WorldTypeRTG() {
         super(RTGAPI.RTG_WORLDTYPE_ID);
     }
@@ -40,65 +34,26 @@ public final class WorldTypeRTG extends WorldType
     public BiomeProvider getBiomeProvider(World world) {
 
         if (RTGAPI.isAllowedDimensionType(world.provider.getDimension())) {
-
-            if (biomeProvider == null) {
-
-                biomeProvider = new BiomeProviderRTG(RTGWorld.getInstance(world));
-                RTG.getInstance().runOnNextServerCloseOnly(clearProvider(biomeProvider));
-            }
-
             Logger.debug("WorldTypeRTG#getBiomeProvider() returning BiomeProviderRTG");
-
-            return biomeProvider;
+            return new BiomeProviderRTG(RTGWorld.getInstance(world));
         }
-        else {
-
-            Logger.debug("WorldTypeRTG#getBiomeProvider() returning vanilla BiomeProvider");
-
-            return new BiomeProvider(world.getWorldInfo());
-        }
+        else throw new RuntimeException(String.format("Illegal DimensionType (%s) for RTG WorldType", world.provider.getDimensionType().getName()));
     }
 
     @Override
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions) {
 
         if (RTGAPI.isAllowedDimensionType(world.provider.getDimension())) {
-
-            if (chunkProvider == null) {
-
-                chunkProvider = new ChunkGeneratorRTG(RTGWorld.getInstance(world));
-                RTG.getInstance().runOnNextServerCloseOnly(clearProvider(chunkProvider));
-
-                // inform the event manager about the ChunkEvent.Load event
-                RTG.getEventMgr().setDimensionChunkLoadEvent(world.provider.getDimension(), chunkProvider.delayedDecorator);
-                RTG.getInstance().runOnNextServerCloseOnly(chunkProvider.clearOnServerClose());
-
-                Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkGeneratorRTG for Dim {}", world.provider.getDimension());
-
-                return chunkProvider;
-            }
-            else return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
+            Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkGeneratorRTG for Dim {}", world.provider.getDimension());
+            return new ChunkGeneratorRTG(RTGWorld.getInstance(world));
         }
-        Logger.error("Invalid dimension. Serving up ChunkGeneratorOverworld instead of ChunkGeneratorRTG.");
-        return new ChunkGeneratorOverworld(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), generatorOptions);
+        else throw new RuntimeException(String.format("Illegal DimensionType (%s) for RTG WorldType", world.provider.getDimensionType().getName()));
     }
 
     @Override
     public float getCloudHeight()
     {
         return 256F;
-    }
-
-    private static Runnable clearProvider(Object provider) {
-        if (provider instanceof BiomeProviderRTG) {
-            Logger.debug("WorldTypeRTG#clearProvider() provider instanceof BiomeProviderRTG (setting to NULL)");
-            return () -> biomeProvider = null;
-        }
-        else if (provider instanceof ChunkGeneratorRTG) {
-            Logger.debug("WorldTypeRTG#clearProvider() provider instanceof ChunkGeneratorRTG (setting to NULL)");
-            return () -> chunkProvider = null;
-        }
-        return () -> {};
     }
 
     @Override

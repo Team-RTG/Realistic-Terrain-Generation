@@ -30,15 +30,13 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.gen.RTGChunkGenSettings;
 
 
 public abstract class RealisticBiomeBase implements IRealisticBiome
 {
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
 
-    public static final float actualRiverProportion = 150f/1600f;
-    private static final float riverFlatteningAddend = actualRiverProportion / (1f - actualRiverProportion);
+    private static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
 
     private final Biome             baseBiome;
     private final ResourceLocation  baseBiomeResLoc;
@@ -50,14 +48,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     private final SurfaceBase       surface;
     private final SurfaceBase       surfaceRiver;
     private final BiomeDecoratorRTG rDecorator;
-
-    // lake calculations
-    private final float             lakeInterval        = 649.0f;
-    private final float             lakeShoreLevel      = 0.035f;
-    private final float             lakeDepressionLevel = 0.15f;// the lakeStrength below which land should start to be lowered
-    private final float             largeBendSize       = 80;
-    private final float             mediumBendSize      = 30;
-    private final float             smallBendSize       = 12;
 
 // TODO: [1.12] To be removed.
     private ArrayList<DecoBase> decos;
@@ -194,8 +184,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
     @Override
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-        RTGChunkGenSettings settings = rtgWorld.getGeneratorSettings();
-
         // we now have both lakes and rivers lowering land
 // TODO: [1.12] This config setting should be replaced by a generator setting. (Configurable per world, not per biome.)
         if (!this.getConfig().ALLOW_RIVERS.get()) {
@@ -205,14 +193,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
             return terrain.generateNoise(rtgWorld, x, y, border, river);
         }
 
-        float interval        = lakeInterval        * settings.RTGlakeFreqMult;
-        float shoreLevel      = lakeShoreLevel      * settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
-        float depressionLevel = lakeDepressionLevel * settings.RTGlakeFreqMult * settings.RTGlakeSizeMult;
-        float lgbend          = largeBendSize       * settings.RTGlakeShoreBend;
-        float mdbend          = mediumBendSize      * settings.RTGlakeShoreBend;
-        float smbend          = smallBendSize       * settings.RTGlakeShoreBend;
-        float lakeStrength    = lakePressure(rtgWorld, x, y, border, interval, lgbend, mdbend, smbend);
-        float lakeFlattening  = lakeFlattening(lakeStrength, shoreLevel, depressionLevel);
+        float lakeStrength   = lakePressure(rtgWorld, x, y, border, rtgWorld.getLakeFrequency(),
+            rtgWorld.getLakeBendSizeLarge(), rtgWorld.getLakeBendSizeMedium(), rtgWorld.getLakeBendSizeSmall());
+        float lakeFlattening = lakeFlattening(lakeStrength, rtgWorld.getLakeShoreLevel(), rtgWorld.getLakeDepressionLevel());
 
         // combine rivers and lakes
         if ((river<1)&&(lakeFlattening<1)) {
@@ -227,8 +210,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
         river = 1f - river;
 
         // make the water areas flat for water features
-        float riverFlattening = river*(1f+riverFlatteningAddend)-riverFlatteningAddend;
-        if (riverFlattening <0 ) riverFlattening = 0;
+        float riverFlattening = river * (1f + RTGWorld.RIVER_FLATTENING_ADDEND) - RTGWorld.RIVER_FLATTENING_ADDEND;
+        if (riverFlattening < 0) riverFlattening = 0;
 
         // flatten terrain to set up for the water features
         float terrainNoise = terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
@@ -236,23 +219,18 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
         return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise);
     }
 
-// TODO: [Clean-up] Moved to top of class with rest of fields
-
     public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         float r;
         // river of actualRiverProportions now maps to 1; TODO
         float riverFlattening = 1f-river;
-        riverFlattening = riverFlattening - (1-actualRiverProportion);
+        riverFlattening = riverFlattening - (1 - RTGWorld.ACTUAL_RIVER_PROPORTION);
         // return biomeHeight if no river effect
         if (riverFlattening <0) return biomeHeight;
         // what was 1 set back to 1;
-        riverFlattening /= (actualRiverProportion);
+        riverFlattening /= RTGWorld.ACTUAL_RIVER_PROPORTION;
 
         // back to usual meanings: 1 = no river 0 = river
         r = 1f - riverFlattening;
-        // flat spot in middle;
-        riverFlattening = riverFlattening *1.4f - 0.4f;
-        if (riverFlattening < 0) riverFlattening = 0;
 
         if ((r < 1f && biomeHeight > 55f)) {
             float irregularity = rtgWorld.simplexInstance(0).noise2f(x / 12f, y / 12f) * 2f + rtgWorld.simplexInstance(0).noise2f(x / 8f, y / 8f);
@@ -299,11 +277,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
         // to become equivalent to actualRiverProportion
         if (pressure > topLevel) return 1;
         if (pressure<shoreLevel){
-            return (pressure/shoreLevel)*actualRiverProportion;
+            return (pressure / shoreLevel) * RTGWorld.ACTUAL_RIVER_PROPORTION;
         }
         // proportion between top and shore becomes proportion between 1 and actual river
         float proportion = (pressure-shoreLevel)/(topLevel - shoreLevel);
-        return actualRiverProportion + proportion*(1f-actualRiverProportion);
+        return RTGWorld.ACTUAL_RIVER_PROPORTION + proportion * (1f - RTGWorld.ACTUAL_RIVER_PROPORTION);
         //return (float)Math.pow((pressure-shoreLevel)/(topLevel-shoreLevel),1.0);
     }
 
@@ -411,7 +389,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome
         }
     }
 
-    public static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
 
     @Override
 // TODO: [1.12] This should be a proxy call to RTGBiomeDecorator#decorate

@@ -67,8 +67,8 @@ public class DecoSponge extends DecoBase {
 
             for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
 
-                int i1 = worldX + rand.nextInt(16);// + 8;
-                int j1 = worldZ + rand.nextInt(16);// + 8;
+                int i1 = worldX + rand.nextInt(16) + 8;
+                int j1 = worldZ + rand.nextInt(16) + 8;
                 int k1;
 
                 switch (this.heightType) {

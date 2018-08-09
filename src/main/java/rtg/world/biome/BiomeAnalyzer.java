@@ -7,8 +7,8 @@ import net.minecraft.world.biome.Biome;
 
 import rtg.api.RTGAPI;
 import rtg.api.util.CircularSearchCreator;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
@@ -466,7 +466,7 @@ public class BiomeAnalyzer {
 
     private float riverAdjusted (float top, float river) {
         if (river>=1) return top;
-        float erodedRiver = river/RealisticBiomeBase.actualRiverProportion;
+        float erodedRiver = river / RTGWorld.ACTUAL_RIVER_PROPORTION;
         if (erodedRiver <= 1f) top = top*(1-erodedRiver)+62f*erodedRiver;
         top = top*(1-river)+62f*river;
         return top;

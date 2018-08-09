@@ -101,8 +101,8 @@ public class DecoShrub extends DecoBase {
             loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
             MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < loopCount; i++) {
-                int x = worldX + rand.nextInt(16);// + 8;
-                int z = worldZ + rand.nextInt(16);// + 8;
+                int x = worldX + rand.nextInt(16) + 8;
+                int z = worldZ + rand.nextInt(16) + 8;
                 int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
                 mpos.setPos(x, y, z);
 

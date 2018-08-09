@@ -10,7 +10,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.IChunkGenerator;
 
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,13 +30,18 @@ import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.Ev
 
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
-import rtg.api.util.*;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+import rtg.api.util.ChunkOreGenTracker;
+import rtg.api.util.Logger;
+import rtg.api.util.RandomUtil;
+import rtg.api.util.SaplingUtil;
+import rtg.api.util.WorldUtil;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.RTGWorld;
-import rtg.world.WorldTypeRTG;
 import rtg.world.biome.BiomeProviderRTG;
+import rtg.world.gen.ChunkGeneratorRTG;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -101,11 +108,10 @@ public class EventManagerRTG {
 // TODO: [Clean-up] To be removed. Redundant with (chunkGenerator instanceof ChunkGeneratorRTG) check below.
             if (!(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) { return; }
 
-// TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
-//          IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
-//          if (chunkGenerator instanceof ChunkGeneratorRTG) {
-//          ChunkOreGenTracker chunkOreGenTracker = ((ChunkGeneratorRTG)chunkGenerator).getChunkOreGenTracker();
-            ChunkOreGenTracker chunkOreGenTracker = WorldTypeRTG.chunkProvider.getChunkOreGenTracker();
+//TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
+            IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
+            if (chunkGenerator instanceof ChunkGeneratorRTG) {
+            ChunkOreGenTracker chunkOreGenTracker = ((ChunkGeneratorRTG)chunkGenerator).getChunkOreGenTracker();
             BlockPos eventPos = event.getPos();
             OreGenEvent.GenerateMinable.EventType eventType = event.getType();
             String eventName = null;
@@ -193,7 +199,7 @@ public class EventManagerRTG {
                     event.setResult(Event.Result.DENY);
                 }
             }
-//          }
+            }
             //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, eventPos.getX(), eventPos.getY(), eventPos.getZ(), (eventPos.getX() / 16), (eventPos.getZ() / 16));
         }
     }

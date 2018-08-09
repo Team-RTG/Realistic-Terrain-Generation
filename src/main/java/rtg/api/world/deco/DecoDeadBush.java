@@ -50,9 +50,9 @@ public class DecoDeadBush extends DecoBase {
                 int loopCount = this.loops;
                 loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
                 for (int i = 0; i < loopCount; i++) {
-                    int intX = worldX + rand.nextInt(16);// + 8;
+                    int intX = worldX + rand.nextInt(16) + 8;
                     int intY = rand.nextInt(this.maxY);
-                    int intZ = worldZ + rand.nextInt(16);// + 8;
+                    int intZ = worldZ + rand.nextInt(16) + 8;
 
                     if (intY <= this.maxY && rand.nextInt(this.chance) == 0) {
                         worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));

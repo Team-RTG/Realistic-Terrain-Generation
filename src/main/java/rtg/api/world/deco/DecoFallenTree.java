@@ -107,8 +107,8 @@ public class DecoFallenTree extends DecoBase {
             MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.loops; i++) {
                 if (isValidLogCondition(noise, strength, rand)) {
-                    int x = worldX + rand.nextInt(16);// + 8;
-                    int z = worldZ + rand.nextInt(16);// + 8;
+                    int x = worldX + rand.nextInt(16) + 8;
+                    int z = worldZ + rand.nextInt(16) + 8;
                     int y = rtgWorld.world().getHeight(mpos.setPos(x, 0, z)).getY();
                     mpos.setPos(x, y, z);
 

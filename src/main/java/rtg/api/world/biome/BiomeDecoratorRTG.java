@@ -12,7 +12,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.WorldGenDungeons;
+import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraft.world.gen.feature.WorldGenLiquids;
+import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -213,8 +217,8 @@ public class BiomeDecoratorRTG
 
             if (gen && (rbb.waterUndergroundLakeChance() > 0)) {
 
-                int x = worldX + rand.nextInt(16);
-                int z = worldZ + rand.nextInt(16);
+                int x = worldX + rand.nextInt(16) + 8;
+                int z = worldZ + rand.nextInt(16) + 8;
                 int maxy = (settings.seaLevel - 8 > 0) ? settings.seaLevel - 8 : 1;
                 int y = rand.nextInt(maxy) + 4;
 
@@ -232,8 +236,8 @@ public class BiomeDecoratorRTG
 
             if (gen && (settings.waterLakeChance > 0) && (rbb.waterSurfaceLakeChance() > 0)) {
 
-                int x = worldX + rand.nextInt(16);
-                int z = worldZ + rand.nextInt(16);
+                int x = worldX + rand.nextInt(16) + 8;
+                int z = worldZ + rand.nextInt(16) + 8;
                 int y = worldObj.getHeight(new BlockPos(x, 0, z)).getY();
 
                 //Surface lakes.
@@ -255,8 +259,8 @@ public class BiomeDecoratorRTG
 
             if (gen && (rbb.lavaUndergroundLakeChance() > 0)) {
 
-                int x = worldX + rand.nextInt(16);
-                int z = worldZ + rand.nextInt(16);
+                int x = worldX + rand.nextInt(16) + 8;
+                int z = worldZ + rand.nextInt(16) + 8;
                 int maxy = (settings.seaLevel - 8 > 0) ? settings.seaLevel - 8 : 1;
                 int y = rand.nextInt(maxy) + 4;
 
@@ -274,8 +278,8 @@ public class BiomeDecoratorRTG
 
             if (gen && (rbb.lavaSurfaceLakeChance() > 0)) {
 
-                int x = worldX + rand.nextInt(16);
-                int z = worldZ + rand.nextInt(16);
+                int x = worldX + rand.nextInt(16) + 8;
+                int z = worldZ + rand.nextInt(16) + 8;
                 int y = worldObj.getHeight(new BlockPos(x, 0, z)).getY();
 
                 if (rand.nextInt(settings.lavaLakeChance) == 0 && rand.nextInt(rbb.lavaSurfaceLakeChance()) == 0) {
@@ -296,8 +300,8 @@ public class BiomeDecoratorRTG
 
                 for(int i = 0; i < settings.dungeonChance; i++) {
 
-                    int x = worldX + rand.nextInt(16);
-                    int z = worldZ + rand.nextInt(16);
+                    int x = worldX + rand.nextInt(16) + 8;
+                    int z = worldZ + rand.nextInt(16) + 8;
                     int y = rand.nextInt(128);
 
                     (new WorldGenDungeons()).generate(worldObj, rand, new BlockPos(x, y, z));
@@ -319,8 +323,8 @@ public class BiomeDecoratorRTG
 
                 for(int i = 0; i < 50; i++) {
 
-                    int x = worldX + rand.nextInt(16);
-                    int z = worldZ + rand.nextInt(16);
+                    int x = worldX + rand.nextInt(16) + 8;
+                    int z = worldZ + rand.nextInt(16) + 8;
                     int y = rand.nextInt(rand.nextInt(worldHeight - 16) + 10);
 
                     (new WorldGenLiquids(Blocks.FLOWING_WATER)).generate(worldObj, rand, new BlockPos(x, y, z));
@@ -335,8 +339,8 @@ public class BiomeDecoratorRTG
 
                 for(int i = 0; i < 20; i++) {
 
-                    int x = worldX + rand.nextInt(16);
-                    int z = worldZ + rand.nextInt(16);
+                    int x = worldX + rand.nextInt(16) + 8;
+                    int z = worldZ + rand.nextInt(16) + 8;
                     int y = rand.nextInt(worldHeight / 2);
 
                     (new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(worldObj, rand, new BlockPos(x, y, z));

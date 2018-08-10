@@ -150,9 +150,9 @@ public class BiomeDecoratorRTG {
         WorldGenerator generator = new WorldGenMinable(Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
 
         for (int i = 0; i < 7; ++i) {
-            int j1 = rand.nextInt(16);
+            int j1 = rand.nextInt(16) + 8;
             int k1 = rand.nextInt(64);
-            int l1 = rand.nextInt(16);
+            int l1 = rand.nextInt(16) + 8;
             if (TerrainGen.generateOre(worldIn, rand, generator, pos.add(j1, k1, l1), EventType.SILVERFISH)) {
                 generator.generate(worldIn, rand, pos.add(j1, k1, l1));
             }
@@ -330,7 +330,7 @@ public class BiomeDecoratorRTG {
             int count = 3 + rand.nextInt(6);
             for (int i = 0; i < count; i++) {
 
-                BlockPos blockpos = pos.add(rand.nextInt(16), rand.nextInt(28) + 4, rand.nextInt(16));
+                BlockPos blockpos = pos.add(rand.nextInt(16) + 8, rand.nextInt(28) + 4, rand.nextInt(16) + 8);
                 IBlockState state = worldIn.getBlockState(blockpos);
 
                 if (state.getBlock().isReplaceableOreGen(state, worldIn, blockpos, BlockMatcher.forBlock(Blocks.STONE))) {

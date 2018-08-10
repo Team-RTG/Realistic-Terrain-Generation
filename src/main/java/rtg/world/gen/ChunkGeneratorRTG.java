@@ -343,7 +343,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
             for (int x = 0; x < 16; ++x) {
                 for (int z = 0; z < 16; ++z) {
-                    BlockPos snowPos = this.world.getPrecipitationHeight(new BlockPos(blockPos.getX() + x, 0, blockPos.getZ() + z));
+                    BlockPos snowPos = this.world.getPrecipitationHeight(blockPos.add(x + 8, 0, z + 8));
                     BlockPos icePos = snowPos.down();
 
                     // Ice.

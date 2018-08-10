@@ -307,7 +307,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(this.world, this.rand, chunkPos));
 
-        Logger.debug("DecorateBiomeEvent.Pre {}", blockPos);
+        //Logger.debug("DecorateBiomeEvent.Pre {}", blockPos);
 
         // Ore gen.
 // TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
@@ -326,7 +326,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(this.world, this.rand, chunkPos));
 
-        Logger.debug("DecorateBiomeEvent.Post (%d %d)", blockPos.getX(), blockPos.getZ());
+        //Logger.debug("DecorateBiomeEvent.Post (%d %d)", blockPos.getX(), blockPos.getZ());
 
 // TODO: [1.12] This process should happen in here and not in the biome decorator.
         biome.rDecorator().rPopulatePostDecorate(this.world, this.rand, this.settings, chunkX, chunkZ, gennedVillage);

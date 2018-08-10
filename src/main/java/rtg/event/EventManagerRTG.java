@@ -260,7 +260,12 @@ public class EventManagerRTG {
 
             // Remove the river GenLayer if we are in an RTG world.
             if (RTGAPI.checkWorldType(event.getWorldType())) {
-                event.setNewBiomeGens(WorldUtil.Biomes.removeRivers(event.getOriginalBiomeGens()));
+
+                /*
+                 We're using getNewBiomeGens() instead of getOriginalBiomeGens() to ensure that we're not overwriting
+                 the changes made to the gen layers by other mods, like Painted Biomes. Thanks @superckl!
+                 */
+                event.setNewBiomeGens(WorldUtil.Biomes.removeRivers(event.getNewBiomeGens()));
             }
         }
     }

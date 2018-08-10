@@ -520,7 +520,6 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 //      fixedBiome          (SettingType.INTEGER, defaults.fixedBiome,             -1,  255, Category.WORLD), // Max value is replaced during createPagedList() to match the size of the biome list
 //      biomeSize           (SettingType.INTEGER, defaults.biomeSize,               2,    8, Category.WORLD),
         seaLevel(SettingType.INTEGER, defaults.seaLevel, 31, 95, Category.WORLD),
-        oceanWaves(SettingType.BOOLEAN, defaults.oceanWaves, null, null, Category.WORLD),
 
         useBoulders(SettingType.BOOLEAN, defaults.useBoulders, null, null, Category.SURFACE),
         boulderMult(SettingType.FLOAT, defaults.boulderMult, 0.2f, 5.0f, Category.SURFACE),

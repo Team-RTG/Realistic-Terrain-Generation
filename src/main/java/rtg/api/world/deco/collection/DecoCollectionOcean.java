@@ -2,14 +2,12 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoSponge;
-import rtg.api.world.deco.DecoWave;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 
 
@@ -24,7 +22,6 @@ public class DecoCollectionOcean extends DecoCollectionBase {
 
         this.addDeco(boulderDecos()) // Mossy cobble & prismarine boulders.
             .addDeco(sponge(), config.ALLOW_SPONGE.get()) // Rare, wet sponge (only in deeper waters).
-            .addDeco(waves(), (RTGAPI.config().ENABLE_OCEAN_WAVES.get() && config.ALLOW_OCEAN_WAVES.get())) // Ocean swells.
             .addDeco(baseBiomeDecorations()); // Base biome decorations.
     }
 
@@ -57,15 +54,6 @@ public class DecoCollectionOcean extends DecoCollectionBase {
         decoSponge.setHeightType(DecoSponge.HeightType.NEXT_INT);
         decoSponge.setStrengthFactor(8f);
         return decoSponge;
-    }
-
-    private DecoWave waves() {
-        DecoWave decoWave = new DecoWave();
-        decoWave.setMinSize(6);
-        decoWave.setMaxSize(10);
-        decoWave.setConditionChance(2);
-        decoWave.setConditionType(DecoWave.ConditionType.RANDOM_CHANCE);
-        return decoWave;
     }
 
     private DecoBaseBiomeDecorations baseBiomeDecorations() {

@@ -42,8 +42,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInteger WATER_UNDERGROUND_LAKE_CHANCE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean ENABLE_LAVA_UNDERGROUND_LAKES; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger LAVA_UNDERGROUND_LAKE_CHANCE; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyBoolean ENABLE_OCEAN_WAVES; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyInteger OCEAN_WAVE_DIRECTION; // TODO: [Generator settings] Add a generator setting for this?
     public final ConfigPropertyBoolean GENERATE_ORE_ANDESITE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean GENERATE_ORE_COAL; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean GENERATE_ORE_DIAMOND; // TODO: [Generator settings] To be removed
@@ -284,26 +282,6 @@ public class RTGConfig extends Config {
             10, 1, 100
         );
         this.addProperty(LAVA_UNDERGROUND_LAKE_CHANCE);
-
-        ENABLE_OCEAN_WAVES = new ConfigPropertyBoolean(
-            "Enable Ocean Waves",
-            "Ocean Waves",
-            "If TRUE, uses the individual biome settings in relevant biome config files (e.g. Ocean and Deep Ocean)."
-                + Configuration.NEW_LINE +
-                "If FALSE, disables all ocean waves.",
-            true
-        );
-        this.addProperty(ENABLE_OCEAN_WAVES);
-
-        OCEAN_WAVE_DIRECTION = new ConfigPropertyInteger(
-            "Ocean Wave Direction",
-            "Ocean Waves",
-            "This setting determines the directin that ocean waves are placed."
-                + Configuration.NEW_LINE +
-                "0 = East->West; 1 = North->South",
-            0, 0, 1
-        );
-        this.addProperty(OCEAN_WAVE_DIRECTION);
 
         GENERATE_ORE_ANDESITE = new ConfigPropertyBoolean("Generate Andesite Ore", "Ore Gen", "", true);
         this.addProperty(GENERATE_ORE_ANDESITE);

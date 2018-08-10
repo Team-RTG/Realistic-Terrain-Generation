@@ -64,7 +64,6 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_ICE_TREES;
     public final ConfigPropertyFloat FALLEN_LOG_DENSITY_MULTIPLIER;
     public final ConfigPropertyBoolean ALLOW_SPONGE;
-    public final ConfigPropertyBoolean ALLOW_OCEAN_WAVES;
 
     public BiomeConfig(File file) {
         super(file);
@@ -305,6 +304,5 @@ public class BiomeConfig extends Config {
         USE_ARCTIC_SURFACE = new ConfigPropertyBoolean("Use Arctic Surface", "Surfaces.Arctic Surface", "", true);
         ALLOW_ICE_TREES = new ConfigPropertyBoolean("Allow Ice Trees", "Decorations.Ice Trees", "", true);
         ALLOW_SPONGE = new ConfigPropertyBoolean("Allow Sponge", "Decorations.Sponge", "", true);
-        ALLOW_OCEAN_WAVES = new ConfigPropertyBoolean("Allow Ocean Waves", "Decorations.Waves", "", true);
     }
 }

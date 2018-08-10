@@ -177,7 +177,6 @@ public abstract class DecoBase {
         TEST,
         TREE,
         VINE,
-        WAVE,
         WHEAT
     }
 }

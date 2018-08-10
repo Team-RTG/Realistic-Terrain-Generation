@@ -7,15 +7,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import rtg.api.util.BlockUtil;
+
 
 /**
  * Cocos Nucifera (Coconut Palm)
  */
 public class TreeRTGCocosNucifera extends TreeRTG {
-
-    protected IBlockState trunkLog;
 
     private static int leavesLength = 133;
     private static int[] leaves = new int[]{
@@ -65,7 +63,6 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         -3, 2, -3,
         3, 2, 3
     };
-
     private static int cocoasLength = 16;
     private static int[] cocoas = new int[]{
         2, 0, -2, 1,
@@ -73,6 +70,7 @@ public class TreeRTGCocosNucifera extends TreeRTG {
         0, 0, -2, -1,
         3, -1, -2, 0
     };
+    protected IBlockState trunkLog;
 
     /**
      * <b>Cocos Nucifera (Coconut Palm)</b><br><br>

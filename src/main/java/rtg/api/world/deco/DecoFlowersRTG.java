@@ -6,22 +6,21 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.event.terraingen.TerrainGen;
-
-import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
-
 import rtg.api.util.Logger;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenFlowersRTG;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
+
 
 /**
  * @author WhichOnesPink
@@ -76,7 +75,7 @@ public class DecoFlowersRTG extends DecoBase {
 
         BlockPos pos = new BlockPos(worldX, 0, worldZ);
 
-        if (this.flowers==null || this.flowers.isEmpty()) {
+        if (this.flowers == null || this.flowers.isEmpty()) {
             Logger.error("DecoFlowerRTG called with a null or empty flower list in biome {} at {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), pos.toString());
             return;
         }
@@ -129,12 +128,7 @@ public class DecoFlowersRTG extends DecoBase {
         }
     }
 
-    public enum HeightType {
-        NEXT_INT,
-        GET_HEIGHT_VALUE
-    }
-
-// TODO: [1.12] Maybe add a method for adding flowers with weight, so that some in a list are more predominant.
+    // TODO: [1.12] Maybe add a method for adding flowers with weight, so that some in a list are more predominant.
     public DecoFlowersRTG addFlowers(EnumFlowerType... flowers) {
         this.flowers.addAll(Lists.newArrayList(flowers));
         return this;
@@ -219,5 +213,10 @@ public class DecoFlowersRTG extends DecoBase {
 
         this.loops = loops;
         return this;
+    }
+
+    public enum HeightType {
+        NEXT_INT,
+        GET_HEIGHT_VALUE
     }
 }

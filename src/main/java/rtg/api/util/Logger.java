@@ -6,11 +6,14 @@ import rtg.api.RTGAPI;
 
 public class Logger {
 
-    private Logger() {}
-
     private static final org.apache.logging.log4j.Logger LOGGER;
+
     static {
         LOGGER = org.apache.logging.log4j.LogManager.getLogger(rtg.RTG.MOD_ID.toUpperCase());
+    }
+
+    private Logger() {
+
     }
 
     public static void debug(String format, Object... data) {

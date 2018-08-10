@@ -26,14 +26,12 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.ChunkOreGenTracker;
@@ -52,8 +50,9 @@ import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
 @SuppressWarnings("deprecation")
-public class ChunkGeneratorRTG implements IChunkGenerator
-{
+public class ChunkGeneratorRTG implements IChunkGenerator {
+
+    public final RTGWorld rtgWorld;
     private final RTGChunkGenSettings settings;
     private final RTGConfig rtgConfig = RTGAPI.config();
     private final MapGenBase caveGenerator;
@@ -64,13 +63,19 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     private final MapGenVillage villageGenerator;
     private final MapGenScatteredFeature scatteredFeatureGenerator;
     private final StructureOceanMonument oceanMonumentGenerator;
+    private final World world;
+    private final LimitedArrayCacheMap<ChunkPos, ChunkLandscape> landscapeCache = new LimitedArrayCacheMap<>(1024);// cache ChunkLandscape objects
+    private final int sampleSize = 8;
+    private final int sampleArraySize = sampleSize * 2 + 5;
+    private final int[] biomeData = new int[sampleArraySize * sampleArraySize];
+    private final float[] weightedBiomes = new float[256];
+    private final float[][] weightings = new float[sampleArraySize * sampleArraySize][256];
+    private final MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
-// TODO: [1.12] Find the source of the erroneous flipping and squash it for good. This should not need to be done.
-    private int [] xyinverted = analyzer.xyinverted();
+    // TODO: [1.12] Find the source of the erroneous flipping and squash it for good. This should not need to be done.
+    private int[] xyinverted = analyzer.xyinverted();
     private boolean mapFeaturesEnabled;
     private Random rand;
-    private final World world;
-    public final RTGWorld rtgWorld;
     private BiomeProviderRTG biomeProvider;
     private Biome[] baseBiomesList;
     private RealisticBiomePatcher biomePatcher;
@@ -93,14 +98,14 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         this.volcanoGenerator = new VolcanoGenerator(rtgWorld);
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
-        this.caveGenerator             =                          TerrainGen.getModdedMapGen(new MapGenCavesRTG(this.settings.caveChance, this.settings.caveDensity), EventType.CAVE);
-        this.ravineGenerator           =                          TerrainGen.getModdedMapGen(new MapGenRavineRTG(this.settings.ravineChance), EventType.RAVINE);
-        this.villageGenerator          = (MapGenVillage)          TerrainGen.getModdedMapGen(new MapGenVillage(StructureType.VILLAGE.getSettings(this.settings)), EventType.VILLAGE);
-        this.strongholdGenerator       = (MapGenStronghold)       TerrainGen.getModdedMapGen(new MapGenStronghold(StructureType.STRONGHOLD.getSettings(this.settings)), EventType.STRONGHOLD);
-        this.woodlandMansionGenerator  = (WoodlandMansionRTG)     TerrainGen.getModdedMapGen(new WoodlandMansionRTG(new FakeGeneratorForMansion(this.world), this.settings), EventType.WOODLAND_MANSION);
-        this.mineshaftGenerator        = (MapGenMineshaft)        TerrainGen.getModdedMapGen(new MapGenMineshaft(StructureType.MINESHAFT.getSettings(this.settings)), EventType.MINESHAFT);
+        this.caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(this.settings.caveChance, this.settings.caveDensity), EventType.CAVE);
+        this.ravineGenerator = TerrainGen.getModdedMapGen(new MapGenRavineRTG(this.settings.ravineChance), EventType.RAVINE);
+        this.villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(new MapGenVillage(StructureType.VILLAGE.getSettings(this.settings)), EventType.VILLAGE);
+        this.strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(new MapGenStronghold(StructureType.STRONGHOLD.getSettings(this.settings)), EventType.STRONGHOLD);
+        this.woodlandMansionGenerator = (WoodlandMansionRTG) TerrainGen.getModdedMapGen(new WoodlandMansionRTG(new FakeGeneratorForMansion(this.world), this.settings), EventType.WOODLAND_MANSION);
+        this.mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(new MapGenMineshaft(StructureType.MINESHAFT.getSettings(this.settings)), EventType.MINESHAFT);
         this.scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(new MapGenScatteredFeature(StructureType.TEMPLE.getSettings(this.settings)), EventType.SCATTERED_FEATURE);
-        this.oceanMonumentGenerator    = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(StructureType.MONUMENT.getSettings(this.settings)), EventType.OCEAN_MONUMENT);
+        this.oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(StructureType.MONUMENT.getSettings(this.settings)), EventType.OCEAN_MONUMENT);
 
         this.baseBiomesList = new Biome[256];
         this.biomePatcher = new RealisticBiomePatcher();
@@ -158,15 +163,31 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 
         replaceBiomeBlocks(cx, cz, primer, jitteredBiomes, this.baseBiomesList, landscape.noise);
 
-        if (this.settings.useCaves)      { this.caveGenerator.generate(this.world, cx, cz, primer); }
-        if (this.settings.useRavines)    { this.ravineGenerator.generate(this.world, cx, cz, primer); }
+        if (this.settings.useCaves) {
+            this.caveGenerator.generate(this.world, cx, cz, primer);
+        }
+        if (this.settings.useRavines) {
+            this.ravineGenerator.generate(this.world, cx, cz, primer);
+        }
         if (this.mapFeaturesEnabled) {
-            if (settings.useMineShafts)  { this.mineshaftGenerator.generate(this.world, cx, cz, primer); }
-            if (settings.useStrongholds) { this.strongholdGenerator.generate(this.world, cx, cz, primer); }
-            if (settings.useVillages)    { this.villageGenerator.generate(this.world, cx, cz, primer); }
-            if (settings.useTemples)     { this.scatteredFeatureGenerator.generate(this.world, cx, cz, primer); }
-            if (settings.useMonuments)   { this.oceanMonumentGenerator.generate(this.world, cx, cz, primer); }
-            if (settings.useMansions)    { this.woodlandMansionGenerator.generate(this.world, cx, cz, primer); }
+            if (settings.useMineShafts) {
+                this.mineshaftGenerator.generate(this.world, cx, cz, primer);
+            }
+            if (settings.useStrongholds) {
+                this.strongholdGenerator.generate(this.world, cx, cz, primer);
+            }
+            if (settings.useVillages) {
+                this.villageGenerator.generate(this.world, cx, cz, primer);
+            }
+            if (settings.useTemples) {
+                this.scatteredFeatureGenerator.generate(this.world, cx, cz, primer);
+            }
+            if (settings.useMonuments) {
+                this.oceanMonumentGenerator.generate(this.world, cx, cz, primer);
+            }
+            if (settings.useMansions) {
+                this.woodlandMansionGenerator.generate(this.world, cx, cz, primer);
+            }
         }
 
 
@@ -212,7 +233,9 @@ public class ChunkGeneratorRTG implements IChunkGenerator
 
     private void replaceBiomeBlocks(int cx, int cz, ChunkPrimer primer, IRealisticBiome[] biomes, Biome[] base, float[] noise) {
 
-        if (!ForgeEventFactory.onReplaceBiomeBlocks(this, cx, cz, primer, this.world)) { return; }
+        if (!ForgeEventFactory.onReplaceBiomeBlocks(this, cx, cz, primer, this.world)) {
+            return;
+        }
 
         int worldX = cx * 16;
         int worldZ = cz * 16;
@@ -262,11 +285,21 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         ForgeEventFactory.onChunkPopulate(true, this, this.world, this.rand, chunkX, chunkZ, false);
 
         if (this.mapFeaturesEnabled) {
-            if (settings.useMineShafts)  { mineshaftGenerator.generateStructure(world, rand, chunkPos); }
-            if (settings.useStrongholds) { strongholdGenerator.generateStructure(world, rand, chunkPos); }
-            if (settings.useVillages)    { gennedVillage = villageGenerator.generateStructure(world, rand, chunkPos); }
-            if (settings.useTemples)     { scatteredFeatureGenerator.generateStructure(world, rand, chunkPos); }
-            if (settings.useMonuments)   { oceanMonumentGenerator.generateStructure(this.world, rand, chunkPos); }
+            if (settings.useMineShafts) {
+                mineshaftGenerator.generateStructure(world, rand, chunkPos);
+            }
+            if (settings.useStrongholds) {
+                strongholdGenerator.generateStructure(world, rand, chunkPos);
+            }
+            if (settings.useVillages) {
+                gennedVillage = villageGenerator.generateStructure(world, rand, chunkPos);
+            }
+            if (settings.useTemples) {
+                scatteredFeatureGenerator.generateStructure(world, rand, chunkPos);
+            }
+            if (settings.useMonuments) {
+                oceanMonumentGenerator.generateStructure(this.world, rand, chunkPos);
+            }
         }
 
 // TODO: [1.12] This process should happen in here and not in the biome decorator.
@@ -314,7 +347,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator
                     BlockPos icePos = snowPos.down();
 
                     // Ice.
-                    if(this.world.canBlockFreezeWater(icePos)) {
+                    if (this.world.canBlockFreezeWater(icePos)) {
                         this.world.setBlockState(icePos, iceBlock, 2);
                     }
 
@@ -356,16 +389,33 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         return biome.getSpawnableList(creatureType);
     }
 
+
+    /* Landscape Geneator */
+
     @Nullable
     @Override
     public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-        if (!this.mapFeaturesEnabled) { return null; }
-        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null)       { return this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Mansion".equals(structureName)    && this.woodlandMansionGenerator != null)  { return this.woodlandMansionGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Monument".equals(structureName)   && this.oceanMonumentGenerator != null)    { return this.oceanMonumentGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Village".equals(structureName)    && this.villageGenerator != null)          { return this.villageGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Mineshaft".equals(structureName)  && this.mineshaftGenerator != null)        { return this.mineshaftGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
-        if ("Temple".equals(structureName)     && this.scatteredFeatureGenerator != null) { this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored); }
+        if (!this.mapFeaturesEnabled) {
+            return null;
+        }
+        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) {
+            return this.strongholdGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+        }
+        if ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null) {
+            return this.woodlandMansionGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+        }
+        if ("Monument".equals(structureName) && this.oceanMonumentGenerator != null) {
+            return this.oceanMonumentGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+        }
+        if ("Village".equals(structureName) && this.villageGenerator != null) {
+            return this.villageGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+        }
+        if ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null) {
+            return this.mineshaftGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+        }
+        if ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null) {
+            this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+        }
         return null;
     }
 
@@ -373,27 +423,51 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     @Override
     public void recreateStructures(Chunk chunk, int cx, int cz) {
         if (this.mapFeaturesEnabled) {
-            if (this.settings.useMineShafts)  { this.mineshaftGenerator.generate(this.world, cx, cz, null); }
-            if (this.settings.useVillages)    { this.villageGenerator.generate(this.world, cx, cz, null); }
-            if (this.settings.useStrongholds) { this.strongholdGenerator.generate(this.world, cx, cz, null); }
-            if (this.settings.useTemples)     { this.scatteredFeatureGenerator.generate(this.world, cx, cz, null); }
-            if (this.settings.useMonuments)   { this.oceanMonumentGenerator.generate(this.world, cx, cz, null); }
-            if (this.settings.useMansions)    { this.woodlandMansionGenerator.generate(this.world, cx, cz, null);}
+            if (this.settings.useMineShafts) {
+                this.mineshaftGenerator.generate(this.world, cx, cz, null);
+            }
+            if (this.settings.useVillages) {
+                this.villageGenerator.generate(this.world, cx, cz, null);
+            }
+            if (this.settings.useStrongholds) {
+                this.strongholdGenerator.generate(this.world, cx, cz, null);
+            }
+            if (this.settings.useTemples) {
+                this.scatteredFeatureGenerator.generate(this.world, cx, cz, null);
+            }
+            if (this.settings.useMonuments) {
+                this.oceanMonumentGenerator.generate(this.world, cx, cz, null);
+            }
+            if (this.settings.useMansions) {
+                this.woodlandMansionGenerator.generate(this.world, cx, cz, null);
+            }
         }
     }
 
     @Override
     public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-        if (!this.mapFeaturesEnabled) { return false; }
-        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) { return this.strongholdGenerator.isInsideStructure(pos); }
-        if ("Mansion".equals(structureName)    && this.woodlandMansionGenerator != null) { return this.woodlandMansionGenerator.isInsideStructure(pos); }
-        if ("Monument".equals(structureName)   && this.oceanMonumentGenerator != null) { return this.oceanMonumentGenerator.isInsideStructure(pos); }
-        if ("Village".equals(structureName)    && this.villageGenerator != null) { return this.villageGenerator.isInsideStructure(pos); }
-        if ("Mineshaft".equals(structureName)  && this.mineshaftGenerator != null) { return this.mineshaftGenerator.isInsideStructure(pos); }
+        if (!this.mapFeaturesEnabled) {
+            return false;
+        }
+        if ("Stronghold".equals(structureName) && this.strongholdGenerator != null) {
+            return this.strongholdGenerator.isInsideStructure(pos);
+        }
+        if ("Mansion".equals(structureName) && this.woodlandMansionGenerator != null) {
+            return this.woodlandMansionGenerator.isInsideStructure(pos);
+        }
+        if ("Monument".equals(structureName) && this.oceanMonumentGenerator != null) {
+            return this.oceanMonumentGenerator.isInsideStructure(pos);
+        }
+        if ("Village".equals(structureName) && this.villageGenerator != null) {
+            return this.villageGenerator.isInsideStructure(pos);
+        }
+        if ("Mineshaft".equals(structureName) && this.mineshaftGenerator != null) {
+            return this.mineshaftGenerator.isInsideStructure(pos);
+        }
         return ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null) && this.scatteredFeatureGenerator.isInsideStructure(pos);
     }
 
-// TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
+    // TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
     private void generateOres(IRealisticBiome rBiome, RTGChunkGenSettings settings, BlockPos pos) {
 
         // Have we already generated ores for this chunk?
@@ -410,93 +484,20 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         return this.chunkOreGenTracker;
     }
 
-    // A helper class to generate settings maps to configure the vanilla structure classes
-    private enum StructureType {
-
-        MINESHAFT, MONUMENT, STRONGHOLD, TEMPLE, VILLAGE;
-
-        Map<String, String> getSettings(RTGChunkGenSettings settings) {
-
-            Map<String, String> ret = new HashMap<>();
-
-            if (this == MINESHAFT) {
-                ret.put("chance", String.valueOf(settings.mineShaftChance));
-                return ret;
-            }
-
-            if (this == MONUMENT) {
-                ret.put("separation", String.valueOf(settings.monumentSeparation));
-                ret.put("spacing",    String.valueOf(settings.monumentSpacing));
-                return ret;
-            }
-
-            if (this == STRONGHOLD) {
-                ret.put("count",    String.valueOf(settings.strongholdCount));
-                ret.put("distance", String.valueOf(settings.strongholdDistance));
-                ret.put("spread",   String.valueOf(settings.strongholdSpread));
-                return ret;
-            }
-
-            if (this == TEMPLE) {
-                ret.put("distance", String.valueOf(settings.templeDistance));
-                return ret;
-            }
-
-            if (this == VILLAGE) {
-                ret.put("distance", String.valueOf(settings.villageDistance));
-                ret.put("size",     String.valueOf(settings.villageSize));
-                return ret;
-            }
-
-            return ret;
-        }
-    }
-
-    private final class FakeGeneratorForMansion extends ChunkGeneratorOverworld {
-
-        private FakeGeneratorForMansion(World world) {
-            super(
-                world,
-                world.getSeed(),
-                world.getWorldInfo().isMapFeaturesEnabled(),
-                world.getWorldInfo().getGeneratorOptions()
-            );
-        }
-
-        @Override public void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer) {
-            ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
-            ChunkLandscape landscape = ((landscape = ChunkGeneratorRTG.this.landscapeCache.get(chunkPos)) != null)
-                ? landscape
-                : landscape(ChunkGeneratorRTG.this.biomeProvider, new BlockPos(chunkX * 16, 0, chunkZ * 16));
-            ChunkGeneratorRTG.this.generateTerrain(primer, landscape.noise);
-        }
-    }
-
-
-    /* Landscape Geneator */
-
-    private final LimitedArrayCacheMap<ChunkPos, ChunkLandscape> landscapeCache = new LimitedArrayCacheMap<>(1024);// cache ChunkLandscape objects
-
-    private final int       sampleSize      = 8;
-    private final int       sampleArraySize = sampleSize * 2 + 5;
-    private final int[]     biomeData       = new int[sampleArraySize * sampleArraySize];
-    private final float[]   weightedBiomes  = new float[256];
-    private final float[][] weightings      = new float[sampleArraySize * sampleArraySize][256];
-
-    private final MesaBiomeCombiner              mesaCombiner = new MesaBiomeCombiner();
-
     private void setWeightings() {
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                float limit = (float)Math.pow((56f * 56f), 0.7D);
-                for (int mapX = 0 ; mapX < sampleArraySize; mapX ++) {
-                    for (int mapZ = 0 ; mapZ < sampleArraySize; mapZ ++) {
+                float limit = (float) Math.pow((56f * 56f), 0.7D);
+                for (int mapX = 0; mapX < sampleArraySize; mapX++) {
+                    for (int mapZ = 0; mapZ < sampleArraySize; mapZ++) {
                         float xDist = (x - (mapX - sampleSize) * 8);
                         float zDist = (z - (mapZ - sampleSize) * 8);
                         float distanceSquared = xDist * xDist + zDist * zDist;
-                        float distance = (float)Math.pow(distanceSquared, 0.7D);
+                        float distance = (float) Math.pow(distanceSquared, 0.7D);
                         float weight = 1f - distance / limit;
-                        if (weight < 0) { weight = 0; }
+                        if (weight < 0) {
+                            weight = 0;
+                        }
                         weightings[mapX * sampleArraySize + mapZ][x * 16 + z] = weight;
                     }
                 }
@@ -514,7 +515,9 @@ public class ChunkGeneratorRTG implements IChunkGenerator
     private synchronized ChunkLandscape landscape(final BiomeProviderRTG biomeProvider, BlockPos blockPos) {
         ChunkPos chunkPos = new ChunkPos(blockPos);
         ChunkLandscape landscape = landscapeCache.get(chunkPos);
-        if (landscape != null) { return landscape; }
+        if (landscape != null) {
+            return landscape;
+        }
 
         landscape = new ChunkLandscape();
         getNewerNoise(biomeProvider, blockPos.getX(), blockPos.getZ(), landscape);
@@ -530,12 +533,12 @@ public class ChunkGeneratorRTG implements IChunkGenerator
         return landscape;
     }
 
-// TODO: [1.12] This method needs verification that it is doing what it is supposed a the coords that is supposed to.
+    // TODO: [1.12] This method needs verification that it is doing what it is supposed a the coords that is supposed to.
     private synchronized void getNewerNoise(final BiomeProviderRTG biomeProvider, final int worldX, final int worldZ, ChunkLandscape landscape) {
 
         // get area biome map
-        for(int x = -sampleSize; x < sampleSize + 5; x++) {
-            for(int z = -sampleSize; z < sampleSize + 5; z++) {
+        for (int x = -sampleSize; x < sampleSize + 5; x++) {
+            for (int z = -sampleSize; z < sampleSize + 5; z++) {
                 biomeData[(x + sampleSize) * sampleArraySize + (z + sampleSize)] = Biome.getIdForBiome(biomeProvider.getBiome(new BlockPos(worldX + ((x * 8)), 0, worldZ + ((z * 8)))));
             }
         }
@@ -568,9 +571,9 @@ public class ChunkGeneratorRTG implements IChunkGenerator
                 float river = TerrainBase.getRiverStrength(worldX + x, worldZ + z, rtgWorld);
                 landscape.river[x * 16 + z] = -river;
 
-                for(int i = 0; i < 256; i++) {
+                for (int i = 0; i < 256; i++) {
 
-                    if(weightedBiomes[i] > 0f) {
+                    if (weightedBiomes[i] > 0f) {
 
                         IRealisticBiome realisticBiome = ((realisticBiome = RTGAPI.getRTGBiome(i)) != null)
                             ? realisticBiome
@@ -597,6 +600,73 @@ public class ChunkGeneratorRTG implements IChunkGenerator
                 }
                 landscape.biome[x * 16 + z] = rbiome;
             }
+        }
+    }
+
+    // A helper class to generate settings maps to configure the vanilla structure classes
+    private enum StructureType {
+
+        MINESHAFT,
+        MONUMENT,
+        STRONGHOLD,
+        TEMPLE,
+        VILLAGE;
+
+        Map<String, String> getSettings(RTGChunkGenSettings settings) {
+
+            Map<String, String> ret = new HashMap<>();
+
+            if (this == MINESHAFT) {
+                ret.put("chance", String.valueOf(settings.mineShaftChance));
+                return ret;
+            }
+
+            if (this == MONUMENT) {
+                ret.put("separation", String.valueOf(settings.monumentSeparation));
+                ret.put("spacing", String.valueOf(settings.monumentSpacing));
+                return ret;
+            }
+
+            if (this == STRONGHOLD) {
+                ret.put("count", String.valueOf(settings.strongholdCount));
+                ret.put("distance", String.valueOf(settings.strongholdDistance));
+                ret.put("spread", String.valueOf(settings.strongholdSpread));
+                return ret;
+            }
+
+            if (this == TEMPLE) {
+                ret.put("distance", String.valueOf(settings.templeDistance));
+                return ret;
+            }
+
+            if (this == VILLAGE) {
+                ret.put("distance", String.valueOf(settings.villageDistance));
+                ret.put("size", String.valueOf(settings.villageSize));
+                return ret;
+            }
+
+            return ret;
+        }
+    }
+
+    private final class FakeGeneratorForMansion extends ChunkGeneratorOverworld {
+
+        private FakeGeneratorForMansion(World world) {
+            super(
+                world,
+                world.getSeed(),
+                world.getWorldInfo().isMapFeaturesEnabled(),
+                world.getWorldInfo().getGeneratorOptions()
+            );
+        }
+
+        @Override
+        public void setBlocksInChunk(int chunkX, int chunkZ, ChunkPrimer primer) {
+            ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
+            ChunkLandscape landscape = ((landscape = ChunkGeneratorRTG.this.landscapeCache.get(chunkPos)) != null)
+                ? landscape
+                : landscape(ChunkGeneratorRTG.this.biomeProvider, new BlockPos(chunkX * 16, 0, chunkZ * 16));
+            ChunkGeneratorRTG.this.generateTerrain(primer, landscape.noise);
         }
     }
 }

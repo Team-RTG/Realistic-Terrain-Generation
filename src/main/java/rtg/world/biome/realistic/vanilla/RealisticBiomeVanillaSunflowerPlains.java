@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
@@ -17,6 +16,7 @@ import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
 
@@ -29,12 +29,26 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainVanillaSunflowerPlains();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaSunflowerPlains(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainVanillaSunflowerPlains extends TerrainBase {
@@ -50,12 +64,6 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 65f);
             return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaSunflowerPlains(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaSunflowerPlains extends SurfaceBase {
@@ -106,12 +114,5 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

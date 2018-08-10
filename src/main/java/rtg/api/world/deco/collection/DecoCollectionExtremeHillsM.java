@@ -1,7 +1,6 @@
 package rtg.api.world.deco.collection;
 
 import net.minecraft.block.state.IBlockState;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;

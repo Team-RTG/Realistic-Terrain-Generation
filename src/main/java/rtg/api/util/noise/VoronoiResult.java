@@ -1,17 +1,17 @@
-
 package rtg.api.util.noise;
 
 import java.awt.geom.Point2D;
 
+
 /**
- *
  * @author Zeno410
  */
 public class VoronoiResult {
+
     private double shortestDistance = 32000000.0;
-    private double nextDistance     = 32000000.0;
-    private double closestX         = 32000000.0;
-    private double closestZ         = 32000000.0;
+    private double nextDistance = 32000000.0;
+    private double closestX = 32000000.0;
+    private double closestZ = 32000000.0;
 
     public final double getShortestDistance() {
         return this.shortestDistance;
@@ -25,7 +25,7 @@ public class VoronoiResult {
     public final double borderValue() {
         return shortestDistance / nextDistance;
     }
-    
+
     // returns 1 in the middle of a cell and 0 on the border;
     public final double interiorValue() {
         return (nextDistance - shortestDistance) / nextDistance;
@@ -38,19 +38,21 @@ public class VoronoiResult {
         double zDist = toMap.getY() - this.closestZ;
         xDist *= radius / distance;
         zDist *= radius / distance;
-        return new Point2D.Float((float)(this.closestX + xDist), (float)(this.closestZ + zDist));
+        return new Point2D.Float((float) (this.closestX + xDist), (float) (this.closestZ + zDist));
     }
-    
-    void evaluate(Point2D.Double [] points, double x, double z) {
+
+    void evaluate(Point2D.Double[] points, double x, double z) {
         for (Point2D.Double point : points) {
             double distance = point.distanceSq(x, z);
             if (distance < this.shortestDistance) {
-                this.nextDistance     = this.shortestDistance;
+                this.nextDistance = this.shortestDistance;
                 this.shortestDistance = distance;
-                this.closestX         = point.getX();
-                this.closestZ         = point.getY();
+                this.closestX = point.getX();
+                this.closestZ = point.getY();
             }
-            else if (distance < this.nextDistance) { this.nextDistance = distance; }
+            else if (distance < this.nextDistance) {
+                this.nextDistance = distance;
+            }
         }
     }
 }

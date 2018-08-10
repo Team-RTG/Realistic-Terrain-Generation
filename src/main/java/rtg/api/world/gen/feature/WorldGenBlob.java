@@ -13,12 +13,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.MinecraftForge;
-
 import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+
 
 public class WorldGenBlob extends WorldGenerator {
 
@@ -68,7 +67,9 @@ public class WorldGenBlob extends WorldGenerator {
                                     return false;
                                 }
                             }
-                            if (validGroundBlocks.contains(blockstate.getBlock())) { break label63; }
+                            if (validGroundBlocks.contains(blockstate.getBlock())) {
+                                break label63;
+                            }
                         }
 
                         --y;
@@ -76,7 +77,9 @@ public class WorldGenBlob extends WorldGenerator {
                     }
                 }
 
-                if (mpos.getY() <= 3) { return false; }
+                if (mpos.getY() <= 3) {
+                    return false;
+                }
 
                 int k2 = this.blobSize;
 

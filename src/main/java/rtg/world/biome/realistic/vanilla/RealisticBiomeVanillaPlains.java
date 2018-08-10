@@ -9,12 +9,15 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoCrop;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
@@ -23,7 +26,17 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
+
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
@@ -49,75 +62,10 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         return new TerrainVanillaPlains();
     }
 
-    public class TerrainVanillaPlains extends TerrainBase {
-
-        private GroundEffect groundEffect = new GroundEffect(4f);
-
-        public TerrainVanillaPlains() {
-
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
-            return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
-        }
-    }
-
     @Override
     public SurfaceBase initSurface() {
 
         return new SurfaceVanillaPlains(getConfig(), biome.topBlock, biome.fillerBlock);
-    }
-
-    public class SurfaceVanillaPlains extends SurfaceBase {
-
-        public SurfaceVanillaPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
-
-            super(config, top, filler);
-        }
-
-        @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
-
-            Random rand = rtgWorld.rand();
-            float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
-
-            for (int k = 255; k > -1; k--) {
-                Block b = primer.getBlockState(x, k, z).getBlock();
-                if (b == Blocks.AIR) {
-                    depth = -1;
-                }
-                else if (b == Blocks.STONE) {
-                    depth++;
-
-                    if (cliff) {
-                        if (depth > -1 && depth < 2) {
-                            if (rand.nextInt(3) == 0) {
-
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
-                            }
-                            else {
-
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
-                            }
-                        }
-                        else if (depth < 10) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
-                        }
-                    }
-                    else {
-                        if (depth == 0 && k > 61) {
-                            primer.setBlockState(x, k, z, topBlock);
-                        }
-                        else if (depth < 4) {
-                            primer.setBlockState(x, k, z, fillerBlock);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -196,5 +144,70 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         // Vanilla trees look awful in this biome, so let's make sure they don't generate.
         //DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
         //this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    public class TerrainVanillaPlains extends TerrainBase {
+
+        private GroundEffect groundEffect = new GroundEffect(4f);
+
+        public TerrainVanillaPlains() {
+
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 200f, 66f);
+            return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
+        }
+    }
+
+    public class SurfaceVanillaPlains extends SurfaceBase {
+
+        public SurfaceVanillaPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
+
+            super(config, top, filler);
+        }
+
+        @Override
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+
+            Random rand = rtgWorld.rand();
+            float c = Terrain.calcCliff(x, z, noise);
+            boolean cliff = c > 1.4f ? true : false;
+
+            for (int k = 255; k > -1; k--) {
+                Block b = primer.getBlockState(x, k, z).getBlock();
+                if (b == Blocks.AIR) {
+                    depth = -1;
+                }
+                else if (b == Blocks.STONE) {
+                    depth++;
+
+                    if (cliff) {
+                        if (depth > -1 && depth < 2) {
+                            if (rand.nextInt(3) == 0) {
+
+                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                            }
+                            else {
+
+                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            }
+                        }
+                        else if (depth < 10) {
+                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                        }
+                    }
+                    else {
+                        if (depth == 0 && k > 61) {
+                            primer.setBlockState(x, k, z, topBlock);
+                        }
+                        else if (depth < 4) {
+                            primer.setBlockState(x, k, z, fillerBlock);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

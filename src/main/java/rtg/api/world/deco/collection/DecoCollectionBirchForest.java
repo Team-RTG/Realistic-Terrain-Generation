@@ -2,7 +2,6 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.world.gen.feature.WorldGenTrees;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoBase;

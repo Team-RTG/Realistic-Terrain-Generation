@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
@@ -18,6 +17,7 @@ import rtg.api.world.deco.collection.DecoCollectionExtremeHillsM;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
 
@@ -41,7 +41,29 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
     @Override
     public TerrainBase initTerrain() {
 
-         return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
+        return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(190f, 67f, 200f);
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaExtremeHillsM(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
+    }
+
+    @Override
+    public void initDecos() {
+        this.addDecoCollection(new DecoCollectionExtremeHillsM(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
+    }
+
+    @Override
+    public boolean generatesSilverfish() {
+        return true;
     }
 
     public class TerrainVanillaExtremeHillsM extends TerrainBase {
@@ -65,12 +87,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
         }
     }
 
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaExtremeHillsM(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
-    }
-
     public class SurfaceVanillaExtremeHillsM extends SurfaceBase {
 
         private IBlockState mixBlockTop;
@@ -85,7 +101,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
 
             super(config, top, filler);
 
-            mixBlockTop  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
             mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), mixFill);
 
             width = mixWidth;
@@ -148,21 +164,5 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-        this.addDecoCollection(new DecoCollectionExtremeHillsM(this.getConfig()));
-        this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
-    }
-
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    @Override
-    public boolean generatesSilverfish() {
-        return true;
     }
 }

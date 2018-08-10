@@ -5,9 +5,9 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
 
 /**
  * Documentation for the new biome system can be found here:
@@ -39,7 +39,25 @@ public abstract class DecoBase {
         this.setMaxRiver(2f);
     }
 
-// TODO: [1.12] wat... What is the point of this check? How can a subclass not 'respond properly' to a call to #generate? Functionality target for replacement by an interface.
+    public static void tweakTreeLeaves(DecoTree deco, boolean checkDecay, boolean decayable) {
+        if (deco.getLeavesBlock().getBlock() instanceof BlockLeaves) {
+            IBlockState leaves = deco.getLeavesBlock()
+                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
+                .withProperty(BlockLeaves.DECAYABLE, decayable);
+            deco.setLeavesBlock(leaves);
+        }
+    }
+
+    public static void tweakShrubLeaves(DecoShrub deco, boolean checkDecay, boolean decayable) {
+        if (deco.getLeavesBlock().getBlock() instanceof BlockLeaves) {
+            IBlockState leaves = deco.getLeavesBlock()
+                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
+                .withProperty(BlockLeaves.DECAYABLE, decayable);
+            deco.setLeavesBlock(leaves);
+        }
+    }
+
+    // TODO: [1.12] wat... What is the point of this check? How can a subclass not 'respond properly' to a call to #generate? Functionality target for replacement by an interface.
     public boolean properlyDefined() {
         // this procedure should return true if the deco can respond properly to a generate() call
         // in particular it should not crash.
@@ -68,61 +86,6 @@ public abstract class DecoBase {
 
         for (int i = 0; i < decos.length; i++) {
             this.decoTypes.add(decos[i]);
-        }
-    }
-
-    /**
-     * Enum to classify the various decos.
-     *
-     * @author WhichOnesPink
-     */
-// TODO: [1.12] Combine all double plants.
-    public enum DecoType {
-        BASE_BIOME_DECORATION,
-        BOULDER,
-        COBWEB,
-        CACTUS,
-        DEAD_BUSH,
-        DESERT_WELL,
-        FALLEN_LEAVES,
-        FALLEN_TREE,
-        FERN,
-        FERN_DOUBLE,
-        FLOWER,
-        GRASS,
-        GRASS_DOUBLE,
-        LAYER,
-        LEAVES,
-        LILYPAD,
-        MUSHROOM,
-        PUMPKIN,
-        REED,
-        ROCK_SPIRE,
-        SEAWEED,
-        SHRUB,
-        SPONGE,
-        TEST,
-        TREE,
-        VINE,
-        WAVE,
-        WHEAT
-    }
-
-    public static void tweakTreeLeaves(DecoTree deco, boolean checkDecay, boolean decayable) {
-        if (deco.getLeavesBlock().getBlock() instanceof BlockLeaves) {
-            IBlockState leaves = deco.getLeavesBlock()
-                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
-                .withProperty(BlockLeaves.DECAYABLE, decayable);
-            deco.setLeavesBlock(leaves);
-        }
-    }
-
-    public static void tweakShrubLeaves(DecoShrub deco, boolean checkDecay, boolean decayable) {
-        if (deco.getLeavesBlock().getBlock() instanceof BlockLeaves) {
-            IBlockState leaves = deco.getLeavesBlock()
-                .withProperty(BlockLeaves.CHECK_DECAY, checkDecay)
-                .withProperty(BlockLeaves.DECAYABLE, decayable);
-            deco.setLeavesBlock(leaves);
         }
     }
 
@@ -179,5 +142,42 @@ public abstract class DecoBase {
 
         this.maxRiver = maxRiver;
         return this;
+    }
+
+    /**
+     * Enum to classify the various decos.
+     *
+     * @author WhichOnesPink
+     */
+// TODO: [1.12] Combine all double plants.
+    public enum DecoType {
+        BASE_BIOME_DECORATION,
+        BOULDER,
+        COBWEB,
+        CACTUS,
+        DEAD_BUSH,
+        DESERT_WELL,
+        FALLEN_LEAVES,
+        FALLEN_TREE,
+        FERN,
+        FERN_DOUBLE,
+        FLOWER,
+        GRASS,
+        GRASS_DOUBLE,
+        LAYER,
+        LEAVES,
+        LILYPAD,
+        MUSHROOM,
+        PUMPKIN,
+        REED,
+        ROCK_SPIRE,
+        SEAWEED,
+        SHRUB,
+        SPONGE,
+        TEST,
+        TREE,
+        VINE,
+        WAVE,
+        WHEAT
     }
 }

@@ -9,7 +9,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
@@ -20,6 +19,7 @@ import rtg.api.world.deco.collection.DecoCollectionSavanna;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
 
@@ -47,6 +47,19 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
         return new TerrainVanillaSavannaM();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaSavannaM(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
+    }
+
     public class TerrainVanillaSavannaM extends TerrainBase {
 
         public TerrainVanillaSavannaM() {
@@ -58,12 +71,6 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
 
             return terrainGrasslandMountains(x, y, rtgWorld, river, 4f, 90f, 67f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaSavannaM(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
     }
 
     public class SurfaceVanillaSavannaM extends SurfaceBase {
@@ -145,8 +152,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
                         }
                     }
                     else {
-                        if (k > 74)
-                        {
+                        if (k > 74) {
                             if (depth == 0) {
                                 if (rand.nextInt(5) == 0) {
                                     primer.setBlockState(x, k, z, mixBlock);
@@ -160,17 +166,14 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
                             }
                         }
                         else if (depth == 0 && k > 61) {
-                            int r = (int)((k - 62) / 2f);
-                            if(rand.nextInt(r + 2) == 0)
-                            {
+                            int r = (int) ((k - 62) / 2f);
+                            if (rand.nextInt(r + 2) == 0) {
                                 primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
                             }
-                            else if(rand.nextInt((int)(r / 2f) + 2) == 0)
-                            {
+                            else if (rand.nextInt((int) (r / 2f) + 2) == 0) {
                                 primer.setBlockState(x, k, z, mixBlock);
                             }
-                            else
-                            {
+                            else {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
@@ -181,12 +184,5 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
-        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
     }
 }

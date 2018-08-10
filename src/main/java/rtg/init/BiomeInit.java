@@ -64,18 +64,20 @@ import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaiga;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaHills;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaM;
 
+
 @UtilityClass
-public final class BiomeInit
-{
-    private BiomeInit() {}
+public final class BiomeInit {
+
+    private BiomeInit() {
+    }
 
     public static void preInit() {
         RTGAPI.RTG_BIOMES.addBiomes(
             RealisticBiomeBase.RiverType.NORMAL.setRTGBiome(new RealisticBiomeVanillaRiver()),
             RealisticBiomeBase.RiverType.FROZEN.setRTGBiome(new RealisticBiomeVanillaFrozenRiver()),
             RealisticBiomeBase.BeachType.NORMAL.setRTGBiome(new RealisticBiomeVanillaBeach()),
-            RealisticBiomeBase.BeachType.STONE .setRTGBiome(new RealisticBiomeVanillaStoneBeach()),
-            RealisticBiomeBase.BeachType.COLD  .setRTGBiome(new RealisticBiomeVanillaColdBeach())
+            RealisticBiomeBase.BeachType.STONE.setRTGBiome(new RealisticBiomeVanillaStoneBeach()),
+            RealisticBiomeBase.BeachType.COLD.setRTGBiome(new RealisticBiomeVanillaColdBeach())
         );
     }
 
@@ -83,25 +85,63 @@ public final class BiomeInit
 
         init_minecraft();
 
-        if (Mods.abyssalcraft.isLoaded())           { init_abyssalcraft(); }
-        if (Mods.agriculturalrevolution.isLoaded()) { init_agriculturalrevolution(); }
-        if (Mods.arsmagica2.isLoaded())             { init_arsmagica2(); }
-        if (Mods.atg.isLoaded())                    { init_atg(); }
-        if (Mods.betteragriculture.isLoaded())      { init_betteragriculture(); }
-        if (Mods.biomesoplenty.isLoaded())          { init_biomesoplenty(); }
-        if (Mods.biomesyougo.isLoaded())            { init_biomesyougo(); }
-        if (Mods.buildcraft.isLoaded())             { init_buildcraft(); }
-        if (Mods.floricraft.isLoaded())             { init_floricraft(); }
-        if (Mods.flowercraftmod.isLoaded())         { init_flowercraftmod(); }
-        if (Mods.iceandfire.isLoaded())             { init_iceandfire(); }
-        if (Mods.jikou.isLoaded())                  { init_jikou(); }
-        if (Mods.mithwoodforest.isLoaded())         { init_mithwoodforest(); }
-        if (Mods.morechinesemc.isLoaded())          { init_morechinesemc(); }
-        if (Mods.mw.isLoaded())                     { init_mw(); }
-        if (Mods.rockhounding_surface.isLoaded())   { init_rockhounding_surface(); }
-        if (Mods.sugiforest.isLoaded())             { init_sugiforest(); }
-        if (Mods.thaumcraft.isLoaded())             { init_thaumcraft(); }
-        if (Mods.vampirism.isLoaded())              { init_vampirism(); }
+        if (Mods.abyssalcraft.isLoaded()) {
+            init_abyssalcraft();
+        }
+        if (Mods.agriculturalrevolution.isLoaded()) {
+            init_agriculturalrevolution();
+        }
+        if (Mods.arsmagica2.isLoaded()) {
+            init_arsmagica2();
+        }
+        if (Mods.atg.isLoaded()) {
+            init_atg();
+        }
+        if (Mods.betteragriculture.isLoaded()) {
+            init_betteragriculture();
+        }
+        if (Mods.biomesoplenty.isLoaded()) {
+            init_biomesoplenty();
+        }
+        if (Mods.biomesyougo.isLoaded()) {
+            init_biomesyougo();
+        }
+        if (Mods.buildcraft.isLoaded()) {
+            init_buildcraft();
+        }
+        if (Mods.floricraft.isLoaded()) {
+            init_floricraft();
+        }
+        if (Mods.flowercraftmod.isLoaded()) {
+            init_flowercraftmod();
+        }
+        if (Mods.iceandfire.isLoaded()) {
+            init_iceandfire();
+        }
+        if (Mods.jikou.isLoaded()) {
+            init_jikou();
+        }
+        if (Mods.mithwoodforest.isLoaded()) {
+            init_mithwoodforest();
+        }
+        if (Mods.morechinesemc.isLoaded()) {
+            init_morechinesemc();
+        }
+        if (Mods.mw.isLoaded()) {
+            init_mw();
+        }
+        if (Mods.rockhounding_surface.isLoaded()) {
+            init_rockhounding_surface();
+        }
+        if (Mods.sugiforest.isLoaded()) {
+            init_sugiforest();
+        }
+        if (Mods.thaumcraft.isLoaded()) {
+            init_thaumcraft();
+        }
+        if (Mods.vampirism.isLoaded()) {
+            init_vampirism();
+        }
 
     }
 

@@ -3,7 +3,6 @@ package rtg.api.config;
 import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
-
 import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayString;
 import rtg.api.config.property.ConfigPropertyBoolean;
 import rtg.api.config.property.ConfigPropertyFloat;
@@ -49,7 +48,7 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyString SURFACE_MIX_4_BLOCK;
     public final ConfigPropertyBoolean ALLOW_PLATEAU_MODIFICATIONS;
     public final ConfigPropertyArrayString PLATEAU_GRADIENT_BLOCK_LIST;
-// TODO: [1.12] Add biome specific config settings for boulders (will be multiplied by the gen setting multiplier)
+    // TODO: [1.12] Add biome specific config settings for boulders (will be multiplied by the gen setting multiplier)
 //  public final ConfigPropertyBoolean BOULDERS_ENABLED;
 //  public final ConfigPropertyString BOULDERS_BLOCK;
 //  public final ConfigPropertyFloat BOULDERS_CHANCE;
@@ -294,18 +293,18 @@ public class BiomeConfig extends Config {
             1f, 0f, 5.0f
         );
 
-        ALLOW_LOGS         = new ConfigPropertyBoolean("Allow Logs",         "Decorations.Logs", "", true);
-        ALLOW_PALM_TREES   = new ConfigPropertyBoolean("Allow Palm Trees",   "Decorations.Palm Trees", "", true);
-        ALLOW_CACTUS       = new ConfigPropertyBoolean("Allow Cactus",       "Decorations.Cactus", "", true);
-        ALLOW_COBWEBS      = new ConfigPropertyBoolean("Allow Cobwebs",      "Decorations.Cobwebs", "", true);
-        ALLOW_WHEAT        = new ConfigPropertyBoolean("Allow Wheat",        "Decorations.Wheat", "", true);
-        ALLOW_PONDS_WATER  = new ConfigPropertyBoolean("Allow Ponds (Water)","Decorations.Ponds", "", true);
-        WHEAT_CHANCE       = new ConfigPropertyInteger("Wheat (Chance)",     "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
-        WHEAT_MIN_Y        = new ConfigPropertyInteger("Wheat (Min Y)",      "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
-        WHEAT_MAX_Y        = new ConfigPropertyInteger("Wheat (Max Y)",      "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
+        ALLOW_LOGS = new ConfigPropertyBoolean("Allow Logs", "Decorations.Logs", "", true);
+        ALLOW_PALM_TREES = new ConfigPropertyBoolean("Allow Palm Trees", "Decorations.Palm Trees", "", true);
+        ALLOW_CACTUS = new ConfigPropertyBoolean("Allow Cactus", "Decorations.Cactus", "", true);
+        ALLOW_COBWEBS = new ConfigPropertyBoolean("Allow Cobwebs", "Decorations.Cobwebs", "", true);
+        ALLOW_WHEAT = new ConfigPropertyBoolean("Allow Wheat", "Decorations.Wheat", "", true);
+        ALLOW_PONDS_WATER = new ConfigPropertyBoolean("Allow Ponds (Water)", "Decorations.Ponds", "", true);
+        WHEAT_CHANCE = new ConfigPropertyInteger("Wheat (Chance)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
+        WHEAT_MIN_Y = new ConfigPropertyInteger("Wheat (Min Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
+        WHEAT_MAX_Y = new ConfigPropertyInteger("Wheat (Max Y)", "Decorations.Wheat", "", 0, 0, Integer.MAX_VALUE);
         USE_ARCTIC_SURFACE = new ConfigPropertyBoolean("Use Arctic Surface", "Surfaces.Arctic Surface", "", true);
-        ALLOW_ICE_TREES    = new ConfigPropertyBoolean("Allow Ice Trees",    "Decorations.Ice Trees", "", true);
-        ALLOW_SPONGE       = new ConfigPropertyBoolean("Allow Sponge",       "Decorations.Sponge", "", true);
-        ALLOW_OCEAN_WAVES  = new ConfigPropertyBoolean("Allow Ocean Waves",  "Decorations.Waves", "", true);
+        ALLOW_ICE_TREES = new ConfigPropertyBoolean("Allow Ice Trees", "Decorations.Ice Trees", "", true);
+        ALLOW_SPONGE = new ConfigPropertyBoolean("Allow Sponge", "Decorations.Sponge", "", true);
+        ALLOW_OCEAN_WAVES = new ConfigPropertyBoolean("Allow Ocean Waves", "Decorations.Waves", "", true);
     }
 }

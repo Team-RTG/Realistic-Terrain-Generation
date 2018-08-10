@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+
 public class WorldGenBlock extends WorldGenerator {
 
     protected IBlockState placeBlock;

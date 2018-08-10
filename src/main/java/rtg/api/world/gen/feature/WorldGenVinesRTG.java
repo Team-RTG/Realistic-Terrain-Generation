@@ -11,22 +11,21 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.RTGAPI;
+
 
 public class WorldGenVinesRTG extends WorldGenerator {
 
+    private static final Block volcanoBlock = Block.getBlockFromName(RTGAPI.config().VOLCANO_MAIN_BLOCK.get());
+    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK.get());
+    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK.get());
+    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK.get());
     protected Block vineBlock;
     protected int maxY;
     protected PropertyBool propNorth;
     protected PropertyBool propEast;
     protected PropertyBool propSouth;
     protected PropertyBool propWest;
-
-    private static final Block volcanoBlock     = Block.getBlockFromName(RTGAPI.config().VOLCANO_MAIN_BLOCK.get());
-    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK.get());
-    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK.get());
-    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK.get());
 
     public WorldGenVinesRTG() {
 
@@ -87,8 +86,7 @@ public class WorldGenVinesRTG extends WorldGenerator {
         return true;
     }
 
-    protected void addVine(World worldIn, Random rand, BlockPos pos, EnumFacing enumfacing)
-    {
+    protected void addVine(World worldIn, Random rand, BlockPos pos, EnumFacing enumfacing) {
         IBlockState iblockstate = this.vineBlock.getDefaultState()
             .withProperty(this.propNorth, enumfacing == EnumFacing.SOUTH)
             .withProperty(this.propEast, enumfacing == EnumFacing.WEST)
@@ -99,8 +97,7 @@ public class WorldGenVinesRTG extends WorldGenerator {
 
         int i = rand.nextInt(4) + 1;
 
-        for (pos = pos.down(); worldIn.isAirBlock(pos) && i > 0; --i)
-        {
+        for (pos = pos.down(); worldIn.isAirBlock(pos) && i > 0; --i) {
             this.setBlockAndNotifyAdequately(worldIn, pos, iblockstate);
             pos = pos.down();
         }

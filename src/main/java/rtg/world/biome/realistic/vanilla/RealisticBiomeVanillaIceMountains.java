@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
@@ -17,6 +16,7 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
 
@@ -42,26 +42,6 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
         return new TerrainVanillaIceMountains(230f, 60f, 68f);
     }
 
-    public class TerrainVanillaIceMountains extends TerrainBase {
-
-        private float width;
-        private float strength;
-        private float terrainHeight;
-
-        public TerrainVanillaIceMountains(float mountainWidth, float mountainStrength, float height) {
-
-            width = mountainWidth;
-            strength = mountainStrength;
-            terrainHeight = height;
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, terrainHeight);
-        }
-    }
-
     @Override
     public SurfaceBase initSurface() {
 
@@ -83,6 +63,33 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
         }
     }
 
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    public class TerrainVanillaIceMountains extends TerrainBase {
+
+        private float width;
+        private float strength;
+        private float terrainHeight;
+
+        public TerrainVanillaIceMountains(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            terrainHeight = height;
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, terrainHeight);
+        }
+    }
+
     public class SurfaceVanillaIceMountains extends SurfaceBase {
 
         private IBlockState mixBlockTop;
@@ -98,7 +105,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
 
             super(config, top, filler);
 
-            mixBlockTop  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
             mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), mixFill);
 
             cliffBlock1 = cliff1;
@@ -157,12 +164,5 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

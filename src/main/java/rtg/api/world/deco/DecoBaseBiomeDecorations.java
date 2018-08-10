@@ -3,9 +3,9 @@ package rtg.api.world.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
 
 /**
  * @author WhichOnesPink

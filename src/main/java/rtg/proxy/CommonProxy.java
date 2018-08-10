@@ -3,11 +3,9 @@ package rtg.proxy;
 import java.nio.file.Paths;
 
 import net.minecraft.world.DimensionType;
-
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
 import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
@@ -15,8 +13,9 @@ import rtg.init.BiomeInit;
 import rtg.util.ModCompat;
 import rtg.world.WorldTypeRTG;
 
-public class CommonProxy
-{
+
+public class CommonProxy {
+
     public static final String LOCATION = "rtg.proxy.CommonProxy";
 
     public void preInit(FMLPreInitializationEvent event) {

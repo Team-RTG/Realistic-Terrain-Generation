@@ -9,7 +9,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.PlateauUtil;
@@ -17,7 +16,12 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDoubleGrass;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
@@ -25,6 +29,7 @@ import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
 
@@ -52,190 +57,10 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         //return new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f);
     }
 
-    public static class TerrainRTGSavannaPlateauM extends TerrainBase {
-
-        private static final float stepStart = 0.25f;
-        private static final float stepFinish = 0.4f;
-        private static final float stepHeight = 32;
-        final VoronoiPlateauEffect plateau;
-        final int groundNoise;
-        private float jitterWavelength = 30;
-        private float jitterAmplitude = 10;
-        private float bumpinessMultiplier = 0.05f;
-        private float bumpinessWavelength = 10f;
-        private int bumpinessOctave = 2;
-
-        public TerrainRTGSavannaPlateauM(float base) {
-            plateau = new VoronoiPlateauEffect();
-            plateau.pointWavelength = 200;
-            this.base = base;
-            groundNoise = 4;
-        }
-
-
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            ISimplexData2D jitterData = SimplexData2D.newDisk();
-            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
-            float x = (float)(passedX + jitterData.getDeltaX() * jitterAmplitude);
-            float y = (float)(passedY + jitterData.getDeltaY() * jitterAmplitude);
-            float simplex = plateau.added(rtgWorld, x, y);
-            //if (simplex > river) simplex = river;
-            float bordercap = border *3.5f -2.5f;
-            if (bordercap > 1) bordercap = 1;
-            float rivercap = 3f*river;
-            if (rivercap > 1) rivercap = 1;
-            simplex *= rivercap*bordercap;
-            float bumpiness = rtgWorld.simplexInstance(bumpinessOctave).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
-            simplex += bumpiness;
-            //if (simplex > bordercap) simplex = bordercap;
-            float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight)/border;
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld),river) + added;
-        }
-
-    }
-    public class TerrainVanillaSavannaPlateauM extends TerrainBase {
-
-        private float[] height;
-        private int heightLength;
-        private float strength;
-
-        /*
-         * Example parameters:
-         *
-         * allowed to generate rivers?
-         * riverGen = true
-         *
-         * canyon jump heights
-         * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
-         *
-         * strength of canyon jump heights
-         * heightStrength = 35f
-         *
-         * canyon width (cliff to cliff)
-         * canyonWidth = 160f
-         *
-         * canyon heigth (total heigth)
-         * canyonHeight = 60f
-         *
-         * canyon strength
-         * canyonStrength = 40f
-         *
-         */
-        public TerrainVanillaSavannaPlateauM(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
-            /*
-             * Values come in pairs per layer. First is how high to step up.
-             * 	Second is a value between 0 and 1, signifying when to step up.
-             */
-            height = new float[]{18f, 0.4f, 12f, 0.6f, 8f, 0.8f};
-            strength = 10f;
-            heightLength = height.length;
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainPlateau(x, y, rtgWorld, river, height, border, strength, heightLength, 50f, true);
-        }
-    }
-
     @Override
     public SurfaceBase initSurface() {
 
         return new SurfaceVanillaSavannaPlateauM(getConfig(), biome.topBlock, biome.fillerBlock, 0);
-    }
-
-
-    public class SurfaceVanillaSavannaPlateauM extends SurfaceBase {
-
-        private int grassRaise = 0;
-        private IBlockState mixBlock;
-
-        public SurfaceVanillaSavannaPlateauM(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
-
-            super(config, top, fill);
-            grassRaise = grassHeight;
-
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
-        }
-
-        @Override
-        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
-
-            Random rand = rtgWorld.rand();
-            float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.3f;
-            Block b;
-
-            for(int k = 255; k > -1; k--)
-            {
-                b = primer.getBlockState(x, k, z).getBlock();
-                if(b == Blocks.AIR)
-                {
-                    depth = -1;
-                }
-                else if (b == Blocks.STONE) {
-                    depth++;
-
-                    if (cliff) {
-                        if (biomeConfig.ALLOW_PLATEAU_MODIFICATIONS.get()) {
-                            primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaSavannaPlateauM.this, i, k, j));
-                        }
-                        else {
-                            if (depth > -1 && depth < 2) {
-                                if (rand.nextInt(3) == 0) {
-
-                                    primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
-                                }
-                                else {
-
-                                    primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
-                                }
-                            }
-                            else if (depth < 10) {
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
-                            }
-                        }
-                    }
-                    else {
-
-                        if (k > 74 + grassRaise)
-                        {
-                            if (depth == 0) {
-                                if (rand.nextInt(5) == 0) {
-                                    primer.setBlockState(x, k, z, mixBlock);
-                                }
-                                else {
-                                    primer.setBlockState(x, k, z, topBlock);
-                                }
-                            }
-                            else if (depth < 4) {
-                                primer.setBlockState(x, k, z, fillerBlock);
-                            }
-                        }
-                        else if (depth == 0 && k > 61) {
-                            int r = (int)((k - (62 + grassRaise)) / 2f);
-                            if(rand.nextInt(r + 2) == 0)
-                            {
-                                primer.setBlockState(x, k, z, topBlock);
-                            }
-                            else if(rand.nextInt((int)(r / 2f) + 2) == 0)
-                            {
-                                primer.setBlockState(x, k, z, mixBlock);
-                            }
-                            else
-                            {
-                                primer.setBlockState(x, k, z, topBlock);
-                            }
-                        }
-                        else if (depth < 4) {
-                            primer.setBlockState(x, k, z, fillerBlock);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -293,5 +118,182 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
+    }
+
+    public static class TerrainRTGSavannaPlateauM extends TerrainBase {
+
+        private static final float stepStart = 0.25f;
+        private static final float stepFinish = 0.4f;
+        private static final float stepHeight = 32;
+        final VoronoiPlateauEffect plateau;
+        final int groundNoise;
+        private float jitterWavelength = 30;
+        private float jitterAmplitude = 10;
+        private float bumpinessMultiplier = 0.05f;
+        private float bumpinessWavelength = 10f;
+        private int bumpinessOctave = 2;
+
+        public TerrainRTGSavannaPlateauM(float base) {
+            plateau = new VoronoiPlateauEffect();
+            plateau.pointWavelength = 200;
+            this.base = base;
+            groundNoise = 4;
+        }
+
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+            ISimplexData2D jitterData = SimplexData2D.newDisk();
+            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
+            float x = (float) (passedX + jitterData.getDeltaX() * jitterAmplitude);
+            float y = (float) (passedY + jitterData.getDeltaY() * jitterAmplitude);
+            float simplex = plateau.added(rtgWorld, x, y);
+            //if (simplex > river) simplex = river;
+            float bordercap = border * 3.5f - 2.5f;
+            if (bordercap > 1) {
+                bordercap = 1;
+            }
+            float rivercap = 3f * river;
+            if (rivercap > 1) {
+                rivercap = 1;
+            }
+            simplex *= rivercap * bordercap;
+            float bumpiness = rtgWorld.simplexInstance(bumpinessOctave).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            simplex += bumpiness;
+            //if (simplex > bordercap) simplex = bordercap;
+            float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight) / border;
+            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld), river) + added;
+        }
+
+    }
+
+    public class TerrainVanillaSavannaPlateauM extends TerrainBase {
+
+        private float[] height;
+        private int heightLength;
+        private float strength;
+
+        /*
+         * Example parameters:
+         *
+         * allowed to generate rivers?
+         * riverGen = true
+         *
+         * canyon jump heights
+         * heightArray = new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f}
+         *
+         * strength of canyon jump heights
+         * heightStrength = 35f
+         *
+         * canyon width (cliff to cliff)
+         * canyonWidth = 160f
+         *
+         * canyon heigth (total heigth)
+         * canyonHeight = 60f
+         *
+         * canyon strength
+         * canyonStrength = 40f
+         *
+         */
+        public TerrainVanillaSavannaPlateauM(boolean riverGen, float heightStrength, float canyonWidth, float canyonHeight, float canyonStrength, float baseHeight) {
+            /*
+             * Values come in pairs per layer. First is how high to step up.
+             * 	Second is a value between 0 and 1, signifying when to step up.
+             */
+            height = new float[]{18f, 0.4f, 12f, 0.6f, 8f, 0.8f};
+            strength = 10f;
+            heightLength = height.length;
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return terrainPlateau(x, y, rtgWorld, river, height, border, strength, heightLength, 50f, true);
+        }
+    }
+
+    public class SurfaceVanillaSavannaPlateauM extends SurfaceBase {
+
+        private int grassRaise = 0;
+        private IBlockState mixBlock;
+
+        public SurfaceVanillaSavannaPlateauM(BiomeConfig config, IBlockState top, IBlockState fill, int grassHeight) {
+
+            super(config, top, fill);
+            grassRaise = grassHeight;
+
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
+        }
+
+        @Override
+        public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+
+            Random rand = rtgWorld.rand();
+            float c = Terrain.calcCliff(x, z, noise);
+            boolean cliff = c > 1.3f;
+            Block b;
+
+            for (int k = 255; k > -1; k--) {
+                b = primer.getBlockState(x, k, z).getBlock();
+                if (b == Blocks.AIR) {
+                    depth = -1;
+                }
+                else if (b == Blocks.STONE) {
+                    depth++;
+
+                    if (cliff) {
+                        if (biomeConfig.ALLOW_PLATEAU_MODIFICATIONS.get()) {
+                            primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaSavannaPlateauM.this, i, k, j));
+                        }
+                        else {
+                            if (depth > -1 && depth < 2) {
+                                if (rand.nextInt(3) == 0) {
+
+                                    primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                }
+                                else {
+
+                                    primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                }
+                            }
+                            else if (depth < 10) {
+                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            }
+                        }
+                    }
+                    else {
+
+                        if (k > 74 + grassRaise) {
+                            if (depth == 0) {
+                                if (rand.nextInt(5) == 0) {
+                                    primer.setBlockState(x, k, z, mixBlock);
+                                }
+                                else {
+                                    primer.setBlockState(x, k, z, topBlock);
+                                }
+                            }
+                            else if (depth < 4) {
+                                primer.setBlockState(x, k, z, fillerBlock);
+                            }
+                        }
+                        else if (depth == 0 && k > 61) {
+                            int r = (int) ((k - (62 + grassRaise)) / 2f);
+                            if (rand.nextInt(r + 2) == 0) {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
+                            else if (rand.nextInt((int) (r / 2f) + 2) == 0) {
+                                primer.setBlockState(x, k, z, mixBlock);
+                            }
+                            else {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
+                        }
+                        else if (depth < 4) {
+                            primer.setBlockState(x, k, z, fillerBlock);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

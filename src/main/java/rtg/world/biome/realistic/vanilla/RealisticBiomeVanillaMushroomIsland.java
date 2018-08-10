@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
@@ -17,6 +16,7 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
 
@@ -40,6 +40,19 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
         return new TerrainVanillaMushroomIsland();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaMushroomIsland(getConfig(), biome.topBlock, biome.fillerBlock, 0f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainVanillaMushroomIsland extends TerrainBase {
 
         private float heigth;
@@ -54,12 +67,6 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
 
             return terrainGrasslandFlats(x, y, rtgWorld, river, 40f, 68f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaMushroomIsland(getConfig(), biome.topBlock, biome.fillerBlock, 0f);
     }
 
     public class SurfaceVanillaMushroomIsland extends SurfaceBase {
@@ -145,12 +152,5 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

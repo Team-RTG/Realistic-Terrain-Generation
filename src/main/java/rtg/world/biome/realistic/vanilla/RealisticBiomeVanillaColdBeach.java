@@ -8,13 +8,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
 
@@ -38,6 +38,23 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
         return new TerrainVanillaColdBeach();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaBeach(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(16);
+        decoBoulder.setMaxY(95);
+        decoBoulder.setStrengthFactor(3f);
+        this.addDeco(decoBoulder);
+    }
+
     public class TerrainVanillaColdBeach extends TerrainBase {
 
         public TerrainVanillaColdBeach() {
@@ -49,12 +66,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
 
             return terrainBeach(x, y, rtgWorld, river, 63f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaBeach(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaBeach extends SurfaceBase {
@@ -94,16 +105,5 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(3f);
-        this.addDeco(decoBoulder);
     }
 }

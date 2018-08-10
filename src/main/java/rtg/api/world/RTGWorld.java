@@ -5,47 +5,46 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.world.World;
-
 import rtg.api.util.PlateauUtil;
 import rtg.api.util.noise.CellularNoise;
-import rtg.api.util.noise.SimplexNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.util.noise.SpacedCellularNoise;
 import rtg.api.world.gen.RTGChunkGenSettings;
 
+
 /**
- *  A wrapper class for a {@link World} that contains collections of noise generator instances used in terrain gen.
+ * A wrapper class for a {@link World} that contains collections of noise generator instances used in terrain gen.
  *
  * @author topisani (original)
  * @author srs_bsns
- *
  * @since 1.0.0
  */
-public final class RTGWorld
-{
-    public  static final float  ACTUAL_RIVER_PROPORTION    = 150f / 1600f;//This value is also used in BiomeAnalyser#riverAdjusted
-    public  static final float  RIVER_FLATTENING_ADDEND    = ACTUAL_RIVER_PROPORTION / (1f - ACTUAL_RIVER_PROPORTION);
+public final class RTGWorld {
+
+    public static final float ACTUAL_RIVER_PROPORTION = 150f / 1600f;//This value is also used in BiomeAnalyser#riverAdjusted
+    public static final float RIVER_FLATTENING_ADDEND = ACTUAL_RIVER_PROPORTION / (1f - ACTUAL_RIVER_PROPORTION);
     private static final double RIVER_LARGE_BEND_SIZE_BASE = 140D;
     private static final double RIVER_SMALL_BEND_SIZE_BASE = 30D;
-    private static final double RIVER_SEPARATION_BASE      = 975D;
-    private static final double RIVER_VALLEY_LEVEL_BASE    = 140D / 450D;
-    private static final float  LAKE_FREQUENCY_BASE        = 649.0f;
-    private static final float  LAKE_SHORE_LEVEL_BASE      = 0.035f;
-    private static final float  LAKE_DEPRESSION_LEVEL      = 0.15f; // the lakeStrength below which land should start to be lowered
-    private static final float  LAKE_BEND_SIZE_LARGE       = 80;
-    private static final float  LAKE_BEND_SIZE_MEDIUM      = 30;
-    private static final float  LAKE_BEND_SIZE_SMALL       = 12;
-    private static final int    SIMPLEX_INSTANCE_COUNT     = 10;
-    private static final int    CELLULAR_INSTANCE_COUNT    = 5;
+    private static final double RIVER_SEPARATION_BASE = 975D;
+    private static final double RIVER_VALLEY_LEVEL_BASE = 140D / 450D;
+    private static final float LAKE_FREQUENCY_BASE = 649.0f;
+    private static final float LAKE_SHORE_LEVEL_BASE = 0.035f;
+    private static final float LAKE_DEPRESSION_LEVEL = 0.15f; // the lakeStrength below which land should start to be lowered
+    private static final float LAKE_BEND_SIZE_LARGE = 80;
+    private static final float LAKE_BEND_SIZE_MEDIUM = 30;
+    private static final float LAKE_BEND_SIZE_SMALL = 12;
+    private static final int SIMPLEX_INSTANCE_COUNT = 10;
+    private static final int CELLULAR_INSTANCE_COUNT = 5;
 
     private static final Map<World, RTGWorld> INSTANCE_CACHE = new HashMap<>();
 
-    private final World                  world;
-    private final RTGChunkGenSettings    generatorSettings;
-    private final SimplexNoise[]         simplexNoiseInstances  = new SimplexNoise[SIMPLEX_INSTANCE_COUNT];
-    private final CellularNoise[]        cellularNoiseInstances = new CellularNoise[CELLULAR_INSTANCE_COUNT];
+    private final World world;
+    private final RTGChunkGenSettings generatorSettings;
+    private final SimplexNoise[] simplexNoiseInstances = new SimplexNoise[SIMPLEX_INSTANCE_COUNT];
+    private final CellularNoise[] cellularNoiseInstances = new CellularNoise[CELLULAR_INSTANCE_COUNT];
     // this field is mutable, but it can only be set once from #setRandom when the ChunkGeneratorRTG is initialised
-    private       Random                 generatorRandom = null;
+    private Random generatorRandom = null;
 
     private RTGWorld(World world) {
 
@@ -68,26 +67,24 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets an instance of RTGWorld of a {@link World} from the cache. If one does not exist, create it and store it first.
+     * Gets an instance of RTGWorld of a {@link World} from the cache. If one does not exist, create it and store it first.
      *
      * @param world the world from which to get an instance of RTGWorld for
-     *
      * @return a cached or new instance of RTGWorld
-     *
      * @since 1.0.0
      */
     public static RTGWorld getInstance(World world) {
-        if (!INSTANCE_CACHE.containsKey(world)) { INSTANCE_CACHE.put(world, new RTGWorld(world)); }
+        if (!INSTANCE_CACHE.containsKey(world)) {
+            INSTANCE_CACHE.put(world, new RTGWorld(world));
+        }
         return INSTANCE_CACHE.get(world);
     }
 
     /**
-     *  Removes an instance of RTGWorld from the cache. This should be done when worlds are unloaded
+     * Removes an instance of RTGWorld from the cache. This should be done when worlds are unloaded
      *
      * @param world the world to remove an instance of RTGWorld for
-     *
      * @return true if an instance was removed, false otherwise
-     *
      * @since 1.0.0
      */
     public static boolean removeInstance(World world) {
@@ -95,7 +92,7 @@ public final class RTGWorld
     }
 
     /**
-     *  Syncs this objects Random to the chunk generator
+     * Syncs this objects Random to the chunk generator
      *
      * @param random the chunk generator Random
      */
@@ -106,10 +103,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets the {@link World} object for this wrapper.
+     * Gets the {@link World} object for this wrapper.
      *
      * @return The world object for this wrapper
-     *
      * @since 1.0.0
      */
     public World world() {
@@ -117,10 +113,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets the stored {@link RTGChunkGenSettings} instance for the world of this wrapper.
+     * Gets the stored {@link RTGChunkGenSettings} instance for the world of this wrapper.
      *
      * @return The stored RTGChunkGenSettings object
-     *
      * @since 1.0.0
      */
     public RTGChunkGenSettings getGeneratorSettings() {
@@ -128,10 +123,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Alias to get the seed value of the {@link World} for this wrapper.
+     * Alias to get the seed value of the {@link World} for this wrapper.
      *
      * @return The seed value
-     *
      * @since 1.0.0
      */
     public long seed() {
@@ -139,10 +133,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Alias to get the instance of Random of the {@link rtg.world.gen.ChunkGeneratorRTG} for this wrapper.
+     * Alias to get the instance of Random of the {@link rtg.world.gen.ChunkGeneratorRTG} for this wrapper.
      *
      * @return The chunk generator's Random instance
-     *
      * @since 1.0.0
      */
     public Random rand() {
@@ -150,13 +143,11 @@ public final class RTGWorld
     }
 
     /**
-     *  Calculates the seed for a Chunk based on the coord parameters.
+     * Calculates the seed for a Chunk based on the coord parameters.
      *
      * @param chunkX The chunk X coord
      * @param chunkZ The chunk Z coord
-     *
      * @return the chunk seed value
-     *
      * @since 1.0.0
      */
     public long getChunkSeed(final int chunkX, final int chunkZ) {
@@ -166,38 +157,37 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets a cached instance of {@link SimplexNoise} for use in world gen. If the passed index is out of range, then the instance at index 0 is returned.
+     * Gets a cached instance of {@link SimplexNoise} for use in world gen. If the passed index is out of range, then the instance at index 0 is returned.
      *
      * @param index The index of the cached noise instance to get
-     *
      * @return An instance of OpenSimplex
-     *
      * @since 1.0.0
      */
     public SimplexNoise simplexInstance(int index) {
-        if (index >= this.simplexNoiseInstances.length) { index = 0; }
+        if (index >= this.simplexNoiseInstances.length) {
+            index = 0;
+        }
         return this.simplexNoiseInstances[index];
     }
 
     /**
-     *  Gets a cached instance of {@link CellularNoise} (Voronoi) for use in world gen. If the passed index is out of range, then the instance at index 0 is returned.
+     * Gets a cached instance of {@link CellularNoise} (Voronoi) for use in world gen. If the passed index is out of range, then the instance at index 0 is returned.
      *
      * @param index The index of the cached noise instance to get
-     *
      * @return An instance of CellularNoise
-     *
      * @since 1.0.0
      */
     public CellularNoise cellularInstance(int index) {
-        if (index >= this.cellularNoiseInstances.length) { index = 0; }
+        if (index >= this.cellularNoiseInstances.length) {
+            index = 0;
+        }
         return this.cellularNoiseInstances[index];
     }
 
     /**
-     *  Gets the large bend size value of rivers for this world.
+     * Gets the large bend size value of rivers for this world.
      *
      * @return the river large bend size
-     *
      * @since 1.0.0
      */
     public double getRiverLargeBendSize() {
@@ -205,10 +195,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets the small bend size value of rivers for this world.
+     * Gets the small bend size value of rivers for this world.
      *
      * @return the river small bend size
-     *
      * @since 1.0.0
      */
     public double getRiverSmallBendSize() {
@@ -216,10 +205,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets the river separation for this world.
+     * Gets the river separation for this world.
      *
      * @return the river separation
-     *
      * @since 1.0.0
      */
     public double getRiverSeparation() {
@@ -227,10 +215,9 @@ public final class RTGWorld
     }
 
     /**
-     *  Gets the river valley level for this world.
+     * Gets the river valley level for this world.
      *
      * @return the river valley level
-     *
      * @since 1.0.0
      */
     public double getRiverValleyLevel() {

@@ -9,7 +9,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
@@ -20,6 +19,7 @@ import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
 
@@ -44,6 +44,17 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
         return new TerrainVanillaBirchForest();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaBirchForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
+    }
+
+    @Override
+    public void initDecos() {
+        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
+    }
+
     public class TerrainVanillaBirchForest extends TerrainBase {
 
 
@@ -58,12 +69,6 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
             return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaBirchForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     public class SurfaceVanillaBirchForest extends SurfaceBase {
@@ -89,7 +94,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock  = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
             mixHeight = mixSize;
         }
 
@@ -164,10 +169,5 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 }

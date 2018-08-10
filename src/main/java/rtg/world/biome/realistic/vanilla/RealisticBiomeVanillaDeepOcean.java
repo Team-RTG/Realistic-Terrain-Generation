@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -16,6 +15,7 @@ import rtg.api.world.deco.collection.DecoCollectionOcean;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
 
@@ -43,6 +43,22 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
         return new TerrainVanillaDeepOcean();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaDeepOcean(getConfig(), Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f);
+    }
+
+    @Override
+    public void initDecos() {
+        this.addDecoCollection(new DecoCollectionOcean(this.getConfig()));
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
     public class TerrainVanillaDeepOcean extends TerrainBase {
 
         public TerrainVanillaDeepOcean() {
@@ -54,12 +70,6 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
 
             return terrainOcean(x, y, rtgWorld, river, 40f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaDeepOcean(getConfig(), Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState(), Blocks.CLAY.getDefaultState(), 20f, 0.1f);
     }
 
     public class SurfaceVanillaDeepOcean extends SurfaceBase {
@@ -109,15 +119,5 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-        this.addDecoCollection(new DecoCollectionOcean(this.getConfig()));
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
     }
 }

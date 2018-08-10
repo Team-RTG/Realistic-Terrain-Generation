@@ -17,19 +17,18 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenLiquids;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
-import rtg.api.world.gen.feature.WorldGenPond;
 import rtg.api.world.gen.RTGChunkGenSettings;
+import rtg.api.world.gen.feature.WorldGenPond;
+
 
 // TODO: [Clean-up] Remove unused parameters from class members
-public class BiomeDecoratorRTG
-{
+public class BiomeDecoratorRTG {
+
     private IRealisticBiome rbb;
 
     public BiomeDecoratorRTG(IRealisticBiome rbb) {
@@ -46,17 +45,17 @@ public class BiomeDecoratorRTG
 
 // TODO: [Clean-up][API] Explore ways of executing ore gen that doesn't involve creating a new instance of WorldGenMinable for every ore for every chunk generated
 //                       This must be world-specific, which instances of BiomeDecoratorRTG are not. Perhaps store the instances in CPRTG and pass them during population
-        WorldGenerator dirtGen     = new WorldGenMinable(Blocks.DIRT.getDefaultState(), settings.dirtSize);
-        WorldGenerator gravelGen   = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), settings.gravelSize);
-        WorldGenerator graniteGen  = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), settings.graniteSize);
-        WorldGenerator dioriteGen  = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), settings.dioriteSize);
+        WorldGenerator dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), settings.dirtSize);
+        WorldGenerator gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), settings.gravelSize);
+        WorldGenerator graniteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), settings.graniteSize);
+        WorldGenerator dioriteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE), settings.dioriteSize);
         WorldGenerator andesiteGen = new WorldGenMinable(Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE), settings.andesiteSize);
-        WorldGenerator coalGen     = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), settings.coalSize);
-        WorldGenerator ironGen     = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), settings.ironSize);
-        WorldGenerator goldGen     = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), settings.goldSize);
+        WorldGenerator coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), settings.coalSize);
+        WorldGenerator ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), settings.ironSize);
+        WorldGenerator goldGen = new WorldGenMinable(Blocks.GOLD_ORE.getDefaultState(), settings.goldSize);
         WorldGenerator redstoneGen = new WorldGenMinable(Blocks.REDSTONE_ORE.getDefaultState(), settings.redstoneSize);
-        WorldGenerator diamondGen  = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), settings.diamondSize);
-        WorldGenerator lapisGen    = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), settings.lapisSize);
+        WorldGenerator diamondGen = new WorldGenMinable(Blocks.DIAMOND_ORE.getDefaultState(), settings.diamondSize);
+        WorldGenerator lapisGen = new WorldGenMinable(Blocks.LAPIS_ORE.getDefaultState(), settings.lapisSize);
 
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Pre(worldIn, random, pos));
 
@@ -105,37 +104,29 @@ public class BiomeDecoratorRTG
         MinecraftForge.ORE_GEN_BUS.post(new OreGenEvent.Post(worldIn, random, pos));
     }
 
-    private void genStandardOre(World worldIn, Random random, int blockCount, WorldGenerator generator, int minHeight, int maxHeight, BlockPos pos)
-    {
-        if (maxHeight < minHeight)
-        {
+    private void genStandardOre(World worldIn, Random random, int blockCount, WorldGenerator generator, int minHeight, int maxHeight, BlockPos pos) {
+        if (maxHeight < minHeight) {
             int i = minHeight;
             minHeight = maxHeight;
             maxHeight = i;
         }
-        else if (maxHeight == minHeight)
-        {
-            if (minHeight < 255)
-            {
+        else if (maxHeight == minHeight) {
+            if (minHeight < 255) {
                 ++maxHeight;
             }
-            else
-            {
+            else {
                 --minHeight;
             }
         }
 
-        for (int j = 0; j < blockCount; ++j)
-        {
+        for (int j = 0; j < blockCount; ++j) {
             BlockPos blockpos = pos.add(random.nextInt(16), random.nextInt(maxHeight - minHeight) + minHeight, random.nextInt(16));
             generator.generate(worldIn, random, blockpos);
         }
     }
 
-    private void genLapisOre(World worldIn, Random random, int blockCount, WorldGenerator generator, int centerHeight, int spread, BlockPos pos)
-    {
-        for (int i = 0; i < blockCount; ++i)
-        {
+    private void genLapisOre(World worldIn, Random random, int blockCount, WorldGenerator generator, int centerHeight, int spread, BlockPos pos) {
+        for (int i = 0; i < blockCount; ++i) {
             BlockPos blockpos = pos.add(random.nextInt(16), random.nextInt(spread) + random.nextInt(spread) + centerHeight - spread, random.nextInt(16));
             generator.generate(worldIn, random, blockpos);
         }
@@ -146,8 +137,9 @@ public class BiomeDecoratorRTG
      */
     private void genEmeraldOre(World worldIn, Random rand, BlockPos pos) {
         WorldGenerator emeralds = new EmeraldGenerator();
-        if (TerrainGen.generateOre(worldIn, rand, emeralds, pos, EventType.EMERALD))
+        if (TerrainGen.generateOre(worldIn, rand, emeralds, pos, EventType.EMERALD)) {
             emeralds.generate(worldIn, rand, pos);
+        }
     }
 
     /**
@@ -157,37 +149,13 @@ public class BiomeDecoratorRTG
 
         WorldGenerator generator = new WorldGenMinable(Blocks.MONSTER_EGG.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
 
-        for (int i = 0; i < 7; ++i)
-        {
+        for (int i = 0; i < 7; ++i) {
             int j1 = rand.nextInt(16);
             int k1 = rand.nextInt(64);
             int l1 = rand.nextInt(16);
-            if (TerrainGen.generateOre(worldIn, rand, generator, pos.add(j1, k1, l1), EventType.SILVERFISH))
+            if (TerrainGen.generateOre(worldIn, rand, generator, pos.add(j1, k1, l1), EventType.SILVERFISH)) {
                 generator.generate(worldIn, rand, pos.add(j1, k1, l1));
-        }
-    }
-
-    /**
-     * Standard emerald ore generator.
-     *
-     * @see net.minecraft.world.biome.BiomeHills
-     */
-    public static class EmeraldGenerator extends WorldGenerator {
-
-        @Override
-        public boolean generate(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos) {
-
-            int count = 3 + rand.nextInt(6);
-            for (int i = 0; i < count; i++) {
-
-                BlockPos blockpos = pos.add(rand.nextInt(16), rand.nextInt(28) + 4, rand.nextInt(16));
-                IBlockState state = worldIn.getBlockState(blockpos);
-
-                if (state.getBlock().isReplaceableOreGen(state, worldIn, blockpos, BlockMatcher.forBlock(Blocks.STONE))) {
-                    worldIn.setBlockState(blockpos, Blocks.EMERALD_ORE.getDefaultState(), 2);
-                }
             }
-            return true;
         }
     }
 
@@ -298,7 +266,7 @@ public class BiomeDecoratorRTG
 
             if (gen) {
 
-                for(int i = 0; i < settings.dungeonChance; i++) {
+                for (int i = 0; i < settings.dungeonChance; i++) {
 
                     int x = worldX + rand.nextInt(16) + 8;
                     int z = worldZ + rand.nextInt(16) + 8;
@@ -321,7 +289,7 @@ public class BiomeDecoratorRTG
 
             if (rand.nextInt(settings.waterSpoutChance) == 0) {
 
-                for(int i = 0; i < 50; i++) {
+                for (int i = 0; i < 50; i++) {
 
                     int x = worldX + rand.nextInt(16) + 8;
                     int z = worldZ + rand.nextInt(16) + 8;
@@ -337,7 +305,7 @@ public class BiomeDecoratorRTG
 
             if (rand.nextInt(settings.lavaSpoutChance) == 0) {
 
-                for(int i = 0; i < 20; i++) {
+                for (int i = 0; i < 20; i++) {
 
                     int x = worldX + rand.nextInt(16) + 8;
                     int z = worldZ + rand.nextInt(16) + 8;
@@ -346,6 +314,30 @@ public class BiomeDecoratorRTG
                     (new WorldGenLiquids(Blocks.FLOWING_LAVA)).generate(worldObj, rand, new BlockPos(x, y, z));
                 }
             }
+        }
+    }
+
+    /**
+     * Standard emerald ore generator.
+     *
+     * @see net.minecraft.world.biome.BiomeHills
+     */
+    public static class EmeraldGenerator extends WorldGenerator {
+
+        @Override
+        public boolean generate(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos) {
+
+            int count = 3 + rand.nextInt(6);
+            for (int i = 0; i < count; i++) {
+
+                BlockPos blockpos = pos.add(rand.nextInt(16), rand.nextInt(28) + 4, rand.nextInt(16));
+                IBlockState state = worldIn.getBlockState(blockpos);
+
+                if (state.getBlock().isReplaceableOreGen(state, worldIn, blockpos, BlockMatcher.forBlock(Blocks.STONE))) {
+                    worldIn.setBlockState(blockpos, Blocks.EMERALD_ORE.getDefaultState(), 2);
+                }
+            }
+            return true;
         }
     }
 

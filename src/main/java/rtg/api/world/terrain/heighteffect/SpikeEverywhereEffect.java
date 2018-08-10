@@ -3,8 +3,10 @@ package rtg.api.world.terrain.heighteffect;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
+
 /**
  * This creates a spiky multiplier going from 0 to 1
+ *
  * @author Zeno410
  */
 public class SpikeEverywhereEffect extends HeightEffect {
@@ -28,6 +30,6 @@ public class SpikeEverywhereEffect extends HeightEffect {
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, minimumSimplex);
         noise = TerrainBase.unsignedPower(noise, power);
-        return noise*spiked.added(rtgWorld, x, y);
+        return noise * spiked.added(rtgWorld, x, y);
     }
 }

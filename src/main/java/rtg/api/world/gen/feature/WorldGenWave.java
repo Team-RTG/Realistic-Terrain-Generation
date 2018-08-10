@@ -10,10 +10,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.RTGAPI;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+
 
 public class WorldGenWave extends WorldGenerator {
 

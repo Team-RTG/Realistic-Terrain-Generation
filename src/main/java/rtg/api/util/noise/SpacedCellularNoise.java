@@ -33,34 +33,58 @@ import java.util.Random;
 import rtg.api.util.LimitedArrayCacheMap;
 import rtg.api.util.MathUtils;
 
+
 /**
  * This is a Voronoi noise generator, originally from https://github.com/TJHJava/libnoiseforjava
  * It was modified to work in a similar way to the bukkit noise generators, and to support
  * octaves and 2d noise,
- * 
+ * <p>
  * Further modified to use saved points to avert basin centers being too close. zeno410
- * 
- *
+ * <p>
+ * <p>
  * by mncat77 and jtjj222. <----------
  */
-public class SpacedCellularNoise implements CellularNoise
-{
-    private static final int    totalPoints    = 100;
-    private static final int    pointsPerTorus = 25;
-    private static final double minDistanceSq  = 0.005d;
+public class SpacedCellularNoise implements CellularNoise {
+
+    private static final int totalPoints = 100;
+    private static final int pointsPerTorus = 25;
+    private static final double minDistanceSq = 0.005d;
 
     private final Map<Integer, Point2D.Double[]> cache = new LimitedArrayCacheMap<>(40);
     private final Point2D.Double[] allPoints;
     private final long xSeed;
     private final long ySeed;
 
-    public SpacedCellularNoise(long xSeed){
-		this.xSeed = xSeed;
+    public SpacedCellularNoise(long xSeed) {
+        this.xSeed = xSeed;
 //TODO: [1.12] This can probably use D. Knuth's LCG to generate the ySeed. (ySeed = ySeed * 6364136223846793005L + 1442695040888963407L)
         this.ySeed = new Random(xSeed).nextLong();
         this.allPoints = new Point2D.Double[totalPoints];
         this.setPoints();
-	}
+    }
+
+    private static double minimalToroidalDistanceSquared(Point2D.Double point, Point2D.Double[] existing, int count) {
+        double result = 1.0;
+        for (int i = 0; i < count; i++) {
+            double distance = toroidalDistanceSquared(point, existing[i]);
+            if (distance < result) {
+                result = distance;
+            }
+        }
+        return result;
+    }
+
+    private static double toroidalDistanceSquared(Point2D.Double first, Point2D.Double second) {
+        double xDist = Math.abs(first.x - second.x);
+        if (xDist > 0.5) {
+            xDist = 1.0 - xDist;
+        }
+        double yDist = Math.abs(first.y - second.y);
+        if (yDist > 0.5) {
+            yDist = 1.0 - yDist;
+        }
+        return MathUtils.pow2(xDist) + MathUtils.pow2(yDist);
+    }
 
     @Override
     public VoronoiResult eval2D(double x, double y) {
@@ -148,7 +172,9 @@ public class SpacedCellularNoise implements CellularNoise
             for (int j = 0; j < advance; j++) {
                 while (used[index]) {
                     index++;
-                    if (index >= totalPoints) index = 0;
+                    if (index >= totalPoints) {
+                        index = 0;
+                    }
                 }
             }
             // add the point, offset to the area
@@ -165,28 +191,11 @@ public class SpacedCellularNoise implements CellularNoise
         Random yRandom = new Random(this.ySeed);
 
         // only bump the iterator if we are storing a value
-        for (int i = 0; i < totalPoints;) {
+        for (int i = 0; i < totalPoints; ) {
             Point2D.Double newPoint = new Point2D.Double(xRandom.nextDouble(), yRandom.nextDouble());
             if (minimalToroidalDistanceSquared(newPoint, allPoints, i) >= minDistanceSq) {
                 allPoints[i++] = newPoint;
             }
         }
-    }
-
-    private static double minimalToroidalDistanceSquared(Point2D.Double point, Point2D.Double[] existing, int count) {
-        double result = 1.0;
-        for (int i = 0; i < count; i++) {
-            double distance = toroidalDistanceSquared(point, existing[i]);
-            if (distance < result) result = distance;
-        }
-        return result;
-    }
-
-    private static double toroidalDistanceSquared(Point2D.Double first, Point2D.Double second) {
-        double xDist = Math.abs(first.x - second.x);
-        if (xDist > 0.5) { xDist = 1.0 - xDist; }
-        double yDist = Math.abs(first.y - second.y);
-        if (yDist > 0.5) { yDist = 1.0 - yDist; }
-        return MathUtils.pow2(xDist) + MathUtils.pow2(yDist);
     }
 }

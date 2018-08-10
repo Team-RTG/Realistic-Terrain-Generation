@@ -9,7 +9,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
@@ -19,6 +18,7 @@ import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
 
@@ -53,6 +53,22 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
         return new TerrainVanillaForest();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaForest(
+            getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
+            0f, 1.5f, 60f, 65f, 1.5f,
+            BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionForest(this.getConfig()));
+    }
+
     public class TerrainVanillaForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
@@ -72,16 +88,6 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
 
             return riverized(floNoise, river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaForest(
-            getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
-            0f, 1.5f, 60f, 65f, 1.5f,
-            BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
-        );
     }
 
     public class SurfaceVanillaForest extends SurfaceBase {
@@ -109,9 +115,9 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            this.mixBlock   = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
-            this.mixHeight  = mixHeight;
-            this.mix2Block  = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+            this.mixHeight = mixHeight;
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
             this.mix2Height = mix2Height;
         }
 
@@ -194,11 +200,5 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionForest(this.getConfig()));
     }
 }

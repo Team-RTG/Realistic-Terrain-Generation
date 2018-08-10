@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IChunkGenerator;
-
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -24,10 +23,6 @@ import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
-import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.BlockUtil;
@@ -37,11 +32,27 @@ import rtg.api.util.Logger;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.SaplingUtil;
 import rtg.api.util.WorldUtil;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.api.world.RTGWorld;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkGeneratorRTG;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_LAVA;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.LAKE_WATER;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.ANDESITE;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.COAL;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIAMOND;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIORITE;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.DIRT;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.EMERALD;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GOLD;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRANITE;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.GRAVEL;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.IRON;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.LAPIS;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.REDSTONE;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.SILVERFISH;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -57,25 +68,57 @@ public class EventManagerRTG {
     private SaplingGrowTreeRTG SAPLING_GROW_TREE_EVENT_HANDLER;
     private DecorateBiomeEventRTG DECORATE_BIOME_EVENT_HANDLER;
 
-// TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkGeneratorRTG
+    // TODO: [Dimensions] Since this data is world-specific it should be moved to ChunkGeneratorRTG
     private WeakHashMap<Integer, Consumer<ChunkEvent.Load>> chunkLoadEvents = new WeakHashMap<>();
 
-    public EventManagerRTG() {}
+    public EventManagerRTG() {
+    }
+
+    private static void logEventMessage(String message) {
+
+        Logger.debug("RTG Event System: " + message);
+    }
 
     public void init() {
 
-        this.rtgConfig                       = RTGAPI.config();
+        this.rtgConfig = RTGAPI.config();
 
-        this.WORLD_EVENT_HANDLER             = new WorldEventRTG();
-        this.LOAD_CHUNK_EVENT_HANDLER        = new LoadChunkRTG();
-        this.GENERATE_MINABLE_EVENT_HANDLER  = new GenerateMinableRTG();
-        this.INIT_BIOME_GENS_EVENT_HANDLER   = new InitBiomeGensRTG();
+        this.WORLD_EVENT_HANDLER = new WorldEventRTG();
+        this.LOAD_CHUNK_EVENT_HANDLER = new LoadChunkRTG();
+        this.GENERATE_MINABLE_EVENT_HANDLER = new GenerateMinableRTG();
+        this.INIT_BIOME_GENS_EVENT_HANDLER = new InitBiomeGensRTG();
         this.SAPLING_GROW_TREE_EVENT_HANDLER = new SaplingGrowTreeRTG();
-        this.DECORATE_BIOME_EVENT_HANDLER    = new DecorateBiomeEventRTG();
+        this.DECORATE_BIOME_EVENT_HANDLER = new DecorateBiomeEventRTG();
         registerEventHandlers();
     }
 
-// TODO [1.12] To be removed when the delayed decorator is removed.
+    /*
+     * This method registers most of RTG's event handlers.
+     *
+     * We don't need to check if the event handlers are unregistered before registering them
+     * because Forge already performs those checks. This means that we could execute this method a
+     * million times, and each event handler would still only be registered once.
+     */
+    public void registerEventHandlers() {
+
+        logEventMessage("Registering RTG's event handlers...");
+
+        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
+        MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_EVENT_HANDLER);
+        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
+        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
+
+        logEventMessage("RTG's event handlers have been registered successfully.");
+    }
+
+    public void setDimensionChunkLoadEvent(int dimension, Consumer<ChunkEvent.Load> action) {
+
+        chunkLoadEvents.put(dimension, action);
+    }
+
+    // TODO [1.12] To be removed when the delayed decorator is removed.
     public class LoadChunkRTG {
 
         LoadChunkRTG() {
@@ -89,122 +132,127 @@ public class EventManagerRTG {
             // Are we in an RTG world?
             if (RTGAPI.checkWorldType(event.getWorld().getWorldType())) {
                 Consumer<ChunkEvent.Load> acceptor = chunkLoadEvents.get(event.getWorld().provider.getDimension());
-                if (acceptor != null) acceptor.accept(event);
+                if (acceptor != null) {
+                    acceptor.accept(event);
+                }
             }
         }
     }
 
-// TODO [1.12] To be removed.
+    // TODO [1.12] To be removed.
     public class GenerateMinableRTG {
 
-        public GenerateMinableRTG() {}
+        public GenerateMinableRTG() {
+        }
 
-// TODO: [Clean-up] Bump priority to EventPriority.HIGHEST to execute before other mods, until we have a chance to address the issue of extra ore gen in 1.12
+        // TODO: [Clean-up] Bump priority to EventPriority.HIGHEST to execute before other mods, until we have a chance to address the issue of extra ore gen in 1.12
 //      @SubscribeEvent(priority = EventPriority.HIGHEST)
         @SubscribeEvent
         public void generateMinableRTG(OreGenEvent.GenerateMinable event) {
 
             // Are we in an RTG world?
 // TODO: [Clean-up] To be removed. Redundant with (chunkGenerator instanceof ChunkGeneratorRTG) check below.
-            if (!(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) { return; }
+            if (!(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) {
+                return;
+            }
 
 //TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
-            IChunkGenerator chunkGenerator = ((WorldServer)event.getWorld()).getChunkProvider().chunkGenerator;
+            IChunkGenerator chunkGenerator = ((WorldServer) event.getWorld()).getChunkProvider().chunkGenerator;
             if (chunkGenerator instanceof ChunkGeneratorRTG) {
-            ChunkOreGenTracker chunkOreGenTracker = ((ChunkGeneratorRTG)chunkGenerator).getChunkOreGenTracker();
-            BlockPos eventPos = event.getPos();
-            OreGenEvent.GenerateMinable.EventType eventType = event.getType();
-            String eventName = null;
-            boolean allowCancel = rtgConfig.ALLOW_ORE_GEN_EVENT_CANCELLATION.get();
+                ChunkOreGenTracker chunkOreGenTracker = ((ChunkGeneratorRTG) chunkGenerator).getChunkOreGenTracker();
+                BlockPos eventPos = event.getPos();
+                OreGenEvent.GenerateMinable.EventType eventType = event.getType();
+                String eventName = null;
+                boolean allowCancel = rtgConfig.ALLOW_ORE_GEN_EVENT_CANCELLATION.get();
 
-            // No switch statements allowed! - Pink
+                // No switch statements allowed! - Pink
 
 // TODO: [Generator settings] Remove config checks. The config settings are to be removed and they are unnecessary... Ore gen needs to be
 //                            enabled for the event to be created in the first place, in which case the check will always be true.
-            if (eventType == ANDESITE) {
-                eventName = "ANDESITE";
-                if (!rtgConfig.GENERATE_ORE_ANDESITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                if (eventType == ANDESITE) {
+                    eventName = "ANDESITE";
+                    if (!rtgConfig.GENERATE_ORE_ANDESITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == COAL) {
-                eventName = "COAL";
-                if (!rtgConfig.GENERATE_ORE_COAL.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == COAL) {
+                    eventName = "COAL";
+                    if (!rtgConfig.GENERATE_ORE_COAL.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == DIAMOND) {
-                eventName = "DIAMOND";
-                if (!rtgConfig.GENERATE_ORE_DIAMOND.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == DIAMOND) {
+                    eventName = "DIAMOND";
+                    if (!rtgConfig.GENERATE_ORE_DIAMOND.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == DIORITE) {
-                eventName = "DIORITE";
-                if (!rtgConfig.GENERATE_ORE_DIORITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == DIORITE) {
+                    eventName = "DIORITE";
+                    if (!rtgConfig.GENERATE_ORE_DIORITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == DIRT) {
-                eventName = "DIRT";
-                if (!rtgConfig.GENERATE_ORE_DIRT.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == DIRT) {
+                    eventName = "DIRT";
+                    if (!rtgConfig.GENERATE_ORE_DIRT.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == EMERALD) {
-                eventName = "EMERALD";
-                if (!rtgConfig.GENERATE_ORE_EMERALD.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == EMERALD) {
+                    eventName = "EMERALD";
+                    if (!rtgConfig.GENERATE_ORE_EMERALD.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == GOLD) {
-                eventName = "GOLD";
-                if (!rtgConfig.GENERATE_ORE_GOLD.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == GOLD) {
+                    eventName = "GOLD";
+                    if (!rtgConfig.GENERATE_ORE_GOLD.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == GRANITE) {
-                eventName = "GRANITE";
-                if (!rtgConfig.GENERATE_ORE_GRANITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == GRANITE) {
+                    eventName = "GRANITE";
+                    if (!rtgConfig.GENERATE_ORE_GRANITE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == GRAVEL) {
-                eventName = "GRAVEL";
-                if (!rtgConfig.GENERATE_ORE_GRAVEL.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == GRAVEL) {
+                    eventName = "GRAVEL";
+                    if (!rtgConfig.GENERATE_ORE_GRAVEL.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == IRON) {
-                eventName = "IRON";
-                if (!rtgConfig.GENERATE_ORE_IRON.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == IRON) {
+                    eventName = "IRON";
+                    if (!rtgConfig.GENERATE_ORE_IRON.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == LAPIS) {
-                eventName = "LAPIS";
-                if (!rtgConfig.GENERATE_ORE_LAPIS.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == LAPIS) {
+                    eventName = "LAPIS";
+                    if (!rtgConfig.GENERATE_ORE_LAPIS.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == REDSTONE) {
-                eventName = "REDSTONE";
-                if (!rtgConfig.GENERATE_ORE_REDSTONE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == REDSTONE) {
+                    eventName = "REDSTONE";
+                    if (!rtgConfig.GENERATE_ORE_REDSTONE.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
-            else if (eventType == SILVERFISH) {
-                eventName = "SILVERFISH";
-                if (!rtgConfig.GENERATE_ORE_SILVERFISH.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
-                    event.setResult(Event.Result.DENY);
+                else if (eventType == SILVERFISH) {
+                    eventName = "SILVERFISH";
+                    if (!rtgConfig.GENERATE_ORE_SILVERFISH.get() || (chunkOreGenTracker.hasGeneratedOres(eventPos) && allowCancel)) {
+                        event.setResult(Event.Result.DENY);
+                    }
                 }
-            }
             }
             //Logger.debug("%s EVENT @ %d %d %d (%d %d)", eventName, eventPos.getX(), eventPos.getY(), eventPos.getZ(), (eventPos.getX() / 16), (eventPos.getZ() / 16));
         }
     }
 
-// TODO [1.12] To be removed after custom GenLayers ae added
+    // TODO [1.12] To be removed after custom GenLayers ae added
     public class InitBiomeGensRTG {
 
         @SubscribeEvent
@@ -228,7 +276,9 @@ public class EventManagerRTG {
         public void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
 
             // skip if RTG saplings are disabled or this is not an RTG world
-            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get() || !(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) { return; }
+            if (!rtgConfig.ENABLE_RTG_SAPLINGS.get() || !(RTGAPI.checkWorldType(event.getWorld().getWorldType()))) {
+                return;
+            }
 
             // Should we generate a vanilla tree instead?
             if (event.getRand().nextInt(rtgConfig.RTG_TREE_CHANCE.get()) != 0) {
@@ -274,10 +324,12 @@ public class EventManagerRTG {
                     Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
                     Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
 
-                    if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
+                    if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) {
+                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
 
-                        validTrees.add(biomeTrees.get(i));
-                        Logger.debug("Valid tree found!");
+                            validTrees.add(biomeTrees.get(i));
+                            Logger.debug("Valid tree found!");
+                        }
                     }
                 }
 
@@ -293,10 +345,14 @@ public class EventManagerRTG {
                     Logger.debug("Tree = %s", tree.getClass().getName());
 
                     // Set the trunk size if min/max values have been set.
-                    if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) tree.setTrunkSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
+                    if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) {
+                        tree.setTrunkSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
+                    }
 
                     // Set the crown size if min/max values have been set.
-                    if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) tree.setCrownSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinCrownSize(), tree.getMaxCrownSize()));
+                    if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) {
+                        tree.setCrownSize(RandomUtil.getRandomInt(event.getRand(), tree.getMinCrownSize(), tree.getMaxCrownSize()));
+                    }
 
                     int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
                     if (treeHeight < 1) {
@@ -321,9 +377,15 @@ public class EventManagerRTG {
                     tree.setGenerateFlag(oldFlag);
 
                     // Sometimes we have to remove the sapling manually because some trees grow around it, leaving the original sapling.
-                    if (generated) if (event.getWorld().getBlockState(event.getPos()) == saplingBlock) event.getWorld().setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
+                    if (generated) {
+                        if (event.getWorld().getBlockState(event.getPos()) == saplingBlock) {
+                            event.getWorld().setBlockState(event.getPos(), Blocks.AIR.getDefaultState(), 2);
+                        }
+                    }
                 }
-                else Logger.debug("There are no RTG trees associated with the sapling on the ground." + " Generating a vanilla tree instead.");
+                else {
+                    Logger.debug("There are no RTG trees associated with the sapling on the ground." + " Generating a vanilla tree instead.");
+                }
             }
         }
     }
@@ -338,7 +400,9 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void onWorldLoad(WorldEvent.Load event) {
 
-            if (!event.getWorld().isRemote && event.getWorld().provider.getDimension() == 0) Logger.info("World Seed: " + event.getWorld().getSeed());
+            if (!event.getWorld().isRemote && event.getWorld().provider.getDimension() == 0) {
+                Logger.info("World Seed: " + event.getWorld().getSeed());
+            }
         }
 
         @SubscribeEvent
@@ -374,7 +438,9 @@ public class EventManagerRTG {
             }
 
             // Are we in an RTG world? Do we have RTG's chunk manager?
-            if (RTGAPI.checkWorldType(event.getWorld().getWorldType())) { return; }
+            if (RTGAPI.checkWorldType(event.getWorld().getWorldType())) {
+                return;
+            }
 
             DecorateBiomeEvent.Decorate.EventType eventType = event.getType();
 
@@ -388,36 +454,5 @@ public class EventManagerRTG {
                 event.setResult(Event.Result.DENY);
             }
         }
-    }
-
-    /*
-     * This method registers most of RTG's event handlers.
-     *
-     * We don't need to check if the event handlers are unregistered before registering them
-     * because Forge already performs those checks. This means that we could execute this method a
-     * million times, and each event handler would still only be registered once.
-     */
-    public void registerEventHandlers() {
-
-        logEventMessage("Registering RTG's event handlers...");
-
-        MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
-        MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_EVENT_HANDLER);
-        MinecraftForge.ORE_GEN_BUS.register(GENERATE_MINABLE_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(INIT_BIOME_GENS_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
-        MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
-
-        logEventMessage("RTG's event handlers have been registered successfully.");
-    }
-
-    private static void logEventMessage(String message) {
-
-        Logger.debug("RTG Event System: " + message);
-    }
-
-    public void setDimensionChunkLoadEvent(int dimension, Consumer<ChunkEvent.Load> action) {
-
-        chunkLoadEvents.put(dimension, action);
     }
 }

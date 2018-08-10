@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
@@ -19,6 +18,7 @@ import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
 
@@ -44,6 +44,19 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
         return new TerrainVanillaSavanna();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaSavanna(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.GRASS.getDefaultState(), 13f, 0.27f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
+    }
+
     public class TerrainVanillaSavanna extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
@@ -57,12 +70,6 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 100f, 66f);
             return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaSavanna(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.GRASS.getDefaultState(), 13f, 0.27f);
     }
 
     public class SurfaceVanillaSavanna extends SurfaceBase {
@@ -129,12 +136,5 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
-        this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
     }
 }

@@ -2,6 +2,7 @@ package rtg.api.world.terrain.heighteffect;
 
 import rtg.api.world.RTGWorld;
 
+
 // TODO: [1.12] The functionality of this class could probably be handled by a static utility.
 class SummedHeightEffect extends HeightEffect {
 

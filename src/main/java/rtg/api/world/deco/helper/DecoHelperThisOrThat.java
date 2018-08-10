@@ -12,6 +12,7 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 
+
 public class DecoHelperThisOrThat extends DecoBase {
 
     private int chance;
@@ -70,11 +71,6 @@ public class DecoHelperThisOrThat extends DecoBase {
         }
     }
 
-    public enum ChanceType {
-        EQUALS_ZERO,
-        NOT_EQUALS_ZERO;
-    }
-
     public int getChance() {
 
         return chance;
@@ -95,5 +91,10 @@ public class DecoHelperThisOrThat extends DecoBase {
 
         this.chanceType = chanceType;
         return this;
+    }
+
+    public enum ChanceType {
+        EQUALS_ZERO,
+        NOT_EQUALS_ZERO;
     }
 }

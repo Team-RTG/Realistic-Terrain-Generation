@@ -42,34 +42,29 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 
-public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
-{
+public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable {
+
     private static final long serialVersionUID = 7161452652266833375L;
 
-    private final int                    capacity;
+    private final int capacity;
     private final ImmutableEntry<K, V>[] entries;
-    private       int                    index = 0;
+    private int index = 0;
 
     @SuppressWarnings("unchecked")
-    public LimitedArrayCacheMap(final int capacity)
-    {
+    public LimitedArrayCacheMap(final int capacity) {
         this.capacity = capacity;
         this.entries = new ImmutableEntry[capacity];
     }
 
-    public int getCapacity()
-    {
+    public int getCapacity() {
         return this.capacity;
     }
 
     @Override
-    public int size()
-    {
+    public int size() {
         int count = 0;
-        for (ImmutableEntry<K, V> entry : this.entries)
-        {
-            if (entry != null)
-            {
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null) {
                 count++;
             }
         }
@@ -77,12 +72,9 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
     }
 
     @Override
-    public boolean isEmpty()
-    {
-        for (ImmutableEntry<K, V> entry : this.entries)
-        {
-            if (entry != null)
-            {
+    public boolean isEmpty() {
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null) {
                 return false;
             }
         }
@@ -90,12 +82,9 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
     }
 
     @Override
-    public boolean containsKey(final Object key)
-    {
-        for (ImmutableEntry<K, V> entry : this.entries)
-        {
-            if (entry != null && entry.getKey().equals(key))
-            {
+    public boolean containsKey(final Object key) {
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null && entry.getKey().equals(key)) {
                 return true;
             }
         }
@@ -103,12 +92,9 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
     }
 
     @Override
-    public boolean containsValue(final Object value)
-    {
-        for (ImmutableEntry<K, V> entry : this.entries)
-        {
-            if (entry != null && entry.getValue().equals(value))
-            {
+    public boolean containsValue(final Object value) {
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null && entry.getValue().equals(value)) {
                 return true;
             }
         }
@@ -117,12 +103,9 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
 
     @Nullable
     @Override
-    public V get(final Object key)
-    {
-        for (ImmutableEntry<K, V> entry : this.entries)
-        {
-            if (entry != null && entry.getKey().equals(key))
-            {
+    public V get(final Object key) {
+        for (ImmutableEntry<K, V> entry : this.entries) {
+            if (entry != null && entry.getKey().equals(key)) {
                 return entry.getValue();
             }
         }
@@ -137,45 +120,38 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
 
     @Nullable
     @Override
-    public V put(final K key, final V value)
-    {
+    public V put(final K key, final V value) {
         V ret = null;
-        if (this.entries[this.index] != null)
-        {
+        if (this.entries[this.index] != null) {
             ret = this.entries[this.index].getValue();
         }
         this.entries[this.index] = new ImmutableEntry<>(key, value);
         this.removeDuplicates();
-        this.index = (this.index == this.capacity - 1) ? 0 : this.index + 1 ;
+        this.index = (this.index == this.capacity - 1) ? 0 : this.index + 1;
         return ret;
     }
 
     @Override
-    public V remove(final Object key)
-    {
+    public V remove(final Object key) {
         throw new UnsupportedOperationException("Immutable data");
     }
 
     @Override
-    public void putAll(@Nonnull final Map<? extends K, ? extends V> m)
-    {
+    public void putAll(@Nonnull final Map<? extends K, ? extends V> m) {
         m.forEach(this::put);
     }
 
     @Override
-    public void clear()
-    {
+    public void clear() {
         this.index = 0;
-        for (int i = 0; i < this.capacity; i++)
-        {
+        for (int i = 0; i < this.capacity; i++) {
             this.entries[i] = null;
         }
     }
 
     @Nonnull
     @Override
-    public Set<K> keySet()
-    {
+    public Set<K> keySet() {
         LinkedHashSet<K> keySet = new LinkedHashSet<>();
         for (ImmutableEntry<K, V> entry : this.entries) {
             if (entry != null) {
@@ -187,8 +163,7 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
 
     @Nonnull
     @Override
-    public Collection<V> values()
-    {
+    public Collection<V> values() {
         LinkedHashSet<V> valueSet = new LinkedHashSet<>();
         for (ImmutableEntry<K, V> entry : this.entries) {
             if (entry != null) {
@@ -200,8 +175,7 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
 
     @Nonnull
     @Override
-    public Set<Entry<K, V>> entrySet()
-    {
+    public Set<Entry<K, V>> entrySet() {
         LinkedHashSet<Entry<K, V>> entrySet = new LinkedHashSet<>();
         for (ImmutableEntry<K, V> entry : this.entries) {
             if (entry != null) {
@@ -213,8 +187,7 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
-    public LimitedArrayCacheMap<K, V> clone()
-    {
+    public LimitedArrayCacheMap<K, V> clone() {
         LimitedArrayCacheMap<K, V> clone = new LimitedArrayCacheMap<>(this.capacity);
         System.arraycopy(this.entries, 0, clone.entries, 0, this.capacity);
         clone.index = this.index;
@@ -222,29 +195,23 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
     }
 
     @Override
-    public boolean equals(final Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(final Object o) {
+        if (this == o) {
             return true;
         }
 
-        if (!(o instanceof LimitedArrayCacheMap))
-        {
+        if (!(o instanceof LimitedArrayCacheMap)) {
             return false;
         }
         LimitedArrayCacheMap<?, ?> other = (LimitedArrayCacheMap<?, ?>) o;
 
-        if (this.getCapacity() != other.getCapacity())
-        {
+        if (this.getCapacity() != other.getCapacity()) {
             return false;
         }
 
-        for (int i = 0; i < this.getCapacity(); i++)
-        {
+        for (int i = 0; i < this.getCapacity(); i++) {
             if (this.entries[i] == null && other.entries[i] != null ||
-                this.entries[i] != null && !this.entries[i].equals(other.entries[i]))
-            {
+                this.entries[i] != null && !this.entries[i].equals(other.entries[i])) {
                 return false;
             }
         }
@@ -252,13 +219,11 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int ret = 0;
         for (Entry<K, V> entry : this.entries)// We only care about the key
         {
-            if (entry != null)
-            {
+            if (entry != null) {
                 ret += entry.hashCode();
             }
         }
@@ -266,13 +231,11 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("LimitedArrayCacheMap[");
         boolean first = true;
-        for (Entry<K, V> e : this.entrySet())
-        {
+        for (Entry<K, V> e : this.entrySet()) {
             if (first) {
                 s.append("{");
             }
@@ -287,69 +250,58 @@ public final class LimitedArrayCacheMap<K, V> implements Map<K, V>, Serializable
         return s.toString();
     }
 
-    public Stream<Entry<K, V>> stream()
-    {
+    public Stream<Entry<K, V>> stream() {
         return StreamSupport.stream(Spliterators.spliterator(this.entrySet(), 0), false);
     }
 
-    private void removeDuplicates()
-    {
-        for (int i = 0; i < this.capacity; i++)
-        {
-            if (i != this.index && this.entries[i] != null && this.entries[i].equals(this.entries[this.index]))
-            {
+    private void removeDuplicates() {
+        for (int i = 0; i < this.capacity; i++) {
+            if (i != this.index && this.entries[i] != null && this.entries[i].equals(this.entries[this.index])) {
                 this.entries[i] = null;
             }
         }
     }
 
     @Immutable
-    private static final class ImmutableEntry<K, V> implements Entry<K, V>, Serializable
-    {
+    private static final class ImmutableEntry<K, V> implements Entry<K, V>, Serializable {
+
         private static final long serialVersionUID = -4241056911694303514L;
 
         private final K key;
         private final V value;
 
-        private ImmutableEntry(K key, V value)
-        {
-            this.key   = key;
+        private ImmutableEntry(K key, V value) {
+            this.key = key;
             this.value = value;
         }
 
         @Override
-        public K getKey()
-        {
+        public K getKey() {
             return this.key;
         }
 
         @Override
-        public V getValue()
-        {
+        public V getValue() {
             return this.value;
         }
 
         @Override
-        public V setValue(V v)
-        {
+        public V setValue(V v) {
             throw new UnsupportedOperationException("Immutable data");
         }
 
         @Override
-        public boolean equals(@Nullable Object o)
-        {
+        public boolean equals(@Nullable Object o) {
             return (o != null) && (o instanceof Entry<?, ?> && this.getKey().equals(((Entry<?, ?>) o).getKey()));// We only care about the key
         }
 
         @Override
-        public int hashCode()
-        {
+        public int hashCode() {
             return this.getKey().hashCode();// We only care about the key
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return this.getKey() + "=" + this.getValue();
         }
     }

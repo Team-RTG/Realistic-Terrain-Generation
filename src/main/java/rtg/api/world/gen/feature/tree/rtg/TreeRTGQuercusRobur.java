@@ -3,6 +3,7 @@ package rtg.api.world.gen.feature.tree.rtg;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
@@ -11,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import com.google.common.collect.Lists;
 
 /**
  * Quercus Robur (Pedunculate Oak)

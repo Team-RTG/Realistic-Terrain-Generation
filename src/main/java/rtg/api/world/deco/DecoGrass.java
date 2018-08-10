@@ -5,19 +5,20 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-
 import net.minecraftforge.event.terraingen.TerrainGen;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenGrass;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.GRASS;
+
 
 /*
  * @author WhichOnesPink
  */
 public class DecoGrass extends DecoBase {
 
+    private static final int MAX_LOOPS = 10;
     private float strengthFactor;
     private int minY;
     private int maxY;
@@ -26,10 +27,7 @@ public class DecoGrass extends DecoBase {
     private int notEqualsZeroChance;
     private IBlockState[] randomGrassBlocks;
     private byte[] randomGrassMetas;
-
     private boolean useRandomGrass;
-    private static final int MAX_LOOPS = 10;
-
     private IBlockState block;
     private int meta;
     private WorldGenGrass grassGenerator;

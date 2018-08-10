@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
@@ -16,6 +15,7 @@ import rtg.api.world.deco.collection.DecoCollectionBirchForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
 
@@ -40,6 +40,17 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
         return new TerrainVanillaBirchForestHillsM();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaBirchForestHillsM(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
+    }
+
     public class TerrainVanillaBirchForestHillsM extends TerrainBase {
 
         private float hillStrength = 70f;
@@ -53,12 +64,6 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
 
             return terrainHighland(x, y, rtgWorld, river, 10f, 68f, hillStrength, 10f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaBirchForestHillsM(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaBirchForestHillsM extends SurfaceBase {
@@ -109,10 +114,5 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 }

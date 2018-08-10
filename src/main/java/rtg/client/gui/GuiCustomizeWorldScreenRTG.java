@@ -11,7 +11,6 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiListButton;
@@ -30,36 +29,35 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import rtg.api.util.Logger;
 import rtg.api.world.gen.RTGChunkGenSettings;
 
 
 @SideOnly(Side.CLIENT)
-public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelper, GuiResponder
-{
-    private static final int    ID_OFFSET                   = Byte.MAX_VALUE;
-    private static final String LANG_KEY_PREFIX             = "gui.createWorld.customize.";
-    private static final String LANG_KEY_PREFIX_TITLE       = LANG_KEY_PREFIX + "title.";
-    private static final String LANG_KEY_PREFIX_CATEGORY    = LANG_KEY_PREFIX + "category.";
-    private static final String LANG_KEY_PREFIX_SETTING     = LANG_KEY_PREFIX + "setting.";
-    private static final int    BUTTON_DONE                 = 0x40;
-    private static final int    BUTTON_CLIPBOARD            = 0x41;
-    private static final int    BUTTON_DEFAULTS             = 0x42;
-    private static final int    BUTTON_PREVPAGE             = 0x43;
-    private static final int    BUTTON_NEXTPAGE             = 0x44;
-    private static final int    BUTTON_YES                  = 0x45;
-    private static final int    BUTTON_NO                   = 0x46;
+public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelper, GuiResponder {
 
-    private static final RTGChunkGenSettings defaults  = new RTGChunkGenSettings.Factory().build();
+    private static final int ID_OFFSET = Byte.MAX_VALUE;
+    private static final String LANG_KEY_PREFIX = "gui.createWorld.customize.";
+    private static final String LANG_KEY_PREFIX_TITLE = LANG_KEY_PREFIX + "title.";
+    private static final String LANG_KEY_PREFIX_CATEGORY = LANG_KEY_PREFIX + "category.";
+    private static final String LANG_KEY_PREFIX_SETTING = LANG_KEY_PREFIX + "setting.";
+    private static final int BUTTON_DONE = 0x40;
+    private static final int BUTTON_CLIPBOARD = 0x41;
+    private static final int BUTTON_DEFAULTS = 0x42;
+    private static final int BUTTON_PREVPAGE = 0x43;
+    private static final int BUTTON_NEXTPAGE = 0x44;
+    private static final int BUTTON_YES = 0x45;
+    private static final int BUTTON_NO = 0x46;
+
+    private static final RTGChunkGenSettings defaults = new RTGChunkGenSettings.Factory().build();
 // TODO: [Generator settings] Disable fixedBiome for now as it requires modification to the GenLayer classes to work.
 //  private static final List<Biome> biomeList              = createBiomeList();
 
     private final GuiCreateWorld parent;
 
-    private String   title     = "";
-    private String   subtitle  = "";
-    private String   pageTitle = "";
+    private String title = "";
+    private String subtitle = "";
+    private String pageTitle = "";
     private String[] pageNames = new String[Page.values().length];
 
     private GuiPageButtonList list;
@@ -73,12 +71,12 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
     private boolean settingsModified;
     private boolean confirmDismissed;
-    private int     confirmMode;
+    private int confirmMode;
 
 
     public GuiCustomizeWorldScreenRTG(GuiScreen parentScreen, String generatorSettings) {
 
-        this.parent = (GuiCreateWorld)parentScreen;
+        this.parent = (GuiCreateWorld) parentScreen;
 
         // Process the generator settings that are passed when recreating an existing world or
         // from re-entering the customisation screen after having changed settings and exited.
@@ -106,18 +104,18 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         this.title = I18n.format(LANG_KEY_PREFIX_TITLE + "maintitle");
         this.buttonList.clear();
 
-        this.done       = this.addButton(new GuiButton(BUTTON_DONE,      this.width / 2 +  98, this.height - 27,  90, 20, I18n.format("gui.done")));
-        this.clipboard  = this.addButton(new GuiButton(BUTTON_CLIPBOARD, this.width / 2 -  80, this.height - 27, 160, 20, I18n.format(LANG_KEY_PREFIX + "clipboard")));
-        this.reset      = this.addButton(new GuiButton(BUTTON_DEFAULTS,  this.width / 2 - 187, this.height - 27,  90, 20, I18n.format("createWorld.customize.custom.defaults")));
-        this.prevPage   = this.addButton(new GuiButton(BUTTON_PREVPAGE,                    20,                5,  80, 20, I18n.format("createWorld.customize.custom.prev")));
-        this.nextPage   = this.addButton(new GuiButton(BUTTON_NEXTPAGE,  this.width - 100,                    5,  80, 20, I18n.format("createWorld.customize.custom.next")));
-        this.confirm    = new GuiButton(BUTTON_YES, this.width / 2 - 55, 160, 50, 20, I18n.format("gui.yes"));
-        this.cancel     = new GuiButton(BUTTON_NO,  this.width / 2 +  5, 160, 50, 20, I18n.format("gui.no"));
+        this.done = this.addButton(new GuiButton(BUTTON_DONE, this.width / 2 + 98, this.height - 27, 90, 20, I18n.format("gui.done")));
+        this.clipboard = this.addButton(new GuiButton(BUTTON_CLIPBOARD, this.width / 2 - 80, this.height - 27, 160, 20, I18n.format(LANG_KEY_PREFIX + "clipboard")));
+        this.reset = this.addButton(new GuiButton(BUTTON_DEFAULTS, this.width / 2 - 187, this.height - 27, 90, 20, I18n.format("createWorld.customize.custom.defaults")));
+        this.prevPage = this.addButton(new GuiButton(BUTTON_PREVPAGE, 20, 5, 80, 20, I18n.format("createWorld.customize.custom.prev")));
+        this.nextPage = this.addButton(new GuiButton(BUTTON_NEXTPAGE, this.width - 100, 5, 80, 20, I18n.format("createWorld.customize.custom.next")));
+        this.confirm = new GuiButton(BUTTON_YES, this.width / 2 - 55, 160, 50, 20, I18n.format("gui.yes"));
+        this.cancel = new GuiButton(BUTTON_NO, this.width / 2 + 5, 160, 50, 20, I18n.format("gui.no"));
 
         this.clipboard.enabled = this.settingsModified;
-        this.reset.enabled     = this.settingsModified;
-        this.confirm.visible   = false;
-        this.cancel.visible    = false;
+        this.reset.enabled = this.settingsModified;
+        this.confirm.visible = false;
+        this.cancel.visible = false;
         this.buttonList.add(this.confirm);
         this.buttonList.add(this.cancel);
 
@@ -141,7 +139,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         this.list.handleMouseInput();
     }
 
-// This method is never called since GuiPagedButtonList.EditBoxEntry is never used.
+    // This method is never called since GuiPagedButtonList.EditBoxEntry is never used.
     @Override
     public void setEntryValue(int id, String value) {
         this.setSettingsModified(Setting.isModified());
@@ -163,7 +161,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         Setting setting = Setting.getByID(id);
         if (setting != null) {
             if (setting.getSettingType().equals(SettingType.INTEGER)) {
-                setting.setCurValue((int)value);
+                setting.setCurValue((int) value);
             }
             else {
                 setting.setCurValue(value);
@@ -180,8 +178,12 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
                 case BUTTON_DONE:
                     RTGChunkGenSettings.Factory factory = RTGChunkGenSettings.Factory.jsonToFactory(Setting.buildJson().toString());
-                    if (factory != null) { this.parent.chunkProviderSettingsJson = factory.toString(); }
-                    else { Logger.error("Error parsing RTGChunkGenSettings settings from string: {}", Setting.buildJson().toString()); }
+                    if (factory != null) {
+                        this.parent.chunkProviderSettingsJson = factory.toString();
+                    }
+                    else {
+                        Logger.error("Error parsing RTGChunkGenSettings settings from string: {}", Setting.buildJson().toString());
+                    }
                     this.mc.displayGuiScreen(this.parent);
                     break;
 
@@ -224,7 +226,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         Lists.newArrayList(Page.values()).forEach(page -> {
 
             int pg = page.ordinal();
-            Id  id = new Id();
+            Id id = new Id();
 
             this.pageNames[pg] = page.getTitle();
 
@@ -232,7 +234,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
             page.CATEGORIES.forEach(cat -> {
 
-                pages[pg][id.next()] = new GuiLabelEntry(ID_OFFSET+1000+cat.ordinal(), cat.getTitle(), page.isPage1());
+                pages[pg][id.next()] = new GuiLabelEntry(ID_OFFSET + 1000 + cat.ordinal(), cat.getTitle(), page.isPage1());
                 id.next(); // bump the ID to ensure a null value after the label so that it is displayed centered and doesn't throw an exception
 
                 List<Setting> sets = Setting.getSettingsForCategory(cat); // get the settings for this category
@@ -257,10 +259,11 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                             /*if (setting.equals(Setting.fixedBiome)) { // special handling for fixedBiome
                                   return ((int)fval == -1) ? "Biome: All Biomes" : "Biome: " + biomeList.get((int)fval).getBiomeName();
                               }
-                              else*/ if (setting.equals(Setting.waterSpoutChance) || setting.equals(Setting.lavaSpoutChance)) { // special handling for waterSpoutChance/lavaSpoutChance
-                                  return fname + (((int)fval==0) ? ": Disabled" : ": " + String.format("%d", (int)fval));
-                              }
-                              return fname + ": " + String.format("%d", (int)fval);
+                              else*/
+                                if (setting.equals(Setting.waterSpoutChance) || setting.equals(Setting.lavaSpoutChance)) { // special handling for waterSpoutChance/lavaSpoutChance
+                                    return fname + (((int) fval == 0) ? ": Disabled" : ": " + String.format("%d", (int) fval));
+                                }
+                                return fname + ": " + String.format("%d", (int) fval);
                             },
                             setting.minValue().getInt(),
 // TODO: [Generator settings] Disable fixedBiome for now as it requires modification to the GenLayer classes to work.
@@ -283,7 +286,9 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                         );
                     }
                 }); // SETTINGS END
-                if (sets.size() % 2 != 0) {id.next();} // if the current category contains an odd number of settings, bump the ID to pad it to prevent an exception
+                if (sets.size() % 2 != 0) {
+                    id.next();
+                } // if the current category contains an odd number of settings, bump the ID to pad it to prevent an exception
             }); // CATEGORIES END
         }); // PAGES END
 
@@ -325,7 +330,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         switch (this.confirmMode) {
 
             case BUTTON_DONE:
-                this.actionPerformed((GuiListButton)this.list.getComponent(BUTTON_DONE));
+                this.actionPerformed((GuiListButton) this.list.getComponent(BUTTON_DONE));
                 break;
 
             case BUTTON_DEFAULTS:
@@ -357,7 +362,6 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         if (this.confirmDismissed) {
             this.confirmDismissed = false;
         }
-
         else if (this.confirmMode == 0) {
             this.list.mouseReleased(mouseX, mouseY, state);
         }
@@ -400,7 +404,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     }
 
     private void copyToClipboard() {
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Setting.buildJson().toString()),null);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Setting.buildJson().toString()), null);
     }
 
 // TODO: [Generator settings] Disable fixedBiome for now as they require modification to the GenLayer classes to work.
@@ -422,19 +426,24 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     }
 */
 
-    private static class Id {
-        private int count = 0;
-        public int next() {return count++;}
+    // TODO: [Clean-up] This method never gets called but is required by the FormatHelper interface. Check for possible removal.
+    @Override
+    public String getText(int id, String name, float value) {
+        return name + ": " + value;
     }
 
-    enum SettingType {BOOLEAN, INTEGER, FLOAT}
+    enum SettingType {
+        BOOLEAN,
+        INTEGER,
+        FLOAT
+    }
 
     enum Page {
-        PAGE1 (Category.WORLD, Category.SURFACE, Category.UNDERGROUND, Category.VOLCANOS),
-        PAGE2 (Category.RIVERS, Category.RTGLAKES, Category.VANILLASURFACELAKES, Category.VANILLAUNDERGROUNDLAKES, Category.VANILLASPOUTS),
-        PAGE3 (Category.VILLAGES, Category.MINESHAFTS, Category.DUNGEONS, Category.TEMPLES, Category.MONUMENTS, Category.MANSIONS, Category.STRONGHOLDS),
-        PAGE4 (Category.DIRT, Category.GRAVEL, Category.GRANITE, Category.DIORITE,  Category.ANDESITE,
-               Category.COAL, Category.IRON,   Category.GOLD,    Category.REDSTONE, Category.DIAMOND, Category.LAPIS);
+        PAGE1(Category.WORLD, Category.SURFACE, Category.UNDERGROUND, Category.VOLCANOS),
+        PAGE2(Category.RIVERS, Category.RTGLAKES, Category.VANILLASURFACELAKES, Category.VANILLAUNDERGROUNDLAKES, Category.VANILLASPOUTS),
+        PAGE3(Category.VILLAGES, Category.MINESHAFTS, Category.DUNGEONS, Category.TEMPLES, Category.MONUMENTS, Category.MANSIONS, Category.STRONGHOLDS),
+        PAGE4(Category.DIRT, Category.GRAVEL, Category.GRANITE, Category.DIORITE, Category.ANDESITE,
+            Category.COAL, Category.IRON, Category.GOLD, Category.REDSTONE, Category.DIAMOND, Category.LAPIS);
 
         public final List<Category> CATEGORIES = new ArrayList<>();
 
@@ -443,7 +452,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
             Collections.addAll(this.CATEGORIES, cats);
 
             if (this.ordinal() == 0) {
-                for(Setting setting : Setting.values()) {
+                for (Setting setting : Setting.values()) {
                     if (CATEGORIES.contains(setting.getCategory())) {
                         setting.setPage1(); // configure the settings that should be displayed on page 1
                     }
@@ -452,7 +461,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         }
 
         public int getPageSize() {
-            int total = this.CATEGORIES.size()*2; // Multiply by 2 to accomodate a null object after each GuiLabelEntry for each category (centers text/prevents exception)
+            int total = this.CATEGORIES.size() * 2; // Multiply by 2 to accomodate a null object after each GuiLabelEntry for each category (centers text/prevents exception)
             int tmp;
             for (Category category : CATEGORIES) {
                 tmp = Setting.getSettingsForCategory(category).size();
@@ -471,10 +480,34 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     }
 
     enum Category {
-        WORLD, SURFACE, UNDERGROUND, VOLCANOS,
-        RIVERS, RTGLAKES, VANILLASURFACELAKES, VANILLAUNDERGROUNDLAKES, VANILLASPOUTS,
-        VILLAGES, MINESHAFTS, DUNGEONS, TEMPLES, MONUMENTS, MANSIONS, STRONGHOLDS,
-        DIRT, GRAVEL, GRANITE, DIORITE, ANDESITE, COAL, IRON, GOLD, REDSTONE, DIAMOND, LAPIS;
+        WORLD,
+        SURFACE,
+        UNDERGROUND,
+        VOLCANOS,
+        RIVERS,
+        RTGLAKES,
+        VANILLASURFACELAKES,
+        VANILLAUNDERGROUNDLAKES,
+        VANILLASPOUTS,
+        VILLAGES,
+        MINESHAFTS,
+        DUNGEONS,
+        TEMPLES,
+        MONUMENTS,
+        MANSIONS,
+        STRONGHOLDS,
+        DIRT,
+        GRAVEL,
+        GRANITE,
+        DIORITE,
+        ANDESITE,
+        COAL,
+        IRON,
+        GOLD,
+        REDSTONE,
+        DIAMOND,
+        LAPIS;
+
         public String getTitle() {
             return I18n.format(LANG_KEY_PREFIX_CATEGORY + name());
         }
@@ -482,194 +515,167 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
     enum Setting {
 
-//      Setting name         Type                 Default value                   Min   Max  Category
+        //      Setting name         Type                 Default value                   Min   Max  Category
 // TODO: [Generator settings] Disable fixedBiome and biomeSize for now as they require modification to the GenLayer classes to work.
 //      fixedBiome          (SettingType.INTEGER, defaults.fixedBiome,             -1,  255, Category.WORLD), // Max value is replaced during createPagedList() to match the size of the biome list
 //      biomeSize           (SettingType.INTEGER, defaults.biomeSize,               2,    8, Category.WORLD),
-        seaLevel            (SettingType.INTEGER, defaults.seaLevel,               31,   95, Category.WORLD),
-        oceanWaves          (SettingType.BOOLEAN, defaults.oceanWaves,           null, null, Category.WORLD),
+        seaLevel(SettingType.INTEGER, defaults.seaLevel, 31, 95, Category.WORLD),
+        oceanWaves(SettingType.BOOLEAN, defaults.oceanWaves, null, null, Category.WORLD),
 
-        useBoulders         (SettingType.BOOLEAN, defaults.useBoulders,          null, null, Category.SURFACE),
-        boulderMult         (SettingType.FLOAT  , defaults.boulderMult,          0.2f, 5.0f, Category.SURFACE),
-        sandDuneHeight      (SettingType.INTEGER, defaults.sandDuneHeight,          1,   10, Category.SURFACE),
-//      snowDuneHeight      (SettingType.INTEGER, defaults.snowDuneHeight,          1,   10, Category.SURFACE), // Disabled, no current use
-        useSnowLayers       (SettingType.BOOLEAN, defaults.useSnowLayers,        null, null, Category.SURFACE),
+        useBoulders(SettingType.BOOLEAN, defaults.useBoulders, null, null, Category.SURFACE),
+        boulderMult(SettingType.FLOAT, defaults.boulderMult, 0.2f, 5.0f, Category.SURFACE),
+        sandDuneHeight(SettingType.INTEGER, defaults.sandDuneHeight, 1, 10, Category.SURFACE),
+        //      snowDuneHeight      (SettingType.INTEGER, defaults.snowDuneHeight,          1,   10, Category.SURFACE), // Disabled, no current use
+        useSnowLayers(SettingType.BOOLEAN, defaults.useSnowLayers, null, null, Category.SURFACE),
 
-        bedrockLayers       (SettingType.INTEGER, defaults.bedrockLayers,           1,   10, Category.UNDERGROUND), // value passed to Random, minimum can not be < 1
-        useCaves            (SettingType.BOOLEAN, defaults.useCaves,             null, null, Category.UNDERGROUND),
-        caveChance          (SettingType.INTEGER, defaults.caveChance,              4,   10, Category.UNDERGROUND),
-        caveDensity         (SettingType.INTEGER, defaults.caveDensity,            12,   20, Category.UNDERGROUND),
-        useRavines          (SettingType.BOOLEAN, defaults.useRavines,           null, null, Category.UNDERGROUND),
-        ravineChance        (SettingType.INTEGER, defaults.ravineChance,           25,  100, Category.UNDERGROUND),
+        bedrockLayers(SettingType.INTEGER, defaults.bedrockLayers, 1, 10, Category.UNDERGROUND),
+        // value passed to Random, minimum can not be < 1
+        useCaves(SettingType.BOOLEAN, defaults.useCaves, null, null, Category.UNDERGROUND),
+        caveChance(SettingType.INTEGER, defaults.caveChance, 4, 10, Category.UNDERGROUND),
+        caveDensity(SettingType.INTEGER, defaults.caveDensity, 12, 20, Category.UNDERGROUND),
+        useRavines(SettingType.BOOLEAN, defaults.useRavines, null, null, Category.UNDERGROUND),
+        ravineChance(SettingType.INTEGER, defaults.ravineChance, 25, 100, Category.UNDERGROUND),
 
-        useVolcanos         (SettingType.BOOLEAN, defaults.useVolcanos,          null, null, Category.VOLCANOS),
-        volcanosErupt       (SettingType.BOOLEAN, defaults.volcanosErupt,        null, null, Category.VOLCANOS),
-        volcanosChance      (SettingType.INTEGER, defaults.volcanosChance,          8,  128, Category.VOLCANOS),
-        volcanosCalderaMult (SettingType.FLOAT,   defaults.volcanosCalderaMult,  0.5f, 2.0f, Category.VOLCANOS),
-        volcanoConduits     (SettingType.BOOLEAN, defaults.volcanoConduits,      null, null, Category.VOLCANOS),
-        volcanoConduitDepth (SettingType.INTEGER, defaults.volcanoConduitDepth,     0,  128, Category.VOLCANOS),
-
-
-        riverSize           (SettingType.FLOAT,   defaults.riverSizeMult,        0.5f, 2.0f, Category.RIVERS),
-        riverFrequency      (SettingType.FLOAT,   defaults.riverFrequency,       0.0f, 8.0f, Category.RIVERS),
-        riverBendMult       (SettingType.FLOAT,   defaults.riverBendMult,        0.5f, 2.0f, Category.RIVERS),
-        riverCutOffAmpl     (SettingType.FLOAT,   defaults.riverCutOffAmpl,      0.0f, 2.0f, Category.RIVERS),
-        riverCutOffScale    (SettingType.FLOAT,   defaults.riverCutOffScale,    50.0f,750.0f,Category.RIVERS),
-
-        RTGlakeSizeMult     (SettingType.FLOAT,   defaults.RTGlakeSizeMult,      0.0f, 2.0f, Category.RTGLAKES),
-        RTGlakeFreqMult     (SettingType.FLOAT,   defaults.RTGlakeFreqMult,      0.0f, 2.0f, Category.RTGLAKES),
-        RTGlakeShoreBend    (SettingType.FLOAT,   defaults.RTGlakeShoreBend,     0.0f, 2.0f, Category.RTGLAKES),
-
-        useWaterLakes       (SettingType.BOOLEAN, defaults.useWaterLakes,        null, null, Category.VANILLASURFACELAKES),
-        waterLakeChance     (SettingType.INTEGER, defaults.waterLakeChance,         1,  100, Category.VANILLASURFACELAKES), // value passed to Random, minimum can not be < 1
-        useLavaLakes        (SettingType.BOOLEAN, defaults.useLavaLakes,         null, null, Category.VANILLASURFACELAKES),
-        lavaLakeChance      (SettingType.INTEGER, defaults.lavaLakeChance,          1,  100, Category.VANILLASURFACELAKES), // value passed to Random, minimum can not be < 1
-
-        useWaterUndLakes    (SettingType.BOOLEAN, defaults.useWaterUndLakes,     null, null, Category.VANILLAUNDERGROUNDLAKES),
-        waterUndLakeChance  (SettingType.INTEGER, defaults.waterUndLakeChance,      1,  100, Category.VANILLAUNDERGROUNDLAKES), // value passed to Random, minimum can not be < 1
-        useLavaUndLakes     (SettingType.BOOLEAN, defaults.useLavaUndLakes,      null, null, Category.VANILLAUNDERGROUNDLAKES),
-        lavaUndLakeChance   (SettingType.INTEGER, defaults.lavaUndLakeChance,       1,  100, Category.VANILLAUNDERGROUNDLAKES), // value passed to Random, minimum can not be < 1
-
-        waterSpoutChance    (SettingType.INTEGER, defaults.waterSpoutChance,        0, 200, Category.VANILLASPOUTS),
-        lavaSpoutChance     (SettingType.INTEGER, defaults.lavaSpoutChance,         0, 200, Category.VANILLASPOUTS),
+        useVolcanos(SettingType.BOOLEAN, defaults.useVolcanos, null, null, Category.VOLCANOS),
+        volcanosErupt(SettingType.BOOLEAN, defaults.volcanosErupt, null, null, Category.VOLCANOS),
+        volcanosChance(SettingType.INTEGER, defaults.volcanosChance, 8, 128, Category.VOLCANOS),
+        volcanosCalderaMult(SettingType.FLOAT, defaults.volcanosCalderaMult, 0.5f, 2.0f, Category.VOLCANOS),
+        volcanoConduits(SettingType.BOOLEAN, defaults.volcanoConduits, null, null, Category.VOLCANOS),
+        volcanoConduitDepth(SettingType.INTEGER, defaults.volcanoConduitDepth, 0, 128, Category.VOLCANOS),
 
 
-        useVillages         (SettingType.BOOLEAN, defaults.useVillages,          null, null, Category.VILLAGES),
-        villageSize         (SettingType.INTEGER, defaults.villageSize,             0,    5, Category.VILLAGES),
-        villageDistance     (SettingType.INTEGER, defaults.villageDistance,        24, 1024, Category.VILLAGES),
+        riverSize(SettingType.FLOAT, defaults.riverSizeMult, 0.5f, 2.0f, Category.RIVERS),
+        riverFrequency(SettingType.FLOAT, defaults.riverFrequency, 0.0f, 8.0f, Category.RIVERS),
+        riverBendMult(SettingType.FLOAT, defaults.riverBendMult, 0.5f, 2.0f, Category.RIVERS),
+        riverCutOffAmpl(SettingType.FLOAT, defaults.riverCutOffAmpl, 0.0f, 2.0f, Category.RIVERS),
+        riverCutOffScale(SettingType.FLOAT, defaults.riverCutOffScale, 50.0f, 750.0f, Category.RIVERS),
 
-        useMineShafts       (SettingType.BOOLEAN, defaults.useMineShafts,        null, null, Category.MINESHAFTS),
-        mineShaftChance     (SettingType.FLOAT,   defaults.mineShaftChance,    0.001f,0.01f, Category.MINESHAFTS),
+        RTGlakeSizeMult(SettingType.FLOAT, defaults.RTGlakeSizeMult, 0.0f, 2.0f, Category.RTGLAKES),
+        RTGlakeFreqMult(SettingType.FLOAT, defaults.RTGlakeFreqMult, 0.0f, 2.0f, Category.RTGLAKES),
+        RTGlakeShoreBend(SettingType.FLOAT, defaults.RTGlakeShoreBend, 0.0f, 2.0f, Category.RTGLAKES),
 
-        useDungeons         (SettingType.BOOLEAN, defaults.useDungeons,          null, null, Category.DUNGEONS),
-        dungeonChance       (SettingType.INTEGER, defaults.dungeonChance,           5,   20, Category.DUNGEONS),
+        useWaterLakes(SettingType.BOOLEAN, defaults.useWaterLakes, null, null, Category.VANILLASURFACELAKES),
+        waterLakeChance(SettingType.INTEGER, defaults.waterLakeChance, 1, 100, Category.VANILLASURFACELAKES),
+        // value passed to Random, minimum can not be < 1
+        useLavaLakes(SettingType.BOOLEAN, defaults.useLavaLakes, null, null, Category.VANILLASURFACELAKES),
+        lavaLakeChance(SettingType.INTEGER, defaults.lavaLakeChance, 1, 100, Category.VANILLASURFACELAKES),
+        // value passed to Random, minimum can not be < 1
 
-        useTemples          (SettingType.BOOLEAN, defaults.useTemples,           null, null, Category.TEMPLES),
-        templeDistance      (SettingType.INTEGER, defaults.templeDistance,         16,   64, Category.TEMPLES),
+        useWaterUndLakes(SettingType.BOOLEAN, defaults.useWaterUndLakes, null, null, Category.VANILLAUNDERGROUNDLAKES),
+        waterUndLakeChance(SettingType.INTEGER, defaults.waterUndLakeChance, 1, 100, Category.VANILLAUNDERGROUNDLAKES),
+        // value passed to Random, minimum can not be < 1
+        useLavaUndLakes(SettingType.BOOLEAN, defaults.useLavaUndLakes, null, null, Category.VANILLAUNDERGROUNDLAKES),
+        lavaUndLakeChance(SettingType.INTEGER, defaults.lavaUndLakeChance, 1, 100, Category.VANILLAUNDERGROUNDLAKES),
+        // value passed to Random, minimum can not be < 1
 
-        useMonuments        (SettingType.BOOLEAN, defaults.useMonuments,         null, null, Category.MONUMENTS),
-        monumentSpacing     (SettingType.INTEGER, defaults.monumentSpacing,        16,   64, Category.MONUMENTS),
-        monumentSeparation  (SettingType.INTEGER, defaults.monumentSeparation,      3,    8, Category.MONUMENTS),
-
-        useMansions         (SettingType.BOOLEAN, defaults.useMansions,          null, null, Category.MANSIONS),
-        mansionSpacing      (SettingType.INTEGER, defaults.mansionSpacing,         40,  160, Category.MANSIONS),
-        mansionSeparation   (SettingType.INTEGER, defaults.mansionSeparation,      10,   40, Category.MANSIONS),
-
-        useStrongholds      (SettingType.BOOLEAN, defaults.useStrongholds,       null, null, Category.STRONGHOLDS),
-        strongholdCount     (SettingType.INTEGER, defaults.strongholdCount,         0,  256, Category.STRONGHOLDS),
-        strongholdDistance  (SettingType.INTEGER, defaults.strongholdDistance,     16,   64, Category.STRONGHOLDS),
-        strongholdSpread    (SettingType.INTEGER, defaults.strongholdSpread,        2,    4, Category.STRONGHOLDS),
+        waterSpoutChance(SettingType.INTEGER, defaults.waterSpoutChance, 0, 200, Category.VANILLASPOUTS),
+        lavaSpoutChance(SettingType.INTEGER, defaults.lavaSpoutChance, 0, 200, Category.VANILLASPOUTS),
 
 
-        dirtSize            (SettingType.INTEGER, defaults.dirtSize,                1,   50, Category.DIRT),
-        dirtCount           (SettingType.INTEGER, defaults.dirtCount,               0,   40, Category.DIRT),
-        dirtMinHeight       (SettingType.INTEGER, defaults.dirtMinHeight,           0,  255, Category.DIRT),
-        dirtMaxHeight       (SettingType.INTEGER, defaults.dirtMaxHeight,           0,  255, Category.DIRT),
+        useVillages(SettingType.BOOLEAN, defaults.useVillages, null, null, Category.VILLAGES),
+        villageSize(SettingType.INTEGER, defaults.villageSize, 0, 5, Category.VILLAGES),
+        villageDistance(SettingType.INTEGER, defaults.villageDistance, 24, 1024, Category.VILLAGES),
 
-        gravelSize          (SettingType.INTEGER, defaults.gravelSize,              1,   50, Category.GRAVEL),
-        gravelCount         (SettingType.INTEGER, defaults.gravelCount,             0,   40, Category.GRAVEL),
-        gravelMinHeight     (SettingType.INTEGER, defaults.gravelMinHeight,         0,  255, Category.GRAVEL),
-        gravelMaxHeight     (SettingType.INTEGER, defaults.gravelMaxHeight,         0,  255, Category.GRAVEL),
+        useMineShafts(SettingType.BOOLEAN, defaults.useMineShafts, null, null, Category.MINESHAFTS),
+        mineShaftChance(SettingType.FLOAT, defaults.mineShaftChance, 0.001f, 0.01f, Category.MINESHAFTS),
 
-        graniteSize         (SettingType.INTEGER, defaults.graniteSize,             1,   50, Category.GRANITE),
-        graniteCount        (SettingType.INTEGER, defaults.graniteCount,            0,   40, Category.GRANITE),
-        graniteMinHeight    (SettingType.INTEGER, defaults.graniteMinHeight,        0,  255, Category.GRANITE),
-        graniteMaxHeight    (SettingType.INTEGER, defaults.graniteMaxHeight,        0,  255, Category.GRANITE),
+        useDungeons(SettingType.BOOLEAN, defaults.useDungeons, null, null, Category.DUNGEONS),
+        dungeonChance(SettingType.INTEGER, defaults.dungeonChance, 5, 20, Category.DUNGEONS),
 
-        dioriteSize         (SettingType.INTEGER, defaults.dioriteSize,             1,   50, Category.DIORITE),
-        dioriteCount        (SettingType.INTEGER, defaults.dioriteCount,            0,   40, Category.DIORITE),
-        dioriteMinHeight    (SettingType.INTEGER, defaults.dioriteMinHeight,        0,  255, Category.DIORITE),
-        dioriteMaxHeight    (SettingType.INTEGER, defaults.dioriteMaxHeight,        0,  255, Category.DIORITE),
+        useTemples(SettingType.BOOLEAN, defaults.useTemples, null, null, Category.TEMPLES),
+        templeDistance(SettingType.INTEGER, defaults.templeDistance, 16, 64, Category.TEMPLES),
 
-        andesiteSize        (SettingType.INTEGER, defaults.andesiteSize,            1,   50, Category.ANDESITE),
-        andesiteCount       (SettingType.INTEGER, defaults.andesiteCount,           0,   40, Category.ANDESITE),
-        andesiteMinHeight   (SettingType.INTEGER, defaults.andesiteMinHeight,       0,  255, Category.ANDESITE),
-        andesiteMaxHeight   (SettingType.INTEGER, defaults.andesiteMaxHeight,       0,  255, Category.ANDESITE),
+        useMonuments(SettingType.BOOLEAN, defaults.useMonuments, null, null, Category.MONUMENTS),
+        monumentSpacing(SettingType.INTEGER, defaults.monumentSpacing, 16, 64, Category.MONUMENTS),
+        monumentSeparation(SettingType.INTEGER, defaults.monumentSeparation, 3, 8, Category.MONUMENTS),
 
-        coalSize            (SettingType.INTEGER, defaults.coalSize,                1,   50, Category.COAL),
-        coalCount           (SettingType.INTEGER, defaults.coalCount,               0,   40, Category.COAL),
-        coalMinHeight       (SettingType.INTEGER, defaults.coalMinHeight,           0,  255, Category.COAL),
-        coalMaxHeight       (SettingType.INTEGER, defaults.coalMaxHeight,           0,  255, Category.COAL),
+        useMansions(SettingType.BOOLEAN, defaults.useMansions, null, null, Category.MANSIONS),
+        mansionSpacing(SettingType.INTEGER, defaults.mansionSpacing, 40, 160, Category.MANSIONS),
+        mansionSeparation(SettingType.INTEGER, defaults.mansionSeparation, 10, 40, Category.MANSIONS),
 
-        ironSize            (SettingType.INTEGER, defaults.ironSize,                1,   50, Category.IRON),
-        ironCount           (SettingType.INTEGER, defaults.ironCount,               0,   40, Category.IRON),
-        ironMinHeight       (SettingType.INTEGER, defaults.ironMinHeight,           0,  255, Category.IRON),
-        ironMaxHeight       (SettingType.INTEGER, defaults.ironMaxHeight,           0,  255, Category.IRON),
+        useStrongholds(SettingType.BOOLEAN, defaults.useStrongholds, null, null, Category.STRONGHOLDS),
+        strongholdCount(SettingType.INTEGER, defaults.strongholdCount, 0, 256, Category.STRONGHOLDS),
+        strongholdDistance(SettingType.INTEGER, defaults.strongholdDistance, 16, 64, Category.STRONGHOLDS),
+        strongholdSpread(SettingType.INTEGER, defaults.strongholdSpread, 2, 4, Category.STRONGHOLDS),
 
-        goldSize            (SettingType.INTEGER, defaults.goldSize,                1,   50, Category.GOLD),
-        goldCount           (SettingType.INTEGER, defaults.goldCount,               0,   40, Category.GOLD),
-        goldMinHeight       (SettingType.INTEGER, defaults.goldMinHeight,           0,  255, Category.GOLD),
-        goldMaxHeight       (SettingType.INTEGER, defaults.goldMaxHeight,           0,  255, Category.GOLD),
 
-        redstoneSize        (SettingType.INTEGER, defaults.redstoneSize,            1,   50, Category.REDSTONE),
-        redstoneCount       (SettingType.INTEGER, defaults.redstoneCount,           0,   40, Category.REDSTONE),
-        redstoneMinHeight   (SettingType.INTEGER, defaults.redstoneMinHeight,       0,  255, Category.REDSTONE),
-        redstoneMaxHeight   (SettingType.INTEGER, defaults.redstoneMaxHeight,       0,  255, Category.REDSTONE),
+        dirtSize(SettingType.INTEGER, defaults.dirtSize, 1, 50, Category.DIRT),
+        dirtCount(SettingType.INTEGER, defaults.dirtCount, 0, 40, Category.DIRT),
+        dirtMinHeight(SettingType.INTEGER, defaults.dirtMinHeight, 0, 255, Category.DIRT),
+        dirtMaxHeight(SettingType.INTEGER, defaults.dirtMaxHeight, 0, 255, Category.DIRT),
 
-        diamondSize         (SettingType.INTEGER, defaults.diamondSize,             1,   50, Category.DIAMOND),
-        diamondCount        (SettingType.INTEGER, defaults.diamondCount,            0,   40, Category.DIAMOND),
-        diamondMinHeight    (SettingType.INTEGER, defaults.diamondMinHeight,        0,  255, Category.DIAMOND),
-        diamondMaxHeight    (SettingType.INTEGER, defaults.diamondMaxHeight,        0,  255, Category.DIAMOND),
+        gravelSize(SettingType.INTEGER, defaults.gravelSize, 1, 50, Category.GRAVEL),
+        gravelCount(SettingType.INTEGER, defaults.gravelCount, 0, 40, Category.GRAVEL),
+        gravelMinHeight(SettingType.INTEGER, defaults.gravelMinHeight, 0, 255, Category.GRAVEL),
+        gravelMaxHeight(SettingType.INTEGER, defaults.gravelMaxHeight, 0, 255, Category.GRAVEL),
 
-        lapisSize           (SettingType.INTEGER, defaults.lapisSize,               1,   50, Category.LAPIS),
-        lapisCount          (SettingType.INTEGER, defaults.lapisCount,              0,   40, Category.LAPIS),
-        lapisCenterHeight   (SettingType.INTEGER, defaults.lapisCenterHeight,       0,  255, Category.LAPIS),
-        lapisSpread         (SettingType.INTEGER, defaults.lapisSpread,             0,  255, Category.LAPIS);
+        graniteSize(SettingType.INTEGER, defaults.graniteSize, 1, 50, Category.GRANITE),
+        graniteCount(SettingType.INTEGER, defaults.graniteCount, 0, 40, Category.GRANITE),
+        graniteMinHeight(SettingType.INTEGER, defaults.graniteMinHeight, 0, 255, Category.GRANITE),
+        graniteMaxHeight(SettingType.INTEGER, defaults.graniteMaxHeight, 0, 255, Category.GRANITE),
+
+        dioriteSize(SettingType.INTEGER, defaults.dioriteSize, 1, 50, Category.DIORITE),
+        dioriteCount(SettingType.INTEGER, defaults.dioriteCount, 0, 40, Category.DIORITE),
+        dioriteMinHeight(SettingType.INTEGER, defaults.dioriteMinHeight, 0, 255, Category.DIORITE),
+        dioriteMaxHeight(SettingType.INTEGER, defaults.dioriteMaxHeight, 0, 255, Category.DIORITE),
+
+        andesiteSize(SettingType.INTEGER, defaults.andesiteSize, 1, 50, Category.ANDESITE),
+        andesiteCount(SettingType.INTEGER, defaults.andesiteCount, 0, 40, Category.ANDESITE),
+        andesiteMinHeight(SettingType.INTEGER, defaults.andesiteMinHeight, 0, 255, Category.ANDESITE),
+        andesiteMaxHeight(SettingType.INTEGER, defaults.andesiteMaxHeight, 0, 255, Category.ANDESITE),
+
+        coalSize(SettingType.INTEGER, defaults.coalSize, 1, 50, Category.COAL),
+        coalCount(SettingType.INTEGER, defaults.coalCount, 0, 40, Category.COAL),
+        coalMinHeight(SettingType.INTEGER, defaults.coalMinHeight, 0, 255, Category.COAL),
+        coalMaxHeight(SettingType.INTEGER, defaults.coalMaxHeight, 0, 255, Category.COAL),
+
+        ironSize(SettingType.INTEGER, defaults.ironSize, 1, 50, Category.IRON),
+        ironCount(SettingType.INTEGER, defaults.ironCount, 0, 40, Category.IRON),
+        ironMinHeight(SettingType.INTEGER, defaults.ironMinHeight, 0, 255, Category.IRON),
+        ironMaxHeight(SettingType.INTEGER, defaults.ironMaxHeight, 0, 255, Category.IRON),
+
+        goldSize(SettingType.INTEGER, defaults.goldSize, 1, 50, Category.GOLD),
+        goldCount(SettingType.INTEGER, defaults.goldCount, 0, 40, Category.GOLD),
+        goldMinHeight(SettingType.INTEGER, defaults.goldMinHeight, 0, 255, Category.GOLD),
+        goldMaxHeight(SettingType.INTEGER, defaults.goldMaxHeight, 0, 255, Category.GOLD),
+
+        redstoneSize(SettingType.INTEGER, defaults.redstoneSize, 1, 50, Category.REDSTONE),
+        redstoneCount(SettingType.INTEGER, defaults.redstoneCount, 0, 40, Category.REDSTONE),
+        redstoneMinHeight(SettingType.INTEGER, defaults.redstoneMinHeight, 0, 255, Category.REDSTONE),
+        redstoneMaxHeight(SettingType.INTEGER, defaults.redstoneMaxHeight, 0, 255, Category.REDSTONE),
+
+        diamondSize(SettingType.INTEGER, defaults.diamondSize, 1, 50, Category.DIAMOND),
+        diamondCount(SettingType.INTEGER, defaults.diamondCount, 0, 40, Category.DIAMOND),
+        diamondMinHeight(SettingType.INTEGER, defaults.diamondMinHeight, 0, 255, Category.DIAMOND),
+        diamondMaxHeight(SettingType.INTEGER, defaults.diamondMaxHeight, 0, 255, Category.DIAMOND),
+
+        lapisSize(SettingType.INTEGER, defaults.lapisSize, 1, 50, Category.LAPIS),
+        lapisCount(SettingType.INTEGER, defaults.lapisCount, 0, 40, Category.LAPIS),
+        lapisCenterHeight(SettingType.INTEGER, defaults.lapisCenterHeight, 0, 255, Category.LAPIS),
+        lapisSpread(SettingType.INTEGER, defaults.lapisSpread, 0, 255, Category.LAPIS);
 
 
         private final SettingType settingType;
-        private final int         id;
-        private final Category    category;
-        private       boolean     isPage1;
-
-        private final Object      defValue;
-        private final Object      minValue;
-        private final Object      maxValue;
-        private       Object      curValue;
-        private       Object      returnValue;
+        private final int id;
+        private final Category category;
+        private final Object defValue;
+        private final Object minValue;
+        private final Object maxValue;
+        private boolean isPage1;
+        private Object curValue;
+        private Object returnValue;
 
         Setting(SettingType settingType, Object defValue, @Nullable Object minValue, @Nullable Object maxValue, Category category) {
 
             this.settingType = settingType;
-            this.id          = ID_OFFSET + this.ordinal(); // Make IDs unique with no chance of collision
-            this.category    = category;
+            this.id = ID_OFFSET + this.ordinal(); // Make IDs unique with no chance of collision
+            this.category = category;
 
-            this.defValue    = defValue;
-            this.minValue    = minValue;
-            this.maxValue    = maxValue;
-            this.curValue    = this.defValue;
+            this.defValue = defValue;
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            this.curValue = this.defValue;
         }
-
-        public SettingType  getSettingType()    {return this.settingType;}
-        public int          getID()             {return this.id;}
-        public Category     getCategory()       {return this.category;}
-        public String       getLangKey()        {return LANG_KEY_PREFIX_SETTING + name();}
-        public boolean      isPage1()           {return isPage1;}
-        public void         setPage1()          {isPage1 = true;}
-
-        public Setting      defValue()          {this.returnValue=this.defValue;return this;}
-        public Setting      minValue()          {this.returnValue=this.minValue;return this;}
-        public Setting      maxValue()          {this.returnValue=this.maxValue;return this;}
-        public Setting      curValue()          {this.returnValue=this.curValue;return this;}
-
-        public boolean      getBool()           {return (boolean)this.returnValue;}
-        public int          getInt()            {
-            if (returnValue instanceof Float) {
-                return ((Float)this.returnValue).intValue();
-            }
-            return (int)this.returnValue;
-        }
-        public float        getFloat()          {
-            if (returnValue instanceof Integer) {
-                return ((Integer)this.returnValue).floatValue();
-            }
-            return (float)this.returnValue;
-        }
-
-        public void setCurValue(boolean val)    {this.curValue = val;}
-        public void setCurValue(int     val)    {this.curValue = val;}
-        public void setCurValue(float   val)    {this.curValue = val;}
-        public void setCurValue(Object  val)    {this.curValue = val;}
 
         public static List<Setting> getSettingsForCategory(Category category) {
             List<Setting> ret = Lists.newArrayList();
@@ -740,7 +746,8 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                             }
                         }
 
-                        else*/ ret.addProperty(setting.name(), setting.curValue().getInt());
+                        else*/
+                        ret.addProperty(setting.name(), setting.curValue().getInt());
                     }
                 }
 
@@ -778,7 +785,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                 try {
                     setting[0] = Setting.valueOf(entry.getKey());
                 }
-                catch(IllegalArgumentException ignored) {
+                catch (IllegalArgumentException ignored) {
                     Logger.error("GuiCustomizeWorldScreenRTG$Setting#parseSettings: Illegal argument. No enum exists for the setting: " + entry.getKey());
                     setting[0] = null;
                 }
@@ -798,7 +805,8 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                             Biome biome = Biome.getBiome(biomeID);
                             setting[0].setCurValue(biome == null ? -1 : biomeList.indexOf(biome));
                         }
-                        else*/ setting[0].setCurValue(entry.getValue().getAsInt());
+                        else*/
+                        setting[0].setCurValue(entry.getValue().getAsInt());
                     }
 
                     if (setting[0].getSettingType().equals(SettingType.FLOAT)) {
@@ -807,8 +815,92 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
                 }
             });
         }
+
+        public SettingType getSettingType() {
+            return this.settingType;
+        }
+
+        public int getID() {
+            return this.id;
+        }
+
+        public Category getCategory() {
+            return this.category;
+        }
+
+        public String getLangKey() {
+            return LANG_KEY_PREFIX_SETTING + name();
+        }
+
+        public boolean isPage1() {
+            return isPage1;
+        }
+
+        public void setPage1() {
+            isPage1 = true;
+        }
+
+        public Setting defValue() {
+            this.returnValue = this.defValue;
+            return this;
+        }
+
+        public Setting minValue() {
+            this.returnValue = this.minValue;
+            return this;
+        }
+
+        public Setting maxValue() {
+            this.returnValue = this.maxValue;
+            return this;
+        }
+
+        public Setting curValue() {
+            this.returnValue = this.curValue;
+            return this;
+        }
+
+        public boolean getBool() {
+            return (boolean) this.returnValue;
+        }
+
+        public int getInt() {
+            if (returnValue instanceof Float) {
+                return ((Float) this.returnValue).intValue();
+            }
+            return (int) this.returnValue;
+        }
+
+        public float getFloat() {
+            if (returnValue instanceof Integer) {
+                return ((Integer) this.returnValue).floatValue();
+            }
+            return (float) this.returnValue;
+        }
+
+        public void setCurValue(boolean val) {
+            this.curValue = val;
+        }
+
+        public void setCurValue(int val) {
+            this.curValue = val;
+        }
+
+        public void setCurValue(float val) {
+            this.curValue = val;
+        }
+
+        public void setCurValue(Object val) {
+            this.curValue = val;
+        }
     }
 
-// TODO: [Clean-up] This method never gets called but is required by the FormatHelper interface. Check for possible removal.
-    @Override public String getText(int id, String name, float value) {return name + ": " + value;}
+    private static class Id {
+
+        private int count = 0;
+
+        public int next() {
+            return count++;
+        }
+    }
 }

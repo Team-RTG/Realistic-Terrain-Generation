@@ -8,13 +8,13 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
 
@@ -40,6 +40,19 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
         return new TerrainVanillaStoneBeach();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaBeach(getConfig(), Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState());
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainVanillaStoneBeach extends TerrainBase {
 
         public TerrainVanillaStoneBeach() {
@@ -51,12 +64,6 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
 
             return terrainBeach(x, y, rtgWorld, river, 63f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaBeach(getConfig(), Blocks.GRAVEL.getDefaultState(), Blocks.GRAVEL.getDefaultState());
     }
 
     public class SurfaceVanillaBeach extends SurfaceBase {
@@ -96,12 +103,5 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

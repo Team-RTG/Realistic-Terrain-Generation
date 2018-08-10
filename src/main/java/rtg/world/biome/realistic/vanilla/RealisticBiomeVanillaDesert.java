@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -18,6 +17,7 @@ import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
 
@@ -42,6 +42,30 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
         return new TerrainVanillaDesert();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaDesert(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
+
+        this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        this.addDecoCollection(new DecoCollectionDesert(this.getConfig()));
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
     public class TerrainVanillaDesert extends TerrainBase {
 
         public TerrainVanillaDesert() {
@@ -64,18 +88,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
 
             return terrainPolar(x, y, rtgWorld, river, stPitch, stFactor, hPitch, hDivisor, base) + groundNoise(x, y, 1f, rtgWorld);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaDesert(getConfig(), biome.topBlock, biome.fillerBlock);
-    }
-
-    @Override
-    public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
-
-        this.rReplaceWithRiver(primer, i, j, x, y, depth, rtgWorld, noise, river, base);
     }
 
     public class SurfaceVanillaDesert extends SurfaceBase {
@@ -129,17 +141,5 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
-        this.addDecoCollection(new DecoCollectionDesert(this.getConfig()));
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
     }
 }

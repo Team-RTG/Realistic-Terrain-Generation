@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+
 public class WorldGenGrass extends WorldGenerator {
 
     private IBlockState block;

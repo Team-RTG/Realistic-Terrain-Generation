@@ -37,10 +37,10 @@ import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 
-public class LimitedArrayCacheSet<E> implements Set<E>
-{
-    private final E[]  elements;
-    private       int  index = 0;
+public class LimitedArrayCacheSet<E> implements Set<E> {
+
+    private final E[] elements;
+    private int index = 0;
 
     @SuppressWarnings("unchecked")
     public LimitedArrayCacheSet(final int capacity) {
@@ -48,169 +48,165 @@ public class LimitedArrayCacheSet<E> implements Set<E>
     }
 
     @Override
-    public int size()
-    {
+    public int size() {
         return (int) Arrays.stream(elements).filter(Objects::nonNull).count();
     }
 
     @Override
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return Arrays.stream(elements).anyMatch(Objects::nonNull);
     }
 
     @Override
-    public boolean contains(final Object o)
-    {
+    public boolean contains(final Object o) {
         return Arrays.stream(elements).filter(Objects::nonNull).anyMatch(Predicate.isEqual(o));
     }
 
     @Override
     @Nonnull
-    public Iterator<E> iterator()
-    {
+    public Iterator<E> iterator() {
         return Arrays.stream(elements).filter(Objects::nonNull).iterator();
     }
 
     @Override
     @Nonnull
-    public Object[] toArray()
-    {
+    public Object[] toArray() {
         return elements.clone();
     }
 
     @Override
     @Nonnull
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(@Nonnull T[] a)
-    {
+    public <T> T[] toArray(@Nonnull T[] a) {
         int size = size();
         a = (a.length >= size) ? a : (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);
         Iterator<E> iter = iterator();
-        Arrays.setAll(a, i -> (iter.hasNext()) ? (T)iter.next() : null);
+        Arrays.setAll(a, i -> (iter.hasNext()) ? (T) iter.next() : null);
         return a;
     }
 
     @Override
-    public boolean add(@Nonnull final E e)
-    {
-        if (find(e) >= 0) { return false; }
+    public boolean add(@Nonnull final E e) {
+        if (find(e) >= 0) {
+            return false;
+        }
         elements[nextIndex()] = e;
         return true;
     }
 
     @Override
-    public boolean removeIf(Predicate<? super E> filter)
-    {
+    public boolean removeIf(Predicate<? super E> filter) {
         boolean ret = false;
         for (int i = 0; i < elements.length; i++) {
-            if (elements[i] != null && filter.test(elements[i])) { ret = remove(i); }
-        }
-        return ret;
-    }
-
-    @Override public boolean remove(final Object e)
-    {
-        return remove(find(e));
-    }
-
-    @Override
-    public boolean containsAll(@Nonnull final Collection<?> c)
-    {
-        return c.stream().noneMatch(o1 -> Arrays.stream(elements).filter(Objects::nonNull).noneMatch(Predicate.isEqual(o1)));
-    }
-
-    @Override
-    public boolean addAll(@Nonnull final Collection<? extends E> c)
-    {
-        boolean ret = false;
-        for (final E e : c) {
-            if (add(e)) { ret = true; }
-        }
-        return ret;
-    }
-
-    @Override
-    public boolean removeAll(@Nonnull final Collection<?> c)
-    {
-        boolean ret = false;
-        for (final Object e : c) {
-            if (remove(e)) { ret = true; }
-        }
-        return ret;
-    }
-
-    @Override
-    public boolean retainAll(@Nonnull final Collection<?> c)
-    {
-        boolean ret = false;
-        for (int i = 0; i < elements.length; i++)
-        {
-            if (elements[i] != null && !c.contains(elements[i]))
-            {
-                if (remove(i)) { ret = true; }
+            if (elements[i] != null && filter.test(elements[i])) {
+                ret = remove(i);
             }
         }
         return ret;
     }
 
     @Override
-    public void clear()
-    {
-        Arrays.fill(elements, null);
+    public boolean remove(final Object e) {
+        return remove(find(e));
     }
 
-    private int find(final Object e)
-    {
-        return IntStream.range(0, elements.length).filter(i -> e != null && e.equals(elements[i])).findFirst().orElse(-1);
+    @Override
+    public boolean containsAll(@Nonnull final Collection<?> c) {
+        return c.stream().noneMatch(o1 -> Arrays.stream(elements).filter(Objects::nonNull).noneMatch(Predicate.isEqual(o1)));
     }
 
-    private boolean remove(final int index)
-    {
-        if (index < 0 || index >= elements.length || elements[index] == null) { return false; }
-        elements[index] = null;
-        return true;
-    }
-
-    private int nextIndex()
-    {
-        int ret = index;
-        if (++index >= elements.length) { index = 0; }
+    @Override
+    public boolean addAll(@Nonnull final Collection<? extends E> c) {
+        boolean ret = false;
+        for (final E e : c) {
+            if (add(e)) {
+                ret = true;
+            }
+        }
         return ret;
     }
 
     @Override
-    public boolean equals(final Object o)
-    {
-        if (this == o) { return true; }
-        if (o == null || getClass() != o.getClass()) { return false; }
+    public boolean removeAll(@Nonnull final Collection<?> c) {
+        boolean ret = false;
+        for (final Object e : c) {
+            if (remove(e)) {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public boolean retainAll(@Nonnull final Collection<?> c) {
+        boolean ret = false;
+        for (int i = 0; i < elements.length; i++) {
+            if (elements[i] != null && !c.contains(elements[i])) {
+                if (remove(i)) {
+                    ret = true;
+                }
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public void clear() {
+        Arrays.fill(elements, null);
+    }
+
+    private int find(final Object e) {
+        return IntStream.range(0, elements.length).filter(i -> e != null && e.equals(elements[i])).findFirst().orElse(-1);
+    }
+
+    private boolean remove(final int index) {
+        if (index < 0 || index >= elements.length || elements[index] == null) {
+            return false;
+        }
+        elements[index] = null;
+        return true;
+    }
+
+    private int nextIndex() {
+        int ret = index;
+        if (++index >= elements.length) {
+            index = 0;
+        }
+        return ret;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LimitedArrayCacheSet<?> other = (LimitedArrayCacheSet<?>) o;
-        Object[] o1 = Arrays.stream(this.elements) .filter(Objects::nonNull).sorted().toArray();
+        Object[] o1 = Arrays.stream(this.elements).filter(Objects::nonNull).sorted().toArray();
         Object[] o2 = Arrays.stream(other.elements).filter(Objects::nonNull).sorted().toArray();
         return Arrays.equals(o1, o2);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Arrays.hashCode(elements);
     }
 
-    public String toString()
-    {
-        if (size() == 0) { return "[]"; }
+    public String toString() {
+        if (size() == 0) {
+            return "[]";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         boolean first = true;
-        for (Object o : Arrays.stream(elements).filter(Objects::nonNull).toArray())
-        {
-            if (first)
-            {
+        for (Object o : Arrays.stream(elements).filter(Objects::nonNull).toArray()) {
+            if (first) {
                 sb.append(o.toString());
                 first = false;
             }
-            else
-            {
+            else {
                 sb.append(", ").append(o.toString());
             }
         }

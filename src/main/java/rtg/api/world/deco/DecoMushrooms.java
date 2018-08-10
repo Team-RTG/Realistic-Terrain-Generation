@@ -6,12 +6,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.event.terraingen.TerrainGen;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM;
+
 
 /**
  * @author WhichOnesPink
@@ -93,12 +93,6 @@ public class DecoMushrooms extends DecoBase {
         }
     }
 
-    public enum RandomType {
-        ALWAYS_GENERATE,
-        USE_CHANCE_VALUE,
-        X_DIVIDED_BY_STRENGTH
-    }
-
     public float getStrengthFactor() {
 
         return strengthFactor;
@@ -163,5 +157,11 @@ public class DecoMushrooms extends DecoBase {
 
         this.loops = loops;
         return this;
+    }
+
+    public enum RandomType {
+        ALWAYS_GENERATE,
+        USE_CHANCE_VALUE,
+        X_DIVIDED_BY_STRENGTH
     }
 }

@@ -4,56 +4,46 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-
 import rtg.api.config.property.ConfigPropertyBoolean;
 import rtg.api.config.property.ConfigPropertyFloat;
 import rtg.api.config.property.ConfigPropertyInteger;
 import rtg.api.config.property.ConfigPropertyString;
+
 
 // TODO: [Clean-up] Split this config implementation from the fields that hold the config values and move this implementation out of the API. The API class should have
 //                  fields that hold the config values and not the Property objects. The fields should be synched whenever the Configuration changes.
 // TODO: [Clean-up] Convert this config and the Config base class to use native Forge Property objects.
 // TODO: [Clean-up] Add properties to a category heirarchy to better organise config settings.
 @SuppressWarnings("WeakerAccess")
-public class RTGConfig extends Config
-{
+public class RTGConfig extends Config {
+
     // Maximum tree density.
     public static final float MAX_TREE_DENSITY = 5f;
-
-    public Property RTG_WORLDTYPE_NOTIFICATION;
-
     public final ConfigPropertyBoolean ENABLE_DEBUGGING;
     public final ConfigPropertyBoolean DISABLE_RTG_BIOME_DECORATIONS;
     public final ConfigPropertyBoolean DISABLE_RTG_BIOME_SURFACES;
     public final ConfigPropertyBoolean DISABLE_RTG_TERRAIN;
     public final ConfigPropertyBoolean USE_PATCH_BIOME;
-    public final ConfigPropertyString  PATCH_BIOME;
-
+    public final ConfigPropertyString PATCH_BIOME;
     public final ConfigPropertyInteger DUNE_HEIGHT; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyBoolean ENABLE_FLOWING_LIQUID_MODIFICATIONS; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger FLOWING_LAVA_CHANCE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger FLOWING_WATER_CHANCE; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyFloat LAKE_SIZE_MULTIPLIER; // This is private because we want a transformed version. // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat LAKE_FREQUENCY_MULTIPLIER; // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat LAKE_SHORE_BENDINESS_MULTIPLIER; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger SCENIC_LAKE_BIOME_ID; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger SCENIC_FROZEN_LAKE_BIOME_ID; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyBoolean ENABLE_WATER_SURFACE_LAKES; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger WATER_SURFACE_LAKE_CHANCE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean ENABLE_LAVA_SURFACE_LAKES; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger LAVA_SURFACE_LAKE_CHANCE; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyBoolean ENABLE_WATER_UNDERGROUND_LAKES; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger WATER_UNDERGROUND_LAKE_CHANCE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean ENABLE_LAVA_UNDERGROUND_LAKES; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger LAVA_UNDERGROUND_LAKE_CHANCE; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyBoolean ENABLE_OCEAN_WAVES; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger OCEAN_WAVE_DIRECTION; // TODO: [Generator settings] Add a generator setting for this?
-
     public final ConfigPropertyBoolean GENERATE_ORE_ANDESITE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean GENERATE_ORE_COAL; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean GENERATE_ORE_DIAMOND; // TODO: [Generator settings] To be removed
@@ -67,9 +57,7 @@ public class RTGConfig extends Config
     public final ConfigPropertyBoolean GENERATE_ORE_LAPIS; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean GENERATE_ORE_REDSTONE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean GENERATE_ORE_SILVERFISH; // TODO: [Clean-up] Should we really allow configuration for this?
-
     public final ConfigPropertyBoolean ALLOW_ORE_GEN_EVENT_CANCELLATION; // TODO: [Clean-up] Move to Debug category until ore gen is fixed.
-
     public final ConfigPropertyFloat RIVER_SIZE_MULTIPLIER; // This is private because we want a transformed version. // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat RIVER_FREQUENCY_MULTIPLIER; // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat RIVER_BENDINESS_MULTIPLIER; // TODO: [Generator settings] To be removed
@@ -77,21 +65,16 @@ public class RTGConfig extends Config
     public final ConfigPropertyFloat RIVER_CUT_OFF_AMPLITUDE; // TODO: [Generator settings] To be removed
     public final ConfigPropertyBoolean ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES; // TODO: [Clean-up] Move to 'Mod Integration' category
     public final ConfigPropertyBoolean ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES; // TODO: [Clean-up] Move to 'Mod Integration' category
-
     public final ConfigPropertyBoolean ENABLE_RTG_SAPLINGS; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyInteger RTG_TREE_CHANCE; // TODO: [Clean-up] Move to 'Trees and Saplings' category
-
     public final ConfigPropertyBoolean ENABLE_SNOW_LAYERS; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyString SHADOW_STONE_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
     public final ConfigPropertyString SHADOW_DESERT_BLOCK_ID; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Shadow Blocks' category
-
     public final ConfigPropertyBoolean ALLOW_TREES_TO_GENERATE_ON_SAND; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyBoolean ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyBoolean ALLOW_BARK_COVERED_LOGS; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyString MATERIALS_TREES_CAN_GROW_INTO; // TODO: [Clean-up] Move to 'Trees and Saplings' category
-
     public final ConfigPropertyString VOLCANO_MAIN_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
     public final ConfigPropertyString VOLCANO_MIX1_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
     public final ConfigPropertyString VOLCANO_MIX2_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
@@ -102,8 +85,8 @@ public class RTGConfig extends Config
     public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger VOLCANO_CONDUIT_DEPTH; // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER; // TODO: [Generator settings] To be removed
-
     public final ConfigPropertyInteger SURFACE_BLEED_RADIUS; // TODO: [Generator settings] Possibly make this a gen setting so it is World-specific
+    public Property RTG_WORLDTYPE_NOTIFICATION;
 
     public RTGConfig(File configFile) {
         super(configFile);
@@ -536,7 +519,7 @@ public class RTGConfig extends Config
                 "IRON,LAVA,LEAVES,PACKED_ICE,PISTON,PLANTS,PORTAL,REDSTONE_LIGHT,ROCK,SAND,SNOW,SPONGE,STRUCTURE_VOID,TNT,VINE,WATER,WEB,WOOD"
                 + Configuration.NEW_LINE +
                 "For more information, visit http://minecraft.gamepedia.com/Materials",
-                "AIR,WOOD,LEAVES,GRASS,GROUND,PLANTS,VINE,WATER,SNOW"
+            "AIR,WOOD,LEAVES,GRASS,GROUND,PLANTS,VINE,WATER,SNOW"
         );
         this.addProperty(MATERIALS_TREES_CAN_GROW_INTO);
 
@@ -625,16 +608,16 @@ public class RTGConfig extends Config
         this.addProperty(VOLCANO_CALDERA_MULTIPLIER);
 
         SURFACE_BLEED_RADIUS = this.addProperty(new ConfigPropertyInteger(
-                "Surface Bleed Radius",
-                "Surface Bleed",
-                "The maximum distance surfaces will bleed. Set to 0 to disable surface bleeds." +
+            "Surface Bleed Radius",
+            "Surface Bleed",
+            "The maximum distance surfaces will bleed. Set to 0 to disable surface bleeds." +
                 Configuration.NEW_LINE +
                 "Per default surface bleeding is only enabled for beaches. You can control that in biome settings",
-                16, 0, 32
+            16, 0, 32
         ));
     }
 
-// TODO: [1.12] Stop-gap until the main config class is rewritten. It is currently impossible to save config setting changes after the config is loaded.
+    // TODO: [1.12] Stop-gap until the main config class is rewritten. It is currently impossible to save config setting changes after the config is loaded.
     @Override
     public void loadConfig() {
 

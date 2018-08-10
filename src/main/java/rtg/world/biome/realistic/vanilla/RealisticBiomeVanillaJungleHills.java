@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
@@ -18,6 +17,7 @@ import rtg.api.world.deco.collection.DecoCollectionJungle;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaJungleHills extends RealisticBiomeBase {
 
@@ -45,6 +45,22 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeBase {
         return new TerrainVanillaJungleHills(72f, 40f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaJungleHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 1f, 1.5f, 60f, 65f, 1.5f);
+    }
+
+    @Override
+    public void initDecos() {
+        this.addDecoCollection(new DecoCollectionJungle(this.getConfig()));
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 2;
+    }
+
     public class TerrainVanillaJungleHills extends TerrainBase {
 
         private float hillStrength = 40f;
@@ -60,12 +76,6 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeBase {
 
             return terrainHighland(x, y, rtgWorld, river, 10f, 68f, hillStrength, base - 62f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaJungleHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 1f, 1.5f, 60f, 65f, 1.5f);
     }
 
     public class SurfaceVanillaJungleHills extends SurfaceBase {
@@ -160,15 +170,5 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-        this.addDecoCollection(new DecoCollectionJungle(this.getConfig()));
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 2;
     }
 }

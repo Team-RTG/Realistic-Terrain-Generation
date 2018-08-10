@@ -8,42 +8,41 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.RTGAPI;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.storage.LimitedArrayCacheSet;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.RTGChunkGenSettings;
-import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.biome.realistic.RealisticBiomePatcher;
 
+
 /**
- *
  * @author Zeno410
  */
 // TODO: [1.12] Clean this up. #generate should *ONLY* be called *AFTER* it is determined that a volcano should generate and the site is viable.
-public class VolcanoGenerator
-{
+public class VolcanoGenerator {
+
     private static final IBlockState DEFAULT_VOLCANO_MAIN_BLOCK = Blocks.OBSIDIAN.getDefaultState();
     private static final IBlockState DEFAULT_VOLCANO_MIX1_BLOCK = Blocks.COBBLESTONE.getDefaultState();
     private static final IBlockState DEFAULT_VOLCANO_MIX2_BLOCK = Blocks.GRAVEL.getDefaultState();
     private static final IBlockState DEFAULT_VOLCANO_MIX3_BLOCK = Blocks.COAL_BLOCK.getDefaultState();
-    private static final int         VOLCANO_GEN_RADIUS = 15;
+    private static final int VOLCANO_GEN_RADIUS = 15;
 
-    private static final LimitedArrayCacheSet<ChunkPos> noVolcano = new LimitedArrayCacheSet<>((VOLCANO_GEN_RADIUS * 2 + 1)*(VOLCANO_GEN_RADIUS * 2 + 1));
+    private static final LimitedArrayCacheSet<ChunkPos> noVolcano = new LimitedArrayCacheSet<>((VOLCANO_GEN_RADIUS * 2 + 1) * (VOLCANO_GEN_RADIUS * 2 + 1));
 
-    private final RTGWorld            rtgWorld;
+    private final RTGWorld rtgWorld;
     private final RTGChunkGenSettings settings;
 
-    private final double  ventEccentricity;
-    private final double  ventRadius;
-    private final int     lavaHeight;
-    private final int     baseVolcanoHeight;
+    private final double ventEccentricity;
+    private final double ventRadius;
+    private final int lavaHeight;
+    private final int baseVolcanoHeight;
     private final boolean enableConduits;
-    private final int     conduitDepth;
+    private final int conduitDepth;
 
     private IBlockState lavaBlock;
     private IBlockState volcanoMainBlock;
@@ -52,19 +51,19 @@ public class VolcanoGenerator
     private IBlockState volcanoMixBlock3;
 
     VolcanoGenerator(RTGWorld rtgWorld) {
-        this.rtgWorld          = rtgWorld;
-        this.settings          = rtgWorld.getGeneratorSettings();
-        this.ventEccentricity  = 8d * settings.volcanosCalderaMult;
-        this.ventRadius        = 7d * settings.volcanosCalderaMult;
-        this.lavaHeight        = 138 + 3 + (settings.volcanosErupt ? 5 : 0);// + 3 to account for lava cone tip
+        this.rtgWorld = rtgWorld;
+        this.settings = rtgWorld.getGeneratorSettings();
+        this.ventEccentricity = 8d * settings.volcanosCalderaMult;
+        this.ventRadius = 7d * settings.volcanosCalderaMult;
+        this.lavaHeight = 138 + 3 + (settings.volcanosErupt ? 5 : 0);// + 3 to account for lava cone tip
         this.baseVolcanoHeight = 142 + 8;
-        this.enableConduits    = settings.volcanoConduits;
-        this.conduitDepth      = settings.volcanoConduitDepth;
-        this.lavaBlock         = settings.volcanosErupt ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
-        this.volcanoMainBlock  = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MAIN_BLOCK.get(), DEFAULT_VOLCANO_MAIN_BLOCK);
-        this.volcanoMixBlock1  = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX1_BLOCK.get(), DEFAULT_VOLCANO_MIX1_BLOCK);
-        this.volcanoMixBlock2  = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX2_BLOCK.get(), DEFAULT_VOLCANO_MIX2_BLOCK);
-        this.volcanoMixBlock3  = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX3_BLOCK.get(), DEFAULT_VOLCANO_MIX3_BLOCK);
+        this.enableConduits = settings.volcanoConduits;
+        this.conduitDepth = settings.volcanoConduitDepth;
+        this.lavaBlock = settings.volcanosErupt ? Blocks.FLOWING_LAVA.getDefaultState() : Blocks.LAVA.getDefaultState();
+        this.volcanoMainBlock = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MAIN_BLOCK.get(), DEFAULT_VOLCANO_MAIN_BLOCK);
+        this.volcanoMixBlock1 = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX1_BLOCK.get(), DEFAULT_VOLCANO_MIX1_BLOCK);
+        this.volcanoMixBlock2 = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX2_BLOCK.get(), DEFAULT_VOLCANO_MIX2_BLOCK);
+        this.volcanoMixBlock3 = BlockUtil.getBlockStateFromCfgString(RTGAPI.config().VOLCANO_MIX3_BLOCK.get(), DEFAULT_VOLCANO_MIX3_BLOCK);
     }
 
     public void generate(ChunkPrimer primer, BiomeProviderRTG biomeProvider, final ChunkPos origin, float[] noise) {
@@ -72,7 +71,9 @@ public class VolcanoGenerator
         for (int baseX = origin.x - VOLCANO_GEN_RADIUS; baseX <= origin.x + VOLCANO_GEN_RADIUS; baseX++) {
             for (int baseZ = origin.z - VOLCANO_GEN_RADIUS; baseZ <= origin.z + VOLCANO_GEN_RADIUS; baseZ++) {
                 ChunkPos probe = new ChunkPos(baseX, baseZ);
-                if (noVolcano.contains(probe)) continue;
+                if (noVolcano.contains(probe)) {
+                    continue;
+                }
                 noVolcano.add(probe);
 
                 // Let's go ahead and generate the volcano. Exciting!!! :D
@@ -83,21 +84,27 @@ public class VolcanoGenerator
                     if (realisticBiome == null) {
                         realisticBiome = new RealisticBiomePatcher().getPatchedRealisticBiome("No biome " + pos.getX() + " " + pos.getZ());
                     }
-                    if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) return;
+                    if (!realisticBiome.getConfig().ALLOW_VOLCANOES.get()) {
+                        return;
+                    }
 
                     // Have volcanoes been disabled via frequency?
                     // Use the global frequency unless the biome frequency has been explicitly set.
 // TODO: [1.12] This has to be reworked as the biome config allows OOB values.
                     int chance = realisticBiome.getConfig().VOLCANO_CHANCE.get() == -1 ? settings.volcanosChance : realisticBiome.getConfig().VOLCANO_CHANCE.get();
-                    if (chance < 1) return;
+                    if (chance < 1) {
+                        return;
+                    }
 
                     Random rand = new Random(rtgWorld.getChunkSeed(baseX, baseZ));
-                    if (rand.nextInt(chance)>0) return;
+                    if (rand.nextInt(chance) > 0) {
+                        return;
+                    }
 
                     if (TerrainBase.getRiverStrength(baseX * 16, baseZ * 16, rtgWorld) + 1f > 0.98f &&
                         isBorderlessAt(biomeProvider, new BlockPos(baseX * 16, 0, baseZ * 16))) {
 
-                         // we have to pull it out of noVolcano. We do it this way to avoid having to make a ChunkPos twice
+                        // we have to pull it out of noVolcano. We do it this way to avoid having to make a ChunkPos twice
                         noVolcano.remove(new ChunkPos(baseX, baseZ));
 
                         buildChunk(primer, baseX, baseZ, origin, noise);
@@ -126,14 +133,14 @@ public class VolcanoGenerator
                 );
 
                 // Height above which obsidian is placed
-                obsidian  = -5d + distanceEll;
+                obsidian = -5d + distanceEll;
                 obsidian += rtgWorld.simplexInstance(1).noise2d(worldX / 55d, worldZ / 55d) * 12d;
-                obsidian += rtgWorld.simplexInstance(2).noise2d(worldX / 25d, worldZ / 25d) *  5d;
-                obsidian += rtgWorld.simplexInstance(3).noise2d(worldX /  9d, worldZ /  9d) *  3d;
+                obsidian += rtgWorld.simplexInstance(2).noise2d(worldX / 25d, worldZ / 25d) * 5d;
+                obsidian += rtgWorld.simplexInstance(3).noise2d(worldX / 9d, worldZ / 9d) * 3d;
 
                 // Make the volcanoes "mouth" more interesting
-                ventNoise  = rtgWorld.simplexInstance(0).noise2d(worldX / 12d, worldZ / 12d) * 3d;
-                ventNoise += rtgWorld.simplexInstance(1).noise2d(worldX /  4d, worldZ /  4d) * 1.5d;
+                ventNoise = rtgWorld.simplexInstance(0).noise2d(worldX / 12d, worldZ / 12d) * 3d;
+                ventNoise += rtgWorld.simplexInstance(1).noise2d(worldX / 4d, worldZ / 4d) * 1.5d;
 
                 // Are we in the volcano's throat/conduit?
                 if (distanceEll < ventRadius + ventNoise) {
@@ -148,32 +155,46 @@ public class VolcanoGenerator
                         }
                         // Below lava and above obsidian
                         else if (y > obsidian && y < (lavaHeight - 9) + height) {
-                            if (enableConduits && y >= conduitDepth) { primer.setBlockState(x, y, z, lavaBlock); }
-                            else { primer.setBlockState(x, y, z, volcanoMainBlock); }
+                            if (enableConduits && y >= conduitDepth) {
+                                primer.setBlockState(x, y, z, lavaBlock);
+                            }
+                            else {
+                                primer.setBlockState(x, y, z, volcanoMainBlock);
+                            }
                         }
                         // In lava
                         else if (y < lavaHeight + 1) {
                             // + 3 to cut the tip of the lava
-                            if (distanceEll + y < lavaHeight + 3) { primer.setBlockState(x, y, z, lavaBlock); }
+                            if (distanceEll + y < lavaHeight + 3) {
+                                primer.setBlockState(x, y, z, lavaBlock);
+                            }
                         }
                         // Below obsidian
                         else if (y < obsidian + 1) {
                             if (primer.getBlockState(x, y, z) == Blocks.AIR.getDefaultState()) {
-                                if (enableConduits && y >= conduitDepth) { primer.setBlockState(x, y, z, lavaBlock); }
-                                else { primer.setBlockState(x, y, z, Blocks.STONE.getDefaultState()); }
+                                if (enableConduits && y >= conduitDepth) {
+                                    primer.setBlockState(x, y, z, lavaBlock);
+                                }
+                                else {
+                                    primer.setBlockState(x, y, z, Blocks.STONE.getDefaultState());
+                                }
                             }
-                            else { break; }
+                            else {
+                                break;
+                            }
                         }
                     }
                 }
                 else {
                     terrainHeight = baseVolcanoHeight - Math.pow(distanceEll, 0.89d);
                     terrainHeight += rtgWorld.simplexInstance(1).noise2d(worldX / 112d, worldZ / 112d) * 5.5d;
-                    terrainHeight += rtgWorld.simplexInstance(2).noise2d(worldX /  46d, worldZ /  46d) * 4.5d;
-                    terrainHeight += rtgWorld.simplexInstance(3).noise2d(worldX /  16d, worldZ /  16d) * 2.5d;
-                    terrainHeight += rtgWorld.simplexInstance(4).noise2d(worldX /   5d, worldZ /   5d) * 1d;
+                    terrainHeight += rtgWorld.simplexInstance(2).noise2d(worldX / 46d, worldZ / 46d) * 4.5d;
+                    terrainHeight += rtgWorld.simplexInstance(3).noise2d(worldX / 16d, worldZ / 16d) * 2.5d;
+                    terrainHeight += rtgWorld.simplexInstance(4).noise2d(worldX / 5d, worldZ / 5d) * 1d;
 
-                    if (terrainHeight > noise[x * 16 + z]) { noise[x * 16 + z] = (float)terrainHeight; }
+                    if (terrainHeight > noise[x * 16 + z]) {
+                        noise[x * 16 + z] = (float) terrainHeight;
+                    }
 
                     for (int y = 255; y > -1; y--) {
                         if (y <= terrainHeight) {
@@ -188,9 +209,9 @@ public class VolcanoGenerator
 
                                         // Patches
                                         if (distanceEll < 50 && primer.getBlockState(x, y + 1, z) == Blocks.AIR.getDefaultState()) {
-                                            patchNoise  = rtgWorld.simplexInstance(0).noise2d(worldX / 10d, worldZ / 10d) * 1.3d;
+                                            patchNoise = rtgWorld.simplexInstance(0).noise2d(worldX / 10d, worldZ / 10d) * 1.3d;
                                             patchNoise += rtgWorld.simplexInstance(2).noise2d(worldX / 30d, worldZ / 30d) * 0.9d;
-                                            patchNoise += rtgWorld.simplexInstance(3).noise2d(worldX /  5d, worldZ /  5d) * 0.6d;
+                                            patchNoise += rtgWorld.simplexInstance(3).noise2d(worldX / 5d, worldZ / 5d) * 0.6d;
                                             if (patchNoise > .85) {
                                                 primer.setBlockState(x, y, z, volcanoMixBlock1); // Cobble
                                                 continue;
@@ -198,18 +219,18 @@ public class VolcanoGenerator
                                         }
 
                                         if (distanceEll < 75 && primer.getBlockState(x, y + 1, z) == Blocks.AIR.getDefaultState()) {
-                                            patchNoise  = rtgWorld.simplexInstance(0).noise2d(worldX / 10d, worldZ / 10d) * 1.3d;
+                                            patchNoise = rtgWorld.simplexInstance(0).noise2d(worldX / 10d, worldZ / 10d) * 1.3d;
                                             patchNoise += rtgWorld.simplexInstance(4).noise2d(worldX / 30d, worldZ / 30d) * 0.9d;
-                                            patchNoise += rtgWorld.simplexInstance(5).noise2d(worldX /  5d, worldZ /  5d) * 0.5d;
+                                            patchNoise += rtgWorld.simplexInstance(5).noise2d(worldX / 5d, worldZ / 5d) * 0.5d;
                                             if (patchNoise > .92) {
                                                 primer.setBlockState(x, y, z, volcanoMixBlock2); // Gravel
                                                 continue;
                                             }
                                         }
                                         if (distanceEll < 75 && primer.getBlockState(x, y + 1, z) == Blocks.AIR.getDefaultState()) {
-                                            patchNoise  = rtgWorld.simplexInstance(0).noise2d(worldX / 10d, worldZ / 10d) * 1.3d;
+                                            patchNoise = rtgWorld.simplexInstance(0).noise2d(worldX / 10d, worldZ / 10d) * 1.3d;
                                             patchNoise += rtgWorld.simplexInstance(6).noise2d(worldX / 30d, worldZ / 30d) * 0.7d;
-                                            patchNoise += rtgWorld.simplexInstance(7).noise2d(worldX /  5d, worldZ /  5d) * 0.7d;
+                                            patchNoise += rtgWorld.simplexInstance(7).noise2d(worldX / 5d, worldZ / 5d) * 0.7d;
                                             if (patchNoise > .93) {
                                                 primer.setBlockState(x, y, z, volcanoMixBlock3); // Coal block
                                                 continue;
@@ -220,8 +241,12 @@ public class VolcanoGenerator
                                     // Surfacing
                                     // TODO: [1.12] Why is this passing the height as the second parameter?
                                     if (distanceEll < 70d + rtgWorld.simplexInstance(0).noise2d(x / 26d, y / 26d) * 5d) {
-                                        if (mapRand.nextInt(20) == 0) { blockState = volcanoMixBlock3; }
-                                        else { blockState = volcanoMainBlock; }
+                                        if (mapRand.nextInt(20) == 0) {
+                                            blockState = volcanoMixBlock3;
+                                        }
+                                        else {
+                                            blockState = volcanoMainBlock;
+                                        }
                                     }
 
                                     // TODO: [1.12] Why is this passing the height as the second parameter?
@@ -232,16 +257,28 @@ public class VolcanoGenerator
                                         // TODO: [1.12] Why is this passing the height as the second parameter?
                                         if (mapRand.nextInt(1 + (int) Math.pow(Math.abs(distanceEll - (75d + rtgWorld.simplexInstance(0).noise2d(x / 26d, y / 26d) * 5d)), 1.5d + powerNoise) + 1) == 0) {
 
-                                            if (mapRand.nextInt(20) == 0) { blockState = volcanoMixBlock2; }
-                                            else { blockState = Blocks.STONE.getDefaultState(); }// Stone so that surfacing will run (so this usually becomes grass)
+                                            if (mapRand.nextInt(20) == 0) {
+                                                blockState = volcanoMixBlock2;
+                                            }
+                                            else {
+                                                blockState = Blocks.STONE.getDefaultState();
+                                            }// Stone so that surfacing will run (so this usually becomes grass)
                                         }
-                                        else { blockState = volcanoMainBlock; }
+                                        else {
+                                            blockState = volcanoMainBlock;
+                                        }
                                     }
-                                    else { blockState = Blocks.STONE.getDefaultState(); }// Stone so that surfacing will run (so this usually becomes grass)
+                                    else {
+                                        blockState = Blocks.STONE.getDefaultState();
+                                    }// Stone so that surfacing will run (so this usually becomes grass)
                                 }
-                                else { blockState = Blocks.STONE.getDefaultState(); }
+                                else {
+                                    blockState = Blocks.STONE.getDefaultState();
+                                }
                             }
-                            else { break; }
+                            else {
+                                break;
+                            }
 
                             primer.setBlockState(x, y, z, blockState);
                         }
@@ -256,7 +293,9 @@ public class VolcanoGenerator
         Biome originBiome = biomeProvider.getBiome(pos);
         for (int x = -2; x <= 2; x++) {
             for (int z = -2; z <= 2; z++) {
-                if (x == 0 && z == 0) { continue; }// no need to check origin
+                if (x == 0 && z == 0) {
+                    continue;
+                }// no need to check origin
                 if (biomeProvider.getBiome(pos.add(x * 16, 0, z * 16)) != originBiome) {
                     return false;
                 }

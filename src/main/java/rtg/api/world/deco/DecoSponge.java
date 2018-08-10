@@ -10,17 +10,18 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenSponge;
+
 
 /**
  * @author WhichOnesPink
  */
 public class DecoSponge extends DecoBase {
 
+    protected ArrayList<Block> validGroundBlocks;
     private IBlockState spongeBlock; // This can be any block.
     private float strengthFactor; // Higher = more/bigger boulders.
     private int minY; // Lower height restriction.
@@ -28,7 +29,6 @@ public class DecoSponge extends DecoBase {
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private boolean water;
-    protected ArrayList<Block> validGroundBlocks;
 
     public DecoSponge() {
 
@@ -92,11 +92,6 @@ public class DecoSponge extends DecoBase {
                 }
             }
         }
-    }
-
-    public enum HeightType {
-        NEXT_INT,
-        GET_HEIGHT_VALUE;
     }
 
     public IBlockState getSpongeBlock() {
@@ -185,5 +180,10 @@ public class DecoSponge extends DecoBase {
 
         this.validGroundBlocks = validGroundBlocks;
         return this;
+    }
+
+    public enum HeightType {
+        NEXT_INT,
+        GET_HEIGHT_VALUE;
     }
 }

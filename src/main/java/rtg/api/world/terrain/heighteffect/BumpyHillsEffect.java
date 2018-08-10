@@ -3,6 +3,7 @@ package rtg.api.world.terrain.heighteffect;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
+
 /**
  * This creates an effect of scattered hills with irregular surfaces
  *

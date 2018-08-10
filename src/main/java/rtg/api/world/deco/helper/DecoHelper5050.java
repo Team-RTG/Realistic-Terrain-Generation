@@ -6,6 +6,7 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 
+
 /**
  * This deco helper takes two deco objects and generates one of them at random.
  *

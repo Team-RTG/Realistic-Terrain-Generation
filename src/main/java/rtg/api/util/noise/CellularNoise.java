@@ -13,8 +13,7 @@ public interface CellularNoise {
      *
      * @param x the x coordinate
      * @param y the y coordinate
-     * @return  the VoronoiResult
-     *
+     * @return the VoronoiResult
      * @since 1.0.0
      */
     VoronoiResult eval2D(double x, double y);

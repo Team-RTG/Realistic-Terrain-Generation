@@ -1,7 +1,6 @@
 package rtg.api.world.terrain;
 
 import net.minecraft.util.math.BlockPos;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.WorldUtil.Terrain;
@@ -11,6 +10,7 @@ import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
+
 
 @SuppressWarnings("WeakerAccess")
 public abstract class TerrainBase {
@@ -88,7 +88,7 @@ public abstract class TerrainBase {
         sm *= sm * m;
         m += sm / 3f;
 
-        return m * hillStrength ;
+        return m * hillStrength;
     }
 
     public static float groundNoise(int x, int y, float amplitude, RTGWorld rtgWorld) {
@@ -135,13 +135,13 @@ public abstract class TerrainBase {
             return height;
         }
         // experimental adjustment to make riverbanks more varied
-        float adjustment = (height - 62.45f)/10f + .6f;
+        float adjustment = (height - 62.45f) / 10f + .6f;
         river = Terrain.bayesianAdjustment(river, adjustment);
         return 62.45f + (height - 62.45f) * river;
-        }
+    }
 
     public static float terrainBeach(int x, int y, RTGWorld rtgWorld, float river, float baseHeight) {
-        return riverized(baseHeight + TerrainBase.groundNoise(x, y, 4f, rtgWorld),river);
+        return riverized(baseHeight + TerrainBase.groundNoise(x, y, 4f, rtgWorld), river);
     }
 
     public static float terrainBryce(int x, int y, RTGWorld rtgWorld, float river, float height) {
@@ -256,7 +256,7 @@ public abstract class TerrainBase {
 
         h += TerrainBase.groundNoise(x, y, 4f, rtgWorld);
 
-        return riverized(bHeight + h, river)  + m;
+        return riverized(bHeight + h, river) + m;
     }
 
     public static float terrainGrasslandMountains(int x, int y, RTGWorld rtgWorld, float river, float hFactor, float mFactor, float baseHeight) {
@@ -355,7 +355,7 @@ public abstract class TerrainBase {
             h *= 2f;
         }
 
-        return riverized(baseHeight + h,river);
+        return riverized(baseHeight + h, river);
     }
 
     public static float terrainOcean(int x, int y, RTGWorld rtgWorld, float river, float averageFloor) {
@@ -560,7 +560,7 @@ public abstract class TerrainBase {
         SimplexNoise simplex = rtgWorld.simplexInstance(0);
         CellularNoise cellularNoise = rtgWorld.cellularInstance(0);
 
-        float st = 15f - (float)(cellularNoise.eval2D(x / 500d, y / 500d).getShortestDistance() * 42d) + (simplex.noise2f(x / 30f, y / 30f) * 2f);
+        float st = 15f - (float) (cellularNoise.eval2D(x / 500d, y / 500d).getShortestDistance() * 42d) + (simplex.noise2f(x / 30f, y / 30f) * 2f);
 
         float h = st < 0f ? 0f : st;
         h = h < 0f ? 0f : h;
@@ -605,7 +605,9 @@ public abstract class TerrainBase {
 
         // the output is a curved function of relative distance from the center, so adjust to make it flatter
         riverFactor = Terrain.bayesianAdjustment((float) riverFactor, 0.5f);
-        if (riverFactor > rtgWorld.getRiverValleyLevel()) { return 0; }// no river effect
+        if (riverFactor > rtgWorld.getRiverValleyLevel()) {
+            return 0;
+        }// no river effect
         return (float) (riverFactor / rtgWorld.getRiverValleyLevel() - 1d);
     }
 

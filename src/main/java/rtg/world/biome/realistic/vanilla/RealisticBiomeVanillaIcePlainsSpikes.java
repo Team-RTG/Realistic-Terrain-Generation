@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
@@ -17,6 +16,7 @@ import rtg.api.world.deco.collection.DecoCollectionIceTrees;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
 
@@ -40,6 +40,23 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
         return new TerrainVanillaIcePlainsSpikes();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaIcePlainsSpikes(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        if (this.getConfig().ALLOW_ICE_TREES.get()) {
+            this.addDecoCollection(new DecoCollectionIceTrees(this.getConfig()));
+        }
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainVanillaIcePlainsSpikes extends TerrainBase {
 
         public TerrainVanillaIcePlainsSpikes() {
@@ -51,12 +68,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
 
             return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 200f, 65f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaIcePlainsSpikes(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.topBlock);
     }
 
     public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
@@ -106,16 +117,5 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        if (this.getConfig().ALLOW_ICE_TREES.get()) {
-            this.addDecoCollection(new DecoCollectionIceTrees(this.getConfig()));
-        }
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -4,6 +4,7 @@ import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.RTGWorld;
 
+
 /**
  * This class returns a height effect with a jitter on the position.
  *
@@ -37,7 +38,7 @@ public class JitterEffect extends HeightEffect {
             throw new RuntimeException();
         }
         running = true;
-        ISimplexData2D jitterData = SimplexData2D. newDisk();
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
         rtgWorld.simplexInstance(1).multiEval2D(x / wavelength, y / wavelength, jitterData);
         int pX = (int) Math.round(x + jitterData.getDeltaX() * amplitude);
         int pY = (int) Math.round(y + jitterData.getDeltaY() * amplitude);

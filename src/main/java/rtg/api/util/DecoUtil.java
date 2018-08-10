@@ -4,6 +4,7 @@ import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.world.biome.IRealisticBiome;
 
+
 @UtilityClass
 public final class DecoUtil {
 
@@ -20,7 +21,7 @@ public final class DecoUtil {
             multiplier = (biomeMultiplier > RTGConfig.MAX_TREE_DENSITY) ? RTGConfig.MAX_TREE_DENSITY : biomeMultiplier;
         }
 
-        loopCount = (int)(loopCount * multiplier);
+        loopCount = (int) (loopCount * multiplier);
 
         return loopCount;
     }

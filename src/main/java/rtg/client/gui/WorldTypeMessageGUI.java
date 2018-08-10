@@ -6,29 +6,32 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
-
 import rtg.RTG;
 import rtg.api.RTGAPI;
 
+
 @SideOnly(Side.CLIENT)
 @EventBusSubscriber(modid = RTG.MOD_ID, value = Side.CLIENT)
-public final class WorldTypeMessageGUI extends GuiScreen
-{
-    private WorldTypeMessageGUI() { }
+public final class WorldTypeMessageGUI extends GuiScreen {
 
     private static final WorldTypeMessageGUI INSTANCE;
-    private static final ResourceLocation    LOGO_LOCATION = new ResourceLocation(RTG.MOD_ID, "textures/gui/rtg-logo-worldtype.png");
-    private static final String              LANG_KEY      = "gui.createWorld.worldtype";
+    private static final ResourceLocation LOGO_LOCATION = new ResourceLocation(RTG.MOD_ID, "textures/gui/rtg-logo-worldtype.png");
+    private static final String LANG_KEY = "gui.createWorld.worldtype";
 
-    static { INSTANCE = new WorldTypeMessageGUI(); }
+    static {
+        INSTANCE = new WorldTypeMessageGUI();
+    }
+
+    private GuiScreen parentScreen;
+
+    private WorldTypeMessageGUI() {
+    }
 
     @SubscribeEvent
     public static void openCreateWorld(GuiOpenEvent event) {
@@ -42,8 +45,6 @@ public final class WorldTypeMessageGUI extends GuiScreen
             event.setGui(INSTANCE);
         }
     }
-
-    private GuiScreen parentScreen;
 
     private void setParentScreen(GuiScreen parentScreen) {
         this.parentScreen = parentScreen;

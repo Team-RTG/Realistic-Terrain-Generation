@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;

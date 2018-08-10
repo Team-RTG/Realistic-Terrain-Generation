@@ -5,12 +5,12 @@ import java.util.Random;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.event.terraingen.TerrainGen;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.DEAD_BUSH;
+
 
 /**
  * @author WhichOnesPink

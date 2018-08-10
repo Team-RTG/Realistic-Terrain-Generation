@@ -4,14 +4,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenCaves;
 
-public class MapGenCavesRTG extends MapGenCaves
-{
+
+public class MapGenCavesRTG extends MapGenCaves {
 
     private final int caveDensity;
     private final int caveChance;
 
     MapGenCavesRTG(int caveChance, int caveDensity) {
-        this.caveChance  = caveChance;
+        this.caveChance = caveChance;
         this.caveDensity = caveDensity;
     }
 
@@ -29,7 +29,9 @@ public class MapGenCavesRTG extends MapGenCaves
         chance = (chance < 1) ? 1 : ((chance > 39) ? 39 : chance);
         chance += 1;
 
-        if (this.rand.nextInt(chance) != 0) i = 0;
+        if (this.rand.nextInt(chance) != 0) {
+            i = 0;
+        }
 
         for (int j = 0; j < i; ++j) {
             double x = (chunkX * 16 + this.rand.nextInt(16));

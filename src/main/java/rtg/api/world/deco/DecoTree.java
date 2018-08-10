@@ -6,11 +6,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
-
 import rtg.api.event.DecorateBiomeEventRTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
@@ -19,6 +16,9 @@ import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
+
 
 /**
  * @author WhichOnesPink
@@ -137,7 +137,7 @@ public class DecoTree extends DecoBase {
         this.worldGen = worldGen;
     }
 
-// TODO: [1.12] wat
+    // TODO: [1.12] wat
     public boolean properlyDefined() {
 
         if (this.treeType == TreeType.RTG_TREE) {
@@ -214,7 +214,9 @@ public class DecoTree extends DecoBase {
                         // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                         if (hasPlacedVillageBlocks) {
                             if (BlockUtil.checkVerticalBlocks(MatchType.ALL, rtgWorld.world(), pos, -1, Blocks.FARMLAND) ||
-                                !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, 2)) { return; }
+                                !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, 2)) {
+                                return;
+                            }
                         }
 
                         switch (this.treeType) {
@@ -297,98 +299,6 @@ public class DecoTree extends DecoBase {
 
             default:
                 return false;
-        }
-    }
-
-    public enum TreeType {
-        RTG_TREE,
-        WORLDGEN;
-    }
-
-    public enum TreeCondition {
-        ALWAYS_GENERATE,
-        NOISE_GREATER_AND_RANDOM_CHANCE,
-        NOISE_LESSER_AND_RANDOM_CHANCE,
-        NOISE_BETWEEN_AND_RANDOM_CHANCE,
-        RANDOM_CHANCE,
-        RANDOM_NOT_EQUALS_CHANCE,
-        X_DIVIDED_BY_STRENGTH;
-    }
-
-// TODO: [1.12] There is no use of this class that is variant. Either remove the use of this class, or move it's functionality to DecoUtil.
-    public static class Scatter {
-
-        int bound;
-        int reach;
-
-        public Scatter(int bound, int reach) {
-
-            if (bound < 1) {
-                //TODO [1.12] Always force a default value instead of crashing whenever possible.
-                throw new RuntimeException("Scatter bound must be greater than 0.");
-            };
-
-            this.bound = bound;
-            this.reach = reach;
-        }
-
-        public int get(Random rand, int coord) {
-            return coord + rand.nextInt(bound) + reach;
-        }
-    }
-
-    /**
-     * Parameter object for noise calculations.
-     * <p>
-     * simplex.noise2(chunkX / noiseDivisor, chunkZ / noiseDivisor) * noiseFactor + noiseAddend;
-     *
-     * @author WhichOnesPink
-     * @author Zeno410
-     */
-    public static class Distribution {
-
-        protected float noiseDivisor;
-        protected float noiseFactor;
-        protected float noiseAddend;
-
-        public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
-
-            this.noiseDivisor = noiseDivisor;
-            this.noiseFactor = noiseFactor;
-            this.noiseAddend = noiseAddend;
-        }
-
-        public float getNoiseDivisor() {
-
-            return noiseDivisor;
-    }
-
-        public Distribution setNoiseDivisor(float noiseDivisor) {
-
-            this.noiseDivisor = noiseDivisor;
-            return this;
-}
-
-        public float getNoiseFactor() {
-
-            return noiseFactor;
-        }
-
-        public Distribution setNoiseFactor(float noiseFactor) {
-
-            this.noiseFactor = noiseFactor;
-            return this;
-        }
-
-        public float getNoiseAddend() {
-
-            return noiseAddend;
-        }
-
-        public Distribution setNoiseAddend(float noiseAddend) {
-
-            this.noiseAddend = noiseAddend;
-            return this;
         }
     }
 
@@ -665,5 +575,98 @@ public class DecoTree extends DecoBase {
 
         this.scatter = scatter;
         return this;
+    }
+
+    public enum TreeType {
+        RTG_TREE,
+        WORLDGEN;
+    }
+
+    public enum TreeCondition {
+        ALWAYS_GENERATE,
+        NOISE_GREATER_AND_RANDOM_CHANCE,
+        NOISE_LESSER_AND_RANDOM_CHANCE,
+        NOISE_BETWEEN_AND_RANDOM_CHANCE,
+        RANDOM_CHANCE,
+        RANDOM_NOT_EQUALS_CHANCE,
+        X_DIVIDED_BY_STRENGTH;
+    }
+
+    // TODO: [1.12] There is no use of this class that is variant. Either remove the use of this class, or move it's functionality to DecoUtil.
+    public static class Scatter {
+
+        int bound;
+        int reach;
+
+        public Scatter(int bound, int reach) {
+
+            if (bound < 1) {
+                //TODO [1.12] Always force a default value instead of crashing whenever possible.
+                throw new RuntimeException("Scatter bound must be greater than 0.");
+            }
+            ;
+
+            this.bound = bound;
+            this.reach = reach;
+        }
+
+        public int get(Random rand, int coord) {
+            return coord + rand.nextInt(bound) + reach;
+        }
+    }
+
+    /**
+     * Parameter object for noise calculations.
+     * <p>
+     * simplex.noise2(chunkX / noiseDivisor, chunkZ / noiseDivisor) * noiseFactor + noiseAddend;
+     *
+     * @author WhichOnesPink
+     * @author Zeno410
+     */
+    public static class Distribution {
+
+        protected float noiseDivisor;
+        protected float noiseFactor;
+        protected float noiseAddend;
+
+        public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
+
+            this.noiseDivisor = noiseDivisor;
+            this.noiseFactor = noiseFactor;
+            this.noiseAddend = noiseAddend;
+        }
+
+        public float getNoiseDivisor() {
+
+            return noiseDivisor;
+        }
+
+        public Distribution setNoiseDivisor(float noiseDivisor) {
+
+            this.noiseDivisor = noiseDivisor;
+            return this;
+        }
+
+        public float getNoiseFactor() {
+
+            return noiseFactor;
+        }
+
+        public Distribution setNoiseFactor(float noiseFactor) {
+
+            this.noiseFactor = noiseFactor;
+            return this;
+        }
+
+        public float getNoiseAddend() {
+
+            return noiseAddend;
+        }
+
+        public Distribution setNoiseAddend(float noiseAddend) {
+
+            this.noiseAddend = noiseAddend;
+            return this;
+        }
     }
 }

@@ -2,11 +2,16 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.init.Blocks;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFallenTree.LogCondition;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoMushrooms;
+import rtg.api.world.deco.DecoPumpkin;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.DecoTree.TreeCondition;
 import rtg.api.world.deco.DecoTree.TreeType;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;

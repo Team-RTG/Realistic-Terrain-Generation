@@ -10,19 +10,25 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoGrass;
+import rtg.api.world.deco.DecoMushrooms;
+import rtg.api.world.deco.DecoPumpkin;
+import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.collection.DecoCollectionMegaTaiga;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+
 
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
 
@@ -48,6 +54,65 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         return new TerrainVanillaMegaTaiga();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaMegaTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.setChance(16);
+        decoBoulder.setMaxY(95);
+        decoBoulder.setStrengthFactor(3f);
+        this.addDeco(decoBoulder);
+
+        this.addDecoCollection(new DecoCollectionMegaTaiga(this.getConfig()));
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(6);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.setMaxY(100);
+        decoShrub.setStrengthFactor(2f);
+        decoShrub.setChance(10);
+        this.addDeco(decoShrub);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.setEqualsZeroChance(3);
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoMushrooms decoMushrooms = new DecoMushrooms();
+        decoMushrooms.setMaxY(90);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
+        decoMushrooms.setRandomFloat(3f);
+        this.addDeco(decoMushrooms);
+
+        DecoPumpkin decoPumpkin = new DecoPumpkin();
+        decoPumpkin.setMaxY(90);
+        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
+        decoPumpkin.setRandomFloat(20f);
+        this.addDeco(decoPumpkin);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(10f);
+        this.addDeco(decoGrass);
+    }
+
     public class TerrainVanillaMegaTaiga extends TerrainBase {
 
         public TerrainVanillaMegaTaiga() {
@@ -59,12 +124,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
 
             return terrainFlatLakes(x, y, rtgWorld, river, 66f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaMegaTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaMegaTaiga extends SurfaceBase {
@@ -144,58 +203,5 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setChance(16);
-        decoBoulder.setMaxY(95);
-        decoBoulder.setStrengthFactor(3f);
-        this.addDeco(decoBoulder);
-
-        this.addDecoCollection(new DecoCollectionMegaTaiga(this.getConfig()));
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(10);
-        this.addDeco(decoShrub);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setEqualsZeroChance(3);
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
-        decoMushrooms.setRandomFloat(3f);
-        this.addDeco(decoMushrooms);
-
-        DecoPumpkin decoPumpkin = new DecoPumpkin();
-        decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
-        decoPumpkin.setRandomFloat(20f);
-        this.addDeco(decoPumpkin);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
-        this.addDeco(decoGrass);
     }
 }

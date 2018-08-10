@@ -9,12 +9,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenShrubRTG;
+
 
 /**
  * @author WhichOnesPink
@@ -48,7 +48,7 @@ public class DecoShrub extends DecoBase {
         this.size = -1;
         this.useDefaultRandom = false;
         this.sand = true; //Whether shrubs generate on sand
-        this.randomLogBlocks    = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)};
+        this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(EnumType.SPRUCE)};
         this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setMinY(1); // No height limit by default.
@@ -108,7 +108,7 @@ public class DecoShrub extends DecoBase {
 
                 if (hasPlacedVillageBlocks) {
                     if (BlockUtil.checkVerticalBlocks(MatchType.ALL, world, mpos, -1, Blocks.FARMLAND) ||
-                       !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, mpos, 2)) {
+                        !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, mpos, 2)) {
                         return;
                     }
                 }
@@ -116,9 +116,13 @@ public class DecoShrub extends DecoBase {
                 if (y >= this.minY && y <= this.maxY) {
 
                     if (this.notEqualsZeroChance > 1) {
-                        if (rand.nextInt(this.notEqualsZeroChance) != 0) { worldGenerator.generate(world, rand, mpos); }
+                        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
+                            worldGenerator.generate(world, rand, mpos);
+                        }
                     }
-                    else if (rand.nextInt(this.chance) == 0) { worldGenerator.generate(world, rand, mpos); }
+                    else if (rand.nextInt(this.chance) == 0) {
+                        worldGenerator.generate(world, rand, mpos);
+                    }
                 }
             }
         }

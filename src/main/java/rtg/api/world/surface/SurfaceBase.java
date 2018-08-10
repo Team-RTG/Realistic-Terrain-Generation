@@ -7,9 +7,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import net.minecraftforge.common.MinecraftForge;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.config.RTGConfig;
@@ -17,18 +15,18 @@ import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
 
+
 // TODO: [1.12] Fix parameter names in this class, and their origins
 public abstract class SurfaceBase {
 
+    public IBlockState shadowStoneBlock;
+    public IBlockState shadowDesertBlock;
     protected IBlockState topBlock;
     protected IBlockState fillerBlock;
     protected IBlockState cliffStoneBlock;
     protected IBlockState cliffCobbleBlock;
     protected RTGConfig rtgConfig = RTGAPI.config();
     protected BiomeConfig biomeConfig;
-
-    public IBlockState shadowStoneBlock;
-    public IBlockState shadowDesertBlock;
 
     public SurfaceBase(BiomeConfig config, Block top, Block fill) {
 
@@ -37,7 +35,9 @@ public abstract class SurfaceBase {
 
     public SurfaceBase(BiomeConfig config, IBlockState top, IBlockState fill) {
 
-        if (config == null) { throw new RuntimeException("Biome config in SurfaceBase is NULL."); }
+        if (config == null) {
+            throw new RuntimeException("Biome config in SurfaceBase is NULL.");
+        }
 
         biomeConfig = config;
         topBlock = top;
@@ -88,7 +88,7 @@ public abstract class SurfaceBase {
 
     private void assignUserConfigs(BiomeConfig config, IBlockState top, IBlockState fill) {
 
-        this.topBlock    = getConfigBlock(config.SURFACE_TOP_BLOCK.get(),    top);
+        this.topBlock = getConfigBlock(config.SURFACE_TOP_BLOCK.get(), top);
         this.fillerBlock = getConfigBlock(config.SURFACE_FILLER_BLOCK.get(), fill);
     }
 
@@ -97,9 +97,9 @@ public abstract class SurfaceBase {
     }
 
     private void initCustomBlocks() {
-        cliffStoneBlock   = getConfigBlock(biomeConfig.SURFACE_CLIFF_STONE_BLOCK.get(), Blocks.STONE.getDefaultState());
-        cliffCobbleBlock  = getConfigBlock(biomeConfig.SURFACE_CLIFF_COBBLE_BLOCK.get(), Blocks.COBBLESTONE.getDefaultState());
-        shadowStoneBlock  = getConfigBlock(rtgConfig.SHADOW_STONE_BLOCK_ID.get(), BlockUtil.getStateClay(EnumDyeColor.CYAN));
+        cliffStoneBlock = getConfigBlock(biomeConfig.SURFACE_CLIFF_STONE_BLOCK.get(), Blocks.STONE.getDefaultState());
+        cliffCobbleBlock = getConfigBlock(biomeConfig.SURFACE_CLIFF_COBBLE_BLOCK.get(), Blocks.COBBLESTONE.getDefaultState());
+        shadowStoneBlock = getConfigBlock(rtgConfig.SHADOW_STONE_BLOCK_ID.get(), BlockUtil.getStateClay(EnumDyeColor.CYAN));
         shadowDesertBlock = getConfigBlock(rtgConfig.SHADOW_DESERT_BLOCK_ID.get(), BlockUtil.getStateClay(EnumDyeColor.WHITE));
     }
 }

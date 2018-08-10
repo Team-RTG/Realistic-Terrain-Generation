@@ -9,7 +9,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
@@ -19,6 +18,7 @@ import rtg.api.world.deco.collection.DecoCollectionTaiga;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaTaiga extends RealisticBiomeBase {
 
@@ -43,6 +43,18 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeBase {
         return new TerrainVanillaTaiga();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 10f));
+    }
+
     public class TerrainVanillaTaiga extends TerrainBase {
 
         public TerrainVanillaTaiga() {
@@ -54,12 +66,6 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeBase {
 
             return terrainFlatLakes(x, y, rtgWorld, river, 68f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaTaiga extends SurfaceBase {
@@ -143,11 +149,5 @@ public class RealisticBiomeVanillaTaiga extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 10f));
     }
 }

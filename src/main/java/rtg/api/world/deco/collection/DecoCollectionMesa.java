@@ -2,10 +2,12 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.block.BlockSand;
 import net.minecraft.init.Blocks;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoCactus;
+import rtg.api.world.deco.DecoDeadBush;
+import rtg.api.world.deco.DecoShrub;
 
 
 /**

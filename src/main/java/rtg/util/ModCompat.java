@@ -10,29 +10,28 @@ import java.util.stream.Stream;
 
 import com.google.common.collect.Lists;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
 
-@UtilityClass
-public final class ModCompat
-{
-    private ModCompat() {}
 
-    private static final int    ID_LENGTH     = 3;
-    private static final String ID_FORMAT     = "%"+ID_LENGTH+"s";
-    private static final int    NAME_LENGTH   = 32;
-    private static final String NAME_FORMAT   = "%-"+NAME_LENGTH+"s";
-    private static final int    RESLOC_LENGTH = 50;
-    private static final String RESLOC_FORMAT = "%-"+RESLOC_LENGTH+"s";
+@UtilityClass
+public final class ModCompat {
+
+    private static final int ID_LENGTH = 3;
+    private static final String ID_FORMAT = "%" + ID_LENGTH + "s";
+    private static final int NAME_LENGTH = 32;
+    private static final String NAME_FORMAT = "%-" + NAME_LENGTH + "s";
+    private static final int RESLOC_LENGTH = 50;
+    private static final String RESLOC_FORMAT = "%-" + RESLOC_LENGTH + "s";
+
+    private ModCompat() {
+    }
 
     public static void doBiomeCheck() {
 
@@ -73,64 +72,97 @@ public final class ModCompat
             .collect(Collectors.toList());
 
         // If there are no unsupported biomes, stop here.
-        if (biomes.isEmpty()) { return; }
+        if (biomes.isEmpty()) {
+            return;
+        }
 
-        Logger.warn(".= " + String.format(ID_FORMAT,     new String(new char[ID_LENGTH])    .replace('\0', '='))
-                  + " = " + String.format(NAME_FORMAT,   new String(new char[NAME_LENGTH])  .replace('\0', '='))
-                  + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
-                  + " =.");
+        Logger.warn(".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+            + " = " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
+            + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
+            + " =.");
 
-        Logger.warn("|| " + String.format("%-91s",       "                RTG could not find realistic versions of the following biomes")
-                  + " ||");
+        Logger.warn("|| " + String.format("%-91s", "                RTG could not find realistic versions of the following biomes")
+            + " ||");
 
-        Logger.warn("|| " + String.format(ID_FORMAT,     new String(new char[ID_LENGTH])    .replace('\0', '='))
-                  + " = " + String.format(NAME_FORMAT,   new String(new char[NAME_LENGTH])  .replace('\0', '='))
-                  + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
-                  + " ||");
+        Logger.warn("|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+            + " = " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
+            + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
+            + " ||");
 
-        Logger.warn("|| " + String.format(ID_FORMAT,     "ID")
-                  + " | " + String.format(NAME_FORMAT,   "Biome Name")
-                  + " | " + String.format(RESLOC_FORMAT, "Registry Name")
-                  + " ||");
+        Logger.warn("|| " + String.format(ID_FORMAT, "ID")
+            + " | " + String.format(NAME_FORMAT, "Biome Name")
+            + " | " + String.format(RESLOC_FORMAT, "Registry Name")
+            + " ||");
 
-        Logger.warn("|| " + String.format(ID_FORMAT,     new String(new char[ID_LENGTH])    .replace('\0', '-'))
-                  + " - " + String.format(NAME_FORMAT,   new String(new char[NAME_LENGTH])  .replace('\0', '-'))
-                  + " - " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '-'))
-                  + " ||");
+        Logger.warn("|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '-'))
+            + " - " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '-'))
+            + " - " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '-'))
+            + " ||");
 
-        biomes.forEach(b-> Logger.warn(
-                    "|| " + String.format(ID_FORMAT,     Biome.getIdForBiome(b))
-                  + " | " + String.format(NAME_FORMAT,   b.getBiomeName())
-                  + " | " + String.format(RESLOC_FORMAT, b.getRegistryName())
-                  + " ||"));
+        biomes.forEach(b -> Logger.warn(
+            "|| " + String.format(ID_FORMAT, Biome.getIdForBiome(b))
+                + " | " + String.format(NAME_FORMAT, b.getBiomeName())
+                + " | " + String.format(RESLOC_FORMAT, b.getRegistryName())
+                + " ||"));
 
-        Logger.warn("`= " + String.format(ID_FORMAT,     new String(new char[ID_LENGTH])    .replace('\0', '='))
-                  + " | " + String.format(NAME_FORMAT,   new String(new char[NAME_LENGTH])  .replace('\0', '='))
-                  + " | " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
-                  + " =`");
+        Logger.warn("`= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+            + " | " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
+            + " | " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
+            + " =`");
     }
 
-    public static void init() { Mods.init(); }
+    public static void init() {
+        Mods.init();
+    }
 
     // TODO: 1.12 Verify mods in this enum. If 1.12 versions do not exist, remove support.
     // enum entries must match mod ids
     // optional 'friendly name' used for configs
-    public enum Mods
-    {
-        abyssalcraft, agriculturalrevolution, arsmagica2, atg, betteragriculture, biomesoplenty, biomesyougo,
-        buildcraft, cofhcore, floricraft, flowercraftmod("flowercraft"), iceandfire, jikou, mithwoodforest,
-        morechinesemc, mw("mineworld"), reccomplex, rockhounding_surface, sugiforest, thaumcraft, vampirism,
+    public enum Mods {
+        abyssalcraft,
+        agriculturalrevolution,
+        arsmagica2,
+        atg,
+        betteragriculture,
+        biomesoplenty,
+        biomesyougo,
+        buildcraft,
+        cofhcore,
+        floricraft,
+        flowercraftmod("flowercraft"),
+        iceandfire,
+        jikou,
+        mithwoodforest,
+        morechinesemc,
+        mw("mineworld"),
+        reccomplex,
+        rockhounding_surface,
+        sugiforest,
+        thaumcraft,
+        vampirism,
         minecraft("vanilla");
 
-        private boolean loaded;
         private final String prettyName;
+        private boolean loaded;
 
-        Mods() { this(""); }
-        Mods(String name) { this.prettyName = (!name.isEmpty()) ? name : name(); }
+        Mods() {
+            this("");
+        }
 
-        public boolean isLoaded() { return this.loaded; }
-        public String getPrettyName() { return this.prettyName; }
+        Mods(String name) {
+            this.prettyName = (!name.isEmpty()) ? name : name();
+        }
 
-        public static void init() { Arrays.stream(Mods.values()).forEach(mod -> mod.loaded = Loader.isModLoaded(mod.name())); }
+        public static void init() {
+            Arrays.stream(Mods.values()).forEach(mod -> mod.loaded = Loader.isModLoaded(mod.name()));
+        }
+
+        public boolean isLoaded() {
+            return this.loaded;
+        }
+
+        public String getPrettyName() {
+            return this.prettyName;
+        }
     }
 }

@@ -9,8 +9,9 @@ import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import rtg.api.RTGAPI;
 import rtg.RTG;
+import rtg.api.RTGAPI;
+
 
 public class RTGConfigGUI extends GuiConfig {
 
@@ -34,6 +35,8 @@ public class RTGConfigGUI extends GuiConfig {
     @Override
     public void onGuiClosed() {
         super.onGuiClosed();
-        if (CONFIG.hasChanged()) {CONFIG.save();}
+        if (CONFIG.hasChanged()) {
+            CONFIG.save();
+        }
     }
 }

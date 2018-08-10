@@ -4,26 +4,28 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.ChunkGeneratorRTG;
 
-public final class WorldTypeRTG extends WorldType
-{
+
+public final class WorldTypeRTG extends WorldType {
+
     private static WorldTypeRTG INSTANCE;
-    public static WorldTypeRTG getInstance() {
-        if (INSTANCE == null) { init(); }
-        return INSTANCE;
-    }
 
     private WorldTypeRTG() {
         super(RTGAPI.RTG_WORLDTYPE_ID);
+    }
+
+    public static WorldTypeRTG getInstance() {
+        if (INSTANCE == null) {
+            init();
+        }
+        return INSTANCE;
     }
 
     public static void init() {
@@ -37,7 +39,9 @@ public final class WorldTypeRTG extends WorldType
             Logger.debug("WorldTypeRTG#getBiomeProvider() returning BiomeProviderRTG");
             return new BiomeProviderRTG(RTGWorld.getInstance(world));
         }
-        else throw new RuntimeException(String.format("Illegal DimensionType (%s) for RTG WorldType", world.provider.getDimensionType().getName()));
+        else {
+            throw new RuntimeException(String.format("Illegal DimensionType (%s) for RTG WorldType", world.provider.getDimensionType().getName()));
+        }
     }
 
     @Override
@@ -47,12 +51,13 @@ public final class WorldTypeRTG extends WorldType
             Logger.debug("WorldTypeRTG#getChunkGenerator() returning ChunkGeneratorRTG for Dim {}", world.provider.getDimension());
             return new ChunkGeneratorRTG(RTGWorld.getInstance(world));
         }
-        else throw new RuntimeException(String.format("Illegal DimensionType (%s) for RTG WorldType", world.provider.getDimensionType().getName()));
+        else {
+            throw new RuntimeException(String.format("Illegal DimensionType (%s) for RTG WorldType", world.provider.getDimensionType().getName()));
+        }
     }
 
     @Override
-    public float getCloudHeight()
-    {
+    public float getCloudHeight() {
         return 256F;
     }
 

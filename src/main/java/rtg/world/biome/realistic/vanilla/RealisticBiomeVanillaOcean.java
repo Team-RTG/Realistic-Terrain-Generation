@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -16,6 +15,7 @@ import rtg.api.world.deco.collection.DecoCollectionOcean;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaOcean extends RealisticBiomeBase {
 
@@ -43,6 +43,22 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeBase {
         return new TerrainVanillaOcean();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaOcean(getConfig(), Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f);
+    }
+
+    @Override
+    public void initDecos() {
+        this.addDecoCollection(new DecoCollectionOcean(this.getConfig()));
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
     public class TerrainVanillaOcean extends TerrainBase {
 
         public TerrainVanillaOcean() {
@@ -54,12 +70,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeBase {
 
             return terrainOcean(x, y, rtgWorld, river, 50f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaOcean(getConfig(), Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f);
     }
 
     public class SurfaceVanillaOcean extends SurfaceBase {
@@ -107,7 +117,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeBase {
                     else if (depth < 4 && k < 63) {
                         primer.setBlockState(x, k, z, fillerBlock);
                     }
-
                     else if (depth == 0 && k < 69) {
                         primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
 
@@ -115,15 +124,5 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-        this.addDecoCollection(new DecoCollectionOcean(this.getConfig()));
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
     }
 }

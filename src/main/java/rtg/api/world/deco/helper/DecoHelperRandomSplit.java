@@ -6,6 +6,7 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 
+
 /**
  * This deco helper takes an array of deco objects and an array of chances and generates one accordingly.
  *
@@ -24,7 +25,7 @@ public class DecoHelperRandomSplit extends DecoBase {
         this.chances = new int[]{};
     }
 
-// TODO: [1.12] wat
+    // TODO: [1.12] wat
     public boolean properlyDefined() {
 
         for (int i = 0; i < decos.length; i++) {

@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoTree;
@@ -44,6 +43,35 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
         return new TerrainVanillaBeach();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaBeach(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        // Scattered palm trees.
+
+        TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
+        nuciferaTree.setMinTrunkSize(7);
+        nuciferaTree.setMaxTrunkSize(9);
+        nuciferaTree.setMinCrownSize(6);
+        nuciferaTree.setMaxCrownSize(8);
+        nuciferaTree.getValidGroundBlocks().clear();
+        nuciferaTree.getValidGroundBlocks().add(Blocks.SAND.getDefaultState());
+        this.addTree(nuciferaTree);
+
+        DecoTree palmTrees = new DecoTree(nuciferaTree);
+        palmTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        palmTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        palmTrees.setTreeConditionNoise(-0.2f);
+        palmTrees.setTreeConditionChance(12);
+        palmTrees.setMaxY(68);
+        this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
+    }
+
     public class TerrainVanillaBeach extends TerrainBase {
 
         public TerrainVanillaBeach() {
@@ -54,12 +82,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             return terrainBeach(x, y, rtgWorld, river, 63f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaBeach(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceVanillaBeach extends SurfaceBase {
@@ -99,28 +121,5 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        // Scattered palm trees.
-
-        TreeRTG nuciferaTree = new TreeRTGCocosNucifera();
-        nuciferaTree.setMinTrunkSize(7);
-        nuciferaTree.setMaxTrunkSize(9);
-        nuciferaTree.setMinCrownSize(6);
-        nuciferaTree.setMaxCrownSize(8);
-        nuciferaTree.getValidGroundBlocks().clear();
-        nuciferaTree.getValidGroundBlocks().add(Blocks.SAND.getDefaultState());
-        this.addTree(nuciferaTree);
-
-        DecoTree palmTrees = new DecoTree(nuciferaTree);
-        palmTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
-        palmTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        palmTrees.setTreeConditionNoise(-0.2f);
-        palmTrees.setTreeConditionChance(12);
-        palmTrees.setMaxY(68);
-        this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
     }
 }

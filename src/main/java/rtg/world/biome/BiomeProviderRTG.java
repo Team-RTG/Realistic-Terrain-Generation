@@ -3,8 +3,8 @@ package rtg.world.biome;
 import net.minecraft.world.biome.BiomeProvider;
 import rtg.api.world.RTGWorld;
 
-public class BiomeProviderRTG extends BiomeProvider
-{
+
+public class BiomeProviderRTG extends BiomeProvider {
 //  private final RTGWorld rtgWorld;
 //  private final RTGChunkGenSettings generatorSettings;
 //  private GenLayer genBiomes;

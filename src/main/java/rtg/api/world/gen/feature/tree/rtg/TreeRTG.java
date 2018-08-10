@@ -12,10 +12,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
 import rtg.api.util.BlockUtil;
+
 
 /**
  * The base class for all RTG trees.
@@ -45,7 +45,9 @@ public class TreeRTG extends WorldGenAbstractTree {
     protected RTGConfig rtgConfig = RTGAPI.config();
     private boolean allowBarkCoveredLogs;
 
-    public TreeRTG() { this(false); }
+    public TreeRTG() {
+        this(false);
+    }
 
     public TreeRTG(boolean notify) {
 

@@ -5,12 +5,12 @@ import java.util.Random;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import net.minecraftforge.event.terraingen.TerrainGen;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
+
 
 /**
  * @author WhichOnesPink
@@ -85,12 +85,6 @@ public class DecoPumpkin extends DecoBase {
         }
     }
 
-    public enum RandomType {
-        ALWAYS_GENERATE,
-        USE_CHANCE_VALUE,
-        X_DIVIDED_BY_STRENGTH
-    }
-
     public float getStrengthFactor() {
 
         return strengthFactor;
@@ -155,5 +149,11 @@ public class DecoPumpkin extends DecoBase {
 
         this.loops = loops;
         return this;
+    }
+
+    public enum RandomType {
+        ALWAYS_GENERATE,
+        USE_CHANCE_VALUE,
+        X_DIVIDED_BY_STRENGTH
     }
 }

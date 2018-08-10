@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
@@ -17,6 +16,7 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase {
 
@@ -40,6 +40,19 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
         return new TerrainVanillaMushroomIslandShore();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaMushroomIslandShore(getConfig(), biome.topBlock, biome.fillerBlock, 0f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainVanillaMushroomIslandShore extends TerrainBase {
 
         public TerrainVanillaMushroomIslandShore() {
@@ -49,14 +62,8 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainMarsh(x, y, rtgWorld, 61.5f,river);
+            return terrainMarsh(x, y, rtgWorld, 61.5f, river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaMushroomIslandShore(getConfig(), biome.topBlock, biome.fillerBlock, 0f);
     }
 
     public class SurfaceVanillaMushroomIslandShore extends SurfaceBase {
@@ -142,12 +149,5 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

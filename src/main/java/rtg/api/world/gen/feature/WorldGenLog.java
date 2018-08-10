@@ -12,9 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+
 
 public class WorldGenLog extends WorldGenerator {
 
@@ -93,7 +93,9 @@ public class WorldGenLog extends WorldGenerator {
              * Also, to ensure that we don't have 'broken' logs, if one log block fails the check,
              * then no logs actually get placed.
              */
-            if (!BlockUtil.checkVerticalBlocks(MatchType.ALL, world, pos, 1, Blocks.AIR)) { return false; }
+            if (!BlockUtil.checkVerticalBlocks(MatchType.ALL, world, pos, 1, Blocks.AIR)) {
+                return false;
+            }
 
             // Store the log information instead of placing it straight away.
             aX.add(x);

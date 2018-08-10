@@ -131,10 +131,10 @@ public class TreeRTGRhizophoraMucronata extends TreeRTG {
         while (c < length) {
 
             if (isTrunk) {
-                this.placeLogBlock(world, new BlockPos((int)x, (int)y, (int)z), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag);
             }
             else {
-                this.placeLogBlock(world, new BlockPos((int)x, (int)y, (int)z), this.logBlock, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag);
             }
 
             x += velX;

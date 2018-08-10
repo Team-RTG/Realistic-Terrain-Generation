@@ -12,14 +12,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.api.world.gen.feature.WorldGenBlob;
 import rtg.api.world.gen.RTGChunkGenSettings;
+import rtg.api.world.gen.feature.WorldGenBlob;
+
 
 /**
  * @author WhichOnesPink
@@ -65,9 +65,13 @@ public class DecoBoulder extends DecoBase {
                 int y;
 
                 switch (this.heightType) {
-                    case NEXT_INT        : y = RandomUtil.getRandomInt(rand, this.minY, this.maxY);break;
+                    case NEXT_INT:
+                        y = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                        break;
                     case GET_HEIGHT_VALUE:
-                    default              : y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();break;
+                    default:
+                        y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
+                        break;
                 }
 
                 if (y >= this.minY && y <= this.maxY && rand.nextInt(this.chance) == 0) {
@@ -80,8 +84,6 @@ public class DecoBoulder extends DecoBase {
             }
         }
     }
-
-    public enum HeightType {NEXT_INT, GET_HEIGHT_VALUE}
 
     public IBlockState getBoulderBlock() {
 
@@ -169,5 +171,10 @@ public class DecoBoulder extends DecoBase {
 
         this.validGroundBlocks = Collections.unmodifiableList(validGroundBlocks);
         return this;
+    }
+
+    public enum HeightType {
+        NEXT_INT,
+        GET_HEIGHT_VALUE
     }
 }

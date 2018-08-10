@@ -8,10 +8,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenWave;
+
 
 /**
  * @author WhichOnesPink
@@ -60,9 +60,15 @@ public final class DecoWave extends DecoBase {
                 * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
 
             WorldGenerator worldGenerator;
-            if (this.maxSize > this.minSize) { worldGenerator = new WorldGenWave(this.minSize + rand.nextInt(this.maxSize - this.minSize)); }
-            else if (this.maxSize == this.minSize) { worldGenerator = new WorldGenWave(this.minSize); }
-            else { worldGenerator = new WorldGenWave(8); }
+            if (this.maxSize > this.minSize) {
+                worldGenerator = new WorldGenWave(this.minSize + rand.nextInt(this.maxSize - this.minSize));
+            }
+            else if (this.maxSize == this.minSize) {
+                worldGenerator = new WorldGenWave(this.minSize);
+            }
+            else {
+                worldGenerator = new WorldGenWave(8);
+            }
 
             MutableBlockPos mpos = new MutableBlockPos();
             for (int i = 0; i < this.loops; i++) {
@@ -107,69 +113,6 @@ public final class DecoWave extends DecoBase {
 
             default:
                 return false;
-        }
-    }
-
-    public enum ConditionType {
-        ALWAYS_GENERATE,
-        RANDOM_CHANCE,
-        NOISE_GREATER_AND_RANDOM_CHANCE,
-        NOISE_LESS_AND_RANDOM_CHANCE,
-        X_DIVIDED_BY_STRENGTH;
-    }
-
-    /**
-     * Parameter object for noise calculations.
-     * <p>
-     * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
-     *
-     * @author WhichOnesPink
-     * @author Zeno410
-     */
-    public static class Distribution {
-
-        private float noiseDivisor;
-        private float noiseFactor;
-        private float noiseAddend;
-
-        public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
-
-            this.noiseDivisor = noiseDivisor;
-            this.noiseFactor = noiseFactor;
-            this.noiseAddend = noiseAddend;
-        }
-
-        public float getNoiseDivisor() {
-
-            return noiseDivisor;
-        }
-
-        public Distribution setNoiseDivisor(float noiseDivisor) {
-
-            this.noiseDivisor = noiseDivisor;
-            return this;
-        }
-
-        public float getNoiseFactor() {
-
-            return noiseFactor;
-        }
-
-        public Distribution setNoiseFactor(float noiseFactor) {
-
-            this.noiseFactor = noiseFactor;
-            return this;
-        }
-
-        public float getNoiseAddend() {
-
-            return noiseAddend;
-        }
-
-        public Distribution setNoiseAddend(float noiseAddend) {
-
-            this.noiseAddend = noiseAddend;
-            return this;
         }
     }
 
@@ -281,5 +224,68 @@ public final class DecoWave extends DecoBase {
 
         this.maxSize = maxSize;
         return this;
+    }
+
+    public enum ConditionType {
+        ALWAYS_GENERATE,
+        RANDOM_CHANCE,
+        NOISE_GREATER_AND_RANDOM_CHANCE,
+        NOISE_LESS_AND_RANDOM_CHANCE,
+        X_DIVIDED_BY_STRENGTH;
+    }
+
+    /**
+     * Parameter object for noise calculations.
+     * <p>
+     * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
+     *
+     * @author WhichOnesPink
+     * @author Zeno410
+     */
+    public static class Distribution {
+
+        private float noiseDivisor;
+        private float noiseFactor;
+        private float noiseAddend;
+
+        public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
+
+            this.noiseDivisor = noiseDivisor;
+            this.noiseFactor = noiseFactor;
+            this.noiseAddend = noiseAddend;
+        }
+
+        public float getNoiseDivisor() {
+
+            return noiseDivisor;
+        }
+
+        public Distribution setNoiseDivisor(float noiseDivisor) {
+
+            this.noiseDivisor = noiseDivisor;
+            return this;
+        }
+
+        public float getNoiseFactor() {
+
+            return noiseFactor;
+        }
+
+        public Distribution setNoiseFactor(float noiseFactor) {
+
+            this.noiseFactor = noiseFactor;
+            return this;
+        }
+
+        public float getNoiseAddend() {
+
+            return noiseAddend;
+        }
+
+        public Distribution setNoiseAddend(float noiseAddend) {
+
+            this.noiseAddend = noiseAddend;
+            return this;
+        }
     }
 }

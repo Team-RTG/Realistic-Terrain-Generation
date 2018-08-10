@@ -8,7 +8,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -16,6 +15,7 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+
 
 public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
 
@@ -40,6 +40,24 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
         return new TerrainVanillaFrozenOcean();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceVanillaFrozenOcean(getConfig(), Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
+    }
+
     public class TerrainVanillaFrozenOcean extends TerrainBase {
 
         public TerrainVanillaFrozenOcean() {
@@ -51,12 +69,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
 
             return terrainOcean(x, y, rtgWorld, river, 50f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaFrozenOcean(getConfig(), Blocks.SAND.getDefaultState(), Blocks.SAND.getDefaultState(), Blocks.GRAVEL.getDefaultState(), 20f, 0.2f);
     }
 
     public class SurfaceVanillaFrozenOcean extends SurfaceBase {
@@ -104,7 +116,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
                     else if (depth < 4 && k < 63) {
                         primer.setBlockState(x, k, z, fillerBlock);
                     }
-
                     else if (depth == 0 && k < 69) {
                         primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
 
@@ -112,17 +123,5 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
     }
 }

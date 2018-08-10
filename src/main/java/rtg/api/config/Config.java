@@ -5,10 +5,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.minecraftforge.common.config.Configuration;
-
+import org.apache.commons.lang3.ArrayUtils;
 import rtg.api.config.property.ConfigProperty;
 import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayDouble;
 import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayInteger;
@@ -24,12 +22,12 @@ public abstract class Config {
 
     static final String BLOCKSTATE_HELP =
         Configuration.NEW_LINE + "Syntax : <ResourceLocation> [<IProperty name> = <value>, <IProperty name> = <value>, ...]" +
-        Configuration.NEW_LINE + "Example: minecraft:stone[variant=diorite], or minecraft:stained_glass_pane[color=pink,north=true,east=false,south=true,west=false]" +
-        Configuration.NEW_LINE + "For a list of property names and values, see: https://minecraft.gamepedia.com/Block_states";
+            Configuration.NEW_LINE + "Example: minecraft:stone[variant=diorite], or minecraft:stained_glass_pane[color=pink,north=true,east=false,south=true,west=false]" +
+            Configuration.NEW_LINE + "For a list of property names and values, see: https://minecraft.gamepedia.com/Block_states";
 
     private final File configFile;
-    private Configuration config;
     protected List<ConfigProperty> properties = new ArrayList<>();
+    private Configuration config;
 
     protected Config(@Nonnull File configFile) {
         this.configFile = configFile;
@@ -193,9 +191,17 @@ public abstract class Config {
                 }
             }
         }
-        catch (Exception ignored) { Logger.error("RTG had a problem loading config: {}", configFile); }
-        finally { if (config.hasChanged()) { config.save(); } }
+        catch (Exception ignored) {
+            Logger.error("RTG had a problem loading config: {}", configFile);
+        }
+        finally {
+            if (config.hasChanged()) {
+                config.save();
+            }
+        }
     }
 
-    public Configuration getConfig() { return config; }
+    public Configuration getConfig() {
+        return config;
+    }
 }

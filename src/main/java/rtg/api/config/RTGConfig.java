@@ -84,6 +84,8 @@ public class RTGConfig extends Config {
     public final ConfigPropertyInteger VOLCANO_CONDUIT_DEPTH; // TODO: [Generator settings] To be removed
     public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger SURFACE_BLEED_RADIUS; // TODO: [Generator settings] Possibly make this a gen setting so it is World-specific
+
+    public final ConfigPropertyBoolean USE_RTG_WORLD_TYPE_DEFAULT;
     public Property RTG_WORLDTYPE_NOTIFICATION;
 
     public RTGConfig(File configFile) {
@@ -593,6 +595,14 @@ public class RTGConfig extends Config {
                 "Per default surface bleeding is only enabled for beaches. You can control that in biome settings",
             16, 0, 32
         ));
+
+        USE_RTG_WORLD_TYPE_DEFAULT = new ConfigPropertyBoolean(
+            "Automatically select RTG world type when creating a new world",
+            "GUI",
+            "",
+            true
+        );
+        this.addProperty(USE_RTG_WORLD_TYPE_DEFAULT);
     }
 
     // TODO: [1.12] Stop-gap until the main config class is rewritten. It is currently impossible to save config setting changes after the config is loaded.

@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.Logger;
 
 
 public class WorldGenSponge extends WorldGenerator {
@@ -30,21 +31,18 @@ public class WorldGenSponge extends WorldGenerator {
         this.spongeSize = s;
 
         this.validGroundBlocks = new ArrayList<Block>(Arrays.asList(
-            Blocks.GRASS,
-            Blocks.DIRT,
-            Blocks.STONE,
             Blocks.GRAVEL,
             Blocks.CLAY,
-            Blocks.SAND
+            Blocks.SAND,
+            Blocks.SPONGE
         ));
 
         this.validAdjacentBlocks = new ArrayList<Block>(Arrays.asList(
-            Blocks.PRISMARINE,
-            Blocks.COBBLESTONE,
-            Blocks.MOSSY_COBBLESTONE
+            Blocks.SPONGE,
+            Blocks.WATER
         ));
 
-        this.minAdjacents = 2;
+        this.minAdjacents = 3;
     }
 
     public WorldGenSponge(IBlockState b, int s, Random rand, ArrayList<Block> validGroundBlocks) {
@@ -98,10 +96,10 @@ public class WorldGenSponge extends WorldGenerator {
                             float f3 = (float) (j2 - y);
 
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
-                                //if (isAdjacent(world, l1, j2, i2)){
-                                world.setBlockState(new BlockPos(l1, j2, i2), spongeBlock, 2);
-                                //Logger.debug("Sponge generated at %d %d %d", l1, j2, i2);
-                                //}
+                                if (hasValidAdjacentBlocks(world, l1, j2, i2)){
+                                    world.setBlockState(new BlockPos(l1, j2, i2), spongeBlock, 2);
+                                    Logger.debug("Sponge generated at {} {} {}", l1, j2, i2);
+                                }
                             }
                         }
                     }
@@ -116,7 +114,7 @@ public class WorldGenSponge extends WorldGenerator {
         }
     }
 
-    protected boolean isAdjacent(World world, int x, int y, int z) {
+    protected boolean hasValidAdjacentBlocks(World world, int x, int y, int z) {
 
         int adjacentCount = 0;
 

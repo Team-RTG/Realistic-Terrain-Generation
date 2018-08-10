@@ -48,7 +48,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
     private DecoSponge sponge() {
         DecoSponge decoSponge = new DecoSponge();
         decoSponge.setSpongeBlock(BlockUtil.getSponge(true));
-        decoSponge.setChance(1);
+        decoSponge.setChance(500);
         decoSponge.setMinY(22);
         decoSponge.setMaxY(39);
         decoSponge.setHeightType(DecoSponge.HeightType.NEXT_INT);

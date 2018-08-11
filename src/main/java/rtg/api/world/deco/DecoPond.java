@@ -32,8 +32,8 @@ public class DecoPond extends DecoBase {
             //Surface lakes.
             for (int i = 0; i < this.loops; i++) {
 
-                int i2 = worldX + rand.nextInt(16);// + 8;
-                int i8 = worldZ + rand.nextInt(16);// + 8;
+                int i2 = worldX + rand.nextInt(16) + 8;
+                int i8 = worldZ + rand.nextInt(16) + 8;
                 int l4 = rtgWorld.world().getHeight(new BlockPos(i2, 0, i8)).getY();
 
                 if (rand.nextInt(this.chunksPerPond) == 0) {

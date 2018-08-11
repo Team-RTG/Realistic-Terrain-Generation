@@ -88,8 +88,12 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
     public static void addBiomes() {
 
         if (Mods.biomesoplenty.isLoaded()) {
+
             if (BOPBiomes.alps.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPAlps());
+            }
+            if (BOPBiomes.alps_foothills.isPresent()) {
+                RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPAlpsFoothills());
             }
             if (BOPBiomes.bamboo_forest.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBambooForest());
@@ -205,6 +209,9 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
             if (BOPBiomes.orchard.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOrchard());
             }
+            if (BOPBiomes.origin_beach.isPresent()) {
+                RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOriginBeach());
+            }
             if (BOPBiomes.origin_island.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOriginIsland());
             }
@@ -213,6 +220,9 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
             }
             if (BOPBiomes.overgrown_cliffs.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOvergrownCliffs());
+            }
+            if (BOPBiomes.pasture.isPresent()) {
+                RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPPasture());
             }
             if (BOPBiomes.prairie.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPPrairie());
@@ -267,6 +277,9 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase implement
             }
             if (BOPBiomes.wetland.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWetland());
+            }
+            if (BOPBiomes.white_beach.isPresent()) {
+                RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWhiteBeach());
             }
             if (BOPBiomes.woodland.isPresent()) {
                 RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWoodland());

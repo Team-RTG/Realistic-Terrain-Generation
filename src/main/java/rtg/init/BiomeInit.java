@@ -4,6 +4,7 @@ import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
 import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBase;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForestHills;
@@ -69,6 +70,7 @@ import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaM;
 public final class BiomeInit {
 
     private BiomeInit() {
+
     }
 
     public static void preInit() {
@@ -226,7 +228,7 @@ public final class BiomeInit {
     }
 
     private static void init_biomesoplenty() {
-
+        RealisticBiomeBOPBase.addBiomes();
     }
 
     private static void init_biomesyougo() {

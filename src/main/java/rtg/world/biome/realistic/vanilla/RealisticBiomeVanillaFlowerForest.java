@@ -87,7 +87,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
             .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
-// TODO: [1.12] Create a new class for double-plants
+// TODO: [1.12] Add double-plant flowers back into DecoFlowersRTG
 //        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
 //        decoFlowers2.addFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
 //        decoFlowers2.setStrengthFactor(2f); // Not as many of these.

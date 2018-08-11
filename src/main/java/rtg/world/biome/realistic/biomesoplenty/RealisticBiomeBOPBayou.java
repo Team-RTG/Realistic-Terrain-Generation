@@ -62,6 +62,103 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
         return new TerrainBOPBayou();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPBayou(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoPond decoPond = new DecoPond();
+        decoPond.setChunksPerPond(1);
+        decoPond.setMaxY(67);
+        decoPond.setLoops(8);
+        this.addDeco(decoPond);
+
+//        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
+//        myrtilloidesTree.setLogBlock(logBlock);
+//        myrtilloidesTree.setLeavesBlock(leavesBlock);
+//        myrtilloidesTree.validGroundBlocks.add(mudBlock);
+//        this.addTree(myrtilloidesTree);
+//        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
+//        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+//        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+//        decoTrees.setTreeConditionChance(4);
+//        decoTrees.setLogBlock(logBlock);
+//        decoTrees.setLeavesBlock(leavesBlock);
+//        decoTrees.setMaxY(90);
+//        this.addDeco(decoTrees);
+
+        /*
+         * STOP! Don't add anymore trees! BOP seems to generate a batch of its trees every time RTG generates a batch
+         * of its trees, even though we're not calling the BOP Bayou's decorate() method.
+         */
+
+//        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
+//        roseaTree.setLogBlock(logBlock);
+//        roseaTree.setLeavesBlock(leavesBlock);
+//        roseaTree.validGroundBlocks.add(mudBlock);
+//        roseaTree.setMinTrunkSize(2);
+//        roseaTree.setMaxTrunkSize(3);
+//        roseaTree.setMinCrownSize(10);
+//        roseaTree.setMaxCrownSize(18);
+//        roseaTree.setNoLeaves(false);
+//        this.addTree(roseaTree);
+//        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
+//        ceibaRoseaTree.setTreeType(DecoTree.TreeType.RTG_TREE);
+//        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+//        ceibaRoseaTree.setTreeConditionChance(4);
+//        ceibaRoseaTree.setMaxY(90);
+//        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
+//        this.addDeco(ceibaRoseaTree);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        this.addDeco(decoBaseBiomeDecorations);
+
+        // Shrubs to fill in the blanks.
+        DecoShrub decoShrubOak = new DecoShrub();
+        decoShrubOak.setMaxY(90);
+        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.setChance(3);
+        this.addDeco(decoShrubOak);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(-0.2f);
+        decoFallenTree.setLogConditionChance(4);
+        decoFallenTree.setLogBlock(logBlock);
+        decoFallenTree.setLeavesBlock(leavesBlock);
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
+        this.addDeco(decoJungleLilypadVines);
+
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.setMaxY(90);
+        decoGrassDoubleTallgrass.setStrengthFactor(4f);
+        decoGrassDoubleTallgrass.setDoubleGrassChance(8);
+        this.addDeco(decoGrassDoubleTallgrass);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.setMaxY(90);
+        decoGrass.setStrengthFactor(4f);
+        decoGrass.setChance(2);
+        this.addDeco(decoGrass);
+
+        DecoMushrooms decoMushrooms = new DecoMushrooms();
+        decoMushrooms.setMaxY(90);
+        decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
+        this.addDeco(decoMushrooms);
+    }
+
     public class TerrainBOPBayou extends TerrainBase {
 
         public TerrainBOPBayou() {
@@ -73,12 +170,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
 
             return terrainPlains(x, y, rtgWorld, river, 80f, 1f, 40f, 20f, 62f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPBayou(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
     }
 
     public class SurfaceBOPBayou extends SurfaceBase {
@@ -179,96 +270,5 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoPond decoPond = new DecoPond();
-        decoPond.setChunksPerPond(1);
-        decoPond.setMaxY(67);
-        decoPond.setLoops(8);
-        this.addDeco(decoPond);
-
-//        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
-//        myrtilloidesTree.setLogBlock(logBlock);
-//        myrtilloidesTree.setLeavesBlock(leavesBlock);
-//        myrtilloidesTree.validGroundBlocks.add(mudBlock);
-//        this.addTree(myrtilloidesTree);
-//        DecoTree decoTrees = new DecoTree(myrtilloidesTree);
-//        decoTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
-//        decoTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-//        decoTrees.setTreeConditionChance(4);
-//        decoTrees.setLogBlock(logBlock);
-//        decoTrees.setLeavesBlock(leavesBlock);
-//        decoTrees.setMaxY(90);
-//        this.addDeco(decoTrees);
-
-        /*
-         * STOP! Don't add anymore trees! BOP seems to generate a batch of its trees every time RTG generates a batch
-         * of its trees, even though we're not calling the BOP Bayou's decorate() method.
-         */
-
-//        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
-//        roseaTree.setLogBlock(logBlock);
-//        roseaTree.setLeavesBlock(leavesBlock);
-//        roseaTree.validGroundBlocks.add(mudBlock);
-//        roseaTree.setMinTrunkSize(2);
-//        roseaTree.setMaxTrunkSize(3);
-//        roseaTree.setMinCrownSize(10);
-//        roseaTree.setMaxCrownSize(18);
-//        roseaTree.setNoLeaves(false);
-//        this.addTree(roseaTree);
-//        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
-//        ceibaRoseaTree.setTreeType(DecoTree.TreeType.RTG_TREE);
-//        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-//        ceibaRoseaTree.setTreeConditionChance(4);
-//        ceibaRoseaTree.setMaxY(90);
-//        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
-//        this.addDeco(ceibaRoseaTree);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
-
-        // Shrubs to fill in the blanks.
-        DecoShrub decoShrubOak = new DecoShrub();
-        decoShrubOak.setMaxY(90);
-        decoShrubOak.setStrengthFactor(4f);
-        decoShrubOak.setChance(3);
-        this.addDeco(decoShrubOak);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree.getDistribution().setNoiseFactor(60f);
-        decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(-0.2f);
-        decoFallenTree.setLogConditionChance(4);
-        decoFallenTree.setLogBlock(logBlock);
-        decoFallenTree.setLeavesBlock(leavesBlock);
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
-        this.addDeco(decoJungleLilypadVines);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(90);
-        decoGrassDoubleTallgrass.setStrengthFactor(4f);
-        decoGrassDoubleTallgrass.setDoubleGrassChance(8);
-        this.addDeco(decoGrassDoubleTallgrass);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(90);
-        decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
-        this.addDeco(decoGrass);
-
-        DecoMushrooms decoMushrooms = new DecoMushrooms();
-        decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
-        this.addDeco(decoMushrooms);
     }
 }

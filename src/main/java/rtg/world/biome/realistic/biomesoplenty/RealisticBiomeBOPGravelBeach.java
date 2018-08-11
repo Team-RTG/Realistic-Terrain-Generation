@@ -39,19 +39,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
         return new TerrainBOPGravelBeach();
     }
 
-    public class TerrainBOPGravelBeach extends TerrainBase {
-
-        public TerrainBOPGravelBeach() {
-
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainBeach(x, y, rtgWorld, river, 60f);
-        }
-    }
-
     @Override
     public SurfaceBase initSurface() {
 
@@ -63,6 +50,26 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
             biome.fillerBlock,
             1
         );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
+    public class TerrainBOPGravelBeach extends TerrainBase {
+
+        public TerrainBOPGravelBeach() {
+
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, rtgWorld, river, 60f);
+        }
     }
 
     public class SurfaceBOPGravelBeach extends SurfaceBase {
@@ -138,12 +145,5 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

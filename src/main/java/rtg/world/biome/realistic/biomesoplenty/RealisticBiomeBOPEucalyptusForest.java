@@ -46,6 +46,54 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBase {
         return new TerrainBOPEucalyptusForest(); //(58f, 80f, 36f)
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPEucalyptusForest(getConfig(),
+            biome.topBlock, //Block top
+            biome.fillerBlock, //Block filler,
+            biome.topBlock, //IBlockState mixTop,
+            biome.fillerBlock, //IBlockState mixFill,
+            80f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBoulder decoBoulder1 = new DecoBoulder();
+        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder1.setMaxY(80);
+        decoBoulder1.setChance(12);
+        decoBoulder1.setStrengthFactor(1f);
+        DecoBoulder decoBoulder2 = new DecoBoulder();
+        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder2.setMaxY(80);
+        decoBoulder2.setChance(12);
+        decoBoulder2.setStrengthFactor(1f);
+        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
+        this.addDeco(decoHelper5050);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(16);
+        decoFallenTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.JUNGLE));
+        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.JUNGLE));
+        decoFallenTree.setMinSize(8);
+        decoFallenTree.setMaxSize(14);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPEucalyptusForest extends TerrainBase {
 
         private float baseHeight = 76f;
@@ -67,21 +115,6 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBase {
 
             return riverized(groundNoise + h, river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPEucalyptusForest(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
     }
 
     public class SurfaceBOPEucalyptusForest extends SurfaceBase {
@@ -164,38 +197,5 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBoulder decoBoulder1 = new DecoBoulder();
-        decoBoulder1.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder1.setMaxY(80);
-        decoBoulder1.setChance(12);
-        decoBoulder1.setStrengthFactor(1f);
-        DecoBoulder decoBoulder2 = new DecoBoulder();
-        decoBoulder2.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder2.setMaxY(80);
-        decoBoulder2.setChance(12);
-        decoBoulder2.setStrengthFactor(1f);
-        DecoHelper5050 decoHelper5050 = new DecoHelper5050(decoBoulder1, decoBoulder2);
-        this.addDeco(decoHelper5050);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.JUNGLE));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.JUNGLE));
-        decoFallenTree.setMinSize(8);
-        decoFallenTree.setMaxSize(14);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

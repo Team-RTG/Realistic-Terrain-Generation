@@ -45,6 +45,19 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBase {
         return new TerrainBOPHighland();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPHighland(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPHighland extends TerrainBase {
 
         private float baseHeight = 90f;
@@ -70,12 +83,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBase {
             return riverized(baseHeight + withJitter.added(rtgWorld, x, y) + this.groundNoise(x, y, 6, rtgWorld), river);
             //return terrainGrasslandMountains(x, y, simplex, cell, river, 4f, 80f, 68f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPHighland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPHighland extends SurfaceBase {
@@ -127,12 +134,5 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

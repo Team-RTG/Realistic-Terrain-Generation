@@ -28,12 +28,26 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPGrassland();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPGrassland(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPGrassland extends TerrainBase {
@@ -47,12 +61,6 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBase {
 
             return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 200f, 66f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPGrassland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPGrassland extends SurfaceBase {
@@ -104,12 +112,5 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

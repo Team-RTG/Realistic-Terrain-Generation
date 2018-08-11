@@ -28,12 +28,26 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPQuagmire();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPQuagmire(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPQuagmire extends TerrainBase {
@@ -47,12 +61,6 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBase {
 
             return terrainMarsh(x, y, rtgWorld, 61.5f, river);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPQuagmire(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPQuagmire extends SurfaceBase {
@@ -104,12 +112,5 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

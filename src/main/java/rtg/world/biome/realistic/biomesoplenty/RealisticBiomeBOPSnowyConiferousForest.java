@@ -44,6 +44,40 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
         return new TerrainBOPSnowyConiferousForest(65f, 70f, 40f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPSnowyConiferousForest(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState(), 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(1f);
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(16);
+        decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(3));
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(4);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPSnowyConiferousForest extends TerrainBase {
 
         private float minHeight;
@@ -64,12 +98,6 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
 
             return terrainRollingHills(x, y, rtgWorld, river, hillStrength, groundNoise, groundNoiseAmplitudeHills + 2f, 4f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPSnowyConiferousForest(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState(), 0.45f, 1.5f, 50f, 60f, 0.4f, 100f, 50f, 1.5f);
     }
 
     public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
@@ -178,33 +206,5 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(16);
-        decoBoulder.setStrengthFactor(1f);
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree.getDistribution().setNoiseFactor(60f);
-        decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(3));
-        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(4);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

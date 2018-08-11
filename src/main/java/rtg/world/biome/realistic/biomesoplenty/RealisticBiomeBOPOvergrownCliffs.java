@@ -44,6 +44,19 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
         return new TerrainBOPOvergrownCliffs(300f, 100f, 0f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPOvergrownCliffs(getConfig(), biome.topBlock, biome.fillerBlock, 0.95f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPOvergrownCliffs extends TerrainBase {
 
         private float width;
@@ -79,12 +92,6 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
 
             return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, terrainHeight);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPOvergrownCliffs(getConfig(), biome.topBlock, biome.fillerBlock, 0.95f);
     }
 
     public class SurfaceBOPOvergrownCliffs extends SurfaceBase {
@@ -178,12 +185,5 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

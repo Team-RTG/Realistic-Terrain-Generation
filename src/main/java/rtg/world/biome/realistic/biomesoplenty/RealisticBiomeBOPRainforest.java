@@ -28,12 +28,26 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPRainforest(90f, 300f);
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 1.3f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPRainforest extends TerrainBase {
@@ -52,12 +66,6 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBase {
 
             return terrainSwampMountain(x, y, rtgWorld, river, width, heigth, 140f, 39f, 65f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 1.3f);
     }
 
     public class SurfaceBOPRainforest extends SurfaceBase {
@@ -151,12 +159,5 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

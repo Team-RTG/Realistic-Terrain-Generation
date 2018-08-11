@@ -39,6 +39,19 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBase {
         return new TerrainBOPCoralReef(false, -10f, 0f, 0f, 0f, 30f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPCoralReef(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPCoralReef extends TerrainBase {
 
         private boolean booRiver;
@@ -91,12 +104,6 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBase {
         }
     }
 
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPCoralReef(getConfig(), biome.topBlock, biome.fillerBlock);
-    }
-
     public class SurfaceBOPCoralReef extends SurfaceBase {
 
         public SurfaceBOPCoralReef(BiomeConfig config, IBlockState top, IBlockState filler) {
@@ -146,12 +153,5 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -28,12 +28,35 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPColdDesert();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPColdDesert(getConfig(),
+            Blocks.SNOW.getDefaultState(), //Block top
+            biome.fillerBlock, //Block filler,
+            Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
+            biome.fillerBlock, //IBlockState mixFill,
+            80f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPColdDesert extends TerrainBase {
@@ -54,21 +77,6 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
             // no indentations; cutoff is not noticeable with these low slopes
             return result > base ? result : base;
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPColdDesert(getConfig(),
-            Blocks.SNOW.getDefaultState(), //Block top
-            biome.fillerBlock, //Block filler,
-            Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
     }
 
     public class SurfaceBOPColdDesert extends SurfaceBase {
@@ -150,12 +158,5 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

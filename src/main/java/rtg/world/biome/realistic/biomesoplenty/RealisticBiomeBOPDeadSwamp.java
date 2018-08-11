@@ -32,12 +32,26 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPDeadSwamp();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPDeadSwamp(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPDeadSwamp extends TerrainBase {
@@ -60,12 +74,6 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
 
             return 62f + height.added(rtgWorld, x, y);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPDeadSwamp(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
     public class SurfaceBOPDeadSwamp extends SurfaceBase {
@@ -117,12 +125,5 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

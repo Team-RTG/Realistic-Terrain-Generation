@@ -31,12 +31,26 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPBorealForest();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPBorealForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPBorealForest extends TerrainBase {
@@ -74,12 +88,6 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBase {
 
             return riverized(baseHeight, river) + (groundNoise + m) * river;
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPBorealForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
     }
 
     public class SurfaceBOPBorealForest extends SurfaceBase {
@@ -180,12 +188,5 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

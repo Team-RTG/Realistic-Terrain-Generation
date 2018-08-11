@@ -33,12 +33,35 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPOutback(65f, 50f, 10f);
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPOutback(getConfig(),
+            biome.topBlock, //Block top
+            biome.fillerBlock, //Block filler,
+            biome.topBlock, //IBlockState mixTop,
+            biome.fillerBlock, //IBlockState mixFill,
+            40f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPOutback extends TerrainBase {
@@ -90,21 +113,6 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBase {
             return riverized(minHeight + groundEffect.added(rtgWorld, x, y), river) + height.added(rtgWorld, x, y);
             //return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPOutback(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            40f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
     }
 
     public class SurfaceBOPOutback extends SurfaceBase {
@@ -187,12 +195,5 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

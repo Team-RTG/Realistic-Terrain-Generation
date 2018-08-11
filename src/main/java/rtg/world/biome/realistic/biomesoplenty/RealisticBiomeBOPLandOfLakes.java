@@ -51,6 +51,85 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
         return new TerrainBOPLandOfLakes(58f, 76f, 36f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPLandOfLakes(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
+        birchTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
+        birchTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
+        birchTree.setMinTrunkSize(4);
+        birchTree.setMaxTrunkSize(10);
+        birchTree.setMinCrownSize(8);
+        birchTree.setMaxCrownSize(19);
+        this.addTree(birchTree);
+
+        DecoTree birchTrees = new DecoTree(birchTree);
+        birchTrees.setStrengthFactorForLoops(9f);
+        birchTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        birchTrees.getDistribution().setNoiseDivisor(100f);
+        birchTrees.getDistribution().setNoiseFactor(6f);
+        birchTrees.getDistribution().setNoiseAddend(0.8f);
+        birchTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        birchTrees.setTreeConditionChance(1);
+        birchTrees.setTreeConditionNoise(0f);
+        birchTrees.setMaxY(120);
+
+        TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
+        sitchensisTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE));
+        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.SPRUCE));
+        sitchensisTree.setMinTrunkSize(4);
+        sitchensisTree.setMaxTrunkSize(9);
+        sitchensisTree.setMinCrownSize(5);
+        sitchensisTree.setMaxCrownSize(14);
+        this.addTree(sitchensisTree);
+
+        DecoTree smallPine = new DecoTree(sitchensisTree);
+        smallPine.setStrengthFactorForLoops(9f);
+        smallPine.setTreeType(DecoTree.TreeType.RTG_TREE);
+        smallPine.getDistribution().setNoiseDivisor(100f);
+        smallPine.getDistribution().setNoiseFactor(6f);
+        smallPine.getDistribution().setNoiseAddend(0.8f);
+        smallPine.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        smallPine.setTreeConditionChance(1);
+        smallPine.setTreeConditionNoise(0f);
+        smallPine.setMaxY(120);
+
+        DecoHelper5050 decoHelper5050 = new DecoHelper5050(birchTrees, smallPine);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(12);
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE), BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)});
+        decoFallenTree.setMinSize(8);
+        decoFallenTree.setMaxSize(12);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.setMaxY(110);
+        decoShrub.setStrengthFactor(3f);
+        this.addDeco(decoShrub);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(12);
+        decoBoulder.setStrengthFactor(1f);
+        this.addDeco(decoBoulder);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPLandOfLakes extends TerrainBase {
 
         private float minHeight;
@@ -69,12 +148,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
 
             return terrainRollingHills(x, y, rtgWorld, river, hillStrength, groundNoise, groundNoiseAmplitudeHills, 0f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPLandOfLakes(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f);
     }
 
     public class SurfaceBOPLandOfLakes extends SurfaceBase {
@@ -175,78 +248,5 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
-        birchTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
-        birchTree.setMinTrunkSize(4);
-        birchTree.setMaxTrunkSize(10);
-        birchTree.setMinCrownSize(8);
-        birchTree.setMaxCrownSize(19);
-        this.addTree(birchTree);
-
-        DecoTree birchTrees = new DecoTree(birchTree);
-        birchTrees.setStrengthFactorForLoops(9f);
-        birchTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
-        birchTrees.getDistribution().setNoiseDivisor(100f);
-        birchTrees.getDistribution().setNoiseFactor(6f);
-        birchTrees.getDistribution().setNoiseAddend(0.8f);
-        birchTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        birchTrees.setTreeConditionChance(1);
-        birchTrees.setTreeConditionNoise(0f);
-        birchTrees.setMaxY(120);
-
-        TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE));
-        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.SPRUCE));
-        sitchensisTree.setMinTrunkSize(4);
-        sitchensisTree.setMaxTrunkSize(9);
-        sitchensisTree.setMinCrownSize(5);
-        sitchensisTree.setMaxCrownSize(14);
-        this.addTree(sitchensisTree);
-
-        DecoTree smallPine = new DecoTree(sitchensisTree);
-        smallPine.setStrengthFactorForLoops(9f);
-        smallPine.setTreeType(DecoTree.TreeType.RTG_TREE);
-        smallPine.getDistribution().setNoiseDivisor(100f);
-        smallPine.getDistribution().setNoiseFactor(6f);
-        smallPine.getDistribution().setNoiseAddend(0.8f);
-        smallPine.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        smallPine.setTreeConditionChance(1);
-        smallPine.setTreeConditionNoise(0f);
-        smallPine.setMaxY(120);
-
-        DecoHelper5050 decoHelper5050 = new DecoHelper5050(birchTrees, smallPine);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE), BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)});
-        decoFallenTree.setMinSize(8);
-        decoFallenTree.setMaxSize(12);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(3f);
-        this.addDeco(decoShrub);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(12);
-        decoBoulder.setStrengthFactor(1f);
-        this.addDeco(decoBoulder);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

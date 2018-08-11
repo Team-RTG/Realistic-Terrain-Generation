@@ -39,6 +39,19 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBase {
         return new TerrainBOPTropicalRainforest(0f, 60f, 68f, 200f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPTropicalRainforest(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPTropicalRainforest extends TerrainBase {
 
         private float start;
@@ -58,12 +71,6 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBase {
 
             return terrainHighland(x, y, rtgWorld, river, start, width, height, base - 62f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPTropicalRainforest(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPTropicalRainforest extends SurfaceBase {
@@ -115,12 +122,5 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

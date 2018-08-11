@@ -43,6 +43,38 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBase {
         return new TerrainBOPLushSwamp();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPLushSwamp(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(1f);
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(ALWAYS_GENERATE);
+        decoFallenTree.setLogConditionChance(4);
+        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(4);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+    }
+
     public class TerrainBOPLushSwamp extends TerrainBase {
 
         public TerrainBOPLushSwamp() {
@@ -55,12 +87,6 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBase {
             return terrainMarsh(x, y, rtgWorld, 61.5f, river);
             //return terrainBeach(x, y, simplex, river, 180f, 35f, 60f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPLushSwamp(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPLushSwamp extends SurfaceBase {
@@ -112,31 +138,5 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(16);
-        decoBoulder.setStrengthFactor(1f);
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree.getDistribution().setNoiseFactor(60f);
-        decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(ALWAYS_GENERATE);
-        decoFallenTree.setLogConditionChance(4);
-        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
-        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(4);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

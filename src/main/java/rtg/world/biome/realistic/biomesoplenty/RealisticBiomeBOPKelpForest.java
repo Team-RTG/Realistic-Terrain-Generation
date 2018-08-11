@@ -39,6 +39,19 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBase {
         return new TerrainBOPKelpForest(false, -10f, 0f, 0f, 0f, 30f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPKelpForest(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPKelpForest extends TerrainBase {
 
         private boolean booRiver;
@@ -91,12 +104,6 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBase {
         }
     }
 
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPKelpForest(getConfig(), biome.topBlock, biome.fillerBlock);
-    }
-
     public class SurfaceBOPKelpForest extends SurfaceBase {
 
         public SurfaceBOPKelpForest(BiomeConfig config, IBlockState top, IBlockState filler) {
@@ -146,12 +153,5 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

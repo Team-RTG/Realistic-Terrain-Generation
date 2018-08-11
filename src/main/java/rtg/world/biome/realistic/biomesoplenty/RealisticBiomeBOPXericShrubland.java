@@ -34,12 +34,35 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPXericShrubland();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPXericShrubland(getConfig(),
+            biome.topBlock, //Block top
+            biome.fillerBlock, //Block filler,
+            biome.topBlock, //IBlockState mixTop,
+            biome.fillerBlock, //IBlockState mixFill,
+            80f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPXericShrubland extends TerrainBase {
@@ -89,21 +112,6 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBase {
 
             return riverized(minHeight + groundEffect.added(rtgWorld, x, y), river) + height.added(rtgWorld, x, y);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPXericShrubland(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
     }
 
     public class SurfaceBOPXericShrubland extends SurfaceBase {
@@ -186,12 +194,5 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

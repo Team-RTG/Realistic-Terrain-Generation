@@ -28,12 +28,26 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPOriginIsland(65f, 80f, 38f);
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPOriginIsland(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPOriginIsland extends TerrainBase {
@@ -54,12 +68,6 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBase {
 
             return terrainRollingHills(x, y, rtgWorld, river, hillStrength, groundNoise, groundNoiseAmplitudeHills, 0f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPOriginIsland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPOriginIsland extends SurfaceBase {
@@ -111,12 +119,5 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

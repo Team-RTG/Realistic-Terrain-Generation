@@ -28,12 +28,27 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPGlacier(230f, 40f, 68f);
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPGlacier(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
+            -0.14f, 14f, 0.25f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPGlacier extends TerrainBase {
@@ -53,13 +68,6 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBase {
 
             return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, base);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPGlacier(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
-            -0.14f, 14f, 0.25f);
     }
 
     public class SurfaceBOPGlacier extends SurfaceBase {
@@ -135,12 +143,5 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

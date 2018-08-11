@@ -45,6 +45,46 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
         return new TerrainBOPSeasonalForest(15f, 80f, 68f, 170f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPSeasonalForest(getConfig(),
+            biome.topBlock, //Block top
+            biome.fillerBlock, //Block filler,
+            biome.topBlock, //IBlockState mixTop,
+            biome.fillerBlock, //IBlockState mixFill,
+            0.5f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(1f);
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree.setLogConditionChance(6);
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)});
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(4);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+    }
+
     public class TerrainBOPSeasonalForest extends TerrainBase {
 
         private float start;
@@ -65,21 +105,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
 
             return terrainHighland(x, y, rtgWorld, river, start, width, height, 0f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPSeasonalForest(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            0.5f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
     }
 
     public class SurfaceBOPSeasonalForest extends SurfaceBase {
@@ -162,30 +187,5 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(16);
-        decoBoulder.setStrengthFactor(1f);
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree.getDistribution().setNoiseFactor(60f);
-        decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)});
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(4);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

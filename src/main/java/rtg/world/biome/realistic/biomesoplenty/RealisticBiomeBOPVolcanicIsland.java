@@ -51,19 +51,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
         return new TerrainBOPVolcanicIsland();
     }
 
-    public class TerrainBOPVolcanicIsland extends TerrainBase {
-
-        public TerrainBOPVolcanicIsland() {
-
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainVolcano(x, y, rtgWorld, border, 70f);
-        }
-    }
-
     @Override
     public SurfaceBase initSurface() {
 
@@ -77,6 +64,29 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
             10f, //float smallWidth,
             0.5f //float smallStrength
         );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
+        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
+        decoGrassDoubleTallgrass.setLoops(15);
+        decoGrassDoubleTallgrass.setMaxY(128);
+        this.addDeco(decoGrassDoubleTallgrass);
+    }
+
+    public class TerrainBOPVolcanicIsland extends TerrainBase {
+
+        public TerrainBOPVolcanicIsland() {
+
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return terrainVolcano(x, y, rtgWorld, border, 70f);
+        }
     }
 
     public class SurfaceBOPVolcanicIsland extends SurfaceBase {
@@ -158,15 +168,5 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
-        decoGrassDoubleTallgrass.setLoops(15);
-        decoGrassDoubleTallgrass.setMaxY(128);
-        this.addDeco(decoGrassDoubleTallgrass);
     }
 }

@@ -30,12 +30,37 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPLavenderFields();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPLavenderFields(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.setMaxY(110);
+        decoShrub.setChance(10);
+        decoShrub.setStrengthFactor(4f);
+        this.addDeco(decoShrub);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(6f);
+        this.addDeco(decoGrass);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPLavenderFields extends TerrainBase {
@@ -49,12 +74,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBase {
 
             return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 80f, 66f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPLavenderFields(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f);
     }
 
     public class SurfaceBOPLavenderFields extends SurfaceBase {
@@ -155,23 +174,5 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setChance(10);
-        decoShrub.setStrengthFactor(4f);
-        this.addDeco(decoShrub);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(6f);
-        this.addDeco(decoGrass);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

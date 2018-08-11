@@ -29,12 +29,26 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPChaparral();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPChaparral(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPChaparral extends TerrainBase {
@@ -74,12 +88,6 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBase {
 
             return groundNoise + h;
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPChaparral(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f);
     }
 
     public class SurfaceBOPChaparral extends SurfaceBase {
@@ -146,12 +154,5 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

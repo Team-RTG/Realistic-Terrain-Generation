@@ -39,6 +39,19 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBase {
         return new TerrainBOPFlowerIsland(65f, 68f, 24f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPFlowerIsland(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPFlowerIsland extends TerrainBase {
 
         private float minHeight;
@@ -59,12 +72,6 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBase {
 
             return terrainRollingHills(x, y, rtgWorld, river, hillStrength, groundNoise, groundNoiseAmplitudeHills, 4f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPFlowerIsland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPFlowerIsland extends SurfaceBase {
@@ -116,12 +123,5 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

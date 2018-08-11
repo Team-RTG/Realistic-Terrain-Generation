@@ -47,6 +47,24 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBase {
         return new TerrainBOPCrag(90f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPCrag(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoPond decoPond = new DecoPond();
+        decoPond.setChunksPerPond(3);// very high because most are blocked by topography
+        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
+        this.addDeco(borderedPond);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPCrag extends TerrainBase {
 
         private float pointHeightVariation = 20f;
@@ -105,12 +123,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBase {
             return base;
             //return terrainCanyon(x, y, simplex, river, height, border, strength, heightLength, booRiver);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPCrag(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock);
     }
 
     public class SurfaceBOPCrag extends SurfaceBase {
@@ -175,17 +187,5 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoPond decoPond = new DecoPond();
-        decoPond.setChunksPerPond(3);// very high because most are blocked by topography
-        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
-        this.addDeco(borderedPond);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -43,19 +43,6 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBase {
         return new TerrainBOPTropicalIsland();
     }
 
-    public class TerrainBOPTropicalIsland extends TerrainBase {
-
-        public TerrainBOPTropicalIsland() {
-
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainBeach(x, y, rtgWorld, river, 65f);
-        }
-    }
-
     @Override
     public SurfaceBase initSurface() {
 
@@ -69,6 +56,39 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBase {
             5f, //float smallWidth,
             0.5f //float smallStrength
         );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree.setLogConditionNoise(0f);
+        decoFallenTree.setLogConditionChance(12);
+        decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(7));
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(4);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+    }
+
+    public class TerrainBOPTropicalIsland extends TerrainBase {
+
+        public TerrainBOPTropicalIsland() {
+
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return terrainBeach(x, y, rtgWorld, river, 65f);
+        }
     }
 
     public class SurfaceBOPTropicalIsland extends SurfaceBase {
@@ -151,25 +171,5 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree.getDistribution().setNoiseFactor(60f);
-        decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(7));
-        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(4);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 }

@@ -43,6 +43,19 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBase {
         return new TerrainBOPSacredSprings(150f, 30f, 68f);
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPSacredSprings(getConfig(), biome.topBlock, biome.fillerBlock);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPSacredSprings extends TerrainBase {
 
         private float width;
@@ -64,12 +77,6 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBase {
             return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, terrainHeight);
 
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPSacredSprings(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
     public class SurfaceBOPSacredSprings extends SurfaceBase {
@@ -121,12 +128,5 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -38,12 +38,56 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPFlowerField();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPFlowerField(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        // First, let's get a few shrubs in to break things up a bit.
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.setMaxY(110);
+        decoShrub.setStrengthFactor(4f);
+        decoShrub.setChance(3);
+        this.addDeco(decoShrub);
+
+        // Flowers are the most aesthetically important feature of this biome, so let's add those next.
+        DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
+        decoFlowers1.addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, OXEYE_DAISY, DANDELION); //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
+        decoFlowers1.setStrengthFactor(12f); // Lots and lots of flowers!
+        decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+        this.addDeco(decoFlowers1);
+
+// TODO: [1.12] Add double-plant flowers back into DecoFlowersRTG
+//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+//        decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
+//        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
+//        decoFlowers2.setChance(3);
+//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+//        this.addDeco(decoFlowers2);
+
+        // Not much free space left, so let's give some space to the base biome.
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        this.addDeco(decoBaseBiomeDecorations);
+
+        // Grass filler.
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(24f);
+        this.addDeco(decoGrass);
     }
 
     public class TerrainBOPFlowerField extends TerrainBase {
@@ -57,12 +101,6 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBase {
 
             return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 80f, 65f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPFlowerField(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f);
     }
 
     public class SurfaceBOPFlowerField extends SurfaceBase {
@@ -163,42 +201,5 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        // First, let's get a few shrubs in to break things up a bit.
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(4f);
-        decoShrub.setChance(3);
-        this.addDeco(decoShrub);
-
-        // Flowers are the most aesthetically important feature of this biome, so let's add those next.
-        DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG();
-        decoFlowers1.addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, OXEYE_DAISY, DANDELION); //Only colourful 1-block-tall flowers. No tulips as BOP has those covered.
-        decoFlowers1.setStrengthFactor(12f); // Lots and lots of flowers!
-        decoFlowers1.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-        this.addDeco(decoFlowers1);
-
-// TODO: [1.12] Add double-plant flowers back into DecoFlowersRTG
-//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-//        decoFlowers2.setFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
-//        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-//        decoFlowers2.setChance(3);
-//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-//        this.addDeco(decoFlowers2);
-
-        // Not much free space left, so let's give some space to the base biome.
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
-        this.addDeco(decoGrass);
     }
 }

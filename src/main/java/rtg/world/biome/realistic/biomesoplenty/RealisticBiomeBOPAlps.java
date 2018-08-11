@@ -44,6 +44,19 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBase {
         return new TerrainBOPAlps();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPAlps(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPAlps extends TerrainBase {
 
         // the BoP version has steep slopes and a flat area on top. The RTG version will
@@ -62,12 +75,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBase {
             return terrainHighland(x, y, rtgWorld, river, start, width, height, base - 62f);
             //return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPAlps(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
     }
 
     public class SurfaceBOPAlps extends SurfaceBase {
@@ -176,12 +183,5 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

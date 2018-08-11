@@ -59,6 +59,72 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
         return new TerrainBOPGrove();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPGrove(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoFallenTree decoFallenTree1 = new DecoFallenTree();
+        decoFallenTree1.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree1.getDistribution().setNoiseFactor(60f);
+        decoFallenTree1.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree1.setLogCondition(X_DIVIDED_BY_STRENGTH);
+        decoFallenTree1.setLogConditionNoise(8f);
+        decoFallenTree1.setLogConditionChance(1);
+        decoFallenTree1.setMaxY(100);
+        decoFallenTree1.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
+        decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
+        decoFallenTree1.setMinSize(3);
+        decoFallenTree1.setMaxSize(6);
+
+        DecoFallenTree decoFallenTree2 = new DecoFallenTree();
+        decoFallenTree2.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree2.getDistribution().setNoiseFactor(60f);
+        decoFallenTree2.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree2.setLogCondition(X_DIVIDED_BY_STRENGTH);
+        decoFallenTree2.setLogConditionNoise(8f);
+        decoFallenTree2.setLogConditionChance(1);
+        decoFallenTree2.setMaxY(100);
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.SPRUCE));
+        decoFallenTree2.setMinSize(3);
+        decoFallenTree2.setMaxSize(6);
+
+        DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
+        this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());
+
+        DecoShrub decoShrubCustom = new DecoShrub();
+        decoShrubCustom.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
+        decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
+        decoShrubCustom.setMaxY(110);
+        decoShrubCustom.setStrengthFactor(2f);
+        DecoShrub decoShrubCustom2 = new DecoShrub();
+        decoShrubCustom2.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK));
+        decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.DARK_OAK));
+        decoShrubCustom2.setMaxY(110);
+        decoShrubCustom2.setStrengthFactor(2f);
+        DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
+        this.addDeco(decoHelperHelper50502);
+
+        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
+        decoFlowersRTG.addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION);
+        decoFlowersRTG.setMaxY(128);
+        decoFlowersRTG.setStrengthFactor(2f);
+        this.addDeco(decoFlowersRTG);
+
+        DecoGrass decoGrass = new DecoGrass();
+        decoGrass.setMaxY(128);
+        decoGrass.setStrengthFactor(12f);
+        this.addDeco(decoGrass);
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPGrove extends TerrainBase {
 
         private float baseHeight = 64f;
@@ -79,12 +145,6 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
 
             return h;
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPGrove(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
     }
 
     public class SurfaceBOPGrove extends SurfaceBase {
@@ -184,65 +244,5 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoFallenTree decoFallenTree1 = new DecoFallenTree();
-        decoFallenTree1.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree1.getDistribution().setNoiseFactor(60f);
-        decoFallenTree1.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree1.setLogCondition(X_DIVIDED_BY_STRENGTH);
-        decoFallenTree1.setLogConditionNoise(8f);
-        decoFallenTree1.setLogConditionChance(1);
-        decoFallenTree1.setMaxY(100);
-        decoFallenTree1.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
-        decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
-        decoFallenTree1.setMinSize(3);
-        decoFallenTree1.setMaxSize(6);
-
-        DecoFallenTree decoFallenTree2 = new DecoFallenTree();
-        decoFallenTree2.getDistribution().setNoiseDivisor(80f);
-        decoFallenTree2.getDistribution().setNoiseFactor(60f);
-        decoFallenTree2.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree2.setLogCondition(X_DIVIDED_BY_STRENGTH);
-        decoFallenTree2.setLogConditionNoise(8f);
-        decoFallenTree2.setLogConditionChance(1);
-        decoFallenTree2.setMaxY(100);
-        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK));
-        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.SPRUCE));
-        decoFallenTree2.setMinSize(3);
-        decoFallenTree2.setMaxSize(6);
-
-        DecoHelper5050 decoHelperHelper5050 = new DecoHelper5050(decoFallenTree1, decoFallenTree2);
-        this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());
-
-        DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
-        decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
-        decoShrubCustom.setMaxY(110);
-        decoShrubCustom.setStrengthFactor(2f);
-        DecoShrub decoShrubCustom2 = new DecoShrub();
-        decoShrubCustom2.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK));
-        decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.DARK_OAK));
-        decoShrubCustom2.setMaxY(110);
-        decoShrubCustom2.setStrengthFactor(2f);
-        DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
-        this.addDeco(decoHelperHelper50502);
-
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION);
-        decoFlowersRTG.setMaxY(128);
-        decoFlowersRTG.setStrengthFactor(2f);
-        this.addDeco(decoFlowersRTG);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(12f);
-        this.addDeco(decoGrass);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -28,12 +28,26 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBase {
     }
 
     @Override
-    public void initConfig() {}
+    public void initConfig() {
+    }
 
     @Override
     public TerrainBase initTerrain() {
 
         return new TerrainBOPTemperateRainforest();
+    }
+
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPTemperateRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainBOPTemperateRainforest extends TerrainBase {
@@ -47,12 +61,6 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBase {
 
             return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 100f, 65f);
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPTemperateRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
     }
 
     public class SurfaceBOPTemperateRainforest extends SurfaceBase {
@@ -146,12 +154,5 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

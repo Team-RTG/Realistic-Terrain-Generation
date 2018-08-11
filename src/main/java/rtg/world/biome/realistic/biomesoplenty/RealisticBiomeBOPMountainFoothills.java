@@ -40,6 +40,28 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
         return new TerrainBOPMountainFoothills();
     }
 
+    @Override
+    public SurfaceBase initSurface() {
+
+        return new SurfaceBOPMountainFoothills(getConfig(),
+            biome.topBlock, //Block top
+            biome.fillerBlock, //Block filler,
+            Blocks.DIRT.getDefaultState(), //IBlockState mixTop,
+            biome.fillerBlock, //IBlockState mixFill,
+            80f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
+        );
+    }
+
+    @Override
+    public void initDecos() {
+
+        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
+        this.addDeco(decoBaseBiomeDecorations);
+    }
+
     public class TerrainBOPMountainFoothills extends TerrainBase {
 
         private float baseHeight = 76f;
@@ -64,21 +86,6 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
 
             return riverized(baseHeight + groundNoise, river) + m;
         }
-    }
-
-    @Override
-    public SurfaceBase initSurface() {
-
-        return new SurfaceBOPMountainFoothills(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            Blocks.DIRT.getDefaultState(), //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
     }
 
     public class SurfaceBOPMountainFoothills extends SurfaceBase {
@@ -161,12 +168,5 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

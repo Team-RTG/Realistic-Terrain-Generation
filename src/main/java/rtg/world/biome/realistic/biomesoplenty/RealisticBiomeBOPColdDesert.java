@@ -5,22 +5,22 @@ import java.util.Random;
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
+public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.cold_desert.get();
+    public static Biome biome = BOPBiomes.cold_desert.orNull();
+    public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeBOPColdDesert() {
 
@@ -54,9 +54,8 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPColdDesert extends TerrainBase {
@@ -107,7 +106,6 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
             boolean water = false;
             boolean riverPaint = false;
             boolean grass = false;
@@ -148,7 +146,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBase {
                         primer.setBlockState(x, k, z, topBlock);
 
                         if (depth == 0 && k > 61 && k < 254) {
-                            WorldUtil.Terrain.calcSnowHeight(x, k, z, primer, noise);
+                            Terrain.calcSnowHeight(x, k, z, primer, noise);
                         }
                     }
                 }

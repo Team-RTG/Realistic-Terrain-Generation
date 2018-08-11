@@ -6,14 +6,14 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoJungleCacti;
@@ -24,24 +24,25 @@ import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.RaiseEffect;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPLushDesert extends RealisticBiomeBase {
+public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.lush_desert.get();
+    public static Biome biome = BOPBiomes.lush_desert.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPLushDesert() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
+        this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
     @Override
@@ -56,10 +57,10 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBase {
         return new SurfaceBOPLushDesert(getConfig(),
             biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
+            Blocks.GRASS.getDefaultState(), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
             40f, //float mixWidth,
-            -0.15f, //float mixHeight,
+            0.5f, //float mixHeight,
             10f, //float smallWidth,
             0.5f //float smallStrength
         );
@@ -68,8 +69,8 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -93,7 +94,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBase {
         DecoJungleCacti decoJungleCacti = new DecoJungleCacti();
         decoJungleCacti.setStrengthFactor(8f);
         decoJungleCacti.setMaxY(110);
-        this.addDeco(decoJungleCacti);
+        this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
     }
 
     public class TerrainBOPLushDesert extends TerrainBase {
@@ -171,7 +172,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 3.4f ? true : false;
             boolean mix = false;
 

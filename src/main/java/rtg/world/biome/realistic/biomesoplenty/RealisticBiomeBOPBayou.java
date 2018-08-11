@@ -4,17 +4,25 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+import biomesoplenty.api.enums.BOPTrees;
+import biomesoplenty.api.enums.BOPWoods;
+import biomesoplenty.common.block.BlockBOPLeaves;
+import biomesoplenty.common.block.BlockBOPLog;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoGrassDoubleTallgrass;
@@ -24,36 +32,35 @@ import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
+public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.bayou.get();
+    public static Biome biome = BOPBiomes.bayou.orNull();
+    public static Biome river = Biomes.RIVER;
 
     private static IBlockState mudBlock = BOPBlocks.mud.getDefaultState();
-    private static IBlockState logBlock = BOPBlocks.log_2.getStateFromMeta(5);
-
-    private static IBlockState leavesBlock = BOPBlocks.leaves_4.getStateFromMeta(3)
+    private static IBlockState logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.WILLOW)
+        .withProperty(BlockLog.LOG_AXIS, EnumAxis.Y);
+    private static IBlockState leavesBlock = BlockBOPLeaves
+        .paging.getVariantState(BOPTrees.WILLOW)
         .withProperty(BlockLeaves.CHECK_DECAY, false)
         .withProperty(BlockLeaves.DECAYABLE, false);
+    private double lakeWaterLevel = 0.04;// the lakeStrength below which things should be below water
+    private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
     public RealisticBiomeBOPBayou() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
     }
 
     @Override
@@ -66,6 +73,63 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
     public SurfaceBase initSurface() {
 
         return new SurfaceBOPBayou(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+    }
+
+    @Override
+    public float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize) {
+
+        double pX = x;
+        double pY = y;
+        ISimplexData2D jitterData = SimplexData2D.newDisk();
+        // rather than lakes, we have a bayou network
+        rtgWorld.simplexInstance(1).multiEval2D(x / 40.0d, y / 40.0d, jitterData);
+        pX += jitterData.getDeltaX() * 35d;
+        pY += jitterData.getDeltaY() * 35d;
+        return Terrain.bayesianAdjustment((float) rtgWorld.cellularInstance(0).eval2D(pX / 150.0, pY / 150.0).interiorValue(), 0.25f);
+    }
+
+    @Override
+    public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
+        // Bayou has a higher river bottom
+        float r;
+        // river of actualRiverProportions now maps to 1; TODO
+        float riverFlattening = 1f - river;
+        riverFlattening = riverFlattening - (1 - RTGWorld.ACTUAL_RIVER_PROPORTION);
+        // return biomeHeight if no river effect
+        if (riverFlattening < 0) {
+            return biomeHeight;
+        }
+        // what was 1 set back to 1;
+        riverFlattening /= (RTGWorld.ACTUAL_RIVER_PROPORTION);
+
+        // back to usual meanings: 1 = no river 0 = river
+        r = 1f - riverFlattening;
+        // flat spot in middle;
+        riverFlattening = riverFlattening * 1.4f - 0.4f;
+        if (riverFlattening < 0) {
+            riverFlattening = 0;
+        }
+
+        if ((r < 1f && biomeHeight > 57f)) {
+            float irregularity = rtgWorld.simplexInstance(0).noise2f(x / 12f, y / 12f) * 2f + rtgWorld.simplexInstance(0).noise2f(x / 8f, y / 8f);
+            // less on the bottom and more on the sides
+            irregularity = irregularity * (1 + r);
+            return (biomeHeight * (r)) + ((57f + irregularity) * 1.0f) * (1f - r);
+        }
+        else {
+            return biomeHeight;
+        }
+    }
+
+    @Override
+    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
+
+        // these are rivers so not necessary to fake the lake values as river
+        return pressure;
+        // this number indicates a multiplier to height
+        /*if (pressure > lakeDepressionLevel) return 1;
+        if (pressure<lakeWaterLevel) return 0;
+        return (float)((pressure-lakeWaterLevel)/(lakeDepressionLevel-lakeWaterLevel));*/
     }
 
     @Override
@@ -114,9 +178,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
 //        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
 //        this.addDeco(ceibaRoseaTree);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        this.addDeco(decoBOPBaseBiomeDecorations);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
@@ -129,7 +193,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
+        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(-0.2f);
         decoFallenTree.setLogConditionChance(4);
         decoFallenTree.setLogBlock(logBlock);
@@ -157,6 +221,11 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
         decoMushrooms.setMaxY(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 
     public class TerrainBOPBayou extends TerrainBase {
@@ -204,7 +273,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

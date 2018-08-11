@@ -6,29 +6,29 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
+public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.dead_swamp.get();
+    public static Biome biome = BOPBiomes.dead_swamp.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPDeadSwamp() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
@@ -44,14 +44,13 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPDeadSwamp(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
+        return new SurfaceBOPDeadSwamp(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState(), BOPBlocks.mud.getDefaultState());
     }
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPDeadSwamp extends TerrainBase {
@@ -78,17 +77,22 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
 
     public class SurfaceBOPDeadSwamp extends SurfaceBase {
 
-        public SurfaceBOPDeadSwamp(BiomeConfig config, IBlockState top, IBlockState filler) {
+        private IBlockState mix;
+        private float mixHeight;
+
+        public SurfaceBOPDeadSwamp(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixBlock) {
 
             super(config, top, filler);
+            mix = mixBlock;
+            mixHeight = .1f;
         }
 
         @Override
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            SimplexNoise simplex = rtgWorld.simplexInstance(2);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
 
             for (int k = 255; k > -1; k--) {
@@ -116,7 +120,13 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            primer.setBlockState(x, k, z, topBlock);
+
+                            if (simplex.noise2f(i / 12f, j / 12f) > mixHeight + (noise[x * 16 + z] - 63f) / 10f) {
+                                primer.setBlockState(x, k, z, mix);
+                            }
+                            else {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
                         }
                         else if (depth < 4) {
                             primer.setBlockState(x, k, z, fillerBlock);

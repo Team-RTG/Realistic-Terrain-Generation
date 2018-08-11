@@ -4,18 +4,18 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
-import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -23,7 +23,6 @@ import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
@@ -38,19 +37,20 @@ import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
 
 
-public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
+public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.grove.get();
+    public static Biome biome = BOPBiomes.grove.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPGrove() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPGrove(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
+        return new SurfaceBOPGrove(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
         decoFallenTree1.setLogConditionNoise(8f);
         decoFallenTree1.setLogConditionChance(1);
         decoFallenTree1.setMaxY(100);
-        decoFallenTree1.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
-        decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
+        decoFallenTree1.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        decoFallenTree1.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         decoFallenTree1.setMinSize(3);
         decoFallenTree1.setMaxSize(6);
 
@@ -89,8 +89,8 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
         decoFallenTree2.setLogConditionNoise(8f);
         decoFallenTree2.setLogConditionChance(1);
         decoFallenTree2.setMaxY(100);
-        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK));
-        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.SPRUCE));
+        decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        decoFallenTree2.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoFallenTree2.setMinSize(3);
         decoFallenTree2.setMaxSize(6);
 
@@ -98,31 +98,38 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
         this.addDeco(decoHelperHelper5050, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
-        decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
+        decoShrubCustom.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        decoShrubCustom.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         decoShrubCustom.setMaxY(110);
         decoShrubCustom.setStrengthFactor(2f);
         DecoShrub decoShrubCustom2 = new DecoShrub();
-        decoShrubCustom2.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK));
-        decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.DARK_OAK));
+        decoShrubCustom2.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        decoShrubCustom2.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoShrubCustom2.setMaxY(110);
         decoShrubCustom2.setStrengthFactor(2f);
         DecoHelper5050 decoHelperHelper50502 = new DecoHelper5050(decoShrubCustom, decoShrubCustom2);
         this.addDeco(decoHelperHelper50502);
 
-        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG();
-        decoFlowersRTG.addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION);
-        decoFlowersRTG.setMaxY(128);
-        decoFlowersRTG.setStrengthFactor(2f);
+        DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
+            .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
+            .setMaxY(128)
+            .setStrengthFactor(2f);
         this.addDeco(decoFlowersRTG);
+
+// TODO: [1.12] Create a new class for double-plants
+//        DecoFlowersRTG decoFlowersRTG2 = new DecoFlowersRTG()
+//            .addFlowers(new int[]{10, 11})
+//            .setMaxY(128)
+//            .setStrengthFactor(2f);
+//        this.addDeco(decoFlowersRTG2);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPGrove extends TerrainBase {
@@ -141,9 +148,8 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             // no ground noise
 
-            float h = this.terrainGrasslandHills(x, y, rtgWorld, river, smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength, baseHeight);
-
-            return h;
+            return terrainGrasslandHills(x, y, rtgWorld, river,
+                smoothHillWavelength, smoothHillStrength, peakyHillWavelength, peakyHillStrength, baseHeight);
         }
     }
 
@@ -178,7 +184,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

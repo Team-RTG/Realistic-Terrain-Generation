@@ -4,17 +4,17 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
@@ -25,44 +25,46 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
+public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.land_of_lakes.get();
+    public static Biome biome = BOPBiomes.land_of_lakes.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPLandOfLakes() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPLandOfLakes(58f, 76f, 36f);
+        return new TerrainBOPLandOfLakes();//(58f, 76f, 36f);
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPLandOfLakes(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f);
+        return new SurfaceBOPLandOfLakes(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.10f);
     }
 
     @Override
     public void initDecos() {
 
         TreeRTG birchTree = new TreeRTGBetulaPapyrifera();
-        birchTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH));
-        birchTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.BIRCH));
+        birchTree.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
+        birchTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.BIRCH));
         birchTree.setMinTrunkSize(4);
         birchTree.setMaxTrunkSize(10);
         birchTree.setMinCrownSize(8);
@@ -81,8 +83,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
         birchTrees.setMaxY(120);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
-        sitchensisTree.setLogBlock(BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE));
-        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(BlockPlanks.EnumType.SPRUCE));
+        sitchensisTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
+        sitchensisTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         sitchensisTree.setMinTrunkSize(4);
         sitchensisTree.setMaxTrunkSize(9);
         sitchensisTree.setMinCrownSize(5);
@@ -109,7 +111,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE), BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)});
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLog(EnumType.BIRCH)});
         decoFallenTree.setMinSize(8);
         decoFallenTree.setMaxSize(12);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
@@ -126,8 +128,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPLandOfLakes extends TerrainBase {
@@ -135,6 +137,35 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
         private float minHeight;
         private float maxHeight;
         private float hillStrength;
+        private HeightVariation small;
+        private HeightVariation large;
+        private JitterEffect largeJitter;
+        private JitterEffect smallJitter;
+
+
+        public TerrainBOPLandOfLakes() {
+            super(63f);
+            small = new HeightVariation();
+            small.height = 2.5f;
+            small.octave = 1;
+            small.wavelength = 10;
+
+            large = new HeightVariation();
+            large.height = 5;
+            large.octave = 2;
+            large.wavelength = 20;
+
+            smallJitter = new JitterEffect();
+            smallJitter.amplitude = 2;
+            smallJitter.wavelength = 9;
+            smallJitter.jittered = large.plus(small);
+
+            largeJitter = new JitterEffect();
+            largeJitter.amplitude = 4;
+            largeJitter.wavelength = 18;
+            largeJitter.jittered = smallJitter;
+
+        }
 
         public TerrainBOPLandOfLakes(float minHeight, float maxHeight, float hillStrength) {
 
@@ -145,8 +176,8 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, groundNoise, groundNoiseAmplitudeHills, 0f);
+            return riverized(largeJitter.added(rtgWorld, x, y) + this.base, river);
+            //return terrainRollingHills(x, y, rtgWorld.simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 0f);
         }
     }
 
@@ -182,7 +213,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

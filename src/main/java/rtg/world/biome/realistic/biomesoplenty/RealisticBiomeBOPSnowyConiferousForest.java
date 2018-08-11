@@ -6,26 +6,26 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
+public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.snowy_coniferous_forest.get();
+    public static Biome biome = BOPBiomes.snowy_coniferous_forest.orNull();
+    public static Biome river = Biomes.FROZEN_RIVER;
 
     public RealisticBiomeBOPSnowyConiferousForest() {
 
@@ -34,8 +34,8 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
@@ -67,15 +67,15 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
         decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(3));
+        decoFallenTree.setLogBlock(BOPBlocks.log_0.getStateFromMeta(7));
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        decoBOPBaseBiomeDecorations.setNotEqualsZeroChance(12);
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPSnowyConiferousForest extends TerrainBase {
@@ -96,7 +96,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, groundNoise, groundNoiseAmplitudeHills + 2f, 4f);
+            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills + 2f, 4f);
         }
     }
 
@@ -136,7 +136,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

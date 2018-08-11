@@ -4,17 +4,17 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
@@ -23,16 +23,16 @@ import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.RaiseEffect;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPBambooForest extends RealisticBiomeBase {
+public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.bamboo_forest.get();
+    public static Biome biome = BOPBiomes.bamboo_forest.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPBambooForest() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
@@ -48,14 +48,13 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPBambooForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
+        return new SurfaceBOPBambooForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPBambooForest extends TerrainBase {
@@ -109,10 +108,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBase {
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
             float result = biomeHeight.added(rtgWorld, x, y);
-            if (result < 60) {
-                throw new RuntimeException();
-            }
-            return result;
+            return riverized(result, river);
             //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 80f, 65f);
         }
     }
@@ -149,7 +145,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

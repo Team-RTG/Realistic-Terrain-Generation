@@ -4,39 +4,39 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
+public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.seasonal_forest.get();
+    public static Biome biome = BOPBiomes.seasonal_forest.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPSeasonalForest() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -79,7 +79,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setRandomLogBlocks(new IBlockState[]{BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)});
+        decoFallenTree.setRandomLogBlocks(new IBlockState[]{BlockUtil.getStateLog(EnumType.DARK_OAK), Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.BIRCH)});
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
@@ -136,7 +136,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

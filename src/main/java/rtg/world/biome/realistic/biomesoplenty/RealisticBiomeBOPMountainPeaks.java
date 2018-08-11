@@ -6,14 +6,14 @@ import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
@@ -23,18 +23,18 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBase {
+public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.mountain.get();
+    public static Biome biome = BOPBiomes.mountain.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPMountainPeaks() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
@@ -42,11 +42,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBase {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-    }
-
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
@@ -73,8 +69,8 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -106,6 +102,11 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(3f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 
     public class TerrainBOPMountainPeaks extends TerrainBase {
@@ -175,7 +176,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

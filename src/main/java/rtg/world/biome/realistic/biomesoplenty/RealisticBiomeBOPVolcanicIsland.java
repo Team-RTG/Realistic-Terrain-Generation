@@ -5,26 +5,27 @@ import java.util.Random;
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoGrassDoubleTallgrass;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
+public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.volcanic_island.get();
+    public static Biome biome = BOPBiomes.volcanic_island.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPVolcanicIsland() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
@@ -33,16 +34,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().ALLOW_VOLCANOES.set(true);
         this.getConfig().VOLCANO_CHANCE.set(-1);
-    }
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 1;
     }
 
     @Override
@@ -74,6 +65,11 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
         decoGrassDoubleTallgrass.setLoops(15);
         decoGrassDoubleTallgrass.setMaxY(128);
         this.addDeco(decoGrassDoubleTallgrass);
+    }
+
+    @Override
+    public int lavaSurfaceLakeChance() {
+        return 1;
     }
 
     public class TerrainBOPVolcanicIsland extends TerrainBase {
@@ -117,7 +113,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

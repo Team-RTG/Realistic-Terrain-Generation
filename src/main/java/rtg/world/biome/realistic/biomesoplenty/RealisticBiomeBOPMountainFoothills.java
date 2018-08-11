@@ -5,33 +5,33 @@ import java.util.Random;
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
+public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
 
     //TODO: Decidious
-    public static Biome biome = BOPBiomes.mountain_foothills.get();
+    public static Biome biome = BOPBiomes.mountain_foothills.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPMountainFoothills() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
@@ -57,9 +57,8 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPMountainFoothills extends TerrainBase {
@@ -84,7 +83,7 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
 
             float m = hills(x, y, hillStrength, rtgWorld);
 
-            return riverized(baseHeight + groundNoise, river) + m;
+            return riverized(baseHeight + groundNoise + m, river);
         }
     }
 
@@ -117,7 +116,7 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f ? true : false;
             boolean mix = false;
 

@@ -5,31 +5,30 @@ import java.util.Random;
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
+public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.gravel_beach.get();
+    public static Biome biome = BOPBiomes.gravel_beach.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPGravelBeach() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
@@ -42,8 +41,7 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPGravelBeach(
-            getConfig(),
+        return new SurfaceBOPGravelBeach(getConfig(),
             biome.topBlock,
             biome.fillerBlock,
             biome.topBlock,
@@ -54,9 +52,8 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
     }
 
     public class TerrainBOPGravelBeach extends TerrainBase {
@@ -76,7 +73,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
-        private byte sandMetadata;
         private int cliffType;
 
         public SurfaceBOPGravelBeach(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState cliff1, IBlockState cliff2, int cliff) {
@@ -93,7 +89,7 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f ? true : false;
             boolean dirt = false;
 

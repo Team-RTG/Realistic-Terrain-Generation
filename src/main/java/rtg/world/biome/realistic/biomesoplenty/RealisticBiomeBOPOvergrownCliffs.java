@@ -5,37 +5,32 @@ import java.util.Random;
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil;
+import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
 
 
-public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
+public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
-    public static Biome biome = BOPBiomes.overgrown_cliffs.get();
+    public static Biome biome = BOPBiomes.overgrown_cliffs.orNull();
+    public static Biome river = Biomes.RIVER;
 
     public RealisticBiomeBOPOvergrownCliffs() {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public void initConfig() {
-
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-    }
-
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
@@ -52,9 +47,13 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
+        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
+        this.addDeco(decoBOPBaseBiomeDecorations);
+    }
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
+    @Override
+    public boolean generatesEmeralds() {
+        return true;
     }
 
     public class TerrainBOPOvergrownCliffs extends TerrainBase {
@@ -98,10 +97,10 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
 
         private float min;
 
-        private float sCliff = 1.5f;
+        private float sCliff = 3.5f;
         private float sHeight = 60f;
         private float sStrength = 65f;
-        private float cCliff = 1.5f;
+        private float cCliff = 3.5f;
 
         public SurfaceBOPOvergrownCliffs(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
@@ -124,7 +123,7 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = Terrain.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

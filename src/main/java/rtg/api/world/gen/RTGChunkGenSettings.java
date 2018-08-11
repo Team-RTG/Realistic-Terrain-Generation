@@ -364,8 +364,8 @@ public final class RTGChunkGenSettings {
         public int monumentSeparation = 5;
 
         public boolean useMansions = true;
-        public int mansionSpacing = 80;
-        public int mansionSeparation = 20;
+        public int mansionSpacing = 40;
+        public int mansionSeparation = 10;
 
         public boolean useStrongholds = true;
         public int strongholdCount = 128;

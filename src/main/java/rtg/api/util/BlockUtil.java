@@ -54,6 +54,7 @@ public final class BlockUtil {
     public static final Pattern BLOCKSTATE_MATCHER = Pattern.compile(BLOCKSTATE_PATTERN);
 
     private BlockUtil() {
+
     }
 
 

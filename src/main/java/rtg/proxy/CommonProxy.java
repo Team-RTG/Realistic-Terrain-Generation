@@ -3,6 +3,7 @@ package rtg.proxy;
 import java.nio.file.Paths;
 
 import net.minecraft.world.DimensionType;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -12,6 +13,7 @@ import rtg.api.config.RTGConfig;
 import rtg.init.BiomeInit;
 import rtg.util.ModCompat;
 import rtg.world.WorldTypeRTG;
+import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
 public class CommonProxy {
@@ -29,6 +31,8 @@ public class CommonProxy {
         WorldTypeRTG.init();
         ModCompat.init();
         BiomeInit.preInit();// initialise river and beach biomes
+
+        this.registerStructures();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -45,5 +49,9 @@ public class CommonProxy {
 
     public void loadComplete() {
         RTGAPI.RTG_BIOMES.setLocked();// We don't want the biome map to change after this point, so we lock it.
+    }
+
+    private void registerStructures() {
+        MapGenStructureIO.registerStructure(WoodlandMansionRTG.Start.class, "WoodlandMansionRTG");
     }
 }

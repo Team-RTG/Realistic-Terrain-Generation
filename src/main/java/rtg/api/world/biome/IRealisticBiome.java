@@ -20,8 +20,8 @@ import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase.BeachType;
-import rtg.world.biome.realistic.RealisticBiomeBase.RiverType;
+import rtg.api.world.biome.RealisticBiomeBase.BeachType;
+import rtg.api.world.biome.RealisticBiomeBase.RiverType;
 
 
 /**

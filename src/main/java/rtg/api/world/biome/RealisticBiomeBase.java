@@ -1,4 +1,4 @@
-package rtg.world.biome.realistic;
+package rtg.api.world.biome;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -20,8 +20,6 @@ import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.biome.BiomeDecoratorRTG;
-import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;

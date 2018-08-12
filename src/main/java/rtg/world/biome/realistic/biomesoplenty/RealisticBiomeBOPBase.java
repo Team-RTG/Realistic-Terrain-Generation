@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import biomesoplenty.api.biome.IExtendedBiome;
 import net.minecraft.world.biome.Biome;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase;
 
 
 public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {

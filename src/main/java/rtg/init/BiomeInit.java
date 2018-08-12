@@ -5,7 +5,7 @@ import net.minecraft.world.biome.Biome;
 import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
 import rtg.util.ModCompat.Mods;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACCoraliumInfestedSwamp;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklands;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;

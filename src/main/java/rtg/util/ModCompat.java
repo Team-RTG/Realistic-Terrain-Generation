@@ -64,6 +64,8 @@ public final class ModCompat {
             ));
         }
 
+        // TODO: [1.12] Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
+
         Collection<Biome> biomes = ForgeRegistries.BIOMES.getValuesCollection();
 
         biomes = biomes.stream()
@@ -115,32 +117,15 @@ public final class ModCompat {
         Mods.init();
     }
 
-    // TODO: 1.12 Verify mods in this enum. If 1.12 versions do not exist, remove support.
     // enum entries must match mod ids
     // optional 'friendly name' used for configs
     public enum Mods {
         abyssalcraft,
-        agriculturalrevolution,
-        arsmagica2,
-        atg,
-        betteragriculture,
         biomesoplenty,
-        biomesyougo,
         buildcraft,
-        cofhcore,
-        floricraft,
-        flowercraftmod("flowercraft"),
-        iceandfire,
-        jikou,
-        mithwoodforest,
-        morechinesemc,
-        mw("mineworld"),
-        reccomplex,
-        rockhounding_surface,
-        sugiforest,
         thaumcraft,
-        vampirism,
-        minecraft("vanilla");
+        traverse,
+        minecraft;
 
         private final String prettyName;
         private boolean loaded;

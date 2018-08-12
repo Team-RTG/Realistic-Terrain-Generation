@@ -72,6 +72,8 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
+import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
+import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForestHills;
@@ -140,6 +142,31 @@ public final class BiomeInit {
 
     }
 
+    public static void init() {
+
+        init_minecraft();
+
+        if (Mods.abyssalcraft.isLoaded()) {
+            init_abyssalcraft();
+        }
+
+        if (Mods.biomesoplenty.isLoaded()) {
+            init_biomesoplenty();
+        }
+
+        if (Mods.buildcraft.isLoaded()) {
+            init_buildcraft();
+        }
+
+        if (Mods.thaumcraft.isLoaded()) {
+            init_thaumcraft();
+        }
+
+        if (Mods.traverse.isLoaded()) {
+            init_traverse();
+        }
+    }
+
     public static void preInit() {
         RTGAPI.RTG_BIOMES.addBiomes(
             RealisticBiomeBase.RiverType.NORMAL.setRTGBiome(new RealisticBiomeVanillaRiver()),
@@ -148,70 +175,6 @@ public final class BiomeInit {
             RealisticBiomeBase.BeachType.STONE.setRTGBiome(new RealisticBiomeVanillaStoneBeach()),
             RealisticBiomeBase.BeachType.COLD.setRTGBiome(new RealisticBiomeVanillaColdBeach())
         );
-    }
-
-    public static void init() {
-
-        init_minecraft();
-
-        if (Mods.abyssalcraft.isLoaded()) {
-            init_abyssalcraft();
-        }
-        if (Mods.agriculturalrevolution.isLoaded()) {
-            init_agriculturalrevolution();
-        }
-        if (Mods.arsmagica2.isLoaded()) {
-            init_arsmagica2();
-        }
-        if (Mods.atg.isLoaded()) {
-            init_atg();
-        }
-        if (Mods.betteragriculture.isLoaded()) {
-            init_betteragriculture();
-        }
-        if (Mods.biomesoplenty.isLoaded()) {
-            init_biomesoplenty();
-        }
-        if (Mods.biomesyougo.isLoaded()) {
-            init_biomesyougo();
-        }
-        if (Mods.buildcraft.isLoaded()) {
-            init_buildcraft();
-        }
-        if (Mods.floricraft.isLoaded()) {
-            init_floricraft();
-        }
-        if (Mods.flowercraftmod.isLoaded()) {
-            init_flowercraftmod();
-        }
-        if (Mods.iceandfire.isLoaded()) {
-            init_iceandfire();
-        }
-        if (Mods.jikou.isLoaded()) {
-            init_jikou();
-        }
-        if (Mods.mithwoodforest.isLoaded()) {
-            init_mithwoodforest();
-        }
-        if (Mods.morechinesemc.isLoaded()) {
-            init_morechinesemc();
-        }
-        if (Mods.mw.isLoaded()) {
-            init_mw();
-        }
-        if (Mods.rockhounding_surface.isLoaded()) {
-            init_rockhounding_surface();
-        }
-        if (Mods.sugiforest.isLoaded()) {
-            init_sugiforest();
-        }
-        if (Mods.thaumcraft.isLoaded()) {
-            init_thaumcraft();
-        }
-        if (Mods.vampirism.isLoaded()) {
-            init_vampirism();
-        }
-
     }
 
     private static void init_minecraft() {
@@ -275,22 +238,6 @@ public final class BiomeInit {
     }
 
     private static void init_abyssalcraft() {
-
-    }
-
-    private static void init_agriculturalrevolution() {
-
-    }
-
-    private static void init_arsmagica2() {
-
-    }
-
-    private static void init_atg() {
-
-    }
-
-    private static void init_betteragriculture() {
 
     }
 
@@ -498,58 +445,29 @@ public final class BiomeInit {
         }
     }
 
-    private static void init_biomesyougo() {
-
-    }
-
     private static void init_buildcraft() {
-
-    }
-
-    private static void init_floricraft() {
-
-    }
-
-    private static void init_flowercraftmod() {
-
-    }
-
-    private static void init_iceandfire() {
-
-    }
-
-    private static void init_jikou() {
-
-    }
-
-    private static void init_mithwoodforest() {
-
-    }
-
-    private static void init_morechinesemc() {
-
-    }
-
-    private static void init_mw() {
-
-    }
-
-    private static void init_rockhounding_surface() {
-
-    }
-
-    private static void init_sugiforest() {
 
     }
 
     private static void init_thaumcraft() {
 
+        final ResourceLocation magicalForest = new ResourceLocation(Mods.thaumcraft.name(), "magical_forest");
+        final ResourceLocation eerie         = new ResourceLocation(Mods.thaumcraft.name(), "eerie");
+        Biome biome;
+
+        if ((biome = Biome.REGISTRY.getObject(magicalForest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTCMagicalForest(biome));
+        }
+
+        if ((biome = Biome.REGISTRY.getObject(eerie)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTCEerie(biome));
+        }
     }
 
-    private static void init_vampirism() {
+    private static void init_traverse() {
 
     }
-    
+
     private static boolean isBiomePresent(String modid, String biomeName) {
         ResourceLocation rl = new ResourceLocation(modid, biomeName);
         return Biome.REGISTRY.containsKey(rl);

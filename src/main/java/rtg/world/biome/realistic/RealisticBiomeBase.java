@@ -373,10 +373,10 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
             try {
                 ReflectionHelper.setPrivateValue(Biome.class, this.baseBiome, biometemp, "temperature", "field_76750_F");
-                Logger.info("Set biome temperature for {} to: {}", this.baseBiome.getBiomeName(), this.baseBiome.getDefaultTemperature());
+                Logger.info("Set biome temperature for {} to: {}", this.baseBiomeResLoc(), this.baseBiome.getDefaultTemperature());
             }
             catch (UnableToAccessFieldException ex) {
-                Logger.error("Unable to set biome temperature for {} to: {}.", this.baseBiome.getBiomeName(), biometemp);
+                Logger.error("Unable to set biome temperature for {} to: {}.", this.baseBiomeResLoc(), biometemp);
                 ex.printStackTrace();
             }
         }

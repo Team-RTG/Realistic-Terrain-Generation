@@ -8,12 +8,11 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent;
@@ -405,8 +404,20 @@ public class EventManagerRTG {
         @SubscribeEvent
         public void onWorldLoad(WorldEvent.Load event) {
 
-            if (!event.getWorld().isRemote && event.getWorld().provider.getDimension() == 0) {
-                Logger.info("World Seed: " + event.getWorld().getSeed());
+            World world = event.getWorld();
+            if (!world.isRemote) {
+
+                if (event.getWorld().provider.getDimension() == 0) {
+                    Logger.info("World Seed: " + event.getWorld().getSeed());
+                }
+
+                Logger.debug("WorldEvent.Load: DimID: {}, DimType: {}, WorldType: {}, BiomeProvider: {}, IChunkGenerator: {}",
+                    world.provider.getDimension(),
+                    world.provider.getDimensionType(),
+                    world.getWorldType().getClass().getSimpleName(),
+                    world.provider.getBiomeProvider().getClass().getSimpleName(),
+                    ((ChunkProviderServer)world.getChunkProvider()).chunkGenerator.getClass().getSimpleName()
+                );
             }
         }
 
@@ -415,13 +426,17 @@ public class EventManagerRTG {
 
             World world = event.getWorld();
             if (!world.isRemote) {
+
                 // Cached instances of RTGWorld need to be removed because they contain a strong reference to the World object, which should be GC'd.
-                if (!RTGWorld.removeInstance(world) && RTGAPI.checkWorldType(world.getWorldType())) {
-                    DimensionType dimtype = DimensionManager.getProviderType(world.provider.getDimension());
-                    if (dimtype != DimensionType.NETHER && dimtype != DimensionType.THE_END) {
-                        Logger.warn("Failed to remove a cached instance of RTGWorld (non-existant) for dimension: {}", world.provider.getDimension());
-                    }
-                }
+                RTGWorld.removeInstance(world);
+
+                Logger.debug("WorldEvent.Unload: DimID: {}, DimType: {}, WorldType: {}, BiomeProvider: {}, IChunkGenerator: {}",
+                    world.provider.getDimension(),
+                    world.provider.getDimensionType(),
+                    world.getWorldType().getClass().getSimpleName(),
+                    world.provider.getBiomeProvider().getClass().getSimpleName(),
+                    ((ChunkProviderServer)world.getChunkProvider()).chunkGenerator.getClass().getSimpleName()
+                );
             }
         }
     }

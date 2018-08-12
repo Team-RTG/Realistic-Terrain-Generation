@@ -226,6 +226,18 @@ public abstract class TerrainBase {
         return riverized(baseHeight + h, river);
     }
 
+    public static float terrainForest(int x, int y, RTGWorld rtgWorld, float river, float baseHeight) {
+
+        SimplexNoise simplex = rtgWorld.simplexInstance(0);
+
+        double h = simplex.noise2d(x / 100d, y / 100d) * 8d;
+        h += simplex.noise2d(x / 30d, y / 30d) * 4d;
+        h += simplex.noise2d(x / 15d, y / 15d) * 2d;
+        h += simplex.noise2d(x / 7d, y / 7d);
+
+        return riverized(baseHeight + 20f + (float)h, river);
+}
+
     public static float terrainGrasslandFlats(int x, int y, RTGWorld rtgWorld, float river, float mPitch, float baseHeight) {
 
         SimplexNoise simplex = rtgWorld.simplexInstance(0);

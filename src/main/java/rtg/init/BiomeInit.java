@@ -6,6 +6,12 @@ import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
 import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACCoraliumInfestedSwamp;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklands;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHighland;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsMountains;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsPlains;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlps;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlpsFoothills;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBambooForest;
@@ -239,6 +245,26 @@ public final class BiomeInit {
 
     private static void init_abyssalcraft() {
 
+        String modid = Mods.abyssalcraft.name();
+
+        if (isBiomePresent(modid, "coralium_infested_swamp")) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACCoraliumInfestedSwamp());
+        }
+        if (isBiomePresent(modid, "darklands")) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklands());
+        }
+        if (isBiomePresent(modid, "darklands_forest")) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsForest());
+        }
+        if (isBiomePresent(modid, "darklands_hills")) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsHighland());
+        }
+        if (isBiomePresent(modid, "darklands_mountains")) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsMountains());
+        }
+        if (isBiomePresent(modid, "darklands_plains")) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsPlains());
+        }
     }
 
     private static void init_biomesoplenty() {

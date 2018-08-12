@@ -54,12 +54,6 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPAlpsFoothills extends TerrainBase {
 
         private float baseHeight = 76f;
@@ -97,7 +91,7 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
         private float floSmallStrength;
 
         public SurfaceBOPAlpsFoothills(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
-                                           float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+                                       float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
 
             super(config, top, filler);
 

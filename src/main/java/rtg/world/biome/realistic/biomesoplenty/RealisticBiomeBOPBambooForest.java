@@ -51,12 +51,6 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPBambooForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPBambooForest extends TerrainBase {
 
     /* Basic idea: High hilly terrain mixed with ground-noisy flats

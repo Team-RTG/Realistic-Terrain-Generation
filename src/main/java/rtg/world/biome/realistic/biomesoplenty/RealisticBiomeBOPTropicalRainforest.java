@@ -44,12 +44,6 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
         return new SurfaceBOPTropicalRainforest(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPTropicalRainforest extends TerrainBase {
 
         private float start;

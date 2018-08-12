@@ -43,12 +43,6 @@ public class RealisticBiomeBOPMarsh extends RealisticBiomeBOPBase {
         return new SurfaceBOPMarsh(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPMarsh extends TerrainBase {
 
         private float baseHeight = 62f;

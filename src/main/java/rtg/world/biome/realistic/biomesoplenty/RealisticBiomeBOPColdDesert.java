@@ -52,12 +52,6 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPColdDesert extends TerrainBase {
 
         private float ruggedness = 3f;

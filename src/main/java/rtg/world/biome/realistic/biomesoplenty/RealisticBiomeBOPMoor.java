@@ -44,12 +44,6 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
         return new SurfaceBOPMoor(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPMoor extends TerrainBase {
 
         private float minHeight;

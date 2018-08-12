@@ -55,12 +55,6 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPMountainFoothills extends TerrainBase {
 
         private float baseHeight = 76f;

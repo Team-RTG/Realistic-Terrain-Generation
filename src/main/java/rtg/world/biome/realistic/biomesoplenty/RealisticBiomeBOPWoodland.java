@@ -14,6 +14,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -165,7 +166,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
                 .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
                 .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
                 .addDeco(grass()) // Grass filler.
-                .addDeco(new DecoBOPBaseBiomeDecorations())
+                .addDeco(new DecoBaseBiomeDecorations())
             ;
         }
 

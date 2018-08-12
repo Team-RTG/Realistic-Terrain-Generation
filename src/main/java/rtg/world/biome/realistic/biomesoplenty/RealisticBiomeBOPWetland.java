@@ -43,12 +43,6 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
         return new SurfaceBOPWetland(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPWetland extends TerrainBase {
 
         public TerrainBOPWetland() {

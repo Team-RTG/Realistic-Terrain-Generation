@@ -45,12 +45,6 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
         return new SurfaceBOPChaparral(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPChaparral extends TerrainBase {
 
         private float baseHeight = 76f;

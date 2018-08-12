@@ -57,12 +57,6 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPOutback extends TerrainBase {
 
         private float minHeight;

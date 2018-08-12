@@ -46,12 +46,6 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPBorealForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPBorealForest extends TerrainBase {
 
         private float baseHeight = 64f;

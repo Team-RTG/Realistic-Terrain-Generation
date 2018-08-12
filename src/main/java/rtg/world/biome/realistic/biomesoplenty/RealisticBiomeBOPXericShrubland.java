@@ -58,12 +58,6 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPXericShrubland extends TerrainBase {
 
         private float minHeight;

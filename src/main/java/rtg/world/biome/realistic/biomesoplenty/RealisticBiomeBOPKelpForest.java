@@ -43,12 +43,6 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPKelpForest(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPKelpForest extends TerrainBase {
 
         private boolean booRiver;

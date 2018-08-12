@@ -43,12 +43,6 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
         return new SurfaceBOPRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 1.3f);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPRainforest extends TerrainBase {
 
         private float heigth;

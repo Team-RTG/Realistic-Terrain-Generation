@@ -44,12 +44,6 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
         return new SurfaceBOPBog(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPBog extends TerrainBase {
 
         private final float bottom = 62f;

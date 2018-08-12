@@ -43,12 +43,6 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
         return new SurfaceBOPCoralReef(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPCoralReef extends TerrainBase {
 
         private boolean booRiver;

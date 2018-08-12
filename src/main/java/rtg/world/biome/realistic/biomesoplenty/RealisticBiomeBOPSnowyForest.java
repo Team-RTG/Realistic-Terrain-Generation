@@ -54,12 +54,6 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPSnowyForest extends TerrainBase {
 
         private float minHeight;

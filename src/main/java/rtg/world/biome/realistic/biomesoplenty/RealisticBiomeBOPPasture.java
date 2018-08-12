@@ -42,12 +42,6 @@ public class RealisticBiomeBOPPasture extends RealisticBiomeBOPBase {
         return new SurfaceBOPPasture(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPPasture extends TerrainBase {
 
         private float minHeight;

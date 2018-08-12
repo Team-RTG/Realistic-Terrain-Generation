@@ -46,12 +46,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
-    @Override
     public boolean generatesEmeralds() {
         return true;
     }

@@ -44,12 +44,6 @@ public class RealisticBiomeBOPFlowerIsland extends RealisticBiomeBOPBase {
         return new SurfaceBOPFlowerIsland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPFlowerIsland extends TerrainBase {
 
         private float minHeight;

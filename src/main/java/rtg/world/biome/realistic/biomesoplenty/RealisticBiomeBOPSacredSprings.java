@@ -44,12 +44,6 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
-    @Override
     public int waterSurfaceLakeChance() {
         return 2;
     }

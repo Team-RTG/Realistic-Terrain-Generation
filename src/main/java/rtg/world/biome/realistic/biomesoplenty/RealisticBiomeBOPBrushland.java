@@ -43,12 +43,6 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
         return new SurfaceBOPBrushland(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 13f, 0.27f);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPBrushland extends TerrainBase {
 
         private float baseHeight = 76f;

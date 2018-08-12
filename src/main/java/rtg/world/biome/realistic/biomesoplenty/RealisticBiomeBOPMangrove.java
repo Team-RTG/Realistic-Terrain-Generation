@@ -41,12 +41,6 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
         return new SurfaceBOPMangrove(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPMangrove extends TerrainBase {
 
         public TerrainBOPMangrove() {

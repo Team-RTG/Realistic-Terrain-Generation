@@ -13,13 +13,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static biomesoplenty.api.generation.GeneratorStage.FLOWERS;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
@@ -98,9 +98,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
         // Not much free space left, so let's give some space to the base biome.
 
-        DecoBOPBaseBiomeDecorations deco = new DecoBOPBaseBiomeDecorations();
-        deco.addStageForRemoval(FLOWERS);
-        this.addDeco(deco);
+        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
     public class TerrainBOPFlowerField extends TerrainBase {

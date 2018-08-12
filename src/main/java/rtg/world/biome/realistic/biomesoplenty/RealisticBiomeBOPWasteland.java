@@ -42,12 +42,6 @@ public class RealisticBiomeBOPWasteland extends RealisticBiomeBOPBase {
         return new SurfaceBOPWasteland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPWasteland extends TerrainBase {
 
         public TerrainBOPWasteland() {

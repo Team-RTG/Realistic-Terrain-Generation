@@ -44,12 +44,6 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase {
             -0.14f, 14f, 0.25f);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPGlacier extends TerrainBase {
 
         private float width;

@@ -42,12 +42,6 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase {
         return new SurfaceBOPSteppe(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPSteppe extends TerrainBase {
 
         private float minHeight;

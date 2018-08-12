@@ -50,12 +50,6 @@ public class RealisticBiomeBOPGravelBeach extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-        DecoBOPBaseBiomeDecorations decoBOPBaseBiomeDecorations = new DecoBOPBaseBiomeDecorations();
-        this.addDeco(decoBOPBaseBiomeDecorations);
-    }
-
     public class TerrainBOPGravelBeach extends TerrainBase {
 
         public TerrainBOPGravelBeach() {

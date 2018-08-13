@@ -43,14 +43,6 @@ public final class RTGChunkGenSettings {
     public final boolean useRavines;            // Vanilla
     public final int ravineChance;          // RTG
 
-    public final boolean useVolcanos;           // RTG
-    public final boolean volcanosErupt;         // RTG
-    public final int volcanosChance;        // RTG
-    public final float volcanosCalderaMult;   // RTG
-    public final boolean volcanoConduits;       // RTG
-    public final int volcanoConduitDepth;   // RTG
-
-
     public final float riverSizeMult;         // Vanilla (repurposed)
     public final float riverFrequency;        // RTG
     public final float riverBendMult;         // RTG
@@ -177,14 +169,6 @@ public final class RTGChunkGenSettings {
         this.caveDensity = settingsFactory.caveDensity;
         this.useRavines = settingsFactory.useRavines;
         this.ravineChance = settingsFactory.ravineChance;
-
-        this.useVolcanos = settingsFactory.useVolcanos;
-        this.volcanosErupt = settingsFactory.volcanosErupt;
-        this.volcanosChance = settingsFactory.volcanosChance;
-        this.volcanosCalderaMult = settingsFactory.volcanosCalderaMult;
-        this.volcanoConduits = settingsFactory.volcanoConduits;
-        this.volcanoConduitDepth = settingsFactory.volcanoConduitDepth;
-
 
         this.riverSizeMult = settingsFactory.riverSizeMult;
         this.riverFrequency = settingsFactory.riverFrequency;
@@ -313,14 +297,6 @@ public final class RTGChunkGenSettings {
         public int caveDensity = 15;
         public boolean useRavines = true;
         public int ravineChance = 50;
-
-        public boolean useVolcanos = true;
-        public boolean volcanosErupt = true;
-        public int volcanosChance = 48;
-        public float volcanosCalderaMult = 1.0f;
-        public boolean volcanoConduits = true;
-        public int volcanoConduitDepth = 0;
-
 
         public float riverSizeMult = 1.0f;
         public float riverFrequency = 1.0f;
@@ -473,14 +449,6 @@ public final class RTGChunkGenSettings {
             this.useRavines = true;
             this.ravineChance = 50;
 
-            this.useVolcanos = true;
-            this.volcanosErupt = true;
-            this.volcanosChance = 48;
-            this.volcanosCalderaMult = 1.0f;
-            this.volcanoConduits = true;
-            this.volcanoConduitDepth = 0;
-
-
             this.riverSizeMult = 1.0f;
             this.riverFrequency = 1.0f;
             this.riverBendMult = 1.0f;
@@ -627,14 +595,6 @@ public final class RTGChunkGenSettings {
                 settings.useRavines = JsonUtils.getBoolean(json, "useRavines", settings.useRavines);
                 settings.ravineChance = JsonUtils.getInt(json, "ravineChance", settings.ravineChance);
 
-                settings.useVolcanos = JsonUtils.getBoolean(json, "useVolcanos", settings.useVolcanos);
-                settings.volcanosErupt = JsonUtils.getBoolean(json, "volcanosErupt", settings.volcanosErupt);
-                settings.volcanosChance = JsonUtils.getInt(json, "volcanosChance", settings.volcanosChance);
-                settings.volcanosCalderaMult = JsonUtils.getFloat(json, "volcanosCalderaMult", settings.volcanosCalderaMult);
-                settings.volcanoConduits = JsonUtils.getBoolean(json, "volcanoConduits", settings.volcanoConduits);
-                settings.volcanoConduitDepth = JsonUtils.getInt(json, "volcanoConduitDepth", settings.volcanoConduitDepth);
-
-
                 settings.riverSizeMult = JsonUtils.getFloat(json, "riverSizeMult", settings.riverSizeMult);
                 settings.riverFrequency = JsonUtils.getFloat(json, "riverFrequency", settings.riverFrequency);
                 settings.riverBendMult = JsonUtils.getFloat(json, "riverBendMult", settings.riverBendMult);
@@ -769,14 +729,6 @@ public final class RTGChunkGenSettings {
             json.addProperty("caveDensity", factory.caveDensity);
             json.addProperty("useRavines", factory.useRavines);
             json.addProperty("ravineChance", factory.ravineChance);
-
-            json.addProperty("useVolcanos", factory.useVolcanos);
-            json.addProperty("volcanosErupt", factory.volcanosErupt);
-            json.addProperty("volcanosChance", factory.volcanosChance);
-            json.addProperty("volcanosCalderaMult", factory.volcanosCalderaMult);
-            json.addProperty("volcanoConduits", factory.volcanoConduits);
-            json.addProperty("volcanoConduitDepth", factory.volcanoConduitDepth);
-
 
             json.addProperty("riverSizeMult", factory.riverSizeMult);
             json.addProperty("riverFrequency", factory.riverFrequency);

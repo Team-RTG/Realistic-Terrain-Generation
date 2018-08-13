@@ -50,21 +50,6 @@ gui.createWorld.customize.setting.useRavines.tooltip=Enable ravine generation
 gui.createWorld.customize.setting.ravineChance=Ravine Chance
 gui.createWorld.customize.setting.ravineChance.tooltip=The 1/x chance that ravines will generate
 
-gui.createWorld.customize.category.VOLCANOS=Volcano Settings
-gui.createWorld.customize.setting.useVolcanos=Volcanos
-gui.createWorld.customize.setting.useVolcanos.tooltip=Generate volcanos
-gui.createWorld.customize.setting.volcanosErupt=Volcano Eruptions
-gui.createWorld.customize.setting.volcanosErupt.tooltip=Enable volcano eruptions
-gui.createWorld.customize.setting.volcanosChance=Volcano Chance
-gui.createWorld.customize.setting.volcanosChance.tooltip=The chance that a volcano will generate in a chunk in a valid biome
-gui.createWorld.customize.setting.volcanosCalderaMult=Caldera Size Mult
-gui.createWorld.customize.setting.volcanosCalderaMult.tooltip=Adjusts the size of volcano calderas
-gui.createWorld.customize.setting.volcanoConduits=Volcano Conduits
-gui.createWorld.customize.setting.volcanoConduits.tooltip=Enable volcano conduits
-gui.createWorld.customize.setting.volcanoConduitDepth=Volcano Conduit Depth
-gui.createWorld.customize.setting.volcanoConduitDepth.tooltip=Adjust how deep volcano conduits will generate
-
-
 gui.createWorld.customize.title.PAGE2=Water Feature Settings
 
 gui.createWorld.customize.category.RIVERS=River Settings

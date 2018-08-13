@@ -23,8 +23,6 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_RIVERS;
     public final ConfigPropertyBoolean ALLOW_SCENIC_LAKES;
     public final ConfigPropertyBoolean ALLOW_VILLAGES;
-    public final ConfigPropertyBoolean ALLOW_VOLCANOES;
-    public final ConfigPropertyInteger VOLCANO_CHANCE;
     public final ConfigPropertyBoolean DISABLE_RTG_DECORATIONS;
     public final ConfigPropertyBoolean DISABLE_RTG_SURFACES;
     public final ConfigPropertyBoolean DISABLE_RTG_TERRAIN;
@@ -92,24 +90,6 @@ public class BiomeConfig extends Config {
             true
         );
         this.addProperty(ALLOW_VILLAGES);
-
-        ALLOW_VOLCANOES = new ConfigPropertyBoolean(
-            "Allow volcanoes",
-            "Volcanoes",
-            "Set this to TRUE to allow volcanoes to generate in this biome.",
-            false
-        );
-        this.addProperty(ALLOW_VOLCANOES);
-
-        VOLCANO_CHANCE = new ConfigPropertyInteger(
-            "Volcano Chance",
-            "Volcanoes",
-            "1/x chance that a volcano will generate if this biome has volcanoes enabled."
-                + Configuration.NEW_LINE + "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance"
-                + Configuration.NEW_LINE + "Set to -1 to use global setting. Set to 0 to disable volcanoes for this biome.",
-            -1, -1, Integer.MAX_VALUE
-        );
-        this.addProperty(VOLCANO_CHANCE);
 
         DISABLE_RTG_DECORATIONS = new ConfigPropertyBoolean(
             "Disable RTG Decorations",

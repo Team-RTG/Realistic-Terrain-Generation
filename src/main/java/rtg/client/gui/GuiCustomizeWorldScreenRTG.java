@@ -439,7 +439,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
     }
 
     enum Page {
-        PAGE1(Category.WORLD, Category.SURFACE, Category.UNDERGROUND, Category.VOLCANOS),
+        PAGE1(Category.WORLD, Category.SURFACE, Category.UNDERGROUND),
         PAGE2(Category.RIVERS, Category.RTGLAKES, Category.VANILLASURFACELAKES, Category.VANILLAUNDERGROUNDLAKES, Category.VANILLASPOUTS),
         PAGE3(Category.VILLAGES, Category.MINESHAFTS, Category.DUNGEONS, Category.TEMPLES, Category.MONUMENTS, Category.MANSIONS, Category.STRONGHOLDS),
         PAGE4(Category.DIRT, Category.GRAVEL, Category.GRANITE, Category.DIORITE, Category.ANDESITE,
@@ -483,7 +483,6 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         WORLD,
         SURFACE,
         UNDERGROUND,
-        VOLCANOS,
         RIVERS,
         RTGLAKES,
         VANILLASURFACELAKES,
@@ -534,14 +533,6 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         caveDensity(SettingType.INTEGER, defaults.caveDensity, 12, 20, Category.UNDERGROUND),
         useRavines(SettingType.BOOLEAN, defaults.useRavines, null, null, Category.UNDERGROUND),
         ravineChance(SettingType.INTEGER, defaults.ravineChance, 25, 100, Category.UNDERGROUND),
-
-        useVolcanos(SettingType.BOOLEAN, defaults.useVolcanos, null, null, Category.VOLCANOS),
-        volcanosErupt(SettingType.BOOLEAN, defaults.volcanosErupt, null, null, Category.VOLCANOS),
-        volcanosChance(SettingType.INTEGER, defaults.volcanosChance, 8, 128, Category.VOLCANOS),
-        volcanosCalderaMult(SettingType.FLOAT, defaults.volcanosCalderaMult, 0.5f, 2.0f, Category.VOLCANOS),
-        volcanoConduits(SettingType.BOOLEAN, defaults.volcanoConduits, null, null, Category.VOLCANOS),
-        volcanoConduitDepth(SettingType.INTEGER, defaults.volcanoConduitDepth, 0, 128, Category.VOLCANOS),
-
 
         riverSize(SettingType.FLOAT, defaults.riverSizeMult, 0.5f, 2.0f, Category.RIVERS),
         riverFrequency(SettingType.FLOAT, defaults.riverFrequency, 0.0f, 8.0f, Category.RIVERS),

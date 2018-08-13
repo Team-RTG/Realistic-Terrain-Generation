@@ -44,8 +44,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-        this.getConfig().ALLOW_VOLCANOES.set(true);
-        this.getConfig().VOLCANO_CHANCE.set(-1);
     }
 
     @Override

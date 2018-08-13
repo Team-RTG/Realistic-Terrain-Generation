@@ -80,7 +80,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private Biome[] baseBiomesList;
     private RealisticBiomePatcher biomePatcher;
     private ChunkOreGenTracker chunkOreGenTracker = new ChunkOreGenTracker();
-    private VolcanoGenerator volcanoGenerator;
 
     public ChunkGeneratorRTG(RTGWorld rtgWorld) {
 
@@ -95,7 +94,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         this.biomeProvider = (BiomeProviderRTG) this.world.getBiomeProvider();
         this.rand = new Random(rtgWorld.seed());
         this.rtgWorld.setRandom(this.rand);
-        this.volcanoGenerator = new VolcanoGenerator(rtgWorld);
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
 
         this.caveGenerator = TerrainGen.getModdedMapGen(new MapGenCavesRTG(this.settings.caveChance, this.settings.caveDensity), EventType.CAVE);
@@ -137,10 +135,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             catch (Exception ignore) {
                 this.baseBiomesList[i] = this.biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[i].baseBiome()));
             }
-        }
-
-        if (this.settings.useVolcanos) {
-            this.volcanoGenerator.generate(primer, this.biomeProvider, chunkPos, landscape.noise);
         }
 
         ISimplexData2D jitterData = SimplexData2D.newDisk();

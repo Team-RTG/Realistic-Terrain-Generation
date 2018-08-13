@@ -9,16 +9,15 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
@@ -37,8 +36,6 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeBase {
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-        this.getConfig().ALLOW_VOLCANOES.set(true);
-        this.getConfig().VOLCANO_CHANCE.set(RTGAPI.config().VOLCANO_CHANCE.get() * 2);
     }
 
     @Override

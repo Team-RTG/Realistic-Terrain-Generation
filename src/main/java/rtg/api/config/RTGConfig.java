@@ -73,16 +73,6 @@ public class RTGConfig extends Config {
     public final ConfigPropertyBoolean ALLOW_BARK_COVERED_LOGS; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER; // TODO: [Clean-up] Move to 'Trees and Saplings' category
     public final ConfigPropertyString MATERIALS_TREES_CAN_GROW_INTO; // TODO: [Clean-up] Move to 'Trees and Saplings' category
-    public final ConfigPropertyString VOLCANO_MAIN_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
-    public final ConfigPropertyString VOLCANO_MIX1_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
-    public final ConfigPropertyString VOLCANO_MIX2_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
-    public final ConfigPropertyString VOLCANO_MIX3_BLOCK; // TODO: [Clean-up] Move to 'Feature Block Configuration' -> 'Volcanos' category
-    public final ConfigPropertyBoolean ENABLE_VOLCANOES; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyBoolean ENABLE_VOLCANO_ERUPTIONS; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyInteger VOLCANO_CHANCE; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyBoolean ENABLE_VOLCANO_CONDUITS; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyInteger VOLCANO_CONDUIT_DEPTH; // TODO: [Generator settings] To be removed
-    public final ConfigPropertyFloat VOLCANO_CALDERA_MULTIPLIER; // TODO: [Generator settings] To be removed
     public final ConfigPropertyInteger SURFACE_BLEED_RADIUS; // TODO: [Generator settings] Possibly make this a gen setting so it is World-specific
 
     public final ConfigPropertyBoolean USE_RTG_WORLD_TYPE_DEFAULT;
@@ -502,90 +492,6 @@ public class RTGConfig extends Config {
             "AIR,WOOD,LEAVES,GRASS,GROUND,PLANTS,VINE,WATER,SNOW"
         );
         this.addProperty(MATERIALS_TREES_CAN_GROW_INTO);
-
-        VOLCANO_MAIN_BLOCK = new ConfigPropertyString(
-            "Volcano Main block",
-            "Volcanoes.Volcano Blocks",
-            "The main block to use for the surface of the volcano." + BLOCKSTATE_HELP,
-            "minecraft:obsidian"
-        );
-        this.addProperty(VOLCANO_MAIN_BLOCK);
-
-        VOLCANO_MIX1_BLOCK = new ConfigPropertyString(
-            "Volcano mix block 1",
-            "Volcanoes.Volcano Blocks",
-            "The 1st volcano mix block." + BLOCKSTATE_HELP,
-            "minecraft:cobblestone"
-        );
-        this.addProperty(VOLCANO_MIX1_BLOCK);
-
-        VOLCANO_MIX2_BLOCK = new ConfigPropertyString(
-            "Volcano mix block 2",
-            "Volcanoes.Volcano Blocks",
-            "The 2nd volcano mix block." + BLOCKSTATE_HELP,
-            "minecraft:gravel"
-        );
-        this.addProperty(VOLCANO_MIX2_BLOCK);
-
-        VOLCANO_MIX3_BLOCK = new ConfigPropertyString(
-            "Volcano mix block 3",
-            "Volcanoes.Volcano Blocks",
-            "The 3rd volcano mix block." + BLOCKSTATE_HELP,
-            "minecraft:coal_block"
-        );
-        this.addProperty(VOLCANO_MIX3_BLOCK);
-
-        ENABLE_VOLCANOES = new ConfigPropertyBoolean(
-            "Enable volcanoes",
-            "Volcanoes",
-            "Set this to FALSE to prevent volcanoes from generating.",
-            true
-        );
-        this.addProperty(ENABLE_VOLCANOES);
-
-        ENABLE_VOLCANO_ERUPTIONS = new ConfigPropertyBoolean(
-            "Enable volcano eruptions",
-            "Volcanoes",
-            "Set this to FALSE to prevent lava from flowing down the sides of volcanoes.",
-            true
-        );
-        this.addProperty(ENABLE_VOLCANO_ERUPTIONS);
-
-        VOLCANO_CHANCE = new ConfigPropertyInteger(
-            "Volcano Chance",
-            "Volcanoes",
-            "1/x chance that a volcano will generate in a biome that has volcanoes enabled."
-                + Configuration.NEW_LINE +
-                "1 = Always generate if possible; 2 = 50% chance; 4 = 25% chance",
-            48, 1, Integer.MAX_VALUE
-        );
-        this.addProperty(VOLCANO_CHANCE);
-
-        ENABLE_VOLCANO_CONDUITS = new ConfigPropertyBoolean(
-            "Enable volcano conduits",
-            "Volcanoes.Volcano Conduits",
-            "Set this to FALSE to prevent volcanoes from generating conduits (lava tubes) below their throats.",
-            true
-        );
-        this.addProperty(ENABLE_VOLCANO_CONDUITS);
-
-        VOLCANO_CONDUIT_DEPTH = new ConfigPropertyInteger(
-            "Volcano Conduit Depth",
-            "Volcanoes.Volcano Conduits",
-            "The lowest Y value that conduits should reach."
-                + Configuration.NEW_LINE +
-                "Please note that even though conduits can reach to Y=1, they will not replace bedrock.",
-            0, 0, 120
-        );
-        this.addProperty(VOLCANO_CONDUIT_DEPTH);
-
-        VOLCANO_CALDERA_MULTIPLIER = new ConfigPropertyFloat(
-            "Volcano Caldera Multiplier",
-            "Volcanoes",
-            "This setting allows you to modify the radius of volcano calderas.",
-            1, 1, 3
-        );
-        this.addProperty(VOLCANO_CALDERA_MULTIPLIER);
 
         SURFACE_BLEED_RADIUS = this.addProperty(new ConfigPropertyInteger(
             "Surface Bleed Radius",

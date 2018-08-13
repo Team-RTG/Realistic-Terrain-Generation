@@ -11,15 +11,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.RTGAPI;
 
 
 public class WorldGenVinesRTG extends WorldGenerator {
 
-    private static final Block volcanoBlock = Block.getBlockFromName(RTGAPI.config().VOLCANO_MAIN_BLOCK.get());
-    private static final Block volcanoMix1Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX1_BLOCK.get());
-    private static final Block volcanoMix2Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX2_BLOCK.get());
-    private static final Block volcanoMix3Block = Block.getBlockFromName(RTGAPI.config().VOLCANO_MIX3_BLOCK.get());
     protected Block vineBlock;
     protected int maxY;
     protected PropertyBool propNorth;
@@ -60,14 +55,6 @@ public class WorldGenVinesRTG extends WorldGenerator {
                 Block south = worldIn.getBlockState(position.south()).getBlock();
                 Block east = worldIn.getBlockState(position.east()).getBlock();
                 Block west = worldIn.getBlockState(position.west()).getBlock();
-
-                // No vines on volcanoes.
-                if (north == volcanoBlock || north == volcanoMix1Block || north == volcanoMix2Block || north == volcanoMix3Block
-                    || south == volcanoBlock || south == volcanoMix1Block || south == volcanoMix2Block || south == volcanoMix3Block
-                    || east == volcanoBlock || east == volcanoMix1Block || east == volcanoMix2Block || east == volcanoMix3Block
-                    || west == volcanoBlock || west == volcanoMix1Block || west == volcanoMix2Block || west == volcanoMix3Block) {
-                    return false;
-                }
 
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings()) {
 

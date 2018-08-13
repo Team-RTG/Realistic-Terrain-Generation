@@ -11,8 +11,6 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
     public RealisticBiomeACBase(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
 
         super(baseBiome, riverType, beachType);
-
-        this.getConfig().ALLOW_VILLAGES.set(false);
     }
 
     public RealisticBiomeACBase(@Nonnull final Biome baseBiome) {

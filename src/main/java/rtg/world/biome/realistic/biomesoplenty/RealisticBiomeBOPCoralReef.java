@@ -28,7 +28,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_VILLAGES.set(false);
+
     }
 
     @Override

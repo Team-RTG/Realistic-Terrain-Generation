@@ -30,7 +30,6 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_VILLAGES.set(false);
         this.getConfig().SURFACE_BLEED_IN.set(true);
         this.getConfig().SURFACE_BLEED_OUT.set(true);
         this.getConfig().addProperty(this.getConfig().ALLOW_PALM_TREES).set(true);

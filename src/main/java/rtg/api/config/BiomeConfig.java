@@ -86,8 +86,8 @@ public class BiomeConfig extends Config {
         ALLOW_VILLAGES = new ConfigPropertyBoolean(
             "Allow Villages",
             "Villages",
-            "Set this to FALSE to prevent villages from generating in this biome.",
-            true
+            "Set this to TRUE to allow villages to generate in this biome.",
+            false
         );
         this.addProperty(ALLOW_VILLAGES);
 

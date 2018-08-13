@@ -28,7 +28,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_VILLAGES.set(false);
+
     }
 
     @Override

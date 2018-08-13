@@ -31,7 +31,6 @@ public class RealisticBiomeVanillaOcean extends RealisticBiomeBase {
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().ALLOW_VILLAGES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_SPONGE).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
     }

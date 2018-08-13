@@ -28,7 +28,6 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_VILLAGES.set(false);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
     }
 

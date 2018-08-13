@@ -50,6 +50,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().ALLOW_VILLAGES.set(true);
         this.getConfig().addProperty(this.getConfig().ALLOW_WHEAT).set(true);
         this.getConfig().addProperty(this.getConfig().WHEAT_CHANCE).set(50);
         this.getConfig().addProperty(this.getConfig().WHEAT_MIN_Y).set(63);

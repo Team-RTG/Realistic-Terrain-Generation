@@ -36,7 +36,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_VILLAGES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");

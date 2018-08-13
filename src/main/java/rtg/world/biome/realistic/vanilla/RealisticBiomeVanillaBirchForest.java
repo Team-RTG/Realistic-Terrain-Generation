@@ -18,7 +18,7 @@ import rtg.api.world.deco.collection.DecoCollectionBirchForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase;
 
 
 public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {

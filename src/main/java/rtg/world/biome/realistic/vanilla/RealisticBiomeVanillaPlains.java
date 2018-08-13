@@ -24,7 +24,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase;
 
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;

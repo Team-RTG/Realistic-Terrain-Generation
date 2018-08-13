@@ -22,7 +22,7 @@ import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.RaiseEffect;
 import rtg.api.world.terrain.heighteffect.SpikeEverywhereEffect;
 import rtg.api.world.terrain.heighteffect.VoronoiBorderEffect;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase;
 
 
 public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeBase {

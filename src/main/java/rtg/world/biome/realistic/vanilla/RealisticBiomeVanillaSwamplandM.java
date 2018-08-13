@@ -24,7 +24,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase;
 
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {

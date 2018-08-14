@@ -510,7 +510,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
                 biomes[x * 16 + z] = biomeProvider.getBiome(blockPos.add(x, 0, z));
             }
         }
-        analyzer.newRepair(biomes, landscape.biome, this.biomeData, this.sampleSize, landscape.noise, landscape.river);
+        analyzer.newRepair(biomes, this.biomeData, landscape);
         landscapeCache.put(chunkPos, landscape);
         return landscape;
     }

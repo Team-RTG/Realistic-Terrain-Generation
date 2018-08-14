@@ -92,7 +92,7 @@ public final class ModCompat {
             + " ||");
 
         Logger.warn("|| " + String.format(ID_FORMAT, "ID")
-            + " | " + String.format(NAME_FORMAT, "Biome Name")
+            + " | " + String.format(NAME_FORMAT, "Biome Class")
             + " | " + String.format(RESLOC_FORMAT, "Registry Name")
             + " ||");
 
@@ -103,7 +103,7 @@ public final class ModCompat {
 
         biomes.forEach(b -> Logger.warn(
             "|| " + String.format(ID_FORMAT, Biome.getIdForBiome(b))
-                + " | " + String.format(NAME_FORMAT, b.getBiomeName())
+                + " | " + String.format(NAME_FORMAT, b.getBiomeClass().getSimpleName())
                 + " | " + String.format(RESLOC_FORMAT, b.getRegistryName())
                 + " ||"));
 

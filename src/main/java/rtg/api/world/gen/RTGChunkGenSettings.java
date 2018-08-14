@@ -295,7 +295,7 @@ public final class RTGChunkGenSettings {
         public int caveChance = 7;
         public int caveDensity = 12;
         public boolean useRavines = true;
-        public int ravineChance = 50;
+        public int ravineChance = 80;
 
         public float riverSizeMult = 1.0f;
         public float riverFrequency = 1.0f;
@@ -446,7 +446,7 @@ public final class RTGChunkGenSettings {
             this.caveChance = 7;
             this.caveDensity = 12;
             this.useRavines = true;
-            this.ravineChance = 50;
+            this.ravineChance = 80;
 
             this.riverSizeMult = 1.0f;
             this.riverFrequency = 1.0f;

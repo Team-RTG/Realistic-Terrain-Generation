@@ -532,7 +532,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         caveChance(SettingType.INTEGER, defaults.caveChance, 1, 100, Category.UNDERGROUND),
         caveDensity(SettingType.INTEGER, defaults.caveDensity, 1, 30, Category.UNDERGROUND),
         useRavines(SettingType.BOOLEAN, defaults.useRavines, null, null, Category.UNDERGROUND),
-        ravineChance(SettingType.INTEGER, defaults.ravineChance, 25, 100, Category.UNDERGROUND),
+        ravineChance(SettingType.INTEGER, defaults.ravineChance, 1, 100, Category.UNDERGROUND),
 
         riverSize(SettingType.FLOAT, defaults.riverSizeMult, 0.5f, 2.0f, Category.RIVERS),
         riverFrequency(SettingType.FLOAT, defaults.riverFrequency, 0.0f, 8.0f, Category.RIVERS),

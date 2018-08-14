@@ -47,7 +47,7 @@ gui.createWorld.customize.setting.caveDensity.tooltip=HIGHER values = BIGGER cav
 gui.createWorld.customize.setting.useRavines=Ravines
 gui.createWorld.customize.setting.useRavines.tooltip=Enable ravine generation
 gui.createWorld.customize.setting.ravineChance=Ravine Chance
-gui.createWorld.customize.setting.ravineChance.tooltip=The 1/x chance that ravines will generate
+gui.createWorld.customize.setting.ravineChance.tooltip=HIGHER values = FEWER ravines
 
 gui.createWorld.customize.title.PAGE2=Water Feature Settings
 

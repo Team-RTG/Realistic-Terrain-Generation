@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.vanilla;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,9 +13,8 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.PlateauUtil;
 import rtg.api.util.WorldUtil.Terrain;
-import rtg.api.util.noise.ISimplexData2D;
-import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoCactus;
 import rtg.api.world.deco.DecoDoubleGrass;
@@ -27,8 +26,6 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
-import rtg.api.world.biome.RealisticBiomeBase;
 
 
 public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
@@ -46,15 +43,19 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(false);
+        this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(true);
         this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_LIST).set(PlateauUtil.getSavannaPlateauBlocks());
+    }
+
+    @Override
+    public int waterSurfaceLakeChance() {
+        return 0;
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainRTGSavannaPlateauM(67);
-        //return new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f);
+        return new TerrainVanillaSavannaPlateauM(true, 35f, 160f, 60f, 40f, 69f);
     }
 
     @Override
@@ -120,53 +121,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public static class TerrainRTGSavannaPlateauM extends TerrainBase {
-
-        private static final float stepStart = 0.25f;
-        private static final float stepFinish = 0.4f;
-        private static final float stepHeight = 32;
-        final VoronoiPlateauEffect plateau;
-        final int groundNoise;
-        private float jitterWavelength = 30;
-        private float jitterAmplitude = 10;
-        private float bumpinessMultiplier = 0.05f;
-        private float bumpinessWavelength = 10f;
-        private int bumpinessOctave = 2;
-
-        public TerrainRTGSavannaPlateauM(float base) {
-            plateau = new VoronoiPlateauEffect();
-            plateau.pointWavelength = 200;
-            this.base = base;
-            groundNoise = 4;
-        }
-
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            ISimplexData2D jitterData = SimplexData2D.newDisk();
-            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
-            float x = (float) (passedX + jitterData.getDeltaX() * jitterAmplitude);
-            float y = (float) (passedY + jitterData.getDeltaY() * jitterAmplitude);
-            float simplex = plateau.added(rtgWorld, x, y);
-            //if (simplex > river) simplex = river;
-            float bordercap = border * 3.5f - 2.5f;
-            if (bordercap > 1) {
-                bordercap = 1;
-            }
-            float rivercap = 3f * river;
-            if (rivercap > 1) {
-                rivercap = 1;
-            }
-            simplex *= rivercap * bordercap;
-            float bumpiness = rtgWorld.simplexInstance(bumpinessOctave).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
-            simplex += bumpiness;
-            //if (simplex > bordercap) simplex = bordercap;
-            float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight) / border;
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld), river) + added;
-        }
-
-    }
-
     public class TerrainVanillaSavannaPlateauM extends TerrainBase {
 
         private float[] height;
@@ -222,7 +176,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
             super(config, top, fill);
             grassRaise = grassHeight;
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), BlockUtil.getStateDirt(BlockDirt.DirtType.COARSE_DIRT));
         }
 
         @Override
@@ -242,24 +196,24 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
                     depth++;
 
                     if (cliff) {
-                        if (biomeConfig.ALLOW_PLATEAU_MODIFICATIONS.get()) {
-                            primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaSavannaPlateauM.this, i, k, j));
-                        }
-                        else {
-                            if (depth > -1 && depth < 2) {
-                                if (rand.nextInt(3) == 0) {
-
-                                    primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
-                                }
-                                else {
-
-                                    primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
-                                }
-                            }
-                            else if (depth < 10) {
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
-                            }
-                        }
+//                    if (biomeConfig.ALLOW_PLATEAU_MODIFICATIONS.get()) {
+                        primer.setBlockState(x, k, z, PlateauUtil.getPlateauBand(rtgWorld, RealisticBiomeVanillaSavannaPlateauM.this, i, k, j));
+//                    }
+//                    else {
+//                        if (depth > -1 && depth < 2) {
+//                            if (rand.nextInt(3) == 0) {
+//
+//                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+//                            }
+//                            else {
+//
+//                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+//                            }
+//                        }
+//                        else if (depth < 10) {
+//                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+//                        }
+//                    }
                     }
                     else {
 

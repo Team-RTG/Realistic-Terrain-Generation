@@ -466,7 +466,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         // Have we already generated ores for this chunk?
         if (this.chunkOreGenTracker.hasGeneratedOres(pos)) {
-            Logger.debug("Already generated ores for chunk @ x:{} z:{}", pos.getX(), pos.getZ());
+            Logger.rtgDebug("Already generated ores for chunk @ x:{} z:{}", pos.getX(), pos.getZ());
             return;
         }
 

@@ -98,7 +98,7 @@ public class WorldGenSponge extends WorldGenerator {
                             if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
                                 if (hasValidAdjacentBlocks(world, l1, j2, i2)){
                                     world.setBlockState(new BlockPos(l1, j2, i2), spongeBlock, 2);
-                                    Logger.debug("Sponge generated at {} {} {}", l1, j2, i2);
+                                    Logger.rtgDebug("Sponge generated at {} {} {}", l1, j2, i2);
                                 }
                             }
                         }

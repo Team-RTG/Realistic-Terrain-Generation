@@ -1,16 +1,20 @@
 package rtg.api;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Set;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
+import rtg.api.util.WorldUtil;
 import rtg.api.util.storage.BiomeMap;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.WorldTypeRTG;
@@ -27,6 +31,7 @@ public final class RTGAPI {
     private static final Set<DimensionType> ALLOWED_DIMENSION_TYPES = new ObjectArraySet<>();
     private static Path configPath;
     private static RTGConfig rtgConfig;
+    private static IRealisticBiome patchBiome;
 
     private RTGAPI() {
 
@@ -73,13 +78,39 @@ public final class RTGAPI {
         return type != null && ALLOWED_DIMENSION_TYPES.contains(type);
     }
 
-    @Nullable
-    public static IRealisticBiome getRTGBiome(Biome biome) {
-        return RTG_BIOMES.get(biome);
+    public static IRealisticBiome getRTGBiome(@Nonnull Biome biome) {
+        IRealisticBiome rtgBiome = RTG_BIOMES.get(biome);
+        if (rtgBiome != null) {
+            return rtgBiome;
+        }
+        Logger.error("A realistic version of {} not found, using patch biome: {}", biome.getRegistryName(), patchBiome.baseBiomeResLoc());
+        return patchBiome;
     }
 
-    @Nullable
     public static IRealisticBiome getRTGBiome(int biomeId) {
-        return RTG_BIOMES.getValueAt(biomeId);
+        IRealisticBiome rtgBiome = RTG_BIOMES.getValueAt(biomeId);
+        if (rtgBiome != null) {
+            return rtgBiome;
+        }
+        Logger.error("A realistic version of biome with ID {} not found, using patch biome: {}", biomeId, patchBiome.baseBiomeResLoc());
+        return patchBiome;
+    }
+
+    public static void initPatchBiome() {
+
+        final String cfgBiome = rtgConfig.PATCH_BIOME.get().trim();
+        Biome biome;
+        if ((biome = WorldUtil.Biomes.getBiomeFromCfgString(cfgBiome)) == null) {
+            Logger.error("Erroneous patch biome set in config: {} (non-existant). Using default.", cfgBiome);
+            biome = Biomes.PLAINS;
+        }
+
+        IRealisticBiome rtgBiome = RTG_BIOMES.get(biome);
+        if (rtgBiome == null) {
+            Logger.error("Erroneous patch biome set in config: {} (no RTG version), Using default.", biome.getRegistryName());
+            rtgBiome = Objects.requireNonNull(RTG_BIOMES.get(Biomes.PLAINS), "Cannot find an RTG version of minecraft:plains. This should be impossible.");
+        }
+        Logger.debug("Setting patch biome to: {}", rtgBiome.baseBiomeResLoc());
+        patchBiome = rtgBiome;
     }
 }

@@ -171,6 +171,9 @@ public final class BiomeInit {
         if (Mods.traverse.isLoaded()) {
             init_traverse();
         }
+
+        // This must be done after all biomes have been initialised so that they are all available.
+        RTGAPI.initPatchBiome();
     }
 
     public static void preInit() {

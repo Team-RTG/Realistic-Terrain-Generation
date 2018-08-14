@@ -18,7 +18,7 @@ public final class SaplingUtil {
         try {
 
             if (!(state.getBlock() instanceof BlockSapling)) {
-                Logger.debug("Could not get sapling meta from non-sapling BlockState (%s).", state.getBlock().getLocalizedName());
+                Logger.rtgDebug("Could not get sapling meta from non-sapling BlockState (%s).", state.getBlock().getLocalizedName());
                 return 0;
             }
 

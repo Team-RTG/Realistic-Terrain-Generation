@@ -100,7 +100,7 @@ public class EventManagerRTG {
      */
     public void registerEventHandlers() {
 
-        logEventMessage("Registering RTG's event handlers...");
+        Logger.trace("Registering RTG's event handlers...");
 
         MinecraftForge.EVENT_BUS.register(WORLD_EVENT_HANDLER);
         MinecraftForge.EVENT_BUS.register(LOAD_CHUNK_EVENT_HANDLER);
@@ -109,7 +109,7 @@ public class EventManagerRTG {
         MinecraftForge.TERRAIN_GEN_BUS.register(SAPLING_GROW_TREE_EVENT_HANDLER);
         MinecraftForge.TERRAIN_GEN_BUS.register(DECORATE_BIOME_EVENT_HANDLER);
 
-        logEventMessage("RTG's event handlers have been registered successfully.");
+        Logger.trace("RTG's event handlers have been registered successfully.");
     }
 
     public void setDimensionChunkLoadEvent(int dimension, Consumer<ChunkEvent.Load> action) {
@@ -287,7 +287,7 @@ public class EventManagerRTG {
             // Should we generate a vanilla tree instead?
             if (event.getRand().nextInt(rtgConfig.RTG_TREE_CHANCE.get()) != 0) {
 
-                Logger.debug("Skipping RTG tree generation.");
+                Logger.rtgDebug("Skipping RTG tree generation.");
                 return;
             }
 
@@ -295,7 +295,7 @@ public class EventManagerRTG {
 
             // Are we dealing with a sapling? Sounds like a silly question, but apparently it's one that needs to be asked.
             if (!(saplingBlock.getBlock() instanceof BlockSapling)) {
-                Logger.debug("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
+                Logger.rtgDebug("Could not get sapling meta from non-sapling BlockState (%s).", saplingBlock.getBlock().getLocalizedName());
                 return;
             }
 
@@ -306,16 +306,16 @@ public class EventManagerRTG {
 
             // Instead of patching the biome, we should just return early here to allow vanilla logic to kick in.
             if (rb == null) {
-                Logger.debug("NULL biome (%d) found when trying to grow an RTG tree from a sapling.", Biome.getIdForBiome(bgg));
+                Logger.rtgDebug("NULL biome (%d) found when trying to grow an RTG tree from a sapling.", Biome.getIdForBiome(bgg));
                 return;
             }
 
             ArrayList<TreeRTG> biomeTrees = rb.getTrees();
             int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
-            Logger.debug("Biome = %s", rb.baseBiomeResLoc());
-            Logger.debug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
-            Logger.debug("Ground Sapling Meta = %d", saplingMeta);
+            Logger.rtgDebug("Biome = %s", rb.baseBiomeResLoc());
+            Logger.rtgDebug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
+            Logger.rtgDebug("Ground Sapling Meta = %d", saplingMeta);
 
             if (biomeTrees.size() > 0) {
 
@@ -324,15 +324,15 @@ public class EventManagerRTG {
 
                 for (int i = 0; i < biomeTrees.size(); i++) {
 
-                    Logger.debug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
-                    Logger.debug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
-                    Logger.debug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
+                    Logger.rtgDebug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
+                    Logger.rtgDebug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
+                    Logger.rtgDebug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
 
                     if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) {
                         if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
 
                             validTrees.add(biomeTrees.get(i));
-                            Logger.debug("Valid tree found!");
+                            Logger.rtgDebug("Valid tree found!");
                         }
                     }
                 }
@@ -346,7 +346,7 @@ public class EventManagerRTG {
                     // Get a random tree from the list of valid trees.
                     TreeRTG tree = validTrees.get(event.getRand().nextInt(validTrees.size()));
 
-                    Logger.debug("Tree = %s", tree.getClass().getName());
+                    Logger.rtgDebug("Tree = %s", tree.getClass().getName());
 
                     // Set the trunk size if min/max values have been set.
                     if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) {
@@ -360,12 +360,12 @@ public class EventManagerRTG {
 
                     int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
                     if (treeHeight < 1) {
-                        Logger.debug("Unable to grow RTG tree with no height.");
+                        Logger.rtgDebug("Unable to grow RTG tree with no height.");
                         return;
                     }
 
                     if (!BlockUtil.checkVerticalMaterials(MatchType.ALL_IGNORE_REPLACEABLE, event.getWorld(), event.getPos(), treeHeight)) {
-                        Logger.debug("Unable to grow RTG tree with %d height. Something in the way.", treeHeight);
+                        Logger.rtgDebug("Unable to grow RTG tree with %d height. Something in the way.", treeHeight);
                         return;
                     }
 
@@ -388,7 +388,7 @@ public class EventManagerRTG {
                     }
                 }
                 else {
-                    Logger.debug("There are no RTG trees associated with the sapling on the ground." + " Generating a vanilla tree instead.");
+                    Logger.rtgDebug("There are no RTG trees associated with the sapling on the ground." + " Generating a vanilla tree instead.");
                 }
             }
         }

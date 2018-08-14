@@ -529,10 +529,10 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         bedrockLayers(SettingType.INTEGER, defaults.bedrockLayers, 1, 10, Category.UNDERGROUND),
         // value passed to Random, minimum can not be < 1
         useCaves(SettingType.BOOLEAN, defaults.useCaves, null, null, Category.UNDERGROUND),
-        caveChance(SettingType.INTEGER, defaults.caveChance, 1, 100, Category.UNDERGROUND),
-        caveDensity(SettingType.INTEGER, defaults.caveDensity, 1, 30, Category.UNDERGROUND),
+        caveChance(SettingType.INTEGER, defaults.caveChance, 4, 200, Category.UNDERGROUND),
+        caveDensity(SettingType.INTEGER, defaults.caveDensity, 1, 20, Category.UNDERGROUND),
         useRavines(SettingType.BOOLEAN, defaults.useRavines, null, null, Category.UNDERGROUND),
-        ravineChance(SettingType.INTEGER, defaults.ravineChance, 1, 100, Category.UNDERGROUND),
+        ravineChance(SettingType.INTEGER, defaults.ravineChance, 4, 200, Category.UNDERGROUND),
 
         riverSize(SettingType.FLOAT, defaults.riverSizeMult, 0.5f, 2.0f, Category.RIVERS),
         riverFrequency(SettingType.FLOAT, defaults.riverFrequency, 0.0f, 8.0f, Category.RIVERS),

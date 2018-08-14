@@ -38,7 +38,6 @@ public final class RTGChunkGenSettings {
     public final boolean useCaves;              // Vanilla
     // TODO: [Generator settings] Possibly use a float value as a multiplier
     public final int caveChance;            // RTG
-    // TODO: [Generator settings] Remove caveDensity and only use caveChance
     public final int caveDensity;           // RTG
     public final boolean useRavines;            // Vanilla
     public final int ravineChance;          // RTG
@@ -294,7 +293,7 @@ public final class RTGChunkGenSettings {
         public int bedrockLayers = 5;
         public boolean useCaves = true;
         public int caveChance = 7;
-        public int caveDensity = 15;
+        public int caveDensity = 12;
         public boolean useRavines = true;
         public int ravineChance = 50;
 
@@ -445,7 +444,7 @@ public final class RTGChunkGenSettings {
             this.bedrockLayers = 5;
             this.useCaves = true;
             this.caveChance = 7;
-            this.caveDensity = 15;
+            this.caveDensity = 12;
             this.useRavines = true;
             this.ravineChance = 50;
 

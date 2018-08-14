@@ -41,10 +41,9 @@ gui.createWorld.customize.setting.bedrockLayers.tooltip=Sets the number of Bedro
 gui.createWorld.customize.setting.useCaves=Caves
 gui.createWorld.customize.setting.useCaves.tooltip=Enable cave generation
 gui.createWorld.customize.setting.caveChance=Cave Chance
-gui.createWorld.customize.setting.caveChance.tooltip=Chance that a cave will generate in a chunk
-# TODO: [Generator settings] caveDensity to be removed
+gui.createWorld.customize.setting.caveChance.tooltip=HIGHER values = FEWER caves
 gui.createWorld.customize.setting.caveDensity=Cave Density
-gui.createWorld.customize.setting.caveDensity.tooltip=The desity of generated caves
+gui.createWorld.customize.setting.caveDensity.tooltip=HIGHER values = BIGGER caves
 gui.createWorld.customize.setting.useRavines=Ravines
 gui.createWorld.customize.setting.useRavines.tooltip=Enable ravine generation
 gui.createWorld.customize.setting.ravineChance=Ravine Chance

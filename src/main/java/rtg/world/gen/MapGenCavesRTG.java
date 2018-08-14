@@ -18,29 +18,24 @@ public class MapGenCavesRTG extends MapGenCaves {
     @Override
     protected void recursiveGenerate(World worldIn, int chunkX, int chunkZ, int originalX, int originalZ, ChunkPrimer chunkPrimerIn) {
 
-        int density = this.caveDensity;
-        int chance = this.caveChance;
+        // Vanilla chance = 7. HIGHER values = FEWER caves.
+        int chance = (this.caveChance < 1) ? 1 : this.caveChance;
 
-        density = (density < 1) ? 1 : ((density > 39) ? 39 : density);
-        density += 1;
+        // Vanilla density = 15. HIGHER values = BIGGER caves.
+        int density = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(this.caveDensity) + 1) + 1);
 
-        int i = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(density) + 1) + 1);
-
-        chance = (chance < 1) ? 1 : ((chance > 39) ? 39 : chance);
-        chance += 1;
-
-        if (this.rand.nextInt(chance) != 0) {
-            i = 0;
+        if (this.rand.nextInt(this.caveChance) != 0) {
+            density = 0;
         }
 
-        for (int j = 0; j < i; ++j) {
-            double x = (chunkX * 16 + this.rand.nextInt(16));
-            double y = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            double z = (chunkZ * 16 + this.rand.nextInt(16));
+        for (int j = 0; j < density; ++j) {
+            double x = (double) (chunkX * 16 + this.rand.nextInt(16));
+            double y = (double) this.rand.nextInt(this.rand.nextInt(120) + 8);
+            double z = (double) (chunkZ * 16 + this.rand.nextInt(16));
             int k = 1;
 
             if (this.rand.nextInt(4) == 0) {
-                super.addRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, x, y, z);
+                this.addRoom(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, x, y, z);
                 k += this.rand.nextInt(4);
             }
 
@@ -52,7 +47,8 @@ public class MapGenCavesRTG extends MapGenCaves {
                 if (this.rand.nextInt(10) == 0) {
                     f2 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0F + 1.0F;
                 }
-                super.addTunnel(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, x, y, z, f2, f, f1, 0, 0, 1.0D);
+
+                this.addTunnel(this.rand.nextLong(), originalX, originalZ, chunkPrimerIn, x, y, z, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }

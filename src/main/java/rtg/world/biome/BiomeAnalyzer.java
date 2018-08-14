@@ -8,13 +8,9 @@ import rtg.api.RTGAPI;
 import rtg.api.util.CircularSearchCreator;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
 
 
-/**
- * @author Zeno410, Modified by srs_bsns 20160914
- */
-public class BiomeAnalyzer {
+public final class BiomeAnalyzer {
 
     private final static int NO_BIOME = -1;
     // TODO: [1.12] These should be unmodifiable Collections<Biome> using #contains for checks and they should be poplated from the BiomeDictionary
@@ -29,7 +25,6 @@ public class BiomeAnalyzer {
     private SmoothingSearchStatus beachSearch;
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;
-    private RealisticBiomePatcher biomePatcher = new RealisticBiomePatcher();
 
     public BiomeAnalyzer() {
         determineRiverBiomes();
@@ -227,18 +222,9 @@ public class BiomeAnalyzer {
         for (int i = 0; i < 256; i++) {
 
             realisticBiome = RTGAPI.getRTGBiome(genLayerBiomes[i]);
-            // Do we need to patch the biome?
-            if (realisticBiome == null) {
-                realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                    "NULL biome (" + i + ") found when performing new repair.");
-            }
-            realisticBiomeId = Biome.getIdForBiome(realisticBiome.baseBiome());
+            realisticBiomeId = realisticBiome.baseBiomeId();
 
             boolean canBeRiver = riverStrength[i] > 0.7;
-
-            // save what's there since the jitter keeps changing
-//          savedJittered[i] = jitteredBiomes[i];
-            //if (savedJittered[i]== null) throw new RuntimeException();
 
             if (noise[i] > 61.5) {
                 // replace
@@ -283,14 +269,7 @@ public class BiomeAnalyzer {
                 if (nearestLandBiome > -1) {
                     foundBiome = preferredBeach[nearestLandBiome];
                 }
-
-                realisticBiome = RTGAPI.getRTGBiome(foundBiome);
-                // Do we need to patch the biome?
-                if (realisticBiome == null) {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + i + ") found when performing new repair.");
-                }
-                jitteredBiomes[i] = realisticBiome;
+                jitteredBiomes[i] = RTGAPI.getRTGBiome(foundBiome);
             }
         }
 
@@ -328,14 +307,7 @@ public class BiomeAnalyzer {
             }
 
             if (foundBiome != NO_BIOME) {
-
-                realisticBiome = RTGAPI.getRTGBiome(foundBiome);
-                // Do we need to patch the biome?
-                if (realisticBiome == null) {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + i + ") found when performing new repair.");
-                }
-                jitteredBiomes[i] = realisticBiome;
+                jitteredBiomes[i] = RTGAPI.getRTGBiome(foundBiome);
             }
         }
 
@@ -366,14 +338,7 @@ public class BiomeAnalyzer {
             int foundBiome = oceanSearch.biomes[i];
 
             if (foundBiome != NO_BIOME) {
-
-                realisticBiome = RTGAPI.getRTGBiome(foundBiome);
-                // Do we need to patch the biome?
-                if (realisticBiome == null) {
-                    realisticBiome = biomePatcher.getPatchedRealisticBiome(
-                        "NULL biome (" + i + ") found when performing new repair.");
-                }
-                jitteredBiomes[i] = realisticBiome;
+                jitteredBiomes[i] = RTGAPI.getRTGBiome(foundBiome);
             }
         }
         // convert remainder below sea level to lake biome
@@ -418,9 +383,6 @@ public class BiomeAnalyzer {
         return top;
     }
 
-    /**
-     * @author Zeno410, Modified by srs_bsns 20160914
-     */
     private static final class SmoothingSearchStatus {
 
         private final int upperLeftFinding = 0;

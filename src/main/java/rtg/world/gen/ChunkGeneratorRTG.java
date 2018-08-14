@@ -45,7 +45,6 @@ import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.biome.BiomeProviderRTG;
-import rtg.world.biome.realistic.RealisticBiomePatcher;
 import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
@@ -78,7 +77,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private Random rand;
     private BiomeProviderRTG biomeProvider;
     private Biome[] baseBiomesList;
-    private RealisticBiomePatcher biomePatcher;
     private ChunkOreGenTracker chunkOreGenTracker = new ChunkOreGenTracker();
 
     public ChunkGeneratorRTG(RTGWorld rtgWorld) {
@@ -106,7 +104,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         this.oceanMonumentGenerator = (StructureOceanMonument) TerrainGen.getModdedMapGen(new StructureOceanMonument(StructureType.MONUMENT.getSettings(this.settings)), EventType.OCEAN_MONUMENT);
 
         this.baseBiomesList = new Biome[256];
-        this.biomePatcher = new RealisticBiomePatcher();
 
         setWeightings();// landscape generator init
 
@@ -128,13 +125,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         //get standard biome Data
         for (int i = 0; i < 256; i++) {
-
-            try {
-                this.baseBiomesList[i] = landscape.biome[i].baseBiome();
-            }
-            catch (Exception ignore) {
-                this.baseBiomesList[i] = this.biomePatcher.getPatchedBaseBiome("" + Biome.getIdForBiome(landscape.biome[i].baseBiome()));
-            }
+            this.baseBiomesList[i] = landscape.biome[i].baseBiome();
         }
 
         ISimplexData2D jitterData = SimplexData2D.newDisk();
@@ -268,9 +259,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         BlockPos blockPos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
 
         IRealisticBiome biome = RTGAPI.getRTGBiome(biomeProvider.getBiome(blockPos.add(16, 0, 16)));
-        if (biome == null) {
-            biome = biomePatcher.getPatchedRealisticBiome("No biome " + blockPos.getX() + " " + blockPos.getZ());
-        }
 
         this.rand.setSeed(rtgWorld.getChunkSeed(chunkX, chunkZ));
 
@@ -569,11 +557,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
                     if (weightedBiomes[i] > 0f) {
 
-                        IRealisticBiome realisticBiome = ((realisticBiome = RTGAPI.getRTGBiome(i)) != null)
-                            ? realisticBiome
-                            : biomePatcher.getPatchedRealisticBiome("NULL biome (" + i + ") found when getting newer noise.");
-
-                        landscape.noise[x * 16 + z] += realisticBiome.rNoise(this.rtgWorld, worldX + x, worldZ + z, weightedBiomes[i], river + 1f) * weightedBiomes[i];
+                        landscape.noise[x * 16 + z] += RTGAPI.getRTGBiome(i).rNoise(this.rtgWorld, worldX + x, worldZ + z, weightedBiomes[i], river + 1f) * weightedBiomes[i];
 
                         // 0 for the next column
                         weightedBiomes[i] = 0f;
@@ -588,11 +572,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 // TODO: [1.12] This call is using absolutely whacky coordinates that make no sense,
 // TODO: [1.12] given the world coordinates worldX=0, worldZ=0 this call will check worldX= -52 -> 68, worldZ= -52 -> 68 in increments of 8
                 BlockPos pos = new BlockPos(worldX + (x - 7) * 8 + 4, 0, worldZ + (z - 7) * 8 + 4);
-                IRealisticBiome rbiome = RTGAPI.getRTGBiome(biomeProvider.getBiome(pos));
-                if (rbiome == null) {
-                    rbiome = biomePatcher.getPatchedRealisticBiome("No biome " + pos.getX() + " " + pos.getZ());
-                }
-                landscape.biome[x * 16 + z] = rbiome;
+                landscape.biome[x * 16 + z] = RTGAPI.getRTGBiome(biomeProvider.getBiome(pos));
             }
         }
     }

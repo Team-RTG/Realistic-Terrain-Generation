@@ -11,18 +11,14 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
-import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
-
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import rtg.api.world.terrain.heighteffect.RaiseEffect;
+import rtg.api.world.terrain.heighteffect.SpikeEverywhereEffect;
+import rtg.api.world.terrain.heighteffect.VoronoiBorderEffect;
 
 
 public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
@@ -36,133 +32,147 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
     }
 
     @Override
     public TerrainBase initTerrain() {
-
-        return new TerrainRWEmperorRidge(120f, 100f);
+        return new RidgedExtremeHills(140f, 67f, 190f);
+        //return new TerrainRWSpruceMountains(10f, 120f, 10f, 200f);
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWEmperorRidge(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceRWEmperorRidge(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
-    @Override
-    public void initDecos() {
+    public static class RidgedExtremeHills extends TerrainBase {
 
-        this.addDeco(new DecoBaseBiomeDecorations());
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(90);
-        decoBoulder.setChance(16);
-        decoBoulder.setStrengthFactor(3f);
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(6);
-        decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
-        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree.setMinSize(3);
-        decoFallenTree.setMaxSize(6);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoShrub decoShrub = new DecoShrub();
-        decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(2f);
-        decoShrub.setChance(10);
-        this.addDeco(decoShrub);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(3f);
-        this.addDeco(decoGrass);
-    }
-
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    public class TerrainRWEmperorRidge extends TerrainBase {
-
+        private final HeightEffect heightIncrease;
+        private final HeightEffect multiplier;
+        private final HeightEffect groundEffect;
+        private float height;
         private float width;
-        private float strength;
-        private float terrainHeight;
-        private float spikeWidth = 30;
-        private float spikeHeight = 50;
-        private HeightEffect heightEffect;
+        private float ridgeWidth = 300f;
+        private float valleyFloor = -0.2f;
 
-        public TerrainRWEmperorRidge(float mountainWidth, float mountainStrength) {
+        public RidgedExtremeHills(float landHeight, float baseHeight, float hillWidth) {
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
 
-            this(mountainWidth, mountainStrength, 90f);
-        }
+            SpikeEverywhereEffect baseHills = new SpikeEverywhereEffect();
+            baseHills.spiked = new RaiseEffect(height * 2f / 3f);
+            baseHills.wavelength = width;
+            baseHills.minimumSimplex = -0.2f;
+            baseHills.octave = 3;
+            baseHills.power = 1.9f;
 
-        public TerrainRWEmperorRidge(float mountainWidth, float mountainStrength, float height) {
+            SpikeEverywhereEffect additionalHeightSpikes = new SpikeEverywhereEffect();
+            additionalHeightSpikes.spiked = new RaiseEffect(height / 3f);
+            additionalHeightSpikes.wavelength = width / 3f;
+            additionalHeightSpikes.minimumSimplex = -0.2f;
+            additionalHeightSpikes.octave = 4;
+            additionalHeightSpikes.power = 1.9f;
 
-            width = mountainWidth;
-            strength = mountainStrength;
-            terrainHeight = height;
-            MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
-            mountainEffect.mountainHeight = strength;
-            mountainEffect.mountainWavelength = width;
-            mountainEffect.spikeHeight = this.spikeHeight;
-            mountainEffect.spikeWavelength = this.spikeWidth;
+            JitterEffect additionalHeight = new JitterEffect();
+            additionalHeight.amplitude = additionalHeightSpikes.wavelength / 3;
+            additionalHeight.wavelength = additionalHeightSpikes.wavelength / 2;
+            additionalHeight.jittered = additionalHeightSpikes;
+
+            SpikeEverywhereEffect rougheningSpikes = new SpikeEverywhereEffect();
+            rougheningSpikes.spiked = new RaiseEffect(height / 8f);
+            rougheningSpikes.wavelength = width / 10f;
+            rougheningSpikes.minimumSimplex = -0.2f;
+            rougheningSpikes.octave = 5;
+            rougheningSpikes.power = 1.9f;
+
+            JitterEffect roughening = new JitterEffect();
+            roughening.amplitude = rougheningSpikes.wavelength / 3;
+            roughening.wavelength = rougheningSpikes.wavelength / 2;
+            roughening.jittered = rougheningSpikes;
+
+            JitterEffect hillJitter = new JitterEffect();
+            hillJitter.amplitude = 15f;
+            hillJitter.wavelength = 50f;
+            hillJitter.jittered = baseHills.plus(additionalHeight).plus(roughening);
+            heightIncrease = hillJitter;
 
 
-            heightEffect = new JitterEffect(7f, 10f, mountainEffect);
-            heightEffect = new JitterEffect(3f, 6f, heightEffect);
+            VoronoiBorderEffect ridging = new VoronoiBorderEffect();
+            ridging.pointWavelength = ridgeWidth;
+            ridging.floor = valleyFloor;
+            ridging.minimumDivisor = .2f;
 
+            JitterEffect ridgeJitter = new JitterEffect();
+            ridgeJitter.amplitude = 15f;
+            ridgeJitter.wavelength = 50f;
+            ridgeJitter.jittered = ridging;
+
+            JitterEffect ridgeJitterrette = new JitterEffect();
+            ridgeJitterrette.amplitude = 5f;
+            ridgeJitterrette.wavelength = 20f;
+            ridgeJitterrette.jittered = ridgeJitter;
+            multiplier = ridgeJitterrette;
+
+            groundEffect = new GroundEffect(6);
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            // ground effect is increased by the multiplier
+            float groundEffectLevel = groundEffect.added(rtgWorld, (float) x, (float) y);
+            float ridging = multiplier.added(rtgWorld, (float) x, (float) y);
+            ridging = Terrain.bayesianAdjustment(ridging, 2);
+            float result = base + ridging * (groundEffectLevel + heightIncrease.added(rtgWorld, (float) x, (float) y))
+                + groundEffectLevel;
+            return TerrainBase.mountainCap(result);
+        }
+    }
 
-            return riverized(heightEffect.added(rtgWorld, x, y) + terrainHeight, river);
+    public class TerrainRWEmperorRidge extends TerrainBase {
+
+        private float start;
+        private float height;
+        private float width;
+
+        public TerrainRWEmperorRidge(float hillStart, float landHeight, float baseHeight, float hillWidth) {
+
+            start = hillStart;
+            height = landHeight;
+            base = baseHeight;
+            width = hillWidth;
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            return terrainHighland(x, y, rtgWorld, river, start, width, height, base);
         }
     }
 
     public class SurfaceRWEmperorRidge extends SurfaceBase {
 
+        private IBlockState mixBlockTop;
+        private IBlockState mixBlockFill;
+        private float width;
+        private float height;
+        private float smallW;
+        private float smallS;
 
-        private IBlockState blockMixTop;
-        private IBlockState blockMixFiller;
-        private float floMixWidth;
-        private float floMixHeight;
-        private float floSmallWidth;
-        private float floSmallStrength;
-
-        public SurfaceRWEmperorRidge(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
-                                     float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+        public SurfaceRWEmperorRidge(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, float mixWidth,
+                                        float mixHeight, float smallWidth, float smallStrength) {
 
             super(config, top, filler);
 
-            blockMixTop = mixTop;
-            blockMixFiller = mixFiller;
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), mixFill);
 
-            floMixWidth = mixWidth;
-            floMixHeight = mixHeight;
-            floSmallWidth = smallWidth;
-            floSmallStrength = smallStrength;
+            width = mixWidth;
+            height = mixHeight;
+            smallW = smallWidth;
+            smallS = smallStrength;
         }
 
         @Override
@@ -199,10 +209,8 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
-                                * floSmallStrength > floMixHeight) {
-                                primer.setBlockState(x, k, z, blockMixTop);
-
+                            if (simplex.noise2f(i / width, j / width) + simplex.noise2f(i / smallW, j / smallW) * smallS > height) {
+                                primer.setBlockState(x, k, z, mixBlockTop);
                                 mix = true;
                             }
                             else {
@@ -211,7 +219,7 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
                         }
                         else if (depth < 4) {
                             if (mix) {
-                                primer.setBlockState(x, k, z, blockMixFiller);
+                                primer.setBlockState(x, k, z, mixBlockFill);
                             }
                             else {
                                 primer.setBlockState(x, k, z, fillerBlock);

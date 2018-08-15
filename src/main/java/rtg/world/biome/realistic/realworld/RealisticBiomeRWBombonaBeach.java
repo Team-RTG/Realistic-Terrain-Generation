@@ -37,10 +37,10 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
     public SurfaceBase initSurface() {
 
         return new SurfaceRWBombonaBeach(getConfig(),
-            biome.topBlock,
-            biome.fillerBlock,
-            biome.topBlock,
-            biome.fillerBlock,
+            this.baseBiome().topBlock,
+            this.baseBiome().fillerBlock,
+            this.baseBiome().topBlock,
+            this.baseBiome().fillerBlock,
             1
         );
     }

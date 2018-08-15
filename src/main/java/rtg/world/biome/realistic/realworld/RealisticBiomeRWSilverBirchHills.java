@@ -25,7 +25,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWSilverBirchHills(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceRWSilverBirchHills(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
     @Override

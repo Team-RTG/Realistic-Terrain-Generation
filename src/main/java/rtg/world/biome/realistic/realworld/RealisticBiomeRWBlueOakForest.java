@@ -27,6 +27,7 @@ public class RealisticBiomeRWBlueOakForest extends RealisticBiomeRWBase {
 
     @Override
     public void initConfig() {
+
     }
 
     @Override
@@ -38,7 +39,7 @@ public class RealisticBiomeRWBlueOakForest extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWBlueOakForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
+        return new SurfaceRWBlueOakForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     public class TerrainRWBlueOakForest extends TerrainBase {

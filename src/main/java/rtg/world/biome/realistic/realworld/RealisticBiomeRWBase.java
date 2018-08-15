@@ -9,12 +9,9 @@ import rtg.api.world.deco.DecoBaseBiomeDecorations;
 
 public abstract class RealisticBiomeRWBase extends RealisticBiomeBase {
 
-    protected Biome biome;
-
     public RealisticBiomeRWBase(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
 
         super(baseBiome, riverType, beachType);
-        this.biome = baseBiome;
     }
 
     public RealisticBiomeRWBase(@Nonnull final Biome baseBiome) {

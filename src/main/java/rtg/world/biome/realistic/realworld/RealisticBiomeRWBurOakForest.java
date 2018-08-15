@@ -3,23 +3,16 @@ package rtg.world.biome.realistic.realworld;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
 
 
 public class RealisticBiomeRWBurOakForest extends RealisticBiomeRWBase {
@@ -31,8 +24,7 @@ public class RealisticBiomeRWBurOakForest extends RealisticBiomeRWBase {
 
     @Override
     public void initConfig() {
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
+
     }
 
     @Override
@@ -45,41 +37,15 @@ public class RealisticBiomeRWBurOakForest extends RealisticBiomeRWBase {
     public SurfaceBase initSurface() {
 
         return new SurfaceRWBurOakForest(getConfig(),
-            biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
+            this.baseBiome().topBlock, //Block top
+            this.baseBiome().fillerBlock, //Block filler,
+            this.baseBiome().topBlock, //IBlockState mixTop,
+            this.baseBiome().fillerBlock, //IBlockState mixFill,
             80f, //float mixWidth,
             -0.15f, //float mixHeight,
             10f, //float smallWidth,
             0.5f //float smallStrength
         );
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoBoulder decoBoulder = new DecoBoulder();
-        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
-        decoBoulder.setMaxY(80);
-        decoBoulder.setChance(12);
-        decoBoulder.setStrengthFactor(1f);
-        this.addDeco(decoBoulder);
-
-        DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree.getDistribution().setNoiseFactor(6f);
-        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
-        decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
-        decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
-        decoFallenTree.setMinSize(8);
-        decoFallenTree.setMaxSize(14);
-        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
     public class TerrainRWBurOakForest extends TerrainBase {

@@ -36,7 +36,7 @@ public class RealisticBiomeRWBambooMarsh extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWBambooMarsh(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceRWBambooMarsh(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
     public class TerrainRWBambooMarsh extends TerrainBase {

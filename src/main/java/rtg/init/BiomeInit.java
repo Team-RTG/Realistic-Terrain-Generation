@@ -78,6 +78,16 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBlueOakForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBombonaBeach;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBurOakForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWEmperorRidge;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWFlatlandThicket;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWSilverBirchHills;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
@@ -162,6 +172,10 @@ public final class BiomeInit {
 
         if (Mods.buildcraft.isLoaded()) {
             init_buildcraft();
+        }
+
+        if (Mods.realworld.isLoaded()) {
+            init_realworld();
         }
 
         if (Mods.thaumcraft.isLoaded()) {
@@ -478,10 +492,57 @@ public final class BiomeInit {
 
     }
 
+    private static void init_realworld() {
+
+        String modid = Mods.realworld.name();
+        Biome biome;
+        ResourceLocation rw_bamboo_marsh = new ResourceLocation(modid, "rw_bamboo_marsh");
+        ResourceLocation rw_birch_autumn_forest = new ResourceLocation(modid, "rw_birch_autumn_forest");
+        ResourceLocation rw_blue_oak_forest = new ResourceLocation(modid, "rw_blue_oak_forest");
+        ResourceLocation rw_bombona_beach = new ResourceLocation(modid, "rw_bombona_beach");
+        ResourceLocation rw_bur_oak_forest = new ResourceLocation(modid, "rw_bur_oak_forest");
+        ResourceLocation rw_flatland_thicket = new ResourceLocation(modid, "rw_flatland_thicket");
+        ResourceLocation rw_emperor_ridge = new ResourceLocation(modid, "rw_emperor_ridge");
+        ResourceLocation rw_silver_birch_hills = new ResourceLocation(modid, "rw_silver_birch_hills");
+        ResourceLocation rw_spiny_forest = new ResourceLocation(modid, "rw_spiny_forest");
+        ResourceLocation rw_spruce_mountains = new ResourceLocation(modid, "rw_spruce_mountains");
+
+        if ((biome = Biome.REGISTRY.getObject(rw_bamboo_marsh)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBambooMarsh(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_birch_autumn_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBirchAutumnForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_blue_oak_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBlueOakForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_bombona_beach)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBombonaBeach(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_bur_oak_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBurOakForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_flatland_thicket)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWFlatlandThicket(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_emperor_ridge)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWEmperorRidge(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_silver_birch_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSilverBirchHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_spiny_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpinyForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rw_spruce_mountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpruceMountains(biome));
+        }
+    }
+
     private static void init_thaumcraft() {
 
         final ResourceLocation magicalForest = new ResourceLocation(Mods.thaumcraft.name(), "magical_forest");
-        final ResourceLocation eerie         = new ResourceLocation(Mods.thaumcraft.name(), "eerie");
+        final ResourceLocation eerie = new ResourceLocation(Mods.thaumcraft.name(), "eerie");
         Biome biome;
 
         if ((biome = Biome.REGISTRY.getObject(magicalForest)) != null) {
@@ -495,6 +556,10 @@ public final class BiomeInit {
 
     private static void init_traverse() {
 
+    }
+
+    private static boolean isBiomePresent(ResourceLocation rl) {
+        return Biome.REGISTRY.containsKey(rl);
     }
 
     private static boolean isBiomePresent(String modid, String biomeName) {

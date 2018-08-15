@@ -126,6 +126,7 @@ public final class ModCompat {
         realworld,
         thaumcraft,
         traverse,
+        vampirism,
         minecraft;
 
         private final String prettyName;

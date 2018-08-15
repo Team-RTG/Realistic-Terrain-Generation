@@ -92,6 +92,7 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
+import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPVampireForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForestHills;
@@ -186,6 +187,10 @@ public final class BiomeInit {
 
         if (Mods.traverse.isLoaded()) {
             init_traverse();
+        }
+
+        if (Mods.vampirism.isLoaded()) {
+            init_vampirism();
         }
 
         // This must be done after all biomes have been initialised so that they are all available.
@@ -569,6 +574,17 @@ public final class BiomeInit {
 
     private static void init_traverse() {
 
+    }
+
+    private static void init_vampirism() {
+
+        String modid = Mods.vampirism.name();
+        Biome biome;
+        ResourceLocation vampireforest = new ResourceLocation(modid, "vampireforest");
+
+        if ((biome = Biome.REGISTRY.getObject(vampireforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeVAMPVampireForest(biome));
+        }
     }
 
     private static boolean isBiomePresent(ResourceLocation rl) {

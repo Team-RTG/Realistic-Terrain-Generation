@@ -21,6 +21,7 @@ import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
@@ -254,7 +255,7 @@ public class EventManagerRTG {
     // TODO [1.12] To be removed after custom GenLayers ae added
     public class InitBiomeGensRTG {
 
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
         public void initBiomeGensRTG(WorldTypeEvent.InitBiomeGens event) {
 
             // Remove the river GenLayer if we are in an RTG world.

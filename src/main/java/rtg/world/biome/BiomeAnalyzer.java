@@ -90,7 +90,7 @@ public final class BiomeAnalyzer {
             if (biome == null) {
                 continue;
             }
-            IRealisticBiome realisticBiome = RTGAPI.getRTGBiome(i);
+            IRealisticBiome realisticBiome = RTGAPI.RTG_BIOMES.getValueAt(i);
             if (realisticBiome == null) {
                 continue;
             }

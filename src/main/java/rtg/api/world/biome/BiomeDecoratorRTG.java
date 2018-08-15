@@ -22,7 +22,6 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import rtg.api.util.Logger;
 import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.gen.feature.WorldGenPond;
 
@@ -169,19 +168,7 @@ public class BiomeDecoratorRTG {
     public void rDecorateSeedBiome(Biome biome, World world, Random rand, int worldX, int worldZ, float strength) {
 
         if (strength > 0.3f) {
-
-            try {
-                biome.decorate(world, rand, new BlockPos(worldX, 0, worldZ));
-            }
-            catch (Exception e) {
-
-                String biomeResLoc = biome.getRegistryName().toString();
-
-                Logger.error("RTG could not decorate base biome {} @ {} {}. Reason: {}", biomeResLoc, worldX, worldZ, e.getMessage());
-            }
-
-
-
+            biome.decorate(world, rand, new BlockPos(worldX, 0, worldZ));
         }
     }
 

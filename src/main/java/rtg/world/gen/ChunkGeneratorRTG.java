@@ -299,22 +299,11 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         if (this.rtgConfig.DISABLE_RTG_BIOME_DECORATIONS.get() || biome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
 
-            Biome baseBiome = biome.baseBiome();
-
-            try {
-                if (river > 0.9f) {
-                    baseBiome = biome.getRiverBiome().baseBiome();
-                    baseBiome.decorate(this.world, this.rand, blockPos);
-                }
-                else {
-                    baseBiome.decorate(this.world, this.rand, blockPos);
-                }
+            if (river > 0.9f) {
+                biome.getRiverBiome().baseBiome().decorate(this.world, this.rand, blockPos);
             }
-            catch (Exception e) {
-
-                String biomeResLoc = baseBiome.getRegistryName().toString();
-
-                Logger.error("RTG could not decorate base biome {} @ {} {} {}. Reason: {}", biomeResLoc, blockPos.getX(), blockPos.getY(), blockPos.getZ(), e.getMessage());
+            else {
+                biome.baseBiome().decorate(this.world, this.rand, blockPos);
             }
         }
         else {

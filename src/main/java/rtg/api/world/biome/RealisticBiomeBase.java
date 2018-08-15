@@ -32,8 +32,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
 
-    private static ArrayList<ChunkDecoration> decoStack = new ArrayList<>();
-
     private final Biome baseBiome;
     private final ResourceLocation baseBiomeResLoc;
     private final int baseBiomeId;
@@ -340,24 +338,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     @Override
 // TODO: [1.12] This should be a proxy call to RTGBiomeDecorator#decorate
     public void rDecorate(RTGWorld rtgWorld, Random rand, BlockPos pos, float strength, float river, boolean hasPlacedVillageBlocks) {
-
-        ArrayList<DecoBase> decos = this.getDecos();
-
-        for (DecoBase deco : decos) {
-            decoStack.add(new ChunkDecoration(pos, deco));
-            if (decoStack.size() > 20) {
-                String problem = "";
-                for (ChunkDecoration inStack : decoStack) {
-                    problem += "" + inStack.chunkLocation.toString() + " " + inStack.decoration.getClass().getSimpleName();
-                }
-                throw new RuntimeException(problem);
-            }
-            if (deco.preGenerate(river)) {
-// TODO: [1.12] Decorators need to be updated to accept BlockPos
-                deco.generate(this, rtgWorld, rand, pos.getX(), pos.getZ(), strength, river, hasPlacedVillageBlocks);
-            }
-            decoStack.remove(decoStack.size() - 1);
-        }
+        this.getDecos().stream()
+            .filter(deco -> deco.preGenerate(river))
+            .forEach(deco -> deco.generate(this, rtgWorld, rand, pos.getX(), pos.getZ(), strength, river, hasPlacedVillageBlocks));
     }
 
     // TODO: [1.12] Why are we adjusting biome temperatures again? Currently only used in Taigas. 0.2f -> 0.25f
@@ -463,17 +446,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
                 this.locked = true;
             }
             return rtgBiome;
-        }
-    }
-
-    private class ChunkDecoration {
-
-        BlockPos chunkLocation;
-        DecoBase decoration;
-
-        ChunkDecoration(BlockPos chunkLocation, DecoBase decoration) {
-            this.chunkLocation = chunkLocation;
-            this.decoration = decoration;
         }
     }
 }

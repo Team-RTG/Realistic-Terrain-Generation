@@ -122,7 +122,7 @@ public final class ModCompat {
     public enum Mods {
         abyssalcraft,
         biomesoplenty,
-        buildcraft,
+        buildcraftenergy,
         realworld,
         thaumcraft,
         traverse,

@@ -4,8 +4,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
-import rtg.util.ModCompat.Mods;
 import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACCoraliumInfestedSwamp;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklands;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
@@ -78,6 +78,8 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
+import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
+import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBlueOakForest;
@@ -170,7 +172,7 @@ public final class BiomeInit {
             init_biomesoplenty();
         }
 
-        if (Mods.buildcraft.isLoaded()) {
+        if (Mods.buildcraftenergy.isLoaded()) {
             init_buildcraft();
         }
 
@@ -490,6 +492,17 @@ public final class BiomeInit {
 
     private static void init_buildcraft() {
 
+        String modid = Mods.buildcraftenergy.name();
+        Biome biome;
+        ResourceLocation bc_oil_desert = new ResourceLocation(modid, "oil_desert");
+        ResourceLocation bc_oil_ocean = new ResourceLocation(modid, "oil_ocean");
+
+        if ((biome = Biome.REGISTRY.getObject(bc_oil_desert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCDesertOilField(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bc_oil_ocean)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCOceanOilField(biome));
+        }
     }
 
     private static void init_realworld() {

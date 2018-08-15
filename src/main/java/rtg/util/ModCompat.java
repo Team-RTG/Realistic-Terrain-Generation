@@ -123,6 +123,7 @@ public final class ModCompat {
         abyssalcraft,
         biomesoplenty,
         buildcraft,
+        realworld,
         thaumcraft,
         traverse,
         minecraft;

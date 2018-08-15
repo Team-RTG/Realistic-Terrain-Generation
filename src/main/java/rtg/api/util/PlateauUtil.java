@@ -14,8 +14,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeMesa;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
@@ -34,11 +33,22 @@ public final class PlateauUtil {
 
     private static final HashMap<IRealisticBiome, List<IBlockState>> BIOME_PLATEAU_BANDS = Maps.newHashMap();
     private static final IBlockState DEFAULT_PLATEAU_BLOCK = Blocks.HARDENED_CLAY.getDefaultState();
-    private static final BiomeMesa MESA = (BiomeMesa) Biomes.MESA;
+    private static final Collection<Biome> PLATEAU_BIOMES;
     private static final Collection<String> MESA_PLATEAU_BLOCKS;
     private static final Collection<String> SAVANNA_PLATEAU_BLOCKS;
 
     static {
+        PLATEAU_BIOMES = Collections.unmodifiableCollection(Arrays.asList(
+            Biomes.MESA,
+            Biomes.MUTATED_MESA,
+            Biomes.MESA_ROCK,
+            Biomes.MUTATED_MESA_ROCK,
+            Biomes.MESA_CLEAR_ROCK,
+            Biomes.MUTATED_MESA_CLEAR_ROCK,
+            Biomes.SAVANNA_PLATEAU,
+            Biomes.MUTATED_SAVANNA_ROCK
+        ));
+
         MESA_PLATEAU_BLOCKS = Collections.unmodifiableCollection(Arrays.asList(
             "minecraft:stained_hardened_clay[color=yellow]",
             "minecraft:stained_hardened_clay[color=yellow]",
@@ -110,42 +120,30 @@ public final class PlateauUtil {
         return SAVANNA_PLATEAU_BLOCKS.toArray(new String[0]);
     }
 
-    // TODO: [1.12] PlateauUtil should only use RTG layers. Use of vanilla layers (only an option that is unlikely to be used in most cases) should be removed.
-//              The vanilla layers require a world seed in order to initialise, which can be problematic when dealing with multiple dims with different seeds.
-    public static void init(long seed) {
+    private static Collection<String> getConfigBlocks(IRealisticBiome rtgBiome) {
+        BiomeConfig config = rtgBiome.getConfig();
+        return (config.hasProperty(config.PLATEAU_GRADIENT_BLOCK_LIST) && config.PLATEAU_GRADIENT_BLOCK_LIST.getValues().length > 0)
+            ? config.PLATEAU_GRADIENT_BLOCK_LIST.getAsCollection()
+            : (rtgBiome.baseBiome() instanceof BiomeMesa) ? MESA_PLATEAU_BLOCKS : SAVANNA_PLATEAU_BLOCKS;
+    }
 
-        MESA.generateBands(seed);
-
-        Biome.REGISTRY.forEach(biome -> {
-
-            IRealisticBiome rBiome = RTGAPI.getRTGBiome(biome);
-            if (rBiome != null) {
-
-                BiomeConfig biomeConfig = rBiome.getConfig();
-                if (biomeConfig.hasProperty(biomeConfig.ALLOW_PLATEAU_MODIFICATIONS)) {
-
-                    String[] blocks;
-                    if (biomeConfig.hasProperty(biomeConfig.PLATEAU_GRADIENT_BLOCK_LIST) && biomeConfig.PLATEAU_GRADIENT_BLOCK_LIST.getValues().length > 0) {
-                        blocks = biomeConfig.PLATEAU_GRADIENT_BLOCK_LIST.getValues();
-                    }
-                    else {
-                        blocks = BiomeDictionary.hasType(biome, Type.MESA) ? getMesaPlateauBlocks() : getSavannaPlateauBlocks();
-                    }
-                    List<IBlockState> bands = Arrays.stream(blocks).map(BlockUtil::getBlockStateFromCfgString).filter(Objects::nonNull).collect(Collectors.toList());
-                    if (bands.isEmpty()) {
-                        bands.add(DEFAULT_PLATEAU_BLOCK);
-                    }
-                    BIOME_PLATEAU_BANDS.put(rBiome, bands);
-                }
-            }
-            else {
-                Logger.debug("[PlateauUtil#init] Biome: {}, with ID: {}, has no realistic version... skipping", biome.getRegistryName(), Biome.getIdForBiome(biome));
-            }
-        });
+    public static void init() {
+        PLATEAU_BIOMES.stream()
+            .map(RTGAPI.RTG_BIOMES::get)
+            .filter(Objects::nonNull)
+            .forEach(rtgBiome -> {
+                Collection<String> blocks = getConfigBlocks(rtgBiome);
+                List<IBlockState> bands = blocks.stream()
+                    .map(BlockUtil::getBlockStateFromCfgString)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+                if (bands.isEmpty()) { bands.add(DEFAULT_PLATEAU_BLOCK); }
+                BIOME_PLATEAU_BANDS.put(rtgBiome, bands);
+            });
     }
 
     public static IBlockState getPlateauBand(final RTGWorld rtgWorld, final IRealisticBiome rBiome, final int x, final int y, final int z) {
-        return (rBiome.getConfig().ALLOW_PLATEAU_MODIFICATIONS.get() && BIOME_PLATEAU_BANDS.containsKey(rBiome)) ? getBand(rBiome, y) : MESA.getBand(x, y, z);
+        return getBand(rBiome, y);
     }
 
     public static float stepIncrease(final float simplexVal, final float start, final float finish, final float height) {
@@ -154,6 +152,6 @@ public final class PlateauUtil {
 
     private static IBlockState getBand(IRealisticBiome rBiome, int index) {
         List<IBlockState> bands = BIOME_PLATEAU_BANDS.get(rBiome);
-        return bands.get(index % bands.size());
+        return bands != null ? bands.get(index % bands.size()) : DEFAULT_PLATEAU_BLOCK;
     }
 }

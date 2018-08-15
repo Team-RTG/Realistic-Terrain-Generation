@@ -425,11 +425,9 @@ public class EventManagerRTG {
         public void onWorldUnload(WorldEvent.Unload event) {
 
             World world = event.getWorld();
+            // Cached instances of RTGWorld need to be removed because they contain a strong reference to the World object, which should be GC'd.
+            RTGWorld.removeInstance(world);
             if (!world.isRemote) {
-
-                // Cached instances of RTGWorld need to be removed because they contain a strong reference to the World object, which should be GC'd.
-                RTGWorld.removeInstance(world);
-
                 Logger.debug("WorldEvent.Unload: DimID: {}, DimType: {}, WorldType: {}, BiomeProvider: {}, IChunkGenerator: {}",
                     world.provider.getDimension(),
                     world.provider.getDimensionType(),

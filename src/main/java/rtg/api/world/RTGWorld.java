@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.world.World;
-import rtg.api.util.PlateauUtil;
+
 import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexNoise;
@@ -61,9 +61,6 @@ public final class RTGWorld {
         for (int i = 0; i < CELLULAR_INSTANCE_COUNT; i++) {
             this.cellularNoiseInstances[i] = new SpacedCellularNoise(this.seed() + i);
         }
-
-// TODO: [1.12] To be moved to the common proxy initialiser. See PlateauUtil
-        PlateauUtil.init(this.seed());
     }
 
     /**

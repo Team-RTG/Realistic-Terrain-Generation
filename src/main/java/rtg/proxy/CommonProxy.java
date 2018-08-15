@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.config.RTGConfig;
+import rtg.api.util.PlateauUtil;
 import rtg.init.BiomeInit;
 import rtg.util.ModCompat;
 import rtg.world.WorldTypeRTG;
@@ -41,6 +42,8 @@ public class CommonProxy {
         BiomeInit.init();// initialise all biomes supported internally
 
         ModCompat.doBiomeCheck();
+
+        PlateauUtil.init();
     }
 
     public void loadComplete() {

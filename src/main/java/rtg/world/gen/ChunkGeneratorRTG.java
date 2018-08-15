@@ -295,15 +295,23 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 // TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
         this.generateOres(biome, this.settings, blockPos);
 
-        //Initialise variables.
-// TODO: [1.12] Why is this being off-set by 16?
         float river = -TerrainBase.getRiverStrength(blockPos.getX() + 16, blockPos.getZ() + 16, rtgWorld);
 
         if (this.rtgConfig.DISABLE_RTG_BIOME_DECORATIONS.get() || biome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
-            biome.baseBiome().decorate(this.world, this.rand, blockPos);
+            if (river > 0.9f) {
+                biome.getRiverBiome().baseBiome().decorate(this.world, this.rand, blockPos);
+            }
+            else {
+                biome.baseBiome().decorate(this.world, this.rand, blockPos);
+            }
         }
         else {
-            biome.rDecorate(this.rtgWorld, this.rand, blockPos, 1, river, gennedVillage);
+            if (river > 0.9f) {
+                biome.getRiverBiome().rDecorate(this.rtgWorld, this.rand, blockPos, 1, river, gennedVillage);
+            }
+            else {
+                biome.rDecorate(this.rtgWorld, this.rand, blockPos, 1, river, gennedVillage);
+            }
         }
 
         MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(this.world, this.rand, chunkPos));

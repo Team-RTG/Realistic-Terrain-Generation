@@ -48,8 +48,8 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
         );
     }
 
-    public class TerrainHLAdirondacks extends TerrainBase
-    {
+    public class TerrainHLAdirondacks extends TerrainBase {
+
         private float width;
         private float strength;
         private float terrainHeight;
@@ -57,8 +57,7 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
         private ISimplexData2D jitter = SimplexData2D.newDisk();
         private double amplitude = 10;
 
-        public TerrainHLAdirondacks(float mountainWidth, float mountainStrength, float height)
-        {
+        public TerrainHLAdirondacks(float mountainWidth, float mountainStrength, float height) {
             width = mountainWidth;
             strength = mountainStrength;
             terrainHeight = height;
@@ -67,9 +66,9 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            rtgWorld.simplexInstance(1).multiEval2D((float)x / wavelength, (float)y / wavelength, jitter);
-            int pX = (int)Math.round(x + jitter.getDeltaX() * amplitude);
-            int pY = (int)Math.round(y + jitter.getDeltaY() * amplitude);
+            rtgWorld.simplexInstance(1).multiEval2D((float) x / wavelength, (float) y / wavelength, jitter);
+            int pX = (int) Math.round(x + jitter.getDeltaX() * amplitude);
+            int pY = (int) Math.round(y + jitter.getDeltaY() * amplitude);
             x = pX;
             y = pY;
 
@@ -87,7 +86,7 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
         private float smallS;
 
         public SurfaceHLAdirondacks(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, float mixWidth,
-                                          float mixHeight, float smallWidth, float smallStrength) {
+                                    float mixHeight, float smallWidth, float smallStrength) {
 
             super(config, top, filler);
 

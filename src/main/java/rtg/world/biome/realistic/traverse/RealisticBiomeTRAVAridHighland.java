@@ -8,7 +8,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil.Terrain;
+import rtg.api.util.WorldUtil;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -30,69 +32,72 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainTRAVBiome(); //(58f, 80f, 36f)
+        return new TerrainHLAdirondacks(230f, 60f, 88f);
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceTRAVBiome(getConfig(),
-            this.baseBiome().topBlock, //Block top
-            this.baseBiome().fillerBlock, //Block filler,
-            this.baseBiome().topBlock, //IBlockState mixTop,
-            this.baseBiome().fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
+        return new SurfaceHLAdirondacks(
+            getConfig(),
+            this.baseBiome().topBlock,
+            this.baseBiome().fillerBlock,
+            Blocks.GRASS.getDefaultState(),
+            Blocks.DIRT.getDefaultState(),
+            60f, -0.14f, 14f, 0.25f
         );
     }
 
-    public class TerrainTRAVBiome extends TerrainBase {
+    public class TerrainHLAdirondacks extends TerrainBase
+    {
+        private float width;
+        private float strength;
+        private float terrainHeight;
+        private int wavelength = 40;
+        private ISimplexData2D jitter = SimplexData2D.newDisk();
+        private double amplitude = 10;
 
-        private float baseHeight = 72f;
-        private float peakyHillWavelength = 40f;
-        private float peakyHillStrength = 20f;
-        private float smoothHillWavelength = 20f;
-        private float smoothHillStrength = 10f;
-
-        public TerrainTRAVBiome() {
-
+        public TerrainHLAdirondacks(float mountainWidth, float mountainStrength, float height)
+        {
+            width = mountainWidth;
+            strength = mountainStrength;
+            terrainHeight = height;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
+            rtgWorld.simplexInstance(1).multiEval2D((float)x / wavelength, (float)y / wavelength, jitter);
+            int pX = (int)Math.round(x + jitter.getDeltaX() * amplitude);
+            int pY = (int)Math.round(y + jitter.getDeltaY() * amplitude);
+            x = pX;
+            y = pY;
 
-            float h = terrainGrasslandHills(x, y, rtgWorld, river, peakyHillWavelength, peakyHillStrength, smoothHillWavelength, smoothHillStrength, baseHeight);
-
-            return riverized(groundNoise + h, river);
+            return terrainLonelyMountain(x, y, rtgWorld, river, strength, width, terrainHeight);
         }
     }
 
-    public class SurfaceTRAVBiome extends SurfaceBase {
+    public class SurfaceHLAdirondacks extends SurfaceBase {
 
+        private IBlockState mixBlockTop;
+        private IBlockState mixBlockFill;
+        private float width;
+        private float height;
+        private float smallW;
+        private float smallS;
 
-        private IBlockState blockMixTop;
-        private IBlockState blockMixFiller;
-        private float floMixWidth;
-        private float floMixHeight;
-        private float floSmallWidth;
-        private float floSmallStrength;
-
-        public SurfaceTRAVBiome(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
-                                          float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+        public SurfaceHLAdirondacks(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFill, float mixWidth,
+                                          float mixHeight, float smallWidth, float smallStrength) {
 
             super(config, top, filler);
 
-            blockMixTop = mixTop;
-            blockMixFiller = mixFiller;
+            mixBlockTop = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mixTop);
+            mixBlockFill = this.getConfigBlock(config.SURFACE_MIX_FILLER_BLOCK.get(), mixFill);
 
-            floMixWidth = mixWidth;
-            floMixHeight = mixHeight;
-            floSmallWidth = smallWidth;
-            floSmallStrength = smallStrength;
+            width = mixWidth;
+            height = mixHeight;
+            smallW = smallWidth;
+            smallS = smallStrength;
         }
 
         @Override
@@ -100,8 +105,8 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            boolean cliff = c > 2.0f ? true : false;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {
@@ -129,10 +134,8 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
-                                * floSmallStrength > floMixHeight) {
-                                primer.setBlockState(x, k, z, blockMixTop);
-
+                            if (simplex.noise2f(i / width, j / width) + simplex.noise2f(i / smallW, j / smallW) * smallS > height) {
+                                primer.setBlockState(x, k, z, mixBlockTop);
                                 mix = true;
                             }
                             else {
@@ -141,7 +144,7 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
                         }
                         else if (depth < 4) {
                             if (mix) {
-                                primer.setBlockState(x, k, z, blockMixFiller);
+                                primer.setBlockState(x, k, z, mixBlockFill);
                             }
                             else {
                                 primer.setBlockState(x, k, z, fillerBlock);

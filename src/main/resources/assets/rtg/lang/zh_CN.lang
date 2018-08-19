@@ -23,8 +23,8 @@ gui.createWorld.customize.setting.seaLevel=海平面
 gui.createWorld.customize.setting.seaLevel.tooltip=修改海平面
 
 gui.createWorld.customize.category.SURFACE=地表设置
-gui.createWorld.customize.setting.useBoulders=启用巨石
-gui.createWorld.customize.setting.useBoulders.tooltip=启用局势生产
+gui.createWorld.customize.setting.useBoulders=巨石
+gui.createWorld.customize.setting.useBoulders.tooltip=启用巨石生成
 gui.createWorld.customize.setting.boulderMult=巨石生成概率 1/x
 gui.createWorld.customize.setting.boulderMult.tooltip=调整生成巨石的概率（值为分母，值越高概率越小）
 gui.createWorld.customize.setting.sandDuneHeight=沙丘高度
@@ -105,6 +105,8 @@ gui.createWorld.customize.setting.villageMinDistance=最小距离
 gui.createWorld.customize.setting.villageMinDistance.tooltip=调整村庄间的最小距离
 gui.createWorld.customize.setting.villageMaxDistance=最大距离
 gui.createWorld.customize.setting.villageMaxDistance.tooltip=调整村庄间的最大距离
+gui.createWorld.customize.setting.villageDistance=最大距离
+gui.createWorld.customize.setting.villageDistance.tooltip=调整村庄间的最大距离
 gui.createWorld.customize.setting.villageSize=村庄大小
 gui.createWorld.customize.setting.villageSize.tooltip=调整村庄的平均大小
 
@@ -128,6 +130,8 @@ gui.createWorld.customize.setting.templeMinDistance=最小距离
 gui.createWorld.customize.setting.templeMinDistance.tooltip=调整小型结构间的最小距离
 gui.createWorld.customize.setting.templeMaxDistance=最大距离
 gui.createWorld.customize.setting.templeMaxDistance.tooltip=调整小型结构间的最大距离
+gui.createWorld.customize.setting.templeDistance=最大距离
+gui.createWorld.customize.setting.templeDistance.tooltip=调整小型结构间的最大距离
 
 gui.createWorld.customize.category.MONUMENTS=海底遗迹设置
 gui.createWorld.customize.setting.useMonuments=海底遗迹
@@ -142,15 +146,19 @@ gui.createWorld.customize.setting.useMansions=绿林府邸
 gui.createWorld.customize.setting.useMansions.tooltip=启用绿林府邸生成
 gui.createWorld.customize.setting.mansionDistance=最大距离
 gui.createWorld.customize.setting.mansionDistance.tooltip=调整绿林府邸间的最大距离
+gui.createWorld.customize.setting.mansionSeparation=绿林府邸分离度
+gui.createWorld.customize.setting.mansionSeparation.tooltip=调整绿林府邸分离度
+gui.createWorld.customize.setting.mansionSpacing=绿林府邸间距
+gui.createWorld.customize.setting.mansionSpacing.tooltip=调整绿林府邸间距
 
 gui.createWorld.customize.category.STRONGHOLDS=要塞设置
 gui.createWorld.customize.setting.useStrongholds=要塞
 gui.createWorld.customize.setting.useStrongholds.tooltip=启用要塞生成
 gui.createWorld.customize.setting.strongholdCount=要塞数量
 gui.createWorld.customize.setting.strongholdCount.tooltip=调整在世界中生成要塞的数量
-gui.createWorld.customize.setting.strongholdDistance=距离
+gui.createWorld.customize.setting.strongholdDistance=要塞距离
 gui.createWorld.customize.setting.strongholdDistance.tooltip=出生点和其他要塞的距离（单位区块）
-gui.createWorld.customize.setting.strongholdSpread=集中度
+gui.createWorld.customize.setting.strongholdSpread=要塞集中度
 gui.createWorld.customize.setting.strongholdSpread.tooltip=调整要塞集中度
 
 

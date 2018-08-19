@@ -80,6 +80,13 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLDesertDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestTenebra;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestVilespine;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLHillsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLIcePlainsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
 import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
@@ -198,6 +205,10 @@ public final class BiomeInit {
 
         if (Mods.buildcraftenergy.isLoaded()) {
             init_buildcraft();
+        }
+
+        if (Mods.defiledlands.isLoaded()) {
+            init_defiledlands();
         }
 
         if (Mods.plants2.isLoaded()) {
@@ -534,6 +545,41 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(bc_oil_ocean)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCOceanOilField(biome));
+        }
+    }
+
+    private static void init_defiledlands() {
+
+        String modid = Mods.defiledlands.name();
+        Biome biome;
+        ResourceLocation desert_defiled = new ResourceLocation(modid, "desert_defiled");
+        ResourceLocation plains_defiled = new ResourceLocation(modid, "plains_defiled");
+        ResourceLocation forest_tenebra = new ResourceLocation(modid, "forest_tenebra");
+        ResourceLocation forest_vilespine = new ResourceLocation(modid, "forest_vilespine");
+        ResourceLocation hills_defiled = new ResourceLocation(modid, "hills_defiled");
+        ResourceLocation swamp_defiled = new ResourceLocation(modid, "swamp_defiled");
+        ResourceLocation ice_plains_defiled = new ResourceLocation(modid, "ice_plains_defiled");
+
+        if ((biome = Biome.REGISTRY.getObject(desert_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLDesertDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(plains_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLPlainsDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forest_tenebra)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLForestTenebra(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forest_vilespine)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLForestVilespine(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(hills_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLHillsDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(swamp_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLSwampDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(ice_plains_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLIcePlainsDefiled(biome));
         }
     }
 

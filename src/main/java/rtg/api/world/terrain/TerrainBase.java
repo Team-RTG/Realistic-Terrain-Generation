@@ -623,6 +623,24 @@ public abstract class TerrainBase {
         return (float) (riverFactor / rtgWorld.getRiverValleyLevel() - 1d);
     }
 
+    public static final float borderAdjusted(float effect, float border, float allAbove, float noneBelow) {
+        // this routine adjusts an effect to ignore the border variable above allAbove
+        // and interpolated down to 0 at noneBelow
+        if (border < noneBelow) {
+            return 0;
+        }
+        if (border >= 1f) {
+            return effect;
+        }
+        // adjust effect for border
+        float adjusted = effect / border;
+        if (border > allAbove) {
+            return adjusted;
+        }
+        // return interpolated value
+        return adjusted * (border - noneBelow) / (allAbove - noneBelow);
+    }
+
 
     public abstract float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 }

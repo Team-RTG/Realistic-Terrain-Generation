@@ -92,6 +92,28 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAutumnalWoodedHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAutumnalWoods;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVBadlands;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVBirchForestedHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVCliffs;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVDesertShrubland;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVForestedHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVGlacier;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVGlacierSpikes;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVGreenSwamp;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVLushHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVMeadow;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVMiniJungle;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVMountainousDesert;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVRedDesert;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVRockyPlains;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVRockyPlateau;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVSnowyConiferousForest;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVTemperateRainforest;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVThicket;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVWoodlands;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPVampireForest;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForest;
@@ -574,6 +596,97 @@ public final class BiomeInit {
 
     private static void init_traverse() {
 
+        String modid = Mods.traverse.name();
+        Biome biome;
+        ResourceLocation autumnal_woods = new ResourceLocation(modid, "autumnal_woods");
+        ResourceLocation woodlands = new ResourceLocation(modid, "woodlands");
+        ResourceLocation mini_jungle = new ResourceLocation(modid, "mini_jungle");
+        ResourceLocation meadow = new ResourceLocation(modid, "meadow");
+        ResourceLocation green_swamp = new ResourceLocation(modid, "green_swamp");
+        ResourceLocation red_desert = new ResourceLocation(modid, "red_desert");
+        ResourceLocation temperate_rainforest = new ResourceLocation(modid, "temperate_rainforest");
+        ResourceLocation badlands = new ResourceLocation(modid, "badlands");
+        ResourceLocation mountainous_desert = new ResourceLocation(modid, "mountainous_desert");
+        ResourceLocation rocky_plateau = new ResourceLocation(modid, "rocky_plateau");
+        ResourceLocation forested_hills = new ResourceLocation(modid, "forested_hills");
+        ResourceLocation birch_forested_hills = new ResourceLocation(modid, "birch_forested_hills");
+        ResourceLocation autumnal_wooded_hills = new ResourceLocation(modid, "autumnal_wooded_hills");
+        ResourceLocation cliffs = new ResourceLocation(modid, "cliffs");
+        ResourceLocation glacier = new ResourceLocation(modid, "glacier");
+        ResourceLocation glacier_spikes = new ResourceLocation(modid, "glacier_spikes");
+        ResourceLocation snowy_coniferous_forest = new ResourceLocation(modid, "snowy_coniferous_forest");
+        ResourceLocation lush_hills = new ResourceLocation(modid, "lush_hills");
+        ResourceLocation desert_shrubland = new ResourceLocation(modid, "desert_shrubland");
+        ResourceLocation thicket = new ResourceLocation(modid, "thicket");
+        ResourceLocation arid_highland = new ResourceLocation(modid, "arid_highland");
+        ResourceLocation rocky_plains = new ResourceLocation(modid, "rocky_plains");
+
+        if ((biome = Biome.REGISTRY.getObject(autumnal_woods)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVAutumnalWoods(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(woodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mini_jungle)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVMiniJungle(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(meadow)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVMeadow(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(green_swamp)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVGreenSwamp(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(red_desert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVRedDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(temperate_rainforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVTemperateRainforest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(badlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVBadlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mountainous_desert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVMountainousDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rocky_plateau)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVRockyPlateau(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forested_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVForestedHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(birch_forested_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVBirchForestedHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(autumnal_wooded_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVAutumnalWoodedHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(cliffs)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVCliffs(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(glacier)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVGlacier(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(glacier_spikes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVGlacierSpikes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snowy_coniferous_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVSnowyConiferousForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(lush_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVLushHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(desert_shrubland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVDesertShrubland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(thicket)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVThicket(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(arid_highland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVAridHighland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rocky_plains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVRockyPlains(biome));
+        }
     }
 
     private static void init_vampirism() {

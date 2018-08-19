@@ -80,6 +80,7 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
+import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBlueOakForest;
@@ -197,6 +198,10 @@ public final class BiomeInit {
 
         if (Mods.buildcraftenergy.isLoaded()) {
             init_buildcraft();
+        }
+
+        if (Mods.plants2.isLoaded()) {
+            init_plants();
         }
 
         if (Mods.realworld.isLoaded()) {
@@ -529,6 +534,17 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(bc_oil_ocean)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCOceanOilField(biome));
+        }
+    }
+
+    private static void init_plants() {
+
+        String modid = Mods.plants2.name();
+        Biome biome;
+        ResourceLocation crystal_forest = new ResourceLocation(modid, "crystal_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(crystal_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePLANTSCrystalForest(biome));
         }
     }
 

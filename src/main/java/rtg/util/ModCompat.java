@@ -122,13 +122,13 @@ public final class ModCompat {
     public enum Mods {
         abyssalcraft,
         biomesoplenty,
-        buildcraftenergy,
+        buildcraftenergy("buildcraft"),
         plants2("plants"),
         realworld,
         thaumcraft,
         traverse,
         vampirism,
-        minecraft;
+        minecraft("vanilla");
 
         private final String prettyName;
         private boolean loaded;

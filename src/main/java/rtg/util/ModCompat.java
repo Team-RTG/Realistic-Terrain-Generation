@@ -123,6 +123,7 @@ public final class ModCompat {
         abyssalcraft,
         biomesoplenty,
         buildcraftenergy("buildcraft"),
+        candymod("candyworld"),
         defiledlands,
         plants2("plants"),
         realworld,

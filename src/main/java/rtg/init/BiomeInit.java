@@ -80,6 +80,9 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
+import rtg.world.biome.realistic.candyworld.RealisticBiomeCWChocolateForest;
+import rtg.world.biome.realistic.candyworld.RealisticBiomeCWCottonCandyPlains;
+import rtg.world.biome.realistic.candyworld.RealisticBiomeCWGummySwamp;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLDesertDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestTenebra;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestVilespine;
@@ -205,6 +208,10 @@ public final class BiomeInit {
 
         if (Mods.buildcraftenergy.isLoaded()) {
             init_buildcraft();
+        }
+
+        if (Mods.candymod.isLoaded()) {
+            init_candymod();
         }
 
         if (Mods.defiledlands.isLoaded()) {
@@ -545,6 +552,25 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(bc_oil_ocean)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCOceanOilField(biome));
+        }
+    }
+
+    private static void init_candymod() {
+
+        String modid = Mods.candymod.name();
+        Biome biome;
+        ResourceLocation biome_cotton_candy = new ResourceLocation(modid, "biome_cotton_candy");
+        ResourceLocation biome_chocolate_forest = new ResourceLocation(modid, "biome_chocolate_forest");
+        ResourceLocation biome_gummy_swamp = new ResourceLocation(modid, "biome_gummy_swamp");
+
+        if ((biome = Biome.REGISTRY.getObject(biome_cotton_candy)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWCottonCandyPlains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(biome_chocolate_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWChocolateForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(biome_gummy_swamp)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWGummySwamp(biome));
         }
     }
 

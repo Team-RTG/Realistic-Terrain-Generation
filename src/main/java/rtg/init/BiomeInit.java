@@ -79,6 +79,7 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
+import rtg.world.biome.realistic.bionisation.RealisticBiomeBIOInfectedForest;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
 import rtg.world.biome.realistic.candyworld.RealisticBiomeCWChocolateForest;
@@ -224,6 +225,10 @@ public final class BiomeInit {
 
         if (Mods.biomesoplenty.isLoaded()) {
             init_biomesoplenty();
+        }
+
+        if (Mods.bionisation3.isLoaded()) {
+            init_bionisation();
         }
 
         if (Mods.buildcraftenergy.isLoaded()) {
@@ -584,6 +589,17 @@ public final class BiomeInit {
         }
         if (isBiomePresent(modid, "xeric_shrubland")) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPXericShrubland());
+        }
+    }
+
+    private static void init_bionisation() {
+
+        String modid = Mods.bionisation3.name();
+        Biome biome;
+        ResourceLocation infected_forest = new ResourceLocation(modid, "infected_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(infected_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBIOInfectedForest(biome));
         }
     }
 

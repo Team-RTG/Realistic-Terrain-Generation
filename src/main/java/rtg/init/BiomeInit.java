@@ -116,6 +116,7 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWFlatlandThicket;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSilverBirchHills;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
+import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
@@ -255,6 +256,10 @@ public final class BiomeInit {
 
         if (Mods.realworld.isLoaded()) {
             init_realworld();
+        }
+
+        if (Mods.rockhounding_surface.isLoaded()) {
+            init_rockhounding();
         }
 
         if (Mods.thaumcraft.isLoaded()) {
@@ -783,6 +788,17 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(rw_spruce_mountains)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpruceMountains(biome));
+        }
+    }
+
+    private static void init_rockhounding() {
+
+        String modid = Mods.rockhounding_surface.name();
+        Biome biome;
+        ResourceLocation white_sands = new ResourceLocation(modid, "white_sands");
+
+        if ((biome = Biome.REGISTRY.getObject(white_sands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRHWhiteSands(biome));
         }
     }
 

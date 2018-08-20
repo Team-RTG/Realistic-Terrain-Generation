@@ -143,6 +143,7 @@ public final class ModCompat {
         odioitamod,
         plants2("plants"),
         realworld,
+        rockhounding_surface("rockhounding"),
         thaumcraft,
         traverse,
         vampirism,

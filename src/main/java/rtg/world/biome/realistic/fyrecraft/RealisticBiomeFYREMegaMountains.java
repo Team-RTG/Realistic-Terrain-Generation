@@ -1,0 +1,67 @@
+package rtg.world.biome.realistic.fyrecraft;
+
+import net.minecraft.world.biome.Biome;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
+
+
+public class RealisticBiomeFYREMegaMountains extends RealisticBiomeFYREBase {
+
+    public RealisticBiomeFYREMegaMountains(Biome biome) {
+
+        super(biome);
+    }
+
+    @Override
+    public void initConfig() {
+        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+    }
+
+    @Override
+    public TerrainBase initTerrain() {
+
+        return new TerrainBOPMountainPeaks(120f, 100f);
+    }
+
+    public class TerrainBOPMountainPeaks extends TerrainBase {
+
+        private float width;
+        private float strength;
+        private float terrainHeight;
+        private float spikeWidth = 30;
+        private float spikeHeight = 50;
+        private HeightEffect heightEffect;
+
+        public TerrainBOPMountainPeaks(float mountainWidth, float mountainStrength) {
+
+            this(mountainWidth, mountainStrength, 90f);
+        }
+
+        public TerrainBOPMountainPeaks(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            terrainHeight = height;
+            MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+            mountainEffect.mountainHeight = strength;
+            mountainEffect.mountainWavelength = width;
+            mountainEffect.spikeHeight = this.spikeHeight;
+            mountainEffect.spikeWavelength = this.spikeWidth;
+
+
+            heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+            heightEffect = new JitterEffect(3f, 6f, heightEffect);
+
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+            return riverized(heightEffect.added(rtgWorld, x, y) + terrainHeight, river);
+        }
+    }
+}

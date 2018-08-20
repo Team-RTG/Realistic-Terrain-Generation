@@ -37,6 +37,18 @@ public final class ModCompat {
 
         List<Biome> invalidBiomes = Lists.newArrayList(Biomes.HELL, Biomes.SKY, Biomes.VOID);
 
+        if (Mods.abyssalcraft.isLoaded()) {
+            invalidBiomes.addAll(Arrays.asList(
+                ACBiomes.abyssal_wastelands,
+                ACBiomes.dark_realm,
+                ACBiomes.dreadlands,
+                ACBiomes.dreadlands_forest,
+                ACBiomes.dreadlands_mountains,
+                ACBiomes.omothol,
+                ACBiomes.purified_dreadlands
+            ));
+        }
+
         if (Mods.biomesoplenty.isLoaded()) {
 
             String modid = Mods.biomesoplenty.name();
@@ -52,16 +64,16 @@ public final class ModCompat {
                 .forEach(invalidBiomes::add);
         }
 
-        if (Mods.abyssalcraft.isLoaded()) {
-            invalidBiomes.addAll(Arrays.asList(
-                ACBiomes.abyssal_wastelands,
-                ACBiomes.dark_realm,
-                ACBiomes.dreadlands,
-                ACBiomes.dreadlands_forest,
-                ACBiomes.dreadlands_mountains,
-                ACBiomes.omothol,
-                ACBiomes.purified_dreadlands
-            ));
+        if (Mods.fyrecraft.isLoaded()) {
+
+            String modid = Mods.fyrecraft.name();
+            Stream.of(
+                new ResourceLocation(modid, "miner's caves"),
+                new ResourceLocation(modid, "waterfalls")
+            )
+                .map(Biome.REGISTRY::getObject)
+                .filter(Objects::nonNull)
+                .forEach(invalidBiomes::add);
         }
 
         // TODO: [1.12] Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
@@ -126,6 +138,7 @@ public final class ModCompat {
         buildcraftenergy("buildcraft"),
         candymod("candyworld"),
         defiledlands,
+        fyrecraft,
         plants2("plants"),
         realworld,
         thaumcraft,

@@ -91,6 +91,14 @@ import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLHillsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLIcePlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMegaMountains;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMushroomGrove;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesert;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesertHills;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERockyWasteland;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
 import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
@@ -221,6 +229,10 @@ public final class BiomeInit {
 
         if (Mods.defiledlands.isLoaded()) {
             init_defiledlands();
+        }
+
+        if (Mods.fyrecraft.isLoaded()) {
+            init_fyrecraft();
         }
 
         if (Mods.plants2.isLoaded()) {
@@ -622,6 +634,45 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(ice_plains_defiled)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLIcePlainsDefiled(biome));
+        }
+    }
+
+    private static void init_fyrecraft() {
+
+        String modid = Mods.fyrecraft.name();
+        Biome biome;
+        ResourceLocation rocky_wasteland = new ResourceLocation(modid, "rocky wasteland");
+        ResourceLocation mushroom_grove = new ResourceLocation(modid, "mushroom grove");
+        ResourceLocation tropical_lakes = new ResourceLocation(modid, "tropical lakes");
+        ResourceLocation mega_mountains = new ResourceLocation(modid, "mega mountains");
+        ResourceLocation red_desert = new ResourceLocation(modid, "red desert");
+        ResourceLocation red_desert_hills = new ResourceLocation(modid, "red desert hills");
+        ResourceLocation volcanic_wasteland = new ResourceLocation(modid, "volcanic wasteland");
+        ResourceLocation crimson_grove = new ResourceLocation(modid, "crimson grove");
+
+        if ((biome = Biome.REGISTRY.getObject(rocky_wasteland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERockyWasteland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mushroom_grove)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREMushroomGrove(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(tropical_lakes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRETropicalLakes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mega_mountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREMegaMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(red_desert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERedDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(red_desert_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERedDesertHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(volcanic_wasteland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREVolcanicWasteland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(crimson_grove)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRECrimsonGrove(biome));
         }
     }
 

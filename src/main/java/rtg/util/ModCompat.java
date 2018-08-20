@@ -121,6 +121,7 @@ public final class ModCompat {
     // optional 'friendly name' used for configs
     public enum Mods {
         abyssalcraft,
+        betteragriculture,
         biomesoplenty,
         buildcraftenergy("buildcraft"),
         candymod("candyworld"),

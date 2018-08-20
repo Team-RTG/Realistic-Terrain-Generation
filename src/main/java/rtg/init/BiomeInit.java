@@ -12,6 +12,7 @@ import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHighland;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsMountains;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsPlains;
+import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBAFarmlandBiome;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlps;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlpsFoothills;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBambooForest;
@@ -202,6 +203,10 @@ public final class BiomeInit {
             init_abyssalcraft();
         }
 
+        if (Mods.betteragriculture.isLoaded()) {
+            init_betteragriculture();
+        }
+
         if (Mods.biomesoplenty.isLoaded()) {
             init_biomesoplenty();
         }
@@ -333,6 +338,17 @@ public final class BiomeInit {
         }
         if (isBiomePresent(modid, "darklands_plains")) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsPlains());
+        }
+    }
+
+    private static void init_betteragriculture() {
+
+        String modid = Mods.betteragriculture.name();
+        Biome biome;
+        ResourceLocation farmlandbiome = new ResourceLocation(modid, "farmlandbiome");
+
+        if ((biome = Biome.REGISTRY.getObject(farmlandbiome)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBAFarmlandBiome(biome));
         }
     }
 

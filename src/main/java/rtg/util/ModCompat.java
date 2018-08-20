@@ -141,6 +141,7 @@ public final class ModCompat {
         defiledlands,
         floricraft,
         fyrecraft,
+        gravityfalls,
         odioitamod,
         plants2("plants"),
         realworld,

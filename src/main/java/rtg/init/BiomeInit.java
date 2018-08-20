@@ -102,6 +102,9 @@ import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesertHills;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERockyWasteland;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
+import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFGravityFalls;
+import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFNightmareRealm;
+import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFTheFuture;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOOrangeBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOPinkBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIORedBlancoaForest;
@@ -249,6 +252,10 @@ public final class BiomeInit {
 
         if (Mods.fyrecraft.isLoaded()) {
             init_fyrecraft();
+        }
+
+        if (Mods.gravityfalls.isLoaded()) {
+            init_gravityfalls();
         }
 
         if (Mods.odioitamod.isLoaded()) {
@@ -723,6 +730,25 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(crimson_grove)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRECrimsonGrove(biome));
+        }
+    }
+
+    private static void init_gravityfalls() {
+
+        String modid = Mods.gravityfalls.name();
+        Biome biome;
+        ResourceLocation gravityfalls = new ResourceLocation(modid, "gravityfalls");
+        ResourceLocation thefuture = new ResourceLocation(modid, "thefuture");
+        ResourceLocation nightmarerealm = new ResourceLocation(modid, "nightmarerealm");
+
+        if ((biome = Biome.REGISTRY.getObject(gravityfalls)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFGravityFalls(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(thefuture)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFTheFuture(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(nightmarerealm)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFNightmareRealm(biome));
         }
     }
 

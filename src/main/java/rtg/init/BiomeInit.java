@@ -91,6 +91,8 @@ import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLHillsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLIcePlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIRoseLand;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORITulipLand;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMegaMountains;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMushroomGrove;
@@ -229,6 +231,10 @@ public final class BiomeInit {
 
         if (Mods.defiledlands.isLoaded()) {
             init_defiledlands();
+        }
+
+        if (Mods.floricraft.isLoaded()) {
+            init_floricraft();
         }
 
         if (Mods.fyrecraft.isLoaded()) {
@@ -634,6 +640,21 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(ice_plains_defiled)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLIcePlainsDefiled(biome));
+        }
+    }
+
+    private static void init_floricraft() {
+
+        String modid = Mods.floricraft.name();
+        Biome biome;
+        ResourceLocation tulip_land = new ResourceLocation(modid, "tulip land");
+        ResourceLocation rose_land = new ResourceLocation(modid, "rose land");
+
+        if ((biome = Biome.REGISTRY.getObject(tulip_land)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFLORITulipLand(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rose_land)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFLORIRoseLand(biome));
         }
     }
 

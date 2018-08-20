@@ -138,6 +138,7 @@ public final class ModCompat {
         buildcraftenergy("buildcraft"),
         candymod("candyworld"),
         defiledlands,
+        floricraft,
         fyrecraft,
         plants2("plants"),
         realworld,

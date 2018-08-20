@@ -101,6 +101,10 @@ import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesertHills;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERockyWasteland;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIOOrangeBlancoaForest;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIOPinkBlancoaForest;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIORedBlancoaForest;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIOWhiteBlancoaForest;
 import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
@@ -239,6 +243,10 @@ public final class BiomeInit {
 
         if (Mods.fyrecraft.isLoaded()) {
             init_fyrecraft();
+        }
+
+        if (Mods.odioitamod.isLoaded()) {
+            init_odioitamod();
         }
 
         if (Mods.plants2.isLoaded()) {
@@ -694,6 +702,29 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(crimson_grove)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRECrimsonGrove(biome));
+        }
+    }
+
+    private static void init_odioitamod() {
+
+        String modid = Mods.odioitamod.name();
+        Biome biome;
+        ResourceLocation whiteblancoaforest = new ResourceLocation(modid, "whiteblancoaforest");
+        ResourceLocation orangeblancoaforest = new ResourceLocation(modid, "orangeblancoaforest");
+        ResourceLocation pinkblancoaforest = new ResourceLocation(modid, "pinkblancoaforest");
+        ResourceLocation redblancoaforest = new ResourceLocation(modid, "redblancoaforest");
+
+        if ((biome = Biome.REGISTRY.getObject(whiteblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOWhiteBlancoaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(orangeblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOOrangeBlancoaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(pinkblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOPinkBlancoaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(redblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIORedBlancoaForest(biome));
         }
     }
 

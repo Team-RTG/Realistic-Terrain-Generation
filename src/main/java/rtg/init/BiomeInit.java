@@ -130,6 +130,7 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
 import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
+import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFSugiForest;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
@@ -289,6 +290,10 @@ public final class BiomeInit {
 
         if (Mods.spookybiomes.isLoaded()) {
             init_spookybiomes();
+        }
+
+        if (Mods.sugiforest.isLoaded()) {
+            init_sugiforest();
         }
 
         if (Mods.thaumcraft.isLoaded()) {
@@ -908,6 +913,17 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(ghostly_forest)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBGhostlyForest(biome));
+        }
+    }
+
+    private static void init_sugiforest() {
+
+        String modid = Mods.sugiforest.name();
+        Biome biome;
+        ResourceLocation sugi_forest = new ResourceLocation(modid, "sugi_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(sugi_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSFSugiForest(biome));
         }
     }
 

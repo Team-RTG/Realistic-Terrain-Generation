@@ -140,6 +140,7 @@ public final class ModCompat {
         buildcraftenergy("buildcraft"),
         candymod("candyworld"),
         defiledlands,
+        douglas_forest("douglasforest"),
         floricraft,
         fyrecraft,
         gravityfalls,

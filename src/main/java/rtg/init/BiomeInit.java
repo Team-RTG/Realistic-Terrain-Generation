@@ -92,6 +92,8 @@ import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLHillsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLIcePlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
+import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFDouglasForest;
+import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFMapleForest;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIRoseLand;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORITulipLand;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
@@ -254,6 +256,10 @@ public final class BiomeInit {
 
         if (Mods.defiledlands.isLoaded()) {
             init_defiledlands();
+        }
+
+        if (Mods.douglas_forest.isLoaded()) {
+            init_douglasforest();
         }
 
         if (Mods.floricraft.isLoaded()) {
@@ -698,6 +704,21 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(ice_plains_defiled)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLIcePlainsDefiled(biome));
+        }
+    }
+
+    private static void init_douglasforest() {
+
+        String modid = Mods.douglas_forest.name();
+        Biome biome;
+        ResourceLocation douglas_forest = new ResourceLocation(modid, "douglas_forest");
+        ResourceLocation maple_forest = new ResourceLocation(modid, "maple_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(douglas_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFDouglasForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(maple_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFMapleForest(biome));
         }
     }
 

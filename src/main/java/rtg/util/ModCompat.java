@@ -31,11 +31,24 @@ public final class ModCompat {
     private static final String RESLOC_FORMAT = "%-" + RESLOC_LENGTH + "s";
 
     private ModCompat() {
+
     }
 
     public static void doBiomeCheck() {
 
         List<Biome> invalidBiomes = Lists.newArrayList(Biomes.HELL, Biomes.SKY, Biomes.VOID);
+
+        if (Mods.abyssalcraft.isLoaded()) {
+            invalidBiomes.addAll(Arrays.asList(
+                ACBiomes.abyssal_wastelands,
+                ACBiomes.dark_realm,
+                ACBiomes.dreadlands,
+                ACBiomes.dreadlands_forest,
+                ACBiomes.dreadlands_mountains,
+                ACBiomes.omothol,
+                ACBiomes.purified_dreadlands
+            ));
+        }
 
         if (Mods.biomesoplenty.isLoaded()) {
 
@@ -52,16 +65,16 @@ public final class ModCompat {
                 .forEach(invalidBiomes::add);
         }
 
-        if (Mods.abyssalcraft.isLoaded()) {
-            invalidBiomes.addAll(Arrays.asList(
-                ACBiomes.abyssal_wastelands,
-                ACBiomes.dark_realm,
-                ACBiomes.dreadlands,
-                ACBiomes.dreadlands_forest,
-                ACBiomes.dreadlands_mountains,
-                ACBiomes.omothol,
-                ACBiomes.purified_dreadlands
-            ));
+        if (Mods.fyrecraft.isLoaded()) {
+
+            String modid = Mods.fyrecraft.name();
+            Stream.of(
+                new ResourceLocation(modid, "miner's caves"),
+                new ResourceLocation(modid, "waterfalls")
+            )
+                .map(Biome.REGISTRY::getObject)
+                .filter(Objects::nonNull)
+                .forEach(invalidBiomes::add);
         }
 
         // TODO: [1.12] Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
@@ -121,14 +134,29 @@ public final class ModCompat {
     // optional 'friendly name' used for configs
     public enum Mods {
         abyssalcraft,
+        betteragriculture,
         biomesoplenty,
-        buildcraftenergy,
+        biomesyougo,
+        bionisation3("bionisation"),
+        buildcraftenergy("buildcraft"),
+        candymod("candyworld"),
+        defiledlands,
+        douglas_forest("douglasforest"),
+        floricraft,
+        fyrecraft,
+        gravityfalls,
+        mistbiomes,
+        odioitamod,
         plants2("plants"),
         realworld,
+        rockhounding_surface("rockhounding"),
+        spookybiomes,
+        sugiforest,
+        terscraft,
         thaumcraft,
         traverse,
         vampirism,
-        minecraft;
+        vanilla;
 
         private final String prettyName;
         private boolean loaded;

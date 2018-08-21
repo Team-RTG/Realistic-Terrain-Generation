@@ -12,6 +12,7 @@ import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHighland;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsMountains;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsPlains;
+import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBAFarmlandBiome;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlps;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlpsFoothills;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBambooForest;
@@ -78,8 +79,68 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAlps;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAutumnForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBambooForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBayou;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBlueSpruceForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCherryBlossomForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCikaForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCragMountains;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDeadForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGrasslands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGreatOakForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGHighlands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGJacarandaForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGMangroveMarshes;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGMapleForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGOrchard;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGPaperBirchForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGPineForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGPraire;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGRedOakForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGRedrockMountains;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSkyrisHighlands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGZelKovaForest;
+import rtg.world.biome.realistic.bionisation.RealisticBiomeBIOInfectedForest;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
+import rtg.world.biome.realistic.candyworld.RealisticBiomeCWChocolateForest;
+import rtg.world.biome.realistic.candyworld.RealisticBiomeCWCottonCandyPlains;
+import rtg.world.biome.realistic.candyworld.RealisticBiomeCWGummySwamp;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLDesertDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestTenebra;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestVilespine;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLHillsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLIcePlainsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
+import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFDouglasForest;
+import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFMapleForest;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIRoseLand;
+import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORITulipLand;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMegaMountains;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMushroomGrove;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesert;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesertHills;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERockyWasteland;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
+import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFGravityFalls;
+import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFNightmareRealm;
+import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFTheFuture;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBColdMistTaiga;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistDesert;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistForest;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistMushroomIsland;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistPlains;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistSwamp;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistTaiga;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIOOrangeBlancoaForest;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIOPinkBlancoaForest;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIORedBlancoaForest;
+import rtg.world.biome.realistic.odioita.RealisticBiomeODIOWhiteBlancoaForest;
 import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
@@ -91,6 +152,11 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWFlatlandThicket;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSilverBirchHills;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
+import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
+import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
+import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
+import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFSugiForest;
+import rtg.world.biome.realistic.terscraft.RealisticBiomeTERSBiomeDemonite;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
@@ -186,18 +252,62 @@ public final class BiomeInit {
 
     public static void init() {
 
-        init_minecraft();
+        init_vanilla();
 
         if (Mods.abyssalcraft.isLoaded()) {
             init_abyssalcraft();
+        }
+
+        if (Mods.betteragriculture.isLoaded()) {
+            init_betteragriculture();
         }
 
         if (Mods.biomesoplenty.isLoaded()) {
             init_biomesoplenty();
         }
 
+        if (Mods.biomesyougo.isLoaded()) {
+            init_biomesyougo();
+        }
+
+        if (Mods.bionisation3.isLoaded()) {
+            init_bionisation();
+        }
+
         if (Mods.buildcraftenergy.isLoaded()) {
             init_buildcraft();
+        }
+
+        if (Mods.candymod.isLoaded()) {
+            init_candymod();
+        }
+
+        if (Mods.defiledlands.isLoaded()) {
+            init_defiledlands();
+        }
+
+        if (Mods.douglas_forest.isLoaded()) {
+            init_douglasforest();
+        }
+
+        if (Mods.floricraft.isLoaded()) {
+            init_floricraft();
+        }
+
+        if (Mods.fyrecraft.isLoaded()) {
+            init_fyrecraft();
+        }
+
+        if (Mods.gravityfalls.isLoaded()) {
+            init_gravityfalls();
+        }
+
+        if (Mods.mistbiomes.isLoaded()) {
+            init_mistbiomes();
+        }
+
+        if (Mods.odioitamod.isLoaded()) {
+            init_odioitamod();
         }
 
         if (Mods.plants2.isLoaded()) {
@@ -206,6 +316,22 @@ public final class BiomeInit {
 
         if (Mods.realworld.isLoaded()) {
             init_realworld();
+        }
+
+        if (Mods.rockhounding_surface.isLoaded()) {
+            init_rockhounding();
+        }
+
+        if (Mods.spookybiomes.isLoaded()) {
+            init_spookybiomes();
+        }
+
+        if (Mods.sugiforest.isLoaded()) {
+            init_sugiforest();
+        }
+
+        if (Mods.terscraft.isLoaded()) {
+            init_terscraft();
         }
 
         if (Mods.thaumcraft.isLoaded()) {
@@ -234,7 +360,7 @@ public final class BiomeInit {
         );
     }
 
-    private static void init_minecraft() {
+    private static void init_vanilla() {
         // vanilla rivers and beaches are initialised to enum fields during #preInit
         RTGAPI.RTG_BIOMES.addBiomes(
             new RealisticBiomeVanillaBirchForest(),
@@ -315,6 +441,17 @@ public final class BiomeInit {
         }
         if (isBiomePresent(modid, "darklands_plains")) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsPlains());
+        }
+    }
+
+    private static void init_betteragriculture() {
+
+        String modid = Mods.betteragriculture.name();
+        Biome biome;
+        ResourceLocation farmlandbiome = new ResourceLocation(modid, "farmlandbiome");
+
+        if ((biome = Biome.REGISTRY.getObject(farmlandbiome)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBAFarmlandBiome(biome));
         }
     }
 
@@ -522,6 +659,116 @@ public final class BiomeInit {
         }
     }
 
+    private static void init_biomesyougo() {
+
+        String modid = Mods.biomesyougo.name();
+        Biome biome;
+        ResourceLocation bcikaforest = new ResourceLocation(modid, "bcikaforest");
+        ResourceLocation bredrockmountains = new ResourceLocation(modid, "bredrockmountains");
+        ResourceLocation bjacarandaforest = new ResourceLocation(modid, "bjacarandaforest");
+        ResourceLocation bautumnforest = new ResourceLocation(modid, "bautumnforest");
+        ResourceLocation bzelkovaforest = new ResourceLocation(modid, "bzelkovaforest");
+        ResourceLocation bbluespruceforest = new ResourceLocation(modid, "bbluespruceforest");
+        ResourceLocation bpaperbirchforest = new ResourceLocation(modid, "bpaperbirchforest");
+        ResourceLocation bgreatoakforest = new ResourceLocation(modid, "bgreatoakforest");
+        ResourceLocation bmapleforest = new ResourceLocation(modid, "bmapleforest");
+        ResourceLocation bpineforest = new ResourceLocation(modid, "bpineforest");
+        ResourceLocation bcherryblossomforest = new ResourceLocation(modid, "bcherryblossomforest");
+        ResourceLocation balps = new ResourceLocation(modid, "balps");
+        ResourceLocation bpraire = new ResourceLocation(modid, "bpraire");
+        ResourceLocation bgrasslands = new ResourceLocation(modid, "bgrasslands");
+        ResourceLocation bhighlands = new ResourceLocation(modid, "bhighlands");
+        ResourceLocation bskyrishighlands = new ResourceLocation(modid, "bskyrishighlands");
+        ResourceLocation bbayou = new ResourceLocation(modid, "bbayou");
+        ResourceLocation bmangrovemarshes = new ResourceLocation(modid, "bmangrovemarshes");
+        ResourceLocation bbambooforest = new ResourceLocation(modid, "bbambooforest");
+        ResourceLocation bdeadforest = new ResourceLocation(modid, "bdeadforest");
+        ResourceLocation borchard = new ResourceLocation(modid, "borchard");
+        ResourceLocation bredoakforest = new ResourceLocation(modid, "bredoakforest");
+        ResourceLocation bcragmountains = new ResourceLocation(modid, "bcragmountains");
+
+        if ((biome = Biome.REGISTRY.getObject(bcikaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCikaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bredrockmountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedrockMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bjacarandaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGJacarandaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bautumnforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAutumnForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bzelkovaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGZelKovaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bbluespruceforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBlueSpruceForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bpaperbirchforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPaperBirchForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bgreatoakforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGreatOakForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bmapleforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMapleForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bpineforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPineForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bcherryblossomforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCherryBlossomForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(balps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bpraire)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPraire(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bgrasslands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGrasslands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bhighlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGHighlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bskyrishighlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSkyrisHighlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bbayou)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBayou(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bmangrovemarshes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMangroveMarshes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bbambooforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBambooForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bdeadforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDeadForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(borchard)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGOrchard(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bredoakforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedOakForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bcragmountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCragMountains(biome));
+        }
+    }
+
+    private static void init_bionisation() {
+
+        String modid = Mods.bionisation3.name();
+        Biome biome;
+        ResourceLocation infected_forest = new ResourceLocation(modid, "infected_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(infected_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBIOInfectedForest(biome));
+        }
+    }
+
     private static void init_buildcraft() {
 
         String modid = Mods.buildcraftenergy.name();
@@ -534,6 +781,206 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(bc_oil_ocean)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCOceanOilField(biome));
+        }
+    }
+
+    private static void init_candymod() {
+
+        String modid = Mods.candymod.name();
+        Biome biome;
+        ResourceLocation biome_cotton_candy = new ResourceLocation(modid, "biome_cotton_candy");
+        ResourceLocation biome_chocolate_forest = new ResourceLocation(modid, "biome_chocolate_forest");
+        ResourceLocation biome_gummy_swamp = new ResourceLocation(modid, "biome_gummy_swamp");
+
+        if ((biome = Biome.REGISTRY.getObject(biome_cotton_candy)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWCottonCandyPlains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(biome_chocolate_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWChocolateForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(biome_gummy_swamp)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWGummySwamp(biome));
+        }
+    }
+
+    private static void init_defiledlands() {
+
+        String modid = Mods.defiledlands.name();
+        Biome biome;
+        ResourceLocation desert_defiled = new ResourceLocation(modid, "desert_defiled");
+        ResourceLocation plains_defiled = new ResourceLocation(modid, "plains_defiled");
+        ResourceLocation forest_tenebra = new ResourceLocation(modid, "forest_tenebra");
+        ResourceLocation forest_vilespine = new ResourceLocation(modid, "forest_vilespine");
+        ResourceLocation hills_defiled = new ResourceLocation(modid, "hills_defiled");
+        ResourceLocation swamp_defiled = new ResourceLocation(modid, "swamp_defiled");
+        ResourceLocation ice_plains_defiled = new ResourceLocation(modid, "ice_plains_defiled");
+
+        if ((biome = Biome.REGISTRY.getObject(desert_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLDesertDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(plains_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLPlainsDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forest_tenebra)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLForestTenebra(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forest_vilespine)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLForestVilespine(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(hills_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLHillsDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(swamp_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLSwampDefiled(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(ice_plains_defiled)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLIcePlainsDefiled(biome));
+        }
+    }
+
+    private static void init_douglasforest() {
+
+        String modid = Mods.douglas_forest.name();
+        Biome biome;
+        ResourceLocation douglas_forest = new ResourceLocation(modid, "douglas_forest");
+        ResourceLocation maple_forest = new ResourceLocation(modid, "maple_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(douglas_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFDouglasForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(maple_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFMapleForest(biome));
+        }
+    }
+
+    private static void init_floricraft() {
+
+        String modid = Mods.floricraft.name();
+        Biome biome;
+        ResourceLocation tulip_land = new ResourceLocation(modid, "tulip land");
+        ResourceLocation rose_land = new ResourceLocation(modid, "rose land");
+
+        if ((biome = Biome.REGISTRY.getObject(tulip_land)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFLORITulipLand(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(rose_land)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFLORIRoseLand(biome));
+        }
+    }
+
+    private static void init_fyrecraft() {
+
+        String modid = Mods.fyrecraft.name();
+        Biome biome;
+        ResourceLocation rocky_wasteland = new ResourceLocation(modid, "rocky wasteland");
+        ResourceLocation mushroom_grove = new ResourceLocation(modid, "mushroom grove");
+        ResourceLocation tropical_lakes = new ResourceLocation(modid, "tropical lakes");
+        ResourceLocation mega_mountains = new ResourceLocation(modid, "mega mountains");
+        ResourceLocation red_desert = new ResourceLocation(modid, "red desert");
+        ResourceLocation red_desert_hills = new ResourceLocation(modid, "red desert hills");
+        ResourceLocation volcanic_wasteland = new ResourceLocation(modid, "volcanic wasteland");
+        ResourceLocation crimson_grove = new ResourceLocation(modid, "crimson grove");
+
+        if ((biome = Biome.REGISTRY.getObject(rocky_wasteland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERockyWasteland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mushroom_grove)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREMushroomGrove(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(tropical_lakes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRETropicalLakes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mega_mountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREMegaMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(red_desert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERedDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(red_desert_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERedDesertHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(volcanic_wasteland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREVolcanicWasteland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(crimson_grove)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRECrimsonGrove(biome));
+        }
+    }
+
+    private static void init_gravityfalls() {
+
+        String modid = Mods.gravityfalls.name();
+        Biome biome;
+        ResourceLocation gravityfalls = new ResourceLocation(modid, "gravityfalls");
+        ResourceLocation thefuture = new ResourceLocation(modid, "thefuture");
+        ResourceLocation nightmarerealm = new ResourceLocation(modid, "nightmarerealm");
+
+        if ((biome = Biome.REGISTRY.getObject(gravityfalls)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFGravityFalls(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(thefuture)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFTheFuture(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(nightmarerealm)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFNightmareRealm(biome));
+        }
+    }
+
+    private static void init_mistbiomes() {
+
+        String modid = Mods.mistbiomes.name();
+        Biome biome;
+        ResourceLocation mistforest = new ResourceLocation(modid, "mistforest");
+        ResourceLocation mistplains = new ResourceLocation(modid, "mistplains");
+        ResourceLocation misttaiga = new ResourceLocation(modid, "misttaiga");
+        ResourceLocation mistdesert = new ResourceLocation(modid, "mistdesert");
+        ResourceLocation coldmisttaiga = new ResourceLocation(modid, "coldmisttaiga");
+        ResourceLocation mistswamp = new ResourceLocation(modid, "mistswamp");
+        ResourceLocation mistymushroomisland = new ResourceLocation(modid, "mistymushroomisland");
+
+        if ((biome = Biome.REGISTRY.getObject(mistforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistplains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistPlains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(misttaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistdesert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(coldmisttaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBColdMistTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistswamp)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistSwamp(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistymushroomisland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistMushroomIsland(biome));
+        }
+    }
+
+    private static void init_odioitamod() {
+
+        String modid = Mods.odioitamod.name();
+        Biome biome;
+        ResourceLocation whiteblancoaforest = new ResourceLocation(modid, "whiteblancoaforest");
+        ResourceLocation orangeblancoaforest = new ResourceLocation(modid, "orangeblancoaforest");
+        ResourceLocation pinkblancoaforest = new ResourceLocation(modid, "pinkblancoaforest");
+        ResourceLocation redblancoaforest = new ResourceLocation(modid, "redblancoaforest");
+
+        if ((biome = Biome.REGISTRY.getObject(whiteblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOWhiteBlancoaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(orangeblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOOrangeBlancoaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(pinkblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOPinkBlancoaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(redblancoaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIORedBlancoaForest(biome));
         }
     }
 
@@ -592,6 +1039,54 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(rw_spruce_mountains)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpruceMountains(biome));
+        }
+    }
+
+    private static void init_rockhounding() {
+
+        String modid = Mods.rockhounding_surface.name();
+        Biome biome;
+        ResourceLocation white_sands = new ResourceLocation(modid, "white_sands");
+
+        if ((biome = Biome.REGISTRY.getObject(white_sands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRHWhiteSands(biome));
+        }
+    }
+
+    private static void init_spookybiomes() {
+
+        String modid = Mods.spookybiomes.name();
+        Biome biome;
+        ResourceLocation witchwood_forest = new ResourceLocation(modid, "witchwood_forest");
+        ResourceLocation ghostly_forest = new ResourceLocation(modid, "ghostly_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(witchwood_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBWitchwoodForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(ghostly_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBGhostlyForest(biome));
+        }
+    }
+
+    private static void init_sugiforest() {
+
+        String modid = Mods.sugiforest.name();
+        Biome biome;
+        ResourceLocation sugi_forest = new ResourceLocation(modid, "sugi_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(sugi_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSFSugiForest(biome));
+        }
+    }
+
+    private static void init_terscraft() {
+
+        String modid = Mods.terscraft.name();
+        Biome biome;
+        ResourceLocation biomedemonite = new ResourceLocation(modid, "biomedemonite");
+
+        if ((biome = Biome.REGISTRY.getObject(biomedemonite)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTERSBiomeDemonite(biome));
         }
     }
 

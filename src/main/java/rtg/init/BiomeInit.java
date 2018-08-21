@@ -105,6 +105,13 @@ import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFGravityFalls;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFNightmareRealm;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFTheFuture;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBColdMistTaiga;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistDesert;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistForest;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistMushroomIsland;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistPlains;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistSwamp;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistTaiga;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOOrangeBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOPinkBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIORedBlancoaForest;
@@ -216,7 +223,7 @@ public final class BiomeInit {
 
     public static void init() {
 
-        init_minecraft();
+        init_vanilla();
 
         if (Mods.abyssalcraft.isLoaded()) {
             init_abyssalcraft();
@@ -256,6 +263,10 @@ public final class BiomeInit {
 
         if (Mods.gravityfalls.isLoaded()) {
             init_gravityfalls();
+        }
+
+        if (Mods.mistbiomes.isLoaded()) {
+            init_mistbiomes();
         }
 
         if (Mods.odioitamod.isLoaded()) {
@@ -300,7 +311,7 @@ public final class BiomeInit {
         );
     }
 
-    private static void init_minecraft() {
+    private static void init_vanilla() {
         // vanilla rivers and beaches are initialised to enum fields during #preInit
         RTGAPI.RTG_BIOMES.addBiomes(
             new RealisticBiomeVanillaBirchForest(),
@@ -749,6 +760,41 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(nightmarerealm)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFNightmareRealm(biome));
+        }
+    }
+
+    private static void init_mistbiomes() {
+
+        String modid = Mods.mistbiomes.name();
+        Biome biome;
+        ResourceLocation mistforest = new ResourceLocation(modid, "mistforest");
+        ResourceLocation mistplains = new ResourceLocation(modid, "mistplains");
+        ResourceLocation misttaiga = new ResourceLocation(modid, "misttaiga");
+        ResourceLocation mistdesert = new ResourceLocation(modid, "mistdesert");
+        ResourceLocation coldmisttaiga = new ResourceLocation(modid, "coldmisttaiga");
+        ResourceLocation mistswamp = new ResourceLocation(modid, "mistswamp");
+        ResourceLocation mistymushroomisland = new ResourceLocation(modid, "mistymushroomisland");
+
+        if ((biome = Biome.REGISTRY.getObject(mistforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistplains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistPlains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(misttaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistdesert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(coldmisttaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBColdMistTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistswamp)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistSwamp(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mistymushroomisland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistMushroomIsland(biome));
         }
     }
 

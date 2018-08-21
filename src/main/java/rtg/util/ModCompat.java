@@ -31,6 +31,7 @@ public final class ModCompat {
     private static final String RESLOC_FORMAT = "%-" + RESLOC_LENGTH + "s";
 
     private ModCompat() {
+
     }
 
     public static void doBiomeCheck() {
@@ -142,6 +143,7 @@ public final class ModCompat {
         floricraft,
         fyrecraft,
         gravityfalls,
+        mistbiomes,
         odioitamod,
         plants2("plants"),
         realworld,
@@ -149,7 +151,7 @@ public final class ModCompat {
         thaumcraft,
         traverse,
         vampirism,
-        minecraft("vanilla");
+        vanilla;
 
         private final String prettyName;
         private boolean loaded;

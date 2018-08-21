@@ -136,6 +136,7 @@ public final class ModCompat {
         abyssalcraft,
         betteragriculture,
         biomesoplenty,
+        biomesyougo,
         bionisation3("bionisation"),
         buildcraftenergy("buildcraft"),
         candymod("candyworld"),

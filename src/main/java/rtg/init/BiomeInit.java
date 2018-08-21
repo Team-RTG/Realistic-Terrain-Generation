@@ -128,6 +128,8 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWSilverBirchHills;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
 import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
+import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
+import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
@@ -283,6 +285,10 @@ public final class BiomeInit {
 
         if (Mods.rockhounding_surface.isLoaded()) {
             init_rockhounding();
+        }
+
+        if (Mods.spookybiomes.isLoaded()) {
+            init_spookybiomes();
         }
 
         if (Mods.thaumcraft.isLoaded()) {
@@ -887,6 +893,21 @@ public final class BiomeInit {
 
         if ((biome = Biome.REGISTRY.getObject(white_sands)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRHWhiteSands(biome));
+        }
+    }
+
+    private static void init_spookybiomes() {
+
+        String modid = Mods.spookybiomes.name();
+        Biome biome;
+        ResourceLocation witchwood_forest = new ResourceLocation(modid, "witchwood_forest");
+        ResourceLocation ghostly_forest = new ResourceLocation(modid, "ghostly_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(witchwood_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBWitchwoodForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(ghostly_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBGhostlyForest(biome));
         }
     }
 

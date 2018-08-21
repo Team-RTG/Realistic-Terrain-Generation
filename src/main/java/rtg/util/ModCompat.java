@@ -148,6 +148,7 @@ public final class ModCompat {
         plants2("plants"),
         realworld,
         rockhounding_surface("rockhounding"),
+        spookybiomes,
         thaumcraft,
         traverse,
         vampirism,

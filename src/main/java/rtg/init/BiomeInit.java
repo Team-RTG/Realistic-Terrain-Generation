@@ -133,6 +133,7 @@ import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFSugiForest;
+import rtg.world.biome.realistic.terscraft.RealisticBiomeTERSBiomeDemonite;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
 import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
@@ -300,6 +301,10 @@ public final class BiomeInit {
 
         if (Mods.sugiforest.isLoaded()) {
             init_sugiforest();
+        }
+
+        if (Mods.terscraft.isLoaded()) {
+            init_terscraft();
         }
 
         if (Mods.thaumcraft.isLoaded()) {
@@ -945,6 +950,17 @@ public final class BiomeInit {
 
         if ((biome = Biome.REGISTRY.getObject(sugi_forest)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSFSugiForest(biome));
+        }
+    }
+
+    private static void init_terscraft() {
+
+        String modid = Mods.terscraft.name();
+        Biome biome;
+        ResourceLocation biomedemonite = new ResourceLocation(modid, "biomedemonite");
+
+        if ((biome = Biome.REGISTRY.getObject(biomedemonite)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTERSBiomeDemonite(biome));
         }
     }
 

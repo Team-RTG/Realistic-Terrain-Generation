@@ -151,6 +151,7 @@ public final class ModCompat {
         rockhounding_surface("rockhounding"),
         spookybiomes,
         sugiforest,
+        terscraft,
         thaumcraft,
         traverse,
         vampirism,

@@ -252,7 +252,7 @@ public final class BiomeInit {
 
     public static void init() {
 
-        init_vanilla();
+        init_minecraft();
 
         if (Mods.abyssalcraft.isLoaded()) {
             init_abyssalcraft();
@@ -360,7 +360,7 @@ public final class BiomeInit {
         );
     }
 
-    private static void init_vanilla() {
+    private static void init_minecraft() {
         // vanilla rivers and beaches are initialised to enum fields during #preInit
         RTGAPI.RTG_BIOMES.addBiomes(
             new RealisticBiomeVanillaBirchForest(),

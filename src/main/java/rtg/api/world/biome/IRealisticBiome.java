@@ -5,13 +5,14 @@ import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.SaplingUtil;
+import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoBaseBiomeDecorations;
@@ -215,7 +216,7 @@ public interface IRealisticBiome {
         if (allowed) {
 
             // Set the sapling data for this tree before we add it to the list.
-            tree.setSaplingBlock(SaplingUtil.getSaplingFromLeaves(tree.getLeavesBlock()));
+            tree.setSaplingBlock(BlockUtil.getSaplingFromLeaves(tree.getLeavesBlock(), Blocks.SAPLING.getDefaultState()));
 
             /*
              * Make sure all leaves delay their decay to prevent insta-despawning of leaves (e.g. Swamp Willow)

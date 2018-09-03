@@ -30,7 +30,6 @@ import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.Logger;
 import rtg.api.util.RandomUtil;
-import rtg.api.util.SaplingUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
@@ -312,11 +311,9 @@ public class EventManagerRTG {
             }
 
             ArrayList<TreeRTG> biomeTrees = rb.getTrees();
-            int saplingMeta = SaplingUtil.getMetaFromState(saplingBlock);
 
             Logger.rtgDebug("Biome = %s", rb.baseBiomeResLoc());
-            Logger.rtgDebug("Ground Sapling Block = %s", saplingBlock.getBlock().getLocalizedName());
-            Logger.rtgDebug("Ground Sapling Meta = %d", saplingMeta);
+            Logger.rtgDebug("Ground Sapling Block = %s", saplingBlock);
 
             if (biomeTrees.size() > 0) {
 
@@ -327,10 +324,9 @@ public class EventManagerRTG {
 
                     Logger.rtgDebug("Biome Tree #%d = %s", i, biomeTrees.get(i).getClass().getName());
                     Logger.rtgDebug("Biome Tree #%d Sapling Block = %s", i, biomeTrees.get(i).getSaplingBlock().getBlock().getLocalizedName());
-                    Logger.rtgDebug("Biome Tree #%d Sapling Meta = %d", i, SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock()));
 
                     if (saplingBlock.getBlock() == biomeTrees.get(i).getSaplingBlock().getBlock()) {
-                        if (SaplingUtil.getMetaFromState(saplingBlock) == SaplingUtil.getMetaFromState(biomeTrees.get(i).getSaplingBlock())) {
+                        if (saplingBlock == biomeTrees.get(i).getSaplingBlock()) {
 
                             validTrees.add(biomeTrees.get(i));
                             Logger.rtgDebug("Valid tree found!");

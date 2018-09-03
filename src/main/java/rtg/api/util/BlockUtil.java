@@ -15,6 +15,7 @@ import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockNewLeaf;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockOldLeaf;
@@ -497,6 +498,62 @@ public final class BlockUtil {
                 return Blocks.DOUBLE_PLANT.getDefaultState().withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.PAEONIA);
         }
         return Blocks.DOUBLE_PLANT.getDefaultState();
+    }
+
+    /**
+     * Functionally equivelent to {@link #getSaplingFromLeaves(IBlockState)} but provides
+     * a fallback if the passed leaf blockstate is not a vanilla leaf block.
+     *
+     * @param leaves a block state
+     * @param fallback a fallback blockstate
+     * @return a matching sapling blockstate if the passed leaf block has the correct IProperty and value, or the fallback blockstate.
+     * @since 1.0.0
+     */
+    public static IBlockState getSaplingFromLeaves(IBlockState leaves, IBlockState fallback) {
+        IBlockState ret;
+        return (ret = getSaplingFromLeaves(leaves)) != null ? ret : fallback;
+    }
+
+    /**
+     *  Gets an IBlockState of a sapling that matches the passed leaf blockstate
+     *
+     * @param leaves a block state
+     * @return a matching sapling blockstate if the passed leaf block has the correct IProperty and value, or null otherwise.
+     * @since 1.0.0
+     */
+    @Nullable
+    public static IBlockState getSaplingFromLeaves(IBlockState leaves) {
+        if (!(leaves.getBlock() instanceof BlockLeaves)) { return null; }
+        BlockPlanks.EnumType type = (BlockPlanks.EnumType) leaves.getProperties().get(BlockOldLeaf.VARIANT);
+        if (type == null) { type = (BlockPlanks.EnumType) leaves.getProperties().get(BlockNewLeaf.VARIANT); }
+        if (type != null) {
+            switch (type) {
+                case OAK     : return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK);
+                case SPRUCE  : return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.SPRUCE);
+                case BIRCH   : return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.BIRCH);
+                case JUNGLE  : return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.JUNGLE);
+                case ACACIA  : return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.ACACIA);
+                case DARK_OAK: return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.DARK_OAK);
+            }
+        }
+        return null;
+    }
+
+    /**
+     *  Attempts to get a type value for a state of a vanilla sapling.
+     *
+     * @param sapling any IBlockState
+     * @return the {@link BlockPlanks.EnumType} for sapling state TYPE value if the input
+     * state is an instance of BlockSapling and the sapling is vanilla, or null otherwise.
+     * @since 1.0.0
+     */
+    @Nullable
+    public static BlockPlanks.EnumType getTypeFromSapling(IBlockState sapling) {
+        if (!(sapling.getBlock() instanceof BlockSapling)) { return null; }
+        BlockPlanks.EnumType ret = null;
+        try { ret = sapling.getValue(BlockSapling.TYPE); }
+        catch (IllegalArgumentException ignore) {}
+        return ret;
     }
 
     /**

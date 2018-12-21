@@ -366,8 +366,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     private File getConfigFile() {
         return RTGAPI.getConfigPath()
             .resolve(BIOME_CONFIG_SUBDIR)
-            .resolve(baseBiomeResLoc().getResourceDomain())
-            .resolve(baseBiomeResLoc().getResourcePath() + ".cfg")
+            .resolve(baseBiomeResLoc().getNamespace())
+            .resolve(baseBiomeResLoc().getPath() + ".cfg")
             .toFile();
     }
 

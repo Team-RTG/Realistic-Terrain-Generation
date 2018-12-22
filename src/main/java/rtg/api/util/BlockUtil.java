@@ -36,6 +36,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
+
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -556,6 +557,35 @@ public final class BlockUtil {
         return ret;
     }
 
+
+    /* Air checks */
+
+    public static boolean isBlockAir(final IBlockState blockState) {
+        return blockState.getBlock() == Blocks.AIR;
+    }
+
+    public static boolean isBlockAir(final Block block) {
+        return block == Blocks.AIR;
+    }
+
+    public static boolean isMaterialAir(final IBlockState blockState) {
+        return blockState.getMaterial() == Material.AIR;
+    }
+
+    public static boolean isMaterialAir(final Block block) {
+        return block.getDefaultState().getMaterial() == Material.AIR;
+    }
+
+    public static boolean isMaterialAir(final Material material) {
+        return material == Material.AIR;
+    }
+
+
+    /* World context checkers */
+    /* ====================== */
+
+    /* Single position checks */
+
     /**
      * Check {@link Block} equality at a specific world position.
      *
@@ -568,12 +598,6 @@ public final class BlockUtil {
     public static boolean isBlock(final World world, final BlockPos origin, final Block block) {
         return world.getBlockState(origin).getBlock() == block;
     }
-
-
-    /* World context checkers */
-    /* ====================== */
-
-    /* Single position checks */
 
     /**
      * A varargs version of {@link #isBlockOneOf(World, BlockPos, Collection)}
@@ -594,7 +618,8 @@ public final class BlockUtil {
      * @since 1.0.0
      */
     public static boolean isBlockOneOf(final World world, final BlockPos origin, final Collection<Block> validBlocks) {
-        return validBlocks.contains(world.getBlockState(origin).getBlock());
+        final Block checkBlock = world.getBlockState(origin).getBlock();
+        return (validBlocks.isEmpty()) ? isBlockAir(checkBlock) : validBlocks.contains(checkBlock);
     }
 
     /**
@@ -629,7 +654,8 @@ public final class BlockUtil {
      * @since 1.0.0
      */
     public static boolean isMaterialOneOf(final World world, final BlockPos origin, final Collection<Material> validMaterials) {
-        return validMaterials.contains(world.getBlockState(origin).getMaterial());
+        final Material checkMaterial = world.getBlockState(origin).getMaterial();
+        return (validMaterials.isEmpty()) ? isMaterialAir(checkMaterial) : validMaterials.contains(checkMaterial);
     }
 
     /**
@@ -643,6 +669,9 @@ public final class BlockUtil {
     public static boolean isReplaceable(final World world, final BlockPos origin) {
         return world.getBlockState(origin).getMaterial().isReplaceable();
     }
+
+
+    /* Adjacent checks */
 
     /**
      * A varargs delegate to {@link #checkAdjacentBlocks(MatchType, World, BlockPos, Collection)}
@@ -681,8 +710,9 @@ public final class BlockUtil {
             case ALL_IGNORE_REPLACEABLE:
             case ALL:
                 for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-                    IBlockState bs = world.getBlockState(origin.offset(direction));
-                    if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) || !validBlocks.contains(bs.getBlock())) {
+                    final IBlockState bs = world.getBlockState(origin.offset(direction));
+                    if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) ||
+                        (validBlocks.isEmpty()) ? !isBlockAir(bs) : !validBlocks.contains(bs.getBlock())) {
                         return false;
                     }
                 }
@@ -690,7 +720,8 @@ public final class BlockUtil {
 
             case ANY:
                 for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-                    if (validBlocks.contains(world.getBlockState(origin.offset(direction)).getBlock())) {
+                    final Block block = world.getBlockState(origin.offset(direction)).getBlock();
+                    if ((validBlocks.isEmpty()) ? isBlockAir(block) : !validBlocks.contains(block)) {
                         return true;
                     }
                 }
@@ -698,7 +729,8 @@ public final class BlockUtil {
 
             case NONE:
                 for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-                    if (validBlocks.contains(world.getBlockState(origin.offset(direction)).getBlock())) {
+                    final Block block = world.getBlockState(origin.offset(direction)).getBlock();
+                    if ((validBlocks.isEmpty()) ? isBlockAir(block) : !validBlocks.contains(block)) {
                         return false;
                     }
                 }
@@ -706,9 +738,6 @@ public final class BlockUtil {
         }
         return false;// unreachable
     }
-
-
-    /* Adjacent checks */
 
     /**
      * A varargs delegate to {@link #checkAdjacentMaterials(MatchType, World, BlockPos, Collection)}
@@ -747,8 +776,9 @@ public final class BlockUtil {
             case ALL_IGNORE_REPLACEABLE:
             case ALL:
                 for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-                    Material material = world.getBlockState(origin.offset(direction)).getMaterial();
-                    if ((ignoreReplaceable && !material.isReplaceable()) || !validMaterials.contains(material)) {
+                    final Material material = world.getBlockState(origin.offset(direction)).getMaterial();
+                    if ((ignoreReplaceable && !material.isReplaceable()) ||
+                        (validMaterials.isEmpty()) ? !isMaterialAir(material) : !validMaterials.contains(material)) {
                         return false;
                     }
                 }
@@ -756,7 +786,8 @@ public final class BlockUtil {
 
             case ANY:
                 for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-                    if (validMaterials.contains(world.getBlockState(origin.offset(direction)).getMaterial())) {
+                    final Material material = world.getBlockState(origin.offset(direction)).getMaterial();
+                    if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                         return true;
                     }
                 }
@@ -764,7 +795,8 @@ public final class BlockUtil {
 
             case NONE:
                 for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-                    if (validMaterials.contains(world.getBlockState(origin.offset(direction)).getMaterial())) {
+                    final Material material = world.getBlockState(origin.offset(direction)).getMaterial();
+                    if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                         return false;
                     }
                 }
@@ -772,6 +804,9 @@ public final class BlockUtil {
         }
         return false;// unreachable
     }
+
+
+    /* Above/Below checks */
 
     /**
      * A varargs delegate to {@link #checkVerticalBlocks(MatchType, World, BlockPos, int, Collection)}
@@ -820,8 +855,9 @@ public final class BlockUtil {
             case ALL_IGNORE_REPLACEABLE:
             case ALL:
                 for (int i = dis; i > 0; i--) {
-                    IBlockState bs = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz));
-                    if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) || !validBlocks.contains(bs.getBlock())) {
+                    final IBlockState bs = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz));
+                    if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) ||
+                        (validBlocks.isEmpty()) ? !isBlockAir(bs) : !validBlocks.contains(bs.getBlock())) {
                         return false;
                     }//negated for faster short-circuit
                 }
@@ -829,7 +865,8 @@ public final class BlockUtil {
 
             case ANY:
                 for (int i = dis; i > 0; i--) {
-                    if (validBlocks.contains(world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getBlock())) {
+                    final Block block = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getBlock();
+                    if ((validBlocks.isEmpty()) ? isBlockAir(block) : validBlocks.contains(block)) {
                         return true;
                     }
                 }
@@ -837,7 +874,8 @@ public final class BlockUtil {
 
             case NONE:
                 for (int i = dis; i > 0; i--) {
-                    if (validBlocks.contains(world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getBlock())) {
+                    final Block block = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getBlock();
+                    if ((validBlocks.isEmpty()) ? isBlockAir(block) : validBlocks.contains(block)) {
                         return false;
                     }
                 }
@@ -845,9 +883,6 @@ public final class BlockUtil {
         }
         return false;//unreachable
     }
-
-
-    /* Above/Below checks */
 
     /**
      * A varargs delegate to {@link #checkVerticalMaterials(MatchType, World, BlockPos, int, Collection)}
@@ -896,16 +931,18 @@ public final class BlockUtil {
             case ALL_IGNORE_REPLACEABLE:
             case ALL:
                 for (int i = dis; i > 0; i--) {
-                    Material material = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getMaterial();
-                    if ((ignoreReplaceable && !material.isReplaceable()) || !validMaterials.contains(material)) {
+                    final Material material = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getMaterial();
+                    if ((ignoreReplaceable && !material.isReplaceable()) ||
+                        (validMaterials.isEmpty()) ? !isMaterialAir(material) : !validMaterials.contains(material)) {
                         return false;
-                    }//negated for faster short-circuit}
+                    }//negated for faster short-circuit
                 }
                 return true;
 
             case ANY:
                 for (int i = dis; i > 0; i--) {
-                    if (validMaterials.contains(world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getMaterial())) {
+                    final Material material = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getMaterial();
+                    if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                         return true;
                     }
                 }
@@ -913,7 +950,8 @@ public final class BlockUtil {
 
             case NONE:
                 for (int i = dis; i > 0; i--) {
-                    if (validMaterials.contains(world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getMaterial())) {
+                    final Material material = world.getBlockState(mpos.setPos(ox, oy + (invert ? -i : i), oz)).getMaterial();
+                    if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                         return false;
                     }
                 }
@@ -921,6 +959,9 @@ public final class BlockUtil {
         }
         return false;//unreachable
     }
+
+
+    /* Area checks */
 
     /**
      * A varargs delegate to {@link #checkAreaBlocks(MatchType, World, BlockPos, int, Collection)}
@@ -960,36 +1001,40 @@ public final class BlockUtil {
         final boolean ignoreReplaceable = matchType == MatchType.ALL_IGNORE_REPLACEABLE;
         MutableBlockPos mpos = new MutableBlockPos();
         int x, z, i = 1;
+        IBlockState bs;
 
         switch (matchType) {
 
             case ALL_IGNORE_REPLACEABLE:
             case ALL:
-                IBlockState bs;
                 while (i <= checkRadius) {
                     x = ox + i;
                     z = oz + i;
                     for (; x > ox - i; ) {
                         bs = world.getBlockState(mpos.setPos(--x, oy, z));
-                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) || !validBlocks.contains(bs.getBlock())) {
+                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) ||
+                            (validBlocks.isEmpty()) ? !isBlockAir(bs) : !validBlocks.contains(bs.getBlock())) {
                             return false;
                         }
                     }
                     for (; z > oz - i; ) {
                         bs = world.getBlockState(mpos.setPos(x, oy, --z));
-                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) || !validBlocks.contains(bs.getBlock())) {
+                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) ||
+                            (validBlocks.isEmpty()) ? !isBlockAir(bs) : !validBlocks.contains(bs.getBlock())) {
                             return false;
                         }
                     }
                     for (; x < ox + i; ) {
                         bs = world.getBlockState(mpos.setPos(++x, oy, z));
-                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) || !validBlocks.contains(bs.getBlock())) {
+                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) ||
+                            (validBlocks.isEmpty()) ? !isBlockAir(bs) : !validBlocks.contains(bs.getBlock())) {
                             return false;
                         }
                     }
                     for (; z < oz + i; ) {
                         bs = world.getBlockState(mpos.setPos(x, oy, ++z));
-                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) || !validBlocks.contains(bs.getBlock())) {
+                        if ((ignoreReplaceable && !bs.getMaterial().isReplaceable()) ||
+                            (validBlocks.isEmpty()) ? !isBlockAir(bs) : !validBlocks.contains(bs.getBlock())) {
                             return false;
                         }
                     }
@@ -1002,22 +1047,26 @@ public final class BlockUtil {
                     x = ox + i;
                     z = oz + i;
                     for (; x > ox - i; ) {
-                        if (validBlocks.contains(world.getBlockState(mpos.setPos(--x, oy, z)).getBlock())) {
+                        bs = world.getBlockState(mpos.setPos(--x, oy, z));
+                        if ((validBlocks.isEmpty()) ? isBlockAir(bs) : validBlocks.contains(bs.getBlock())) {
                             return true;
                         }
                     }
                     for (; z > oz - i; ) {
-                        if (validBlocks.contains(world.getBlockState(mpos.setPos(x, oy, --z)).getBlock())) {
+                        bs = world.getBlockState(mpos.setPos(x, oy, --z));
+                        if ((validBlocks.isEmpty()) ? isBlockAir(bs) : validBlocks.contains(bs.getBlock())) {
                             return true;
                         }
                     }
                     for (; x < ox + i; ) {
-                        if (validBlocks.contains(world.getBlockState(mpos.setPos(++x, oy, z)).getBlock())) {
+                        bs = world.getBlockState(mpos.setPos(++x, oy, z));
+                        if ((validBlocks.isEmpty()) ? isBlockAir(bs) : validBlocks.contains(bs.getBlock())) {
                             return true;
                         }
                     }
                     for (; z < oz + i; ) {
-                        if (validBlocks.contains(world.getBlockState(mpos.setPos(x, oy, ++z)).getBlock())) {
+                        bs = world.getBlockState(mpos.setPos(x, oy, ++z));
+                        if ((validBlocks.isEmpty()) ? isBlockAir(bs) : validBlocks.contains(bs.getBlock())) {
                             return true;
                         }
                     }
@@ -1055,9 +1104,6 @@ public final class BlockUtil {
         }
         return false;// unreachable
     }
-
-
-    /* Area checks */
 
     /**
      * A varargs delegate to {@link #checkAreaMaterials(MatchType, World, BlockPos, int, Collection)}
@@ -1097,36 +1143,40 @@ public final class BlockUtil {
         final boolean ignoreReplaceable = matchType == MatchType.ALL_IGNORE_REPLACEABLE;
         MutableBlockPos mpos = new MutableBlockPos();
         int x, z, i = 1;
+        Material material;
 
         switch (matchType) {
 
             case ALL_IGNORE_REPLACEABLE:
             case ALL:
-                Material material;
                 while (i <= checkRadius) {
                     x = ox + i;
                     z = oz + i;
                     for (; x > ox - i; ) {
                         material = world.getBlockState(mpos.setPos(--x, oy, z)).getMaterial();
-                        if ((ignoreReplaceable && !material.isReplaceable()) || !validMaterials.contains(material)) {
+                        if ((ignoreReplaceable && !material.isReplaceable()) ||
+                            (validMaterials.isEmpty()) ? !isMaterialAir(material) : !validMaterials.contains(material)) {
                             return false;
                         }
                     }
                     for (; z > oz - i; ) {
                         material = world.getBlockState(mpos.setPos(x, oy, --z)).getMaterial();
-                        if ((ignoreReplaceable && !material.isReplaceable()) || !validMaterials.contains(material)) {
+                        if ((ignoreReplaceable && !material.isReplaceable()) ||
+                            (validMaterials.isEmpty()) ? !isMaterialAir(material) : !validMaterials.contains(material)) {
                             return false;
                         }
                     }
                     for (; x < ox + i; ) {
                         material = world.getBlockState(mpos.setPos(++x, oy, z)).getMaterial();
-                        if ((ignoreReplaceable && !material.isReplaceable()) || !validMaterials.contains(material)) {
+                        if ((ignoreReplaceable && !material.isReplaceable()) ||
+                            (validMaterials.isEmpty()) ? !isMaterialAir(material) : !validMaterials.contains(material)) {
                             return false;
                         }
                     }
                     for (; z < oz + i; ) {
                         material = world.getBlockState(mpos.setPos(x, oy, ++z)).getMaterial();
-                        if ((ignoreReplaceable && !material.isReplaceable()) || !validMaterials.contains(material)) {
+                        if ((ignoreReplaceable && !material.isReplaceable()) ||
+                            (validMaterials.isEmpty()) ? !isMaterialAir(material) : !validMaterials.contains(material)) {
                             return false;
                         }
                     }
@@ -1139,22 +1189,26 @@ public final class BlockUtil {
                     x = ox + i;
                     z = oz + i;
                     for (; x > ox - i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(--x, oy, z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(--x, oy, z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return true;
                         }
                     }
                     for (; z > oz - i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(x, oy, --z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(x, oy, --z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return true;
                         }
                     }
                     for (; x < ox + i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(++x, oy, z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(++x, oy, z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return true;
                         }
                     }
                     for (; z < oz + i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(x, oy, ++z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(x, oy, ++z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return true;
                         }
                     }
@@ -1167,22 +1221,26 @@ public final class BlockUtil {
                     x = ox + i;
                     z = oz + i;
                     for (; x > ox - i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(--x, oy, z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(--x, oy, z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return false;
                         }
                     }
                     for (; z > oz - i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(x, oy, --z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(x, oy, --z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return false;
                         }
                     }
                     for (; x < ox + i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(++x, oy, z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(++x, oy, z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return false;
                         }
                     }
                     for (; z < oz + i; ) {
-                        if (validMaterials.contains(world.getBlockState(mpos.setPos(x, oy, ++z)).getMaterial())) {
+                        material = world.getBlockState(mpos.setPos(x, oy, ++z)).getMaterial();
+                        if ((validMaterials.isEmpty()) ? isMaterialAir(material) : validMaterials.contains(material)) {
                             return false;
                         }
                     }
@@ -1192,6 +1250,9 @@ public final class BlockUtil {
         }
         return false;// unreachable
     }
+
+
+    /* Volumn checks */
 
     /**
      * A varargs delegate to {@link #checkVolumeBlocks(MatchType, World, BlockPos, int, int, Collection)}
@@ -1244,9 +1305,6 @@ public final class BlockUtil {
         }
         return true;
     }
-
-
-    /* Volumn checks */
 
     /**
      * A varargs delegate to {@link #checkVolumeMaterials(MatchType, World, BlockPos, int, int, Collection)}

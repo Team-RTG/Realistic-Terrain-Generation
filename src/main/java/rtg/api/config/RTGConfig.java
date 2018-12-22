@@ -504,9 +504,9 @@ public class RTGConfig extends Config {
 
         USE_RTG_WORLD_TYPE_DEFAULT = new ConfigPropertyBoolean(
             "Automatically select RTG world type when creating a new world",
-            "GUI",
+            "Client",
             "",
-            true
+            false
         );
         this.addProperty(USE_RTG_WORLD_TYPE_DEFAULT);
     }

@@ -103,11 +103,8 @@ gui.createWorld.customize.title.PAGE3=Structure Settings
 gui.createWorld.customize.category.VILLAGES=Village Settings
 gui.createWorld.customize.setting.useVillages=Villages
 gui.createWorld.customize.setting.useVillages.tooltip=Enable village generation
-# TODO: [Generator settings] villageMinDistance to be removed, villageMaxDistance to be renamed to villageDistance
-gui.createWorld.customize.setting.villageMinDistance=Minimum Distance
-gui.createWorld.customize.setting.villageMinDistance.tooltip=The minimum distance between villages
-gui.createWorld.customize.setting.villageMaxDistance=Maximum Distance
-gui.createWorld.customize.setting.villageMaxDistance.tooltip=The maximum distance between villages
+gui.createWorld.customize.setting.villageDistance=Village Distance
+gui.createWorld.customize.setting.villageDistance.tooltip=The minimum distance between villages
 gui.createWorld.customize.setting.villageSize=Village Size
 gui.createWorld.customize.setting.villageSize.tooltip=Adjusts the average size of villages
 
@@ -126,11 +123,8 @@ gui.createWorld.customize.setting.dungeonChance.tooltip=The chance that a dungeo
 gui.createWorld.customize.category.TEMPLES=Scattered Feature Settings
 gui.createWorld.customize.setting.useTemples=Scattered Features
 gui.createWorld.customize.setting.useTemples.tooltip=Enable scattered features (desert/jungle temples, witch huts, igloos, etc..)
-# TODO: [Generator settings] templeMinDistance to be removed, templeMaxDistance to be renamed to templeDistance
-gui.createWorld.customize.setting.templeMinDistance=Minimum Distance
-gui.createWorld.customize.setting.templeMinDistance.tooltip=The minimum distance between scattered features
-gui.createWorld.customize.setting.templeMaxDistance=Maximum Distance
-gui.createWorld.customize.setting.templeMaxDistance.tooltip=The maximum distance between scattered features
+gui.createWorld.customize.setting.templeDistance=Temple Distance
+gui.createWorld.customize.setting.templeDistance.tooltip=The distance between scattered features
 
 gui.createWorld.customize.category.MONUMENTS=Ocean Monument Settings
 gui.createWorld.customize.setting.useMonuments=Ocean Monuments
@@ -143,8 +137,11 @@ gui.createWorld.customize.setting.monumentSpacing.tooltip=Ocean Monument Spacing
 gui.createWorld.customize.category.MANSIONS=Woodland Mansion Settings
 gui.createWorld.customize.setting.useMansions=Woodland Mansions
 gui.createWorld.customize.setting.useMansions.tooltip=Enable Woodland Mansion generation
-gui.createWorld.customize.setting.mansionDistance=Distance between
-gui.createWorld.customize.setting.mansionDistance.tooltip=The maximum distance between Woodland Mansions
+# TODO [1.12]: mansionSeparation and mansionSpacing are likely to be removed
+gui.createWorld.customize.setting.mansionSeparation=Mansion Separation
+gui.createWorld.customize.setting.mansionSeparation.tooltip=The minimum distance between Woodland Mansions
+gui.createWorld.customize.setting.mansionSpacing=Mansion Spacing
+gui.createWorld.customize.setting.mansionSpacing.tooltip=The maximum distance between Woodland Mansions
 
 gui.createWorld.customize.category.STRONGHOLDS=Stronghold Settings
 gui.createWorld.customize.setting.useStrongholds=Strongholds

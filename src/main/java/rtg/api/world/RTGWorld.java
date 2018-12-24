@@ -5,7 +5,14 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.world.World;
+import net.minecraft.world.gen.ChunkProviderServer;
 
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import rtg.api.RTGAPI;
+import rtg.api.util.Logger;
 import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
 import rtg.api.util.noise.SimplexNoise;
@@ -20,6 +27,7 @@ import rtg.api.world.gen.RTGChunkGenSettings;
  * @author srs_bsns
  * @since 1.0.0
  */
+@Mod.EventBusSubscriber(modid = RTGAPI.RTG_MOD_ID)
 public final class RTGWorld {
 
     public static final float ACTUAL_RIVER_PROPORTION = 150f / 1600f;//This value is also used in BiomeAnalyser#riverAdjusted
@@ -75,17 +83,6 @@ public final class RTGWorld {
             INSTANCE_CACHE.put(world, new RTGWorld(world));
         }
         return INSTANCE_CACHE.get(world);
-    }
-
-    /**
-     * Removes an instance of RTGWorld from the cache. This should be done when worlds are unloaded
-     *
-     * @param world the world to remove an instance of RTGWorld for
-     * @return true if an instance was removed, false otherwise
-     * @since 1.0.0
-     */
-    public static boolean removeInstance(World world) {
-        return (INSTANCE_CACHE.remove(world) != null);
     }
 
     /**
@@ -245,4 +242,39 @@ public final class RTGWorld {
         return LAKE_BEND_SIZE_SMALL * generatorSettings.RTGlakeShoreBend;
     }
 
+    @SubscribeEvent
+    public static void onWorldLoad(WorldEvent.Load event) {
+
+        World world = event.getWorld();
+        if (!world.isRemote) {
+            Logger.debug("WorldEvent.Load: WorldType: {}, DimID: {}, DimType: {}, BiomeProvider: {}, IChunkGenerator: {}",
+                world.getWorldType().getClass().getSimpleName(),
+                world.provider.getDimension(),
+                world.provider.getDimensionType(),
+                world.provider.getBiomeProvider().getClass().getName(),
+                ((ChunkProviderServer)world.getChunkProvider()).chunkGenerator.getClass().getName()
+            );
+            if (world.provider.getDimension() == 0) {
+                Logger.info("World Seed: " + world.getSeed());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onWorldUnload(WorldEvent.Unload event) {
+
+        final World world = event.getWorld();
+        if (!world.isRemote) {
+            Logger.debug("WorldEvent.Unload: WorldType: {}, DimID: {}, DimType: {}, BiomeProvider: {}, IChunkGenerator: {}",
+                world.getWorldType().getClass().getSimpleName(),
+                world.provider.getDimension(),
+                world.provider.getDimensionType(),
+                world.provider.getBiomeProvider().getClass().getName(),
+                ((ChunkProviderServer)world.getChunkProvider()).chunkGenerator.getClass().getName()
+            );
+        }
+
+        // Cached instances of RTGWorld need to be removed because they contain a strong reference to the World object, which should be GC'd.
+        INSTANCE_CACHE.remove(world);
+    }
 }

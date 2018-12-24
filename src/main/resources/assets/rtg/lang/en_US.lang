@@ -3,10 +3,10 @@
 #-----------------------------
 gui.createWorld.worldtypename=RTG - Realistic
 gui.createWorld.worldtype.line1=Realistic Terrain Generation uses a custom world type.
-gui.createWorld.worldtype.line2=If you want to use the RTG world type, keep clicking the 'World Type' button
-gui.createWorld.worldtype.line3=under 'More World Options' until it displays 'RTG - Realistic'.
-gui.createWorld.worldtype.line4=The world type can be used on servers by changing the 'level-type' in
-gui.createWorld.worldtype.line5=server.properties to 'RTG' (without quotes).
+gui.createWorld.worldtype.line2=If you want to use the RTG world type, select
+gui.createWorld.worldtype.line3=§9World Type: %s§r under §9More World Options§r.
+gui.createWorld.worldtype.line4=For use on a dedicated server, set
+gui.createWorld.worldtype.line5=§9level-type=RTG§r in §9server.properties§r
 
 gui.createWorld.customize.clipboard=Copy Settings to Clipboard
 gui.createWorld.customize.clipboard.tooltip=Click This button to copy the current settings to the clipboard for easy pasting into the generator-settings field of a server.properties file.

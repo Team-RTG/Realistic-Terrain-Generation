@@ -1,16 +1,23 @@
 package rtg;
 
+import java.nio.file.Paths;
+
+import net.minecraft.world.DimensionType;
+
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
 import rtg.api.RTGAPI;
+import rtg.api.config.RTGConfig;
+import rtg.api.util.PlateauUtil;
 import rtg.client.gui.RTGConfigGUIFactory;
-import rtg.event.EventManagerRTG;
-import rtg.proxy.ClientProxy;
-import rtg.proxy.CommonProxy;
+import rtg.event.EventHandlerCommon;
+import rtg.init.BiomeInit;
+import rtg.util.ModCompat;
+import rtg.world.WorldTypeRTG;
 
 
 @Mod(
@@ -29,40 +36,40 @@ public final class RTG {
     public static final String MCF_MINVER = "0.0-MCF+MINVER";
     public static final String MOD_DEPS = "after:MODDEPS";
     private static final RTG instance = new RTG();
-    private static final EventManagerRTG eventMgr = new EventManagerRTG();
-    @SidedProxy(serverSide = CommonProxy.LOCATION, clientSide = ClientProxy.LOCATION)
-    public static CommonProxy proxy;
 
-    private RTG() {
-
-    }
+    private RTG() {}
 
     @Mod.InstanceFactory
     public static RTG getInstance() {
         return instance;
     }
 
-    public static EventManagerRTG getEventMgr() {
-        return eventMgr;
-    }
-
     @Mod.EventHandler
     public void initPre(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
+        RTGAPI.setConfigPath(Paths.get(event.getModConfigurationDirectory().getPath(), RTG.MOD_ID.toUpperCase()));
+        RTGAPI.setConfig(new RTGConfig(RTGAPI.getConfigPath().resolve(event.getSuggestedConfigurationFile().getName()).toFile()));
+        RTGAPI.config().loadConfig();
+        RTGAPI.addAllowedDimensionType(DimensionType.OVERWORLD);
+
+        WorldTypeRTG.init();
+        ModCompat.init();
+        BiomeInit.preInit();// initialise river and beach biomes
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        proxy.init(event);
+        EventHandlerCommon.init();// TERRAIN_GEN_BUS, ORE_GEN_BUS
     }
 
     @Mod.EventHandler
     public void initPost(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
+        BiomeInit.init();// initialise all biomes supported internally
+        ModCompat.doBiomeCheck();
+        PlateauUtil.init();
     }
 
     @Mod.EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {
-        proxy.loadComplete();
+        RTGAPI.RTG_BIOMES.setLocked();// We don't want the biome map to change after this point, so we lock it.
     }
 }

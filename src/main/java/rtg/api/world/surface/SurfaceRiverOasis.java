@@ -38,9 +38,8 @@ public class SurfaceRiverOasis extends SurfaceBase {
             }
         }
 
-        float amplitude = 0.25f;
-        float noiseValue = rtgWorld.simplexInstance(0).noise2f(i / 21f, j / 21f) * amplitude / 1f
-            + rtgWorld.simplexInstance(1).noise2f(i / 12f, j / 12f) * amplitude / 2f;
+        float amplitude = 0.05f;
+        float noiseValue = rtgWorld.simplexInstance(0).noise2f(i / 8f, j / 8f) * amplitude / 1f + rtgWorld.simplexInstance(1).noise2f(i / 3f, j / 3f) * amplitude / 2f;
 
         // Large scale noise cut-off
         float noiseNeg = rtgWorld.simplexInstance(2).noise2f(i / cutOffScale, j / cutOffScale) * cutOffAmplitude;
@@ -48,10 +47,10 @@ public class SurfaceRiverOasis extends SurfaceBase {
 
         // Height cut-off
         if (highestY > 62) {
-            noiseValue -= (highestY - 62) * (1 / 20f);
+            noiseValue -= (highestY - 62) * (1 / 12f);
         }
 
-        if (river > 0.50 && river * 1.1 + noiseValue > 0.79) {
+        if (river > 0.70 && river + noiseValue > 0.85) {
             for (int k = 255; k > -1; k--) {
                 blockState = primer.getBlockState(x, k, z);
                 if (blockState.getBlock() == Blocks.AIR) {

@@ -10,9 +10,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
-import rtg.client.gui.WorldTypeMessageGUI;
+import rtg.client.WorldTypeMessageGUI;
 import rtg.world.WorldTypeRTG;
 
 
@@ -38,7 +39,7 @@ public final class EventHandlerClient
             // if creating a new world, not when recreating from an existing one
             if (seed.isEmpty()) {
 
-                if (RTGAPI.config().USE_RTG_WORLD_TYPE_DEFAULT.get()) {
+                if (RTGConfig.rtgWorldTypeByDefault()) {
                     try {
                         ReflectionHelper.setPrivateValue(GuiCreateWorld.class, (GuiCreateWorld)gui, WorldTypeRTG.getInstance().getId(), "field_146331_K", "selectedIndex");
                     }
@@ -48,9 +49,8 @@ public final class EventHandlerClient
                 }
 
                 // 'else if' because if we are selecting the RTG world type by default, there's no reason to display the world type notification
-                else if (RTGAPI.config().RTG_WORLDTYPE_NOTIFICATION.getBoolean()) {
-                    RTGAPI.config().RTG_WORLDTYPE_NOTIFICATION.set(false);
-                    RTGAPI.config().getConfig().save();
+                else if (RTGConfig.worldTypeNotification()) {
+                    RTGConfig.toggleWorldTypeNotification();
                     event.setGui(new WorldTypeMessageGUI(gui));
                 }
             }

@@ -5,29 +5,21 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 
 
 public class SurfaceRiverOasis extends SurfaceBase {
 
-    // Cut-off noise size. The bigger, the larger the cut-off scale is
-    private float cutOffScale;
-    // Cut-off noise amplitude. The bigger, the more effect cut-off is going to have in the grass
-    private float cutOffAmplitude;
-
     public SurfaceRiverOasis(BiomeConfig config) {
-
         super(config, Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState());
-
-        this.cutOffScale = RTGAPI.config().RIVER_CUT_OFF_SCALE.get();
-        this.cutOffAmplitude = RTGAPI.config().RIVER_CUT_OFF_AMPLITUDE.get();
     }
 
     @Override
     public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
+        final float cutOffScale     = rtgWorld.getGeneratorSettings().riverCutOffScale;
+        final float cutOffAmplitude = rtgWorld.getGeneratorSettings().riverCutOffAmpl;
         IBlockState blockState;
         int highestY;
 

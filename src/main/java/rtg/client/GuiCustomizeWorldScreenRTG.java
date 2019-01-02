@@ -1,4 +1,4 @@
-package rtg.client.gui;
+package rtg.client;
 
 import javax.annotation.Nullable;
 import java.awt.Toolkit;
@@ -534,7 +534,7 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
         useRavines(SettingType.BOOLEAN, defaults.useRavines, null, null, Category.UNDERGROUND),
         ravineChance(SettingType.INTEGER, defaults.ravineChance, 4, 200, Category.UNDERGROUND),
 
-        riverSize(SettingType.FLOAT, defaults.riverSizeMult, 0.5f, 2.0f, Category.RIVERS),
+        riverSizeMult(SettingType.FLOAT, defaults.riverSizeMult, 0.5f, 2.0f, Category.RIVERS),
         riverFrequency(SettingType.FLOAT, defaults.riverFrequency, 0.0f, 8.0f, Category.RIVERS),
         riverBendMult(SettingType.FLOAT, defaults.riverBendMult, 0.5f, 2.0f, Category.RIVERS),
         riverCutOffAmpl(SettingType.FLOAT, defaults.riverCutOffAmpl, 0.0f, 2.0f, Category.RIVERS),

@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package rtg.client.gui;
+package rtg.client;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

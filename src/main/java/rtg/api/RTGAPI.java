@@ -6,15 +6,18 @@ import java.util.Objects;
 import java.util.Set;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
-import rtg.api.config.RTGConfig;
+
+import rtg.api.util.BlockUtil;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
-import rtg.api.util.WorldUtil;
 import rtg.api.util.storage.BiomeMap;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.WorldTypeRTG;
@@ -23,24 +26,21 @@ import rtg.world.WorldTypeRTG;
 @UtilityClass
 public final class RTGAPI {
 
-    public static final String RTG_API_ID = "rtgapi";
-    public static final String VERSION = "@API_VERSION@";
-    public static final String RTG_MOD_ID = "rtg";
-    public static final String RTG_WORLDTYPE_ID = "RTG";
-    public static final BiomeMap RTG_BIOMES = new BiomeMap();
+    public static final String   RTG_API_ID       = "rtgapi";
+    public static final String   VERSION          = "@API_VERSION@";
+    public static final String   RTG_MOD_ID       = "rtg";
+    public static final String   RTG_WORLDTYPE_ID = "RTG";
+    public static final BiomeMap RTG_BIOMES       = new BiomeMap();
+
     private static final Set<DimensionType> ALLOWED_DIMENSION_TYPES = new ObjectArraySet<>();
-    private static Path configPath;
-    private static RTGConfig rtgConfig;
+
+    private static Path            configPath;
     private static IRealisticBiome patchBiome;
+    private static IBlockState     shadowStoneBlock  = null;
+    private static IBlockState     shadowDesertBlock = null;
 
     private RTGAPI() {
 
-    }
-
-    public static void setConfig(RTGConfig config) {
-        if (rtgConfig == null) {
-            rtgConfig = config;
-        }
     }
 
     public static Path getConfigPath() {
@@ -51,10 +51,6 @@ public final class RTGAPI {
         if (configPath == null) {
             configPath = path;
         }
-    }
-
-    public static RTGConfig config() {
-        return rtgConfig;
     }
 
     public static boolean checkWorldType(WorldType worldType) {
@@ -96,15 +92,7 @@ public final class RTGAPI {
         return patchBiome;
     }
 
-    public static void initPatchBiome() {
-
-        final String cfgBiome = rtgConfig.PATCH_BIOME.get().trim();
-        Biome biome;
-        if ((biome = WorldUtil.Biomes.getBiomeFromCfgString(cfgBiome)) == null) {
-            Logger.error("Erroneous patch biome set in config: {} (non-existant). Using default.", cfgBiome);
-            biome = Biomes.PLAINS;
-        }
-
+    public static void initPatchBiome(Biome biome) {
         IRealisticBiome rtgBiome = RTG_BIOMES.get(biome);
         if (rtgBiome == null) {
             Logger.error("Erroneous patch biome set in config: {} (no RTG version), Using default.", biome.getRegistryName());
@@ -112,5 +100,18 @@ public final class RTGAPI {
         }
         Logger.debug("Setting patch biome to: {}", rtgBiome.baseBiomeResLoc());
         patchBiome = rtgBiome;
+    }
+
+    public static void setShadowBlocks(IBlockState stone, IBlockState desert) {
+        if (shadowStoneBlock  == null) { shadowStoneBlock  = stone  != null ? stone  : BlockUtil.getStateClay(EnumDyeColor.CYAN); }
+        if (shadowDesertBlock == null) { shadowDesertBlock = desert != null ? desert : BlockUtil.getStateClay(EnumDyeColor.GRAY); }
+    }
+
+    public static IBlockState getShadowStoneBlock() {
+        return shadowStoneBlock;
+    }
+
+    public static IBlockState getShadowDesertBlock() {
+        return shadowDesertBlock;
     }
 }

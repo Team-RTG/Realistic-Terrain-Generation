@@ -1,8 +1,6 @@
 package rtg.api.world.terrain;
 
 import net.minecraft.util.math.BlockPos;
-import rtg.api.RTGAPI;
-import rtg.api.config.RTGConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.ISimplexData2D;
@@ -23,7 +21,6 @@ public abstract class TerrainBase {
     protected final float rollingHillsMaxHeight;
     protected float base; // added as most terrains have this;
     protected float groundNoise;
-    protected RTGConfig rtgConfig = RTGAPI.config();
 
     public TerrainBase() {
 

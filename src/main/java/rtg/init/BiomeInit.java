@@ -2,6 +2,8 @@ package rtg.init;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
 import rtg.api.world.biome.RealisticBiomeBase;
@@ -347,7 +349,7 @@ public final class BiomeInit {
         }
 
         // This must be done after all biomes have been initialised so that they are all available.
-        RTGAPI.initPatchBiome();
+        RTGAPI.initPatchBiome(RTGConfig.patchBiome());
     }
 
     public static void preInit() {

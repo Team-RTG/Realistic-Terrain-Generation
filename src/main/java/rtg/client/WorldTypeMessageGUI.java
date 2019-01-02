@@ -1,4 +1,4 @@
-package rtg.client.gui;
+package rtg.client;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

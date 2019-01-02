@@ -10,7 +10,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.RTGAPI;
+
+import rtg.RTGConfig;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
@@ -185,7 +186,7 @@ public interface IRealisticBiome {
 
         // Don't add the desert river deco collection if the user has disabled it.
         if (decoCollection instanceof DecoCollectionDesertRiver) {
-            if (!RTGAPI.config().ENABLE_LUSH_RIVER_BANK_DECORATIONS_IN_HOT_BIOMES.get()) {
+            if (!RTGConfig.lushRiverbanksInDesert()) {
                 return;
             }
         }

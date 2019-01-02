@@ -1,6 +1,7 @@
 package rtg.api.util;
 
 
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 
 @UtilityClass
@@ -22,7 +23,7 @@ public final class Logger {
      */
     public static void rtgDebug(String format, Object... data) {
 
-        if (RTGAPI.config().ENABLE_DEBUGGING.get()) {
+        if (RTGConfig.enableDebugging()) {
             LOGGER.log(org.apache.logging.log4j.Level.DEBUG, format, data);
         }
     }

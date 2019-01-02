@@ -24,8 +24,9 @@ public final class BiomeAnalyzer {
     private boolean[] beachBiome = new boolean[MAX_BIOMES];
     private boolean[] landBiome  = new boolean[MAX_BIOMES];
     private int[] preferredBeach;
-    private IRealisticBiome scenicLakeBiome = RTGAPI.getRTGBiome(RTGAPI.config().SCENIC_LAKE_BIOME_ID.get());
-    private IRealisticBiome scenicFrozenLakeBiome = RTGAPI.getRTGBiome(RTGAPI.config().SCENIC_FROZEN_LAKE_BIOME_ID.get());
+    //hardcode these because they are world-persistent
+    private IRealisticBiome scenicLakeBiome       = RTGAPI.getRTGBiome(Biomes.RIVER);
+    private IRealisticBiome scenicFrozenLakeBiome = RTGAPI.getRTGBiome(Biomes.FROZEN_RIVER);
     private SmoothingSearchStatus beachSearch;
     private SmoothingSearchStatus landSearch;
     private SmoothingSearchStatus oceanSearch;

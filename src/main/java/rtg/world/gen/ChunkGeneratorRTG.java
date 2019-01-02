@@ -32,8 +32,10 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
+
+import rtg.RTG;
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
-import rtg.api.config.RTGConfig;
 import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.LimitedArrayCacheMap;
 import rtg.api.util.Logger;
@@ -53,7 +55,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
     public final RTGWorld rtgWorld;
     private final RTGChunkGenSettings settings;
-    private final RTGConfig rtgConfig = RTGAPI.config();
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
     private final MapGenStronghold strongholdGenerator;
@@ -136,8 +137,8 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
                 int x = blockPos.getX() + i;
                 int z = blockPos.getZ() + j;
                 this.rtgWorld.simplexInstance(0).multiEval2D(x, z, jitterData);
-                int pX = (int) Math.round(x + jitterData.getDeltaX() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
-                int pZ = (int) Math.round(z + jitterData.getDeltaY() * this.rtgConfig.SURFACE_BLEED_RADIUS.get());
+                int pX = (int) Math.round(x + jitterData.getDeltaX() * RTGConfig.surfaceBlendRadius());
+                int pZ = (int) Math.round(z + jitterData.getDeltaY() * RTGConfig.surfaceBlendRadius());
                 actualbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(this.biomeProvider, x, z));
                 jitterbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(this.biomeProvider, pX, pZ));
                 if (actualbiome != null && jitterbiome != null) {
@@ -297,7 +298,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         float river = -TerrainBase.getRiverStrength(blockPos.getX() + 16, blockPos.getZ() + 16, rtgWorld);
 
-        if (this.rtgConfig.DISABLE_RTG_BIOME_DECORATIONS.get() || biome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
+        if (RTG.decorationsDisable() || biome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
 
             if (river > 0.9f) {
                 biome.getRiverBiome().baseBiome().decorate(this.world, this.rand, blockPos);
@@ -343,9 +344,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
                     }
 
                     // Snow.
-// TODO: [Generator Settings] Update this to use the generator setting and not the config setting
-//                  if (settings.useSnowLayers && this.world.canSnowAt(snowPos, true)) {
-                    if (rtgConfig.ENABLE_SNOW_LAYERS.get() && this.world.canSnowAt(snowPos, true)) {
+                    if (settings.useSnowLayers && this.world.canSnowAt(snowPos, true)) {
                         this.world.setBlockState(snowPos, snowLayerBlock, 2);
                     }
                 }

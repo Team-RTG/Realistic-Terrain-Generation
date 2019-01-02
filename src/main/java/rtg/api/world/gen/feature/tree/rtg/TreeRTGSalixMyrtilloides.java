@@ -7,6 +7,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import rtg.RTGConfig;
+
 
 /**
  * Salix Myrtilloides (Swamp Willow)
@@ -44,7 +46,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
-        if (!this.isGroundValid(world, pos, rtgConfig.ALLOW_TREES_TO_GENERATE_ON_SAND.get())) {
+        if (!this.isGroundValid(world, pos, RTGConfig.treesCanGenerateOnSand())) {
             return false;
         }
 

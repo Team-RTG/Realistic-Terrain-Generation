@@ -3,14 +3,13 @@ package rtg.api.world.surface;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.MinecraftForge;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.config.RTGConfig;
 import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
@@ -25,7 +24,6 @@ public abstract class SurfaceBase {
     protected IBlockState fillerBlock;
     protected IBlockState cliffStoneBlock;
     protected IBlockState cliffCobbleBlock;
-    protected RTGConfig rtgConfig = RTGAPI.config();
     protected BiomeConfig biomeConfig;
 
     public SurfaceBase(BiomeConfig config, Block top, Block fill) {
@@ -99,7 +97,7 @@ public abstract class SurfaceBase {
     private void initCustomBlocks() {
         cliffStoneBlock = getConfigBlock(biomeConfig.SURFACE_CLIFF_STONE_BLOCK.get(), Blocks.STONE.getDefaultState());
         cliffCobbleBlock = getConfigBlock(biomeConfig.SURFACE_CLIFF_COBBLE_BLOCK.get(), Blocks.COBBLESTONE.getDefaultState());
-        shadowStoneBlock = getConfigBlock(rtgConfig.SHADOW_STONE_BLOCK_ID.get(), BlockUtil.getStateClay(EnumDyeColor.CYAN));
-        shadowDesertBlock = getConfigBlock(rtgConfig.SHADOW_DESERT_BLOCK_ID.get(), BlockUtil.getStateClay(EnumDyeColor.WHITE));
+        shadowStoneBlock = RTGAPI.getShadowStoneBlock();
+        shadowDesertBlock = RTGAPI.getShadowDesertBlock();
     }
 }

@@ -24,14 +24,15 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
-import rtg.api.config.RTGConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.Logger;
 import rtg.api.util.RandomUtil;
 import rtg.api.util.UtilityClass;
 import rtg.api.util.WorldUtil;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.biome.BiomeProviderRTG;
@@ -62,7 +63,8 @@ public final class EventHandlerCommon
     @SubscribeEvent
     public static void onDecorateBiome(DecorateBiomeEvent.Decorate event) {
 
-        if (RTGAPI.config().ENABLE_FLOWING_LIQUID_MODIFICATIONS.get() &&
+        RTGWorld rtgWorld = RTGWorld.getInstance(event.getWorld());
+        if (rtgWorld.getGeneratorSettings().waterSpoutChance > 0 &&
             event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG) {
 
             DecorateBiomeEvent.Decorate.EventType eventType = event.getType();
@@ -77,10 +79,9 @@ public final class EventHandlerCommon
     public static void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {
 
         final World world = event.getWorld();
-        final RTGConfig rtgConfig = RTGAPI.config();
 
         // skip if RTG saplings are disabled or this world does not use BiomeProviderRTG
-        if (!(rtgConfig.ENABLE_RTG_SAPLINGS.get() && world.getBiomeProvider() instanceof BiomeProviderRTG)) {
+        if (!RTGConfig.rtgTreesFromSaplings() || !(world.getBiomeProvider() instanceof BiomeProviderRTG)) {
             Logger.debug("[SaplingGrowTreeEvent] Aborting: RTG trees are disabled, or not an RTG dimension");
             return;
         }
@@ -98,7 +99,8 @@ public final class EventHandlerCommon
         final Random rand = event.getRand();
 
         // Should we generate a vanilla tree instead?
-        if (rand.nextInt(rtgConfig.RTG_TREE_CHANCE.get()) != 0) {
+        int chance = RTGConfig.rtgTreeChance();
+        if (rand.nextInt(chance < 1 ? 1 : chance) != 0) {
             Logger.debug("[SaplingGrowTreeEvent] Aborting RTG tree generation: random chance");
             return;
         }
@@ -176,8 +178,7 @@ public final class EventHandlerCommon
     @SubscribeEvent
     public static void onGenerateMinable(OreGenEvent.GenerateMinable event) {
 
-        RTGConfig rtgConfig = RTGAPI.config();
-        if (!rtgConfig.ALLOW_ORE_GEN_EVENT_CANCELLATION.get()) { return; }
+        if (!RTGConfig.allowOreGenEventCancel()) { return; }
 
         IChunkGenerator chunkGenerator = ((WorldServer) event.getWorld()).getChunkProvider().chunkGenerator;
         if (chunkGenerator instanceof ChunkGeneratorRTG) {

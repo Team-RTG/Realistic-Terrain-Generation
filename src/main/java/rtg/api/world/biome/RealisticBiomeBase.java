@@ -13,6 +13,9 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper.UnableToAccessFieldException;
+
+import rtg.RTG;
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.Logger;
@@ -304,24 +307,17 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     @Override
     public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
-
+        if (RTG.surfacesDisabled() || this.getConfig().DISABLE_RTG_SURFACES.get()) { return; }
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-
-        if (!(RTGAPI.config().DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get())) {
-
-            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-        }
+        this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
     }
 
     protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
-
+        if (RTG.surfacesDisabled() || this.getConfig().DISABLE_RTG_SURFACES.get()) { return; }
         float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-        if (!(RTGAPI.config().DISABLE_RTG_BIOME_SURFACES.get() || this.getConfig().DISABLE_RTG_SURFACES.get())) {
-
-            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-            if (RTGAPI.config().ENABLE_LUSH_RIVER_BANK_SURFACES_IN_HOT_BIOMES.get()) {
-                this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-            }
+        this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+        if (RTGConfig.lushRiverbanksInDesert()) {
+            this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
         }
     }
 

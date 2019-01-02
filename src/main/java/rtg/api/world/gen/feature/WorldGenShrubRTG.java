@@ -8,8 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.RTGAPI;
-import rtg.api.config.RTGConfig;
+
+import rtg.RTGConfig;
 
 
 public class WorldGenShrubRTG extends WorldGenerator {
@@ -18,7 +18,6 @@ public class WorldGenShrubRTG extends WorldGenerator {
     private IBlockState logBlock;
     private IBlockState leaveBlock;
     private boolean varSand;
-    private RTGConfig rtgConfig = RTGAPI.config();
 
     public WorldGenShrubRTG(int size, IBlockState log, IBlockState leav, boolean sand) {
 
@@ -62,13 +61,13 @@ public class WorldGenShrubRTG extends WorldGenerator {
         IBlockState b = world.getBlockState(new BlockPos(x, y - 2, z));
         IBlockState b1 = world.getBlockState(new BlockPos(x, y - 1, z));
 
-        if ((b == Blocks.SAND.getDefaultState() || b1 == Blocks.SAND.getDefaultState()) && !rtgConfig.ALLOW_TREES_TO_GENERATE_ON_SAND.get()) {
+        if ((b == Blocks.SAND.getDefaultState() || b1 == Blocks.SAND.getDefaultState()) && !RTGConfig.treesCanGenerateOnSand()) {
             return;
         }
 
         if (b.getMaterial() == Material.GRASS || b.getMaterial() == Material.GROUND || (varSand && b.getMaterial() == Material.SAND)) {
             if (b1 != Blocks.WATER.getDefaultState()) {
-                if (!rtgConfig.ALLOW_SHRUBS_TO_GENERATE_BELOW_SURFACE.get()) {
+                if (!RTGConfig.shrubsBelowSurface()) {
 
                     if (b1.getMaterial() != Material.AIR &&
                         b1.getMaterial() != Material.VINE &&

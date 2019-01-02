@@ -8,10 +8,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
+
+import rtg.RTGConfig;
 import rtg.api.event.DecorateBiomeEventRTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
-import rtg.api.util.DecoUtil;
 import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
@@ -24,6 +25,8 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
  * @author WhichOnesPink
  */
 public class DecoTree extends DecoBase {
+
+    public static final double MAX_TREE_DENSITY = 5.0D;
 
     protected int loops;
     protected float strengthFactorForLoops; // If set, this overrides and dynamically calculates 'loops' based on the strength parameter.
@@ -170,7 +173,7 @@ public class DecoTree extends DecoBase {
             }
 
             // Now let's check the configs to see if we should increase/decrease this value.
-            loopCount = DecoUtil.calculateLoopCountFromTreeDensity(loopCount, biome);
+            loopCount = this.calculateLoopCountFromTreeDensity(loopCount, biome);
 
             if (loopCount < 1) {
                 return;
@@ -583,7 +586,6 @@ public class DecoTree extends DecoBase {
         X_DIVIDED_BY_STRENGTH;
     }
 
-    // TODO: [1.12] There is no use of this class that is variant. Either remove the use of this class, or move it's functionality to DecoUtil.
     public static class Scatter {
 
         int bound;
@@ -659,5 +661,18 @@ public class DecoTree extends DecoBase {
             this.noiseAddend = noiseAddend;
             return this;
         }
+    }
+
+    private int calculateLoopCountFromTreeDensity(int loopCount, IRealisticBiome biome) {
+
+        float biomeMultiplier;
+        double multiplier = RTGConfig.treeDensityMultiplier();
+        if ((biomeMultiplier = biome.getConfig().TREE_DENSITY_MULTIPLIER.get()) >= 0f) {
+            multiplier = (biomeMultiplier > MAX_TREE_DENSITY) ? MAX_TREE_DENSITY : biomeMultiplier;
+        }
+
+        loopCount = (int) (loopCount * multiplier);
+
+        return loopCount;
     }
 }

@@ -10,8 +10,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.RTGAPI;
-import rtg.api.config.RTGConfig;
 import rtg.api.util.Logger;
 
 
@@ -22,7 +20,6 @@ public class WorldGenSponge extends WorldGenerator {
     protected int minAdjacents;
     private IBlockState spongeBlock;
     private int spongeSize;
-    private RTGConfig rtgConfig = RTGAPI.config();
 
     public WorldGenSponge(IBlockState b, int s, Random rand) {
 

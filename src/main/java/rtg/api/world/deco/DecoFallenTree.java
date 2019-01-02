@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
-import rtg.api.util.DecoUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLog;
@@ -89,7 +88,7 @@ public class DecoFallenTree extends DecoBase {
             int finalSize = 4;
 
             // Adjust the chance according to biome config.
-            this.setLogConditionChance(DecoUtil.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
+            this.setLogConditionChance(this.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
 
             if (this.maxSize > this.minSize) {
                 finalSize = this.minSize + rand.nextInt(this.maxSize - this.minSize);
@@ -338,5 +337,10 @@ public class DecoFallenTree extends DecoBase {
             this.noiseAddend = noiseAddend;
             return this;
         }
+    }
+
+    private int adjustChanceFromMultiplier(int chanceIn, float multiplier) {
+        int chanceOut = (multiplier != 0f) ? ((int) Math.floor(chanceIn / multiplier)) : chanceIn;
+        return (chanceOut == 0) ? 1 : chanceOut;
     }
 }

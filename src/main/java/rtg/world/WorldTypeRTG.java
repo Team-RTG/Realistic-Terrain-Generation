@@ -104,7 +104,7 @@ public final class WorldTypeRTG extends WorldType {
     @Override
     @SideOnly(Side.CLIENT)
     public void onCustomizeButton(net.minecraft.client.Minecraft mc, net.minecraft.client.gui.GuiCreateWorld guiCreateWorld) {
-        mc.displayGuiScreen(new rtg.client.gui.GuiCustomizeWorldScreenRTG(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
+        mc.displayGuiScreen(new rtg.client.GuiCustomizeWorldScreenRTG(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
     }
 // TODO: [Generator settings] Add an override for WorldType#getBiomeLayer to allow use of fixedBiome.
 //                            This will likely require a custom GenLayerBiome class to be written.

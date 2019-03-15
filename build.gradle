@@ -53,6 +53,7 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}
 }
 
-jar {
-    manifest { attributes(["Maven-Artifact": "${project.group}:${archivesBaseName}:${project.version}"]) }
-}
+jar.manifest.attributes([
+    "FMLAT"         : "rtg_at.cfg",
+    "Maven-Artifact": "${project.group}:${archivesBaseName}:${project.version}"
+])

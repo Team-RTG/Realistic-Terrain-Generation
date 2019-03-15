@@ -3,7 +3,7 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://files.minecraftforge.net/maven"
         }
     }
     dependencies {
@@ -21,7 +21,7 @@ version = (project.prerelease != "") ? "${project.mod_version}-${project.prerele
 
 repositories {
     maven { url "https://dl.bintray.com/shinoow/maven/" } //AbyssalCraft
-    maven { url "http://files.minecraftforge.net/maven" } //BiomesOPlenty
+    maven { url "https://files.minecraftforge.net/maven" } //BiomesOPlenty
 }
 
 dependencies {
@@ -30,7 +30,7 @@ dependencies {
 }
 
 minecraft {
-    setVersion "${project.mcf_version}"
+    setVersion "${project.mc_version}-${project.mcf_version}"
     setMappings "${project.mcp_mappings}"
     setMakeObfSourceJar false
     setRunDir "run"
@@ -53,21 +53,6 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}
 }
 
-task apiJar(type: Jar) {
-    from(sourceSets.main.allJava) {
-        include "rtg/api/**"
-        filter { it.replaceAll("@API_VERSION@", "${project.api_version}") }
-    }
-    from(sourceSets.main.output) { include "/rtg/api/**" }
-    setBaseName "${project.name}-${project.mc_version}-API"
-    setVersion project.api_version
-    manifest { attributes(["Maven-Artifact": "${project.group}:${baseName}:${project.api_version}"]) }
-}
-
 jar {
     manifest { attributes(["Maven-Artifact": "${project.group}:${archivesBaseName}:${project.version}"]) }
-}
-
-artifacts {
-    archives apiJar
 }

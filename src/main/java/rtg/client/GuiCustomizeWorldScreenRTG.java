@@ -27,13 +27,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import rtg.api.util.Logger;
 import rtg.api.world.gen.RTGChunkGenSettings;
 
 
-@SideOnly(Side.CLIENT)
+@SuppressWarnings("unused")
 public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelper, GuiResponder {
 
     private static final int ID_OFFSET = Byte.MAX_VALUE;

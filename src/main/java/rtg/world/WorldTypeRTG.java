@@ -6,8 +6,6 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
@@ -94,15 +92,13 @@ public final class WorldTypeRTG extends WorldType {
         return true;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
+    @Override // Client-only
     public String getTranslationKey() {
         return "gui.createWorld.worldtypename";
     }
 
     // Keep fully qualified names to avoid client class imports
-    @Override
-    @SideOnly(Side.CLIENT)
+    @Override // Client-only
     public void onCustomizeButton(net.minecraft.client.Minecraft mc, net.minecraft.client.gui.GuiCreateWorld guiCreateWorld) {
         mc.displayGuiScreen(new rtg.client.GuiCustomizeWorldScreenRTG(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
     }

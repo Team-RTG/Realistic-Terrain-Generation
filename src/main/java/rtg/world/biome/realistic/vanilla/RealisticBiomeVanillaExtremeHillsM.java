@@ -32,8 +32,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
-        this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.set(true);
-        this.getConfig().BIOME_TEMPERATURE.set(0.25f);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
     }
@@ -165,4 +163,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
             }
         }
     }
+
+    @Override
+    public double getSnowLayerMultiplier() { return GENERAL_SNOWLAYER_REDUCTION; }
 }

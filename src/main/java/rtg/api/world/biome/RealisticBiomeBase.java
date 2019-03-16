@@ -11,14 +11,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.ReflectionHelper.UnableToAccessFieldException;
 
 import rtg.RTG;
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.Logger;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.VoronoiResult;
@@ -34,6 +31,7 @@ import rtg.api.world.terrain.TerrainBase;
 public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
+    protected static final double GENERAL_SNOWLAYER_REDUCTION = 0.75d;
 
     private final Biome baseBiome;
     private final ResourceLocation baseBiomeResLoc;
@@ -96,8 +94,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         initConfig();
 
         getConfig().loadConfig();
-
-        adjustBiomeProperties();
 
         initDecos();
     }
@@ -337,26 +333,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.getDecos().stream()
             .filter(deco -> deco.preGenerate(river))
             .forEach(deco -> deco.generate(this, rtgWorld, rand, pos.getX(), pos.getZ(), strength, river, hasPlacedVillageBlocks));
-    }
-
-    // TODO: [1.12] Why are we adjusting biome temperatures again? Currently only used in Taigas. 0.2f -> 0.25f
-    private void adjustBiomeProperties() {
-
-        if (this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.get()) {
-
-            float biometemp = this.getConfig().BIOME_TEMPERATURE.get();
-            biometemp = (biometemp > 2.0f) ? 2.0f : ((biometemp < -2.0f) ? -2.0f : biometemp);
-            biometemp = (biometemp > 0.1f && biometemp < 0.2f) ? 0.2f : biometemp;
-
-            try {
-                ReflectionHelper.setPrivateValue(Biome.class, this.baseBiome, biometemp, "temperature", "field_76750_F");
-                Logger.info("Set biome temperature for {} to: {}", this.baseBiomeResLoc(), this.baseBiome.getDefaultTemperature());
-            }
-            catch (UnableToAccessFieldException ex) {
-                Logger.error("Unable to set biome temperature for {} to: {}.", this.baseBiomeResLoc(), biometemp);
-                ex.printStackTrace();
-            }
-        }
     }
 
     private File getConfigFile() {

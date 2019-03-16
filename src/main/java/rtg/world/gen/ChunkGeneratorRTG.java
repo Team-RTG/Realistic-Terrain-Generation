@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.block.BlockFalling;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockSnow;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -52,6 +52,8 @@ import rtg.world.gen.structure.WoodlandMansionRTG;
 
 @SuppressWarnings("deprecation")
 public class ChunkGeneratorRTG implements IChunkGenerator {
+
+    private static final BlockSnow SNOW_LAYER_BLOCK = ((BlockSnow)Blocks.SNOW_LAYER);
 
     public final RTGWorld rtgWorld;
     private final RTGChunkGenSettings settings;
@@ -329,23 +331,27 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, gennedVillage, PopulateChunkEvent.Populate.EventType.ICE)) {
 
-//            int i4, j4;
-            IBlockState snowLayerBlock = Blocks.SNOW_LAYER.getDefaultState();
-            IBlockState iceBlock = Blocks.ICE.getDefaultState();
-
+            final int xPos = blockPos.getX() + 8;
+            final int zPos = blockPos.getZ() + 8;
+            final MutableBlockPos mpos = new MutableBlockPos();
             for (int x = 0; x < 16; ++x) {
                 for (int z = 0; z < 16; ++z) {
-                    BlockPos snowPos = this.world.getPrecipitationHeight(blockPos.add(x + 8, 0, z + 8));
-                    BlockPos icePos = snowPos.down();
+
+                    // Adjust the height check of cold biomes using IRealisticBiome#getSnowLayerMultiplier instead of using reflection
+                    // to alter the base biome's temperature. If the multiplier is < 1.0 it checks a lower altitude to see if water
+                    // will freeze or if it can snow which results in a higher snow layer altitude.
+                    int precHeight = this.world.getPrecipitationHeight(mpos.setPos(xPos + x, 0, zPos + z)).getY();
+                    final BlockPos snowPos = new BlockPos(mpos.getX(), (int)(precHeight * biome.getSnowLayerMultiplier()), mpos.getZ());
+                    final BlockPos icePos  = snowPos.down();
 
                     // Ice.
                     if (this.world.canBlockFreezeWater(icePos)) {
-                        this.world.setBlockState(icePos, iceBlock, 2);
+                        this.world.setBlockState(icePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
                     // Snow.
                     if (settings.useSnowLayers && this.world.canSnowAt(snowPos, true)) {
-                        this.world.setBlockState(snowPos, snowLayerBlock, 2);
+                        this.world.setBlockState(snowPos, SNOW_LAYER_BLOCK.getStateFromMeta(this.world.rand.nextInt(3)), 2);
                     }
                 }
             }

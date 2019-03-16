@@ -248,6 +248,7 @@ public interface IRealisticBiome {
     @Deprecated
     void rDecorate(RTGWorld rtgWorld, Random rand, BlockPos pos, float strength, float river, boolean hasPlacedVillageBlocks);
 
+    default double getSnowLayerMultiplier() { return 1.0d; }
 
 
 /* TO BE REMOVED */

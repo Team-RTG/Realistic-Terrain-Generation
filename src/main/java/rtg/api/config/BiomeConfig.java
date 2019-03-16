@@ -32,8 +32,6 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyString SURFACE_CLIFF_COBBLE_BLOCK;
     public final ConfigPropertyInteger BEACH_BIOME;
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
-    public final ConfigPropertyBoolean USE_CUSTOM_BIOME_TEMPERATURE;
-    public final ConfigPropertyFloat BIOME_TEMPERATURE;
     public final ConfigPropertyBoolean SURFACE_BLEED_IN;
     public final ConfigPropertyBoolean SURFACE_BLEED_OUT;
 
@@ -175,26 +173,6 @@ public class BiomeConfig extends Config {
             -1.0f, -1.0f, 5.0f
         );
         this.addProperty(TREE_DENSITY_MULTIPLIER);
-
-        USE_CUSTOM_BIOME_TEMPERATURE = new ConfigPropertyBoolean(
-            "Use Custom Temperature",
-            "Biome Properties",
-            "Set this to true if you want to change this biome's temperature",
-            false
-        );
-        this.addProperty(USE_CUSTOM_BIOME_TEMPERATURE);
-
-        BIOME_TEMPERATURE = new ConfigPropertyFloat(
-            "Custom Temperature",
-            "Biome Properties",
-            "If you want to change this biome's temperature, enter a valid value here. [range: -2.0 ~ 2.0]"
-                + Configuration.NEW_LINE + "Values in the range of 0.1 to 0.2 (non-inclusive) are INVALID and will result in a crash on startup."
-                + Configuration.NEW_LINE + "If this value is empty, the biome's default temperature will be used."
-                + Configuration.NEW_LINE + "Please note that changing a biome's temperature does NOT affect its climate type (DESERT, WARM, COOL, ICY)."
-                + Configuration.NEW_LINE + "For more info, visit http://minecraft.gamepedia.com/Biome#Temperature",
-            1f, -2f, 2f
-        );
-        this.addProperty(BIOME_TEMPERATURE);
 
         SURFACE_BLEED_IN = new ConfigPropertyBoolean(
             "Surface Bleed In",

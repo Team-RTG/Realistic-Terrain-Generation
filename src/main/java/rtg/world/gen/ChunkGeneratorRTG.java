@@ -298,7 +298,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 // TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
         this.generateOres(biome, this.settings, blockPos);
 
-        float river = -TerrainBase.getRiverStrength(blockPos.getX() + 16, blockPos.getZ() + 16, rtgWorld);
+        float river = -TerrainBase.getRiverStrength(blockPos.add(16, 0, 16), rtgWorld);
 
         if (RTG.decorationsDisable() || biome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
 
@@ -541,6 +541,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         // fill the old smallRender
 // TODO: [1.12] This process should be verified for it's usefulness. This is 112,896 iterations per chunk
+        MutableBlockPos mpos = new MutableBlockPos(worldX, 0, worldZ);
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 float totalWeight = 0;
@@ -564,7 +565,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
                 landscape.noise[x * 16 + z] = 0f;
 
-                float river = TerrainBase.getRiverStrength(worldX + x, worldZ + z, rtgWorld);
+                float river = TerrainBase.getRiverStrength(mpos.setPos(worldX + x, 0, worldZ + z), rtgWorld);
                 landscape.river[x * 16 + z] = -river;
 
                 for (int i = 0; i < 256; i++) {

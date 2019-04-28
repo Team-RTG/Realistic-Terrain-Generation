@@ -587,11 +587,9 @@ public abstract class TerrainBase {
     }
 
     public static float getRiverStrength(final BlockPos blockPos, final RTGWorld rtgWorld) {
-        return getRiverStrength(blockPos.getX(), blockPos.getZ(), rtgWorld);
-    }
 
-    public static float getRiverStrength(final int worldX, final int worldZ, final RTGWorld rtgWorld) {
-
+        final int worldX = blockPos.getX();
+        final int worldZ = blockPos.getZ();
         double pX = worldX;
         double pZ = worldZ;
         ISimplexData2D jitterData = SimplexData2D.newDisk();

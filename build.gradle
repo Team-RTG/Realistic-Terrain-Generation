@@ -46,8 +46,8 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
 		expand ([
-			"version"  :mod_version,
-			"mcversion":mc_version
+			"version"  :project.version,
+			"mcversion":project.mc_version
 		])
 	}
 	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}

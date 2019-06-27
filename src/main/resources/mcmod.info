@@ -8,5 +8,5 @@
   "updateUrl": "",
   "authorList": ["Team-RTG"],
   "credits": "Forked from RWG by ted80. OpenSimplex Noise by KdotJPG.",
-  "logoFile": "assets/rtg/logo.png"
+  "logoFile": "rtg-logo.png"
 }]

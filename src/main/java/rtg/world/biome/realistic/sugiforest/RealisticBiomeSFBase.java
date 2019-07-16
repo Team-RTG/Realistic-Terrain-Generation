@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.world.biome.Biome;
 import rtg.api.world.biome.RealisticBiomeBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceGeneric;
 
@@ -35,7 +34,5 @@ public abstract class RealisticBiomeSFBase extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

@@ -2,6 +2,8 @@ package rtg.api.world.deco.helper;
 
 import java.util.Random;
 
+import net.minecraft.util.math.ChunkPos;
+
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
@@ -12,6 +14,7 @@ import rtg.api.world.deco.DecoBase;
  *
  * @author WhichOnesPink
  */
+// TODO: [1.12] This class can be removed and it's usage defered to DecoHelperRandomSplit with 2 Decos with equal WeightedRandom values.
 public class DecoHelper5050 extends DecoBase {
 
     private DecoBase deco1;
@@ -30,16 +33,13 @@ public class DecoHelper5050 extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int chunkX, int chunkY, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
-
-            if (rand.nextBoolean()) {
-                this.deco1.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
-            }
-            else {
-                this.deco2.generate(biome, rtgWorld, rand, chunkX, chunkY, strength, river, hasPlacedVillageBlocks);
-            }
+        if (rand.nextBoolean()) {
+            this.deco1.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+        }
+        else {
+            this.deco2.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
         }
     }
 

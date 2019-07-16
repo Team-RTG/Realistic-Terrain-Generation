@@ -3,7 +3,7 @@ package rtg.api.world.biome;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collection;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +21,6 @@ import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceRiverOasis;
@@ -42,12 +41,12 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     private final TerrainBase terrain;
     private final SurfaceBase surface;
     private final SurfaceBase surfaceRiver;
-    private final BiomeDecoratorRTG rDecorator;
 
-    // TODO: [1.12] To be removed.
-    private ArrayList<DecoBase> decos;
-    private ArrayList<TreeRTG> rtgTrees;
-// ...
+    private Collection<DecoBase> decos;
+    // TODO: [1.12] To be removed. All trees need to be a Deco and be added through #addDeco.
+    @Deprecated
+    private Collection<TreeRTG> rtgTrees;
+
 
     public RealisticBiomeBase(@Nonnull final Biome baseBiome) {
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
@@ -78,18 +77,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
-        this.rDecorator = new BiomeDecoratorRTG(this);
+        // TODO [1.12] Ultimately it would be best for this Collection to be hash-based with a Deco's hash determined by its internal data.
+        //             Thus there could be, for example, multiple instances of a flower deco with differing hashes based on different flower
+        //             types, but not multiple identical decos.
         this.decos = new ArrayList<>();
         this.rtgTrees = new ArrayList<>();
-
-        /*
-         *  Disable base biome decorations by default.
-         *  This also needs to be here so that ores get generated.
-         */
-// TODO: [1.12] To be removed. This will not be required with the planned overhaul of the decoration system.
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setAllowed(false);
-        this.addDeco(decoBaseBiomeDecorations);
 
         initConfig();
 
@@ -129,34 +121,13 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     @Override
-    public ArrayList<DecoBase> getDecos() {
+    public Collection<DecoBase> getDecos() {
         return this.decos;
     }
 
     @Override
-    public ArrayList<TreeRTG> getTrees() {
+    public Collection<TreeRTG> getTrees() {
         return this.rtgTrees;
-    }
-
-    @Override
-    public int waterUndergroundLakeChance() {
-        return 1; // Lower equals more frequent.
-    }
-
-    @Override
-    public int lavaUndergroundLakeChance() {
-        return 1; // Lower equals more frequent.
-    }
-
-
-    @Override
-    public int waterSurfaceLakeChance() {
-        return 10;
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 0;
     }
 
     @Override
@@ -167,11 +138,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     @Override
     public int baseBiomeId() {
         return this.baseBiomeId;
-    }
-
-    @Override
-    public BiomeDecoratorRTG rDecorator() {
-        return rDecorator;
     }
 
     @Override
@@ -325,14 +291,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     @Override
     public SurfaceBase surface() {
         return this.surface;
-    }
-
-    @Override
-// TODO: [1.12] This should be a proxy call to RTGBiomeDecorator#decorate
-    public void rDecorate(RTGWorld rtgWorld, Random rand, BlockPos pos, float strength, float river, boolean hasPlacedVillageBlocks) {
-        this.getDecos().stream()
-            .filter(deco -> deco.preGenerate(river))
-            .forEach(deco -> deco.generate(this, rtgWorld, rand, pos.getX(), pos.getZ(), strength, river, hasPlacedVillageBlocks));
     }
 
     private File getConfigFile() {

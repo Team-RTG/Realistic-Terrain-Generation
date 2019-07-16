@@ -13,9 +13,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -62,11 +60,6 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        //First, let's add some ponds to break things up and add some colour.
-        DecoPond decoPond = new DecoPond();
-        decoPond.setChunksPerPond(24);
-        this.addDeco(decoPond);
-
         // Now, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
@@ -95,10 +88,6 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 //        decoFlowers2.setChance(4);
 //        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
 //        this.addDeco(decoFlowers2);
-
-        // Not much free space left, so let's give some space to the base biome.
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
     public class TerrainBOPFlowerField extends TerrainBase {

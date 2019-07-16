@@ -1,10 +1,14 @@
 package rtg.api.world.deco;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
@@ -18,27 +22,25 @@ import rtg.api.world.biome.IRealisticBiome;
 // TODO: [1.12] Remove unused methods and parameters; Update to Java 8 compliance (remove explicit types, etc..), Use generic classes like Collection instead of ArrayList
 public abstract class DecoBase {
 
-    /**
-     * If false, the deco won't get generated during chunk decoration.
-     * Currently, the only deco that uses allow=false is the DecoBaseBiomeDecorations deco, and it only gets
-     * set to false when we need to generate ores in biomes that don't let the base biome handle decoration at all.
-     */
-// TODO: [1.12] To be removed when ore generation is fixed.
-    protected boolean allowed;
-    protected ArrayList<DecoType> decoTypes;
-    protected boolean checkRiver;
-    protected float minRiver; // Minimum river value required to generate.
-    protected float maxRiver; // Maximum river value required to generate.
+    // TODO [1.12] Temporary; To be removed.
+    static final int strength = 1;
+
+    @Deprecated
+    private ArrayList<DecoType> decoTypes;
+    private boolean checkRiver;
+    private float minRiver; // Minimum river value required to generate.
+    private float maxRiver; // Maximum river value required to generate.
 
     public DecoBase() {
 
-        this.allowed = true;
-        this.decoTypes = new ArrayList<DecoType>();
+        this.decoTypes = new ArrayList<>();
         this.checkRiver = false;
         this.minRiver = -2f;
         this.setMaxRiver(2f);
     }
 
+    // TODO: [1.12] These tweak methods can be performed once in #setLeavesBlock during deco creation, instead of in every
+    //              chunk during world gen. The state of the leaves should not be changed during world gen.
     public static void tweakTreeLeaves(DecoTree deco, boolean checkDecay, boolean decayable) {
         if (deco.getLeavesBlock().getBlock() instanceof BlockLeaves) {
             IBlockState leaves = deco.getLeavesBlock()
@@ -57,7 +59,7 @@ public abstract class DecoBase {
         }
     }
 
-    // TODO: [1.12] wat... What is the point of this check? How can a subclass not 'respond properly' to a call to #generate? Functionality target for replacement by an interface.
+    @Deprecated //TODO: [1.12] See: DecoTree override
     public boolean properlyDefined() {
         // this procedure should return true if the deco can respond properly to a generate() call
         // in particular it should not crash.
@@ -67,44 +69,30 @@ public abstract class DecoBase {
     /**
      * Performs pre-generation checks to determine if the deco is allowed to generate.
      */
+    // TODO: [1.12] This check is only relevant for Decos added to DecoCollectionDesertRiver and only used in desert biomes. This functionality
+    //              can be extracted and pushed down to the desert biome classes to simplify the call to IRealisticBiome#rDecorate.
     public boolean preGenerate(float river) {
         return !this.checkRiver || !(river > this.maxRiver) && !(river < this.minRiver);
     }
 
-    /**
-     * Generates the decoration.
-     * This method should be overridden in the individual deco objects.
-     */
-    abstract public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks);
+    public abstract void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage);
 
-    /**
-     * Adds one or more deco types.
-     *
-     * @param decos
-     */
+//    // TODO [1.12] Decos should be updated to implement #generate(IRealisticBiome, RTGWorld, Random, ChunkPos, float, float, boolean) above.
+//    @Deprecated
+//    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {}
+
+    @Deprecated
     public void addDecoTypes(DecoType... decos) {
-
-        for (int i = 0; i < decos.length; i++) {
-            this.decoTypes.add(decos[i]);
-        }
+        this.decoTypes.addAll(Arrays.asList(decos));
     }
 
-    public boolean isAllowed() {
-
-        return allowed;
-    }
-
-    public DecoBase setAllowed(boolean allowed) {
-
-        this.allowed = allowed;
-        return this;
-    }
-
+    @Deprecated
     public ArrayList<DecoType> getDecoTypes() {
 
         return decoTypes;
     }
 
+    @Deprecated
     public DecoBase setDecoTypes(ArrayList<DecoType> decoTypes) {
 
         this.decoTypes = decoTypes;
@@ -149,7 +137,8 @@ public abstract class DecoBase {
      *
      * @author WhichOnesPink
      */
-// TODO: [1.12] Combine all double plants.
+    // TODO: [1.12] These enum values are added to a list for each Deco but are not used anywhere. Marked for removal.
+    @Deprecated
     public enum DecoType {
         BASE_BIOME_DECORATION,
         BOULDER,
@@ -178,5 +167,13 @@ public abstract class DecoBase {
         TREE,
         VINE,
         WHEAT
+    }
+
+    static BlockPos getOffsetPos(final ChunkPos pos) {
+        return new BlockPos(pos.x * 16 + 8, 0, pos.z * 16 + 8);
+    }
+
+    public static int getRangedRandom(Random rand, int min, int max) {
+        return min + rand.nextInt(max - min + 1);
     }
 }

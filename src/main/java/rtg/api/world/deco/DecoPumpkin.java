@@ -3,13 +3,13 @@ package rtg.api.world.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenerator;
+
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.PUMPKIN;
 
 
 /**
@@ -20,6 +20,7 @@ public class DecoPumpkin extends DecoBase {
     private float strengthFactor;
     private int maxY;
     private float randomFloat;
+    @Deprecated
     private RandomType randomType;
     private int chance;
     private int loops;
@@ -43,43 +44,33 @@ public class DecoPumpkin extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
+        if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.PUMPKIN)) {
 
-            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), PUMPKIN)) {
+            // Let's figure out what the rand.nextInt() argument should be.
+            switch (this.randomType) {
+                case ALWAYS_GENERATE:
+                    this.setChance(1);
+                    break;
 
-                // Let's figure out what the rand.nextInt() argument should be.
-                switch (this.randomType) {
-                    case ALWAYS_GENERATE:
-                        this.setChance(1);
-                        break;
+                case USE_CHANCE_VALUE:
+                    break;
 
-                    case USE_CHANCE_VALUE:
-                        break;
+                case X_DIVIDED_BY_STRENGTH:
+                    this.setChance((int) (this.randomFloat / strength));
+                    break;
 
-                    case X_DIVIDED_BY_STRENGTH:
-                        this.setChance((int) (this.randomFloat / strength));
-                        break;
+                default:
+                    break;
+            }
 
-                    default:
-                        break;
-                }
-
-                WorldGenerator worldGenerator = new WorldGenPumpkin();
-
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
-                for (int i = 0; i < this.loops; i++) {
-                    if (rand.nextInt(this.chance) == 0) {
-
-                        int intX = worldX + rand.nextInt(16) + 8;
-                        int intY = rand.nextInt(this.maxY);
-                        int intZ = worldZ + rand.nextInt(16) + 8;
-
-                        if (intY <= this.maxY) {
-                            worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
-                        }
-                    }
+            final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+            for (int i = 0; i < loopCount; i++) {
+                if (rand.nextInt(this.chance) == 0) {
+                    final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), rand.nextInt(this.maxY), rand.nextInt(16));
+                    new WorldGenPumpkin()
+                        .generate(rtgWorld.world(), rand, pos);
                 }
             }
         }
@@ -151,6 +142,8 @@ public class DecoPumpkin extends DecoBase {
         return this;
     }
 
+    // TODO: [1.12] Overcomplication for a simple surface feature.
+    @Deprecated
     public enum RandomType {
         ALWAYS_GENERATE,
         USE_CHANCE_VALUE,

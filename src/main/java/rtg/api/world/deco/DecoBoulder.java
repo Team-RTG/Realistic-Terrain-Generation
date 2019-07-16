@@ -10,14 +10,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.util.math.ChunkPos;
+
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
+import net.minecraftforge.event.terraingen.TerrainGen;
+
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
-import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
-import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.gen.feature.WorldGenBlob;
 
 
@@ -50,35 +51,31 @@ public class DecoBoulder extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        RTGChunkGenSettings settings = rtgWorld.getGeneratorSettings();
-        if (settings.useBoulders) {
-
-            WorldGenerator worldGenerator = new WorldGenBlob(boulderBlock, 0, validGroundBlocks, this.water);
-
-            MutableBlockPos mpos = new MutableBlockPos();
+        // TODO: [1.12] Boulders are a decoration and not a terrain feature. This should probably have a config setting, not a generator setting.
+        if (rtgWorld.getGeneratorSettings().useBoulders && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.ROCK)) {
             for (int i = 0; i < this.strengthFactor * strength; ++i) {
 
-                int x = worldX + rand.nextInt(16) + 8;
-                int z = worldZ + rand.nextInt(16) + 8;
+                final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
                 int y;
 
                 switch (this.heightType) {
                     case NEXT_INT:
-                        y = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
+                        y = getRangedRandom(rand, this.minY, this.maxY);
                         break;
                     case GET_HEIGHT_VALUE:
                     default:
-                        y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
+                        y = rtgWorld.world().getHeight(pos).getY();
                         break;
                 }
 
                 if (y >= this.minY && y <= this.maxY && rand.nextInt(this.chance) == 0) {
 
                     // If we're in a village, check to make sure the boulder has extra room to grow to avoid corrupting the village.
-                    if (!hasPlacedVillageBlocks || BlockUtil.checkAreaMaterials(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), mpos.setPos(x, y, z), 2)) {
-                        worldGenerator.generate(rtgWorld.world(), rand, mpos);
+                    if (!hasVillage || BlockUtil.checkAreaMaterials(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos.up(y), 2)) {
+                        new WorldGenBlob(boulderBlock, 0, validGroundBlocks, this.water)
+                            .generate(rtgWorld.world(), rand, pos.up(y));
                     }
                 }
             }
@@ -173,6 +170,8 @@ public class DecoBoulder extends DecoBase {
         return this;
     }
 
+    // TODO: [1.12] To be removed. Not very useful. This is a surface feature and should use the surface height always.
+    @Deprecated
     public enum HeightType {
         NEXT_INT,
         GET_HEIGHT_VALUE

@@ -23,7 +23,7 @@ import rtg.api.util.BlockUtil;
  * @author WhichOnesPink
  * @see <a href="http://imgur.com/a/uoJsU">RTG Tree Gallery</a>
  */
-public class TreeRTG extends WorldGenAbstractTree {
+public abstract class TreeRTG extends WorldGenAbstractTree {
 
     protected IBlockState logBlock;
     protected IBlockState leavesBlock;
@@ -78,12 +78,6 @@ public class TreeRTG extends WorldGenAbstractTree {
         ));
 
         this.allowBarkCoveredLogs = RTGConfig.barkCoveredLogs();
-    }
-
-    @Override
-    public boolean generate(World world, Random rand, BlockPos pos) {
-
-        return false;
     }
 
     public void buildTrunk(World world, Random rand, int x, int y, int z) {

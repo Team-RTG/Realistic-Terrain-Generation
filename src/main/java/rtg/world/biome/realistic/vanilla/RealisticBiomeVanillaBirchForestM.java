@@ -16,7 +16,6 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoLargeFernDoubleTallgrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -80,11 +79,6 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         superTallBirch.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         superTallBirch.setMaxY(100);
         this.addDeco(superTallBirch);
-
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.setStrengthFactor(8f);
-        this.addDeco(decoDoublePlants);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(128);

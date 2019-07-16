@@ -195,9 +195,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoShrubSpruce.setChance(6);
         this.addDeco(decoShrubSpruce);
 
-//		DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
 //		decoBaseBiomeDecorations.setEqualsZeroChance(3);
-//		this.addDeco(decoBaseBiomeDecorations);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());

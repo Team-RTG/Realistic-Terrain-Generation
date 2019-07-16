@@ -41,6 +41,7 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeBase {
         this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_LIST).set(PlateauUtil.getMesaPlateauBlocks());
     }
 
+    @Override
     public TerrainBase initTerrain() {
 
         return new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
@@ -59,19 +60,14 @@ public class RealisticBiomeVanillaMesaPlateauM extends RealisticBiomeBase {
     }
 
     @Override
-    public int getExtraGoldGenCount() {
-        return 20;
-    }
-
-    @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 30;
+    public double waterLakeMult() {
+        return 0.1;
     }
 
     public class SurfaceVanillaMesaPlateauM extends SurfaceBase {

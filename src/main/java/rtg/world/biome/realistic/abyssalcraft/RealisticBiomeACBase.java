@@ -3,7 +3,7 @@ package rtg.world.biome.realistic.abyssalcraft;
 import javax.annotation.Nonnull;
 
 import net.minecraft.world.biome.Biome;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
+
 import rtg.api.world.biome.RealisticBiomeBase;
 
 public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
@@ -26,13 +26,6 @@ public abstract class RealisticBiomeACBase extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
-    }
-
-    @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

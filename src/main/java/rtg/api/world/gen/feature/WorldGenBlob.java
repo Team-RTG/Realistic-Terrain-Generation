@@ -19,6 +19,8 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 
 
+// TODO: [1.12] This class is required because net.minecraft.world.gen.feature.WorldGenBlockBlob has hardcoded checks for placement,
+//              but this class should extend that class and override its #generate
 public class WorldGenBlob extends WorldGenerator {
 
     private final IBlockState blobBlock;
@@ -119,6 +121,7 @@ public class WorldGenBlob extends WorldGenerator {
         MutableBlockPos mpos = new MutableBlockPos(targetPos);
         if (world.getBlockState(targetPos).getBlock().isReplaceable(world, targetPos)) {
 
+            // TODO: [1.12] This should probably match vanilla which uses flag = 4, not 2.
             world.setBlockState(targetPos, boulderBlock, 2);
             // Double-plant check.
             if (world.getBlockState(mpos.move(EnumFacing.UP)).getBlock() == Blocks.DOUBLE_PLANT) {

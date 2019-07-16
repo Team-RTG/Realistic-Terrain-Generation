@@ -54,16 +54,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    @Override
-    public boolean generatesSilverfish() {
-        return true;
-    }
-
     public class TerrainVanillaExtremeHillsM extends TerrainBase {
 
         private float start;

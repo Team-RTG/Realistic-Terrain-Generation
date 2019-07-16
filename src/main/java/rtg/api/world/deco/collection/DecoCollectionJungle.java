@@ -6,14 +6,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoJungleCacti;
-import rtg.api.world.deco.DecoJungleGrassVines;
-import rtg.api.world.deco.DecoJungleLilypadVines;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -97,20 +94,6 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoFallenTree.setMinSize(4);
         decoFallenTree.setMaxSize(9);
         this.addDeco(decoFallenTree, config.ALLOW_LOGS.get());
-
-        // At this point, let's hand over some of the decoration to the base biome, but only about 85% of the time.
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(6);
-        decoBaseBiomeDecorations.setLoops(1);
-        this.addDeco(decoBaseBiomeDecorations);
-
-        // A combo-deal of lilypads and vines. (This could probably be pulled out into individual decos.)
-        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
-        this.addDeco(decoJungleLilypadVines);
-
-        // A combo-deal of grass and vines. (This could probably be pulled out into individual decos.)
-        DecoJungleGrassVines decoJungleGrassVines = new DecoJungleGrassVines();
-        this.addDeco(decoJungleGrassVines);
 
         // Flowers.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()

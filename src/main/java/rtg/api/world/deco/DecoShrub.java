@@ -6,11 +6,12 @@ import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.util.math.ChunkPos;
+
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
+import net.minecraftforge.event.terraingen.TerrainGen;
+
 import rtg.api.util.BlockUtil;
-import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenShrubRTG;
@@ -19,6 +20,7 @@ import rtg.api.world.gen.feature.WorldGenShrubRTG;
 /**
  * @author WhichOnesPink
  */
+// TODO: [1.12] This should probably be made to be a tiny DecoTree instead of having all of this code duplication.
 public class DecoShrub extends DecoBase {
 
     private int size;
@@ -64,17 +66,11 @@ public class DecoShrub extends DecoBase {
         this.addDecoTypes(DecoType.SHRUB);
     }
 
-    public DecoShrub(boolean useDefaultRandom) {
-
-        this();
-        this.useDefaultRandom = true;
-    }
-
     @Override
 // TODO: [1.12] This seems overly complicated. Simplify.
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
+        if (!hasVillage && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.TREE)) {
 
             // Shrub size.
             this.size = (this.size == -1) ? rand.nextInt(4) + 1 : this.size;
@@ -83,46 +79,34 @@ public class DecoShrub extends DecoBase {
             }
 
             // Do we want random shrubs?
-            if (this.useDefaultRandom &&
-                this.randomLogBlocks.length > 0 &&
-                this.randomLogBlocks.length == this.randomLeavesBlocks.length) {
+            if (this.useDefaultRandom && this.randomLogBlocks.length > 0 && this.randomLogBlocks.length == this.randomLeavesBlocks.length) {
                 int rnd = rand.nextInt(this.randomLogBlocks.length);
 
                 this.setLogBlock(this.randomLogBlocks[rnd]);
                 this.setLeavesBlock(this.randomLeavesBlocks[rnd]);
             }
 
+            // TODO: [1.12] This should be done in #setLeavesBlock.
             // Only tweak the leaves after all calls to setLeavesBlock().
             DecoBase.tweakShrubLeaves(this, false, true);
 
-            WorldGenerator worldGenerator = new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand);
-            final World world = rtgWorld.world();
-
-            int loopCount = this.loops;
-            loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : loopCount;
-            MutableBlockPos mpos = new MutableBlockPos();
+            final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
             for (int i = 0; i < loopCount; i++) {
-                int x = worldX + rand.nextInt(16) + 8;
-                int z = worldZ + rand.nextInt(16) + 8;
-                int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
-                mpos.setPos(x, y, z);
 
-                if (hasPlacedVillageBlocks) {
-                    if (BlockUtil.checkVerticalBlocks(MatchType.ALL, world, mpos, -1, Blocks.FARMLAND) ||
-                        !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, mpos, 2)) {
-                        return;
-                    }
-                }
-
-                if (y >= this.minY && y <= this.maxY) {
+                final BlockPos pos = rtgWorld.world().getHeight(getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16)));
+                if (pos.getY() >= this.minY && pos.getY() <= this.maxY) {
 
                     if (this.notEqualsZeroChance > 1) {
                         if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                            worldGenerator.generate(world, rand, mpos);
+                            new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand)
+                                .generate(rtgWorld.world(), rand, pos);
                         }
                     }
-                    else if (rand.nextInt(this.chance) == 0) {
-                        worldGenerator.generate(world, rand, mpos);
+                    else {
+                        if (rand.nextInt(this.chance) == 0) {
+                            new WorldGenShrubRTG(this.size, this.logBlock, this.leavesBlock, this.sand)
+                                .generate(rtgWorld.world(), rand, pos);
+                        }
                     }
                 }
             }

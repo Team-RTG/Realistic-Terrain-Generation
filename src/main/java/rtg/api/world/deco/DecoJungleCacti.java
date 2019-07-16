@@ -3,13 +3,13 @@ package rtg.api.world.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.util.math.ChunkPos;
+
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenJungleCacti;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.CACTUS;
 
 
 /**
@@ -39,23 +39,14 @@ public class DecoJungleCacti extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
+        if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CACTUS)) {
 
-            if (TerrainGen.decorate(rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), CACTUS)) {
-
-                WorldGenerator worldGenerator = new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight));
-
-                for (int i = 0; i < this.strengthFactor * strength; i++) {
-                    int intX = worldX + rand.nextInt(16) + 8;
-                    int intY = rand.nextInt(160);
-                    int intZ = worldZ + rand.nextInt(16) + 8;
-
-                    if (intY < this.maxY) {
-                        worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
-                    }
-                }
+            for (int i = 0; i < this.strengthFactor * strength; i++) {
+                final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), rand.nextInt(maxY), rand.nextInt(16));
+                new WorldGenJungleCacti(this.sandOnly, rand.nextInt(this.extraHeight))
+                    .generate(rtgWorld.world(), rand, pos);
             }
         }
     }

@@ -45,11 +45,6 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
         return new SurfaceBOPAlps(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
     public static class TerrainBOPAlps extends TerrainBase {
 
         // the BoP version has steep slopes and a flat area on top. The RTG version will mimic that.

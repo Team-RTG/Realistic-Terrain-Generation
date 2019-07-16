@@ -5,7 +5,6 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -34,7 +33,6 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
             .addDeco(randomTrees())
             .addDeco(logs(), config.ALLOW_LOGS.get()) // Add some fallen birch trees.
             .addDeco(shrubsOak()) // Oak shrubs to fill in the blanks.
-            .addDeco(baseBiomeDecorations()) // Let the biome partially-decorate itself.
             .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
             .addDeco(grass()) // Grass filler.
         ;
@@ -87,11 +85,6 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
         return new DecoShrub()
             .setMaxY(120)
             .setStrengthFactor(3f);
-    }
-
-    private DecoBaseBiomeDecorations baseBiomeDecorations() {
-        return new DecoBaseBiomeDecorations()
-            .setNotEqualsZeroChance(3);
     }
 
     private DecoFlowersRTG flowers() {

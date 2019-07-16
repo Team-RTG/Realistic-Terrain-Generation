@@ -9,7 +9,6 @@ import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoLargeFernDoubleTallgrass;
 import rtg.api.world.deco.DecoMushrooms;
 import rtg.api.world.deco.DecoPumpkin;
 import rtg.api.world.deco.DecoShrub;
@@ -36,7 +35,6 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
             .addDeco(flowers()) // Flowers.
             .addDeco(mushrooms()) // Mushrooms.
             .addDeco(pumpkins()) // Pumpkins.
-            .addDeco(doublePlants()) // Ferns & double tall grass.
             .addDeco(grass()); // Grass.
     }
 
@@ -114,14 +112,6 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(30f);
         return decoPumpkin;
-    }
-
-    private DecoLargeFernDoubleTallgrass doublePlants() {
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
-        return decoDoublePlants;
     }
 
     private DecoGrass grass() {

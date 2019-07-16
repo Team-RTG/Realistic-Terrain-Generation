@@ -11,6 +11,9 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 /**
  * @author WhichOnesPink
  */
+// TODO: [1.12] The DecoCollection* classes should be removed and replaced by utility methods that return a Collection<DecoBase> that
+//              are added the same as in IRealisticBiome#addDeco
+@Deprecated
 public class DecoCollectionBase {
 
     public ArrayList<DecoBase> decos;

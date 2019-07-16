@@ -60,19 +60,14 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeBase {
     }
 
     @Override
-    public int getExtraGoldGenCount() {
-        return 20;
-    }
-
-    @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 20;
+    public double waterLakeMult() {
+        return 0.1;
     }
 
     public class TerrainVanillaMesa extends TerrainBase {

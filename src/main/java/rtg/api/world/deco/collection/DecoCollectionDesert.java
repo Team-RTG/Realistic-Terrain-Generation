@@ -3,23 +3,17 @@ package rtg.api.world.deco.collection;
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoCactus;
 import rtg.api.world.deco.DecoDeadBush;
-import rtg.api.world.deco.DecoDesertWell;
 
 
 /**
  * @author WhichOnesPink
  */
+// TODO: [1.12] To be removed.
 public class DecoCollectionDesert extends DecoCollectionBase {
 
     public DecoCollectionDesert(BiomeConfig config) {
 
         super(config);
-
-        DecoDesertWell decoDesertWell = new DecoDesertWell();
-        decoDesertWell.setMaxY(80);
-        decoDesertWell.setStrengthFactor(1f);
-        decoDesertWell.setChance(160);
-        this.addDeco(decoDesertWell);
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.setMaxY(90);

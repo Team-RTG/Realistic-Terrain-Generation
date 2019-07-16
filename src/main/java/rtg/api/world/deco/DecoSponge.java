@@ -9,8 +9,7 @@ import net.minecraft.block.BlockSponge;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import rtg.api.util.RandomUtil;
+import net.minecraft.util.math.ChunkPos;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenSponge;
@@ -19,6 +18,9 @@ import rtg.api.world.gen.feature.WorldGenSponge;
 /**
  * @author WhichOnesPink
  */
+// TODO: [1.12] This Deco should probably be removed. In 1.12 sponge is meant to be aquired by raiding ocean monuments
+//              and having it generate anywhere in oceans will throw off the balance of the game, and my also negatively
+//              affect other mods that rely on sponge being rare.
 public class DecoSponge extends DecoBase {
 
     protected ArrayList<Block> validGroundBlocks;
@@ -59,37 +61,30 @@ public class DecoSponge extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
+        for (int i = 0; i < this.strengthFactor * strength; ++i) {
 
-            WorldGenerator worldGenerator = new WorldGenSponge(spongeBlock, 0, rand, validGroundBlocks);
+            final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
 
-            for (int l1 = 0; l1 < this.strengthFactor * strength; ++l1) {
+            int y;
+            switch (this.heightType) {
+                case NEXT_INT:
+                    y = getRangedRandom(rand, this.minY, this.maxY);
+                    break;
 
-                int i1 = worldX + rand.nextInt(16) + 8;
-                int j1 = worldZ + rand.nextInt(16) + 8;
-                int k1;
+                case GET_HEIGHT_VALUE:
+                    y = rtgWorld.world().getHeight(pos).getY();
+                    break;
 
-                switch (this.heightType) {
+                default:
+                    y = rtgWorld.world().getHeight(pos).getY();
+                    break;
+            }
 
-                    case NEXT_INT:
-                        k1 = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
-                        break;
-
-                    case GET_HEIGHT_VALUE:
-                        k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
-                        break;
-
-                    default:
-                        k1 = rtgWorld.world().getHeight(new BlockPos(i1, 0, j1)).getY();
-                        break;
-
-                }
-
-                if (k1 >= this.minY && k1 <= this.maxY && rand.nextInt(this.chance) == 0) {
-                    worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(i1, k1, j1));
-                }
+            if (y >= this.minY && y <= this.maxY && rand.nextInt(this.chance) == 0) {
+                new WorldGenSponge(spongeBlock, 0, rand, validGroundBlocks)
+                    .generate(rtgWorld.world(), rand, pos.up(y));
             }
         }
     }

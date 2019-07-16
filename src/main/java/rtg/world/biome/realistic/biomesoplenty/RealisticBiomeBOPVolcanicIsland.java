@@ -13,7 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -53,21 +52,6 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
             10f, //float smallWidth,
             0.5f //float smallStrength
         );
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
-        decoGrassDoubleTallgrass.setLoops(15);
-        decoGrassDoubleTallgrass.setMaxY(128);
-        this.addDeco(decoGrassDoubleTallgrass);
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 1;
     }
 
     public class TerrainBOPVolcanicIsland extends TerrainBase {

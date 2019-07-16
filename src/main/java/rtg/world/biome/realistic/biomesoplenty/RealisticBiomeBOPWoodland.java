@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -144,6 +143,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
     }
 
+    // TODO: [1.12] Useless subclass. Just addDeco the Decos in #initDecos!
     private class DecoCollectionWoodland extends DecoCollectionBase {
 
         // Tends to return values between -3f to 5f, with some overflow.
@@ -166,7 +166,6 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
                 .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
                 .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
                 .addDeco(grass()) // Grass filler.
-                .addDeco(new DecoBaseBiomeDecorations())
             ;
         }
 

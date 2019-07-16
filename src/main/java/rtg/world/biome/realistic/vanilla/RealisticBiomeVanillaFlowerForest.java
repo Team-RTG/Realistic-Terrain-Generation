@@ -14,7 +14,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -143,10 +142,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         // More trees.
         this.addDecoCollection(new DecoCollectionSmallPineTreesForest(this.getConfig()));
 
-        // Not much free space left, so let's give some space to the base biome.
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
 
         // Add some fallen trees of the oak and spruce variety (50/50 distribution).
         DecoFallenTree decoFallenOak = new DecoFallenTree();

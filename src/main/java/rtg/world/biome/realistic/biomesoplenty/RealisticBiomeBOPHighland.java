@@ -45,11 +45,6 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
         return new SurfaceBOPHighland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
     public class TerrainBOPHighland extends TerrainBase {
 
         private float baseHeight = 90f;

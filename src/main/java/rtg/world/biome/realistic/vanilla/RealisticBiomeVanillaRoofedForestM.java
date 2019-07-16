@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,12 +14,10 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoDeadBush;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
 import rtg.api.world.deco.DecoMushrooms;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
@@ -111,12 +110,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         decoShrub.setStrengthFactor(1f);
         this.addDeco(decoShrub);
 
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(128);
-        decoGrassDoubleTallgrass.setStrengthFactor(8f);
-        decoGrassDoubleTallgrass.setDoubleGrassChance(6);
-        this.addDeco(decoGrassDoubleTallgrass);
-
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setMaxY(128);
         decoDeadBush.setChance(16);
@@ -129,14 +122,11 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         decoGrass.setChance(2);
         this.addDeco(decoGrass);
 
-        DecoGrass decoFern = new DecoGrass(2);
+        DecoGrass decoFern = new DecoGrass(BlockTallGrass.EnumType.FERN);
         decoFern.setMaxY(128);
         decoFern.setStrengthFactor(4f);
         decoFern.setChance(2);
         this.addDeco(decoFern);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);

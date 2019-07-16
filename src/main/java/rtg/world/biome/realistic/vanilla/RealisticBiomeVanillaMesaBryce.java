@@ -62,19 +62,14 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
     }
 
     @Override
-    public int getExtraGoldGenCount() {
-        return 20;
-    }
-
-    @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
     public static class TerrainRTGMesaBryce extends TerrainBase {

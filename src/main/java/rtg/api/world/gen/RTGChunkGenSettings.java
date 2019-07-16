@@ -837,4 +837,12 @@ public final class RTGChunkGenSettings {
             return json;
         }
     }
+
+    public int getSurfaceWaterLakeChance(final double multiplier) {
+        return this.waterLakeChance <= 0 || multiplier <= 0.0 ? 0 : (int) (this.waterLakeChance / multiplier);
+    }
+
+    public int getSurfaceLavaLakeChance(final double multiplier) {
+        return this.lavaLakeChance <= 0 || multiplier <= 0.0 ? 0 : (int) (this.lavaLakeChance / multiplier);
+    }
 }

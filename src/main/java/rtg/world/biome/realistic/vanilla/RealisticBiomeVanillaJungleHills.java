@@ -54,8 +54,8 @@ public class RealisticBiomeVanillaJungleHills extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 2;
+    public double waterLakeMult() {
+        return 0.5;
     }
 
     public class TerrainVanillaJungleHills extends TerrainBase {

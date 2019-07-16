@@ -11,7 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionIceTrees;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -52,9 +51,6 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
         if (this.getConfig().ALLOW_ICE_TREES.get()) {
             this.addDecoCollection(new DecoCollectionIceTrees(this.getConfig()));
         }
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     public class TerrainVanillaIcePlainsSpikes extends TerrainBase {

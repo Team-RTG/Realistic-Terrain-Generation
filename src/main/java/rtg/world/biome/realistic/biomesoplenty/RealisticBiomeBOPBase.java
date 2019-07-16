@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 
 import biomesoplenty.api.biome.IExtendedBiome;
 import net.minecraft.world.biome.Biome;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
+
 import rtg.api.world.biome.RealisticBiomeBase;
 
 
@@ -36,13 +36,5 @@ public abstract class RealisticBiomeBOPBase extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-    }
-
-    @Override
-// TODO: [1.12] Verify that this should be over-ridden for all BoP biomes, and not just for bayou.
-    public int waterSurfaceLakeChance() {
-        return 0;
     }
 }

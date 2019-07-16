@@ -1,6 +1,6 @@
 package rtg.api.world.biome;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
@@ -16,7 +17,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionBase;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -26,11 +26,6 @@ import rtg.api.world.biome.RealisticBiomeBase.BeachType;
 import rtg.api.world.biome.RealisticBiomeBase.RiverType;
 
 
-/**
- * Created by WhichOnesPink on 06/02/2017.
- */
-// TODO: [1.12] The name of this interface can be shortened to `RTGBiome`. Basically the whole mod codebase can do a find&replace of `realistic` -> `RTG`
-// TODO: [1.12] All default implementations can be removed. Implementation can go in the base class.
 public interface IRealisticBiome {
 
     Biome baseBiome();
@@ -62,106 +57,36 @@ public interface IRealisticBiome {
 
     float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 
-    int waterUndergroundLakeChance();
+    default double waterLakeMult() {
+        return 1.0;
+    }
 
-    int lavaUndergroundLakeChance();
-
-    int waterSurfaceLakeChance();
-
-    int lavaSurfaceLakeChance();
-
-    BiomeDecoratorRTG rDecorator();
+    default double lavaLakeMult() {
+        return 1.0;
+    }
 
     float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);
 
-
-
-/* TO BE MOVED TO THE BIOME DECORATOR */
-
-    // TODO: [1.12] To be moved to the biome decorator.
-    @Deprecated
     void initDecos();
 
-    @Deprecated
-    ArrayList<DecoBase> getDecos();
+    Collection<DecoBase> getDecos();
 
+    // TODO: [1.12] To be removed. All trees need to be a Deco and be added through #addDeco.
     @Deprecated
-    ArrayList<TreeRTG> getTrees();
-
-    // TODO: [1.12] To be moved to the biome decorator.
-    @Deprecated
-    default boolean generatesEmeralds() {
-        return false;
-    }
-
-    // TODO: [1.12] To be moved to the biome decorator.
-    @Deprecated
-    default boolean generatesSilverfish() {
-        return false;
-    }
-
-    /**
-     * Returns the number of extra blocks of gold ore to generate in this biome.
-     * Defaults to 0, but can be overridden by sub-classed biomes.
-     * Currently only used by vanilla Mesa biome variants.
-     */
-// TODO: [1.12] To be moved to the biome decorator. Extra gold should be determined by the decorator and should not be in this interface.
-    @Deprecated
-    default int getExtraGoldGenCount() {
-        return 0;
-    }
-
-    /**
-     * Returns the minimum Y value at which extra gold ore can generate.
-     * Defaults to 32 (BiomeMesa), but can be overridden by sub-classed biomes.
-     * Currently only used by vanilla Mesa biome variants.
-     *
-     * @see net.minecraft.world.biome.BiomeMesa
-     */
-// TODO: [1.12] To be moved to the biome decorator. Extra gold should be determined by the decorator and should not be in this interface.
-    @Deprecated
-    default int getExtraGoldGenMinHeight() {
-        return 32;
-    }
-
-    /**
-     * Returns the maximum Y value at which extra gold ore can generate.
-     * Defaults to 80 (BiomeMesa), but can be overridden by sub-classed biomes.
-     *
-     * @see net.minecraft.world.biome.BiomeMesa
-     */
-// TODO: [1.12] To be moved to the biome decorator. Extra gold should be determined by the decorator and should not be in this interface.
-    @Deprecated
-    default int getExtraGoldGenMaxHeight() {
-        return 80;
-    }
+    Collection<TreeRTG> getTrees();
 
     /**
      * Adds a deco object to the list of biome decos.
      * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the decos in the biome.
      */
-// TODO: [1.12] To be moved to the biome decorator.
-    @Deprecated
     default void addDeco(DecoBase deco, boolean allowed) {
 
         if (allowed) {
 
-            ArrayList<DecoBase> decos = this.getDecos();
+            Collection<DecoBase> decos = this.getDecos();
 
             if (!deco.properlyDefined()) {
                 throw new RuntimeException(deco.toString());
-            }
-
-            if (deco instanceof DecoBaseBiomeDecorations) {
-
-                for (int i = 0; i < decos.size(); i++) {
-
-                    if (decos.get(i) instanceof DecoBaseBiomeDecorations) {
-
-                        decos.remove(i);
-                        break;
-                    }
-                }
             }
 
             decos.add(deco);
@@ -171,8 +96,6 @@ public interface IRealisticBiome {
     /**
      * Convenience method for addDeco() where 'allowed' is assumed to be true.
      */
-// TODO: [1.12] To be moved to the biome decorator.
-    @Deprecated
     default void addDeco(DecoBase deco) {
         if (!deco.properlyDefined()) {
             throw new RuntimeException(deco.toString());
@@ -180,7 +103,8 @@ public interface IRealisticBiome {
         this.addDeco(deco, true);
     }
 
-    // TODO: [1.12] To be moved to the biome decorator.
+    // TODO: [1.12] The DecoCollection* classes should be removed and replaced by utility methods that return Collection<DecoBase>s that
+    //              are added the same as in #addDeco
     @Deprecated
     default void addDecoCollection(DecoCollectionBase decoCollection) {
 
@@ -210,7 +134,7 @@ public interface IRealisticBiome {
      * Adds a tree to the list of RTG trees associated with this biome.
      * The 'allowed' parameter allows us to pass biome config booleans dynamically when configuring the trees in the biome.
      */
-// TODO: [1.12] To be moved to the biome decorator.
+    // TODO: [1.12] To be removed. All trees need to be a Deco and be added through #addDeco.
     @Deprecated
     default void addTree(TreeRTG tree, boolean allowed) {
 
@@ -227,7 +151,7 @@ public interface IRealisticBiome {
                 IBlockState leaves = tree.getLeavesBlock().withProperty(BlockLeaves.CHECK_DECAY, false);
                 tree.setLeavesBlock(leaves);
             }
-            catch (Exception e) {
+            catch (Exception ignore) {
                 // Do nothing.
             }
 
@@ -238,30 +162,25 @@ public interface IRealisticBiome {
     /**
      * Convenience method for addTree() where 'allowed' is assumed to be true.
      */
-// TODO: [1.12] To be moved to the biome decorator.
+    // TODO: [1.12] To be removed. All trees need to be a Deco and be added through #addDeco.
     @Deprecated
     default void addTree(TreeRTG tree) {
         this.addTree(tree, true);
     }
 
-    // TODO: [1.12] To be moved to the biome decorator. Added to this interface temporarily.
-    @Deprecated
-    void rDecorate(RTGWorld rtgWorld, Random rand, BlockPos pos, float strength, float river, boolean hasPlacedVillageBlocks);
+    default void rDecorate(final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasPlacedVillageBlocks) {
+        this.getDecos().stream()
+            .filter(deco -> deco.preGenerate(river))
+            .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasPlacedVillageBlocks));
+        // TODO: [1.12] This may need to be adjusted to run before RTG decorations.
+        this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x, 0, chunkPos.z));
+    }
 
     default double getSnowLayerMultiplier() { return 1.0d; }
 
-
-/* TO BE REMOVED */
-
-    // TODO: [1.12] To be removed. Initialisation should take place in the constructor.
-    @Deprecated
     TerrainBase initTerrain();
 
-    // TODO: [1.12] To be removed. Initialisation should take place in the constructor.
-    @Deprecated
     SurfaceBase initSurface();
 
-    // TODO: [1.12] To be removed. This should not be part of the API and should be done in the constructor
-    @Deprecated
     void initConfig();
 }

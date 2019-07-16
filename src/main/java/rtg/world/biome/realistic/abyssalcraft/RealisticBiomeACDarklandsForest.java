@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
@@ -199,8 +198,5 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(8f);
         this.addDeco(decoGrass);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

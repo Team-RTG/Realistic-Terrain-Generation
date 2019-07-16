@@ -13,9 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoPond;
-import rtg.api.world.deco.helper.DecoHelperBorder;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -54,22 +51,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public SurfaceBase initSurface() {
 
         return new SurfaceBOPCrag(getConfig(), Blocks.STONE.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0f);
-    }
-
-    @Override
-    public void initDecos() {
-
-        DecoPond decoPond = new DecoPond();
-        decoPond.setChunksPerPond(8);
-        DecoHelperBorder borderedPond = new DecoHelperBorder(decoPond, 0.8f, 0.7f);
-        this.addDeco(borderedPond);
-
-        this.addDeco(new DecoBaseBiomeDecorations());
-    }
-
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
     }
 
     public class TerrainBOPCrag extends TerrainBase {

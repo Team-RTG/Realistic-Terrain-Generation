@@ -5,7 +5,6 @@ import net.minecraft.init.Blocks;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoSponge;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
@@ -21,8 +20,7 @@ public class DecoCollectionOcean extends DecoCollectionBase {
         super(config);
 
         this.addDeco(boulderDecos()) // Mossy cobble & prismarine boulders.
-            .addDeco(sponge(), config.ALLOW_SPONGE.get()) // Rare, wet sponge (only in deeper waters).
-            .addDeco(baseBiomeDecorations()); // Base biome decorations.
+            .addDeco(sponge(), config.ALLOW_SPONGE.get()); // Rare, wet sponge (only in deeper waters).
     }
 
     private DecoHelperRandomSplit boulderDecos() {
@@ -54,9 +52,5 @@ public class DecoCollectionOcean extends DecoCollectionBase {
         decoSponge.setHeightType(DecoSponge.HeightType.NEXT_INT);
         decoSponge.setStrengthFactor(8f);
         return decoSponge;
-    }
-
-    private DecoBaseBiomeDecorations baseBiomeDecorations() {
-        return new DecoBaseBiomeDecorations();
     }
 }

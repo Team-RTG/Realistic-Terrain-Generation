@@ -23,13 +23,9 @@ import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
-import rtg.api.world.deco.DecoJungleLilypadVines;
 import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -136,12 +132,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoPond decoPond = new DecoPond();
-        decoPond.setChunksPerPond(1);
-        decoPond.setMaxY(67);
-        decoPond.setLoops(8);
-        this.addDeco(decoPond);
-
 //        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
 //        myrtilloidesTree.setLogBlock(logBlock);
 //        myrtilloidesTree.setLeavesBlock(leavesBlock);
@@ -176,12 +166,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 //        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
 //        ceibaRoseaTree.setTreeConditionChance(4);
 //        ceibaRoseaTree.setMaxY(90);
-//        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
 //        this.addDeco(ceibaRoseaTree);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
@@ -203,15 +190,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
-        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
-        this.addDeco(decoJungleLilypadVines);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(90);
-        decoGrassDoubleTallgrass.setStrengthFactor(4f);
-        decoGrassDoubleTallgrass.setDoubleGrassChance(8);
-        this.addDeco(decoGrassDoubleTallgrass);
-
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(90);
         decoGrass.setStrengthFactor(4f);
@@ -225,8 +203,8 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
     public class TerrainBOPBayou extends TerrainBase {

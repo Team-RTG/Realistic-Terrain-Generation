@@ -59,8 +59,8 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
     public class TerrainVanillaDesertHills extends TerrainBase {

@@ -15,7 +15,6 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
@@ -101,8 +100,6 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{15, 1};
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
     public class TerrainBOPCherryBlossomGrove extends TerrainBase {

@@ -40,11 +40,6 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
         return new SurfaceRWSilverBirchHills(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
     public class TerrainRWSilverBirchHills extends TerrainBase {
 
         private float baseHeight = 90f;

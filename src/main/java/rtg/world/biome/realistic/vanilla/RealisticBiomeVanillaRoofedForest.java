@@ -15,7 +15,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoCobwebs;
 import rtg.api.world.deco.DecoDeadBush;
@@ -92,7 +91,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         mangroveTree.setTreeConditionChance(1);
         mangroveTree.setStrengthFactorForLoops(12f);
         mangroveTree.setMaxY(110);
-        mangroveTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(mangroveTree);
 
         TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
@@ -111,7 +109,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         ceibaPentandraTree.setTreeConditionChance(1);
         ceibaPentandraTree.setStrengthFactorForLoops(12f);
         ceibaPentandraTree.setMaxY(110);
-        ceibaPentandraTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(ceibaPentandraTree);
 
         TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
@@ -130,7 +127,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         ceibaRoseaTree.setTreeConditionChance(1);
         ceibaRoseaTree.setStrengthFactorForLoops(12f);
         ceibaRoseaTree.setMaxY(110);
-        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(ceibaRoseaTree);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -176,10 +172,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         decoCobwebs.setMinAdjacents(2);
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
-        decoBaseBiomeDecorations.setMaxY(100);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
+        //decoBaseBiomeDecorations.setMaxY(100);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(100);
@@ -194,8 +188,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 3;
+    public double waterLakeMult() {
+        return 0.5;
     }
 
     public class TerrainVanillaRoofedForest extends TerrainBase {

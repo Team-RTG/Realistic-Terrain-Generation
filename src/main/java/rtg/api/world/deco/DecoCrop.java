@@ -3,6 +3,11 @@ package rtg.api.world.deco;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
+import net.minecraftforge.event.terraingen.TerrainGen;
+
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenCrops;
@@ -13,6 +18,7 @@ import rtg.api.world.gen.feature.WorldGenCrops;
  */
 public class DecoCrop extends DecoBase {
 
+    // TODO: [1.12] This should be an Enum
     private int type; // This can the number 0,1,2,3.
     private int size; //Higher = larger fields.
     private int density; //Higher = Crops in fields closer together.
@@ -45,20 +51,15 @@ public class DecoCrop extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
-
-            if (this.chance > 1 && rand.nextInt(this.chance) == 0) {
-
-                for (int i = 0; i < this.strengthFactor * strength; ++i) {
-
-                    int x = worldX + rand.nextInt(16) + 8;
-                    int z = worldZ + rand.nextInt(16) + 8;
-                    int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
-                    if (y >= this.minY && y <= this.maxY) {
-                        new WorldGenCrops(type, size, density, height, water).generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
-                    }
+        if (this.chance > 1 && rand.nextInt(this.chance) == 0 && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CUSTOM)) {
+            for (int i = 0; i < this.strengthFactor * strength; ++i) {
+                final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
+                int y = rtgWorld.world().getHeight(pos).getY();
+                if (y >= this.minY && y <= this.maxY) {
+                    new WorldGenCrops(type, size, density, height, water)
+                        .generate(rtgWorld.world(), rand, pos.up(y));
                 }
             }
         }

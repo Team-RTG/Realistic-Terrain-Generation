@@ -12,7 +12,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
@@ -97,10 +96,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();

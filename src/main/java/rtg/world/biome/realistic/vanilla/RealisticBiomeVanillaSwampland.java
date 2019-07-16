@@ -13,7 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoPumpkin;
@@ -111,9 +110,6 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeBase {
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);

@@ -21,14 +21,14 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.MapGenBase;
+import net.minecraft.world.gen.feature.WorldGenDungeons;
+import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -36,7 +36,6 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.RTG;
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
-import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.LimitedArrayCacheMap;
 import rtg.api.util.Logger;
 import rtg.api.util.noise.ISimplexData2D;
@@ -50,7 +49,6 @@ import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
-@SuppressWarnings("deprecation")
 public class ChunkGeneratorRTG implements IChunkGenerator {
 
     private static final BlockSnow SNOW_LAYER_BLOCK = ((BlockSnow)Blocks.SNOW_LAYER);
@@ -80,7 +78,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private Random rand;
     private BiomeProviderRTG biomeProvider;
     private Biome[] baseBiomesList;
-    private ChunkOreGenTracker chunkOreGenTracker = new ChunkOreGenTracker();
 
     public ChunkGeneratorRTG(RTGWorld rtgWorld) {
 
@@ -116,7 +113,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     @Override
     public Chunk generateChunk(final int cx, final int cz) {
 
-        final ChunkPos chunkPos = new ChunkPos(cx, cz);
         final BlockPos blockPos = new BlockPos(cx * 16, 0, cz * 16);
 
         this.rand.setSeed(cx * 341873128712L + cz * 132897987541L);
@@ -253,19 +249,21 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         }
     }
 
+    @SuppressWarnings("ConstantConditions") //false-positive on `hasVillage`, IDEA is probably not looking deep enough.
     @Override
     public void populate(int chunkX, int chunkZ) {
 
         BlockFalling.fallInstantly = true;
 
-        ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
-        BlockPos blockPos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
+        final ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
+        final BlockPos blockPos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
+        final BlockPos offsetpos = blockPos.add(8, 0, 8);
 
         IRealisticBiome biome = RTGAPI.getRTGBiome(biomeProvider.getBiome(blockPos.add(16, 0, 16)));
 
         this.rand.setSeed(rtgWorld.getChunkSeed(chunkX, chunkZ));
 
-        boolean gennedVillage = false;
+        boolean hasVillage = false;
 
         ForgeEventFactory.onChunkPopulate(true, this, this.world, this.rand, chunkX, chunkZ, false);
 
@@ -277,7 +275,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
                 strongholdGenerator.generateStructure(world, rand, chunkPos);
             }
             if (settings.useVillages) {
-                gennedVillage = villageGenerator.generateStructure(world, rand, chunkPos);
+                hasVillage = villageGenerator.generateStructure(world, rand, chunkPos);
             }
             if (settings.useTemples) {
                 scatteredFeatureGenerator.generateStructure(world, rand, chunkPos);
@@ -287,21 +285,59 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             }
         }
 
-// TODO: [1.12] This process should happen in here and not in the biome decorator.
-        biome.rDecorator().rPopulatePreDecorate(this, this.world, this.rand, this.settings, chunkX, chunkZ, gennedVillage);
+        // water lakes.
+        if (settings.useWaterLakes && settings.waterLakeChance > 0 && !hasVillage) {
 
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Pre(this.world, this.rand, chunkPos));
+            final long     nextchance    = rand.nextLong();
+            final int      surfacechance = settings.getSurfaceWaterLakeChance(biome.waterLakeMult());
+            final BlockPos pos           = offsetpos.add(rand.nextInt(16), 0, rand.nextInt(16));
 
-        //Logger.debug("DecorateBiomeEvent.Pre {}", blockPos);
+            // possibly reduced chance to generate anywhere, including on surface
+            if (surfacechance > 0 && nextchance % surfacechance == 0) {
+                if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.LAKE)) {
+                    (new WorldGenLakes(Blocks.WATER)).generate(world, rand, pos.up(rand.nextInt(256)));
+                }
+            }
+            // normal chance to generate underground
+            else if (nextchance % settings.waterLakeChance == 0) {
+                if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.LAKE)) {
+                    (new WorldGenLakes(Blocks.WATER)).generate(world, rand, pos.up(rand.nextInt(50) + 4));//make sure that underground lakes are sufficiently underground
+                }
+            }
+        }
 
-        // Ore gen.
-// TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
-        this.generateOres(biome, this.settings, blockPos);
+        // lava lakes.
+        if (settings.useLavaLakes && settings.lavaLakeChance > 0 && !hasVillage) {
+
+            final long     nextchance    = rand.nextLong();
+            final int      surfacechance = settings.getSurfaceLavaLakeChance(biome.lavaLakeMult());
+            final BlockPos pos           = offsetpos.add(rand.nextInt(16), 0, rand.nextInt(16));
+
+            // possibly reduced chance to generate anywhere, including on surface
+            if (surfacechance > 0 && nextchance % surfacechance == 0) {
+                if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.LAVA)) {
+                    (new WorldGenLakes(Blocks.LAVA)).generate(world, rand, pos.up(rand.nextInt(256)));
+                }
+            }
+            // normal chance to generate underground
+            else if (nextchance % settings.lavaLakeChance == 0) {
+                if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.LAVA)) {
+                    (new WorldGenLakes(Blocks.LAVA)).generate(world, rand, pos.up(rand.nextInt(50) + 4));//make sure that underground lakes are sufficiently underground
+                }
+            }
+        }
+
+        if (settings.useDungeons) {
+            if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.DUNGEON)) {
+                for (int i = 0; i < settings.dungeonChance; i++) {
+                    (new WorldGenDungeons()).generate(world, rand, offsetpos.add(rand.nextInt(16), rand.nextInt(256), rand.nextInt(16)));
+                }
+            }
+        }
 
         float river = -TerrainBase.getRiverStrength(blockPos.add(16, 0, 16), rtgWorld);
 
         if (RTG.decorationsDisable() || biome.getConfig().DISABLE_RTG_DECORATIONS.get()) {
-
             if (river > 0.9f) {
                 biome.getRiverBiome().baseBiome().decorate(this.world, this.rand, blockPos);
             }
@@ -311,25 +347,18 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         }
         else {
             if (river > 0.9f) {
-                biome.getRiverBiome().rDecorate(this.rtgWorld, this.rand, blockPos, 1, river, gennedVillage);
+                biome.getRiverBiome().rDecorate(this.rtgWorld, this.rand, chunkPos, river, hasVillage);
             }
             else {
-                biome.rDecorate(this.rtgWorld, this.rand, blockPos, 1, river, gennedVillage);
+                biome.rDecorate(this.rtgWorld, this.rand, chunkPos, river, hasVillage);
             }
         }
 
-        MinecraftForge.EVENT_BUS.post(new DecorateBiomeEvent.Post(this.world, this.rand, chunkPos));
-
-        //Logger.debug("DecorateBiomeEvent.Post (%d %d)", blockPos.getX(), blockPos.getZ());
-
-// TODO: [1.12] This process should happen in here and not in the biome decorator.
-        biome.rDecorator().rPopulatePostDecorate(this.world, this.rand, this.settings, chunkX, chunkZ, gennedVillage);
-
-        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, gennedVillage, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
+        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.ANIMALS)) {
             WorldEntitySpawner.performWorldGenSpawning(this.world, biome.baseBiome(), blockPos.getX() + 8, blockPos.getZ() + 8, 16, 16, this.rand);
         }
 
-        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, gennedVillage, PopulateChunkEvent.Populate.EventType.ICE)) {
+        if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.ICE)) {
 
             final int xPos = blockPos.getX() + 8;
             final int zPos = blockPos.getZ() + 8;
@@ -357,7 +386,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             }
         }
 
-        ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, chunkX, chunkZ, gennedVillage);
+        ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, chunkX, chunkZ, hasVillage);
 
         BlockFalling.fallInstantly = false;
     }
@@ -384,9 +413,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         }
         return biome.getSpawnableList(creatureType);
     }
-
-
-    /* Landscape Geneator */
 
     @Nullable
     @Override
@@ -463,22 +489,8 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         return ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null) && this.scatteredFeatureGenerator.isInsideStructure(pos);
     }
 
-    // TODO: [1.12] CRITICAL - Ore generation needs to be moved to the biome decorator.
-    private void generateOres(IRealisticBiome rBiome, RTGChunkGenSettings settings, BlockPos pos) {
 
-        // Have we already generated ores for this chunk?
-        if (this.chunkOreGenTracker.hasGeneratedOres(pos)) {
-            Logger.rtgDebug("Already generated ores for chunk @ x:{} z:{}", pos.getX(), pos.getZ());
-            return;
-        }
-
-        rBiome.rDecorator().decorateOres(this.world, this.rand, settings, pos);
-        this.chunkOreGenTracker.addOreChunk(pos);
-    }
-
-    public ChunkOreGenTracker getChunkOreGenTracker() {
-        return this.chunkOreGenTracker;
-    }
+    /* Landscape Geneator */
 
     private void setWeightings() {
         for (int x = 0; x < 16; x++) {

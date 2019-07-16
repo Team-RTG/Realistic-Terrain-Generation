@@ -16,7 +16,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -128,8 +127,6 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
     public class TerrainBOPGrove extends TerrainBase {

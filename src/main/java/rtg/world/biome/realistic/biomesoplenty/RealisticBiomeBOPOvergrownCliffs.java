@@ -45,11 +45,6 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
         return new SurfaceBOPOvergrownCliffs(getConfig(), biome.topBlock, biome.fillerBlock, 0.95f);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
     public class TerrainBOPOvergrownCliffs extends TerrainBase {
 
         private float width;

@@ -6,20 +6,19 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.WorldGenerator;
+
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.util.Logger;
-import rtg.api.util.RandomUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenFlowersRTG;
-
-import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.FLOWERS;
 
 
 /**
@@ -31,6 +30,8 @@ public class DecoFlowersRTG extends DecoBase {
     private float strengthFactor; // Higher = more flowers.
     private int minY; // Height restriction.
     private int maxY; // Height restriction.
+    // TODO: [1.12] This is a surface feature, so only World#getHeight should be used.
+    @Deprecated
     private HeightType heightType; // How we determine the Y coord.
     private int chance; // Higher = more rare.
     private int notEqualsZeroChance;
@@ -58,7 +59,7 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG() {
 
         super();
-        this.addFlowers(POPPY, DANDELION); // Only POPPY and DANDELION by default.
+        this.addFlowers(BlockFlower.EnumFlowerType.DANDELION, BlockFlower.EnumFlowerType.DANDELION); // Only POPPY and DANDELION by default.
         this.setChance(1); // 100% chance of generating by default.
         this.setNotEqualsZeroChance(1);
         this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
@@ -71,57 +72,42 @@ public class DecoFlowersRTG extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
-
-        BlockPos pos = new BlockPos(worldX, 0, worldZ);
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
         if (this.flowers == null || this.flowers.isEmpty()) {
-            Logger.error("DecoFlowerRTG called with a null or empty flower list in biome {} at {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), pos.toString());
+            Logger.error("DecoFlowerRTG called with a null or empty flower list in biome {} at chunk {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), chunkPos.toString());
             return;
         }
 
+        if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.FLOWERS)) {
 
-        if (this.allowed) {
+            final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+            for (int i = 0; i < loopCount * 16; i++) {
+                BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
 
-            if (TerrainGen.decorate(rtgWorld.world(), rand, pos, FLOWERS)) {
+                int y;
+                switch (this.heightType) {
+                    case NEXT_INT:
+                        y = getRangedRandom(rand, this.minY, this.maxY);
+                        break;
 
-                WorldGenerator worldGenerator = new WorldGenFlowersRTG(this.flowers);
+                    case GET_HEIGHT_VALUE:
+                        y = rtgWorld.world().getHeight(pos).getY();
+                        break;
 
-                this.setLoops((this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops);
+                    default:
+                        y = rand.nextInt(this.maxY);
+                        break;
+                }
 
-                for (int i = 0; i < this.loops * 16; i++) {
-                    int intX = worldX + rand.nextInt(16) + 8;
-                    int intZ = worldZ + rand.nextInt(16) + 8;
-
-                    int intY;
-                    switch (this.heightType) {
-                        case NEXT_INT:
-                            intY = RandomUtil.getRandomInt(rand, this.minY, this.maxY);
-                            break;
-
-                        case GET_HEIGHT_VALUE:
-                            intY = rtgWorld.world().getHeight(new BlockPos(intX, 0, intZ)).getY();
-                            break;
-
-                        default:
-                            intY = rand.nextInt(this.maxY);
-                            break;
-
+                if (this.notEqualsZeroChance > 1) {
+                    if (rand.nextInt(this.notEqualsZeroChance) != 0) {
+                        new WorldGenFlowersRTG(this.flowers).generate(rtgWorld.world(), rand, pos.up(y));
                     }
-
-                    if (this.notEqualsZeroChance > 1) {
-
-                        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-
-                            worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
-                        }
-                    }
-                    else {
-
-                        if (rand.nextInt(this.chance) == 0) {
-
-                            worldGenerator.generate(rtgWorld.world(), rand, new BlockPos(intX, intY, intZ));
-                        }
+                }
+                else {
+                    if (rand.nextInt(this.chance) == 0) {
+                        new WorldGenFlowersRTG(this.flowers).generate(rtgWorld.world(), rand, pos.up(y));
                     }
                 }
             }
@@ -215,6 +201,8 @@ public class DecoFlowersRTG extends DecoBase {
         return this;
     }
 
+    // TODO: [1.12] This is a surface feature, so only World#getHeight should be used.
+    @Deprecated
     public enum HeightType {
         NEXT_INT,
         GET_HEIGHT_VALUE

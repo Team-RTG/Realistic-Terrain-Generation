@@ -53,8 +53,8 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
     public class TerrainVanillaDeepOcean extends TerrainBase {

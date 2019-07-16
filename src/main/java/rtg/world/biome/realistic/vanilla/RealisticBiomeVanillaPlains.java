@@ -142,9 +142,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
 
-        // Vanilla trees look awful in this biome, so let's make sure they don't generate.
-        //DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        //this.addDeco(decoBaseBiomeDecorations);
+        // Vanilla trees look awful in this biome, so let's make sure they don't generate by modifying the base biome decorator
+        baseBiome().decorator.treesPerChunk = -999;
     }
 
     public class TerrainVanillaPlains extends TerrainBase {

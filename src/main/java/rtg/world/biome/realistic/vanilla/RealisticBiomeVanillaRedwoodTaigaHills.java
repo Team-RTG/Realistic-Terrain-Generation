@@ -14,7 +14,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
@@ -89,9 +88,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeBase {
         decoShrub.setChance(10);
         this.addDeco(decoShrub);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setEqualsZeroChance(3);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setEqualsZeroChance(3);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);

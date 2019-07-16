@@ -3,7 +3,6 @@ package rtg.api.world.deco.collection;
 import net.minecraft.init.Blocks;
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.deco.DecoCactus;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
 import rtg.api.world.deco.DecoReed;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
@@ -66,13 +65,5 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         decoReed.setMaxY(68);
         decoReed.setLoops(3);
         this.addDeco(decoReed);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setCheckRiver(true);
-        decoGrassDoubleTallgrass.setMinRiver(0.7f);
-        decoGrassDoubleTallgrass.setMaxY(128);
-        decoGrassDoubleTallgrass.setLoops(15);
-        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
-        this.addDeco(decoGrassDoubleTallgrass);
     }
 }

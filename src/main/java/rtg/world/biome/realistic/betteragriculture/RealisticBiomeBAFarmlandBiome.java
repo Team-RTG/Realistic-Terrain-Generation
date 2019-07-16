@@ -13,7 +13,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoCrop;
 import rtg.api.world.deco.DecoFallenTree;
@@ -127,11 +126,6 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         decoBoulder.setMaxY(80);
         decoBoulder.setStrengthFactor(4f);
         this.addDeco(decoBoulder);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
-        this.addDeco(decoBaseBiomeDecorations);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();

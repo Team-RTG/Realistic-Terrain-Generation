@@ -5,20 +5,20 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import rtg.RTGConfig;
 import rtg.api.event.DecorateBiomeEventRTG;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
-import rtg.api.util.RandomUtil;
+import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE;
 
 
 /**
@@ -52,7 +52,6 @@ public class DecoTree extends DecoBase {
     protected int minCrownSize; // Min tree height (only used with certain tree presets)
     protected int maxCrownSize; // Max tree height (only used with certain tree presets)
     protected boolean noLeaves;
-    protected Scatter scatter;
 
     public DecoTree() {
 
@@ -86,7 +85,6 @@ public class DecoTree extends DecoBase {
         this.setMinCrownSize(2);
         this.setMaxCrownSize(4);
         this.setNoLeaves(false);
-        this.setScatter(new Scatter(16, 0));
 
         this.addDecoTypes(DecoType.TREE);
     }
@@ -118,7 +116,6 @@ public class DecoTree extends DecoBase {
         this.setMinCrownSize(source.minCrownSize);
         this.setMaxCrownSize(source.maxCrownSize);
         this.setNoLeaves(source.noLeaves);
-        this.setScatter(source.scatter);
     }
 
     public DecoTree(TreeRTG tree) {
@@ -140,7 +137,12 @@ public class DecoTree extends DecoBase {
         this.worldGen = worldGen;
     }
 
-    // TODO: [1.12] wat
+    // TODO: [1.12] Both `tree` and `worldGen` are WorldGenerators so there is no reason to treat them differently.
+    //              All RTG-specific aspects of the TreeRTG WorldGenerator should be passed at the time of object
+    //              creation and those objects should *only* be created at the time of generation instead of this
+    //              class hanging on to a single object that gets reused. Choosing which generator to use can simply
+    //              be done by checking the TreeType. This change would negate the need for this confusing check.
+    @Deprecated
     public boolean properlyDefined() {
 
         if (this.treeType == TreeType.RTG_TREE) {
@@ -152,110 +154,101 @@ public class DecoTree extends DecoBase {
     }
 
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
+        final BlockPos offsetPos = getOffsetPos(chunkPos);
+        /*
+         * Determine how many trees we're going to try to generate (loopCount).
+         * The actual number of trees that end up being generated could be *less* than this value,
+         * depending on environmental conditions.
+         */
+        // TODO: [1.12] What is the point of deriving a noise value from static BlockPos within a chunk (population origin) and then applying
+        //              it to a feature taking place at some other arbitrary place in the chunk. This seems nonsensical and makes needless
+        //              calls to the noise generator. This should be replaced by a random amount.
+        float noise = rtgWorld.simplexInstance(0)
+            .noise2f(offsetPos.getX() / this.distribution.getNoiseDivisor(), offsetPos.getZ() / this.distribution.getNoiseDivisor())
+            * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
+        int loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : this.loops;
+        loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
+        loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
 
-            /*
-             * Determine how many trees we're going to try to generate (loopCount).
-             * The actual number of trees that end up being generated could be *less* than this value,
-             * depending on environmental conditions.
-             */
-            float noise = rtgWorld.simplexInstance(0).noise2f(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor())
-                * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
-            int loopCount = this.loops;
-            loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : loopCount;
-            loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
-            loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
+        if (loopCount < 1) {
+            return;
+        }
 
-            if (loopCount < 1) {
-                return;
-            }
+        // Now let's check the configs to see if we should increase/decrease this value.
+        loopCount = this.calculateLoopCountFromTreeDensity(loopCount, biome);
 
-            // Now let's check the configs to see if we should increase/decrease this value.
-            loopCount = this.calculateLoopCountFromTreeDensity(loopCount, biome);
+        if (loopCount < 1) {
+            return;
+        }
 
-            if (loopCount < 1) {
-                return;
-            }
+        /*
+         * Since RTG posts a TREE event for each batch of trees it tries to generate (instead of one event per chunk),
+         * we post this custom event so that we can pass the number of trees RTG expects to generate in each batch.
+         *
+         * This provides more contextual information to mods like Recurrent Complex, which can use the info to better
+         * determine how to handle each batch of trees.
+         *
+         * Because the custom event extends DecorateBiomeEvent.Decorate, it still works with mods that don't need
+         * the additional context.
+         */
+        //TODO [1.12] Trees should just generate how they do in the vanilla BiomeDecorator::genDecorations and use the Forge event.
+        DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(rtgWorld.world(), rand, offsetPos, Decorate.EventType.TREE, loopCount);
+        MinecraftForge.TERRAIN_GEN_BUS.post(event);
 
-            /*
-             * Since RTG posts a TREE event for each batch of trees it tries to generate (instead of one event per chunk),
-             * we post this custom event so that we can pass the number of trees RTG expects to generate in each batch.
-             *
-             * This provides more contextual information to mods like Recurrent Complex, which can use the info to better
-             * determine how to handle each batch of trees.
-             *
-             * Because the custom event extends DecorateBiomeEvent.Decorate, it still works with mods that don't need
-             * the additional context.
-             */
-            DecorateBiomeEventRTG.DecorateRTG event = new DecorateBiomeEventRTG.DecorateRTG(
-                rtgWorld.world(), rand, new BlockPos(worldX, 0, worldZ), TREE, loopCount
-            );
-            MinecraftForge.TERRAIN_GEN_BUS.post(event);
+        if (event.getResult() != Event.Result.DENY) {
 
-            if (event.getResult() != Event.Result.DENY) {
+            loopCount = event.getModifiedAmount();
+            if (loopCount < 1) { return; }
 
-                loopCount = event.getModifiedAmount();
+            // TODO: [1.12] This should be done in #setLeavesBlock.
+            DecoBase.tweakTreeLeaves(this, false, true);
 
-                if (loopCount < 1) {
-                    return;
-                }
+            for (int i = 0; i < loopCount; i++) {
 
-                DecoBase.tweakTreeLeaves(this, false, true);
+                final BlockPos pos = offsetPos.add(rand.nextInt(16), 0, rand.nextInt(16));
+                int y = rtgWorld.world().getHeight(pos).getY();
+                if (y <= this.maxY && y >= this.minY && isValidTreeCondition(noise, rand, strength)) {
 
-                for (int i = 0; i < loopCount; i++) {
-
-                    int x = scatter.get(rand, worldX) + 8;
-                    int z = scatter.get(rand, worldZ) + 8;
-                    int y = rtgWorld.world().getHeight(new BlockPos(x, 0, z)).getY();
-                    BlockPos pos = new BlockPos(x, y, z);
-                    //Logger.info("noise = %f", noise);
-
-                    if (y <= this.maxY && y >= this.minY && isValidTreeCondition(noise, rand, strength)) {
-
-                        // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
-                        if (hasPlacedVillageBlocks) {
-                            if (BlockUtil.checkVerticalBlocks(MatchType.ALL, rtgWorld.world(), pos, -1, Blocks.FARMLAND) ||
-                                !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, 2)) {
-                                return;
-                            }
-                        }
-
-                        switch (this.treeType) {
-
-                            case RTG_TREE:
-
-                                //this.setLogBlock(strength < 0.2f ? BlockUtil.getStateLog(2) : this.logBlock);
-
-                                this.tree.setLogBlock(this.logBlock);
-                                this.tree.setLeavesBlock(this.leavesBlock);
-                                this.tree.setTrunkSize(RandomUtil.getRandomInt(rand, this.minTrunkSize, this.maxTrunkSize));
-                                this.tree.setCrownSize(RandomUtil.getRandomInt(rand, this.minCrownSize, this.maxCrownSize));
-                                this.tree.setNoLeaves(this.noLeaves);
-                                this.tree.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
-
-                                break;
-
-                            case WORLDGEN:
-
-                                WorldGenerator worldgenerator = this.worldGen;
-                                worldgenerator.generate(rtgWorld.world(), rand, new BlockPos(x, y, z));
-
-                                break;
-
-                            default:
-                                break;
+                    // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
+                    if (hasVillage) {
+                        if (BlockUtil.checkVerticalBlocks(MatchType.ALL, rtgWorld.world(), pos, -1, Blocks.FARMLAND) ||
+                            !BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, 2)) {
+                            return;
                         }
                     }
-                    else {
-                        //Logger.debug("%d/%d/%d - minY = %d; maxY = %d; noise = %f", x, y, z, minY, maxY, noise);
+
+                    switch (this.treeType) {
+
+                        case RTG_TREE:
+
+                            //this.setLogBlock(strength < 0.2f ? BlockUtil.getStateLog(2) : this.logBlock);
+
+                            this.tree.setLogBlock(this.logBlock);
+                            this.tree.setLeavesBlock(this.leavesBlock);
+                            this.tree.setTrunkSize(getRangedRandom(rand, this.minTrunkSize, this.maxTrunkSize));
+                            this.tree.setCrownSize(getRangedRandom(rand, this.minCrownSize, this.maxCrownSize));
+                            this.tree.setNoLeaves(this.noLeaves);
+                            this.tree.generate(rtgWorld.world(), rand, pos.up(y));
+
+                            break;
+
+                        case WORLDGEN:
+
+                            WorldGenerator worldgenerator = this.worldGen;
+                            worldgenerator.generate(rtgWorld.world(), rand, pos.up(y));
+
+                            break;
+
+                        default:
+                            break;
                     }
                 }
             }
-            else {
-                //Logger.debug("Tree generation was cancelled.");
-            }
+        }
+        else if (RTGConfig.enableDebugging()) {
+            Logger.debug("Tree generation was cancelled @ ChunkPos{}", chunkPos);
         }
     }
 
@@ -278,7 +271,7 @@ public class DecoTree extends DecoBase {
 
             case NOISE_BETWEEN_AND_RANDOM_CHANCE:
                 noiseGreaterThanMin = noise >= this.treeConditionNoise;
-                noiseLessThanMax = noise <= this.treeConditionNoise2;
+                noiseLessThanMax =- noise <= this.treeConditionNoise2;
                 randomResult = rand.nextInt(this.treeConditionChance) == 0;
                 return (noiseGreaterThanMin && noiseLessThanMax && randomResult);
 
@@ -560,17 +553,6 @@ public class DecoTree extends DecoBase {
         return this;
     }
 
-    public Scatter getScatter() {
-
-        return scatter;
-    }
-
-    public DecoTree setScatter(Scatter scatter) {
-
-        this.scatter = scatter;
-        return this;
-    }
-
     public enum TreeType {
         RTG_TREE,
         WORLDGEN;
@@ -586,28 +568,6 @@ public class DecoTree extends DecoBase {
         X_DIVIDED_BY_STRENGTH;
     }
 
-    public static class Scatter {
-
-        int bound;
-        int reach;
-
-        public Scatter(int bound, int reach) {
-
-            if (bound < 1) {
-                //TODO [1.12] Always force a default value instead of crashing whenever possible.
-                throw new RuntimeException("Scatter bound must be greater than 0.");
-            }
-            ;
-
-            this.bound = bound;
-            this.reach = reach;
-        }
-
-        public int get(Random rand, int coord) {
-            return coord + rand.nextInt(bound) + reach;
-        }
-    }
-
     /**
      * Parameter object for noise calculations.
      * <p>
@@ -616,6 +576,9 @@ public class DecoTree extends DecoBase {
      * @author WhichOnesPink
      * @author Zeno410
      */
+    // TODO: [1.12] Due to the lack of variance in usage, the use of this class can be extracted to the few places it
+    //              gets used, if that usage is even kept. (Usage of noise decoration should be removed.)
+    @Deprecated
     public static class Distribution {
 
         protected float noiseDivisor;

@@ -9,15 +9,13 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.feature.WorldGenLiquids;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -27,26 +25,22 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.ChunkOreGenTracker;
 import rtg.api.util.Logger;
-import rtg.api.util.RandomUtil;
 import rtg.api.util.UtilityClass;
 import rtg.api.util.WorldUtil;
-import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.deco.DecoBase;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.biome.BiomeProviderRTG;
-import rtg.world.gen.ChunkGeneratorRTG;
 
 
-@UtilityClass
+//@UtilityClass
 public final class EventHandlerCommon
 {
     private EventHandlerCommon() {}
 
     public static void init() {
         MinecraftForge.TERRAIN_GEN_BUS.register(EventHandlerCommon.class);
-        MinecraftForge.ORE_GEN_BUS.register(EventHandlerCommon.class); // to be removed with the ore gen tracker
     }
 
 
@@ -60,17 +54,37 @@ public final class EventHandlerCommon
         }
     }
 
-    @SubscribeEvent
-    public static void onDecorateBiome(DecorateBiomeEvent.Decorate event) {
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void onDecorateBiome(final DecorateBiomeEvent.Decorate event) {
 
-        RTGWorld rtgWorld = RTGWorld.getInstance(event.getWorld());
-        if (rtgWorld.getGeneratorSettings().waterSpoutChance > 0 &&
-            event.getWorld().getBiomeProvider() instanceof BiomeProviderRTG) {
-
-            DecorateBiomeEvent.Decorate.EventType eventType = event.getType();
-            if (eventType == Decorate.EventType.LAKE_WATER || eventType == Decorate.EventType.LAKE_LAVA) { // water & lava spouts
+        final World world = event.getWorld();
+        if (world.getBiomeProvider() instanceof BiomeProviderRTG) {
+            final Decorate.EventType eventType = event.getType();
+            if (eventType == Decorate.EventType.LAKE_WATER || eventType == Decorate.EventType.LAKE_LAVA) {
                 event.setResult(Event.Result.DENY);
+                generateFalls(world, event.getRand(), event.getChunkPos(), eventType);
             }
+        }
+    }
+
+    private static void generateFalls(final World world, final Random rand, final ChunkPos chunkPos, final Decorate.EventType type) {
+        final BlockPos offsetpos = new BlockPos(chunkPos.x * 16 + 8, 0, chunkPos.z * 16 + 8);
+        switch (type) {
+            case LAKE_WATER:
+                // reduced chance due to reduced random y level
+                for (int i = 0; i < 20; i++) {
+                    (new WorldGenLiquids(Blocks.FLOWING_WATER))
+                        .generate(world, rand, offsetpos.add(rand.nextInt(16), rand.nextInt(64) + 8, rand.nextInt(16)));
+                }
+                break;
+            case LAKE_LAVA:
+                // reduced chance due to reduced random y level
+                for (int i = 0; i < 5; i++) {
+                    (new WorldGenLiquids(Blocks.FLOWING_LAVA))
+                        .generate(world, rand, offsetpos.add(rand.nextInt(16), rand.nextInt(rand.nextInt(rand.nextInt(64) + 8) + 8), rand.nextInt(16)));
+                }
+                break;
+            default:
         }
     }
 
@@ -130,12 +144,12 @@ public final class EventHandlerCommon
 
         // Set the trunk size if min/max values have been set.
         if (tree.getMinTrunkSize() > 0 && tree.getMaxTrunkSize() > tree.getMinTrunkSize()) {
-            tree.setTrunkSize(RandomUtil.getRandomInt(rand, tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
+            tree.setTrunkSize(DecoBase.getRangedRandom(rand, tree.getMinTrunkSize(), tree.getMaxTrunkSize()));
         }
 
         // Set the crown size if min/max values have been set.
         if (tree.getMinCrownSize() > 0 && tree.getMaxCrownSize() > tree.getMinCrownSize()) {
-            tree.setCrownSize(RandomUtil.getRandomInt(rand, tree.getMinCrownSize(), tree.getMaxCrownSize()));
+            tree.setCrownSize(DecoBase.getRangedRandom(rand, tree.getMinCrownSize(), tree.getMaxCrownSize()));
         }
 
         int treeHeight = tree.getTrunkSize() + tree.getCrownSize();
@@ -169,30 +183,5 @@ public final class EventHandlerCommon
             }
         }
         Logger.trace("Finished handling SaplingGrowTreeEvent in Biome: {}, with sapling: {}", rtgBiome.baseBiomeResLoc(), saplingBlock);
-    }
-
-
-// ORE_GEN_BUS
-
-//TODO: [1.12] Remove the ChunkOreGenTracker and properly resolve extra ore being generated during biome decoration.
-    @SubscribeEvent
-    public static void onGenerateMinable(OreGenEvent.GenerateMinable event) {
-
-        if (!RTGConfig.allowOreGenEventCancel()) { return; }
-
-        IChunkGenerator chunkGenerator = ((WorldServer) event.getWorld()).getChunkProvider().chunkGenerator;
-        if (chunkGenerator instanceof ChunkGeneratorRTG) {
-
-            ChunkOreGenTracker chunkOreGenTracker = ((ChunkGeneratorRTG) chunkGenerator).getChunkOreGenTracker();
-            BlockPos eventPos = event.getPos();
-            OreGenEvent.GenerateMinable.EventType eventType = event.getType();
-
-            if (eventType != GenerateMinable.EventType.QUARTZ &&
-                eventType != GenerateMinable.EventType.CUSTOM &&
-                chunkOreGenTracker.hasGeneratedOres(eventPos)) {
-
-                event.setResult(Event.Result.DENY);
-            }
-        }
     }
 }

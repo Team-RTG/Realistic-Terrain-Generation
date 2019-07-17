@@ -3,7 +3,6 @@ package rtg.world.biome.realistic.realworld;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSand.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

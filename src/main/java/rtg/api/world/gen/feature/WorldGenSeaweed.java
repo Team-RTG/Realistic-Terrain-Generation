@@ -71,7 +71,7 @@ public class WorldGenSeaweed extends WorldGenerator {
                         z += 1;
                         break;
                     default:
-                        ; // Straight up.
+                        // Straight up.
                         break;
                 }
 

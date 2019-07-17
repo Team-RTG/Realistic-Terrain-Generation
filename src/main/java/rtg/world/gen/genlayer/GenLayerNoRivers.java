@@ -23,6 +23,7 @@ public class GenLayerNoRivers extends GenLayerRiverMix {
         parent.initWorldGenSeed(arg0);
     }
 
+    @Override
     public int[] getInts(int x, int z, int xSize, int zSize) {
 
         return parent.getInts(x, z, xSize, zSize);

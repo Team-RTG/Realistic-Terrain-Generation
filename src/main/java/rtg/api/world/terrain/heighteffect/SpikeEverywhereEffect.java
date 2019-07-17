@@ -26,7 +26,7 @@ public class SpikeEverywhereEffect extends HeightEffect {
     @Override
     public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float noise = rtgWorld.simplexInstance(octave).noise2f((float) x / wavelength, (float) y / wavelength);
+        float noise = rtgWorld.simplexInstance(octave).noise2f(x / wavelength, y / wavelength);
         noise = Math.abs(noise);
         noise = TerrainBase.blendedHillHeight(noise, minimumSimplex);
         noise = TerrainBase.unsignedPower(noise, power);

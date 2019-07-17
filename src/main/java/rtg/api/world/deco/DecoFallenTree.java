@@ -268,7 +268,7 @@ public class DecoFallenTree extends DecoBase {
         RANDOM_CHANCE,
         NOISE_GREATER_AND_RANDOM_CHANCE,
         NOISE_LESS_AND_RANDOM_CHANCE,
-        X_DIVIDED_BY_STRENGTH;
+        X_DIVIDED_BY_STRENGTH
     }
 
     /**

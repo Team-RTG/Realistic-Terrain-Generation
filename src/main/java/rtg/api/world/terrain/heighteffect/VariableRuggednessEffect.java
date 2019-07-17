@@ -47,7 +47,7 @@ public class VariableRuggednessEffect extends HeightEffect {
     @Override
     public final float added(RTGWorld rtgWorld, float x, float y) {
 
-        float choice = rtgWorld.simplexInstance(octave).noise2f((float) x / wavelength, (float) y / wavelength);
+        float choice = rtgWorld.simplexInstance(octave).noise2f(x / wavelength, y / wavelength);
         if (choice <= startTransition) {
             return smoothTerrain.added(rtgWorld, x, y);
         }

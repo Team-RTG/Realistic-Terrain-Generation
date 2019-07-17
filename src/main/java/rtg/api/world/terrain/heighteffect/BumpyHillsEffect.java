@@ -15,10 +15,8 @@ public class BumpyHillsEffect extends HeightEffect {
     // set defaults to absurd values to crash if they're not set
     // a trio of parameters frequently used together
     public float hillHeight = Integer.MAX_VALUE;
-    ;
     public float hillWavelength = 0;
     public float spikeHeight = Integer.MAX_VALUE;
-    ;
     public float spikeWavelength = 0;
 
 

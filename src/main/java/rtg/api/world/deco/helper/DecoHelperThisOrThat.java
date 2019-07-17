@@ -95,6 +95,6 @@ public class DecoHelperThisOrThat extends DecoBase {
 
     public enum ChanceType {
         EQUALS_ZERO,
-        NOT_EQUALS_ZERO;
+        NOT_EQUALS_ZERO
     }
 }

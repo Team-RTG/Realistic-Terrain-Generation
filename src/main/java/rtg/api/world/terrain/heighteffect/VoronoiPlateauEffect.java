@@ -21,7 +21,7 @@ public class VoronoiPlateauEffect extends HeightEffect {
 
     @Override
     public float added(RTGWorld rtgWorld, float x, float y) {
-        Point2D.Float evaluateAt = new Point2D.Float((float) x / pointWavelength, (float) y / pointWavelength);
+        Point2D.Float evaluateAt = new Point2D.Float(x / pointWavelength, y / pointWavelength);
         VoronoiResult points = rtgWorld.cellularInstance(1).eval2D(evaluateAt.x, evaluateAt.y);
         float raise = (float) (points.interiorValue());
         // now we're going to get an adjustment value which will be the same

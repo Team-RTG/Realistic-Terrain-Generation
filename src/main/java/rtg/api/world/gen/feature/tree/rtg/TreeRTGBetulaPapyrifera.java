@@ -113,6 +113,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
         return true;
     }
 
+    @Override
     public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize) {
 
         for (int i = -1; i <= 1; i++) {
@@ -130,6 +131,7 @@ public class TreeRTGBetulaPapyrifera extends TreeRTG {
         }
     }
 
+    @Override
     public void buildLeaves(World world, int x, int y, int z) {
 
         if (!this.noLeaves) {

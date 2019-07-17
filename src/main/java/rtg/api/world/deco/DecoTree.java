@@ -142,6 +142,7 @@ public class DecoTree extends DecoBase {
     //              creation and those objects should *only* be created at the time of generation instead of this
     //              class hanging on to a single object that gets reused. Choosing which generator to use can simply
     //              be done by checking the TreeType. This change would negate the need for this confusing check.
+    @Override
     @Deprecated
     public boolean properlyDefined() {
 
@@ -555,7 +556,7 @@ public class DecoTree extends DecoBase {
 
     public enum TreeType {
         RTG_TREE,
-        WORLDGEN;
+        WORLDGEN
     }
 
     public enum TreeCondition {
@@ -565,7 +566,7 @@ public class DecoTree extends DecoBase {
         NOISE_BETWEEN_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
         RANDOM_NOT_EQUALS_CHANCE,
-        X_DIVIDED_BY_STRENGTH;
+        X_DIVIDED_BY_STRENGTH
     }
 
     /**

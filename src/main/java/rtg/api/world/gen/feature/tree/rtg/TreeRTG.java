@@ -90,9 +90,6 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
 
     public void buildLeaves(World world, int x, int y, int z) {
 
-        if (this.noLeaves) {
-            return;
-        }
     }
 
     public void buildLeaves(World world, Random rand, int x, int y, int z, int size) {

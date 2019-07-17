@@ -12,7 +12,6 @@ public class HillockEffect extends HeightEffect {
     // set defaults to absurd values to crash if they're not set
     // a trio of parameters frequently used together
     public float height = Integer.MAX_VALUE;
-    ;
     public float wavelength = 0;
     public float minimumSimplex = Integer.MAX_VALUE;// normal range is -1 to 1;
     //usually numbers above 0 are often preferred to avoid dead basins

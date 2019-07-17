@@ -73,7 +73,7 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.3f ? true : false;
+            boolean cliff = c > 1.3f;
             boolean dirt = false;
 
             for (int k = 255; k > -1; k--) {

@@ -84,7 +84,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
 
         int j = this.basePos.getY() + this.height;
         int k = this.heightLimit - this.leafDistanceLimit;
-        this.field_175948_j = Lists.<TreeRTGQuercusRobur.FoliageCoordinates>newArrayList();
+        this.field_175948_j = Lists.newArrayList();
         this.field_175948_j.add(new TreeRTGQuercusRobur.FoliageCoordinates(this.basePos.up(k), j));
 
         for (; k >= 0; --k) {
@@ -306,6 +306,7 @@ public class TreeRTGQuercusRobur extends TreeRTG {
         this.leafDistanceLimit = 5;
     }
 
+    @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
 
         this.world = worldIn;

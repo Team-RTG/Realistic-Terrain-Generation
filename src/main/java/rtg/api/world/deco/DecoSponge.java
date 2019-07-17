@@ -179,6 +179,6 @@ public class DecoSponge extends DecoBase {
 
     public enum HeightType {
         NEXT_INT,
-        GET_HEIGHT_VALUE;
+        GET_HEIGHT_VALUE
     }
 }

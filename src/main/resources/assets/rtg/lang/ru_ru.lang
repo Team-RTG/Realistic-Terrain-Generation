@@ -1,0 +1,8 @@
+gui.createWorld.worldtypename=RTG - Реалистичный
+
+warning.rtgStartup1=Реалистичный Генератор Ландшафта использует свой тип мира.
+warning.rtgStartup2=Если вы хотите реалистичный рельеф местности, продолжайте нажимать кнопку World Type
+warning.rtgStartup3=в разделе Дополнительные параметры мира, пока не появится «Реалистичный».
+warning.rtgStartup4=Этот тип мира может использоваться на серверах за счет изменения значения параметра 'level-type' в
+warning.rtgStartup5=server.properties к "RTG" (без кавычек).
+warning.rtgStartup6=Это сообщение будет отображаться только один раз.

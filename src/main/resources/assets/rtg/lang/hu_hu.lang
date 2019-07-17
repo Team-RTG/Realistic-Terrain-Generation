@@ -1,0 +1,8 @@
+gui.createWorld.worldtypename=RTG - Valósághű
+
+warning.rtgStartup1= A Realistic Terrain Generation egy egyéni világbeállítást használ.
+warning.rtgStartup2=Ha valósághű domborzatot szeretnél, nyomd meg a 'Világ típusa' gombot
+warning.rtgStartup3=a 'További világbeállítások...' alatt, amíg azt írja ki, hogy 'Valósághű'.
+warning.rtgStartup4=Ez ba világtípus használható szervereken is a 'level-type' 'RTG'-re
+warning.rtgStartup5=való megváltoztatásával (idézőjelek nélkül) a server.properties fájlban.
+warning.rtgStartup6=Ez az üzenet csak egyszer fog megjelenni.

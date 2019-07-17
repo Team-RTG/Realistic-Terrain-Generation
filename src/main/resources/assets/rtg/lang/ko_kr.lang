@@ -1,0 +1,8 @@
+gui.createWorld.worldtypename=RTG - 현실적인 바이옴
+
+warning.rtgStartup1=현실적인 지형 생성 사용자 지정 세계 유형을 사용합니다.
+warning.rtgStartup2=당신이 실제 지형을 원한다면, 그것은 '현실'이 표시 될 때까지
+warning.rtgStartup3='더 월드 옵션'에서 '세계 유형'버튼을 클릭 유지.
+warning.rtgStartup4=세계 유형 따옴표없이 'RTG'에
+warning.rtgStartup5=server.properties에서 '레벨 형'변경하여 서버에서 이용 될 수있다.
+warning.rtgStartup6=이 메시지는 한 번만 표시됩니다.

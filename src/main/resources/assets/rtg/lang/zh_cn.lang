@@ -1,0 +1,8 @@
+gui.createWorld.worldtypename=RTG - 真实世界生成
+
+warning.rtgStartup1=真实感地形生成使用自定义的世界类型。
+warning.rtgStartup2=如果你想真实的地形，继续点击下“更多的世
+warning.rtgStartup3=界选项”直到显示“现实主义”的“世界型”按钮。
+warning.rtgStartup4=世界类型可以在服务器上通过
+warning.rtgStartup5=server.properties为“RTG”（不带引号）改变“水平型”一起使用。
+warning.rtgStartup6=此消息将只显示一次。

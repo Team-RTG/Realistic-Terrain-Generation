@@ -23,7 +23,7 @@ public class RealisticBiomeBYGCherryBlossomForest extends RealisticBiomeBYGBase 
         return new TerrainBOPCherryBlossomGrove(58f, 76f, 20f);
     }
 
-    public class TerrainBOPCherryBlossomGrove extends TerrainBase {
+    public static class TerrainBOPCherryBlossomGrove extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;

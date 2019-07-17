@@ -60,7 +60,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainBOPLavenderFields extends TerrainBase {
+    public static class TerrainBOPLavenderFields extends TerrainBase {
 
         public TerrainBOPLavenderFields() {
 
@@ -73,7 +73,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPLavenderFields extends SurfaceBase {
+    public static class SurfaceBOPLavenderFields extends SurfaceBase {
 
         private float min;
 

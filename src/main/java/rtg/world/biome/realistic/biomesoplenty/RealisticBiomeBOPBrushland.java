@@ -43,7 +43,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
         return new SurfaceBOPBrushland(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 13f, 0.27f);
     }
 
-    public class TerrainBOPBrushland extends TerrainBase {
+    public static class TerrainBOPBrushland extends TerrainBase {
 
         private float baseHeight = 76f;
         private float hillStrength = 20f;
@@ -69,7 +69,7 @@ public class RealisticBiomeBOPBrushland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBrushland extends SurfaceBase {
+    public static class SurfaceBOPBrushland extends SurfaceBase {
 
         private IBlockState mixBlock;
         private float width;

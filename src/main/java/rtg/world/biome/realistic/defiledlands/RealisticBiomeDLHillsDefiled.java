@@ -44,16 +44,10 @@ public class RealisticBiomeDLHillsDefiled extends RealisticBiomeDLBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaExtremeHillsPlus(
-            getConfig(),
-            this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            BlockUtil.getBlock(new ResourceLocation("defiledlands:stone_defiled")).getDefaultState(),
-            0.08f
-        );
+        return new SurfaceVanillaExtremeHillsPlus(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getBlock(new ResourceLocation("defiledlands:stone_defiled")).getDefaultState(), 0.08f);
     }
 
-    public class TerrainVanillaExtremeHillsPlus extends TerrainBase {
+    public static class TerrainVanillaExtremeHillsPlus extends TerrainBase {
 
         private float width;
         private float strength;
@@ -84,7 +78,7 @@ public class RealisticBiomeDLHillsDefiled extends RealisticBiomeDLBase {
         }
     }
 
-    public class SurfaceVanillaExtremeHillsPlus extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHillsPlus extends SurfaceBase {
 
         private float min;
 

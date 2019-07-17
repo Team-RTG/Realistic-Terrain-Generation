@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
         this.addDeco(decoBoulder);
     }
 
-    public class TerrainVanillaColdBeach extends TerrainBase {
+    public static class TerrainVanillaColdBeach extends TerrainBase {
 
         public TerrainVanillaColdBeach() {
 
@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaColdBeach extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBeach extends SurfaceBase {
+    public static class SurfaceVanillaBeach extends SurfaceBase {
 
         private IBlockState mixBlockFill;
 

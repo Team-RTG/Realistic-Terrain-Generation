@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 10f));
     }
 
-    public class TerrainVanillaTaigaHills extends TerrainBase {
+    public static class TerrainVanillaTaigaHills extends TerrainBase {
 
         private float hillStrength = 30f;
 
@@ -78,7 +78,7 @@ public class RealisticBiomeVanillaTaigaHills extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaTaigaHills extends SurfaceBase {
+    public static class SurfaceVanillaTaigaHills extends SurfaceBase {
 
         private IBlockState mixBlock;
 

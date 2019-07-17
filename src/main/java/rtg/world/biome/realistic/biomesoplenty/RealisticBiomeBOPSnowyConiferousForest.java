@@ -76,7 +76,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         //decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
     }
 
-    public class TerrainBOPSnowyConiferousForest extends TerrainBase {
+    public static class TerrainBOPSnowyConiferousForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -98,7 +98,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         }
     }
 
-    public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
+    public static class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
 
         private float min;
 

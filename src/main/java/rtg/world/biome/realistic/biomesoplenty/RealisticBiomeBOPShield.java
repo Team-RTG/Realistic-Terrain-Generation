@@ -93,7 +93,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     }
 
     // this biome also changes the lake generation in RealisticBiomeBase
-    public class TerrainBOPShield extends TerrainBase {
+    public static class TerrainBOPShield extends TerrainBase {
 
         private float start;
         private float height;
@@ -115,7 +115,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPShield extends SurfaceBase {
+    public static class SurfaceBOPShield extends SurfaceBase {
 
         public SurfaceBOPShield(BiomeConfig config, IBlockState top, IBlockState filler) {
 

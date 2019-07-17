@@ -23,7 +23,7 @@ public class RealisticBiomeFYRERedDesertHills extends RealisticBiomeFYREBase {
         return new TerrainVanillaDesertHills(10f, 80f, 68f, 200f);
     }
 
-    public class TerrainVanillaDesertHills extends TerrainBase {
+    public static class TerrainVanillaDesertHills extends TerrainBase {
 
         private float start;
         private float height;

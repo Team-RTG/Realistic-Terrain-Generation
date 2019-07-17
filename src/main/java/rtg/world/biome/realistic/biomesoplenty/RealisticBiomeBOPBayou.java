@@ -207,7 +207,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         return 0.0;
     }
 
-    public class TerrainBOPBayou extends TerrainBase {
+    public static class TerrainBOPBayou extends TerrainBase {
 
         public TerrainBOPBayou() {
 
@@ -220,7 +220,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBayou extends SurfaceBase {
+    public static class SurfaceBOPBayou extends SurfaceBase {
 
         private float min;
 

@@ -100,7 +100,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         this.addDeco(decoShrub);
     }
 
-    public class TerrainVanillaBirchForestM extends TerrainBase {
+    public static class TerrainVanillaBirchForestM extends TerrainBase {
 
         public TerrainVanillaBirchForestM() {
 
@@ -113,7 +113,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBirchForestM extends SurfaceBase {
+    public static class SurfaceVanillaBirchForestM extends SurfaceBase {
 
         private float min;
 

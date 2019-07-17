@@ -60,7 +60,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeBase {
         return 0.5;
     }
 
-    public class TerrainVanillaJungle extends TerrainBase {
+    public static class TerrainVanillaJungle extends TerrainBase {
 
         public TerrainVanillaJungle() {
 
@@ -73,7 +73,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaJungle extends SurfaceBase {
+    public static class SurfaceVanillaJungle extends SurfaceBase {
 
         private float min;
 

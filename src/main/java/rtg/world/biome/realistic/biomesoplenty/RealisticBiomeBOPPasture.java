@@ -42,7 +42,7 @@ public class RealisticBiomeBOPPasture extends RealisticBiomeBOPBase {
         return new SurfaceBOPPasture(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPPasture extends TerrainBase {
+    public static class TerrainBOPPasture extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -64,7 +64,7 @@ public class RealisticBiomeBOPPasture extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPPasture extends SurfaceBase {
+    public static class SurfaceBOPPasture extends SurfaceBase {
 
         public SurfaceBOPPasture(BiomeConfig config, IBlockState top, IBlockState filler) {
 

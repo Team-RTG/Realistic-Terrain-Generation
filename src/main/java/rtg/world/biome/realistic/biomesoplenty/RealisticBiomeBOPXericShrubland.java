@@ -46,8 +46,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPXericShrubland(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPXericShrubland(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -58,7 +57,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPXericShrubland extends TerrainBase {
+    public static class TerrainBOPXericShrubland extends TerrainBase {
 
         private float minHeight;
         private float mesaWavelength;
@@ -107,7 +106,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPXericShrubland extends SurfaceBase {
+    public static class SurfaceBOPXericShrubland extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

@@ -46,8 +46,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPTropicalIsland(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPTropicalIsland(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             Blocks.SAND.getDefaultState(), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -75,7 +74,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPTropicalIsland extends TerrainBase {
+    public static class TerrainBOPTropicalIsland extends TerrainBase {
 
         public TerrainBOPTropicalIsland() {
 
@@ -88,7 +87,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPTropicalIsland extends SurfaceBase {
+    public static class SurfaceBOPTropicalIsland extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

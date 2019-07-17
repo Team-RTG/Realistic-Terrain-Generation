@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
     public void initDecos() {
     }
 
-    public class TerrainVanillaMushroomIsland extends TerrainBase {
+    public static class TerrainVanillaMushroomIsland extends TerrainBase {
 
         private float heigth;
         private float width;
@@ -64,7 +64,7 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaMushroomIsland extends SurfaceBase {
+    public static class SurfaceVanillaMushroomIsland extends SurfaceBase {
 
         private float min;
 

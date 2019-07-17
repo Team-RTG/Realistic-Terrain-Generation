@@ -42,8 +42,7 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPAlpsFoothills(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPAlpsFoothills(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             Blocks.DIRT.getDefaultState(), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -54,7 +53,7 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPAlpsFoothills extends TerrainBase {
+    public static class TerrainBOPAlpsFoothills extends TerrainBase {
 
         private float baseHeight = 76f;
         private float hillStrength = 30f;
@@ -80,7 +79,7 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPAlpsFoothills extends SurfaceBase {
+    public static class SurfaceBOPAlpsFoothills extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

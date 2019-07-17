@@ -121,7 +121,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaSavannaPlateau extends TerrainBase {
+    public static class TerrainVanillaSavannaPlateau extends TerrainBase {
 
         private boolean booRiver;
         private float[] height;

@@ -132,7 +132,7 @@ public class RealisticBiomeRWSpruceMountains extends RealisticBiomeRWBase {
         }
     }
 
-    public class TerrainRWSpruceMountains extends TerrainBase {
+    public static class TerrainRWSpruceMountains extends TerrainBase {
 
         private float start;
         private float height;
@@ -152,7 +152,7 @@ public class RealisticBiomeRWSpruceMountains extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWSpruceMountains extends SurfaceBase {
+    public static class SurfaceRWSpruceMountains extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

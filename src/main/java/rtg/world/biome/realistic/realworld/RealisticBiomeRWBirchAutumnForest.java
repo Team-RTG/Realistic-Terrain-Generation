@@ -38,14 +38,10 @@ public class RealisticBiomeRWBirchAutumnForest extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWBirchAutumnForest(
-            getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            this.baseBiome().topBlock, 0.6f, BlockUtil.getStateDirt(DirtType.PODZOL), -0.4f
-        );
+        return new SurfaceRWBirchAutumnForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, this.baseBiome().topBlock, 0.6f, BlockUtil.getStateDirt(DirtType.PODZOL), -0.4f);
     }
 
-    public class TerrainRWBirchAutumnForest extends TerrainBase {
+    public static class TerrainRWBirchAutumnForest extends TerrainBase {
 
         private float hillStrength = 30f;
 
@@ -68,7 +64,7 @@ public class RealisticBiomeRWBirchAutumnForest extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBirchAutumnForest extends SurfaceBase {
+    public static class SurfaceRWBirchAutumnForest extends SurfaceBase {
 
         private float min;
 

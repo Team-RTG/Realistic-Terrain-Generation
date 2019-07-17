@@ -23,7 +23,7 @@ public class RealisticBiomeMBMistForest extends RealisticBiomeMBBase {
         return new TerrainVanillaForest();
     }
 
-    public class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainVanillaForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
 

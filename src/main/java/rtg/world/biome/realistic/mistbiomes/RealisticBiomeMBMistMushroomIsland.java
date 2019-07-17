@@ -23,7 +23,7 @@ public class RealisticBiomeMBMistMushroomIsland extends RealisticBiomeMBBase {
         return new TerrainVanillaMushroomIsland();
     }
 
-    public class TerrainVanillaMushroomIsland extends TerrainBase {
+    public static class TerrainVanillaMushroomIsland extends TerrainBase {
 
         private float heigth;
         private float width;

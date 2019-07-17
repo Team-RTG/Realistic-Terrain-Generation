@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 
-    public class TerrainVanillaBirchForestHillsM extends TerrainBase {
+    public static class TerrainVanillaBirchForestHillsM extends TerrainBase {
 
         private float hillStrength = 70f;
 
@@ -66,7 +66,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBirchForestHillsM extends SurfaceBase {
+    public static class SurfaceVanillaBirchForestHillsM extends SurfaceBase {
 
         public SurfaceVanillaBirchForestHillsM(BiomeConfig config, IBlockState top, IBlockState filler) {
 

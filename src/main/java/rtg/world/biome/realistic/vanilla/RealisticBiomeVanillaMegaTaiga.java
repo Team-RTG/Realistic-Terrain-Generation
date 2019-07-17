@@ -108,7 +108,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaMegaTaiga extends TerrainBase {
+    public static class TerrainVanillaMegaTaiga extends TerrainBase {
 
         public TerrainVanillaMegaTaiga() {
 
@@ -121,7 +121,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaMegaTaiga extends SurfaceBase {
+    public static class SurfaceVanillaMegaTaiga extends SurfaceBase {
 
         public SurfaceVanillaMegaTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
 

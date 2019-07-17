@@ -56,7 +56,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 10f));
     }
 
-    public class TerrainVanillaTaigaM extends TerrainBase {
+    public static class TerrainVanillaTaigaM extends TerrainBase {
 
         private float hHeight;
         private float hWidth;
@@ -87,7 +87,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaTaigaM extends SurfaceBase {
+    public static class SurfaceVanillaTaigaM extends SurfaceBase {
 
         private IBlockState mixBlock;
 

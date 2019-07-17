@@ -45,7 +45,7 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
         return new SurfaceBOPOvergrownCliffs(getConfig(), biome.topBlock, biome.fillerBlock, 0.95f);
     }
 
-    public class TerrainBOPOvergrownCliffs extends TerrainBase {
+    public static class TerrainBOPOvergrownCliffs extends TerrainBase {
 
         private float width;
         private float strength;
@@ -82,7 +82,7 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOvergrownCliffs extends SurfaceBase {
+    public static class SurfaceBOPOvergrownCliffs extends SurfaceBase {
 
         private float min;
 

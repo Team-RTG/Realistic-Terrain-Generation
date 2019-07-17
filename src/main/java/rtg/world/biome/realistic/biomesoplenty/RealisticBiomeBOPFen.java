@@ -51,8 +51,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPFen(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPFen(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -102,7 +101,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPFen extends TerrainBase {
+    public static class TerrainBOPFen extends TerrainBase {
 
         public TerrainBOPFen() {
 
@@ -115,7 +114,7 @@ public class RealisticBiomeBOPFen extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPFen extends SurfaceBase {
+    public static class SurfaceBOPFen extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

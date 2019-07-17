@@ -26,7 +26,7 @@ public class RealisticBiomeBYGSkyrisHighlands extends RealisticBiomeBYGBase {
         return new TerrainBOPMountainPeaks(120f, 130f);
     }
 
-    public class TerrainBOPMountainPeaks extends TerrainBase {
+    public static class TerrainBOPMountainPeaks extends TerrainBase {
 
         private float width;
         private float strength;

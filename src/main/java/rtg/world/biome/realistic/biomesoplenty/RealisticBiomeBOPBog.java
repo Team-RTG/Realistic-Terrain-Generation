@@ -44,7 +44,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
         return new SurfaceBOPBog(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPBog extends TerrainBase {
+    public static class TerrainBOPBog extends TerrainBase {
 
         private final float bottom = 62f;
         private final HeightVariation bottomVariation;
@@ -82,7 +82,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBog extends SurfaceBase {
+    public static class SurfaceBOPBog extends SurfaceBase {
 
         public SurfaceBOPBog(BiomeConfig config, IBlockState top, IBlockState filler) {
 

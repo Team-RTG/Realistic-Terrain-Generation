@@ -47,7 +47,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
         return new SurfaceBOPDeadSwamp(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState(), BOPBlocks.mud.getDefaultState());
     }
 
-    public class TerrainBOPDeadSwamp extends TerrainBase {
+    public static class TerrainBOPDeadSwamp extends TerrainBase {
 
         private HeightEffect height;
 
@@ -69,7 +69,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPDeadSwamp extends SurfaceBase {
+    public static class SurfaceBOPDeadSwamp extends SurfaceBase {
 
         private IBlockState mix;
         private float mixHeight;

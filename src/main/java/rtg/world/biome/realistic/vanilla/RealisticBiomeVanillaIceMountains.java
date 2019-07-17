@@ -45,20 +45,10 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
     public SurfaceBase initSurface() {
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
-            return new SurfaceVanillaIceMountains(
-                getConfig(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
-                Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
-                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
-                60f, -0.14f, 14f, 0.25f
-            );
+            return new SurfaceVanillaIceMountains(getConfig(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
         }
         else {
-            return new SurfaceVanillaIceMountains(
-                getConfig(), biome.topBlock, biome.fillerBlock,
-                Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
-                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
-                60f, -0.14f, 14f, 0.25f
-            );
+            return new SurfaceVanillaIceMountains(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
         }
     }
 
@@ -66,7 +56,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
     public void initDecos() {
     }
 
-    public class TerrainVanillaIceMountains extends TerrainBase {
+    public static class TerrainVanillaIceMountains extends TerrainBase {
 
         private float width;
         private float strength;
@@ -86,7 +76,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaIceMountains extends SurfaceBase {
+    public static class SurfaceVanillaIceMountains extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

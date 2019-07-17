@@ -147,7 +147,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeBase {
         }
     }
 
-    public class TerrainVanillaExtremeHills extends TerrainBase {
+    public static class TerrainVanillaExtremeHills extends TerrainBase {
 
         private float start;
         private float height;
@@ -167,7 +167,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaExtremeHills extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHills extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

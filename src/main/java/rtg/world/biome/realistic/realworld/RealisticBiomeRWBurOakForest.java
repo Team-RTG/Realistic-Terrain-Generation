@@ -36,8 +36,7 @@ public class RealisticBiomeRWBurOakForest extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWBurOakForest(getConfig(),
-            this.baseBiome().topBlock, //Block top
+        return new SurfaceRWBurOakForest(getConfig(), this.baseBiome().topBlock, //Block top
             this.baseBiome().fillerBlock, //Block filler,
             this.baseBiome().topBlock, //IBlockState mixTop,
             this.baseBiome().fillerBlock, //IBlockState mixFill,
@@ -48,7 +47,7 @@ public class RealisticBiomeRWBurOakForest extends RealisticBiomeRWBase {
         );
     }
 
-    public class TerrainRWBurOakForest extends TerrainBase {
+    public static class TerrainRWBurOakForest extends TerrainBase {
 
         private float baseHeight = 76f;
         private float peakyHillWavelength = 40f;
@@ -71,7 +70,7 @@ public class RealisticBiomeRWBurOakForest extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBurOakForest extends SurfaceBase {
+    public static class SurfaceRWBurOakForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

@@ -46,8 +46,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBAFarmlandBiome(getConfig(),
-            this.baseBiome().topBlock, //Block top
+        return new SurfaceBAFarmlandBiome(getConfig(), this.baseBiome().topBlock, //Block top
             Blocks.DIRT.getDefaultState(), //Block filler,
             BlockUtil.getStateDirt(DirtType.COARSE_DIRT), //IBlockState mixTop,
             Blocks.DIRT.getDefaultState(), //IBlockState mixFill,
@@ -135,7 +134,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainBAFarmlandBiome extends TerrainBase {
+    public static class TerrainBAFarmlandBiome extends TerrainBase {
 
         private float baseHeight = 67f;
         private float peakyHillWavelength = 15f;
@@ -158,7 +157,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         }
     }
 
-    public class SurfaceBAFarmlandBiome extends SurfaceBase {
+    public static class SurfaceBAFarmlandBiome extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

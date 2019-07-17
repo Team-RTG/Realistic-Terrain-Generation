@@ -60,7 +60,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
     }
 
-    public class TerrainVanillaSavannaM extends TerrainBase {
+    public static class TerrainVanillaSavannaM extends TerrainBase {
 
         public TerrainVanillaSavannaM() {
 
@@ -73,7 +73,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaSavannaM extends SurfaceBase {
+    public static class SurfaceVanillaSavannaM extends SurfaceBase {
 
         private float min;
 

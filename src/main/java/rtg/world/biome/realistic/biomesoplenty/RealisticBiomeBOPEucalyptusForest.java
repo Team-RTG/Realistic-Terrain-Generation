@@ -48,8 +48,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPEucalyptusForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPEucalyptusForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -84,7 +83,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPEucalyptusForest extends TerrainBase {
+    public static class TerrainBOPEucalyptusForest extends TerrainBase {
 
         private float baseHeight = 76f;
         private float peakyHillWavelength = 40f;
@@ -107,7 +106,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPEucalyptusForest extends SurfaceBase {
+    public static class SurfaceBOPEucalyptusForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

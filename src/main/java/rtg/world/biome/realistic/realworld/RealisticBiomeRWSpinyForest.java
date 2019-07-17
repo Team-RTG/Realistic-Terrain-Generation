@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.BlockSand.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -39,14 +40,10 @@ public class RealisticBiomeRWSpinyForest extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(
-            getConfig(), BlockUtil.getStateSand(BlockSand.EnumType.RED_SAND), Blocks.RED_SANDSTONE.getDefaultState(),
-            0f, 1.5f, 60f, 65f, 1.5f,
-            BlockUtil.getStateSand(BlockSand.EnumType.SAND), 0.6f, this.baseBiome().topBlock, -0.4f
-        );
+        return new SurfaceVanillaForest(getConfig(), BlockUtil.getStateSand(EnumType.RED_SAND), Blocks.RED_SANDSTONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateSand(EnumType.SAND), 0.6f, this.baseBiome().topBlock, -0.4f);
     }
 
-    public class TerrainRWSpinyForest extends TerrainBase {
+    public static class TerrainRWSpinyForest extends TerrainBase {
 
         public TerrainRWSpinyForest() {
 
@@ -59,7 +56,7 @@ public class RealisticBiomeRWSpinyForest extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

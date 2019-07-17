@@ -45,7 +45,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
         return new SurfaceBOPHighland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPHighland extends TerrainBase {
+    public static class TerrainBOPHighland extends TerrainBase {
 
         private float baseHeight = 90f;
         private BumpyHillsEffect onTop = new BumpyHillsEffect();
@@ -72,7 +72,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPHighland extends SurfaceBase {
+    public static class SurfaceBOPHighland extends SurfaceBase {
 
         public SurfaceBOPHighland(BiomeConfig config, IBlockState top, IBlockState filler) {
 

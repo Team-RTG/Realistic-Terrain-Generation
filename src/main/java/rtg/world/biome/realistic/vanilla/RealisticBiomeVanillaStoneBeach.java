@@ -48,7 +48,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
     public void initDecos() {
     }
 
-    public class TerrainVanillaStoneBeach extends TerrainBase {
+    public static class TerrainVanillaStoneBeach extends TerrainBase {
 
         public TerrainVanillaStoneBeach() {
 
@@ -61,7 +61,7 @@ public class RealisticBiomeVanillaStoneBeach extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBeach extends SurfaceBase {
+    public static class SurfaceVanillaBeach extends SurfaceBase {
 
         private IBlockState mixBlockFill;
 

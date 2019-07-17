@@ -45,7 +45,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         return new TerrainACDarklands();
     }
 
-    public class TerrainACDarklands extends TerrainBase {
+    public static class TerrainACDarklands extends TerrainBase {
 
         private float hillStrength = 40f;
 
@@ -74,7 +74,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         return new SurfaceACDarklands(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.15f);
     }
 
-    public class SurfaceACDarklands extends SurfaceACBase {
+    public static class SurfaceACDarklands extends SurfaceACBase {
 
         private float min;
 

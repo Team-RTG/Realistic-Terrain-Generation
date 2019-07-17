@@ -48,7 +48,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
         return 0.5;
     }
 
-    public class TerrainBOPSacredSprings extends TerrainBase {
+    public static class TerrainBOPSacredSprings extends TerrainBase {
 
         private float width;
         private float strength;
@@ -71,7 +71,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPSacredSprings extends SurfaceBase {
+    public static class SurfaceBOPSacredSprings extends SurfaceBase {
 
         public SurfaceBOPSacredSprings(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -42,7 +42,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
         return new SurfaceBOPMeadow(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPMeadow extends TerrainBase {
+    public static class TerrainBOPMeadow extends TerrainBase {
 
         public TerrainBOPMeadow() {
 
@@ -55,7 +55,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMeadow extends SurfaceBase {
+    public static class SurfaceBOPMeadow extends SurfaceBase {
 
         public SurfaceBOPMeadow(BiomeConfig config, IBlockState top, IBlockState filler) {
 

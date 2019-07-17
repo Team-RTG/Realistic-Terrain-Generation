@@ -25,7 +25,7 @@ public class RealisticBiomeFYRETropicalLakes extends RealisticBiomeFYREBase {
         return new TerrainBOPLandOfLakes();
     }
 
-    public class TerrainBOPLandOfLakes extends TerrainBase {
+    public static class TerrainBOPLandOfLakes extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;

@@ -23,7 +23,7 @@ public class RealisticBiomeBYGBayou extends RealisticBiomeBYGBase {
         return new TerrainBOPBayou();
     }
 
-    public class TerrainBOPBayou extends TerrainBase {
+    public static class TerrainBOPBayou extends TerrainBase {
 
         public TerrainBOPBayou() {
 

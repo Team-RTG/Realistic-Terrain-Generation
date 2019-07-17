@@ -41,14 +41,10 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(
-            getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            this.baseBiome().topBlock, 0.6f, Blocks.GRASS.getDefaultState(), -0.4f
-        );
+        return new SurfaceVanillaForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, this.baseBiome().topBlock, 0.6f, Blocks.GRASS.getDefaultState(), -0.4f);
     }
 
-    public class TerrainHLAdirondacks extends TerrainBase {
+    public static class TerrainHLAdirondacks extends TerrainBase {
 
         private float width;
         private float strength;
@@ -76,7 +72,7 @@ public class RealisticBiomeTRAVAridHighland extends RealisticBiomeTRAVBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

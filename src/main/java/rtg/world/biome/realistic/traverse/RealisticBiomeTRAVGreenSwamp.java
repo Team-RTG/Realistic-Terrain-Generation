@@ -24,7 +24,7 @@ public class RealisticBiomeTRAVGreenSwamp extends RealisticBiomeTRAVBase {
         return new TerrainBOPMarsh();
     }
 
-    public class TerrainBOPMarsh extends TerrainBase {
+    public static class TerrainBOPMarsh extends TerrainBase {
 
         private float baseHeight = 62f;
         private HeightVariation variation;

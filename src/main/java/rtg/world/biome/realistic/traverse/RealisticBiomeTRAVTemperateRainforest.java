@@ -23,7 +23,7 @@ public class RealisticBiomeTRAVTemperateRainforest extends RealisticBiomeTRAVBas
         return new TerrainBOPTemperateRainforest();
     }
 
-    public class TerrainBOPTemperateRainforest extends TerrainBase {
+    public static class TerrainBOPTemperateRainforest extends TerrainBase {
 
         public TerrainBOPTemperateRainforest() {
 

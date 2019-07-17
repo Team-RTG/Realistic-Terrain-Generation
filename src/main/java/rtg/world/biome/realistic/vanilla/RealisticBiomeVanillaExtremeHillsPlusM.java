@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
     }
 
-    public class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
+    public static class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
 
         private float width;
         private float strength;
@@ -73,7 +73,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaExtremeHillsPlusM extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHillsPlusM extends SurfaceBase {
 
         private float min;
 

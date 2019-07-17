@@ -40,7 +40,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
         return new SurfaceRWSilverBirchHills(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainRWSilverBirchHills extends TerrainBase {
+    public static class TerrainRWSilverBirchHills extends TerrainBase {
 
         private float baseHeight = 90f;
         private BumpyHillsEffect onTop = new BumpyHillsEffect();
@@ -67,7 +67,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWSilverBirchHills extends SurfaceBase {
+    public static class SurfaceRWSilverBirchHills extends SurfaceBase {
 
         public SurfaceRWSilverBirchHills(BiomeConfig config, IBlockState top, IBlockState filler) {
 

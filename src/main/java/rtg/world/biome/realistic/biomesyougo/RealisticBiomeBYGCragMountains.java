@@ -21,10 +21,10 @@ public class RealisticBiomeBYGCragMountains extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPCrag(false, new float[]{2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f, 23.0f, 0.5f}, 35f, 80f, 60f, 40f, 69f);
+        return new TerrainBOPCrag(false, new float[] {2.0f, 0.5f, 6.5f, 0.5f, 14.0f, 0.5f, 19.0f, 0.5f, 23.0f, 0.5f}, 35f, 80f, 60f, 40f, 69f);
     }
 
-    public class TerrainBOPCrag extends TerrainBase {
+    public static class TerrainBOPCrag extends TerrainBase {
 
         private boolean booRiver;
         private float[] height;

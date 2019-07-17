@@ -129,7 +129,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainBOPGrove extends TerrainBase {
+    public static class TerrainBOPGrove extends TerrainBase {
 
         private float baseHeight = 64f;
         private float peakyHillWavelength = 40f;
@@ -150,7 +150,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPGrove extends SurfaceBase {
+    public static class SurfaceBOPGrove extends SurfaceBase {
 
         public byte mixByte = (byte) 0;
         private float min;

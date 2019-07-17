@@ -64,7 +64,7 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainBOPOrchard extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -84,7 +84,7 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOrchard extends SurfaceBase {
+    public static class SurfaceBOPOrchard extends SurfaceBase {
 
         public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -24,7 +24,7 @@ public class RealisticBiomeTRAVGlacier extends RealisticBiomeTRAVBase {
         return new TerrainBOPGlacier(230f, 40f, 68f);
     }
 
-    public class TerrainBOPGlacier extends TerrainBase {
+    public static class TerrainBOPGlacier extends TerrainBase {
 
         private float width;
         private float strength;

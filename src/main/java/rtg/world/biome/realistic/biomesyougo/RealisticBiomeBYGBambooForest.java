@@ -29,7 +29,7 @@ public class RealisticBiomeBYGBambooForest extends RealisticBiomeBYGBase {
         return new TerrainBOPBambooForest();
     }
 
-    public class TerrainBOPBambooForest extends TerrainBase {
+    public static class TerrainBOPBambooForest extends TerrainBase {
 
     /* Basic idea: High hilly terrain mixed with ground-noisy flats
      * using a transition that also generates the hills

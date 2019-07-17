@@ -38,14 +38,10 @@ public class RealisticBiomeTRAVRockyPlains extends RealisticBiomeTRAVBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(
-            getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            Blocks.STONE.getDefaultState(), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
-        );
+        return new SurfaceVanillaForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.6f, Blocks.STONE.getDefaultState(), -0.4f);
     }
 
-    public class TerrainVanillaPlains extends TerrainBase {
+    public static class TerrainVanillaPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -60,7 +56,7 @@ public class RealisticBiomeTRAVRockyPlains extends RealisticBiomeTRAVBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

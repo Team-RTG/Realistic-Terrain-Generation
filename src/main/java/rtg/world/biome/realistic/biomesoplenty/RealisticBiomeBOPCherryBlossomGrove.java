@@ -49,8 +49,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPCherryBlossomGrove(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPCherryBlossomGrove(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -102,7 +101,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPCherryBlossomGrove extends TerrainBase {
+    public static class TerrainBOPCherryBlossomGrove extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -122,7 +121,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPCherryBlossomGrove extends SurfaceBase {
+    public static class SurfaceBOPCherryBlossomGrove extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

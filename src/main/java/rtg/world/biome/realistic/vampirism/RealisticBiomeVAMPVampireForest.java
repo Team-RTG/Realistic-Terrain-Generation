@@ -36,8 +36,7 @@ public class RealisticBiomeVAMPVampireForest extends RealisticBiomeVAMPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVAMPVampireForest(getConfig(),
-            this.baseBiome().topBlock, //Block top
+        return new SurfaceVAMPVampireForest(getConfig(), this.baseBiome().topBlock, //Block top
             this.baseBiome().fillerBlock, //Block filler,
             this.baseBiome().topBlock, //IBlockState mixTop,
             this.baseBiome().fillerBlock, //IBlockState mixFill,
@@ -48,7 +47,7 @@ public class RealisticBiomeVAMPVampireForest extends RealisticBiomeVAMPBase {
         );
     }
 
-    public class TerrainVAMPVampireForest extends TerrainBase {
+    public static class TerrainVAMPVampireForest extends TerrainBase {
 
         private float baseHeight = 72f;
         private float peakyHillWavelength = 40f;
@@ -71,7 +70,7 @@ public class RealisticBiomeVAMPVampireForest extends RealisticBiomeVAMPBase {
         }
     }
 
-    public class SurfaceVAMPVampireForest extends SurfaceBase {
+    public static class SurfaceVAMPVampireForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

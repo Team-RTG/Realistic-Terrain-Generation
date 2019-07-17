@@ -42,7 +42,7 @@ public class RealisticBiomeRWBlueOakForest extends RealisticBiomeRWBase {
         return new SurfaceRWBlueOakForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
-    public class TerrainRWBlueOakForest extends TerrainBase {
+    public static class TerrainRWBlueOakForest extends TerrainBase {
 
         private float baseHeight = 64f;
         private float hillStrength = 50f;
@@ -79,7 +79,7 @@ public class RealisticBiomeRWBlueOakForest extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBlueOakForest extends SurfaceBase {
+    public static class SurfaceRWBlueOakForest extends SurfaceBase {
 
         private float min;
 

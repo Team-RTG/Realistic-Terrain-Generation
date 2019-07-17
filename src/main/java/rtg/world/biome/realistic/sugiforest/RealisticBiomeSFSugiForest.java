@@ -47,8 +47,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceSFSugiForest(getConfig(),
-            this.baseBiome().topBlock, //Block top
+        return new SurfaceSFSugiForest(getConfig(), this.baseBiome().topBlock, //Block top
             this.baseBiome().fillerBlock, //Block filler,
             this.baseBiome().topBlock, //IBlockState mixTop,
             this.baseBiome().fillerBlock, //IBlockState mixFill,
@@ -106,7 +105,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainSFSugiForest extends TerrainBase {
+    public static class TerrainSFSugiForest extends TerrainBase {
 
         private float baseHeight = 72f;
         private float peakyHillWavelength = 40f;
@@ -129,7 +128,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         }
     }
 
-    public class SurfaceSFSugiForest extends SurfaceBase {
+    public static class SurfaceSFSugiForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

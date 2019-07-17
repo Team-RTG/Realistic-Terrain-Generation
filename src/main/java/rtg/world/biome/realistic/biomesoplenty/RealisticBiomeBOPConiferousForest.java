@@ -47,8 +47,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPConiferousForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPConiferousForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -87,7 +86,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         //decoBaseBiomeDecorations.setLoops(1);
     }
 
-    public class TerrainBOPConiferousForest extends TerrainBase {
+    public static class TerrainBOPConiferousForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -108,7 +107,7 @@ public class RealisticBiomeBOPConiferousForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPConiferousForest extends SurfaceBase {
+    public static class SurfaceBOPConiferousForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

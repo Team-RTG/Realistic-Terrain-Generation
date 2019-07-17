@@ -51,8 +51,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPDeadForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPDeadForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -107,7 +106,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPDeadForest extends TerrainBase {
+    public static class TerrainBOPDeadForest extends TerrainBase {
 
         private float minHeight = 58f;
         private float maxHeight = 120f;
@@ -132,7 +131,7 @@ public class RealisticBiomeBOPDeadForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPDeadForest extends SurfaceBase {
+    public static class SurfaceBOPDeadForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

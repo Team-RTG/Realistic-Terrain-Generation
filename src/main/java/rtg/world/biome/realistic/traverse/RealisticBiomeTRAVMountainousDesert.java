@@ -27,7 +27,7 @@ public class RealisticBiomeTRAVMountainousDesert extends RealisticBiomeTRAVBase 
         return new TerrainHLGreyMountains(230f, 100f, 68f);
     }
 
-    public class TerrainHLGreyMountains extends TerrainBase {
+    public static class TerrainHLGreyMountains extends TerrainBase {
 
         private float width;
         private float strength;

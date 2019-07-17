@@ -121,7 +121,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaSwamplandM extends TerrainBase {
+    public static class TerrainVanillaSwamplandM extends TerrainBase {
 
         private float width;
         private float strength;
@@ -141,7 +141,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaSwamplandM extends SurfaceBase {
+    public static class SurfaceVanillaSwamplandM extends SurfaceBase {
 
         public SurfaceVanillaSwamplandM(BiomeConfig config, IBlockState top, IBlockState filler) {
 

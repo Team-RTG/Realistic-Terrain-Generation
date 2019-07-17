@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
         }
     }
 
-    public class TerrainVanillaIcePlainsSpikes extends TerrainBase {
+    public static class TerrainVanillaIcePlainsSpikes extends TerrainBase {
 
         public TerrainVanillaIcePlainsSpikes() {
 
@@ -66,7 +66,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
+    public static class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;

@@ -54,7 +54,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
     }
 
-    public class TerrainVanillaColdTaiga extends TerrainBase {
+    public static class TerrainVanillaColdTaiga extends TerrainBase {
 
         public TerrainVanillaColdTaiga() {
 
@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaColdTaiga extends SurfaceBase {
+    public static class SurfaceVanillaColdTaiga extends SurfaceBase {
 
         public SurfaceVanillaColdTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
 

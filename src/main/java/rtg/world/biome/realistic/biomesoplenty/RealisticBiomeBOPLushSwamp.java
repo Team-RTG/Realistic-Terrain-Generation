@@ -71,7 +71,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPLushSwamp extends TerrainBase {
+    public static class TerrainBOPLushSwamp extends TerrainBase {
 
         public TerrainBOPLushSwamp() {
 
@@ -85,7 +85,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPLushSwamp extends SurfaceBase {
+    public static class SurfaceBOPLushSwamp extends SurfaceBase {
 
         public SurfaceBOPLushSwamp(BiomeConfig config, IBlockState top, IBlockState filler) {
 

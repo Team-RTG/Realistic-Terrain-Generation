@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainVanillaJungleEdgeM extends TerrainBase {
+    public static class TerrainVanillaJungleEdgeM extends TerrainBase {
 
         public TerrainVanillaJungleEdgeM() {
 
@@ -80,7 +80,7 @@ public class RealisticBiomeVanillaJungleEdgeM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaJungleEdgeM extends SurfaceBase {
+    public static class SurfaceVanillaJungleEdgeM extends SurfaceBase {
 
         public SurfaceVanillaJungleEdgeM(BiomeConfig config, IBlockState top, IBlockState filler) {
 

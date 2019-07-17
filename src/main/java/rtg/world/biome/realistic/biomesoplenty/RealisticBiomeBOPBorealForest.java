@@ -46,7 +46,7 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPBorealForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
-    public class TerrainBOPBorealForest extends TerrainBase {
+    public static class TerrainBOPBorealForest extends TerrainBase {
 
         private float baseHeight = 64f;
         private float hillStrength = 50f;
@@ -83,7 +83,7 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBorealForest extends SurfaceBase {
+    public static class SurfaceBOPBorealForest extends SurfaceBase {
 
         private float min;
 

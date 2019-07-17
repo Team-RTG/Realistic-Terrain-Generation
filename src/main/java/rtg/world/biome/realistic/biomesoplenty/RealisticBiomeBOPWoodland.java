@@ -72,7 +72,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         this.addDecoCollection(new DecoCollectionWoodland(this.getConfig()));
     }
 
-    public class TerrainBOPWoodland extends TerrainBase {
+    public static class TerrainBOPWoodland extends TerrainBase {
 
         private float start;
         private float height;
@@ -93,7 +93,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPWoodland extends SurfaceBase {
+    public static class SurfaceBOPWoodland extends SurfaceBase {
 
         public SurfaceBOPWoodland(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -144,7 +144,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
     }
 
     // TODO: [1.12] Useless subclass. Just addDeco the Decos in #initDecos!
-    private class DecoCollectionWoodland extends DecoCollectionBase {
+    private static class DecoCollectionWoodland extends DecoCollectionBase {
 
         // Tends to return values between -3f to 5f, with some overflow.
         private DecoTree.Distribution forestDistribution = new DecoTree.Distribution(100f, 6f, 0.8f);

@@ -51,7 +51,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPBambooForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
-    public class TerrainBOPBambooForest extends TerrainBase {
+    public static class TerrainBOPBambooForest extends TerrainBase {
 
     /* Basic idea: High hilly terrain mixed with ground-noisy flats
      * using a transition that also generates the hills
@@ -107,7 +107,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBambooForest extends SurfaceBase {
+    public static class SurfaceBOPBambooForest extends SurfaceBase {
 
         private float min;
 

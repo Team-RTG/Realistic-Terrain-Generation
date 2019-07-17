@@ -42,7 +42,7 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase {
         return new SurfaceBOPShrubland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPShrubland extends TerrainBase {
+    public static class TerrainBOPShrubland extends TerrainBase {
 
         public TerrainBOPShrubland() {
 
@@ -55,7 +55,7 @@ public class RealisticBiomeBOPShrubland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPShrubland extends SurfaceBase {
+    public static class SurfaceBOPShrubland extends SurfaceBase {
 
         public SurfaceBOPShrubland(BiomeConfig config, IBlockState top, IBlockState filler) {
 

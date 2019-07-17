@@ -38,8 +38,7 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
 
-            return new SurfacePolar(getConfig(),
-                this.baseBiome().topBlock, //Block top
+            return new SurfacePolar(getConfig(), this.baseBiome().topBlock, //Block top
                 this.baseBiome().fillerBlock, //Block filler,
                 this.baseBiome().topBlock, //IBlockState mixTop,
                 this.baseBiome().fillerBlock, //IBlockState mixFill,
@@ -51,16 +50,12 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
         }
         else {
 
-            return new SurfaceVanillaIcePlains(
-                getConfig(),
-                this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-                this.baseBiome().topBlock, this.baseBiome().topBlock
-            );
+            return new SurfaceVanillaIcePlains(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, this.baseBiome().topBlock, this.baseBiome().topBlock);
         }
 
     }
 
-    public class TerrainVanillaIcePlains extends TerrainBase {
+    public static class TerrainVanillaIcePlains extends TerrainBase {
 
         public TerrainVanillaIcePlains() {
 
@@ -73,7 +68,7 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
         }
     }
 
-    public class SurfaceVanillaIcePlains extends SurfaceBase {
+    public static class SurfaceVanillaIcePlains extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -121,7 +116,7 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
         }
     }
 
-    public class SurfacePolar extends SurfaceBase {
+    public static class SurfacePolar extends SurfaceBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;

@@ -23,7 +23,7 @@ public class RealisticBiomeTRAVAutumnalWoodedHills extends RealisticBiomeTRAVBas
         return new TerrainVanillaForestHills();
     }
 
-    public class TerrainVanillaForestHills extends TerrainBase {
+    public static class TerrainVanillaForestHills extends TerrainBase {
 
         private float hillStrength = 30f;
 

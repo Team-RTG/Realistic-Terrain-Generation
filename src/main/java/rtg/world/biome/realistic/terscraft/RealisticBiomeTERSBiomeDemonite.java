@@ -23,7 +23,7 @@ public class RealisticBiomeTERSBiomeDemonite extends RealisticBiomeTERSBase {
         return new TerrainBOPWoodland(10f, 25f, 72f, 120f);
     }
 
-    public class TerrainBOPWoodland extends TerrainBase {
+    public static class TerrainBOPWoodland extends TerrainBase {
 
         private float start;
         private float height;

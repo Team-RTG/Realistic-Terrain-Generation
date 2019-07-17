@@ -41,16 +41,10 @@ public class RealisticBiomeBOPWhiteBeach extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPWhiteBeach(getConfig(),
-            biome.topBlock,
-            biome.fillerBlock,
-            biome.topBlock,
-            biome.fillerBlock,
-            1
-        );
+        return new SurfaceBOPWhiteBeach(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, 1);
     }
 
-    public class TerrainBOPWhiteBeach extends TerrainBase {
+    public static class TerrainBOPWhiteBeach extends TerrainBase {
 
         public TerrainBOPWhiteBeach() {
 
@@ -63,7 +57,7 @@ public class RealisticBiomeBOPWhiteBeach extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPWhiteBeach extends SurfaceBase {
+    public static class SurfaceBOPWhiteBeach extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;

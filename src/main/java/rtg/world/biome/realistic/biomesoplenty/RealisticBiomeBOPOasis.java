@@ -46,8 +46,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOasis(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPOasis(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             Blocks.SAND.getDefaultState(), //IBlockState mixTop,
             Blocks.SANDSTONE.getDefaultState(), //IBlockState mixFill,
@@ -74,7 +73,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPOasis extends TerrainBase {
+    public static class TerrainBOPOasis extends TerrainBase {
 
         public TerrainBOPOasis() {
 
@@ -87,7 +86,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOasis extends SurfaceBase {
+    public static class SurfaceBOPOasis extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

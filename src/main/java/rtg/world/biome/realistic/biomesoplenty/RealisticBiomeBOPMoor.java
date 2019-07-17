@@ -44,7 +44,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
         return new SurfaceBOPMoor(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
-    public class TerrainBOPMoor extends TerrainBase {
+    public static class TerrainBOPMoor extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -68,7 +68,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMoor extends SurfaceBase {
+    public static class SurfaceBOPMoor extends SurfaceBase {
 
         public SurfaceBOPMoor(BiomeConfig config, IBlockState top, IBlockState filler) {
 

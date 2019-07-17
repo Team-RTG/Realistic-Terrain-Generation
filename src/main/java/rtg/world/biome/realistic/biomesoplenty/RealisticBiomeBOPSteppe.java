@@ -42,7 +42,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase {
         return new SurfaceBOPSteppe(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPSteppe extends TerrainBase {
+    public static class TerrainBOPSteppe extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -64,7 +64,7 @@ public class RealisticBiomeBOPSteppe extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPSteppe extends SurfaceBase {
+    public static class SurfaceBOPSteppe extends SurfaceBase {
 
         public SurfaceBOPSteppe(BiomeConfig config, IBlockState top, IBlockState filler) {
 

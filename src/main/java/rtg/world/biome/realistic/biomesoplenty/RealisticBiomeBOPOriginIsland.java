@@ -42,7 +42,7 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
         return new SurfaceBOPOriginIsland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPOriginIsland extends TerrainBase {
+    public static class TerrainBOPOriginIsland extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -62,7 +62,7 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOriginIsland extends SurfaceBase {
+    public static class SurfaceBOPOriginIsland extends SurfaceBase {
 
         public SurfaceBOPOriginIsland(BiomeConfig config, IBlockState top, IBlockState filler) {
 

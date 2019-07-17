@@ -24,7 +24,7 @@ public class RealisticBiomeRHWhiteSands extends RealisticBiomeRHBase {
         return new TerrainVanillaDesert();
     }
 
-    public class TerrainVanillaDesert extends TerrainBase {
+    public static class TerrainVanillaDesert extends TerrainBase {
 
         public TerrainVanillaDesert() {
 

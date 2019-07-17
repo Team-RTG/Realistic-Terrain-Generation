@@ -23,7 +23,7 @@ public class RealisticBiomeMBColdMistTaiga extends RealisticBiomeMBBase {
         return new TerrainVanillaColdTaiga();
     }
 
-    public class TerrainVanillaColdTaiga extends TerrainBase {
+    public static class TerrainVanillaColdTaiga extends TerrainBase {
 
         public TerrainVanillaColdTaiga() {
 

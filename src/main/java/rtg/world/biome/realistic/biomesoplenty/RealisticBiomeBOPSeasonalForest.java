@@ -48,8 +48,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPSeasonalForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPSeasonalForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -82,7 +81,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPSeasonalForest extends TerrainBase {
+    public static class TerrainBOPSeasonalForest extends TerrainBase {
 
         private float start;
         private float height;
@@ -104,7 +103,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPSeasonalForest extends SurfaceBase {
+    public static class SurfaceBOPSeasonalForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

@@ -23,7 +23,7 @@ public class RealisticBiomeDLSwampDefiled extends RealisticBiomeDLBase {
         return new TerrainVanillaSwampland();
     }
 
-    public class TerrainVanillaSwampland extends TerrainBase {
+    public static class TerrainVanillaSwampland extends TerrainBase {
 
         public TerrainVanillaSwampland() {
 

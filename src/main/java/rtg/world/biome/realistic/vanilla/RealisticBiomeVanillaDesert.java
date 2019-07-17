@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
         return 0.0;
     }
 
-    public class TerrainVanillaDesert extends TerrainBase {
+    public static class TerrainVanillaDesert extends TerrainBase {
 
         public TerrainVanillaDesert() {
 
@@ -91,7 +91,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaDesert extends SurfaceBase {
+    public static class SurfaceVanillaDesert extends SurfaceBase {
 
         public SurfaceVanillaDesert(BiomeConfig config, IBlockState top, IBlockState fill) {
 

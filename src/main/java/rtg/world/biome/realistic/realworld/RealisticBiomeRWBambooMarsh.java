@@ -39,7 +39,7 @@ public class RealisticBiomeRWBambooMarsh extends RealisticBiomeRWBase {
         return new SurfaceRWBambooMarsh(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainRWBambooMarsh extends TerrainBase {
+    public static class TerrainRWBambooMarsh extends TerrainBase {
 
         private float baseHeight = 62f;
         private HeightVariation variation;
@@ -65,7 +65,7 @@ public class RealisticBiomeRWBambooMarsh extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBambooMarsh extends SurfaceBase {
+    public static class SurfaceRWBambooMarsh extends SurfaceBase {
 
         public SurfaceRWBambooMarsh(BiomeConfig config, IBlockState top, IBlockState filler) {
 

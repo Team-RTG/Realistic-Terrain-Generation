@@ -42,8 +42,7 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPSnowyForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPSnowyForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -54,7 +53,7 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPSnowyForest extends TerrainBase {
+    public static class TerrainBOPSnowyForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -74,7 +73,7 @@ public class RealisticBiomeBOPSnowyForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPSnowyForest extends SurfaceBase {
+    public static class SurfaceBOPSnowyForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

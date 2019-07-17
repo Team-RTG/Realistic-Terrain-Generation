@@ -57,7 +57,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
         return 0.5;
     }
 
-    public class TerrainVanillaJungleM extends TerrainBase {
+    public static class TerrainVanillaJungleM extends TerrainBase {
 
         public TerrainVanillaJungleM() {
 
@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaJungleM extends SurfaceBase {
+    public static class SurfaceVanillaJungleM extends SurfaceBase {
 
         public SurfaceVanillaJungleM(BiomeConfig config, IBlockState top, IBlockState filler) {
 

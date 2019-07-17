@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeBase {
         return 0.0;
     }
 
-    public class TerrainVanillaFrozenRiver extends TerrainBase {
+    public static class TerrainVanillaFrozenRiver extends TerrainBase {
 
         public TerrainVanillaFrozenRiver() {
 
@@ -64,7 +64,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaFrozenRiver extends SurfaceBase {
+    public static class SurfaceVanillaFrozenRiver extends SurfaceBase {
 
         public SurfaceVanillaFrozenRiver(BiomeConfig config) {
 

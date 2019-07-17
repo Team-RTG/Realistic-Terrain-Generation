@@ -35,7 +35,7 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
         return new TerrainACCoraliumInfestedSwamp();
     }
 
-    public class TerrainACCoraliumInfestedSwamp extends TerrainBase {
+    public static class TerrainACCoraliumInfestedSwamp extends TerrainBase {
 
         public TerrainACCoraliumInfestedSwamp() {
 
@@ -54,7 +54,7 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
         return new SurfaceACCoraliumInfestedSwamp(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class SurfaceACCoraliumInfestedSwamp extends SurfaceACBase {
+    public static class SurfaceACCoraliumInfestedSwamp extends SurfaceACBase {
 
         public SurfaceACCoraliumInfestedSwamp(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -23,7 +23,7 @@ public class RealisticBiomeFYREVolcanicWasteland extends RealisticBiomeFYREBase 
         return new TerrainBOPMeadow();
     }
 
-    public class TerrainBOPMeadow extends TerrainBase {
+    public static class TerrainBOPMeadow extends TerrainBase {
 
         public TerrainBOPMeadow() {
 

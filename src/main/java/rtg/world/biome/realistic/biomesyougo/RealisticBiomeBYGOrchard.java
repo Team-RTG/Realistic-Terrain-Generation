@@ -23,7 +23,7 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
         return new TerrainBOPOrchard(58f, 67f, 25f);
     }
 
-    public class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainBOPOrchard extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;

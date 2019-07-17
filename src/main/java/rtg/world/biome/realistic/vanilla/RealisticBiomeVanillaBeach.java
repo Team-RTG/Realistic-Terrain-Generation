@@ -71,7 +71,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
         this.addDeco(palmTrees, this.getConfig().ALLOW_PALM_TREES.get());
     }
 
-    public class TerrainVanillaBeach extends TerrainBase {
+    public static class TerrainVanillaBeach extends TerrainBase {
 
         public TerrainVanillaBeach() {
 
@@ -83,7 +83,7 @@ public class RealisticBiomeVanillaBeach extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBeach extends SurfaceBase {
+    public static class SurfaceVanillaBeach extends SurfaceBase {
 
         private IBlockState mixBlockFill;
 

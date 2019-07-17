@@ -47,7 +47,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
     public void initDecos() {
     }
 
-    public class TerrainVanillaSunflowerPlains extends TerrainBase {
+    public static class TerrainVanillaSunflowerPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -62,7 +62,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaSunflowerPlains extends SurfaceBase {
+    public static class SurfaceVanillaSunflowerPlains extends SurfaceBase {
 
         public SurfaceVanillaSunflowerPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 

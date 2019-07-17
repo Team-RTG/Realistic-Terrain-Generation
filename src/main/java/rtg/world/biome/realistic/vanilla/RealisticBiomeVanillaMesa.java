@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeBase {
         return 0.1;
     }
 
-    public class TerrainVanillaMesa extends TerrainBase {
+    public static class TerrainVanillaMesa extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 

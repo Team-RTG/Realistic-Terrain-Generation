@@ -23,7 +23,7 @@ public class RealisticBiomeTRAVSnowyConiferousForest extends RealisticBiomeTRAVB
         return new TerrainBOPSnowyConiferousForest(65f, 70f, 40f);
     }
 
-    public class TerrainBOPSnowyConiferousForest extends TerrainBase {
+    public static class TerrainBOPSnowyConiferousForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;

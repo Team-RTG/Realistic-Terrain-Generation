@@ -43,7 +43,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
         return new SurfaceBOPCoralReef(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPCoralReef extends TerrainBase {
+    public static class TerrainBOPCoralReef extends TerrainBase {
 
         private boolean booRiver;
         private float[] height;
@@ -95,7 +95,7 @@ public class RealisticBiomeBOPCoralReef extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPCoralReef extends SurfaceBase {
+    public static class SurfaceBOPCoralReef extends SurfaceBase {
 
         public SurfaceBOPCoralReef(BiomeConfig config, IBlockState top, IBlockState filler) {
 

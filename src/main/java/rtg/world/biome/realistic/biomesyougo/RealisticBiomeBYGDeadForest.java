@@ -23,7 +23,7 @@ public class RealisticBiomeBYGDeadForest extends RealisticBiomeBYGBase {
         return new TerrainBOPDeadForest(58f, 80f, 30f);
     }
 
-    public class TerrainBOPDeadForest extends TerrainBase {
+    public static class TerrainBOPDeadForest extends TerrainBase {
 
         private float minHeight = 58f;
         private float maxHeight = 120f;

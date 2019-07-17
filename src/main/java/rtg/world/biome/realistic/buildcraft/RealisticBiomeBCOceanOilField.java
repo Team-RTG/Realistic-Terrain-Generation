@@ -52,7 +52,7 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase {
         return 0.0;
     }
 
-    public class TerrainVanillaOcean extends TerrainBase {
+    public static class TerrainVanillaOcean extends TerrainBase {
 
         public TerrainVanillaOcean() {
 
@@ -65,7 +65,7 @@ public class RealisticBiomeBCOceanOilField extends RealisticBiomeBCBase {
         }
     }
 
-    public class SurfaceVanillaOcean extends SurfaceBase {
+    public static class SurfaceVanillaOcean extends SurfaceBase {
 
         private IBlockState mixBlock;
         private float width;

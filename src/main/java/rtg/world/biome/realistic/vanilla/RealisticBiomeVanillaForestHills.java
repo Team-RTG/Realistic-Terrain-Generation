@@ -57,11 +57,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForestHills(
-            getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
-            0f, 1.5f, 60f, 65f, 1.5f,
-            BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
-        );
+        return new SurfaceVanillaForestHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f);
     }
 
     @Override
@@ -70,7 +66,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionForest(this.getConfig()));
     }
 
-    public class TerrainVanillaForestHills extends TerrainBase {
+    public static class TerrainVanillaForestHills extends TerrainBase {
 
         private float hillStrength = 30f;
 
@@ -93,7 +89,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaForestHills extends SurfaceBase {
+    public static class SurfaceVanillaForestHills extends SurfaceBase {
 
         private float min;
 

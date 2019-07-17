@@ -41,7 +41,7 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
         return new TerrainACDarklandsHighland(10f, 120f, 10f, 200f);
     }
 
-    public class TerrainACDarklandsHighland extends TerrainBase {
+    public static class TerrainACDarklandsHighland extends TerrainBase {
 
         private float start;
         private float height;
@@ -68,7 +68,7 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
         return new SurfaceACDarklandsHighland(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, 60f, -0.14f, 14f, 0.25f);
     }
 
-    public class SurfaceACDarklandsHighland extends SurfaceACBase {
+    public static class SurfaceACDarklandsHighland extends SurfaceACBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

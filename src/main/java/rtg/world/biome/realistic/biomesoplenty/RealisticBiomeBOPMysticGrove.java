@@ -63,7 +63,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPMysticGrove extends TerrainBase {
+    public static class TerrainBOPMysticGrove extends TerrainBase {
 
         public TerrainBOPMysticGrove() {
 
@@ -76,7 +76,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMysticGrove extends SurfaceBase {
+    public static class SurfaceBOPMysticGrove extends SurfaceBase {
 
         public SurfaceBOPMysticGrove(BiomeConfig config, IBlockState top, IBlockState filler) {
 

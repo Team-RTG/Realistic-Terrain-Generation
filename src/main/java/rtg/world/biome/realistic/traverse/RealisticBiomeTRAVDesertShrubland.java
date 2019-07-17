@@ -37,14 +37,10 @@ public class RealisticBiomeTRAVDesertShrubland extends RealisticBiomeTRAVBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(
-            getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            Blocks.GRASS.getDefaultState(), 0.6f, Blocks.GRASS.getDefaultState(), -0.4f
-        );
+        return new SurfaceVanillaForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0.6f, Blocks.GRASS.getDefaultState(), -0.4f);
     }
 
-    public class TerrainBOPShrubland extends TerrainBase {
+    public static class TerrainBOPShrubland extends TerrainBase {
 
         public TerrainBOPShrubland() {
 
@@ -57,7 +53,7 @@ public class RealisticBiomeTRAVDesertShrubland extends RealisticBiomeTRAVBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

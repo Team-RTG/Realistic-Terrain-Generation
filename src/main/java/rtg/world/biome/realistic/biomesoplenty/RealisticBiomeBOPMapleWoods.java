@@ -65,7 +65,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPMapleWoods extends TerrainBase {
+    public static class TerrainBOPMapleWoods extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -85,7 +85,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMapleWoods extends SurfaceBase {
+    public static class SurfaceBOPMapleWoods extends SurfaceBase {
 
         public SurfaceBOPMapleWoods(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -24,7 +24,7 @@ public class RealisticBiomeTRAVCliffs extends RealisticBiomeTRAVBase {
         return new TerrainBOPOvergrownCliffs(300f, 100f, 0f);
     }
 
-    public class TerrainBOPOvergrownCliffs extends TerrainBase {
+    public static class TerrainBOPOvergrownCliffs extends TerrainBase {
 
         private float width;
         private float strength;

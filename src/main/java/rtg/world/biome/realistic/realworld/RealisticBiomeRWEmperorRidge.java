@@ -132,7 +132,7 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
         }
     }
 
-    public class TerrainRWEmperorRidge extends TerrainBase {
+    public static class TerrainRWEmperorRidge extends TerrainBase {
 
         private float start;
         private float height;
@@ -152,7 +152,7 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWEmperorRidge extends SurfaceBase {
+    public static class SurfaceRWEmperorRidge extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

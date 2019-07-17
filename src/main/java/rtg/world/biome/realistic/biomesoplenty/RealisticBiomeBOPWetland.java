@@ -43,7 +43,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
         return new SurfaceBOPWetland(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
-    public class TerrainBOPWetland extends TerrainBase {
+    public static class TerrainBOPWetland extends TerrainBase {
 
         public TerrainBOPWetland() {
 
@@ -56,7 +56,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPWetland extends SurfaceBase {
+    public static class SurfaceBOPWetland extends SurfaceBase {
 
         public SurfaceBOPWetland(BiomeConfig config, IBlockState top, IBlockState filler) {
 

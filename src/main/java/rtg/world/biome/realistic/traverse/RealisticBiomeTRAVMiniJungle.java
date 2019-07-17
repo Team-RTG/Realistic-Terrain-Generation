@@ -23,7 +23,7 @@ public class RealisticBiomeTRAVMiniJungle extends RealisticBiomeTRAVBase {
         return new TerrainVanillaJungle();
     }
 
-    public class TerrainVanillaJungle extends TerrainBase {
+    public static class TerrainVanillaJungle extends TerrainBase {
 
         public TerrainVanillaJungle() {
 

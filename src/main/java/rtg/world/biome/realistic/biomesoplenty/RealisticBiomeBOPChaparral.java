@@ -45,7 +45,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
         return new SurfaceBOPChaparral(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f);
     }
 
-    public class TerrainBOPChaparral extends TerrainBase {
+    public static class TerrainBOPChaparral extends TerrainBase {
 
         private float baseHeight = 76f;
         private float peakyHillWavelength = 40f;
@@ -83,7 +83,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPChaparral extends SurfaceBase {
+    public static class SurfaceBOPChaparral extends SurfaceBase {
 
         private IBlockState mixBlock;
         private float width;

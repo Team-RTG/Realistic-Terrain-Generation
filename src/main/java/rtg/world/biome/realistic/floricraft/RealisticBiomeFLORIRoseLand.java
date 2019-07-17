@@ -40,7 +40,7 @@ public class RealisticBiomeFLORIRoseLand extends RealisticBiomeFLORIBase {
         return new SurfaceFLORIRoseLand(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainFLORIRoseLand extends TerrainBase {
+    public static class TerrainFLORIRoseLand extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(6f);
 
@@ -55,7 +55,7 @@ public class RealisticBiomeFLORIRoseLand extends RealisticBiomeFLORIBase {
         }
     }
 
-    public class SurfaceFLORIRoseLand extends SurfaceBase {
+    public static class SurfaceFLORIRoseLand extends SurfaceBase {
 
         public SurfaceFLORIRoseLand(BiomeConfig config, IBlockState top, IBlockState filler) {
 

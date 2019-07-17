@@ -54,8 +54,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPMountainPeaks(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPMountainPeaks(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -101,7 +100,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainBOPMountainPeaks extends TerrainBase {
+    public static class TerrainBOPMountainPeaks extends TerrainBase {
 
         private float width;
         private float strength;
@@ -139,7 +138,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMountainPeaks extends SurfaceBase {
+    public static class SurfaceBOPMountainPeaks extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

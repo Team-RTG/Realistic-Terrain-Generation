@@ -129,7 +129,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         this.addDeco(decoBoulder);
     }
 
-    public class TerrainBOPLandOfLakes extends TerrainBase {
+    public static class TerrainBOPLandOfLakes extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -178,7 +178,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPLandOfLakes extends SurfaceBase {
+    public static class SurfaceBOPLandOfLakes extends SurfaceBase {
 
         private float min;
 

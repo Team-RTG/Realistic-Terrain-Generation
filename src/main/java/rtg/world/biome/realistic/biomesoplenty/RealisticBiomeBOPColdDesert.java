@@ -40,8 +40,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPColdDesert(getConfig(),
-            Blocks.SNOW.getDefaultState(), //Block top
+        return new SurfaceBOPColdDesert(getConfig(), Blocks.SNOW.getDefaultState(), //Block top
             biome.fillerBlock, //Block filler,
             Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -52,7 +51,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPColdDesert extends TerrainBase {
+    public static class TerrainBOPColdDesert extends TerrainBase {
 
         private float ruggedness = 3f;
         private float ruggednessWavelength = 100f;
@@ -72,7 +71,7 @@ public class RealisticBiomeBOPColdDesert extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPColdDesert extends SurfaceBase {
+    public static class SurfaceBOPColdDesert extends SurfaceBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;

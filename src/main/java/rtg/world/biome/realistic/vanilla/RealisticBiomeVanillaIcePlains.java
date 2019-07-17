@@ -45,8 +45,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
 
-            return new SurfacePolar(getConfig(),
-                Blocks.SNOW.getDefaultState(), //Block top
+            return new SurfacePolar(getConfig(), Blocks.SNOW.getDefaultState(), //Block top
                 biome.fillerBlock, //Block filler,
                 Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
                 biome.fillerBlock, //IBlockState mixFill,
@@ -67,7 +66,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
     public void initDecos() {
     }
 
-    public class TerrainVanillaIcePlains extends TerrainBase {
+    public static class TerrainVanillaIcePlains extends TerrainBase {
 
         public TerrainVanillaIcePlains() {
 
@@ -80,7 +79,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaIcePlains extends SurfaceBase {
+    public static class SurfaceVanillaIcePlains extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -128,7 +127,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfacePolar extends SurfaceBase {
+    public static class SurfacePolar extends SurfaceBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;

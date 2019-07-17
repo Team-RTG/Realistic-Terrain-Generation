@@ -54,8 +54,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPLushDesert(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPLushDesert(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             Blocks.GRASS.getDefaultState(), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -94,7 +93,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         this.addDeco(decoJungleCacti, this.getConfig().ALLOW_CACTUS.get());
     }
 
-    public class TerrainBOPLushDesert extends TerrainBase {
+    public static class TerrainBOPLushDesert extends TerrainBase {
 
         private float minHeight;
         private float mesaWavelength;
@@ -140,7 +139,7 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPLushDesert extends SurfaceBase {
+    public static class SurfaceBOPLushDesert extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

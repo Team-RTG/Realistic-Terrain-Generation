@@ -24,7 +24,7 @@ public class RealisticBiomeBYGPaperBirchForest extends RealisticBiomeBYGBase {
         return new TerrainVanillaBirchForest();
     }
 
-    public class TerrainVanillaBirchForest extends TerrainBase {
+    public static class TerrainVanillaBirchForest extends TerrainBase {
 
 
         private GroundEffect groundEffect = new GroundEffect(4f);

@@ -129,7 +129,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaExtremeHillsEdge extends TerrainBase {
+    public static class TerrainVanillaExtremeHillsEdge extends TerrainBase {
 
         private float start;
         private float height;
@@ -151,7 +151,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaExtremeHillsEdge extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHillsEdge extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

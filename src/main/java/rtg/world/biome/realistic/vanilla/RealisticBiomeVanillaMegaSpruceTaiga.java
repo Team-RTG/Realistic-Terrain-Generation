@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainVanillaMegaSpruceTaiga extends TerrainBase {
+    public static class TerrainVanillaMegaSpruceTaiga extends TerrainBase {
 
         public TerrainVanillaMegaSpruceTaiga() {
 
@@ -83,7 +83,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {
+    public static class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {
 
         public SurfaceVanillaMegaSpruceTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
 

@@ -23,7 +23,7 @@ public class RealisticBiomeBYGPineForest extends RealisticBiomeBYGBase {
         return new TerrainBOPSnowyForest(58f, 69f, 28f);
     }
 
-    public class TerrainBOPSnowyForest extends TerrainBase {
+    public static class TerrainBOPSnowyForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;

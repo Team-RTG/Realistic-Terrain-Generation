@@ -39,7 +39,7 @@ public class RealisticBiomeRWFlatlandThicket extends RealisticBiomeRWBase {
         return new SurfaceRWFlatlandThicket(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainRWFlatlandThicket extends TerrainBase {
+    public static class TerrainRWFlatlandThicket extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -54,7 +54,7 @@ public class RealisticBiomeRWFlatlandThicket extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWFlatlandThicket extends SurfaceBase {
+    public static class SurfaceRWFlatlandThicket extends SurfaceBase {
 
         public SurfaceRWFlatlandThicket(BiomeConfig config, IBlockState top, IBlockState filler) {
 

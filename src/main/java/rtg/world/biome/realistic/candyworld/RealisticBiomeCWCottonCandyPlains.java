@@ -24,7 +24,7 @@ public class RealisticBiomeCWCottonCandyPlains extends RealisticBiomeCWBase {
         return new TerrainVanillaPlains();
     }
 
-    public class TerrainVanillaPlains extends TerrainBase {
+    public static class TerrainVanillaPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 

@@ -192,7 +192,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         return 0.5;
     }
 
-    public class TerrainVanillaRoofedForest extends TerrainBase {
+    public static class TerrainVanillaRoofedForest extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -207,7 +207,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRoofedForest extends SurfaceBase {
+    public static class SurfaceVanillaRoofedForest extends SurfaceBase {
 
         private float min;
 

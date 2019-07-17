@@ -43,7 +43,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPKelpForest(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPKelpForest extends TerrainBase {
+    public static class TerrainBOPKelpForest extends TerrainBase {
 
         private boolean booRiver;
         private float[] height;
@@ -95,7 +95,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPKelpForest extends SurfaceBase {
+    public static class SurfaceBOPKelpForest extends SurfaceBase {
 
         public SurfaceBOPKelpForest(BiomeConfig config, IBlockState top, IBlockState filler) {
 

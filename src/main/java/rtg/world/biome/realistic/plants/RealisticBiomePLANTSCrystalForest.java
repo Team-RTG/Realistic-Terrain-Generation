@@ -31,7 +31,7 @@ public class RealisticBiomePLANTSCrystalForest extends RealisticBiomePLANTSBase 
         return new SurfaceGeneric(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainPLANTSCrystalForest extends TerrainBase {
+    public static class TerrainPLANTSCrystalForest extends TerrainBase {
 
         private float baseHeight = 72f;
         private float peakyHillWavelength = 40f;

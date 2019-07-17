@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
     }
 
-    public class TerrainVanillaColdTaigaHills extends TerrainBase {
+    public static class TerrainVanillaColdTaigaHills extends TerrainBase {
 
         public TerrainVanillaColdTaigaHills() {
 
@@ -67,7 +67,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaColdTaigaHills extends SurfaceBase {
+    public static class SurfaceVanillaColdTaigaHills extends SurfaceBase {
 
         private float min;
 

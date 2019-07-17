@@ -42,7 +42,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
         return new SurfaceBOPQuagmire(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPQuagmire extends TerrainBase {
+    public static class TerrainBOPQuagmire extends TerrainBase {
 
         public TerrainBOPQuagmire() {
 
@@ -55,7 +55,7 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPQuagmire extends SurfaceBase {
+    public static class SurfaceBOPQuagmire extends SurfaceBase {
 
         public SurfaceBOPQuagmire(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -50,15 +50,10 @@ public class RealisticBiomeCWGummySwamp extends RealisticBiomeCWBase {
         IBlockState SOLID_GUMMY_WHITE = BlockUtil.getBlockStateFromCfgString("candymod:hardened_gummy_block[type=white]");
         IBlockState SOLID_GUMMY_YELLOW = BlockUtil.getBlockStateFromCfgString("candymod:hardened_gummy_block[type=yellow]");
 
-        return new SurfaceVanillaForest(
-            getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            GUMMY_WHITE, 0.5f, GUMMY_YELLOW, 0.2f, GUMMY_ORANGE, -0.2f, GUMMY_GREEN, -0.5f,
-            SOLID_GUMMY_WHITE, SOLID_GUMMY_YELLOW, SOLID_GUMMY_ORANGE, SOLID_GUMMY_GREEN
-        );
+        return new SurfaceVanillaForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, GUMMY_WHITE, 0.5f, GUMMY_YELLOW, 0.2f, GUMMY_ORANGE, -0.2f, GUMMY_GREEN, -0.5f, SOLID_GUMMY_WHITE, SOLID_GUMMY_YELLOW, SOLID_GUMMY_ORANGE, SOLID_GUMMY_GREEN);
     }
 
-    public class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainVanillaForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
 
@@ -79,7 +74,7 @@ public class RealisticBiomeCWGummySwamp extends RealisticBiomeCWBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

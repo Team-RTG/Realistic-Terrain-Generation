@@ -108,7 +108,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaRedwoodTaigaHills extends TerrainBase {
+    public static class TerrainVanillaRedwoodTaigaHills extends TerrainBase {
 
         private float hillStrength = 40f;
 
@@ -124,7 +124,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRedwoodTaigaHills extends SurfaceBase {
+    public static class SurfaceVanillaRedwoodTaigaHills extends SurfaceBase {
 
         private float min;
 

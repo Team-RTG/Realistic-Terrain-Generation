@@ -53,7 +53,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
         return 0.0;
     }
 
-    public class TerrainVanillaFrozenOcean extends TerrainBase {
+    public static class TerrainVanillaFrozenOcean extends TerrainBase {
 
         public TerrainVanillaFrozenOcean() {
 
@@ -66,7 +66,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaFrozenOcean extends SurfaceBase {
+    public static class SurfaceVanillaFrozenOcean extends SurfaceBase {
 
         private IBlockState mixBlock;
         private float width;

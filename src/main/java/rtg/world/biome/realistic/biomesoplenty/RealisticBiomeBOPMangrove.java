@@ -41,7 +41,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
         return new SurfaceBOPMangrove(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPMangrove extends TerrainBase {
+    public static class TerrainBOPMangrove extends TerrainBase {
 
         public TerrainBOPMangrove() {
         }
@@ -52,7 +52,7 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMangrove extends SurfaceBase {
+    public static class SurfaceBOPMangrove extends SurfaceBase {
 
         public SurfaceBOPMangrove(BiomeConfig config, IBlockState top, IBlockState filler) {
 

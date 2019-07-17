@@ -43,7 +43,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
         return new SurfaceBOPTemperateRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
     }
 
-    public class TerrainBOPTemperateRainforest extends TerrainBase {
+    public static class TerrainBOPTemperateRainforest extends TerrainBase {
 
         public TerrainBOPTemperateRainforest() {
 
@@ -56,7 +56,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
         }
     }
 
-    public class SurfaceBOPTemperateRainforest extends SurfaceBase {
+    public static class SurfaceBOPTemperateRainforest extends SurfaceBase {
 
         private float min;
 

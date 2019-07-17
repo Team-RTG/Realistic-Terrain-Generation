@@ -58,7 +58,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
     }
 
-    public class TerrainVanillaSavanna extends TerrainBase {
+    public static class TerrainVanillaSavanna extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -73,7 +73,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaSavanna extends SurfaceBase {
+    public static class SurfaceVanillaSavanna extends SurfaceBase {
 
         private IBlockState mixBlock;
         private float width;

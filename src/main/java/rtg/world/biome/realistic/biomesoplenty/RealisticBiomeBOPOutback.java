@@ -45,8 +45,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOutback(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPOutback(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -57,7 +56,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPOutback extends TerrainBase {
+    public static class TerrainBOPOutback extends TerrainBase {
 
         private float minHeight;
         private float mesaWavelength;
@@ -108,7 +107,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOutback extends SurfaceBase {
+    public static class SurfaceBOPOutback extends SurfaceBase {
 
 
         private IBlockState blockMixTop;

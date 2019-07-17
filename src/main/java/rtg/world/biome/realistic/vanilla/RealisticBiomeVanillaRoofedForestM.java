@@ -134,7 +134,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         this.addDeco(decoMushrooms);
     }
 
-    public class TerrainVanillaRoofedForestM extends TerrainBase {
+    public static class TerrainVanillaRoofedForestM extends TerrainBase {
 
         public TerrainVanillaRoofedForestM() {
 
@@ -147,7 +147,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRoofedForestM extends SurfaceBase {
+    public static class SurfaceVanillaRoofedForestM extends SurfaceBase {
 
         public SurfaceVanillaRoofedForestM(BiomeConfig config, IBlockState top, IBlockState filler) {
 

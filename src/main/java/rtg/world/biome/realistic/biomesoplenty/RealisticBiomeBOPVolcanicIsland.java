@@ -42,8 +42,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPVolcanicIsland(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPVolcanicIsland(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -54,7 +53,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPVolcanicIsland extends TerrainBase {
+    public static class TerrainBOPVolcanicIsland extends TerrainBase {
 
         public TerrainBOPVolcanicIsland() {
 
@@ -67,7 +66,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPVolcanicIsland extends SurfaceBase {
+    public static class SurfaceBOPVolcanicIsland extends SurfaceBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;

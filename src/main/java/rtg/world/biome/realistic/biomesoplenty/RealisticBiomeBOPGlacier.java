@@ -40,11 +40,10 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPGlacier(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f,
-            -0.14f, 14f, 0.25f);
+        return new SurfaceBOPGlacier(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
     }
 
-    public class TerrainBOPGlacier extends TerrainBase {
+    public static class TerrainBOPGlacier extends TerrainBase {
 
         private float width;
         private float strength;
@@ -63,7 +62,7 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPGlacier extends SurfaceBase {
+    public static class SurfaceBOPGlacier extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

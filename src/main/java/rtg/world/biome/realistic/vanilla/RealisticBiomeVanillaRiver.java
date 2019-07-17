@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeBase {
         return 0.0;
     }
 
-    public class TerrainVanillaRiver extends TerrainBase {
+    public static class TerrainVanillaRiver extends TerrainBase {
 
         public TerrainVanillaRiver() {
 
@@ -64,7 +64,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRiver extends SurfaceBase {
+    public static class SurfaceVanillaRiver extends SurfaceBase {
 
         public SurfaceVanillaRiver(BiomeConfig config) {
 

@@ -42,7 +42,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase {
         return new SurfaceBOPTundra(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPTundra extends TerrainBase {
+    public static class TerrainBOPTundra extends TerrainBase {
 
         public TerrainBOPTundra() {
 
@@ -55,7 +55,7 @@ public class RealisticBiomeBOPTundra extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPTundra extends SurfaceBase {
+    public static class SurfaceBOPTundra extends SurfaceBase {
 
         public SurfaceBOPTundra(BiomeConfig config, IBlockState top, IBlockState filler) {
 

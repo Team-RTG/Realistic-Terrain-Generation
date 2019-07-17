@@ -23,7 +23,7 @@ public class RealisticBiomeSBGhostlyForest extends RealisticBiomeSBBase {
         return new TerrainBOPOminousWoods(65f, 76f, 45f);
     }
 
-    public class TerrainBOPOminousWoods extends TerrainBase {
+    public static class TerrainBOPOminousWoods extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;

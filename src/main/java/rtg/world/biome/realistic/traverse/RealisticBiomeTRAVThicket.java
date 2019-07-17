@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -39,14 +40,10 @@ public class RealisticBiomeTRAVThicket extends RealisticBiomeTRAVBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(
-            getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock,
-            0f, 1.5f, 60f, 65f, 1.5f,
-            this.baseBiome().topBlock, 0.6f, BlockUtil.getStateDirt(BlockDirt.DirtType.COARSE_DIRT), -0.4f
-        );
+        return new SurfaceVanillaForest(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, this.baseBiome().topBlock, 0.6f, BlockUtil.getStateDirt(DirtType.COARSE_DIRT), -0.4f);
     }
 
-    public class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainVanillaForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
 
@@ -67,7 +64,7 @@ public class RealisticBiomeTRAVThicket extends RealisticBiomeTRAVBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

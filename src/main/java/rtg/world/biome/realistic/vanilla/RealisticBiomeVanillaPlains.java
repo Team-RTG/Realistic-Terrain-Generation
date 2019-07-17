@@ -146,7 +146,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         baseBiome().decorator.treesPerChunk = -999;
     }
 
-    public class TerrainVanillaPlains extends TerrainBase {
+    public static class TerrainVanillaPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -161,7 +161,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaPlains extends SurfaceBase {
+    public static class SurfaceVanillaPlains extends SurfaceBase {
 
         public SurfaceVanillaPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 

@@ -36,16 +36,10 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWBombonaBeach(getConfig(),
-            this.baseBiome().topBlock,
-            this.baseBiome().fillerBlock,
-            this.baseBiome().topBlock,
-            this.baseBiome().fillerBlock,
-            1
-        );
+        return new SurfaceRWBombonaBeach(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, this.baseBiome().topBlock, this.baseBiome().fillerBlock, 1);
     }
 
-    public class TerrainRWBombonaBeach extends TerrainBase {
+    public static class TerrainRWBombonaBeach extends TerrainBase {
 
         public TerrainRWBombonaBeach() {
 
@@ -58,7 +52,7 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBombonaBeach extends SurfaceBase {
+    public static class SurfaceRWBombonaBeach extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;

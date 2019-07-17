@@ -55,7 +55,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 
-    public class TerrainVanillaBirchForest extends TerrainBase {
+    public static class TerrainVanillaBirchForest extends TerrainBase {
 
 
         private GroundEffect groundEffect = new GroundEffect(4f);
@@ -71,7 +71,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBirchForest extends SurfaceBase {
+    public static class SurfaceVanillaBirchForest extends SurfaceBase {
 
         private float min;
 

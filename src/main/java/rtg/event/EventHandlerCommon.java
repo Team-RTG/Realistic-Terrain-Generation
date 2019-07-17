@@ -34,7 +34,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.world.biome.BiomeProviderRTG;
 
 
-//@UtilityClass
+@UtilityClass
 public final class EventHandlerCommon
 {
     private EventHandlerCommon() {}

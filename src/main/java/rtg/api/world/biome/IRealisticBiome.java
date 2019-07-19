@@ -1,8 +1,5 @@
 package rtg.api.world.biome;
 
-import java.util.Collection;
-import java.util.Random;
-
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -11,19 +8,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-
 import rtg.RTGConfig;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase.BeachType;
+import rtg.api.world.biome.RealisticBiomeBase.RiverType;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.collection.DecoCollectionBase;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase.BeachType;
-import rtg.api.world.biome.RealisticBiomeBase.RiverType;
+
+import java.util.Collection;
+import java.util.Random;
 
 
 public interface IRealisticBiome {
@@ -168,12 +167,12 @@ public interface IRealisticBiome {
         this.addTree(tree, true);
     }
 
-    default void rDecorate(final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasPlacedVillageBlocks) {
+    default void rDecorate(final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
         this.getDecos().stream()
             .filter(deco -> deco.preGenerate(river))
-            .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasPlacedVillageBlocks));
+            .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage));
         // TODO: [1.12] This may need to be adjusted to run before RTG decorations.
-        this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x, 0, chunkPos.z));
+        this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
     }
 
     default double getSnowLayerMultiplier() { return 1.0d; }

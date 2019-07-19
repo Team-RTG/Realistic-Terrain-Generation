@@ -1,16 +1,15 @@
 package rtg.api.world.deco;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 
 /**
@@ -79,7 +78,7 @@ public abstract class DecoBase {
 
 //    // TODO [1.12] Decos should be updated to implement #generate(IRealisticBiome, RTGWorld, Random, ChunkPos, float, float, boolean) above.
 //    @Deprecated
-//    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {}
+//    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasVillage) {}
 
     @Deprecated
     public void addDecoTypes(DecoType... decos) {

@@ -1,0 +1,8 @@
+gui.createWorld.worldtypename=RTG - Realistisk
+
+warning.rtgStartup1=Realistisk Terrain Generation bruger et tilpasset verden type.
+warning.rtgStartup2=Hvis du vil have realistiske terræn, holde klikke på knappen World Type
+warning.rtgStartup3=under Flere verden Options indtil det viser "Realistisk".
+warning.rtgStartup4=Verdens type kan bruges på servere ved at ændre "niveau-type" i
+warning.rtgStartup5=server.properties til 'RTG "(uden anførselstegn).
+warning.rtgStartup6=Denne meddelelse vises kun én gang.

@@ -10,7 +10,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.GenLayerRiverMix;
 import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import rtg.world.gen.genlayer.GenLayerNoRivers;
 
 
@@ -42,7 +43,7 @@ public final class WorldUtil {
 
         public static GenLayer[] removeRivers(GenLayer[] original) {
             try {
-                GenLayer biomePattern = ReflectionHelper.getPrivateValue(GenLayerRiverMix.class, (GenLayerRiverMix) original[0], "field_75910_b", "biomePatternGeneratorChain");
+                GenLayer biomePattern = ObfuscationReflectionHelper.getPrivateValue(GenLayerRiverMix.class, (GenLayerRiverMix) original[0], "field_75910_b");
                 GenLayer noRivers = new GenLayerNoRivers(100L, biomePattern);
                 GenLayerVoronoiZoom vzoon = new GenLayerVoronoiZoom(10L, noRivers);
                 return new GenLayer[]{noRivers, vzoon, noRivers};

@@ -57,11 +57,11 @@ public interface IRealisticBiome {
     float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 
     default double waterLakeMult() {
-        return 1.0;
+        return this.getConfig().SURFACE_WATER_LAKE_MULT.get();
     }
 
     default double lavaLakeMult() {
-        return 1.0;
+        return this.getConfig().SURFACE_LAVA_LAKE_MULT.get();
     }
 
     float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);

@@ -1,7 +1,5 @@
 package rtg.api.config;
 
-import java.io.File;
-
 import net.minecraftforge.common.config.Configuration;
 import rtg.api.config.property.ConfigPropertyArray.ConfigPropertyArrayString;
 import rtg.api.config.property.ConfigPropertyBoolean;
@@ -9,9 +7,11 @@ import rtg.api.config.property.ConfigPropertyFloat;
 import rtg.api.config.property.ConfigPropertyInteger;
 import rtg.api.config.property.ConfigPropertyString;
 
+import java.io.File;
+
 
 // TODO: [Clean-up] Rewrite this class to have final fields that hold primative values, and have a Factory and Serializer inner classes like ChunkProviderSettings has.
-//                  Biome configs can be Serialize'd and written to files as JSON objects, and looded from files and Deserialize'd into BiomeConfig objects through the Factory.
+//                  Biome configs can be Serialize'd and written to files as JSON objects, and loaded from files and Deserialize'd into BiomeConfig objects through the Factory.
 //                  All implementation code (eg. creating config objects in the constructor) should be removed and default settings can be passed from the realistic biome
 //                  classes (during init) to a Factory instance before attempting to loaded config file data.
 //                  OPTIONAL: Dummy JSON objects can be used during serialization to create 'comments' for the config settings before writing to files.
@@ -34,6 +34,8 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyFloat TREE_DENSITY_MULTIPLIER;
     public final ConfigPropertyBoolean SURFACE_BLEED_IN;
     public final ConfigPropertyBoolean SURFACE_BLEED_OUT;
+    public final ConfigPropertyFloat SURFACE_WATER_LAKE_MULT;
+    public final ConfigPropertyFloat SURFACE_LAVA_LAKE_MULT;
 
     /* OPTIONAL CONFIGS */
     public final ConfigPropertyBoolean ALLOW_LOGS;
@@ -190,6 +192,23 @@ public class BiomeConfig extends Config {
         );
         this.addProperty(SURFACE_BLEED_OUT);
 
+        SURFACE_WATER_LAKE_MULT = new ConfigPropertyFloat(
+                "Surface Water Lake Multiplier",
+                "Surfaces.Lakes",
+                "This setting allows you to increase/decrease the number of water lakes that generate on the surface of this biome."
+                        + Configuration.NEW_LINE + "1.0 = Default amount; 2.0 = Twice as many water lakes; 0.5 = half as many water lakes; 0 = No water lakes",
+                0.4f, 0f, 10.0f
+        );
+        this.addProperty(SURFACE_WATER_LAKE_MULT);
+
+        SURFACE_LAVA_LAKE_MULT = new ConfigPropertyFloat(
+                "Surface Lava Lake Multiplier",
+                "Surfaces.Lakes",
+                "This setting allows you to increase/decrease the number of lava lakes that generate on the surface of this biome."
+                        + Configuration.NEW_LINE + "1.0 = Default amount; 2.0 = Twice as many lava lakes; 0.5 = half as many lava lakes; 0 = No lava lakes",
+                0f, 0f, 10.0f
+        );
+        this.addProperty(SURFACE_LAVA_LAKE_MULT);
 
         /* OPTIONAL CONFIGS - These properties get 'added' by the individual biomes when relevant, so don't 'add' them here.*/
 

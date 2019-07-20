@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -20,6 +18,8 @@ import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
@@ -67,7 +67,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseFactor(60f);
         decoFallenTree1.getDistribution().setNoiseAddend(-15f);
         decoFallenTree1.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(6);
         decoFallenTree1.setMaxY(100);
         decoFallenTree1.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
@@ -80,7 +79,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree2.getDistribution().setNoiseFactor(60f);
         decoFallenTree2.getDistribution().setNoiseAddend(-15f);
         decoFallenTree2.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(6);
         decoFallenTree2.setMaxY(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));

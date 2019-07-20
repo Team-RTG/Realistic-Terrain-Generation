@@ -2,13 +2,7 @@ package rtg.api.world.deco.collection;
 
 import net.minecraft.init.Blocks;
 import rtg.api.config.BiomeConfig;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoDoubleGrass;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoFallenTree.LogCondition;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.DecoTree.TreeCondition;
 import rtg.api.world.deco.DecoTree.TreeType;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -37,8 +31,6 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(36);
         decoFallenTree.setLogBlock(Blocks.LOG2.getDefaultState());
         decoFallenTree.setLeavesBlock(Blocks.LEAVES2.getDefaultState());

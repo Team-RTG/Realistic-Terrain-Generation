@@ -1,7 +1,5 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +9,8 @@ import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLog;
+
+import java.util.Random;
 
 
 /**
@@ -40,8 +40,7 @@ public class DecoFallenTree extends DecoBase {
          */
         this.setLoops(1);
         this.setDistribution(new DecoFallenTree.Distribution(100f, 5f, 0.8f));
-        this.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        this.setLogConditionNoise(0f);
+        this.setLogCondition(LogCondition.RANDOM_CHANCE);
         this.setLogConditionChance(1);
         this.setMaxY(80);
         this.setLogBlock(Blocks.LOG.getDefaultState());
@@ -53,34 +52,10 @@ public class DecoFallenTree extends DecoBase {
         this.addDecoTypes(DecoType.FALLEN_TREE);
     }
 
-    // TODO: [1.12] Remove this unused constructor.
-    public DecoFallenTree(DecoFallenTree source) {
-
-        this();
-        this.setLoops(source.loops);
-        this.setDistribution(source.distribution);
-        this.setLogCondition(source.logCondition);
-        this.setLogConditionNoise(source.logConditionNoise);
-        this.setLogConditionChance(source.logConditionChance);
-        this.setMaxY(source.maxY);
-        this.setLogBlock(source.logBlock);
-        this.setLeavesBlock(source.leavesBlock);
-        this.setMinSize(source.minSize);
-        this.setMaxSize(source.maxSize);
-        this.randomLogBlocks = source.randomLogBlocks;
-    }
-
     @Override
     public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
         final BlockPos offsetpos = getOffsetPos(chunkPos);
-
-        // TODO: [1.12] What is the point of deriving a noise value from static BlockPos within a chunk (population origin) and then applying
-        //              it to a feature taking place at some other arbitrary place in the chunk. This seems nonsensical and makes needless
-        //              calls to the noise generator. This should be replaced by a simple random chance. Even in the case that this remains,
-        //              it should *only* be done if logCondition == NOISE_GREATER_AND_RANDOM_CHANCE || NOISE_LESS_AND_RANDOM_CHANCE
-        float noise = rtgWorld.simplexInstance(0).noise2f(offsetpos.getX() / this.distribution.getNoiseDivisor(), offsetpos.getZ() / this.distribution.getNoiseDivisor());
-        noise *= this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
 
         //Do we want to choose a random log?
         if (this.randomLogBlocks.length > 0) {
@@ -93,7 +68,7 @@ public class DecoFallenTree extends DecoBase {
         final int finalSize = (this.maxSize > this.minSize) ? getRangedRandom(rand, this.minSize, this.maxSize) : (this.maxSize == this.minSize) ? this.minSize : 4;
 
         for (int i = 0; i < this.loops; i++) {
-            if (isValidLogCondition(noise, strength, rand)) {
+            if (isValidLogCondition(strength, rand)) {
 
                 BlockPos pos = offsetpos.add(rand.nextInt(16), 0, rand.nextInt(16));
                 pos = pos.up(rtgWorld.world().getHeight(pos).getY());
@@ -114,7 +89,7 @@ public class DecoFallenTree extends DecoBase {
         }
     }
 
-    public boolean isValidLogCondition(float noise, float strength, Random rand) {
+    public boolean isValidLogCondition(float strength, Random rand) {
 
         switch (this.logCondition) {
             case ALWAYS_GENERATE:
@@ -124,14 +99,6 @@ public class DecoFallenTree extends DecoBase {
             case RANDOM_CHANCE:
 
                 return (rand.nextInt(this.logConditionChance) == 0);
-
-            case NOISE_GREATER_AND_RANDOM_CHANCE:
-
-                return (noise > this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
-
-            case NOISE_LESS_AND_RANDOM_CHANCE:
-
-                return (noise < this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
 
             case X_DIVIDED_BY_STRENGTH:
 
@@ -178,12 +145,6 @@ public class DecoFallenTree extends DecoBase {
     public float getLogConditionNoise() {
 
         return logConditionNoise;
-    }
-
-    public DecoFallenTree setLogConditionNoise(float logConditionNoise) {
-
-        this.logConditionNoise = logConditionNoise;
-        return this;
     }
 
     public int getLogConditionChance() {
@@ -266,8 +227,6 @@ public class DecoFallenTree extends DecoBase {
     public enum LogCondition {
         ALWAYS_GENERATE,
         RANDOM_CHANCE,
-        NOISE_GREATER_AND_RANDOM_CHANCE,
-        NOISE_LESS_AND_RANDOM_CHANCE,
         X_DIVIDED_BY_STRENGTH
     }
 

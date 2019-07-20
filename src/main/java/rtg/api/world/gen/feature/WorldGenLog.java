@@ -1,9 +1,5 @@
 package rtg.api.world.gen.feature;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Random;
-
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,6 +10,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class WorldGenLog extends WorldGenerator {
@@ -62,7 +62,8 @@ public class WorldGenLog extends WorldGenerator {
         MutableBlockPos mpos = new MutableBlockPos(pos);
         for (int i = 0; i < logLength; i++) {
             b = world.getBlockState(mpos.setPos(x - (dir == 0 ? 1 : 0), y, z - (dir == 1 ? 1 : 0)));
-            if (!b.getMaterial().isReplaceable() || b.getMaterial() != Material.PLANTS) {
+
+            if (b.getMaterial() != Material.AIR && b.getMaterial() != Material.VINE && b.getMaterial() != Material.PLANTS) {
                 break;
             }
 
@@ -76,7 +77,8 @@ public class WorldGenLog extends WorldGenerator {
 
         for (int i = 0; i < logLength * 2; i++) {
             b = world.getBlockState(mpos.setPos(x + (dir == 0 ? 1 : 0), y, z + (dir == 1 ? 1 : 0)));
-            if (!b.getMaterial().isReplaceable() || b.getMaterial() != Material.PLANTS) {
+
+            if (b.getMaterial() != Material.AIR && b.getMaterial() != Material.VINE && b.getMaterial() != Material.PLANTS) {
                 break;
             }
 

@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.sugiforest;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -19,7 +17,7 @@ import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
@@ -65,8 +63,6 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(24);
         decoFallenTree.setLogBlock(sugiLogBlock);
         decoFallenTree.setLeavesBlock(sugiLeavesBlock);

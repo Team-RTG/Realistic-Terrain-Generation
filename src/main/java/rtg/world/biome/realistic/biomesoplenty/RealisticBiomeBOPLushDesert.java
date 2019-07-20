@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -19,13 +17,9 @@ import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoJungleCacti;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.terrain.heighteffect.GroundEffect;
-import rtg.api.world.terrain.heighteffect.HeightEffect;
-import rtg.api.world.terrain.heighteffect.HeightVariation;
-import rtg.api.world.terrain.heighteffect.RaiseEffect;
-import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
+import rtg.api.world.terrain.heighteffect.*;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
@@ -79,8 +73,6 @@ public class RealisticBiomeBOPLushDesert extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
         decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG2.getStateFromMeta(1), BOPBlocks.log_3.getStateFromMeta(2), Blocks.LOG.getDefaultState()});
         decoFallenTree.setMinSize(3);

@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -17,6 +15,8 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
@@ -65,7 +65,6 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
         decoFallenTree.setLogBlock(BOPBlocks.log_1.getStateFromMeta(7));
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());

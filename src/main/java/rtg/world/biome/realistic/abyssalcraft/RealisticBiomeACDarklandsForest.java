@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import java.util.Random;
-
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.block.Block;
@@ -20,7 +18,7 @@ import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
@@ -177,8 +175,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     public void initDecos() {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
         decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
         decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());

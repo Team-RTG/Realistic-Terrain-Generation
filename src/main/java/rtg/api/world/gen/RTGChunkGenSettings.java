@@ -1,21 +1,13 @@
 package rtg.api.world.gen;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.Type;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import net.minecraft.util.JsonUtils;
 import rtg.api.util.Logger;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.Type;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -291,6 +283,7 @@ public final class RTGChunkGenSettings {
         public boolean useSnowLayers = true;
 
         public int bedrockLayers = 5;
+
         public boolean useCaves = true;
         public int caveChance = 8;
         public int caveDensity = 7;
@@ -443,10 +436,10 @@ public final class RTGChunkGenSettings {
 
             this.bedrockLayers = 5;
             this.useCaves = true;
-            this.caveChance = 8;
-            this.caveDensity = 7;
+            this.caveChance = 10; // Vanilla chance = 7. HIGHER values = FEWER caves.
+            this.caveDensity = 7; // Vanilla density = 15. HIGHER values = BIGGER caves.
             this.useRavines = true;
-            this.ravineChance = 100;
+            this.ravineChance = 120; // HIGHER values = FEWER ravines
 
             this.riverSizeMult = 1.0f;
             this.riverFrequency = 1.0f;

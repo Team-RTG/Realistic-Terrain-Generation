@@ -31,6 +31,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
@@ -58,11 +59,6 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionDesert(this.getConfig()));
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     public static class TerrainVanillaDesertM extends TerrainBase {

@@ -28,6 +28,7 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
     }
@@ -46,11 +47,6 @@ public class RealisticBiomeVanillaFrozenOcean extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     public static class TerrainVanillaFrozenOcean extends TerrainBase {

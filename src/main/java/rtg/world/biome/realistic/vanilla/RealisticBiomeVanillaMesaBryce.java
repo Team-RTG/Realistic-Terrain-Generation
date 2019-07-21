@@ -36,6 +36,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
@@ -65,11 +66,6 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     public static class TerrainRTGMesaBryce extends TerrainBase {

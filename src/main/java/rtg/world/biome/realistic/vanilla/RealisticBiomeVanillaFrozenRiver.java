@@ -27,7 +27,7 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
-
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
     }
 
     @Override
@@ -44,11 +44,6 @@ public class RealisticBiomeVanillaFrozenRiver extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     public static class TerrainVanillaFrozenRiver extends TerrainBase {

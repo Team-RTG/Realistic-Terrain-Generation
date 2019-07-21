@@ -40,16 +40,12 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().ALLOW_PLATEAU_MODIFICATIONS).set(true);
         this.getConfig().addProperty(this.getConfig().PLATEAU_GRADIENT_BLOCK_LIST).set(PlateauUtil.getSavannaPlateauBlocks());
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     @Override

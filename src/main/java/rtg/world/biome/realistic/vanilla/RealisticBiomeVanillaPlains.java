@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
@@ -13,9 +11,9 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoCrop;
 import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
@@ -24,18 +22,10 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
+import java.util.Random;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 
 
 public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
@@ -100,11 +90,11 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         this.addDeco(decoFlowersRTG);
 
         // Lots of grass, but not as much as vanilla.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(60);
-        decoGrass.setMaxY(128);
-        decoGrass.setLoops(6);
-        this.addDeco(decoGrass);
+//        DecoGrass decoGrass = new DecoGrass();
+//        decoGrass.setMinY(60);
+//        decoGrass.setMaxY(128);
+//        decoGrass.setLoops(6);
+//        this.addDeco(decoGrass);
 
         // Very rare fat oak/birch trees.
 

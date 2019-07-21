@@ -1,16 +1,15 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.gen.feature.WorldGenTallGrassRTG;
+
+import java.util.Random;
 
 
 /*
@@ -62,7 +61,7 @@ public class DecoGrass extends DecoBase {
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
                 int y = this.minY + (rand.nextInt(this.maxY - this.minY) + 1);
                 if ((this.notEqualsZeroChance > 1) ? rand.nextInt(this.notEqualsZeroChance) != 0 : rand.nextInt(this.chance) == 0) {
-                    new WorldGenTallGrass(this.type)
+                    new WorldGenTallGrassRTG(this.type)
                         .generate(rtgWorld.world(), rand, pos.up(y));
                 }
 

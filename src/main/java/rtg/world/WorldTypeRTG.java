@@ -6,6 +6,8 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.common.DimensionManager;
+
+import rtg.RTG;
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
@@ -98,15 +100,8 @@ public final class WorldTypeRTG extends WorldType {
     }
 
     // Keep fully qualified names to avoid client class imports
-    @Override // Client-only
+    @Override // Client-only; we make a proxied call here (no going back to SideOnly) so the dedicated server doesn't flip out with ClassNotFoundException
     public void onCustomizeButton(net.minecraft.client.Minecraft mc, net.minecraft.client.gui.GuiCreateWorld guiCreateWorld) {
-        mc.displayGuiScreen(new rtg.client.GuiCustomizeWorldScreenRTG(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
-    }
-// TODO: [Generator settings] Add an override for WorldType#getBiomeLayer to allow use of fixedBiome.
-//                            This will likely require a custom GenLayerBiome class to be written.
-
-    @Override
-    public boolean equals(Object o) {
-        return this == o || o instanceof WorldTypeRTG;
+        RTG.getProxy().displayCustomizeWorldScreen(guiCreateWorld);
     }
 }

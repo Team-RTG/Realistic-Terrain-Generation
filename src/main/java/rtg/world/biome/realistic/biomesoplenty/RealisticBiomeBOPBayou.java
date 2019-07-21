@@ -53,6 +53,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
@@ -196,11 +197,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoMushrooms.setMaxY(90);
         decoMushrooms.setRandomType(DecoMushrooms.RandomType.ALWAYS_GENERATE);
         this.addDeco(decoMushrooms);
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     public static class TerrainBOPBayou extends TerrainBase {

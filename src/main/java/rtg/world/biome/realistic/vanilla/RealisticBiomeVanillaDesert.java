@@ -31,6 +31,7 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().ALLOW_VILLAGES.set(true);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().SURFACE_FILLER_BLOCK.set("minecraft:sandstone");
@@ -60,11 +61,6 @@ public class RealisticBiomeVanillaDesert extends RealisticBiomeBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionDesert(this.getConfig()));
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.0;
     }
 
     public static class TerrainVanillaDesert extends TerrainBase {

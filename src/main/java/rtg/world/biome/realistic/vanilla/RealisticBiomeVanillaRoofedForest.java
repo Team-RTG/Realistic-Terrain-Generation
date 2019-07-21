@@ -39,6 +39,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.5f);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_COBWEBS).set(true);
@@ -174,11 +175,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         decoDeadBush.setChance(2);
         decoDeadBush.setStrengthFactor(2f);
         this.addDeco(decoDeadBush);
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.5;
     }
 
     public static class TerrainVanillaRoofedForest extends TerrainBase {

@@ -293,6 +293,16 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return this.surface;
     }
 
+    @Override
+    public double waterLakeMult() {
+        return this.getConfig().SURFACE_WATER_LAKE_MULT.get();
+    }
+
+    @Override
+    public double lavaLakeMult() {
+        return this.getConfig().SURFACE_LAVA_LAKE_MULT.get();
+    }
+
     private File getConfigFile() {
         return RTGAPI.getConfigPath()
             .resolve(BIOME_CONFIG_SUBDIR)

@@ -32,6 +32,7 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.5f);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
@@ -53,11 +54,6 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeBase {
     @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionJungle(this.getConfig()));
-    }
-
-    @Override
-    public double waterLakeMult() {
-        return 0.5;
     }
 
     public static class TerrainVanillaJungle extends TerrainBase {

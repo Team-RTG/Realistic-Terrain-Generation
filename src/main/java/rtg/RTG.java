@@ -2,9 +2,11 @@ package rtg;
 
 import java.nio.file.Paths;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.DimensionType;
 
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -19,7 +21,7 @@ import rtg.util.ModCompat;
 import rtg.world.WorldTypeRTG;
 
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"unused", "WeakerAccess"})
 @Mod(
     modid        = RTG.MOD_ID,
     name         = RTG.MOD_NAME,
@@ -46,6 +48,10 @@ public final class RTG {
     public static RTG getInstance() {
         return instance;
     }
+
+    @SidedProxy
+    private static RTGProxy proxy;
+    public  static RTGProxy getProxy() { return proxy; }
 
     @Mod.EventHandler
     public void initPre(FMLPreInitializationEvent event) {
@@ -87,4 +93,14 @@ public final class RTG {
     public static boolean surfacesDisabled() {
         return DISABLE_SURFACES;
     }
+
+    public static final class ClientProxy implements RTGProxy {
+        @Override public void displayCustomizeWorldScreen(net.minecraft.client.gui.GuiCreateWorld guiCreateWorld) {
+            Minecraft.getMinecraft().displayGuiScreen(new rtg.client.GuiCustomizeWorldScreenRTG(guiCreateWorld, guiCreateWorld.chunkProviderSettingsJson));
+        }
+    }
+
+    public static class ServerProxy implements RTGProxy { @Override public void displayCustomizeWorldScreen(net.minecraft.client.gui.GuiCreateWorld guiCreateWorld) {} }
+
+    public interface RTGProxy { void displayCustomizeWorldScreen(net.minecraft.client.gui.GuiCreateWorld guiCreateWorld); }
 }

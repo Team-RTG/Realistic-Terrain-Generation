@@ -165,11 +165,18 @@ public interface IRealisticBiome {
 
     default void rDecorate(final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
         this.getDecos().stream()
-            .filter(deco -> deco.preGenerate(river))
-            .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage));
-        // TODO: [1.12] This may need to be adjusted to run before RTG decorations.
-        this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+                .filter(deco -> deco.preGenerate(river))
+                .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage));
+
+        if (overridesHardcoded()) {
+            this.baseBiome().decorator.decorate(rtgWorld.world(), rand, baseBiome(), new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        } else {
+            this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        }
     }
+
+    // Some biomes have hard-coded decorations. If true, RTG will call the biome decorator's decorate() method instead of the biome's decorate() method.
+    default boolean overridesHardcoded() { return false; }
 
     default double getSnowLayerMultiplier() { return 1.0d; }
 

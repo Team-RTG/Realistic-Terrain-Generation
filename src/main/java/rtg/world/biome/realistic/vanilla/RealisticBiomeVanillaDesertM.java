@@ -33,6 +33,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
     public void initConfig() {
         this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 

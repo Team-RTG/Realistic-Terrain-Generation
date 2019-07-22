@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -15,6 +13,8 @@ import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionJungle;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
@@ -31,6 +31,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
     public void initConfig() {
         this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.5f);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);

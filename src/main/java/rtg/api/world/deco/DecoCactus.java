@@ -1,17 +1,16 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenCacti;
+
+import java.util.Random;
 
 
 /**
@@ -50,7 +49,7 @@ public class DecoCactus extends DecoBase {
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CACTUS)) {
 
             final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
-            for (int i = 0; i < loopCount * 10; i++) {
+            for (int i = 0; i < loopCount; i++) {
 
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
                 final int y = rtgWorld.world().getHeight(pos).getY();

@@ -88,6 +88,9 @@ public interface IRealisticBiome {
         }
     }
 
+    // Use this method to override a base biome's decorations.
+    default void overrideDecorations() {}
+
     /**
      * Convenience method for addDeco() where 'allowed' is assumed to be true.
      */

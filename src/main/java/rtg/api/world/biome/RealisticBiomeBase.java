@@ -1,17 +1,11 @@
 package rtg.api.world.biome;
 
-import javax.annotation.Nonnull;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.common.BiomeDictionary;
-
 import rtg.RTG;
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
@@ -25,6 +19,11 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
+
+import javax.annotation.Nonnull;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 public abstract class RealisticBiomeBase implements IRealisticBiome {
@@ -88,6 +87,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         getConfig().loadConfig();
 
         initDecos();
+
+        overrideDecorations();
     }
 
     @Override

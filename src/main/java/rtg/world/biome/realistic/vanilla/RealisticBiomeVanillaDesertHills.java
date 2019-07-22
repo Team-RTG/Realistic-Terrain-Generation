@@ -59,6 +59,11 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionDesert(this.getConfig()));
     }
 
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.cactiPerChunk = -999;
+    }
+
     public static class TerrainVanillaDesertHills extends TerrainBase {
 
         private float start;

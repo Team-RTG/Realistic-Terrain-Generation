@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
@@ -14,11 +12,13 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionSavanna;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
@@ -58,6 +58,11 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
 
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.cactiPerChunk = -999;
     }
 
     public static class TerrainVanillaSavannaM extends TerrainBase {

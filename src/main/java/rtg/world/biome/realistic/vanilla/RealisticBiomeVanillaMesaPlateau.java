@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -16,12 +14,14 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeBase {
@@ -67,6 +67,11 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeBase {
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionMesa(this.getConfig()));
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.cactiPerChunk = -999;
     }
 
     public static class TerrainRTGMesaPlateau extends TerrainBase {

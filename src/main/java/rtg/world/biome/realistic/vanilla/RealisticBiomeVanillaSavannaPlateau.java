@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
@@ -15,17 +13,14 @@ import rtg.api.util.PlateauUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoCactus;
-import rtg.api.world.deco.DecoDoubleGrass;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
@@ -115,6 +110,11 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(10f);
         this.addDeco(decoGrass);
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.cactiPerChunk = -999;
     }
 
     public static class TerrainVanillaSavannaPlateau extends TerrainBase {

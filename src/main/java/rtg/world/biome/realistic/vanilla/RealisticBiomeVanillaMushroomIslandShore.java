@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -12,9 +10,11 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase {
@@ -24,7 +24,12 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
 
     public RealisticBiomeVanillaMushroomIslandShore() {
 
-        super(biome, BeachType.STONE);
+        super(biome, BeachType.NORMAL);
+    }
+
+    @Override
+    public Biome preferredBeach() {
+        return biome;
     }
 
     @Override

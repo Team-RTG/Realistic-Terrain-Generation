@@ -1,7 +1,5 @@
 package rtg.world.biome;
 
-import java.util.Arrays;
-
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -12,6 +10,8 @@ import rtg.api.util.CircularSearchCreator;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.world.gen.ChunkLandscape;
+
+import java.util.Arrays;
 
 
 public final class BiomeAnalyzer {
@@ -79,7 +79,6 @@ public final class BiomeAnalyzer {
         });
     }
 
-    // TODO: [1.12] A biomes 'prefered beach' should be added to the API in IRealisticBiome with the data stored in RealisticBiomeBase. Should use the BiomeConfig beach entry.
     private void setupBeachesForBiomes() {
 
         preferredBeach = new int[MAX_BIOMES];

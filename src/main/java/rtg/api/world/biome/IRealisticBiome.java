@@ -41,13 +41,15 @@ public interface IRealisticBiome {
 
     IRealisticBiome getBeachBiome();
 
+    Biome preferredBeach();
+
     // TODO: [1.12] This should not return a BiomeConfig object, but an object holder class that holds the raw config values that can be resynced on-demand.
     BiomeConfig getConfig();
 
     // TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     TerrainBase terrain();
 
-    // TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
+    // TODO: [1.12] SurfaceBase should be made into a @FunctionalInterface. All current static methods in SurfaceBase can become defaults.
     SurfaceBase surface();
 
     void rReplace(final ChunkPrimer primer, final BlockPos blockPos, final int x, final int y, final int depth, final RTGWorld rtgWorld, final float[] noise, final float river, final Biome[] base);

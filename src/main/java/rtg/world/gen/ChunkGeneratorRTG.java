@@ -16,6 +16,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.ChunkGeneratorOverworld;
@@ -45,7 +46,6 @@ import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeAnalyzer;
-import rtg.world.biome.BiomeProviderRTG;
 import rtg.world.gen.structure.WoodlandMansionRTG;
 
 
@@ -76,7 +76,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private int[] xyinverted = analyzer.xyinverted();
     private boolean mapFeaturesEnabled;
     private Random rand;
-    private BiomeProviderRTG biomeProvider;
     private Biome[] baseBiomesList;
 
     public ChunkGeneratorRTG(RTGWorld rtgWorld) {
@@ -89,7 +88,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
 // TODO: [1.12] seaLevel will be removed as terrain noise values are all hardcoded and will not variate properly.
 //        this.world.setSeaLevel(this.settings.seaLevel);
-        this.biomeProvider = (BiomeProviderRTG) this.world.getBiomeProvider();
         this.rand = new Random(rtgWorld.seed());
         this.rtgWorld.setRandom(this.rand);
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
@@ -114,11 +112,12 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     public Chunk generateChunk(final int cx, final int cz) {
 
         final BlockPos blockPos = new BlockPos(cx * 16, 0, cz * 16);
+        final BiomeProvider biomeProvider = this.world.getBiomeProvider();
 
         this.rand.setSeed(cx * 341873128712L + cz * 132897987541L);
         ChunkPrimer primer = new ChunkPrimer();
 
-        ChunkLandscape landscape = this.landscape(this.biomeProvider, blockPos);
+        ChunkLandscape landscape = this.landscape(biomeProvider, blockPos);
 
         generateTerrain(primer, landscape.noise);
 
@@ -137,8 +136,8 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
                 this.rtgWorld.simplexInstance(0).multiEval2D(x, z, jitterData);
                 int pX = (int) Math.round(x + jitterData.getDeltaX() * RTGConfig.surfaceBlendRadius());
                 int pZ = (int) Math.round(z + jitterData.getDeltaY() * RTGConfig.surfaceBlendRadius());
-                actualbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(this.biomeProvider, x, z));
-                jitterbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(this.biomeProvider, pX, pZ));
+                actualbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(biomeProvider, x, z));
+                jitterbiome = RTGAPI.getRTGBiome(this.getBiomeDataAt(biomeProvider, pX, pZ));
                 if (actualbiome != null && jitterbiome != null) {
                     jitteredBiomes[i * 16 + j] = (actualbiome.getConfig().SURFACE_BLEED_IN.get() && jitterbiome.getConfig().SURFACE_BLEED_OUT.get()) ? jitterbiome : actualbiome;
                 }
@@ -255,6 +254,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         BlockFalling.fallInstantly = true;
 
+        final BiomeProvider biomeProvider = this.world.getBiomeProvider();
         final ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
         final BlockPos blockPos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
         final BlockPos offsetpos = blockPos.add(8, 0, 8);
@@ -513,14 +513,14 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         }
     }
 
-    private int getBiomeDataAt(final BiomeProviderRTG biomeProvider, final int worldX, final int worldZ) {
+    private int getBiomeDataAt(final BiomeProvider biomeProvider, final int worldX, final int worldZ) {
         int x = worldX & 15;
         int z = worldZ & 15;
         ChunkLandscape target = this.landscape(biomeProvider, new BlockPos(worldX - x, 0, worldZ - z));
         return target.biome[x * 16 + z].baseBiomeId();
     }
 
-    private synchronized ChunkLandscape landscape(final BiomeProviderRTG biomeProvider, BlockPos blockPos) {
+    private synchronized ChunkLandscape landscape(final BiomeProvider biomeProvider, BlockPos blockPos) {
         ChunkPos chunkPos = new ChunkPos(blockPos);
         ChunkLandscape landscape = landscapeCache.get(chunkPos);
         if (landscape != null) {
@@ -542,7 +542,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     }
 
     // TODO: [1.12] This method needs verification that it is doing what it is supposed a the coords that is supposed to.
-    private synchronized void getNewerNoise(final BiomeProviderRTG biomeProvider, final int worldX, final int worldZ, ChunkLandscape landscape) {
+    private synchronized void getNewerNoise(final BiomeProvider biomeProvider, final int worldX, final int worldZ, ChunkLandscape landscape) {
 
         // get area biome map
         for (int x = -sampleSize; x < sampleSize + 5; x++) {
@@ -666,7 +666,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
             ChunkLandscape landscape = ((landscape = ChunkGeneratorRTG.this.landscapeCache.get(chunkPos)) != null)
                 ? landscape
-                : landscape(ChunkGeneratorRTG.this.biomeProvider, new BlockPos(chunkX * 16, 0, chunkZ * 16));
+                : landscape(ChunkGeneratorRTG.this.world.getBiomeProvider(), new BlockPos(chunkX * 16, 0, chunkZ * 16));
             ChunkGeneratorRTG.this.generateTerrain(primer, landscape.noise);
         }
     }

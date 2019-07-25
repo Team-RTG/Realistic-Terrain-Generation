@@ -183,11 +183,11 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
                         else if (depth == 0) {
                             if (rand.nextInt(2) == 0) {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                         }
                     }

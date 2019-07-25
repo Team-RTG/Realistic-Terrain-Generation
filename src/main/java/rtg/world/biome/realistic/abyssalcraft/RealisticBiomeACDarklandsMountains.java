@@ -156,15 +156,15 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
                         if (cliff == 1 || cliff == 2) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (cliff == 3) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -182,15 +182,15 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
                         if (cliff == 1 || cliff == 2) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (cliff == 3) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                         else {
                             primer.setBlockState(x, k, z, Blocks.DIRT.getDefaultState());

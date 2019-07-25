@@ -150,15 +150,15 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -174,10 +174,10 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
                     }
                     else if (depth < 6) {
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else {
                             primer.setBlockState(x, k, z, fillerBlock);

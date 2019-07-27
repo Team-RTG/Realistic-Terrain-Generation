@@ -77,7 +77,6 @@ public class DecoFallenTree extends DecoBase {
 
                     // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
                     if (hasVillage) {
-// TODO: [1.12] May need to add a check to prevent fallen logs from generating over village farmland. [LOLOL IT'S A FEATURE NOT A BUG!]
                         if (!BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, finalSize)) {
                             return;
                         }

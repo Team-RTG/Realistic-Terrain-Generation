@@ -59,10 +59,6 @@ public final class RTGWorld {
         this.world = world;
         this.generatorSettings = RTGChunkGenSettings.Factory.jsonToFactory(world.getWorldInfo().getGeneratorOptions()).build();
 
-//TODO: [1.12] KdotJPG's implemetation uses D. Knuth's LCG internally in a loop to generate the permutation tables, perhaps we should use a different LCG
-// to create new instances of OpenSimplex and Cell noise, for better randomisation, instead of just adding 1 to the seed value value.
-// Ultimately, setting up proper octaves of SimplexNoise would be most beneficial, but the amount of time and effort that it would take to update and tweak
-// all of the terrain processes to use those octaves, instead of the currently employed inline division, would be most impratical at this point.
         for (int i = 0; i < SIMPLEX_INSTANCE_COUNT; i++) {
             this.simplexNoiseInstances[i] = new OpenSimplexNoise(this.seed() + i);
         }

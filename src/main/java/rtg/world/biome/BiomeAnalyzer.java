@@ -79,7 +79,6 @@ public final class BiomeAnalyzer {
         });
     }
 
-    // TODO: [1.12] A biomes 'prefered beach' should be added to the API in IRealisticBiome with the data stored in RealisticBiomeBase. Should use the BiomeConfig beach entry.
     private void setupBeachesForBiomes() {
 
         preferredBeach = new int[MAX_BIOMES];
@@ -100,7 +99,6 @@ public final class BiomeAnalyzer {
         }
     }
 
-    // TODO: [1.12] genLayerBiomes should be a Biome[] where we can just grab the IRealisticBiome from the new BiomeMap
     public void newRepair(final Biome[] genLayerBiomes, final int[] biomeNeighborhood, final ChunkLandscape landscape) {
 
         final IRealisticBiome[] jitteredBiomes = landscape.biome;

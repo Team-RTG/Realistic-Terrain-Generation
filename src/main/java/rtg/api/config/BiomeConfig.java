@@ -10,13 +10,6 @@ import rtg.api.config.property.ConfigPropertyString;
 import java.io.File;
 
 
-// TODO: [Clean-up] Rewrite this class to have final fields that hold primative values, and have a Factory and Serializer inner classes like ChunkProviderSettings has.
-//                  Biome configs can be Serialize'd and written to files as JSON objects, and loaded from files and Deserialize'd into BiomeConfig objects through the Factory.
-//                  All implementation code (eg. creating config objects in the constructor) should be removed and default settings can be passed from the realistic biome
-//                  classes (during init) to a Factory instance before attempting to loaded config file data.
-//                  OPTIONAL: Dummy JSON objects can be used during serialization to create 'comments' for the config settings before writing to files.
-//                  OPTIONAL: Add a GUI interface to change biome config settings from the config GUI screen.
-// TODO: [Clean-up] All biome config settings should be assessed as to their usefulness and ones that are unlikely to be used should be removed to streamline the configs for less bloat
 public class BiomeConfig extends Config {
 
     /* GLOBAL CONFIGS */
@@ -46,10 +39,6 @@ public class BiomeConfig extends Config {
     public final ConfigPropertyString SURFACE_MIX_4_BLOCK;
     public final ConfigPropertyBoolean ALLOW_PLATEAU_MODIFICATIONS;
     public final ConfigPropertyArrayString PLATEAU_GRADIENT_BLOCK_LIST;
-    // TODO: [1.12] Add biome specific config settings for boulders (will be multiplied by the gen setting multiplier)
-//  public final ConfigPropertyBoolean BOULDERS_ENABLED;
-//  public final ConfigPropertyString BOULDERS_BLOCK;
-//  public final ConfigPropertyFloat BOULDERS_CHANCE;
     public final ConfigPropertyBoolean ALLOW_PALM_TREES;
     public final ConfigPropertyBoolean ALLOW_CACTUS;
     public final ConfigPropertyBoolean ALLOW_COBWEBS;

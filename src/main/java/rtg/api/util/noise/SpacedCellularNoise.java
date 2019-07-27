@@ -57,7 +57,6 @@ public class SpacedCellularNoise implements CellularNoise {
 
     public SpacedCellularNoise(long xSeed) {
         this.xSeed = xSeed;
-//TODO: [1.12] This can probably use D. Knuth's LCG to generate the ySeed. (ySeed = ySeed * 6364136223846793005L + 1442695040888963407L)
         this.ySeed = new Random(xSeed).nextLong();
         this.allPoints = new Point2D.Double[totalPoints];
         this.setPoints();
@@ -104,7 +103,6 @@ public class SpacedCellularNoise implements CellularNoise {
         // evaluate the points for that square;
         result.evaluate(this.areaPoints(square), x, y);
 
-// TODO: [1.12] At which point would any of the following if statements be false?
         // now horizontally adjacent squares as appropriate
         double distance = y - yInt;
         if (distance != result.getNextDistance()) {

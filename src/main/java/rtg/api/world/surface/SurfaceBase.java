@@ -12,7 +12,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
 
 
-// TODO: [1.12] Fix parameter names in this class, and their origins
 public abstract class SurfaceBase {
 
     public IBlockState shadowStoneBlock;

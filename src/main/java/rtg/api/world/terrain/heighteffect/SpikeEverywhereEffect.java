@@ -11,7 +11,6 @@ import rtg.api.world.terrain.TerrainBase;
  */
 public class SpikeEverywhereEffect extends HeightEffect {
 
-// TODO: [1.12] No, Don't just crash, provide protection for erroneous values!
     // not going to bother to set up a creator shell to make sure everything is set
     // set defaults to absurd values to crash if they're not set
     // a trio of parameters frequently used together

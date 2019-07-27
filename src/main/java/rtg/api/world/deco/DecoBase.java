@@ -18,7 +18,6 @@ import java.util.Random;
  *
  * @author WhichOnesPink
  */
-// TODO: [1.12] Remove unused methods and parameters; Update to Java 8 compliance (remove explicit types, etc..), Use generic classes like Collection instead of ArrayList
 public abstract class DecoBase {
 
     // TODO [1.12] Temporary; To be removed.
@@ -75,10 +74,6 @@ public abstract class DecoBase {
     }
 
     public abstract void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage);
-
-//    // TODO [1.12] Decos should be updated to implement #generate(IRealisticBiome, RTGWorld, Random, ChunkPos, float, float, boolean) above.
-//    @Deprecated
-//    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasVillage) {}
 
     @Deprecated
     public void addDecoTypes(DecoType... decos) {

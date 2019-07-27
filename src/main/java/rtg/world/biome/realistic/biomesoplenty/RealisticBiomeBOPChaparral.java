@@ -72,7 +72,6 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
 
             //float m = hills(x, y, peakyHillStrength, simplex, river);
 
-// TODO [1.12] This is the only use of SimplexData2D$Derivative - investigate removing this data type to simplify SimplexData2D
             ISimplexData2D jitterData = SimplexData2D.newDerivative();
             rtgWorld.simplexInstance(1).multiEval2D(x / wavelength, y / wavelength, jitterData);
             int pX = (int) Math.round(x + jitterData.getDeltaX() * amplitude);

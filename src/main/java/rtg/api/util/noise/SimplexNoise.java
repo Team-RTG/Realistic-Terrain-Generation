@@ -5,7 +5,6 @@ package rtg.api.util.noise;
  * @version 1.0.0
  * @since 1.0.0
  */
-// TODO: [API] Move to API
 public interface SimplexNoise {
 
     /**
@@ -17,8 +16,6 @@ public interface SimplexNoise {
      * @return the noise value
      * @since 1.0.0
      */
-// TODO: [1.12] Where applicable, all calls to #noise2f should be migrated to #noise2d to avoid unneeded casting.
-    @Deprecated
     float noise2f(float x, float y);
 
     /**
@@ -31,8 +28,6 @@ public interface SimplexNoise {
      * @return the noise value
      * @since 1.0.0
      */
-// TODO: [1.12] Where applicable, all calls to #noise3f should be migrated to #noise3d to avoid unneeded casting.
-    @Deprecated
     float noise3f(float x, float y, float z);
 
     /**

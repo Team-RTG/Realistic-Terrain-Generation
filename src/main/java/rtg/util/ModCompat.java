@@ -77,7 +77,7 @@ public final class ModCompat {
                 .forEach(invalidBiomes::add);
         }
 
-        // TODO: [1.12] Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
+        // TODO: Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
 
         Collection<Biome> biomes = ForgeRegistries.BIOMES.getValuesCollection();
 

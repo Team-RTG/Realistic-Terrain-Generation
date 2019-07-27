@@ -69,7 +69,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private final float[][] weightings = new float[sampleArraySize * sampleArraySize][256];
     private final MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
-    // TODO: [1.12] Find the source of the erroneous flipping and squash it for good. This should not need to be done.
     private int[] xyinverted = analyzer.xyinverted();
     private boolean mapFeaturesEnabled;
     private Random rand;
@@ -227,7 +226,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
                 float river = -TerrainBase.getRiverStrength(mpos, rtgWorld);
                 int depth = -1;
-// TODO: [1.12] From this point forward 'x' and 'z' can be derived by applying a bitmask (& 15) to the block position instead of passing both as arguments all the way through to surfacing.
                 biomes[x * 16 + z].rReplace(primer, mpos, x, z, depth, rtgWorld, noise, river, base);
 
                 // sparse bedrock layers above y=0
@@ -538,7 +536,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         return landscape;
     }
 
-    // TODO: [1.12] This method needs verification that it is doing what it is supposed a the coords that is supposed to.
     private synchronized void getNewerNoise(final BiomeProvider biomeProvider, final int worldX, final int worldZ, ChunkLandscape landscape) {
 
         // get area biome map
@@ -549,7 +546,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         }
 
         // fill the old smallRender
-// TODO: [1.12] This process should be verified for it's usefulness. This is 112,896 iterations per chunk
         MutableBlockPos mpos = new MutableBlockPos(worldX, 0, worldZ);
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
@@ -593,8 +589,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         //fill biomes array with biomeData
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-// TODO: [1.12] This call is using absolutely whacky coordinates that make no sense,
-// TODO: [1.12] given the world coordinates worldX=0, worldZ=0 this call will check worldX= -52 -> 68, worldZ= -52 -> 68 in increments of 8
                 BlockPos pos = new BlockPos(worldX + (x - 7) * 8 + 4, 0, worldZ + (z - 7) * 8 + 4);
                 landscape.biome[x * 16 + z] = RTGAPI.getRTGBiome(biomeProvider.getBiome(pos));
             }

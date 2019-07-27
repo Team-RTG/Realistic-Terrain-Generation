@@ -76,10 +76,6 @@ public abstract class DecoBase {
 
     public abstract void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage);
 
-//    // TODO [1.12] Decos should be updated to implement #generate(IRealisticBiome, RTGWorld, Random, ChunkPos, float, float, boolean) above.
-//    @Deprecated
-//    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasVillage) {}
-
     @Deprecated
     public void addDecoTypes(DecoType... decos) {
         this.decoTypes.addAll(Arrays.asList(decos));

@@ -1,9 +1,5 @@
 package rtg.api.world.gen.feature.tree.rtg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockSand.EnumType;
@@ -12,9 +8,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-
 import rtg.RTGConfig;
 import rtg.api.util.BlockUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 
 /**
@@ -73,7 +72,6 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
             Blocks.GRASS.getDefaultState(),
             Blocks.DIRT.getDefaultState(),
             BlockUtil.getStateDirt(DirtType.PODZOL),
-            Blocks.SAND.getDefaultState(),
             BlockUtil.getStateSand(EnumType.RED_SAND)
         ));
 

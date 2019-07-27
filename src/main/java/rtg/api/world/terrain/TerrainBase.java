@@ -143,18 +143,15 @@ public abstract class TerrainBase {
 
     public static float terrainBryce(int x, int y, RTGWorld rtgWorld, float river, float height) {
 
-        float b = 0;
-        float n;
         SimplexNoise simplex = rtgWorld.simplexInstance(0);
         float sn = simplex.noise2f(x / 2f, y / 2f) * 0.5f + 0.5f;
         sn += simplex.noise2f(x, y) * 0.2 + 0.2;
         sn += simplex.noise2f(x / 4f, y / 4f) * 4f + 4f;
         sn += simplex.noise2f(x / 8f, y / 8f) * 2f + 2f;
-        n = height / sn * 2;
+        float n = height / sn * 2;
         n += simplex.noise2f(x / 64f, y / 64f) * 4f;
         n = (sn < 6) ? n : 0f;
-        b += n;
-        return riverized(getTerrainBase() + b, river);
+        return riverized(getTerrainBase() + n, river);
     }
 
     public static float terrainCanyon(int x, int y, RTGWorld rtgWorld, float river, float[] height, float border, float strength, int heightLength, boolean booRiver) {

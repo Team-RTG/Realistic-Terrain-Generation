@@ -62,14 +62,14 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeBase
                     if (Terrain.calcCliff(x, z, noise) > 1.4f) {
                         if (depth > -1 && depth < 2) {
                             if (rtgWorld.rand().nextInt(3) == 0) {
-                                primer.setBlockState(x, y, z, this.hcCobble(rtgWorld, i, j, x, z, y));
+                                primer.setBlockState(x, y, z, this.hcCobble());
                             }
                             else {
-                                primer.setBlockState(x, y, z, this.hcStone(rtgWorld, i, j, x, z, y));
+                                primer.setBlockState(x, y, z, this.hcStone());
                             }
                         }
                         else if (depth < 10) {
-                            primer.setBlockState(x, y, z, this.hcStone(rtgWorld, i, j, x, z, y));
+                            primer.setBlockState(x, y, z, this.hcStone());
                         }
                     }
                     else {

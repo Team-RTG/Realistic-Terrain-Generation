@@ -50,7 +50,7 @@ public class SpacedCellularNoise implements CellularNoise {
     private static final int pointsPerTorus = 25;
     private static final double minDistanceSq = 0.005d;
 
-    private final Map<Integer, Point2D.Double[]> cache = new LimitedArrayCacheMap<>(40);
+    private final Map<Point, Point2D.Double[]> cache = new LimitedArrayCacheMap<>(256);
     private final Point2D.Double[] allPoints;
     private final long xSeed;
     private final long ySeed;
@@ -159,7 +159,7 @@ public class SpacedCellularNoise implements CellularNoise {
      */
     private Point2D.Double[] areaPoints(Point area) {
         Point2D.Double[] ret;
-        return ((ret = this.cache.get(area.hashCode())) != null) ? ret : this.generatedAreaPoints(area);
+        return ((ret = this.cache.get(area)) != null) ? ret : this.generatedAreaPoints(area);
     }
 
     private Point2D.Double[] generatedAreaPoints(Point area) {
@@ -181,7 +181,7 @@ public class SpacedCellularNoise implements CellularNoise {
             result[i] = new Point2D.Double(this.allPoints[index].getX() + area.getX(), this.allPoints[index].getY() + area.getY());
             used[i] = true;
         }
-        this.cache.put(area.hashCode(), result);
+        this.cache.put(area, result);
         return result;
     }
 

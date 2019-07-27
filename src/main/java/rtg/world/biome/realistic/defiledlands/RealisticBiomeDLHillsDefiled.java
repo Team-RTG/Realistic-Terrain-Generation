@@ -108,19 +108,19 @@ public class RealisticBiomeDLHillsDefiled extends RealisticBiomeDLBase {
         }
 
         @Override
-        protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+        protected IBlockState hcStone() {
 
             return this.topBlock;
         }
 
         @Override
-        protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+        protected IBlockState hcCobble() {
 
             return this.topBlock;
         }
 
         @Override
-        protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+        protected IBlockState getShadowStoneBlock() {
 
             return defiledStone;
         }
@@ -156,15 +156,15 @@ public class RealisticBiomeDLHillsDefiled extends RealisticBiomeDLBase {
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -184,10 +184,10 @@ public class RealisticBiomeDLHillsDefiled extends RealisticBiomeDLBase {
                     }
                     else if (depth < 6) {
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else {
                             primer.setBlockState(x, k, z, fillerBlock);

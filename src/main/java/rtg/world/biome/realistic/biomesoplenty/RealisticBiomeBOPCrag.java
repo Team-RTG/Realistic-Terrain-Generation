@@ -208,7 +208,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
@@ -255,7 +255,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
-        protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+        protected IBlockState hcCobble() {
             // return cragRock; removed
             return Blocks.STONE.getDefaultState();
         }

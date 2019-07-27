@@ -9,8 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.MinecraftForge;
-import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 
@@ -42,10 +40,6 @@ public class WorldGenBlob extends WorldGenerator {
     public boolean generate(World world, Random rand, BlockPos pos) {
 
         if (this.enabled) {
-
-            CustomizeBlockEvent event = new CustomizeBlockEvent(world, pos, this.blobBlock);
-            MinecraftForge.TERRAIN_GEN_BUS.post(event);
-            IBlockState boulderBlock = event.getBlockState();
 
             int x = pos.getX();
             int y = pos.getY();
@@ -99,7 +93,7 @@ public class WorldGenBlob extends WorldGenerator {
                                 float f3 = (by - y);
 
                                 if (f1 * f1 + f2 * f2 + f3 * f3 <= f * f) {
-                                    this.placeBoulderBlock(world, new BlockPos(bx, by, bz), boulderBlock);
+                                    this.placeBoulderBlock(world, new BlockPos(bx, by, bz), blobBlock);
                                 }
                             }
                         }

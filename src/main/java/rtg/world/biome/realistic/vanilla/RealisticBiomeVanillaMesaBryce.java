@@ -46,8 +46,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
 
     @Override
     public TerrainBase initTerrain() {
-        return new TerrainRTGMesaBryce(67);
-        //return new TerrainVanillaMesaBryce(false, 55f, 120f, 60f, 40f, 69f);
+        return new TerrainRTGMesaBryce();
     }
 
     @Override
@@ -73,37 +72,12 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
         baseBiome().decorator.cactiPerChunk = -999;
     }
 
-    public static class TerrainRTGMesaBryce extends TerrainBase {
-
-        private static final float stepFinish = 0.9f;
-        private static final float stepStart = 0.55f;
-        private static final float stepHeight = 50;
-        final VoronoiBasinEffect plateau;
-        final int groundNoise;
-        private float jitterWavelength = 15;
-        private float jitterAmplitude = 4;
-        private float bumpinessMultiplier = 0.1f;
-        private float bumpinessWavelength = 10f;
-
-        public TerrainRTGMesaBryce(float base) {
-            plateau = new VoronoiBasinEffect();
-            plateau.pointWavelength = 100;
-            this.base = base;
-            groundNoise = 4;
-        }
-
-
+    public class TerrainRTGMesaBryce extends TerrainBase {
+        private static final float height = 20f;
+        TerrainRTGMesaBryce() { }
         @Override
-        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
-            ISimplexData2D jitterData = SimplexData2D.newDisk();
-            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
-            float x = (float) (passedX + jitterData.getDeltaX() * jitterAmplitude);
-            float y = (float) (passedY + jitterData.getDeltaY() * jitterAmplitude);
-            float bumpiness = rtgWorld.simplexInstance(2).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier
-                + rtgWorld.simplexInstance(3).noise2f(x / bumpinessWavelength / 2f, y / bumpinessWavelength / 2f) * bumpinessMultiplier / 2f;
-            float simplex = plateau.added(rtgWorld, x, y) * river + bumpiness;
-            float added = PlateauUtil.stepIncrease(simplex, stepFinish, stepStart, stepHeight);
-            return riverized(base + groundNoise(x, y, groundNoise, rtgWorld), river) + added;
+        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+            return terrainBryce(x, y, rtgWorld, river, height);
         }
 
     }

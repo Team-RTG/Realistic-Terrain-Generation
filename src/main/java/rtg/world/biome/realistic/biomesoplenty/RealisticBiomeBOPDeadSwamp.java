@@ -101,15 +101,15 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
                         if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (depth < 10) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                     }
                     else {

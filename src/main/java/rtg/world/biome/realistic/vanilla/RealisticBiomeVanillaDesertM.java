@@ -144,7 +144,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
                             primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowDesertBlock());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -163,7 +163,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
                             primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowDesertBlock());
                         }
                         else {
                             primer.setBlockState(x, k, z, fillerBlock);

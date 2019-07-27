@@ -3,14 +3,11 @@ package rtg.api.world.surface;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraftforge.common.MinecraftForge;
 
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
-import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
 
@@ -48,30 +45,24 @@ public abstract class SurfaceBase {
 
     }
 
-    protected IBlockState getShadowStoneBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowStoneBlock() {
 
-        CustomizeBlockEvent event = new CustomizeBlockEvent(rtgWorld.world(), new BlockPos(i, k, j), shadowStoneBlock);
-        MinecraftForge.TERRAIN_GEN_BUS.post(event);
-        return event.getBlockState();
+        return shadowStoneBlock;
     }
 
-    protected IBlockState getShadowDesertBlock(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState getShadowDesertBlock() {
 
-        CustomizeBlockEvent event = new CustomizeBlockEvent(rtgWorld.world(), new BlockPos(i, k, j), shadowDesertBlock);
-        MinecraftForge.TERRAIN_GEN_BUS.post(event);
-        return event.getBlockState();
+        return shadowDesertBlock;
     }
 
-    protected IBlockState hcStone(RTGWorld rtgWorld, int i, int j, int x, int y, int k) {
+    protected IBlockState hcStone() {
 
         return cliffStoneBlock;
     }
 
-    protected IBlockState hcCobble(RTGWorld rtgWorld, int worldX, int worldZ, int chunkX, int chunkZ, int worldY) {
+    protected IBlockState hcCobble() {
 
-        CustomizeBlockEvent event = new CustomizeBlockEvent(rtgWorld.world(), new BlockPos(worldX, worldY, worldZ), cliffCobbleBlock);
-        MinecraftForge.TERRAIN_GEN_BUS.post(event);
-        return event.getBlockState();
+        return cliffCobbleBlock;
     }
 
     public IBlockState getTopBlock() {

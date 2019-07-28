@@ -1,11 +1,5 @@
 package rtg.world.gen;
 
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
@@ -22,16 +16,11 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.feature.WorldGenDungeons;
 import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenScatteredFeature;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
-import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.*;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.terraingen.InitMapGenEvent.EventType;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
 import rtg.RTG;
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
@@ -42,9 +31,16 @@ import rtg.api.util.noise.SimplexData2D;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.RTGChunkGenSettings;
+import rtg.api.world.gen.feature.WorldGenPond;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeAnalyzer;
 import rtg.world.gen.structure.WoodlandMansionRTG;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 
 public class ChunkGeneratorRTG implements IChunkGenerator {
@@ -290,7 +286,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             // possibly reduced chance to generate anywhere, including on surface
             if (surfacechance > 0 && nextchance % surfacechance == 0) {
                 if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.LAKE)) {
-                    (new WorldGenLakes(Blocks.WATER)).generate(world, rand, pos.up(rand.nextInt(256)));
+                    (new WorldGenPond(Blocks.WATER.getDefaultState())).generate(world, rand, pos.up(rand.nextInt(256)));
                 }
             }
             // normal chance to generate underground
@@ -311,7 +307,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             // possibly reduced chance to generate anywhere, including on surface
             if (surfacechance > 0 && nextchance % surfacechance == 0) {
                 if (TerrainGen.populate(this, world, rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.LAVA)) {
-                    (new WorldGenLakes(Blocks.LAVA)).generate(world, rand, pos.up(rand.nextInt(256)));
+                    (new WorldGenPond(Blocks.LAVA.getDefaultState())).generate(world, rand, pos.up(rand.nextInt(256)));
                 }
             }
             // normal chance to generate underground

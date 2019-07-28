@@ -165,11 +165,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         //decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
         //decoBaseBiomeDecorations.setMaxY(100);
 
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(100);
-        decoGrass.setStrengthFactor(20f);
-        this.addDeco(decoGrass);
-
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setMaxY(100);
         decoDeadBush.setChance(2);

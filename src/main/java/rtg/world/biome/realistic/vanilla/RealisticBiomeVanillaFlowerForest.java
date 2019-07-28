@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
@@ -14,29 +12,18 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
+import java.util.Random;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
@@ -163,12 +150,6 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         decoFallenSpruce.setMaxSize(6);
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainVanillaFlowerForest extends TerrainBase {

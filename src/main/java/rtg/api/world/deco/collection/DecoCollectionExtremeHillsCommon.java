@@ -25,8 +25,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
             .addDeco(boulders()) // Boulders.
             .addDeco(flowers()) // Flowers.
             .addDeco(mushrooms()) // Mushrooms.
-            .addDeco(pumpkins()) // Pumpkins.
-            .addDeco(grass()); // Grass.
+            .addDeco(pumpkins()); // Pumpkins.
     }
 
     private DecoFallenTree logs(IBlockState log, IBlockState leaves) {
@@ -90,7 +89,6 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
     private DecoMushrooms mushrooms() {
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(70);
-        decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(3f);
         return decoMushrooms;
     }
@@ -98,15 +96,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
     private DecoPumpkin pumpkins() {
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(30f);
         return decoPumpkin;
-    }
-
-    private DecoGrass grass() {
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
-        return decoGrass;
     }
 }

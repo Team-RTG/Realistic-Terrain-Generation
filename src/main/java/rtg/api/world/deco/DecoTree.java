@@ -1,7 +1,5 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -10,7 +8,6 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.fml.common.eventhandler.Event;
-
 import rtg.RTGConfig;
 import rtg.api.event.DecorateBiomeEventRTG;
 import rtg.api.util.BlockUtil;
@@ -19,6 +16,8 @@ import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+
+import java.util.Random;
 
 
 /**
@@ -169,9 +168,9 @@ public class DecoTree extends DecoBase {
         float noise = rtgWorld.simplexInstance(0)
             .noise2f(offsetPos.getX() / this.distribution.getNoiseDivisor(), offsetPos.getZ() / this.distribution.getNoiseDivisor())
             * this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
-        int loopCount = (this.strengthFactorForLoops > 0f) ? (int) (this.strengthFactorForLoops * strength) : this.loops;
-        loopCount = (this.strengthNoiseFactorForLoops) ? (int) (noise * strength) : loopCount;
-        loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops * strength) : loopCount;
+        int loopCount = (this.strengthFactorForLoops > 0f) ? (int) this.strengthFactorForLoops : this.loops;
+        loopCount = (this.strengthNoiseFactorForLoops) ? (int) noise : loopCount;
+        loopCount = (this.strengthNoiseFactorXForLoops) ? (int) (noise * this.strengthFactorForLoops) : loopCount;
 
         if (loopCount < 1) {
             return;
@@ -210,7 +209,7 @@ public class DecoTree extends DecoBase {
 
                 final BlockPos pos = offsetPos.add(rand.nextInt(16), 0, rand.nextInt(16));
                 int y = rtgWorld.world().getHeight(pos).getY();
-                if (y <= this.maxY && y >= this.minY && isValidTreeCondition(noise, rand, strength)) {
+                if (y <= this.maxY && y >= this.minY && isValidTreeCondition(noise, rand)) {
 
                     // If we're in a village, check to make sure the tree has extra room to grow to avoid corrupting the village.
                     if (hasVillage) {
@@ -253,7 +252,7 @@ public class DecoTree extends DecoBase {
         }
     }
 
-    public boolean isValidTreeCondition(float noise, Random rand, float strength) {
+    public boolean isValidTreeCondition(float noise, Random rand) {
 
         boolean noiseGreaterThanMin;
         boolean noiseLessThanMax;
@@ -281,9 +280,6 @@ public class DecoTree extends DecoBase {
 
             case RANDOM_NOT_EQUALS_CHANCE:
                 return rand.nextInt(this.treeConditionChance) != 0;
-
-            case X_DIVIDED_BY_STRENGTH:
-                return rand.nextInt((int) (this.treeConditionFloat / strength)) == 0;
 
             default:
                 return false;
@@ -565,8 +561,7 @@ public class DecoTree extends DecoBase {
         NOISE_LESSER_AND_RANDOM_CHANCE,
         NOISE_BETWEEN_AND_RANDOM_CHANCE,
         RANDOM_CHANCE,
-        RANDOM_NOT_EQUALS_CHANCE,
-        X_DIVIDED_BY_STRENGTH
+        RANDOM_NOT_EQUALS_CHANCE
     }
 
     /**

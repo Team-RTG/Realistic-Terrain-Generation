@@ -68,7 +68,7 @@ public class DecoFallenTree extends DecoBase {
         final int finalSize = (this.maxSize > this.minSize) ? getRangedRandom(rand, this.minSize, this.maxSize) : (this.maxSize == this.minSize) ? this.minSize : 4;
 
         for (int i = 0; i < this.loops; i++) {
-            if (isValidLogCondition(strength, rand)) {
+            if (isValidLogCondition(rand)) {
 
                 BlockPos pos = offsetpos.add(rand.nextInt(16), 0, rand.nextInt(16));
                 pos = pos.up(rtgWorld.world().getHeight(pos).getY());
@@ -88,7 +88,7 @@ public class DecoFallenTree extends DecoBase {
         }
     }
 
-    public boolean isValidLogCondition(float strength, Random rand) {
+    public boolean isValidLogCondition(Random rand) {
 
         switch (this.logCondition) {
             case ALWAYS_GENERATE:
@@ -98,10 +98,6 @@ public class DecoFallenTree extends DecoBase {
             case RANDOM_CHANCE:
 
                 return (rand.nextInt(this.logConditionChance) == 0);
-
-            case X_DIVIDED_BY_STRENGTH:
-
-                return (rand.nextInt((int) (this.logConditionNoise / strength)) == 0);
 
             default:
                 return false;
@@ -225,8 +221,7 @@ public class DecoFallenTree extends DecoBase {
 
     public enum LogCondition {
         ALWAYS_GENERATE,
-        RANDOM_CHANCE,
-        X_DIVIDED_BY_STRENGTH
+        RANDOM_CHANCE
     }
 
     /**

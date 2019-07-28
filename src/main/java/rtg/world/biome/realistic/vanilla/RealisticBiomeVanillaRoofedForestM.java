@@ -2,7 +2,6 @@ package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -105,18 +104,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         decoDeadBush.setChance(16);
         decoDeadBush.setStrengthFactor(1f);
         this.addDeco(decoDeadBush);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
-        this.addDeco(decoGrass);
-
-        DecoGrass decoFern = new DecoGrass(BlockTallGrass.EnumType.FERN);
-        decoFern.setMaxY(128);
-        decoFern.setStrengthFactor(4f);
-        decoFern.setChance(2);
-        this.addDeco(decoFern);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);

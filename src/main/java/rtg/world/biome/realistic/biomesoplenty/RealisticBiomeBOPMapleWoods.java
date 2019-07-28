@@ -18,9 +18,6 @@ import rtg.api.world.terrain.TerrainBase;
 
 import java.util.Random;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
-
-
 public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
 
     public static Biome biome = BOPBiomes.maple_woods.orNull();
@@ -56,7 +53,6 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(X_DIVIDED_BY_STRENGTH);
         decoFallenTree.setLogConditionChance(1);
         decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)});
         decoFallenTree.setMinSize(3);

@@ -48,7 +48,7 @@ public class DecoCactus extends DecoBase {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CACTUS)) {
 
-            final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+            final int loopCount = (this.strengthFactor > 0f) ? (int) this.strengthFactor : this.loops;
             for (int i = 0; i < loopCount; i++) {
 
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));

@@ -132,6 +132,11 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     @Override
+    public void overrideDecorations() {
+        //baseBiome().decorator.grassPerChunk = -999;
+    }
+
+    @Override
     public Collection<DecoBase> getDecos() {
         return this.decos;
     }

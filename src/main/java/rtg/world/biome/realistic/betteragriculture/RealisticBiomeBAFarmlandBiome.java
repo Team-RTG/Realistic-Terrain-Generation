@@ -117,13 +117,6 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         decoBoulder.setMaxY(80);
         decoBoulder.setStrengthFactor(4f);
         this.addDeco(decoBoulder);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(100);
-        decoGrass.setLoops(1);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainBAFarmlandBiome extends TerrainBase {

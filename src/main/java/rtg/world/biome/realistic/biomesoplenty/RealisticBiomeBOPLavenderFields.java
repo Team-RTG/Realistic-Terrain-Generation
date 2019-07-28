@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -13,10 +11,11 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
@@ -53,11 +52,6 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         decoShrub.setChance(10);
         decoShrub.setStrengthFactor(4f);
         this.addDeco(decoShrub);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(6f);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainBOPLavenderFields extends TerrainBase {

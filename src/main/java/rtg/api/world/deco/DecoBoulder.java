@@ -1,25 +1,19 @@
 package rtg.api.world.deco;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenBlob;
+
+import java.util.*;
 
 
 /**
@@ -55,7 +49,7 @@ public class DecoBoulder extends DecoBase {
 
         // TODO: [1.12] Boulders are a decoration and not a terrain feature. This should probably have a config setting, not a generator setting.
         if (rtgWorld.getGeneratorSettings().useBoulders && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.ROCK)) {
-            for (int i = 0; i < this.strengthFactor * strength; ++i) {
+            for (int i = 0; i < this.strengthFactor; ++i) {
 
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
                 int y;

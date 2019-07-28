@@ -105,14 +105,8 @@ public class RealisticBiomeVanillaSwampland extends RealisticBiomeBase {
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(50f);
         this.addDeco(decoPumpkin);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(100);
-        decoGrass.setStrengthFactor(12f);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainVanillaSwampland extends TerrainBase {

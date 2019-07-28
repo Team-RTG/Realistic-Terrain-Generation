@@ -1,9 +1,5 @@
 package rtg.api.world.deco;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSponge;
 import net.minecraft.block.state.IBlockState;
@@ -13,6 +9,10 @@ import net.minecraft.util.math.ChunkPos;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenSponge;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 
 /**
@@ -63,7 +63,7 @@ public class DecoSponge extends DecoBase {
     @Override
     public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        for (int i = 0; i < this.strengthFactor * strength; ++i) {
+        for (int i = 0; i < this.strengthFactor; ++i) {
 
             final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
 

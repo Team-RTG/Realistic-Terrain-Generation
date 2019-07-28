@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -11,10 +9,12 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionBirchForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
@@ -50,6 +50,12 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
+
+//    @Override
+//    public void overrideDecorations() {
+//        baseBiome().decorator.grassPerChunk = -999;
+//        baseBiome().decorator.flowersPerChunk = -999;
+//    }
 
     public static class TerrainVanillaBirchForestHillsM extends TerrainBase {
 

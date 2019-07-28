@@ -105,11 +105,6 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         decoDoubleGrass.setMaxY(128);
         decoDoubleGrass.setStrengthFactor(3f);
         this.addDeco(decoDoubleGrass);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
-        this.addDeco(decoGrass);
     }
 
     @Override

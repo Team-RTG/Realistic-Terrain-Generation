@@ -1,24 +1,22 @@
 package rtg.api.world.deco;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenFlowersRTG;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
 
 /**
@@ -81,7 +79,7 @@ public class DecoFlowersRTG extends DecoBase {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.FLOWERS)) {
 
-            final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+            final int loopCount = (this.strengthFactor > 0f) ? (int) this.strengthFactor : this.loops;
             for (int i = 0; i < loopCount * 16; i++) {
                 BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
 

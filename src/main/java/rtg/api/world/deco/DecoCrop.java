@@ -1,16 +1,14 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenCrops;
+
+import java.util.Random;
 
 
 /**
@@ -54,7 +52,7 @@ public class DecoCrop extends DecoBase {
     public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
         if (this.chance > 1 && rand.nextInt(this.chance) == 0 && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CUSTOM)) {
-            for (int i = 0; i < this.strengthFactor * strength; ++i) {
+            for (int i = 0; i < this.strengthFactor; ++i) {
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), 0, rand.nextInt(16));
                 int y = rtgWorld.world().getHeight(pos).getY();
                 if (y >= this.minY && y <= this.maxY) {

@@ -1,15 +1,14 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.feature.WorldGenReed;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+
+import java.util.Random;
 
 
 /**
@@ -41,7 +40,7 @@ public class DecoReed extends DecoBase {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.REED)) {
 
-            final int loopCount = (this.strengthFactor > 0f) ? (int) (this.strengthFactor * strength) : this.loops;
+            final int loopCount = (this.strengthFactor > 0f) ? (int) this.strengthFactor : this.loops;
             for (int i = 0; i < loopCount; i++) {
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), rand.nextInt(this.maxY), rand.nextInt(16));
                 new WorldGenReed()

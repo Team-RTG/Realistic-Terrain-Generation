@@ -1,16 +1,15 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenDoublePlantRTG;
+
+import java.util.Random;
 
 
 /**
@@ -42,7 +41,7 @@ public class DecoDoubleGrass extends DecoBase {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.GRASS)) {
 
-            final int loopCount = (this.strengthFactor > 0f) ? (int)(this.strengthFactor * strength) : this.loops;
+            final int loopCount = (this.strengthFactor > 0f) ? (int) this.strengthFactor : this.loops;
             for (int i = 0; i < loopCount; i++) {
                 final BlockPos pos = getOffsetPos(chunkPos).add(rand.nextInt(16), rand.nextInt(this.maxY), rand.nextInt(16));
                 new WorldGenDoublePlantRTG(BlockDoublePlant.EnumPlantType.GRASS)

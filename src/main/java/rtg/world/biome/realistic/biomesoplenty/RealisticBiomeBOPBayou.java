@@ -22,7 +22,6 @@ import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoMushrooms;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
@@ -186,12 +185,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(90);
-        decoGrass.setStrengthFactor(4f);
-        decoGrass.setChance(2);
-        this.addDeco(decoGrass);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);

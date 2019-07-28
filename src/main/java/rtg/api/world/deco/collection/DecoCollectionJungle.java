@@ -109,11 +109,5 @@ public class DecoCollectionJungle extends DecoCollectionBase {
         decoBoulder.setMaxY(95);
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(12f);
-        this.addDeco(decoGrass);
     }
 }

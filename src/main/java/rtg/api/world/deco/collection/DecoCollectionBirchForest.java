@@ -4,12 +4,7 @@ import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
@@ -34,7 +29,6 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
             .addDeco(logs(), config.ALLOW_LOGS.get()) // Add some fallen birch trees.
             .addDeco(shrubsOak()) // Oak shrubs to fill in the blanks.
             .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
-            .addDeco(grass()) // Grass filler.
         ;
     }
 
@@ -92,12 +86,5 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
             .addFlowers(HOUSTONIA, WHITE_TULIP)
             .setMaxY(128)
             .setStrengthFactor(12f);
-    }
-
-    private DecoGrass grass() {
-        return new DecoGrass()
-            .setMinY(60)
-            .setMaxY(128)
-            .setStrengthFactor(20f);
     }
 }

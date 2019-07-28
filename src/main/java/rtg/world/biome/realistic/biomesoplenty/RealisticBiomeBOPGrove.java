@@ -16,7 +16,6 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
@@ -25,7 +24,6 @@ import rtg.api.world.terrain.TerrainBase;
 import java.util.Random;
 
 import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
 
 
 public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
@@ -63,7 +61,6 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseDivisor(80f);
         decoFallenTree1.getDistribution().setNoiseFactor(60f);
         decoFallenTree1.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree1.setLogCondition(X_DIVIDED_BY_STRENGTH);
         decoFallenTree1.setLogConditionChance(1);
         decoFallenTree1.setMaxY(100);
         decoFallenTree1.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
@@ -75,7 +72,6 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.getDistribution().setNoiseDivisor(80f);
         decoFallenTree2.getDistribution().setNoiseFactor(60f);
         decoFallenTree2.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree2.setLogCondition(X_DIVIDED_BY_STRENGTH);
         decoFallenTree2.setLogConditionChance(1);
         decoFallenTree2.setMaxY(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
@@ -108,14 +104,10 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 // TODO: [1.12] Create a new class for double-plants
 //        DecoFlowersRTG decoFlowersRTG2 = new DecoFlowersRTG()
 //            .addFlowers(new int[]{10, 11})
-//            .setMaxY(128)
-//            .setStrengthFactor(2f);
+//            .setMaxY(128);
 //        this.addDeco(decoFlowersRTG2);
 
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(12f);
-        this.addDeco(decoGrass);
+
     }
 
     public static class TerrainBOPGrove extends TerrainBase {

@@ -20,9 +20,6 @@ import java.util.Random;
  */
 public abstract class DecoBase {
 
-    // TODO [1.12] Temporary; To be removed.
-    static final int strength = 1;
-
     @Deprecated
     private ArrayList<DecoType> decoTypes;
     private boolean checkRiver;

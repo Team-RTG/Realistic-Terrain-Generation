@@ -1,17 +1,15 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.ChunkPos;
-
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
-
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenBlock;
+
+import java.util.Random;
 
 
 /**
@@ -52,7 +50,7 @@ public class DecoCobwebs extends DecoBase {
     public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CUSTOM)) {
-            for (int i = 0; i < this.strengthFactor * strength; ++i) {
+            for (int i = 0; i < this.strengthFactor; ++i) {
                 if (rand.nextInt(this.chance) == 0) {
                     new WorldGenBlock(WEB, AIR, this.adjacentBlock, this.minAdjacents)
                         .generate(rtgWorld.world(), rand, getOffsetPos(chunkPos).add(rand.nextInt(16), getRangedRandom(rand, this.minY, this.maxY), rand.nextInt(16)));

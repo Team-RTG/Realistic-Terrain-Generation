@@ -11,7 +11,6 @@ import rtg.api.world.deco.DecoBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFallenTree.LogCondition;
 import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.DecoTree.TreeCondition;
@@ -63,7 +62,6 @@ public class DecoCollectionForest extends DecoCollectionBase {
             .addDeco(shrubsOak()) // Shrubs to fill in the blanks.
             .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
             .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
-            .addDeco(grass()) // Grass filler.
         ;
     }
 
@@ -212,12 +210,5 @@ public class DecoCollectionForest extends DecoCollectionBase {
             .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
             .setMaxY(128)
             .setStrengthFactor(6f);
-    }
-
-    private DecoGrass grass() {
-        return new DecoGrass()
-            .setMinY(60)
-            .setMaxY(128)
-            .setLoops(8);
     }
 }

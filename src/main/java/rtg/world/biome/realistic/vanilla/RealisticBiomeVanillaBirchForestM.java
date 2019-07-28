@@ -15,7 +15,6 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -81,11 +80,6 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         superTallBirch.setMaxY(100);
         this.addDeco(superTallBirch);
 
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
-        this.addDeco(decoGrass);
-
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(20);
@@ -100,6 +94,12 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         decoShrub.setStrengthFactor(2f);
         this.addDeco(decoShrub);
     }
+
+//    @Override
+//    public void overrideDecorations() {
+//        baseBiome().decorator.grassPerChunk = -999;
+//        baseBiome().decorator.flowersPerChunk = -999;
+//    }
 
     public static class TerrainVanillaBirchForestM extends TerrainBase {
 

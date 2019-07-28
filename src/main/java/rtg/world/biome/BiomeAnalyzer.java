@@ -99,7 +99,6 @@ public final class BiomeAnalyzer {
         }
     }
 
-    // TODO: [1.12] genLayerBiomes should be a Biome[] where we can just grab the IRealisticBiome from the new BiomeMap
     public void newRepair(final Biome[] genLayerBiomes, final int[] biomeNeighborhood, final ChunkLandscape landscape) {
 
         final IRealisticBiome[] jitteredBiomes = landscape.biome;

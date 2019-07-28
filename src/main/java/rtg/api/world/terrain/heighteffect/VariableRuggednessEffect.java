@@ -13,7 +13,6 @@ public class VariableRuggednessEffect extends HeightEffect {
 
     public static float STANDARD_RUGGEDNESS_WAVELENGTH = 200f;
     public static int STANDARD_RUGGEDNESS_OCTAVE = 1;
-    // TODO: [1.12] No, Don't just crash, provide protection for erroneous values!
     // not going to bother to set up a creator shell to make sure everything is set
     // set defaults to absurd values to crash if they're not set
     public HeightEffect smoothTerrain;

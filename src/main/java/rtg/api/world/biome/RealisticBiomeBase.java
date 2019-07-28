@@ -155,7 +155,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
         // we now have both lakes and rivers lowering land
-// TODO: [1.12] This config setting should be replaced by a generator setting. (Configurable per world, not per biome.)
         if (!this.getConfig().ALLOW_RIVERS.get()) {
             float borderForRiver = border * 2;
             if (borderForRiver > 1f) {
@@ -197,7 +196,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         float r;
-        // river of actualRiverProportions now maps to 1; TODO
+        // river of actualRiverProportions now maps to 1;
         float riverFlattening = 1f - river;
         riverFlattening = riverFlattening - (1 - RTGWorld.ACTUAL_RIVER_PROPORTION);
         // return biomeHeight if no river effect
@@ -245,17 +244,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         pY += jitterData.getDeltaY() * smallBendSize;
 
         VoronoiResult lakeResults = rtgWorld.cellularInstance(0).eval2D(pX / lakeInterval, pY / lakeInterval);
-        double result = 1.0d - lakeResults.interiorValue();
-
-// TODO: [1.12] Oh look.. It's more RuntimeExceptions, because we should just crash at every opertunity. *sigh*
-        if (result > 1.01d) {
-            throw new RuntimeException("" + lakeResults.getShortestDistance() + " , " + lakeResults.getNextDistance());
-        }
-        if (result < -0.01d) {
-            throw new RuntimeException("" + lakeResults.getShortestDistance() + " , " + lakeResults.getNextDistance());
-        }
-
-        return (float) result;
+        return (float)(1.0d - lakeResults.interiorValue());
     }
 
     public float lakeFlattening(float pressure, float shoreLevel, float topLevel) {
@@ -328,7 +317,6 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             return BeachType.COLD;
         }
 
-// TODO: [1.12] This may not be the best way to determine BeachType.STONE - Biome#getHeightVariation is spurious; #isTaigaBiome is ineffective for determining Taiga
         float height = baseBiome().getBaseHeight() + (baseBiome().getHeightVariation() * 2f);
         if (height > 1.5f || isTaigaBiome(baseBiome())) {
             return BeachType.STONE;

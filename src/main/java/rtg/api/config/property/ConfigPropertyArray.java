@@ -9,7 +9,6 @@ import java.util.Collections;
 import org.apache.commons.lang3.ArrayUtils;
 
 
-// TODO: [1.12] Temporary array config property until rewriting the configs
 @SuppressWarnings("unused")
 public abstract class ConfigPropertyArray<T extends Comparable<T>> extends ConfigProperty {
 

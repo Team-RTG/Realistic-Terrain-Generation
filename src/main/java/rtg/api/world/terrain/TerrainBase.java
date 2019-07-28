@@ -604,7 +604,6 @@ public abstract class TerrainBase {
         pZ /= rtgWorld.getRiverSeparation();
 
         //New cellular noise.
-        //TODO move the initialization of the results in a way that's more efficient but still thread safe.
         double riverFactor = rtgWorld.cellularInstance(0).eval2D(pX, pZ).interiorValue();
 
         // the output is a curved function of relative distance from the center, so adjust to make it flatter

@@ -18,7 +18,6 @@ import java.util.Random;
  *
  * @author WhichOnesPink
  */
-// TODO: [1.12] Remove unused methods and parameters; Update to Java 8 compliance (remove explicit types, etc..), Use generic classes like Collection instead of ArrayList
 public abstract class DecoBase {
 
     // TODO [1.12] Temporary; To be removed.

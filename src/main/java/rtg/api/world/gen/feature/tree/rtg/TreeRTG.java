@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import rtg.RTGConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.RTGTreeData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,6 +144,18 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
         if (world.isAirBlock(pos)) {
             world.setBlockState(pos, leavesBlock, generateFlag);
         }
+    }
+
+    protected void placeLogBlock(World world, BlockPos pos, IBlockState logBlock, int generateFlag, RTGTreeData treeData) {
+
+        this.placeLogBlock(world, pos, logBlock, generateFlag);
+        //treeData.placeLogBlock(world, pos, logBlock, generateFlag);
+    }
+
+    protected void placeLeavesBlock(World world, BlockPos pos, IBlockState leavesBlock, int generateFlag, RTGTreeData treeData) {
+
+        this.placeLeavesBlock(world, pos, leavesBlock, generateFlag);
+        //treeData.placeLeavesBlock(world, pos, leavesBlock, generateFlag);
     }
 
     @Override

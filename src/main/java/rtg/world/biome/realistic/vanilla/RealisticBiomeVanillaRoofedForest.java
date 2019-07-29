@@ -1,13 +1,15 @@
 package rtg.world.biome.realistic.vanilla;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.feature.WorldGenBigMushroom;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
@@ -15,10 +17,11 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.*;
+import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaRosea;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -55,7 +58,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaRoofedForest(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.08f);
+        return new SurfaceVanillaRoofedForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL), 0.15f);
     }
 
     @Override
@@ -72,7 +75,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         mucronataTree.setMinTrunkSize(2);
         mucronataTree.setMaxTrunkSize(3);
-        mucronataTree.setMinCrownSize(10);
+        mucronataTree.setMinCrownSize(9);
         mucronataTree.setMaxCrownSize(18);
         mucronataTree.setNoLeaves(false);
         this.addTree(mucronataTree);
@@ -81,16 +84,16 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         mangroveTree.setTreeType(DecoTree.TreeType.RTG_TREE);
         mangroveTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         mangroveTree.setTreeConditionChance(1);
-        mangroveTree.setStrengthFactorForLoops(12f);
+        mangroveTree.setStrengthFactorForLoops(14f);
         mangroveTree.setMaxY(110);
-        this.addDeco(mangroveTree);
+        //this.addDeco(mangroveTree);
 
         TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
         pentandraTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         pentandraTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         pentandraTree.setMinTrunkSize(2);
         pentandraTree.setMaxTrunkSize(3);
-        pentandraTree.setMinCrownSize(10);
+        pentandraTree.setMinCrownSize(9);
         pentandraTree.setMaxCrownSize(18);
         pentandraTree.setNoLeaves(false);
         this.addTree(pentandraTree);
@@ -99,27 +102,34 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         ceibaPentandraTree.setTreeType(DecoTree.TreeType.RTG_TREE);
         ceibaPentandraTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         ceibaPentandraTree.setTreeConditionChance(1);
-        ceibaPentandraTree.setStrengthFactorForLoops(12f);
+        ceibaPentandraTree.setStrengthFactorForLoops(14f);
         ceibaPentandraTree.setMaxY(110);
-        this.addDeco(ceibaPentandraTree);
+        //this.addDeco(ceibaPentandraTree);
 
-        TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
-        roseaTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
-        roseaTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
-        roseaTree.setMinTrunkSize(2);
-        roseaTree.setMaxTrunkSize(3);
-        roseaTree.setMinCrownSize(10);
-        roseaTree.setMaxCrownSize(18);
-        roseaTree.setNoLeaves(false);
-        this.addTree(roseaTree);
+        TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
+        bucheriTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
+        bucheriTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
+        bucheriTree.setMinTrunkSize(6);
+        bucheriTree.setMaxTrunkSize(14);
+        this.addTree(bucheriTree);
 
-        DecoTree ceibaRoseaTree = new DecoTree(roseaTree);
-        ceibaRoseaTree.setTreeType(DecoTree.TreeType.RTG_TREE);
-        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
-        ceibaRoseaTree.setTreeConditionChance(1);
-        ceibaRoseaTree.setStrengthFactorForLoops(12f);
-        ceibaRoseaTree.setMaxY(110);
-        this.addDeco(ceibaRoseaTree);
+        DecoTree bucheriTrees = new DecoTree(bucheriTree);
+        bucheriTrees.setLoops(2);
+        bucheriTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
+        bucheriTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
+        bucheriTrees.setTreeConditionChance(1);
+        //this.addDeco(bucheriTrees);
+
+        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
+        decoHelperRandomSplit.decos = new DecoBase[]{mangroveTree, ceibaPentandraTree, bucheriTrees};
+        decoHelperRandomSplit.chances = new int[]{11, 11, 2};
+        this.addDeco(decoHelperRandomSplit);
+
+//        DecoWorldGen decoCanopyTree = new DecoWorldGen(new WorldGenCanopyTree(false), DecorateBiomeEvent.Decorate.EventType.TREE);
+//        decoCanopyTree.setMinY(63);
+//        decoCanopyTree.setMaxY(100);
+//        decoCanopyTree.setChance(1);
+//        this.addDeco(decoCanopyTree);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
@@ -136,13 +146,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         darkOakShrub.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         darkOakShrub.setMaxY(100);
-        darkOakShrub.setStrengthFactor(8f);
+        darkOakShrub.setStrengthFactor(6f);
 
         DecoShrub oakShrub = new DecoShrub();
         oakShrub.setLogBlock(Blocks.LOG.getDefaultState());
         oakShrub.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         oakShrub.setMaxY(100);
-        oakShrub.setStrengthFactor(8f);
+        oakShrub.setStrengthFactor(6f);
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
 
@@ -162,14 +172,28 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         decoCobwebs.setMinAdjacents(2);
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 
-        //decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
-        //decoBaseBiomeDecorations.setMaxY(100);
-
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setMaxY(100);
         decoDeadBush.setChance(2);
         decoDeadBush.setStrengthFactor(2f);
         this.addDeco(decoDeadBush);
+
+        DecoWorldGen decoBigShroom = new DecoWorldGen(new WorldGenBigMushroom(), DecorateBiomeEvent.Decorate.EventType.BIG_SHROOM);
+        decoBigShroom.setMinY(63);
+        decoBigShroom.setMaxY(100);
+        decoBigShroom.setChance(8);
+        this.addDeco(decoBigShroom);
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.grassPerChunk = 3;
+        baseBiome().decorator.flowersPerChunk = 1;
+    }
+
+    @Override
+    public boolean overridesHardcoded() {
+        return true;
     }
 
     public static class TerrainVanillaRoofedForest extends TerrainBase {
@@ -211,7 +235,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
             cCliff = clayCliff;
 
             mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
-
             mixHeight = mixSize;
         }
 
@@ -224,8 +247,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
             int cliff = 0;
             boolean m = false;
 
-            // varying clay densities;
-            float mixModifier = mixHeight + simplex.noise2f(i / 800f, j / 800f);
             Block b;
             for (int k = 255; k > -1; k--) {
                 b = primer.getBlockState(x, k, z).getBlock();
@@ -266,7 +287,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2f(i / 12f, j / 12f) > mixModifier) {
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
                             primer.setBlockState(x, k, z, mixBlock);
                             m = true;
                         }

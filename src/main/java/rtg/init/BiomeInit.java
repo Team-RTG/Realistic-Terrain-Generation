@@ -171,6 +171,7 @@ public final class BiomeInit {
         for (Biome biome : Biome.REGISTRY) {
             int biomeId = Biome.getIdForBiome(biome);
             String biomeName = biome.getBiomeName();
+            String biomeRegistryName = biome.getRegistryName().toString();
             String biomeClass = biome.getBiomeClass().getName();
 
             switch (biomeId) {
@@ -188,7 +189,7 @@ public final class BiomeInit {
                         IRealisticBiome rBiome = RTGAPI.RTG_BIOMES.get(biome);
                         String rBiomeName = biome.getBiomeName();
 
-                        Logger.info("Found biome ({}) {} from {} with a {} beach.", biomeId, biomeName, biomeClass, rBiome.getBeachBiome().baseBiome().getBiomeName());
+                        Logger.info("Found {} ({}|{}) from {} with a {} beach.", biomeName, biomeId, biomeRegistryName, biomeClass, rBiome.getBeachBiome().baseBiome().getBiomeName());
                     }
                     catch (Exception e) {
                         Logger.warn("WARNING! RTG could not find a realistic version of {} ({}) from {}. (If {} is a non-Overworld biome, then this is not an error.)", biomeName, biomeId, biomeClass, biomeName);

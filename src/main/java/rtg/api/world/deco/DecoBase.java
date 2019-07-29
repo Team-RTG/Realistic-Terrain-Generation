@@ -132,6 +132,7 @@ public abstract class DecoBase {
     @Deprecated
     public enum DecoType {
         BASE_BIOME_DECORATION,
+        BIG_SHROOM,
         BOULDER,
         COBWEB,
         CACTUS,
@@ -157,7 +158,8 @@ public abstract class DecoBase {
         TEST,
         TREE,
         VINE,
-        WHEAT
+        WHEAT,
+        WORLDGEN
     }
 
     static BlockPos getOffsetPos(final ChunkPos pos) {

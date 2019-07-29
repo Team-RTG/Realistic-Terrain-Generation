@@ -146,13 +146,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         darkOakShrub.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         darkOakShrub.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         darkOakShrub.setMaxY(100);
-        darkOakShrub.setStrengthFactor(6f);
+        darkOakShrub.setLoopMultiplier(6f);
 
         DecoShrub oakShrub = new DecoShrub();
         oakShrub.setLogBlock(Blocks.LOG.getDefaultState());
         oakShrub.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         oakShrub.setMaxY(100);
-        oakShrub.setStrengthFactor(6f);
+        oakShrub.setLoopMultiplier(6f);
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, darkOakShrub, oakShrub));
 

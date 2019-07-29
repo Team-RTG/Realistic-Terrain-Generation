@@ -91,7 +91,7 @@ public class RealisticBiomeVanillaExtremeHillsEdge extends RealisticBiomeBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.setLoopMultiplier(2f);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();

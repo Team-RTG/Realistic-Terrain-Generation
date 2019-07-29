@@ -191,7 +191,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
         decoShrubCustom.setMaxY(110);
         decoShrubCustom.setNotEqualsZeroChance(3);
-        decoShrubCustom.setStrengthFactor(2f);
+        decoShrubCustom.setLoopMultiplier(2f);
         this.addDeco(decoShrubCustom);
     }
 }

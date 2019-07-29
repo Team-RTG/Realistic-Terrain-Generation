@@ -192,7 +192,7 @@ public class DecoCollectionForest extends DecoCollectionBase {
     private DecoShrub shrubsOak() {
         return new DecoShrub()
             .setMaxY(140)
-            .setStrengthFactor(4f)
+            .setLoopMultiplier(4f)
             .setChance(3);
     }
 
@@ -201,7 +201,7 @@ public class DecoCollectionForest extends DecoCollectionBase {
             .setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE))
             .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE))
             .setMaxY(140)
-            .setStrengthFactor(4f)
+            .setLoopMultiplier(4f)
             .setChance(9);
     }
 

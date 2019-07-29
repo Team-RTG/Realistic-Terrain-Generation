@@ -171,7 +171,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.setMaxY(90);
-        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.setLoopMultiplier(4f);
         decoShrubOak.setChance(3);
         this.addDeco(decoShrubOak);
 

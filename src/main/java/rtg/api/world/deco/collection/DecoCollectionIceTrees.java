@@ -141,7 +141,7 @@ public class DecoCollectionIceTrees extends DecoCollectionBase {
             .setLogBlock(Blocks.PACKED_ICE.getDefaultState())
             .setLeavesBlock(Blocks.ICE.getDefaultState())
             .setMaxY(140)
-            .setStrengthFactor(4f)
+            .setLoopMultiplier(4f)
             .setChance(3);
     }
 }

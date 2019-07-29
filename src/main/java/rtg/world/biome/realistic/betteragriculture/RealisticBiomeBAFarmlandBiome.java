@@ -107,7 +107,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
 
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.setMaxY(90);
-        decoShrubOak.setStrengthFactor(2f);
+        decoShrubOak.setLoopMultiplier(2f);
         decoShrubOak.setChance(4);
         this.addDeco(decoShrubOak);
 

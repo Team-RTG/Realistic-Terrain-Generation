@@ -85,7 +85,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.setLoopMultiplier(2f);
         decoShrub.setChance(10);
         this.addDeco(decoShrub);
     }

@@ -78,7 +78,7 @@ public class DecoCollectionBirchForest extends DecoCollectionBase {
     private DecoShrub shrubsOak() {
         return new DecoShrub()
             .setMaxY(120)
-            .setStrengthFactor(3f);
+            .setLoopMultiplier(3f);
     }
 
     private DecoFlowersRTG flowers() {

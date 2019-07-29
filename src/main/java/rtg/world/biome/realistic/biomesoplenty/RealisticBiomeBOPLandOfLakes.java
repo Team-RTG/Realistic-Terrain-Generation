@@ -114,7 +114,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(3f);
+        decoShrub.setLoopMultiplier(3f);
         this.addDeco(decoShrub);
 
         DecoBoulder decoBoulder = new DecoBoulder();

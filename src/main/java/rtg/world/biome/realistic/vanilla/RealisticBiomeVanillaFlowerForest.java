@@ -62,7 +62,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(4f);
+        decoShrub.setLoopMultiplier(4f);
         decoShrub.setChance(3);
         this.addDeco(decoShrub);
 

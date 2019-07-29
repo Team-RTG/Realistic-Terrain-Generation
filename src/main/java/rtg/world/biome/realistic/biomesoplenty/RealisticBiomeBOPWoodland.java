@@ -244,7 +244,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         private DecoShrub shrubsOak() {
             return new DecoShrub()
                 .setMaxY(140)
-                .setStrengthFactor(4f)
+                .setLoopMultiplier(4f)
                 .setChance(3);
         }
 
@@ -253,7 +253,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
                 .setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE))
                 .setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE))
                 .setMaxY(140)
-                .setStrengthFactor(4f)
+                .setLoopMultiplier(4f)
                 .setChance(9);
         }
 

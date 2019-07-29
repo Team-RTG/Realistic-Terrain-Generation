@@ -55,7 +55,7 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setLogBlock(log);
         decoShrub.setLeavesBlock(leaves);
-        decoShrub.setStrengthFactor(4f);
+        decoShrub.setLoopMultiplier(4f);
         decoShrub.setChance(2);
         decoShrub.setMaxY(110);
         return decoShrub;

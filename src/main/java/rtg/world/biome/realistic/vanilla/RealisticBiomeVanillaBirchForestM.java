@@ -91,7 +91,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.setLoopMultiplier(2f);
         this.addDeco(decoShrub);
     }
 

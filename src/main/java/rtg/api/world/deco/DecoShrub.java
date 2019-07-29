@@ -26,7 +26,7 @@ public class DecoShrub extends DecoBase {
     private boolean sand;
     private IBlockState[] randomLogBlocks;
     private IBlockState[] randomLeavesBlocks;
-    private float strengthFactor; // Higher = more/bigger shrubs.
+    private float loopMultiplier; // Higher = more/bigger shrubs.
     private int minY; // Height restriction.
     private int maxY; // Height restriction.
     private int chance; // Higher = more rare.
@@ -50,7 +50,7 @@ public class DecoShrub extends DecoBase {
         this.sand = false; //Whether shrubs generate on sand
         this.randomLogBlocks = new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)};
         this.randomLeavesBlocks = new IBlockState[]{Blocks.LEAVES.getDefaultState(), BlockUtil.getStateLeaf(EnumType.SPRUCE)};
-        this.setStrengthFactor(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
+        this.setLoopMultiplier(3f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setMinY(1); // No height limit by default.
         this.setMaxY(255); // No height limit by default.
         this.setChance(1); // 100% chance of generating by default.
@@ -166,14 +166,14 @@ public class DecoShrub extends DecoBase {
         return this;
     }
 
-    public float getStrengthFactor() {
+    public float getLoopMultiplier() {
 
-        return strengthFactor;
+        return loopMultiplier;
     }
 
-    public DecoShrub setStrengthFactor(float strengthFactor) {
+    public DecoShrub setLoopMultiplier(float loopMultiplier) {
 
-        this.strengthFactor = strengthFactor;
+        this.loopMultiplier = loopMultiplier;
         return this;
     }
 

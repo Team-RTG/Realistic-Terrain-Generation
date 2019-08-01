@@ -13,7 +13,10 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
-import rtg.api.world.deco.*;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -23,6 +26,7 @@ import rtg.api.world.terrain.TerrainBase;
 
 import java.util.Random;
 
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.*;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
@@ -73,13 +77,11 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
             .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
-// TODO: [1.12] Add double-plant flowers back into DecoFlowersRTG
-//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-//        decoFlowers2.addFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
-//        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-//        decoFlowers2.setChance(3);
-//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-//        this.addDeco(decoFlowers2);
+        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+        decoFlowers2.addPlants(SUNFLOWER, SYRINGA, ROSE, PAEONIA); //Only 2-block-tall flowers.
+        decoFlowers2.setChance(8);
+        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+        this.addDeco(decoFlowers2);
 
         // Trees first.
 
@@ -150,6 +152,16 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         decoFallenSpruce.setMaxSize(6);
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.flowersPerChunk = -999;
+    }
+
+    @Override
+    public boolean overridesHardcoded() {
+        return true;
     }
 
     public static class TerrainVanillaFlowerForest extends TerrainBase {

@@ -1,8 +1,9 @@
 package rtg.api.world.deco;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockDoublePlant.EnumPlantType;
 import net.minecraft.block.BlockFlower.EnumFlowerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -12,6 +13,7 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
+import rtg.api.world.gen.feature.WorldGenDoublePlantRTG;
 import rtg.api.world.gen.feature.WorldGenFlowersRTG;
 
 import java.util.Collection;
@@ -25,6 +27,7 @@ import java.util.Random;
 public class DecoFlowersRTG extends DecoBase {
 
     private final Collection<EnumFlowerType> flowers = Sets.newHashSet();
+    private final Collection<EnumPlantType> plants = Sets.newHashSet();
     private float strengthFactor; // Higher = more flowers.
     private int minY; // Height restriction.
     private int maxY; // Height restriction.
@@ -57,7 +60,6 @@ public class DecoFlowersRTG extends DecoBase {
     public DecoFlowersRTG() {
 
         super();
-        this.addFlowers(BlockFlower.EnumFlowerType.DANDELION, BlockFlower.EnumFlowerType.DANDELION); // Only POPPY and DANDELION by default.
         this.setChance(1); // 100% chance of generating by default.
         this.setNotEqualsZeroChance(1);
         this.setMinY(1); // No lower height limit by default - this should really be 63, but... backwards-compatibility. :/
@@ -72,8 +74,8 @@ public class DecoFlowersRTG extends DecoBase {
     @Override
     public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.flowers == null || this.flowers.isEmpty()) {
-            Logger.error("DecoFlowerRTG called with a null or empty flower list in biome {} at chunk {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), chunkPos.toString());
+        if ((this.flowers == null || this.flowers.isEmpty()) && (this.plants == null || this.plants.isEmpty())) {
+            Logger.error("DecoFlowersRTG called with a null or empty flower/plant list in biome {} at chunk {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), chunkPos.toString());
             return;
         }
 
@@ -98,14 +100,29 @@ public class DecoFlowersRTG extends DecoBase {
                         break;
                 }
 
-                if (this.notEqualsZeroChance > 1) {
-                    if (rand.nextInt(this.notEqualsZeroChance) != 0) {
-                        new WorldGenFlowersRTG(this.flowers).generate(rtgWorld.world(), rand, pos.up(y));
+                if (this.flowers != null && !this.flowers.isEmpty()) {
+
+                    if (this.notEqualsZeroChance > 1) {
+                        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
+                            new WorldGenFlowersRTG(this.flowers).generate(rtgWorld.world(), rand, pos.up(y));
+                        }
+                    } else {
+                        if (rand.nextInt(this.chance) == 0) {
+                            new WorldGenFlowersRTG(this.flowers).generate(rtgWorld.world(), rand, pos.up(y));
+                        }
                     }
                 }
-                else {
-                    if (rand.nextInt(this.chance) == 0) {
-                        new WorldGenFlowersRTG(this.flowers).generate(rtgWorld.world(), rand, pos.up(y));
+
+                if (this.plants != null && !this.plants.isEmpty()) {
+
+                    if (this.notEqualsZeroChance > 1) {
+                        if (rand.nextInt(this.notEqualsZeroChance) != 0) {
+                            new WorldGenDoublePlantRTG(Iterables.get(this.plants, rand.nextInt(this.plants.size()))).generate(rtgWorld.world(), rand, pos.up(y));
+                        }
+                    } else {
+                        if (rand.nextInt(this.chance) == 0) {
+                            new WorldGenDoublePlantRTG(Iterables.get(this.plants, rand.nextInt(this.plants.size()))).generate(rtgWorld.world(), rand, pos.up(y));
+                        }
                     }
                 }
             }
@@ -115,6 +132,11 @@ public class DecoFlowersRTG extends DecoBase {
     // TODO: [1.12] Maybe add a method for adding flowers with weight, so that some in a list are more predominant.
     public DecoFlowersRTG addFlowers(EnumFlowerType... flowers) {
         this.flowers.addAll(Lists.newArrayList(flowers));
+        return this;
+    }
+
+    public DecoFlowersRTG addPlants(EnumPlantType... plants) {
+        this.plants.addAll(Lists.newArrayList(plants));
         return this;
     }
 

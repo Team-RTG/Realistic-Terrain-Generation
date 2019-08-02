@@ -1,8 +1,10 @@
 package rtg.api.world.gen.feature.tree.rtg;
 
-import net.minecraft.block.BlockDirt.DirtType;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockSand.EnumType;
+import net.minecraft.block.BlockSand;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +17,6 @@ import rtg.api.util.RTGTreeData;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
 
 /**
  * The base class for all RTG trees.
@@ -41,16 +42,18 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
     protected int maxCrownSize;
 
     protected ArrayList<IBlockState> validGroundBlocks;
+    protected ArrayList<Material> canGrowIntoMaterials;
 
     private boolean allowBarkCoveredLogs;
-
-    public TreeRTG() {
-        this(false);
-    }
 
     public TreeRTG(boolean notify) {
 
         super(notify);
+    }
+
+    public TreeRTG() {
+
+        this(false);
 
         this.setLogBlock(Blocks.LOG.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES.getDefaultState());
@@ -70,10 +73,22 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
 
         // Each tree sub-class is responsible for using (or not using) this list as part of its generation logic.
         this.validGroundBlocks = new ArrayList<>(Arrays.asList(
-            Blocks.GRASS.getDefaultState(),
-            Blocks.DIRT.getDefaultState(),
-            BlockUtil.getStateDirt(DirtType.PODZOL),
-            BlockUtil.getStateSand(EnumType.RED_SAND)
+                Blocks.GRASS.getDefaultState(),
+                Blocks.DIRT.getDefaultState(),
+                BlockUtil.getStateDirt(BlockDirt.DirtType.PODZOL),
+                BlockUtil.getStateSand(BlockSand.EnumType.RED_SAND)
+        ));
+
+        this.canGrowIntoMaterials = new ArrayList<>(Arrays.asList(
+            Material.AIR,
+            Material.WOOD,
+            Material.LEAVES,
+            Material.GRASS,
+            Material.GROUND,
+            Material.PLANTS,
+            Material.VINE,
+            Material.WATER,
+            Material.SNOW
         ));
 
         this.allowBarkCoveredLogs = RTGConfig.barkCoveredLogs();
@@ -160,8 +175,28 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
 
     @Override
     public boolean isReplaceable(World world, BlockPos pos) {
-        IBlockState bs = world.getBlockState(pos);
-        return bs.getMaterial().isReplaceable() || super.canGrowInto(bs.getBlock());
+
+        IBlockState state = world.getBlockState(pos);
+
+        return state.getBlock().isAir(state, world, pos)
+                || state.getBlock().isLeaves(state, world, pos)
+                || state.getBlock().isWood(world, pos)
+                || canGrowInto(state.getBlock());
+    }
+
+    @Override
+    protected boolean canGrowInto(Block blockType) {
+
+        Material material = blockType.getDefaultState().getMaterial();
+
+        for (int i = 0; i < this.canGrowIntoMaterials.size(); i++) {
+            if (material == this.canGrowIntoMaterials.get(i)) {
+                //Logger.debug("Log has grown into %s (%s)", this.canGrowIntoMaterials.get(i).toString(), blockType.getLocalizedName());
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public IBlockState getTrunkLog(IBlockState defaultLog) {

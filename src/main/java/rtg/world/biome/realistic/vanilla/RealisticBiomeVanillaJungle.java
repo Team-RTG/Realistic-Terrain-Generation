@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +16,8 @@ import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionJungle;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaJungle extends RealisticBiomeBase {
@@ -54,6 +54,13 @@ public class RealisticBiomeVanillaJungle extends RealisticBiomeBase {
     @Override
     public void initDecos() {
         this.addDecoCollection(new DecoCollectionJungle(this.getConfig()));
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.grassPerChunk = 30; // Vanilla = 25
+        baseBiome().decorator.flowersPerChunk = -999; // Vanilla = 4
+        baseBiome().decorator.treesPerChunk = 30; // Vanilla = 50
     }
 
     public static class TerrainVanillaJungle extends TerrainBase {

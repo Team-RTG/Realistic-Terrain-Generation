@@ -54,6 +54,13 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionJungle(this.getConfig()));
     }
 
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.grassPerChunk = 30; // Vanilla = 25
+        baseBiome().decorator.flowersPerChunk = -999; // Vanilla = 4
+        baseBiome().decorator.treesPerChunk = 30; // Vanilla = 50
+    }
+
     public static class TerrainVanillaJungleM extends TerrainBase {
 
         public TerrainVanillaJungleM() {

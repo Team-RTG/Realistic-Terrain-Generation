@@ -846,6 +846,6 @@ public final class RTGChunkGenSettings {
     }
 
     public float getClampedSnowLayerTemp() {
-        return Math.max(0.1f, Math.min(0.15f, this.snowLayerTemp));
+        return Math.max(0.05f, Math.min(0.15f, this.snowLayerTemp));
     }
 }

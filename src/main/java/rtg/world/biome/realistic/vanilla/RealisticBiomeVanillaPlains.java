@@ -61,8 +61,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
         //Sparse wheat
         DecoCrop decoCropWheat = new DecoCrop();
-        decoCropWheat.setSize(8);
-        decoCropWheat.setDensity(5);
+        decoCropWheat.setSize(4);
+        decoCropWheat.setDensity(4);
         decoCropWheat.setChance(this.getConfig().WHEAT_CHANCE.get());
         decoCropWheat.setType(3);
         decoCropWheat.setWater(false);
@@ -82,8 +82,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         // The occasional flower.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
             .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
-            .setMaxY(128)
-            .setStrengthFactor(2f);
+            .setMaxY(128);
         this.addDeco(decoFlowersRTG);
 
         // Very rare fat oak/birch trees.
@@ -126,8 +125,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
     @Override
     public void overrideDecorations() {
         baseBiome().decorator.grassPerChunk = 5;
-//        baseBiome().decorator.flowersPerChunk = -999;
-//        baseBiome().decorator.treesPerChunk = -999;
+        baseBiome().decorator.flowersPerChunk = -999;
+        baseBiome().decorator.treesPerChunk = -999;
     }
 
     @Override

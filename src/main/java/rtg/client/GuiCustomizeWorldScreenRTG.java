@@ -520,9 +520,10 @@ public class GuiCustomizeWorldScreenRTG extends GuiScreen implements FormatHelpe
 
         useBoulders(SettingType.BOOLEAN, defaults.useBoulders, null, null, Category.SURFACE),
         boulderMult(SettingType.FLOAT, defaults.boulderMult, 0.2f, 5.0f, Category.SURFACE),
+        useSnowLayers(SettingType.BOOLEAN, defaults.useSnowLayers, null, null, Category.SURFACE),
+        snowLayerTemp(SettingType.FLOAT, defaults.snowLayerTemp, 0.10f, 0.15f, Category.SURFACE),
         sandDuneHeight(SettingType.INTEGER, defaults.sandDuneHeight, 1, 10, Category.SURFACE),
         //      snowDuneHeight      (SettingType.INTEGER, defaults.snowDuneHeight,          1,   10, Category.SURFACE), // Disabled, no current use
-        useSnowLayers(SettingType.BOOLEAN, defaults.useSnowLayers, null, null, Category.SURFACE),
 
         bedrockLayers(SettingType.INTEGER, defaults.bedrockLayers, 1, 10, Category.UNDERGROUND),
         // value passed to Random, minimum can not be < 1

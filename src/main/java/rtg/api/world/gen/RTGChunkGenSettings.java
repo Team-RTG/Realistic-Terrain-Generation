@@ -25,6 +25,7 @@ public final class RTGChunkGenSettings {
     public final int sandDuneHeight;        // RTG
     //  public final int     snowDuneHeight;        // RTG - No current use
     public final boolean useSnowLayers;         // RTG
+    public final float   snowLayerTemp;
 
     public final int bedrockLayers;         // RTG
     public final boolean useCaves;              // Vanilla
@@ -153,6 +154,7 @@ public final class RTGChunkGenSettings {
         this.sandDuneHeight = settingsFactory.sandDuneHeight;
 //      this.snowDuneHeight         = settingsFactory.snowDuneHeight;
         this.useSnowLayers = settingsFactory.useSnowLayers;
+        this.snowLayerTemp = settingsFactory.snowLayerTemp;
 
         this.bedrockLayers = settingsFactory.bedrockLayers;
         this.useCaves = settingsFactory.useCaves;
@@ -281,6 +283,7 @@ public final class RTGChunkGenSettings {
         public int sandDuneHeight = 4;
         //      public int      snowDuneHeight       = 4;
         public boolean useSnowLayers = true;
+        public float   snowLayerTemp = 0.12f;
 
         public int bedrockLayers = 5;
 
@@ -433,6 +436,7 @@ public final class RTGChunkGenSettings {
             this.sandDuneHeight = 4;
 //          this.snowDuneHeight         = 4;
             this.useSnowLayers = true;
+            this.snowLayerTemp = 0.12f;
 
             this.bedrockLayers = 5;
             this.useCaves = true;
@@ -579,6 +583,7 @@ public final class RTGChunkGenSettings {
                 settings.sandDuneHeight = JsonUtils.getInt(json, "sandDuneHeight", settings.sandDuneHeight);
 //              settings.snowDuneHeight         = JsonUtils.getInt(json,    "snowDuneHeight",       settings.snowDuneHeight);
                 settings.useSnowLayers = JsonUtils.getBoolean(json, "useSnowLayers", settings.useSnowLayers);
+                settings.snowLayerTemp = JsonUtils.getFloat(json, "snowLayerTemp", settings.snowLayerTemp);
 
                 settings.bedrockLayers = JsonUtils.getInt(json, "bedrockLayers", settings.bedrockLayers);
                 settings.useCaves = JsonUtils.getBoolean(json, "useCaves", settings.useCaves);
@@ -714,6 +719,7 @@ public final class RTGChunkGenSettings {
             json.addProperty("sandDuneHeight", factory.sandDuneHeight);
 //          json.addProperty("snowDuneHeight",       factory.snowDuneHeight);
             json.addProperty("useSnowLayers", factory.useSnowLayers);
+            json.addProperty("snowLayerTemp", factory.snowLayerTemp);
 
             json.addProperty("bedrockLayers", factory.bedrockLayers);
             json.addProperty("useCaves", factory.useCaves);
@@ -837,5 +843,9 @@ public final class RTGChunkGenSettings {
 
     public int getSurfaceLavaLakeChance(final double multiplier) {
         return this.lavaLakeChance <= 0 || multiplier <= 0.0 ? 0 : (int) (this.lavaLakeChance / multiplier);
+    }
+
+    public float getClampedSnowLayerTemp() {
+        return Math.max(0.1f, Math.min(0.15f, this.snowLayerTemp));
     }
 }

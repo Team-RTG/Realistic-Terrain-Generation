@@ -189,7 +189,4 @@ public class RealisticBiomeVanillaExtremeHillsPlus extends RealisticBiomeBase {
             }
         }
     }
-
-    @Override
-    public double getSnowLayerMultiplier() { return GENERAL_SNOWLAYER_REDUCTION; }
 }

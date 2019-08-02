@@ -1,6 +1,8 @@
 package rtg.world.gen;
 
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -351,27 +353,33 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
         if (TerrainGen.populate(this, this.world, this.rand, chunkX, chunkZ, hasVillage, PopulateChunkEvent.Populate.EventType.ICE)) {
 
-            final int xPos = blockPos.getX() + 8;
-            final int zPos = blockPos.getZ() + 8;
-            final MutableBlockPos mpos = new MutableBlockPos();
             for (int x = 0; x < 16; ++x) {
                 for (int z = 0; z < 16; ++z) {
 
-                    // Adjust the height check of cold biomes using IRealisticBiome#getSnowLayerMultiplier instead of using reflection
-                    // to alter the base biome's temperature. If the multiplier is < 1.0 it checks a lower altitude to see if water
-                    // will freeze or if it can snow which results in a higher snow layer altitude.
-                    int precHeight = this.world.getPrecipitationHeight(mpos.setPos(xPos + x, 0, zPos + z)).getY();
-                    final BlockPos snowPos = new BlockPos(mpos.getX(), (int)(precHeight * biome.getSnowLayerMultiplier()), mpos.getZ());
-                    final BlockPos icePos  = snowPos.down();
+                    final BlockPos surfacePos = world.getTopSolidOrLiquidBlock(offsetpos.add(x, 0, z));
 
                     // Ice.
-                    if (this.world.canBlockFreezeWater(icePos)) {
-                        this.world.setBlockState(icePos, Blocks.ICE.getDefaultState(), 2);
+                    if (this.world.canBlockFreezeWater(surfacePos)) {
+                        this.world.setBlockState(surfacePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
-                    // Snow.
-                    if (settings.useSnowLayers && this.world.canSnowAt(snowPos, true)) {
-                        this.world.setBlockState(snowPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
+                    // Snow layers.
+                    if (settings.useSnowLayers) {
+                        // start at 32 blocks above the surface (should be above any tree leaves), and move down placing
+                        // snow layers on any leaves, or the surface block, if the temperature permits it.
+                        for (BlockPos checkPos = surfacePos.up(32); checkPos.getY() >= surfacePos.getY(); checkPos = checkPos.down()) {
+                            if (world.getBlockState(checkPos).getMaterial() == Material.AIR) {
+                                final float temp = biomeProvider.getBiome(surfacePos).getTemperature(checkPos);
+                                if (temp <= settings.getClampedSnowLayerTemp()) {
+                                    final IBlockState below = world.getBlockState(checkPos.down());
+                                    if (below.isFullBlock() || below.getMaterial() == Material.LEAVES) {
+                                        this.world.setBlockState(checkPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
+                                        // we already know the next check block is not air, so skip ahead.
+                                        checkPos = checkPos.down();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

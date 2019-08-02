@@ -29,7 +29,6 @@ import java.util.Collection;
 public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
-    protected static final double GENERAL_SNOWLAYER_REDUCTION = 0.75d;
 
     private final Biome baseBiome;
     private final ResourceLocation baseBiomeResLoc;

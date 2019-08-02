@@ -32,6 +32,8 @@ gui.createWorld.customize.setting.snowDuneHeight=Snow Dune Height
 gui.createWorld.customize.setting.snowDuneHeight.tooltip=Adjusts the height of snow dunes
 gui.createWorld.customize.setting.useSnowLayers=Snow Layers
 gui.createWorld.customize.setting.useSnowLayers.tooltip=Enable gradiant snow layers in snowy biomes
+gui.createWorld.customize.setting.snowLayerTemp=Snow Layer Temp
+gui.createWorld.customize.setting.snowLayerTemp.tooltip=The temperature that snow layers generate at
 
 gui.createWorld.customize.category.UNDERGROUND=Underground Settings
 gui.createWorld.customize.setting.bedrockLayers=Bedrock Layers

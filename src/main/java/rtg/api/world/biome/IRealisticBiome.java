@@ -183,8 +183,6 @@ public interface IRealisticBiome {
      */
     default boolean overridesHardcoded() { return false; }
 
-    default double getSnowLayerMultiplier() { return 1.0d; }
-
     TerrainBase initTerrain();
 
     SurfaceBase initSurface();

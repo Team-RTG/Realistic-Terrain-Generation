@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import com.google.common.collect.Lists;
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.init.Biomes;
@@ -15,10 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
-
+import rtg.api.util.WorldUtil;
 
 @UtilityClass
 public final class ModCompat {
@@ -29,6 +29,15 @@ public final class ModCompat {
     private static final String NAME_FORMAT = "%-" + NAME_LENGTH + "s";
     private static final int RESLOC_LENGTH = 50;
     private static final String RESLOC_FORMAT = "%-" + RESLOC_LENGTH + "s";
+
+    private static final int BIOME_NAME_LENGTH = 24;
+    private static final String BIOME_NAME_FORMAT = "%-" + BIOME_NAME_LENGTH + "s";
+    private static final int BIOME_CLASS_LENGTH = 32;
+    private static final String BIOME_CLASS_FORMAT = "%-" + BIOME_CLASS_LENGTH + "s";
+    private static final int BIOME_RESLOC_LENGTH = 44;
+    private static final String BIOME_RESLOC_FORMAT = "%-" + BIOME_RESLOC_LENGTH + "s";
+    private static final int BEACH_NAME_LENGTH = 24;
+    private static final String BEACH_NAME_FORMAT = "%-" + BEACH_NAME_LENGTH + "s";
 
     private ModCompat() {
 
@@ -79,51 +88,108 @@ public final class ModCompat {
 
         // TODO: Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
 
-        Collection<Biome> biomes = ForgeRegistries.BIOMES.getValuesCollection();
+        Collection<Biome> unsupportedBiomes = ForgeRegistries.BIOMES.getValuesCollection();
 
-        biomes = biomes.stream()
+        List<Biome> supportedBiomes = Lists.newArrayList(ForgeRegistries.BIOMES.getValuesCollection());
+        final String[] supported = {""};
+
+        unsupportedBiomes = unsupportedBiomes.stream()
             .filter(b -> !invalidBiomes.contains(b) && !RTGAPI.RTG_BIOMES.containsKey(b))
             .sorted(Comparator.comparingInt(Biome::getIdForBiome))
             .collect(Collectors.toList());
 
-        // If there are no unsupported biomes, stop here.
-        if (biomes.isEmpty()) {
-            return;
+        supportedBiomes.removeAll(invalidBiomes);
+        supportedBiomes.removeAll(unsupportedBiomes);
+
+        if (!unsupportedBiomes.isEmpty()) {
+
+            Logger.warn(".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
+                    + " =.");
+
+            Logger.warn("|| " + String.format("%-91s", "                RTG could not find realistic versions of the following biomes")
+                    + " ||");
+
+            Logger.warn("|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
+                    + " ||");
+
+            Logger.warn("|| " + String.format(ID_FORMAT, "ID")
+                    + " | " + String.format(NAME_FORMAT, "Biome Class")
+                    + " | " + String.format(RESLOC_FORMAT, "Registry Name")
+                    + " ||");
+
+            Logger.warn("|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '-'))
+                    + " - " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '-'))
+                    + " - " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '-'))
+                    + " ||");
+
+            unsupportedBiomes.forEach(b -> Logger.warn(
+                    "|| " + String.format(ID_FORMAT, Biome.getIdForBiome(b))
+                    + " | " + String.format(NAME_FORMAT, b.getBiomeClass().getSimpleName())
+                    + " | " + String.format(RESLOC_FORMAT, b.getRegistryName())
+                    + " ||"));
+
+            Logger.warn("`= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+                    + " | " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
+                    + " | " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
+                    + " =`");
         }
 
-        Logger.warn(".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
-            + " = " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
-            + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
-            + " =.");
+        if (RTGConfig.additionalBiomeInfo()) {
+            if (!supportedBiomes.isEmpty()) {
 
-        Logger.warn("|| " + String.format("%-91s", "                RTG could not find realistic versions of the following biomes")
-            + " ||");
+                supported[0] += System.lineSeparator() + ".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_NAME_FORMAT, new String(new char[BIOME_NAME_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_CLASS_FORMAT, new String(new char[BIOME_CLASS_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_RESLOC_FORMAT, new String(new char[BIOME_RESLOC_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BEACH_NAME_FORMAT, new String(new char[BEACH_NAME_LENGTH]).replace('\0', '='))
+                    + " =.";
 
-        Logger.warn("|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
-            + " = " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
-            + " = " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
-            + " ||");
+                supported[0] += System.lineSeparator() + "|| " + String.format("%-139s", "                                           RTG found realistic versions of the following biomes")
+                    + " ||";
 
-        Logger.warn("|| " + String.format(ID_FORMAT, "ID")
-            + " | " + String.format(NAME_FORMAT, "Biome Class")
-            + " | " + String.format(RESLOC_FORMAT, "Registry Name")
-            + " ||");
+                supported[0] += System.lineSeparator() + "|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_NAME_FORMAT, new String(new char[BIOME_NAME_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_CLASS_FORMAT, new String(new char[BIOME_CLASS_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_RESLOC_FORMAT, new String(new char[BIOME_RESLOC_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BEACH_NAME_FORMAT, new String(new char[BEACH_NAME_LENGTH]).replace('\0', '='))
+                    + " ||";
 
-        Logger.warn("|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '-'))
-            + " - " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '-'))
-            + " - " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '-'))
-            + " ||");
+                supported[0] += System.lineSeparator() + "|| " + String.format(ID_FORMAT, "ID")
+                    + " | " + String.format(BIOME_NAME_FORMAT, "Biome Name")
+                    + " | " + String.format(BIOME_CLASS_FORMAT, "Class Name")
+                    + " | " + String.format(BIOME_RESLOC_FORMAT, "Registry Name")
+                    + " | " + String.format(BEACH_NAME_FORMAT, "Beach Name")
+                    + " ||";
 
-        biomes.forEach(b -> Logger.warn(
-            "|| " + String.format(ID_FORMAT, Biome.getIdForBiome(b))
-                + " | " + String.format(NAME_FORMAT, b.getBiomeClass().getSimpleName())
-                + " | " + String.format(RESLOC_FORMAT, b.getRegistryName())
-                + " ||"));
+                supported[0] += System.lineSeparator() + "|| " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '-'))
+                    + " - " + String.format(BIOME_NAME_FORMAT, new String(new char[BIOME_NAME_LENGTH]).replace('\0', '-'))
+                    + " - " + String.format(BIOME_CLASS_FORMAT, new String(new char[BIOME_CLASS_LENGTH]).replace('\0', '-'))
+                    + " - " + String.format(BIOME_RESLOC_FORMAT, new String(new char[BIOME_RESLOC_LENGTH]).replace('\0', '-'))
+                    + " - " + String.format(BEACH_NAME_FORMAT, new String(new char[BEACH_NAME_LENGTH]).replace('\0', '-'))
+                    + " ||";
 
-        Logger.warn("`= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
-            + " | " + String.format(NAME_FORMAT, new String(new char[NAME_LENGTH]).replace('\0', '='))
-            + " | " + String.format(RESLOC_FORMAT, new String(new char[RESLOC_LENGTH]).replace('\0', '='))
-            + " =`");
+                supportedBiomes.forEach(b -> supported[0] +=
+                    System.lineSeparator() + "|| " + String.format(ID_FORMAT, Biome.getIdForBiome(b))
+                    + " | " + String.format(BIOME_NAME_FORMAT, WorldUtil.Biomes.getBiomeName(b))
+                    + " | " + String.format(BIOME_CLASS_FORMAT, b.getBiomeClass().getSimpleName())
+                    + " | " + String.format(BIOME_RESLOC_FORMAT, b.getRegistryName())
+                    + " | " + String.format(BEACH_NAME_FORMAT, WorldUtil.Biomes.getBiomeName(RTGAPI.getRTGBiome(b).getBeachBiome().baseBiome()))
+                    + " ||");
+
+                supported[0] += System.lineSeparator() + ".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_NAME_FORMAT, new String(new char[BIOME_NAME_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_CLASS_FORMAT, new String(new char[BIOME_CLASS_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BIOME_RESLOC_FORMAT, new String(new char[BIOME_RESLOC_LENGTH]).replace('\0', '='))
+                    + " = " + String.format(BEACH_NAME_FORMAT, new String(new char[BEACH_NAME_LENGTH]).replace('\0', '='))
+                    + " =." + System.lineSeparator();
+
+                Logger.info(supported[0]);
+            }
+        }
     }
 
     public static void init() {

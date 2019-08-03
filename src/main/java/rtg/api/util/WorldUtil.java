@@ -53,6 +53,17 @@ public final class WorldUtil {
                 return original;
             }
         }
+
+        public static String getBiomeName(Biome b) {
+            String biomeName = "";
+            try {
+                biomeName = ObfuscationReflectionHelper.getPrivateValue(Biome.class, b, "field_76791_y");
+            }
+            catch (Exception e) {
+                Logger.error(e.getMessage());
+            }
+            return biomeName;
+        }
     }
 
     @UtilityClass

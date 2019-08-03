@@ -71,7 +71,7 @@ public final class RTGConfig
 
         rtgWorldTypeByDefault   (Type.BOOLEAN, Category.client,
                                 "Automatically select the RTG world type when creating a new world",
-                                false),
+                                true),
 
         enableDebugging         (Type.BOOLEAN, Category.debug,
                                 "Enable extra debug logging.\n" +

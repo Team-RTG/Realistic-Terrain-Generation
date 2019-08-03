@@ -78,6 +78,10 @@ public final class RTGConfig
                                 "!This setting has a severe performance penalty. Only enable if you know what you are doing!",
                                 false),
 
+        additionalBiomeInfo     (Type.BOOLEAN, Category.debug,
+                                "Enable the logging of additional biome information on startup.",
+                                true),
+
         patchBiome              (Type.STRING,  Category.debug,
                                 "If RTG encounters an unsupported biome it will generate this biome instead.\n" +
                                 "This uses the standard ResourceLocation format: mod_id:biome_registry_name",
@@ -213,6 +217,7 @@ public final class RTGConfig
                 case worldTypeNotification  :
                 case rtgWorldTypeByDefault  :
                 case enableDebugging        :
+                case additionalBiomeInfo    :
                 case oreGenEventCancellation:
                 case lushRiverbanksInDesert :
                 case rtgTreesFromSaplings   :
@@ -278,6 +283,7 @@ public final class RTGConfig
     public static boolean     rtgWorldTypeByDefault()  { return (Boolean)Setting.rtgWorldTypeByDefault.getCurVal(); }
 
     public static boolean     enableDebugging()        { return (Boolean)Setting.enableDebugging.getCurVal(); }
+    public static boolean     additionalBiomeInfo()    { return (Boolean)Setting.additionalBiomeInfo.getCurVal(); }
     public static Biome       patchBiome()             {
         final String cfgBiome = (String)Setting.patchBiome.getCurVal();
         Biome biome;

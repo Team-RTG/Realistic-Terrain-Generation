@@ -150,8 +150,6 @@ public final class BiomeInit {
             init_vampirism();
         }
 
-        biomeDump();
-
         // This must be done after all biomes have been initialised so that they are all available.
         RTGAPI.initPatchBiome(RTGConfig.patchBiome());
     }
@@ -164,40 +162,6 @@ public final class BiomeInit {
             RealisticBiomeBase.BeachType.STONE.setRTGBiome(new RealisticBiomeVanillaStoneBeach()),
             RealisticBiomeBase.BeachType.COLD.setRTGBiome(new RealisticBiomeVanillaColdBeach())
         );
-    }
-
-    public static void biomeDump() {
-
-        for (Biome biome : Biome.REGISTRY) {
-            int biomeId = Biome.getIdForBiome(biome);
-            String biomeName = biome.getBiomeName();
-            String biomeRegistryName = biome.getRegistryName().toString();
-            String biomeClass = biome.getBiomeClass().getName();
-
-            switch (biomeId) {
-
-                case 8:     // The Nether
-                case 9:     // The End
-                case 127:   // The Void
-
-                    // Do nothing.
-                    break;
-
-                default:
-
-                    try {
-                        IRealisticBiome rBiome = RTGAPI.RTG_BIOMES.get(biome);
-                        String rBiomeName = biome.getBiomeName();
-
-                        Logger.info("Found {} ({}|{}) from {} with a {} beach.", biomeName, biomeId, biomeRegistryName, biomeClass, rBiome.getBeachBiome().baseBiome().getBiomeName());
-                    }
-                    catch (Exception e) {
-                        Logger.warn("WARNING! RTG could not find a realistic version of {} ({}) from {}. (If {} is a non-Overworld biome, then this is not an error.)", biomeName, biomeId, biomeClass, biomeName);
-                    }
-
-                    break;
-            }
-        }
     }
 
     private static void init_minecraft() {

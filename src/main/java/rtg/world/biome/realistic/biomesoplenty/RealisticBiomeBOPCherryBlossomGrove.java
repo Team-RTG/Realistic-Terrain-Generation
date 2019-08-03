@@ -73,26 +73,11 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseAddend(0.8f);
         decoFallenTree1.setLogConditionChance(16);
         decoFallenTree1.setMaxY(100);
-        decoFallenTree1.setLogBlock(BOPBlocks.log_1.getStateFromMeta(1));
+        decoFallenTree1.setLogBlock(BOPBlocks.log_0.getStateFromMeta(5));
         decoFallenTree1.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree1.setMinSize(3);
+        decoFallenTree1.setMinSize(2);
         decoFallenTree1.setMaxSize(5);
-
-        DecoFallenTree decoFallenTree2 = new DecoFallenTree();
-        decoFallenTree1.getDistribution().setNoiseDivisor(100f);
-        decoFallenTree1.getDistribution().setNoiseFactor(6f);
-        decoFallenTree1.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree2.setLogConditionChance(16);
-        decoFallenTree2.setMaxY(100);
-        decoFallenTree2.setLogBlock(Blocks.LOG.getDefaultState());
-        decoFallenTree2.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        decoFallenTree2.setMinSize(3);
-        decoFallenTree2.setMaxSize(5);
-
-        DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
-        decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
-        decoHelperRandomSplit.chances = new int[]{15, 1};
-        this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
+        this.addDeco(decoFallenTree1, this.getConfig().ALLOW_LOGS.get());
     }
 
     public static class TerrainBOPCherryBlossomGrove extends TerrainBase {

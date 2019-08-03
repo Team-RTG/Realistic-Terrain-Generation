@@ -356,14 +356,14 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             for (int x = 0; x < 16; ++x) {
                 for (int z = 0; z < 16; ++z) {
 
-                    final BlockPos surfacePos = world.getTopSolidOrLiquidBlock(offsetpos.add(x, 0, z));
-
                     // Ice.
-                    if (this.world.canBlockFreezeWater(surfacePos)) {
-                        this.world.setBlockState(surfacePos, Blocks.ICE.getDefaultState(), 2);
+                    final BlockPos freezePos = world.getPrecipitationHeight(offsetpos.add(x, 0, z)).down();
+                    if (this.world.canBlockFreezeWater(freezePos)) {
+                        this.world.setBlockState(freezePos, Blocks.ICE.getDefaultState(), 2);
                     }
 
                     // Snow layers.
+                    final BlockPos surfacePos = world.getTopSolidOrLiquidBlock(offsetpos.add(x, 0, z));
                     if (settings.useSnowLayers) {
                         // start at 32 blocks above the surface (should be above any tree leaves), and move down placing
                         // snow layers on any leaves, or the surface block, if the temperature permits it.

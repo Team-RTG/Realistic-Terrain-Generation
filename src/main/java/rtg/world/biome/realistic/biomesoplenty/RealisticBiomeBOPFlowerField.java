@@ -18,6 +18,7 @@ import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.*;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
@@ -60,34 +61,30 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        // Now, let's get a few shrubs in to break things up a bit.
+        // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
         decoShrub.setLoopMultiplier(4f);
         decoShrub.setChance(3);
         this.addDeco(decoShrub);
 
-        // Flowers are the most aesthetically important feature of this biome, so let's add those next, starting with tulips.
-        DecoFlowersRTG decoTulips = new DecoFlowersRTG()
-            .addFlowers(RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP) //Only tulips.
-            .setStrengthFactor(8f)
-            .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-        this.addDeco(decoTulips);
-
+        // Flowers are the most aesthetically important feature of this biome, so let's add those next.
         DecoFlowersRTG decoFlowers1 = new DecoFlowersRTG()
-            .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, OXEYE_DAISY, DANDELION) //Only colourful 1-block-tall flowers. No tulips as we already have those covered.
-            .setStrengthFactor(4f)
-            .setChance(3)
+            .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
+            .setStrengthFactor(12f)
             .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
-// TODO: [1.12] Create a new class for double-plants
-//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-//        decoFlowers2.addFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
-//        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-//        decoFlowers2.setChance(4);
-//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-//        this.addDeco(decoFlowers2);
+        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+        decoFlowers2.addPlants(SUNFLOWER, SYRINGA, ROSE, PAEONIA); //Only 2-block-tall flowers.
+        decoFlowers2.setChance(8);
+        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+        this.addDeco(decoFlowers2);
+    }
+
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.flowersPerChunk = -999;
     }
 
     public static class TerrainBOPFlowerField extends TerrainBase {

@@ -4,12 +4,14 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -45,7 +47,7 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBOPBase {
 
         return new SurfaceBOPMountainFoothills(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
-            Blocks.DIRT.getDefaultState(), //IBlockState mixTop,
+            BlockUtil.getStateDirt(BlockDirt.DirtType.COARSE_DIRT), //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
             80f, //float mixWidth,
             -0.15f, //float mixHeight,

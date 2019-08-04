@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -22,17 +23,9 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     public static Biome biome = BOPBiomes.crag.orNull();
     public static Biome river = Biomes.RIVER;
 
-    // removed
-    //private static IBlockState cragRock = BOPBlocks.crag_rock.getDefaultState();
-
     public RealisticBiomeBOPCrag() {
 
         super(biome);
-
-/* 1.12 property removed
-        // Prevent dirt from messing up the surface.
-        this.rDecorator().dirtSize = 0;
-*/
     }
 
     @Override
@@ -40,6 +33,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
     }
 
     @Override
@@ -50,7 +44,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPCrag(getConfig(), Blocks.STONE.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, Blocks.GRASS.getDefaultState(), 0f);
+        return new SurfaceBOPCrag(getConfig(), Blocks.STONE.getDefaultState(), Blocks.STONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.8f, Blocks.GRASS.getDefaultState(), 1.9f, Blocks.GRAVEL.getDefaultState(), -0.4f);
     }
 
     public static class TerrainBOPCrag extends TerrainBase {
@@ -150,6 +144,7 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
     }
 
+
     public static class SurfaceBOPCrag extends SurfaceBase {
 
         private float min;
@@ -161,9 +156,11 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
         private IBlockState mixBlock;
         private float mixHeight;
+        private IBlockState mix2Block;
+        private float mix2Height;
 
         public SurfaceBOPCrag(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                              float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
+                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
 
             super(config, top, fill);
             min = minCliff;
@@ -173,8 +170,10 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
-            mixHeight = mixSize;
+            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+            this.mixHeight = mixHeight;
+            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
+            this.mix2Height = mix2Height;
         }
 
         @Override
@@ -212,11 +211,11 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, topBlock);
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, topBlock);
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -226,25 +225,28 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
+                        else {
+                            float mixNoise = simplex.noise2f(i / 12f, j / 12f);
 
-                            if (rand.nextInt(3) != 0) {
+                            if (mixNoise < mix2Height) {
+                                primer.setBlockState(x, k, z, mix2Block);
+                                m = true;
+                            }
+                            else if (mixNoise > mixHeight) {
                                 primer.setBlockState(x, k, z, mixBlock);
+                                m = true;
                             }
                             else {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else {
-                            primer.setBlockState(x, k, z, topBlock);
-                        }
                     }
                     else if (depth < 6) {
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, z, topBlock);
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, topBlock);
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else {
                             primer.setBlockState(x, k, z, fillerBlock);
@@ -255,8 +257,13 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
         }
 
         @Override
+        protected IBlockState getShadowStoneBlock() {
+
+            return Blocks.COBBLESTONE.getDefaultState();
+        }
+
+        @Override
         protected IBlockState hcCobble() {
-            // return cragRock; removed
             return Blocks.STONE.getDefaultState();
         }
     }

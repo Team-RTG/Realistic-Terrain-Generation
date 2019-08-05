@@ -32,7 +32,7 @@ public class RealisticBiomeVanillaExtremeHills extends RealisticBiomeBase {
 
     public RealisticBiomeVanillaExtremeHills() {
 
-        super(biome);
+        super(biome, BeachType.STONE);
     }
 
     @Override

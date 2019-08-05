@@ -24,7 +24,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
 
     public RealisticBiomeVanillaMushroomIslandShore() {
 
-        super(biome, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override

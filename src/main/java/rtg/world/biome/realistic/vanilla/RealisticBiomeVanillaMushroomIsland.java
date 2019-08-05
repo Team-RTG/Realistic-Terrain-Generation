@@ -24,12 +24,12 @@ public class RealisticBiomeVanillaMushroomIsland extends RealisticBiomeBase {
 
     public RealisticBiomeVanillaMushroomIsland() {
 
-        super(biome, BeachType.NORMAL);
+        super(biome);
     }
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return Biomes.MUSHROOM_ISLAND_SHORE;
     }
 
     @Override

@@ -41,7 +41,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPRedwoodForest(58f, 80f, 30f);
+        return new TerrainBOPRedwoodForest();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setLogBlock(BOPBlocks.log_3.getDefaultState());
+        decoFallenTree.setLogBlock(BOPBlocks.log_2.getStateFromMeta(4));
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(9);
@@ -75,23 +75,22 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
 
     public static class TerrainBOPRedwoodForest extends TerrainBase {
 
-        private float minHeight;
-        private float maxHeight;
-        private float hillStrength;
+        private float hillStrength = 10f;// this needs to be linked to the
 
-        // 63f, 80f, 30f
+        public TerrainBOPRedwoodForest() {
 
-        public TerrainBOPRedwoodForest(float minHeight, float maxHeight, float hillStrength) {
-
-            this.minHeight = minHeight;
-            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-            this.hillStrength = hillStrength;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 0f);
+            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
+
+            float m = hills(x, y, hillStrength, rtgWorld);
+
+            float floNoise = 65f + groundNoise + m;
+
+            return riverized(floNoise, river);
         }
     }
 

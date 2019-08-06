@@ -24,7 +24,12 @@ public class RealisticBiomeBOPGlacier extends RealisticBiomeBOPBase {
 
     public RealisticBiomeBOPGlacier() {
 
-        super(biome, RiverType.FROZEN, BeachType.COLD);
+        super(biome, RiverType.FROZEN);
+    }
+
+    @Override
+    public Biome preferredBeach() {
+        return biome;
     }
 
     @Override

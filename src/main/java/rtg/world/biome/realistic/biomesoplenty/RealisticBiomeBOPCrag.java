@@ -29,6 +29,11 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);

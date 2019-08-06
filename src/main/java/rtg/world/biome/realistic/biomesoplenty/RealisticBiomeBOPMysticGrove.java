@@ -31,6 +31,11 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);

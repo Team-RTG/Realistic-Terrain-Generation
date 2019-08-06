@@ -24,7 +24,12 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     public RealisticBiomeBOPAlps() {
 
-        super(biome, RiverType.FROZEN, BeachType.COLD);
+        super(biome, RiverType.FROZEN);
+    }
+
+    @Override
+    public Biome preferredBeach() {
+        return biome;
     }
 
     @Override

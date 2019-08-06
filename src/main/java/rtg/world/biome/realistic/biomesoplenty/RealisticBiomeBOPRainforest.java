@@ -28,6 +28,11 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
     }
 

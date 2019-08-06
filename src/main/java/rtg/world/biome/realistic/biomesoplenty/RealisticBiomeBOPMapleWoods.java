@@ -29,6 +29,11 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return BOPBiomes.gravel_beach.orNull();
+    }
+
+    @Override
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);

@@ -28,6 +28,11 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return BOPBiomes.gravel_beach.orNull();
+    }
+
+    @Override
     public void initConfig() {
     }
 

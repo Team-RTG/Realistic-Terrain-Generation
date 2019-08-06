@@ -27,6 +27,11 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
         this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.5f);
         this.getConfig().ALLOW_RIVERS.set(false);

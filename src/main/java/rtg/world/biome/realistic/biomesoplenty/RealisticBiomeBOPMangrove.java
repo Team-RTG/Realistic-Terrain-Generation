@@ -26,6 +26,11 @@ public class RealisticBiomeBOPMangrove extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
     }
 

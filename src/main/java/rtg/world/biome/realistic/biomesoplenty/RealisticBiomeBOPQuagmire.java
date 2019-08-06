@@ -27,6 +27,11 @@ public class RealisticBiomeBOPQuagmire extends RealisticBiomeBOPBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
     }
 

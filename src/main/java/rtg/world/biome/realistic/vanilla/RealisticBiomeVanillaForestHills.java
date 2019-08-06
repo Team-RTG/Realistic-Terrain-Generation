@@ -27,16 +27,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
 
     public RealisticBiomeVanillaForestHills() {
 
-        super(biome);
-
-/* 1.12 properties removed
-        // Prevent ores from messing up the surface.
-        this.rDecorator().graniteSize = 0;
-        this.rDecorator().dioriteSize = 0;
-        //this.rDecorator().andesiteSize = 0; // This looks good.
-        //this.rDecorator().gravelSize = 0; // So does this.
-        this.rDecorator().dirtSize = 0;
-*/
+        super(biome, BeachType.STONE);
     }
 
     @Override

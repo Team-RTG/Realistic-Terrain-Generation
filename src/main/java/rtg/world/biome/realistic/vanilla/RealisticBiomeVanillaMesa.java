@@ -33,6 +33,11 @@ public class RealisticBiomeVanillaMesa extends RealisticBiomeBase {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return biome;
+    }
+
+    @Override
     public void initConfig() {
         this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.1f);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);

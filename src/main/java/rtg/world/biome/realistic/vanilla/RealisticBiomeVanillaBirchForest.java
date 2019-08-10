@@ -28,7 +28,7 @@ public class RealisticBiomeVanillaBirchForest extends RealisticBiomeBase {
 
     public RealisticBiomeVanillaBirchForest() {
 
-        super(biome, BeachType.STONE);
+        super(biome);
     }
 
     @Override

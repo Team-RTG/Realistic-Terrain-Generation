@@ -202,7 +202,7 @@ public final class ModCompat {
         abyssalcraft,
         betteragriculture,
         biomesoplenty,
-        biomesyougo,
+        byg,
         bionisation3,
         buildcraftenergy,
         candymod,

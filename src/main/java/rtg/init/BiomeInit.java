@@ -4,9 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
-import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
-import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.abyssalcraft.*;
@@ -70,7 +68,7 @@ public final class BiomeInit {
             init_biomesoplenty();
         }
 
-        if (Mods.biomesyougo.isLoaded()) {
+        if (Mods.byg.isLoaded()) {
             init_biomesyougo();
         }
 
@@ -465,7 +463,7 @@ public final class BiomeInit {
 
     private static void init_biomesyougo() {
 
-        String modid = Mods.biomesyougo.name();
+        String modid = Mods.byg.name();
         Biome biome;
         ResourceLocation bcikaforest = new ResourceLocation(modid, "bcikaforest");
         ResourceLocation bredrockmountains = new ResourceLocation(modid, "bredrockmountains");

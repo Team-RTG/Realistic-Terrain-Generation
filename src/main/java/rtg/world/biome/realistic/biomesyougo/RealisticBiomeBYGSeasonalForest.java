@@ -11,7 +11,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -20,9 +19,9 @@ import java.util.Random;
 import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGSeasonalForest extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    public RealisticBiomeBYGSeasonalForest(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -38,10 +37,11 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)
                 },
-                new int[]{2, 2}
+                new int[]{2, 2, 2}
         );
     }
 

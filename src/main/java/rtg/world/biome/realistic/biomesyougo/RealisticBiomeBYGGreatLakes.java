@@ -6,22 +6,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.deco.collection.DecoCollectionOcean;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.terrain.heighteffect.HeightVariation;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGGreatLakes extends RealisticBiomeBYGBase {
 
-    private static IBlockState bygMixBlock = BlockUtil.getBlockStateFromCfgString("byg:whitesand", Blocks.SAND.getDefaultState());
-
-    public RealisticBiomeBYGMangroveMarshes(Biome biome) {
+    public RealisticBiomeBYGGreatLakes(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -33,6 +30,12 @@ public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
 
     @Override
     public void initConfig() {
+
+    }
+
+    @Override
+    public double waterLakeMult() {
+        return 4d;
     }
 
     @Override
@@ -44,11 +47,9 @@ public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
     @Override
     public SurfaceBase initSurface() {
 
-        // White Sand is the top block for this biome, even though it's clearly used as a mix block, so hardcoding Sand here.
-
-        return new RealisticBiomeBYGLushDesert.SurfaceBOPLushDesert(getConfig(), Blocks.SAND.getDefaultState(), //Block top
+        return new RealisticBiomeBYGLushDesert.SurfaceBOPLushDesert(getConfig(), baseBiome().topBlock, //Block top
                 baseBiome().fillerBlock, //Block filler,
-                bygMixBlock, //IBlockState mixTop,
+                baseBiome().topBlock, //IBlockState mixTop,
                 baseBiome().fillerBlock, //IBlockState mixFill,
                 40f, //float mixWidth,
                 0.5f, //float mixHeight,

@@ -10,16 +10,17 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.HillockEffect;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGBog extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGOrchard(Biome biome) {
+    public RealisticBiomeBYGBog(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -33,8 +34,8 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK),
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.DARK_OAK)
                 },
                 new int[]{2, 2}
         );
@@ -43,38 +44,56 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPOrchard(58f, 67f, 25f);
+        return new TerrainBYGBiome();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOrchard(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
+        return new SurfaceBYGBiome(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
-    public static class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainBYGBiome extends TerrainBase {
 
-        private float minHeight;
-        private float maxHeight;
-        private float hillStrength;
+        private final float bottom = 62f;
+        private final HeightVariation bottomVariation;
+        private final HillockEffect smallHills;
+        private final HillockEffect mediumHills;
 
-        public TerrainBOPOrchard(float minHeight, float maxHeight, float hillStrength) {
+        // surprisingly the BoP version is mostly above water and kind of hilly
+        public TerrainBYGBiome() {
 
-            this.minHeight = minHeight;
-            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-            this.hillStrength = hillStrength;
+            bottomVariation = new HeightVariation();
+            bottomVariation.height = 2;
+            bottomVariation.octave = 0;
+            bottomVariation.wavelength = 40;
+
+            smallHills = new HillockEffect();
+            smallHills.height = 5;
+            smallHills.wavelength = 25;
+            smallHills.minimumSimplex = 0.2f;
+            smallHills.octave = 1;
+
+            mediumHills = new HillockEffect();
+            mediumHills.height = 10;
+            mediumHills.wavelength = 40;
+            mediumHills.minimumSimplex = 0.2f;
+            mediumHills.octave = 2;
+
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 4f);
+            float increment = bottomVariation.added(rtgWorld, x, y) + smallHills.added(rtgWorld, x, y);
+            increment += mediumHills.added(rtgWorld, x, y);
+            return riverized(bottom + increment, river);
         }
     }
 
-    public static class SurfaceBOPOrchard extends SurfaceBase {
+    public static class SurfaceBYGBiome extends SurfaceBase {
 
-        public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler) {
+        public SurfaceBYGBiome(BiomeConfig config, IBlockState top, IBlockState filler) {
 
             super(config, top, filler);
         }

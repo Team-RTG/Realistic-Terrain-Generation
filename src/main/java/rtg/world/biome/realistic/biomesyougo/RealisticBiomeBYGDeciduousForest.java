@@ -20,15 +20,16 @@ import java.util.Random;
 import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGDeciduousForest extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    public RealisticBiomeBYGDeciduousForest(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     @Override
     public void initConfig() {
+        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
@@ -38,8 +39,8 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)
                 },
                 new int[]{2, 2}
         );
@@ -48,37 +49,39 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaForest();
+        return new TerrainVanillaForestHills();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.6f, baseBiome().topBlock, -0.4f);
+        return new SurfaceVanillaForestHills(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.6f, baseBiome().topBlock, -0.4f);
     }
 
-    public static class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainVanillaForestHills extends TerrainBase {
 
-        private float hillStrength = 10f;// this needs to be linked to the
+        private float hillStrength = 30f;
 
-        public TerrainVanillaForest() {
+        public TerrainVanillaForestHills() {
 
+            this(72f, 30f);
+        }
+
+        public TerrainVanillaForestHills(float bh, float hs) {
+
+            base = bh;
+            hillStrength = hs;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
+            return terrainHighland(x, y, rtgWorld, river, 10f, 68f, hillStrength, base - 62f);
 
-            float m = hills(x, y, hillStrength, rtgWorld);
-
-            float floNoise = 65f + groundNoise + m;
-
-            return riverized(floNoise, river);
         }
     }
 
-    public static class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForestHills extends SurfaceBase {
 
         private float min;
 
@@ -92,8 +95,8 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
         private IBlockState mix2Block;
         private float mix2Height;
 
-        public SurfaceVanillaForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+        public SurfaceVanillaForestHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                                         float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
 
             super(config, top, fill);
             min = minCliff;

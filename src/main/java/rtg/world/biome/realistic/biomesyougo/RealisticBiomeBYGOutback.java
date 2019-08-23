@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -12,23 +13,22 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.RaiseEffect;
+import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGOutback extends RealisticBiomeBYGBase {
 
-    private static IBlockState bygMixBlock = BlockUtil.getBlockStateFromCfgString("byg:whitesand", Blocks.SAND.getDefaultState());
+    private static IBlockState bygMixBlock = BlockUtil.getStateSand(BlockSand.EnumType.RED_SAND);
 
-    public RealisticBiomeBYGMangroveMarshes(Biome biome) {
+    public RealisticBiomeBYGOutback(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
-    }
-
-    @Override
-    public Biome preferredBeach() {
-        return baseBiome();
     }
 
     @Override
@@ -38,37 +38,75 @@ public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPMangrove();
+        return new TerrainBOPOutback(65f, 50f, 10f);
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        // White Sand is the top block for this biome, even though it's clearly used as a mix block, so hardcoding Sand here.
-
-        return new RealisticBiomeBYGLushDesert.SurfaceBOPLushDesert(getConfig(), Blocks.SAND.getDefaultState(), //Block top
+        return new SurfaceBOPOutback(getConfig(), baseBiome().topBlock, //Block top
                 baseBiome().fillerBlock, //Block filler,
                 bygMixBlock, //IBlockState mixTop,
                 baseBiome().fillerBlock, //IBlockState mixFill,
                 40f, //float mixWidth,
-                0.5f, //float mixHeight,
+                -0.15f, //float mixHeight,
                 10f, //float smallWidth,
                 0.5f //float smallStrength
         );
     }
 
-    public static class TerrainBOPMangrove extends TerrainBase {
+    public static class TerrainBOPOutback extends TerrainBase {
 
-        public TerrainBOPMangrove() {
+        private float minHeight;
+        private float mesaWavelength;
+        private float hillStrength;
+        private float topBumpinessHeight = 4;
+        private float topBumpinessWavelength = 25;
+        private HeightEffect height;
+        private HeightEffect groundEffect;
+
+
+        public TerrainBOPOutback(float minHeight, float wavelength, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.mesaWavelength = wavelength;
+            this.hillStrength = hillStrength;
+
+            groundEffect = new GroundEffect(4f);
+
+            // this is variation in what's added to the top. Set to vary with the "standard" ruggedness
+            HeightVariation topVariation = new HeightVariation();
+            topVariation.height = hillStrength / 2;
+            topVariation.octave = 1;
+            topVariation.wavelength = VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH;
+
+
+            // create some bumpiness to disguise the cliff heights
+            HeightVariation topBumpiness = new HeightVariation();
+            topBumpiness.height = topBumpinessHeight;
+            topBumpiness.wavelength = topBumpinessWavelength;
+            topBumpiness.octave = 3;
+
+
+            // now make the top only show up on mesa
+            HeightEffect mesaTops = new VariableRuggednessEffect(new RaiseEffect(0f), topVariation.plus(new RaiseEffect(hillStrength)).plus(topBumpiness)
+                    , 0.3f, 0.15f, mesaWavelength);
+
+            // and make the mesa Tops only show up part of the time, but most of the time,
+            // using the standard ruggedness wavelength
+            height = new VariableRuggednessEffect(new RaiseEffect(0f), mesaTops, -0.3f, .06f);
+
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-            return terrainBeach(x, y, rtgWorld, river, 60f);
+
+            return riverized(minHeight + groundEffect.added(rtgWorld, x, y), river) + height.added(rtgWorld, x, y);
+            //return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
         }
     }
 
-    public static class SurfaceBOPLushDesert extends SurfaceBase {
+    public static class SurfaceBOPOutback extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -78,8 +116,8 @@ public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
         private float floSmallWidth;
         private float floSmallStrength;
 
-        public SurfaceBOPLushDesert(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
-                                    float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+        public SurfaceBOPOutback(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
+                                 float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
 
             super(config, top, filler);
 
@@ -98,7 +136,7 @@ public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = WorldUtil.Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 3.4f;
+            boolean cliff = c > 4.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

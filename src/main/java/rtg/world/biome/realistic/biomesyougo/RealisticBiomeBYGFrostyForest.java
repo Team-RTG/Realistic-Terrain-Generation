@@ -11,7 +11,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -20,11 +19,11 @@ import java.util.Random;
 import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGFrostyForest extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    public RealisticBiomeBYGFrostyForest(Biome biome) {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome, RiverType.FROZEN, BeachType.COLD);
     }
 
     @Override
@@ -38,10 +37,10 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
+                        BlockUtil.getBlockStateFromCfgString("byg:frozenoaklog", BlockUtil.getStateLog(BlockPlanks.EnumType.ACACIA)),
+                        BlockUtil.getBlockStateFromCfgString("byg:frozenoaklog", BlockUtil.getStateLog(BlockPlanks.EnumType.ACACIA))
                 },
-                new int[]{2, 2}
+                new int[]{4, 4}
         );
     }
 

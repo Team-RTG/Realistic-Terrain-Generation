@@ -9,17 +9,18 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGBaobabSavanna extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGOrchard(Biome biome) {
+    public RealisticBiomeBYGBaobabSavanna(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -33,56 +34,61 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK),
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.ACACIA),
+                        BlockUtil.getBlockStateFromCfgString("byg:baobablog", BlockUtil.getStateLog(BlockPlanks.EnumType.ACACIA))
                 },
-                new int[]{2, 2}
+                new int[]{4, 6}
         );
     }
-
+    
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPOrchard(58f, 67f, 25f);
+        return new TerrainBYGBiome();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOrchard(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
+        return new SurfaceBYGBiome(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, 13f, 0.27f);
     }
 
-    public static class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainBYGBiome extends TerrainBase {
 
-        private float minHeight;
-        private float maxHeight;
-        private float hillStrength;
+        private GroundEffect groundEffect = new GroundEffect(4f);
 
-        public TerrainBOPOrchard(float minHeight, float maxHeight, float hillStrength) {
+        public TerrainBYGBiome() {
 
-            this.minHeight = minHeight;
-            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-            this.hillStrength = hillStrength;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 4f);
+            //return terrainPlains(x, y, simplex, river, 160f, 10f, 60f, 100f, 66f);
+            return riverized(65f + groundEffect.added(rtgWorld, x, y), river);
         }
     }
 
-    public static class SurfaceBOPOrchard extends SurfaceBase {
+    public static class SurfaceBYGBiome extends SurfaceBase {
 
-        public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler) {
+        private IBlockState mixBlock;
+        private float width;
+        private float height;
+
+        public SurfaceBYGBiome(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mix, float mixWidth, float mixHeight) {
 
             super(config, top, filler);
+
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+
+            width = mixWidth;
+            height = mixHeight;
         }
 
         @Override
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = WorldUtil.Terrain.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f;
 
@@ -111,7 +117,13 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
                     }
                     else {
                         if (depth == 0 && k > 61) {
-                            primer.setBlockState(x, k, z, topBlock);
+                            if (simplex.noise2f(i / width, j / width) > height) // > 0.27f, i / 12f
+                            {
+                                primer.setBlockState(x, k, z, mixBlock);
+                            }
+                            else {
+                                primer.setBlockState(x, k, z, topBlock);
+                            }
                         }
                         else if (depth < 4) {
                             primer.setBlockState(x, k, z, fillerBlock);

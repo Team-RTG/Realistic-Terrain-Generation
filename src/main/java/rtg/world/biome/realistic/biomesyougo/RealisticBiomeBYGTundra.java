@@ -1,80 +1,58 @@
 package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGTundra extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGOrchard(Biome biome) {
+    public RealisticBiomeBYGTundra(Biome biome) {
 
-        super(biome, RiverType.NORMAL, BeachType.NORMAL);
+        super(biome, RiverType.FROZEN, BeachType.COLD);
     }
 
     @Override
     public void initConfig() {
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-    }
-
-    @Override
-    public void initDecos() {
-        fallenTrees(new IBlockState[]{
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK),
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)
-                },
-                new int[]{2, 2}
-        );
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPOrchard(58f, 67f, 25f);
+        return new TerrainBOPTundra();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOrchard(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
+        return new SurfaceBOPTundra(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
-    public static class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainBOPTundra extends TerrainBase {
 
-        private float minHeight;
-        private float maxHeight;
-        private float hillStrength;
+        public TerrainBOPTundra() {
 
-        public TerrainBOPOrchard(float minHeight, float maxHeight, float hillStrength) {
-
-            this.minHeight = minHeight;
-            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-            this.hillStrength = hillStrength;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 4f);
+            return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 100f, 66f);
         }
     }
 
-    public static class SurfaceBOPOrchard extends SurfaceBase {
+    public static class SurfaceBOPTundra extends SurfaceBase {
 
-        public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler) {
+        public SurfaceBOPTundra(BiomeConfig config, IBlockState top, IBlockState filler) {
 
             super(config, top, filler);
         }

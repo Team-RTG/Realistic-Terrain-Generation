@@ -63,15 +63,29 @@ public final class ModCompat {
 
             String modid = Mods.biomesoplenty.name();
             Stream.of(
-                new ResourceLocation(modid, "corrupted_sands"),
-                new ResourceLocation(modid, "fungi_forest"),
-                new ResourceLocation(modid, "phantasmagoric_inferno"),
-                new ResourceLocation(modid, "undergarden"),
-                new ResourceLocation(modid, "visceral_heap")
+                    new ResourceLocation(modid, "corrupted_sands"),
+                    new ResourceLocation(modid, "fungi_forest"),
+                    new ResourceLocation(modid, "phantasmagoric_inferno"),
+                    new ResourceLocation(modid, "undergarden"),
+                    new ResourceLocation(modid, "visceral_heap")
             )
-                .map(Biome.REGISTRY::getObject)
-                .filter(Objects::nonNull)
-                .forEach(invalidBiomes::add);
+                    .map(Biome.REGISTRY::getObject)
+                    .filter(Objects::nonNull)
+                    .forEach(invalidBiomes::add);
+        }
+
+        if (Mods.byg.isLoaded()) {
+
+            String modid = Mods.byg.name();
+            Stream.of(
+                    new ResourceLocation(modid, "babyssalbog"),
+                    new ResourceLocation(modid, "bastralisle"),
+                    new ResourceLocation(modid, "bcosmicocean"),
+                    new ResourceLocation(modid, "bshattereddesert")
+            )
+                    .map(Biome.REGISTRY::getObject)
+                    .filter(Objects::nonNull)
+                    .forEach(invalidBiomes::add);
         }
 
         if (Mods.fyrecraft.isLoaded()) {

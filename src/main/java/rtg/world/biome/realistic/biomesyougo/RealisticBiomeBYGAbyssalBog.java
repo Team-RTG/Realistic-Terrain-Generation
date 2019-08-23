@@ -5,9 +5,9 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBYGGrasslands extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGAbyssalBog extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGGrasslands(Biome biome) {
+    public RealisticBiomeBYGAbyssalBog(Biome biome) {
 
         super(biome);
     }
@@ -20,19 +20,19 @@ public class RealisticBiomeBYGGrasslands extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPGrassland();
+        return new TerrainBOPBayou();
     }
 
-    public static class TerrainBOPGrassland extends TerrainBase {
+    public static class TerrainBOPBayou extends TerrainBase {
 
-        public TerrainBOPGrassland() {
+        public TerrainBOPBayou() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 200f, 66f);
+            return terrainPlains(x, y, rtgWorld, river, 80f, 1f, 40f, 20f, 62f);
         }
     }
 }

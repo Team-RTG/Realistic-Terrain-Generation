@@ -7,32 +7,194 @@ import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.util.ModCompat.Mods;
-import rtg.world.biome.realistic.abyssalcraft.*;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACCoraliumInfestedSwamp;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklands;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHighland;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsMountains;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsPlains;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBAFarmlandBiome;
-import rtg.world.biome.realistic.biomesoplenty.*;
-import rtg.world.biome.realistic.biomesyougo.*;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlps;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlpsFoothills;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBambooForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBayou;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBog;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBorealForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPBrushland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPChaparral;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPCherryBlossomGrove;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPColdDesert;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPConiferousForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPCoralReef;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPCrag;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPDeadForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPDeadSwamp;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPEucalyptusForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPFen;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPFlowerField;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPFlowerIsland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPGlacier;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPGrassland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPGravelBeach;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPGrove;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPHighland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPKelpForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPLandOfLakes;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPLavenderFields;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPLushDesert;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPLushSwamp;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMangrove;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMapleWoods;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMarsh;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMeadow;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMoor;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMountainFoothills;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMountainPeaks;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMysticGrove;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOasis;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOminousWoods;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOrchard;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOriginBeach;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOriginIsland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOutback;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPOvergrownCliffs;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPPasture;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPPrairie;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPQuagmire;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPRainforest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPRedwoodForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSacredSprings;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSeasonalForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPShield;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPShrubland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSnowyConiferousForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSnowyForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSteppe;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPTemperateRainforest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPTropicalIsland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPTropicalRainforest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPTundra;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPVolcanicIsland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWasteland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAbyssalBog;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAlliumFields;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAlps;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAncientForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAstralIsle;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBambooForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBaobabSavanna;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBayou;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBlueTaiga;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBog;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBorealForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCanyons;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGChaparralLowlands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCherryGrove;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCikaForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGConiferousForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCosmicOcean;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDeadSea;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDeciduousForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDunes;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGEbonyWoods;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGEnchantedForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGEucalyptusTropics;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGEvergreenTaiga;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGFrostyForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGFungalJungle;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGlaciers;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGlowshroomBayou;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGrasslandPlateau;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGreatLakes;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGGreatOakLowlands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGJacarandaForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGLushDesert;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGMangroveMarshes;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGMapleForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGMeadow;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGOrchard;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGOutback;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGPaperBirchForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGPineMountains;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGPraire;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGQuagmire;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGRedDesert;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGRedOakForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGRedwoodTropics;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSavannaCanopy;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalBirchForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalDeciduous;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalTaiga;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGShatteredDesert;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGShrublands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSkyrisHighlands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSnowyConiferousForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSnowyEvergeenTaiga;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSnowyPineMountains;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSonoranDesert;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGStellataPasture;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGTropicalMountains;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGTropicalRainforest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGTundra;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGWeepingWitchForest;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGWhisperingWoods;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGWoodlands;
+import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGZelkovaForest;
 import rtg.world.biome.realistic.bionisation.RealisticBiomeBIOInfectedForest;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCDesertOilField;
 import rtg.world.biome.realistic.buildcraft.RealisticBiomeBCOceanOilField;
 import rtg.world.biome.realistic.candyworld.RealisticBiomeCWChocolateForest;
 import rtg.world.biome.realistic.candyworld.RealisticBiomeCWCottonCandyPlains;
 import rtg.world.biome.realistic.candyworld.RealisticBiomeCWGummySwamp;
-import rtg.world.biome.realistic.defiledlands.*;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLDesertDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestTenebra;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLForestVilespine;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLHillsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLIcePlainsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
+import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
 import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFDouglasForest;
 import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFMapleForest;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIRoseLand;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORITulipLand;
-import rtg.world.biome.realistic.fyrecraft.*;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMegaMountains;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREMushroomGrove;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesert;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERedDesertHills;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRERockyWasteland;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
+import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFGravityFalls;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFNightmareRealm;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFTheFuture;
-import rtg.world.biome.realistic.mistbiomes.*;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBColdMistTaiga;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistDesert;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistForest;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistMushroomIsland;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistPlains;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistSwamp;
+import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistTaiga;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOOrangeBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOPinkBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIORedBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOWhiteBlancoaForest;
 import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
-import rtg.world.biome.realistic.realworld.*;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBlueOakForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBombonaBeach;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWBurOakForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWEmperorRidge;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWFlatlandThicket;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWSilverBirchHills;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
+import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
 import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
@@ -40,9 +202,88 @@ import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFSugiForest;
 import rtg.world.biome.realistic.terscraft.RealisticBiomeTERSBiomeDemonite;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCEerie;
 import rtg.world.biome.realistic.thaumcraft.RealisticBiomeTCMagicalForest;
-import rtg.world.biome.realistic.traverse.*;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAridHighland;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAutumnalWoodedHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVAutumnalWoods;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVBadlands;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVBirchForestedHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVCliffs;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVDesertShrubland;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVForestedHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVGlacier;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVGlacierSpikes;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVGreenSwamp;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVLushHills;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVMeadow;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVMiniJungle;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVMountainousDesert;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVRedDesert;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVRockyPlains;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVRockyPlateau;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVSnowyConiferousForest;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVTemperateRainforest;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVThicket;
+import rtg.world.biome.realistic.traverse.RealisticBiomeTRAVWoodlands;
 import rtg.world.biome.realistic.vampirism.RealisticBiomeVAMPVampireForest;
-import rtg.world.biome.realistic.vanilla.*;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBeach;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForest;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForestHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForestHillsM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaBirchForestM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaColdBeach;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaColdTaiga;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaColdTaigaHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaColdTaigaM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaDeepOcean;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaDesert;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaDesertHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaDesertM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHillsEdge;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHillsM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHillsPlus;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHillsPlusM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaFlowerForest;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaForest;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaForestHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaFrozenOcean;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaFrozenRiver;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaIceMountains;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaIcePlains;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaIcePlainsSpikes;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaJungle;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaJungleEdge;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaJungleEdgeM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaJungleHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaJungleM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMegaSpruceTaiga;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMegaTaiga;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMegaTaigaHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesa;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaBryce;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaPlateau;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaPlateauF;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaPlateauFM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaPlateauM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMushroomIsland;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMushroomIslandShore;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaOcean;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaPlains;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRedwoodTaigaHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRiver;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRoofedForest;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaRoofedForestM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSavanna;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSavannaM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSavannaPlateau;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSavannaPlateauM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaStoneBeach;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSunflowerPlains;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSwampland;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSwamplandM;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaiga;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaHills;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaM;
 
 
 @UtilityClass
@@ -154,71 +395,71 @@ public final class BiomeInit {
 
     public static void preInit() {
         RTGAPI.RTG_BIOMES.addBiomes(
-            RealisticBiomeBase.RiverType.NORMAL.setRTGBiome(new RealisticBiomeVanillaRiver()),
-            RealisticBiomeBase.RiverType.FROZEN.setRTGBiome(new RealisticBiomeVanillaFrozenRiver()),
-            RealisticBiomeBase.BeachType.NORMAL.setRTGBiome(new RealisticBiomeVanillaBeach()),
-            RealisticBiomeBase.BeachType.STONE.setRTGBiome(new RealisticBiomeVanillaStoneBeach()),
-            RealisticBiomeBase.BeachType.COLD.setRTGBiome(new RealisticBiomeVanillaColdBeach())
+                RealisticBiomeBase.RiverType.NORMAL.setRTGBiome(new RealisticBiomeVanillaRiver()),
+                RealisticBiomeBase.RiverType.FROZEN.setRTGBiome(new RealisticBiomeVanillaFrozenRiver()),
+                RealisticBiomeBase.BeachType.NORMAL.setRTGBiome(new RealisticBiomeVanillaBeach()),
+                RealisticBiomeBase.BeachType.STONE.setRTGBiome(new RealisticBiomeVanillaStoneBeach()),
+                RealisticBiomeBase.BeachType.COLD.setRTGBiome(new RealisticBiomeVanillaColdBeach())
         );
     }
 
     private static void init_minecraft() {
         // vanilla rivers and beaches are initialised to enum fields during #preInit
         RTGAPI.RTG_BIOMES.addBiomes(
-            new RealisticBiomeVanillaBirchForest(),
-            new RealisticBiomeVanillaBirchForestHills(),
-            new RealisticBiomeVanillaBirchForestHillsM(),
-            new RealisticBiomeVanillaBirchForestM(),
-            new RealisticBiomeVanillaColdTaiga(),
-            new RealisticBiomeVanillaColdTaigaHills(),
-            new RealisticBiomeVanillaColdTaigaM(),
-            new RealisticBiomeVanillaDeepOcean(),
-            new RealisticBiomeVanillaDesert(),
-            new RealisticBiomeVanillaDesertHills(),
-            new RealisticBiomeVanillaDesertM(),
-            new RealisticBiomeVanillaExtremeHills(),
-            new RealisticBiomeVanillaExtremeHillsEdge(),
-            new RealisticBiomeVanillaExtremeHillsM(),
-            new RealisticBiomeVanillaExtremeHillsPlus(),
-            new RealisticBiomeVanillaExtremeHillsPlusM(),
-            new RealisticBiomeVanillaFlowerForest(),
-            new RealisticBiomeVanillaForest(),
-            new RealisticBiomeVanillaForestHills(),
-            new RealisticBiomeVanillaFrozenOcean(),
-            new RealisticBiomeVanillaIceMountains(),
-            new RealisticBiomeVanillaIcePlains(),
-            new RealisticBiomeVanillaIcePlainsSpikes(),
-            new RealisticBiomeVanillaJungle(),
-            new RealisticBiomeVanillaJungleEdge(),
-            new RealisticBiomeVanillaJungleEdgeM(),
-            new RealisticBiomeVanillaJungleHills(),
-            new RealisticBiomeVanillaJungleM(),
-            new RealisticBiomeVanillaMegaSpruceTaiga(),
-            new RealisticBiomeVanillaMegaTaiga(),
-            new RealisticBiomeVanillaMegaTaigaHills(),
-            new RealisticBiomeVanillaMesa(),
-            new RealisticBiomeVanillaMesaBryce(),
-            new RealisticBiomeVanillaMesaPlateau(),
-            new RealisticBiomeVanillaMesaPlateauF(),
-            new RealisticBiomeVanillaMesaPlateauFM(),
-            new RealisticBiomeVanillaMesaPlateauM(),
-            new RealisticBiomeVanillaMushroomIsland(),
-            new RealisticBiomeVanillaMushroomIslandShore(),
-            new RealisticBiomeVanillaOcean(),
-            new RealisticBiomeVanillaPlains(),
-            new RealisticBiomeVanillaRedwoodTaigaHills(),
-            new RealisticBiomeVanillaRoofedForest(),
-            new RealisticBiomeVanillaRoofedForestM(),
-            new RealisticBiomeVanillaSavanna(),
-            new RealisticBiomeVanillaSavannaM(),
-            new RealisticBiomeVanillaSavannaPlateau(),
-            new RealisticBiomeVanillaSavannaPlateauM(),
-            new RealisticBiomeVanillaSunflowerPlains(),
-            new RealisticBiomeVanillaSwampland(),
-            new RealisticBiomeVanillaSwamplandM(),
-            new RealisticBiomeVanillaTaiga(),
-            new RealisticBiomeVanillaTaigaHills(),
-            new RealisticBiomeVanillaTaigaM()
+                new RealisticBiomeVanillaBirchForest(),
+                new RealisticBiomeVanillaBirchForestHills(),
+                new RealisticBiomeVanillaBirchForestHillsM(),
+                new RealisticBiomeVanillaBirchForestM(),
+                new RealisticBiomeVanillaColdTaiga(),
+                new RealisticBiomeVanillaColdTaigaHills(),
+                new RealisticBiomeVanillaColdTaigaM(),
+                new RealisticBiomeVanillaDeepOcean(),
+                new RealisticBiomeVanillaDesert(),
+                new RealisticBiomeVanillaDesertHills(),
+                new RealisticBiomeVanillaDesertM(),
+                new RealisticBiomeVanillaExtremeHills(),
+                new RealisticBiomeVanillaExtremeHillsEdge(),
+                new RealisticBiomeVanillaExtremeHillsM(),
+                new RealisticBiomeVanillaExtremeHillsPlus(),
+                new RealisticBiomeVanillaExtremeHillsPlusM(),
+                new RealisticBiomeVanillaFlowerForest(),
+                new RealisticBiomeVanillaForest(),
+                new RealisticBiomeVanillaForestHills(),
+                new RealisticBiomeVanillaFrozenOcean(),
+                new RealisticBiomeVanillaIceMountains(),
+                new RealisticBiomeVanillaIcePlains(),
+                new RealisticBiomeVanillaIcePlainsSpikes(),
+                new RealisticBiomeVanillaJungle(),
+                new RealisticBiomeVanillaJungleEdge(),
+                new RealisticBiomeVanillaJungleEdgeM(),
+                new RealisticBiomeVanillaJungleHills(),
+                new RealisticBiomeVanillaJungleM(),
+                new RealisticBiomeVanillaMegaSpruceTaiga(),
+                new RealisticBiomeVanillaMegaTaiga(),
+                new RealisticBiomeVanillaMegaTaigaHills(),
+                new RealisticBiomeVanillaMesa(),
+                new RealisticBiomeVanillaMesaBryce(),
+                new RealisticBiomeVanillaMesaPlateau(),
+                new RealisticBiomeVanillaMesaPlateauF(),
+                new RealisticBiomeVanillaMesaPlateauFM(),
+                new RealisticBiomeVanillaMesaPlateauM(),
+                new RealisticBiomeVanillaMushroomIsland(),
+                new RealisticBiomeVanillaMushroomIslandShore(),
+                new RealisticBiomeVanillaOcean(),
+                new RealisticBiomeVanillaPlains(),
+                new RealisticBiomeVanillaRedwoodTaigaHills(),
+                new RealisticBiomeVanillaRoofedForest(),
+                new RealisticBiomeVanillaRoofedForestM(),
+                new RealisticBiomeVanillaSavanna(),
+                new RealisticBiomeVanillaSavannaM(),
+                new RealisticBiomeVanillaSavannaPlateau(),
+                new RealisticBiomeVanillaSavannaPlateauM(),
+                new RealisticBiomeVanillaSunflowerPlains(),
+                new RealisticBiomeVanillaSwampland(),
+                new RealisticBiomeVanillaSwamplandM(),
+                new RealisticBiomeVanillaTaiga(),
+                new RealisticBiomeVanillaTaigaHills(),
+                new RealisticBiomeVanillaTaigaM()
         );
     }
 
@@ -465,98 +706,266 @@ public final class BiomeInit {
 
         String modid = Mods.byg.name();
         Biome biome;
-        ResourceLocation bcikaforest = new ResourceLocation(modid, "bcikaforest");
-        ResourceLocation bredrockmountains = new ResourceLocation(modid, "bredrockmountains");
-        ResourceLocation bjacarandaforest = new ResourceLocation(modid, "bjacarandaforest");
-        ResourceLocation bautumnforest = new ResourceLocation(modid, "bautumnforest");
-        ResourceLocation bzelkovaforest = new ResourceLocation(modid, "bzelkovaforest");
-        ResourceLocation bbluespruceforest = new ResourceLocation(modid, "bbluespruceforest");
-        ResourceLocation bpaperbirchforest = new ResourceLocation(modid, "bpaperbirchforest");
-        ResourceLocation bgreatoakforest = new ResourceLocation(modid, "bgreatoakforest");
-        ResourceLocation bmapleforest = new ResourceLocation(modid, "bmapleforest");
-        ResourceLocation bpineforest = new ResourceLocation(modid, "bpineforest");
-        ResourceLocation bcherryblossomforest = new ResourceLocation(modid, "bcherryblossomforest");
+        //ResourceLocation babyssalbog = new ResourceLocation(modid, "babyssalbog");
+        ResourceLocation balliumfields = new ResourceLocation(modid, "balliumfields");
         ResourceLocation balps = new ResourceLocation(modid, "balps");
-        ResourceLocation bpraire = new ResourceLocation(modid, "bpraire");
-        ResourceLocation bgrasslands = new ResourceLocation(modid, "bgrasslands");
-        ResourceLocation bhighlands = new ResourceLocation(modid, "bhighlands");
-        ResourceLocation bskyrishighlands = new ResourceLocation(modid, "bskyrishighlands");
-        ResourceLocation bbayou = new ResourceLocation(modid, "bbayou");
-        ResourceLocation bmangrovemarshes = new ResourceLocation(modid, "bmangrovemarshes");
+        ResourceLocation bancientforest = new ResourceLocation(modid, "bancientforest");
+        //ResourceLocation bastralisle = new ResourceLocation(modid, "bastralisle");
         ResourceLocation bbambooforest = new ResourceLocation(modid, "bbambooforest");
-        ResourceLocation bdeadforest = new ResourceLocation(modid, "bdeadforest");
+        ResourceLocation bbaobabsavanna = new ResourceLocation(modid, "bbaobabsavanna");
+        ResourceLocation bbayou = new ResourceLocation(modid, "bbayou");
+        ResourceLocation bbluetaiga = new ResourceLocation(modid, "bbluetaiga");
+        ResourceLocation bbog = new ResourceLocation(modid, "bbog");
+        ResourceLocation bborealforest = new ResourceLocation(modid, "bborealforest");
+        ResourceLocation bcanyons = new ResourceLocation(modid, "bcanyons");
+        ResourceLocation bchaparrallowlands = new ResourceLocation(modid, "bchaparrallowlands");
+        ResourceLocation bcherrygrove = new ResourceLocation(modid, "bcherrygrove");
+        ResourceLocation bcikaforest = new ResourceLocation(modid, "bcikaforest");
+        ResourceLocation bconiferousforest = new ResourceLocation(modid, "bconiferousforest");
+        //ResourceLocation bcosmicocean = new ResourceLocation(modid, "bcosmicocean");
+        ResourceLocation bdeadsea = new ResourceLocation(modid, "bdeadsea");
+        ResourceLocation bdeciduousforest = new ResourceLocation(modid, "bdeciduousforest");
+        ResourceLocation bdunes = new ResourceLocation(modid, "bdunes");
+        ResourceLocation bebonywoods = new ResourceLocation(modid, "bebonywoods");
+        ResourceLocation benchantedforest = new ResourceLocation(modid, "benchantedforest");
+        ResourceLocation beucalyptustropics = new ResourceLocation(modid, "beucalyptustropics");
+        ResourceLocation bevergreentaiga = new ResourceLocation(modid, "bevergreentaiga");
+        ResourceLocation bfrostyforest = new ResourceLocation(modid, "bfrostyforest");
+        ResourceLocation bfungaljungle = new ResourceLocation(modid, "bfungaljungle");
+        ResourceLocation bglaciers = new ResourceLocation(modid, "bglaciers");
+        ResourceLocation bglowshroombayou = new ResourceLocation(modid, "bglowshroombayou");
+        ResourceLocation bgrasslandplateau = new ResourceLocation(modid, "bgrasslandplateau");
+        ResourceLocation bgreatlakes = new ResourceLocation(modid, "bgreatlakes");
+        ResourceLocation bgreatoaklowlands = new ResourceLocation(modid, "bgreatoaklowlands");
+        ResourceLocation bjacarandaforest = new ResourceLocation(modid, "bjacarandaforest");
+        ResourceLocation blushdesert = new ResourceLocation(modid, "blushdesert");
+        ResourceLocation bmangrovemarshes = new ResourceLocation(modid, "bmangrovemarshes");
+        ResourceLocation bmapleforest = new ResourceLocation(modid, "bmapleforest");
+        ResourceLocation bmeadow = new ResourceLocation(modid, "bmeadow");
         ResourceLocation borchard = new ResourceLocation(modid, "borchard");
+        ResourceLocation boutback = new ResourceLocation(modid, "boutback");
+        ResourceLocation bpaperbirchforest = new ResourceLocation(modid, "bpaperbirchforest");
+        ResourceLocation bpinemountains = new ResourceLocation(modid, "bpinemountains");
+        ResourceLocation bpraire = new ResourceLocation(modid, "bpraire");
+        ResourceLocation bquagmire = new ResourceLocation(modid, "bquagmire");
+        ResourceLocation breddesert = new ResourceLocation(modid, "breddesert");
         ResourceLocation bredoakforest = new ResourceLocation(modid, "bredoakforest");
-        ResourceLocation bcragmountains = new ResourceLocation(modid, "bcragmountains");
+        ResourceLocation bredwoodtropics = new ResourceLocation(modid, "bredwoodtropics");
+        ResourceLocation bsavannacanopy = new ResourceLocation(modid, "bsavannacanopy");
+        ResourceLocation bseasonalbirchforest = new ResourceLocation(modid, "bseasonalbirchforest");
+        ResourceLocation bseasonaldeciduous = new ResourceLocation(modid, "bseasonaldeciduous");
+        ResourceLocation bseasonalforest = new ResourceLocation(modid, "bseasonalforest");
+        ResourceLocation bseasonaltaiga = new ResourceLocation(modid, "bseasonaltaiga");
+        //ResourceLocation bshattereddesert = new ResourceLocation(modid, "bshattereddesert");
+        ResourceLocation bshrublands = new ResourceLocation(modid, "bshrublands");
+        ResourceLocation bskyrishighlands = new ResourceLocation(modid, "bskyrishighlands");
+        ResourceLocation bsnowyconiferousforest = new ResourceLocation(modid, "bsnowyconiferousforest");
+        ResourceLocation bsnowyevergeentaiga = new ResourceLocation(modid, "bsnowyevergeentaiga");
+        ResourceLocation bsnowypinemountains = new ResourceLocation(modid, "bsnowypinemountains");
+        ResourceLocation bsonorandesert = new ResourceLocation(modid, "bsonorandesert");
+        ResourceLocation bstellatapasture = new ResourceLocation(modid, "bstellatapasture");
+        ResourceLocation btropicalmountains = new ResourceLocation(modid, "btropicalmountains");
+        ResourceLocation btropicalrainforest = new ResourceLocation(modid, "btropicalrainforest");
+        ResourceLocation btundra = new ResourceLocation(modid, "btundra");
+        ResourceLocation bweepingwitchforest = new ResourceLocation(modid, "bweepingwitchforest");
+        ResourceLocation bwhisperingwoods = new ResourceLocation(modid, "bwhisperingwoods");
+        ResourceLocation bwoodlands = new ResourceLocation(modid, "bwoodlands");
+        ResourceLocation bzelkovaforest = new ResourceLocation(modid, "bzelkovaforest");
 
-        if ((biome = Biome.REGISTRY.getObject(bcikaforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCikaForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bredrockmountains)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedrockMountains(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bjacarandaforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGJacarandaForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bautumnforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAutumnForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bzelkovaforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGZelKovaForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bbluespruceforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBlueSpruceForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bpaperbirchforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPaperBirchForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bgreatoakforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGreatOakForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bmapleforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMapleForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bpineforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPineForest(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bcherryblossomforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCherryBlossomForest(biome));
+//        if ((biome = Biome.REGISTRY.getObject(babyssalbog)) != null) {
+//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAbyssalBog(biome));
+//        }
+        if ((biome = Biome.REGISTRY.getObject(balliumfields)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAlliumFields(biome));
         }
         if ((biome = Biome.REGISTRY.getObject(balps)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bpraire)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPraire(biome));
+        if ((biome = Biome.REGISTRY.getObject(bancientforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAncientForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bgrasslands)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGrasslands(biome));
+//        if ((biome = Biome.REGISTRY.getObject(bastralisle)) != null) {
+//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAstralIsle(biome));
+//        }
+        if ((biome = Biome.REGISTRY.getObject(bbambooforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBambooForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bhighlands)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGHighlands(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(bskyrishighlands)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSkyrisHighlands(biome));
+        if ((biome = Biome.REGISTRY.getObject(bbaobabsavanna)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBaobabSavanna(biome));
         }
         if ((biome = Biome.REGISTRY.getObject(bbayou)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBayou(biome));
         }
+        if ((biome = Biome.REGISTRY.getObject(bbluetaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBlueTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bbog)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBog(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bborealforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBorealForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bcanyons)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCanyons(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bchaparrallowlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGChaparralLowlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bcherrygrove)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCherryGrove(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bcikaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCikaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bconiferousforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGConiferousForest(biome));
+        }
+//        if ((biome = Biome.REGISTRY.getObject(bcosmicocean)) != null) {
+//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCosmicOcean(biome));
+//        }
+        if ((biome = Biome.REGISTRY.getObject(bdeadsea)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDeadSea(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bdeciduousforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDeciduousForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bdunes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDunes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bebonywoods)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEbonyWoods(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(benchantedforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEnchantedForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(beucalyptustropics)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEucalyptusTropics(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bevergreentaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEvergreenTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bfrostyforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGFrostyForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bfungaljungle)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGFungalJungle(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bglaciers)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGlaciers(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bglowshroombayou)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGlowshroomBayou(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bgrasslandplateau)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGrasslandPlateau(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bgreatlakes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGreatLakes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bgreatoaklowlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGreatOakLowlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bjacarandaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGJacarandaForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(blushdesert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGLushDesert(biome));
+        }
         if ((biome = Biome.REGISTRY.getObject(bmangrovemarshes)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMangroveMarshes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bbambooforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBambooForest(biome));
+        if ((biome = Biome.REGISTRY.getObject(bmapleforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMapleForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bdeadforest)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDeadForest(biome));
+        if ((biome = Biome.REGISTRY.getObject(bmeadow)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMeadow(biome));
         }
         if ((biome = Biome.REGISTRY.getObject(borchard)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGOrchard(biome));
         }
+        if ((biome = Biome.REGISTRY.getObject(boutback)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGOutback(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bpaperbirchforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPaperBirchForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bpinemountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPineMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bpraire)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPraire(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bquagmire)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGQuagmire(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(breddesert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedDesert(biome));
+        }
         if ((biome = Biome.REGISTRY.getObject(bredoakforest)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bcragmountains)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCragMountains(biome));
+        if ((biome = Biome.REGISTRY.getObject(bredwoodtropics)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedwoodTropics(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bsavannacanopy)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSavannaCanopy(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bseasonalbirchforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalBirchForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bseasonaldeciduous)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalDeciduous(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bseasonalforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bseasonaltaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalTaiga(biome));
+        }
+//        if ((biome = Biome.REGISTRY.getObject(bshattereddesert)) != null) {
+//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGShatteredDesert(biome));
+//        }
+        if ((biome = Biome.REGISTRY.getObject(bshrublands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGShrublands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bskyrishighlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSkyrisHighlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bsnowyconiferousforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSnowyConiferousForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bsnowyevergeentaiga)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSnowyEvergeenTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bsnowypinemountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSnowyPineMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bsonorandesert)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSonoranDesert(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bstellatapasture)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGStellataPasture(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(btropicalmountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTropicalMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(btropicalrainforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTropicalRainforest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(btundra)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTundra(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bweepingwitchforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGWeepingWitchForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bwhisperingwoods)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGWhisperingWoods(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bwoodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bzelkovaforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGZelkovaForest(biome));
         }
     }
 

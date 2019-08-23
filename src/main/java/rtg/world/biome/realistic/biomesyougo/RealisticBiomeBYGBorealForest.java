@@ -1,6 +1,7 @@
 package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -11,18 +12,17 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 import java.util.Random;
 
-import static rtg.api.RTGAPI.getShadowStoneBlock;
 
+public class RealisticBiomeBYGBorealForest extends RealisticBiomeBYGBase {
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+    private static IBlockState bygMixBlock = BlockUtil.getBlockStateFromCfgString("byg:peatgrass", Blocks.GRASS.getDefaultState());
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    public RealisticBiomeBYGBorealForest(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -38,8 +38,8 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.SPRUCE)
                 },
                 new int[]{2, 2}
         );
@@ -48,20 +48,27 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaForest();
+        return new TerrainBYGBiome();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.6f, baseBiome().topBlock, -0.4f);
+        return new SurfaceBYGBiome(
+                getConfig(),
+                baseBiome().topBlock,
+                baseBiome().fillerBlock,
+                0f, 1.5f, 60f, 65f, 1.5f,
+                bygMixBlock, 0.6f, // Mix block 1
+                bygMixBlock, -0.4f // Mix block 2
+        );
     }
 
-    public static class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainBYGBiome extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
 
-        public TerrainVanillaForest() {
+        public TerrainBYGBiome() {
 
         }
 
@@ -78,7 +85,7 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
         }
     }
 
-    public static class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceBYGBiome extends SurfaceBase {
 
         private float min;
 
@@ -92,8 +99,8 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
         private IBlockState mix2Block;
         private float mix2Height;
 
-        public SurfaceVanillaForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+        public SurfaceBYGBiome(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                               float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
 
             super(config, top, fill);
             min = minCliff;
@@ -123,8 +130,7 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
                 b = primer.getBlockState(x, k, z).getBlock();
                 if (b == Blocks.AIR) {
                     depth = -1;
-                }
-                else if (b == Blocks.STONE) {
+                } else if (b == Blocks.STONE) {
                     depth++;
 
                     if (depth == 0) {
@@ -141,47 +147,37 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
                             if (rand.nextInt(3) == 0) {
 
                                 primer.setBlockState(x, k, z, hcCobble());
-                            }
-                            else {
+                            } else {
 
                                 primer.setBlockState(x, k, z, hcStone());
                             }
-                        }
-                        else if (cliff == 2) {
+                        } else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock());
-                        }
-                        else if (k < 63) {
+                        } else if (k < 63) {
                             if (k < 62) {
                                 primer.setBlockState(x, k, z, fillerBlock);
-                            }
-                            else {
+                            } else {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
-                        }
-                        else {
+                        } else {
                             float mixNoise = simplex.noise2f(i / 12f, j / 12f);
 
                             if (mixNoise < mix2Height) {
                                 primer.setBlockState(x, k, z, mix2Block);
                                 m = true;
-                            }
-                            else if (mixNoise > mixHeight) {
+                            } else if (mixNoise > mixHeight) {
                                 primer.setBlockState(x, k, z, mixBlock);
                                 m = true;
-                            }
-                            else {
+                            } else {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                    }
-                    else if (depth < 6) {
+                    } else if (depth < 6) {
                         if (cliff == 1) {
                             primer.setBlockState(x, k, z, hcStone());
-                        }
-                        else if (cliff == 2) {
+                        } else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock());
-                        }
-                        else {
+                        } else {
                             primer.setBlockState(x, k, z, fillerBlock);
                         }
                     }

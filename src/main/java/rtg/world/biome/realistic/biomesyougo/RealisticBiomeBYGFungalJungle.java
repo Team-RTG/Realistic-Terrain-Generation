@@ -11,18 +11,19 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionForest;
+import rtg.api.world.deco.collection.DecoCollectionJungle;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightVariation;
 
 import java.util.Random;
 
 import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGFungalJungle extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    public RealisticBiomeBYGFungalJungle(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -32,14 +33,13 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
     }
 
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.JUNGLE),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.JUNGLE)
                 },
                 new int[]{2, 2}
         );
@@ -48,37 +48,29 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaForest();
+        return new TerrainVanillaJungle();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.6f, baseBiome().topBlock, -0.4f);
+        return new SurfaceVanillaJungle(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.09f);
     }
 
-    public static class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainVanillaJungle extends TerrainBase {
 
-        private float hillStrength = 10f;// this needs to be linked to the
-
-        public TerrainVanillaForest() {
+        public TerrainVanillaJungle() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
-
-            float m = hills(x, y, hillStrength, rtgWorld);
-
-            float floNoise = 65f + groundNoise + m;
-
-            return riverized(floNoise, river);
+            return terrainFlatLakes(x, y, rtgWorld, river, 66f);
         }
     }
 
-    public static class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaJungle extends SurfaceBase {
 
         private float min;
 
@@ -89,11 +81,9 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
 
         private IBlockState mixBlock;
         private float mixHeight;
-        private IBlockState mix2Block;
-        private float mix2Height;
 
-        public SurfaceVanillaForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+        public SurfaceVanillaJungle(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
 
             super(config, top, fill);
             min = minCliff;
@@ -103,10 +93,9 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
             sStrength = stoneStrength;
             cCliff = clayCliff;
 
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
-            this.mixHeight = mixHeight;
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
-            this.mix2Height = mix2Height;
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+
+            mixHeight = mixSize;
         }
 
         @Override
@@ -158,20 +147,12 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
+                            primer.setBlockState(x, k, z, mixBlock);
+                            m = true;
+                        }
                         else {
-                            float mixNoise = simplex.noise2f(i / 12f, j / 12f);
-
-                            if (mixNoise < mix2Height) {
-                                primer.setBlockState(x, k, z, mix2Block);
-                                m = true;
-                            }
-                            else if (mixNoise > mixHeight) {
-                                primer.setBlockState(x, k, z, mixBlock);
-                                m = true;
-                            }
-                            else {
-                                primer.setBlockState(x, k, z, topBlock);
-                            }
+                            primer.setBlockState(x, k, z, topBlock);
                         }
                     }
                     else if (depth < 6) {

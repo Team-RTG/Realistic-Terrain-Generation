@@ -1,7 +1,6 @@
 package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -11,7 +10,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -20,65 +18,68 @@ import java.util.Random;
 import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGGlowshroomBayou extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    private static IBlockState bygMixBlock = BlockUtil.getBlockStateFromCfgString("byg:glowcelium", Blocks.MYCELIUM.getDefaultState());
+
+    public RealisticBiomeBYGGlowshroomBayou(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     @Override
+    public Biome preferredBeach() {
+        return baseBiome();
+    }
+
+    @Override
     public void initConfig() {
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(1f);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
     }
 
     @Override
-    public void initDecos() {
-        fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
-                },
-                new int[]{2, 2}
-        );
-    }
-
-    @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaForest();
+        return new TerrainBYGBiome();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.6f, baseBiome().topBlock, -0.4f);
+        return new SurfaceBYGBiome(getConfig(),
+                baseBiome().topBlock, baseBiome().fillerBlock,
+                0f, 1.5f, 60f, 65f, 1.5f,
+                baseBiome().topBlock, 0.5f,
+                bygMixBlock, -0.5f
+        );
     }
 
-    public static class TerrainVanillaForest extends TerrainBase {
+    @Override
+    public double waterLakeMult() {
+        return 2d;
+    }
 
-        private float hillStrength = 10f;// this needs to be linked to the
+    @Override
+    public void initDecos() {
 
-        public TerrainVanillaForest() {
+    }
+
+    public static class TerrainBYGBiome extends TerrainBase {
+
+        public TerrainBYGBiome() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
-
-            float m = hills(x, y, hillStrength, rtgWorld);
-
-            float floNoise = 65f + groundNoise + m;
-
-            return riverized(floNoise, river);
+            return terrainMarsh(x, y, rtgWorld, 61.5f, river);
         }
     }
 
-    public static class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceBYGBiome extends SurfaceBase {
 
         private float min;
 
@@ -92,8 +93,8 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
         private IBlockState mix2Block;
         private float mix2Height;
 
-        public SurfaceVanillaForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+        public SurfaceBYGBiome(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                               float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
 
             super(config, top, fill);
             min = minCliff;

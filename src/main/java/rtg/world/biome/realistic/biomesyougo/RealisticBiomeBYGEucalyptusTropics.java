@@ -11,7 +11,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -20,9 +19,9 @@ import java.util.Random;
 import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
-public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGEucalyptusTropics extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGCikaForest(Biome biome) {
+    public RealisticBiomeBYGEucalyptusTropics(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -31,54 +30,44 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
     }
 
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
-                        BlockUtil.getBlockStateFromCfgString("byg:cikalog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK))
+                        BlockUtil.getBlockStateFromCfgString("byg:rainboweucalyptuslog", BlockUtil.getStateLog(BlockPlanks.EnumType.JUNGLE)),
+                        BlockUtil.getStateLog(BlockPlanks.EnumType.JUNGLE)
                 },
-                new int[]{2, 2}
+                new int[]{4, 4}
         );
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaForest();
+        return new TerrainBOPTemperateRainforest();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.6f, baseBiome().topBlock, -0.4f);
+        return new SurfaceBOPTemperateRainforest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.45f);
     }
 
-    public static class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainBOPTemperateRainforest extends TerrainBase {
 
-        private float hillStrength = 10f;// this needs to be linked to the
-
-        public TerrainVanillaForest() {
+        public TerrainBOPTemperateRainforest() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
-
-            float m = hills(x, y, hillStrength, rtgWorld);
-
-            float floNoise = 65f + groundNoise + m;
-
-            return riverized(floNoise, river);
+            return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 100f, 65f);
         }
     }
 
-    public static class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceBOPTemperateRainforest extends SurfaceBase {
 
         private float min;
 
@@ -87,26 +76,20 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
         private float sStrength = 65f;
         private float cCliff = 1.5f;
 
-        private IBlockState mixBlock;
-        private float mixHeight;
-        private IBlockState mix2Block;
-        private float mix2Height;
-
-        public SurfaceVanillaForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                    float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+        public SurfaceBOPTemperateRainforest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
             super(config, top, fill);
             min = minCliff;
+        }
+
+        public SurfaceBOPTemperateRainforest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
+
+            this(config, top, fill, minCliff);
 
             sCliff = stoneCliff;
             sHeight = stoneHeight;
             sStrength = stoneStrength;
             cCliff = clayCliff;
-
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
-            this.mixHeight = mixHeight;
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
-            this.mix2Height = mix2Height;
         }
 
         @Override
@@ -116,7 +99,6 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = WorldUtil.Terrain.calcCliff(x, z, noise);
             int cliff = 0;
-            boolean m = false;
 
             Block b;
             for (int k = 255; k > -1; k--) {
@@ -159,19 +141,7 @@ public class RealisticBiomeBYGCikaForest extends RealisticBiomeBYGBase {
                             }
                         }
                         else {
-                            float mixNoise = simplex.noise2f(i / 12f, j / 12f);
-
-                            if (mixNoise < mix2Height) {
-                                primer.setBlockState(x, k, z, mix2Block);
-                                m = true;
-                            }
-                            else if (mixNoise > mixHeight) {
-                                primer.setBlockState(x, k, z, mixBlock);
-                                m = true;
-                            }
-                            else {
-                                primer.setBlockState(x, k, z, topBlock);
-                            }
+                            primer.setBlockState(x, k, z, topBlock);
                         }
                     }
                     else if (depth < 6) {

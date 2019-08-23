@@ -11,15 +11,26 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoPumpkin;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
+import rtg.api.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGWhisperingWoods extends RealisticBiomeBYGBase {
 
-    public RealisticBiomeBYGOrchard(Biome biome) {
+    @Override
+    public Biome preferredBeach() {
+        return baseBiome();
+    }
+
+    public RealisticBiomeBYGWhisperingWoods(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
@@ -33,48 +44,42 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
     @Override
     public void initDecos() {
         fallenTrees(new IBlockState[]{
-                        BlockUtil.getStateLog(BlockPlanks.EnumType.OAK),
+                        BlockUtil.getBlockStateFromCfgString("byg:rowanlog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
+                        BlockUtil.getBlockStateFromCfgString("byg:hawthornlog", BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)),
                         BlockUtil.getStateLog(BlockPlanks.EnumType.OAK)
                 },
-                new int[]{2, 2}
+                new int[]{4, 4, 2}
         );
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPOrchard(58f, 67f, 25f);
+        return new TerrainVanillaSwampland();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOrchard(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
+        return new SurfaceVanillaSwampland(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
-    public static class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainVanillaSwampland extends TerrainBase {
 
-        private float minHeight;
-        private float maxHeight;
-        private float hillStrength;
+        public TerrainVanillaSwampland() {
 
-        public TerrainBOPOrchard(float minHeight, float maxHeight, float hillStrength) {
-
-            this.minHeight = minHeight;
-            this.maxHeight = (maxHeight > rollingHillsMaxHeight) ? rollingHillsMaxHeight : ((maxHeight < this.minHeight) ? rollingHillsMaxHeight : maxHeight);
-            this.hillStrength = hillStrength;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainRollingHills(x, y, rtgWorld, river, hillStrength, maxHeight, groundNoiseAmplitudeHills, 4f);
+            return terrainMarsh(x, y, rtgWorld, 61.5f, river);
         }
     }
 
-    public static class SurfaceBOPOrchard extends SurfaceBase {
+    public static class SurfaceVanillaSwampland extends SurfaceBase {
 
-        public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler) {
+        public SurfaceVanillaSwampland(BiomeConfig config, IBlockState top, IBlockState filler) {
 
             super(config, top, filler);
         }
@@ -94,7 +99,7 @@ public class RealisticBiomeBYGOrchard extends RealisticBiomeBYGBase {
                 else if (b == Blocks.STONE) {
                     depth++;
 
-                    if (cliff) {
+                    if (cliff && k > 64) {
                         if (depth > -1 && depth < 2) {
                             if (rand.nextInt(3) == 0) {
 

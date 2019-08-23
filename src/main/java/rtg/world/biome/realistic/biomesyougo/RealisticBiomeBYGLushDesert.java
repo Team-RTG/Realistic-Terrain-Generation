@@ -1,6 +1,8 @@
 package rtg.world.biome.realistic.biomesyougo;
 
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -10,43 +12,55 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoJungleCacti;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.GroundEffect;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
+import rtg.api.world.terrain.heighteffect.RaiseEffect;
+import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
 
 import java.util.Random;
 
 
-public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
+public class RealisticBiomeBYGLushDesert extends RealisticBiomeBYGBase {
 
-    private static IBlockState bygMixBlock = BlockUtil.getBlockStateFromCfgString("byg:whitesand", Blocks.SAND.getDefaultState());
+    private static IBlockState bygMixBlock = Blocks.HARDENED_CLAY.getDefaultState();
 
-    public RealisticBiomeBYGMangroveMarshes(Biome biome) {
+    public RealisticBiomeBYGLushDesert(Biome biome) {
 
         super(biome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     @Override
-    public Biome preferredBeach() {
-        return baseBiome();
+    public void initConfig() {
+        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
+        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
-    public void initConfig() {
+    public void initDecos() {
+        fallenTrees(new IBlockState[]{
+                        BlockUtil.getBlockStateFromCfgString("byg:ironwoodlog", BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH)),
+                        BlockUtil.getBlockStateFromCfgString("byg:ironwoodlog", BlockUtil.getStateLog(BlockPlanks.EnumType.BIRCH))
+                },
+                new int[]{4, 4}
+        );
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPMangrove();
+        return new TerrainBOPLushDesert(65f, 40f, 10f);
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        // White Sand is the top block for this biome, even though it's clearly used as a mix block, so hardcoding Sand here.
-
-        return new RealisticBiomeBYGLushDesert.SurfaceBOPLushDesert(getConfig(), Blocks.SAND.getDefaultState(), //Block top
+        return new SurfaceBOPLushDesert(getConfig(), baseBiome().topBlock, //Block top
                 baseBiome().fillerBlock, //Block filler,
                 bygMixBlock, //IBlockState mixTop,
                 baseBiome().fillerBlock, //IBlockState mixFill,
@@ -57,14 +71,49 @@ public class RealisticBiomeBYGMangroveMarshes extends RealisticBiomeBYGBase {
         );
     }
 
-    public static class TerrainBOPMangrove extends TerrainBase {
+    public static class TerrainBOPLushDesert extends TerrainBase {
 
-        public TerrainBOPMangrove() {
+        private float minHeight;
+        private float mesaWavelength;
+        private float hillStrength;
+        private float topBumpinessHeight = 2;
+        private float topBumpinessWavelength = 15;
+        private HeightEffect height;
+        private HeightEffect groundEffect;
+
+
+        public TerrainBOPLushDesert(float minHeight, float maxHeight, float hillStrength) {
+
+            this.minHeight = minHeight;
+            this.mesaWavelength = maxHeight;
+            this.hillStrength = hillStrength;
+
+            groundEffect = new GroundEffect(3f);
+
+            // this is variation in what's added to the top. Set to vary with the "standard" ruggedness
+            HeightVariation topVariation = new HeightVariation();
+            topVariation.height = hillStrength;
+            topVariation.octave = 1;
+            topVariation.wavelength = VariableRuggednessEffect.STANDARD_RUGGEDNESS_WAVELENGTH;
+
+
+            // create some bumpiness to disguise the cliff heights
+            HeightVariation topBumpiness = new HeightVariation();
+            topBumpiness.height = topBumpinessHeight;
+            topBumpiness.wavelength = topBumpinessWavelength;
+            topBumpiness.octave = 3;
+
+            // now make the top only show up on mesa
+            height = new VariableRuggednessEffect(new RaiseEffect(0f), topVariation.plus(topBumpiness).plus(new RaiseEffect(hillStrength))
+                    , 0.3f, 0.15f, mesaWavelength);
+
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-            return terrainBeach(x, y, rtgWorld, river, 60f);
+
+            return riverized(minHeight + groundEffect.added(rtgWorld, x, y), river) + height.added(rtgWorld, x, y);
+            //return terrainRollingHills(x, y, simplex, river, hillStrength, maxHeight, groundNoise, groundNoiseAmplitudeHills, 4f);
         }
     }
 

@@ -1,15 +1,18 @@
 package rtg.api.world.gen.feature;
 
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+import rtg.api.util.Logger;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -104,12 +107,15 @@ public class WorldGenLog extends WorldGenerator {
             aY.add(y);
             aZ.add(z);
 
-            // If we can't rotate the log block for whatever reason, then just place it as it is.
+            // If we can't rotate the log block for whatever reason, then don't even try placing it and bail.
+            // We'd rather generate nothing than something ugly.
             try {
                 aBlock.add(logBlock.withProperty(BlockLog.LOG_AXIS, (dir == 0 ? BlockLog.EnumAxis.X : BlockLog.EnumAxis.Z)));
             }
             catch (Exception e) {
-                aBlock.add(logBlock);
+                //aBlock.add(logBlock);
+                //Logger.error(e.getMessage());
+                return false;
             }
 
             if (this.generateLeaves) {

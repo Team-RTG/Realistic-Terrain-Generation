@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.defiledlands;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -13,6 +11,8 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
@@ -38,19 +38,19 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
 
-            return new SurfacePolar(getConfig(), this.baseBiome().topBlock, //Block top
-                this.baseBiome().fillerBlock, //Block filler,
-                this.baseBiome().topBlock, //IBlockState mixTop,
-                this.baseBiome().fillerBlock, //IBlockState mixFill,
-                80f, //float mixWidth,
-                -0.15f, //float mixHeight,
-                10f, //float smallWidth,
-                0.5f //float smallStrength
+            return new SurfacePolar(getConfig(), baseBiome().topBlock, //Block top
+                    baseBiome().fillerBlock, //Block filler,
+                    baseBiome().topBlock, //IBlockState mixTop,
+                    baseBiome().fillerBlock, //IBlockState mixFill,
+                    80f, //float mixWidth,
+                    -0.15f, //float mixHeight,
+                    10f, //float smallWidth,
+                    0.5f //float smallStrength
             );
         }
         else {
 
-            return new SurfaceVanillaIcePlains(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, this.baseBiome().topBlock, this.baseBiome().topBlock);
+            return new SurfaceVanillaIcePlains(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().topBlock);
         }
 
     }
@@ -68,7 +68,7 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
         }
     }
 
-    public static class SurfaceVanillaIcePlains extends SurfaceBase {
+    public static class SurfaceVanillaIcePlains extends SurfaceDLBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -116,7 +116,7 @@ public class RealisticBiomeDLIcePlainsDefiled extends RealisticBiomeDLBase {
         }
     }
 
-    public static class SurfacePolar extends SurfaceBase {
+    public static class SurfacePolar extends SurfaceDLBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;

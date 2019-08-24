@@ -172,7 +172,6 @@ import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFGravityFalls;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFNightmareRealm;
-import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFTheFuture;
 import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBColdMistTaiga;
 import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistDesert;
 import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistForest;
@@ -1123,14 +1122,10 @@ public final class BiomeInit {
         String modid = Mods.gravityfalls.name();
         Biome biome;
         ResourceLocation gravityfalls = new ResourceLocation(modid, "gravityfalls");
-        ResourceLocation thefuture = new ResourceLocation(modid, "thefuture");
         ResourceLocation nightmarerealm = new ResourceLocation(modid, "nightmarerealm");
 
         if ((biome = Biome.REGISTRY.getObject(gravityfalls)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFGravityFalls(biome));
-        }
-        if ((biome = Biome.REGISTRY.getObject(thefuture)) != null) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFTheFuture(biome));
         }
         if ((biome = Biome.REGISTRY.getObject(nightmarerealm)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFNightmareRealm(biome));

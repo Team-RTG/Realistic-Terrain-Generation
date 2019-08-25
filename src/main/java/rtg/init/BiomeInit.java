@@ -194,6 +194,11 @@ import rtg.world.biome.realistic.realworld.RealisticBiomeRWFlatlandThicket;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSilverBirchHills;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpinyForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWSpruceMountains;
+import rtg.world.biome.realistic.redwoods.RealisticBiomeREDAlpine;
+import rtg.world.biome.realistic.redwoods.RealisticBiomeREDLushRedwoodForest;
+import rtg.world.biome.realistic.redwoods.RealisticBiomeREDRedwoodForest;
+import rtg.world.biome.realistic.redwoods.RealisticBiomeREDSnowyRainforest;
+import rtg.world.biome.realistic.redwoods.RealisticBiomeREDTemperateRainforest;
 import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
@@ -358,6 +363,10 @@ public final class BiomeInit {
 
         if (Mods.realworld.isLoaded()) {
             init_realworld();
+        }
+
+        if (Mods.redwoods.isLoaded()) {
+            init_redwoods();
         }
 
         if (Mods.rockhounding_surface.isLoaded()) {
@@ -1245,6 +1254,33 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(rw_spruce_mountains)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpruceMountains(biome));
+        }
+    }
+
+    private static void init_redwoods() {
+
+        String modid = Mods.redwoods.name();
+        Biome biome;
+        ResourceLocation redwood_forest = new ResourceLocation(modid, "redwood_forest");
+        ResourceLocation lush_redwood_forest = new ResourceLocation(modid, "lush_redwood_forest");
+        ResourceLocation temperate_rainforest = new ResourceLocation(modid, "temperate_rainforest");
+        ResourceLocation snowy_rainforest = new ResourceLocation(modid, "snowy_rainforest");
+        ResourceLocation alpine = new ResourceLocation(modid, "alpine"); // Doesn't actually generate in-game.
+
+        if ((biome = Biome.REGISTRY.getObject(redwood_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDRedwoodForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(lush_redwood_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDLushRedwoodForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(temperate_rainforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDTemperateRainforest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snowy_rainforest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDSnowyRainforest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(alpine)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDAlpine(biome));
         }
     }
 

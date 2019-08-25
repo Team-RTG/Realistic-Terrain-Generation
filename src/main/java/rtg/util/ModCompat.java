@@ -241,6 +241,7 @@ public final class ModCompat {
         odioitamod,
         plants2,
         realworld,
+        redwoods,
         rockhounding_surface,
         spookybiomes,
         sugiforest,

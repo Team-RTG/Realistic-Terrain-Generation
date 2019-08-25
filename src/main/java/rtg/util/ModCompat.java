@@ -100,6 +100,17 @@ public final class ModCompat {
                 .forEach(invalidBiomes::add);
         }
 
+        if (Mods.thaumcraft.isLoaded()) {
+
+            String modid = Mods.thaumcraft.name();
+            Stream.of(
+                    new ResourceLocation(modid, "eldritch")
+            )
+                    .map(Biome.REGISTRY::getObject)
+                    .filter(Objects::nonNull)
+                    .forEach(invalidBiomes::add);
+        }
+
         // TODO: Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
 
         Collection<Biome> unsupportedBiomes = ForgeRegistries.BIOMES.getValuesCollection();

@@ -9,7 +9,7 @@ public class RealisticBiomeTRAVGlacierSpikes extends RealisticBiomeTRAVBase {
 
     public RealisticBiomeTRAVGlacierSpikes(Biome biome) {
 
-        super(biome);
+        super(biome, RiverType.FROZEN, BeachType.COLD);
     }
 
     @Override

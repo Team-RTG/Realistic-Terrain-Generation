@@ -189,6 +189,16 @@ import rtg.world.biome.realistic.odioita.RealisticBiomeODIOPinkBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIORedBlancoaForest;
 import rtg.world.biome.realistic.odioita.RealisticBiomeODIOWhiteBlancoaForest;
 import rtg.world.biome.realistic.plants.RealisticBiomePLANTSCrystalForest;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJAspenGrove;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJBaobabFields;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJBlossomingFields;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJBorealForest;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJOvergrownSpires;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJPraire;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJRedwoodPeaks;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJRedwoods;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJSnowyBorealForest;
+import rtg.world.biome.realistic.projectvibrantjourneys.RealisticBiomePVJWillowSwamp;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBambooMarsh;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBirchAutumnForest;
 import rtg.world.biome.realistic.realworld.RealisticBiomeRWBlueOakForest;
@@ -368,6 +378,10 @@ public final class BiomeInit {
 
         if (Mods.plants2.isLoaded()) {
             init_plants();
+        }
+
+        if (Mods.pvj.isLoaded()) {
+            init_pvj();
         }
 
         if (Mods.realworld.isLoaded()) {
@@ -1243,6 +1257,53 @@ public final class BiomeInit {
 
         if ((biome = Biome.REGISTRY.getObject(crystal_forest)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePLANTSCrystalForest(biome));
+        }
+    }
+
+    private static void init_pvj() {
+
+        String modid = Mods.pvj.name();
+        Biome biome;
+        ResourceLocation prairie = new ResourceLocation(modid, "prairie");
+        ResourceLocation redwoods = new ResourceLocation(modid, "redwoods");
+        ResourceLocation redwood_peaks = new ResourceLocation(modid, "redwood_peaks");
+        ResourceLocation willow_swamp = new ResourceLocation(modid, "willow_swamp");
+        ResourceLocation boreal_forest = new ResourceLocation(modid, "boreal_forest");
+        ResourceLocation snowy_boreal_forest = new ResourceLocation(modid, "snowy_boreal_forest");
+        ResourceLocation aspen_grove = new ResourceLocation(modid, "aspen_grove");
+        ResourceLocation overgrown_spires = new ResourceLocation(modid, "overgrown_spires");
+        ResourceLocation blossoming_fields = new ResourceLocation(modid, "blossoming_fields");
+        ResourceLocation baobab_fields = new ResourceLocation(modid, "baobab_fields");
+
+        if ((biome = Biome.REGISTRY.getObject(prairie)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJPraire(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(redwoods)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJRedwoods(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(redwood_peaks)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJRedwoodPeaks(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(willow_swamp)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJWillowSwamp(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(boreal_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJBorealForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snowy_boreal_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJSnowyBorealForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(aspen_grove)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJAspenGrove(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(overgrown_spires)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJOvergrownSpires(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(blossoming_fields)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJBlossomingFields(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(baobab_fields)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJBaobabFields(biome));
         }
     }
 

@@ -241,6 +241,7 @@ public final class ModCompat {
         mistbiomes,
         odioitamod,
         plants2,
+        pvj,
         realworld,
         redwoods,
         rockhounding_surface,

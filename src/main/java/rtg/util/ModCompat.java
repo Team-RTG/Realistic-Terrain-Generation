@@ -225,6 +225,7 @@ public final class ModCompat {
     // optional 'friendly name' used for configs
     public enum Mods {
         abyssalcraft,
+        auxbiomes,
         betteragriculture,
         biomesoplenty,
         byg,

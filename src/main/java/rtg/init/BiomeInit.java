@@ -13,6 +13,11 @@ import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHighland;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsMountains;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsPlains;
+import rtg.world.biome.realistic.auxiliarybiomes.RealisticBiomeAUXForestedIsland;
+import rtg.world.biome.realistic.auxiliarybiomes.RealisticBiomeAUXIceWasteland;
+import rtg.world.biome.realistic.auxiliarybiomes.RealisticBiomeAUXMarsh;
+import rtg.world.biome.realistic.auxiliarybiomes.RealisticBiomeAUXWasteland;
+import rtg.world.biome.realistic.auxiliarybiomes.RealisticBiomeAUXWhiteForest;
 import rtg.world.biome.realistic.betteragriculture.RealisticBiomeBAFarmlandBiome;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlps;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPAlpsFoothills;
@@ -305,6 +310,10 @@ public final class BiomeInit {
             init_abyssalcraft();
         }
 
+        if (Mods.auxbiomes.isLoaded()) {
+            init_auxiliarybiomes();
+        }
+
         if (Mods.betteragriculture.isLoaded()) {
             init_betteragriculture();
         }
@@ -492,6 +501,33 @@ public final class BiomeInit {
         }
         if (isBiomePresent(modid, "darklands_plains")) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsPlains());
+        }
+    }
+
+    private static void init_auxiliarybiomes() {
+
+        String modid = Mods.auxbiomes.name();
+        Biome biome;
+        ResourceLocation marsh = new ResourceLocation(modid, "marsh");
+        ResourceLocation wasteland = new ResourceLocation(modid, "wasteland");
+        ResourceLocation ice_wasteland = new ResourceLocation(modid, "ice_wasteland");
+        ResourceLocation forested_island = new ResourceLocation(modid, "forested_island");
+        ResourceLocation white_forest = new ResourceLocation(modid, "white_forest");
+
+        if ((biome = Biome.REGISTRY.getObject(marsh)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXMarsh(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXWasteland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(ice_wasteland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXIceWasteland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forested_island)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXForestedIsland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(white_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXWhiteForest(biome));
         }
     }
 

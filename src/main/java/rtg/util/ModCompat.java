@@ -234,6 +234,7 @@ public final class ModCompat {
         candymod,
         defiledlands,
         douglas_forest,
+        environs,
         floricraft,
         fyrecraft,
         gravityfalls,

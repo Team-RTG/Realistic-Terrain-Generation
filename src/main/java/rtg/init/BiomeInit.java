@@ -85,11 +85,9 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWetland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWhiteBeach;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPWoodland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPXericShrubland;
-import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAbyssalBog;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAlliumFields;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAlps;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAncientForest;
-import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGAstralIsle;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBambooForest;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBaobabSavanna;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGBayou;
@@ -101,7 +99,6 @@ import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGChaparralLowlands;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCherryGrove;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCikaForest;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGConiferousForest;
-import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGCosmicOcean;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDeadSea;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDeciduousForest;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGDunes;
@@ -135,7 +132,6 @@ import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalBirchFores
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalDeciduous;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalForest;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSeasonalTaiga;
-import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGShatteredDesert;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGShrublands;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSkyrisHighlands;
 import rtg.world.biome.realistic.biomesyougo.RealisticBiomeBYGSnowyConiferousForest;
@@ -165,6 +161,24 @@ import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLPlainsDefiled;
 import rtg.world.biome.realistic.defiledlands.RealisticBiomeDLSwampDefiled;
 import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFDouglasForest;
 import rtg.world.biome.realistic.douglasforest.RealisticBiomeDFMapleForest;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVDeadOakForest;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVDeadOakForestHills;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVEmeraldCliffs;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVEndForest;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVEndShrubland;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVExtremeJungle;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVIcyHills;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVMoor;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVPineTaiga;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVPineTaigaHills;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVSilkglades;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVSparseEndForest;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVStoneFlats;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVTallOakForest;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVTallOakForestHills;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVTallOakWetland;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVWastelandEroded;
+import rtg.world.biome.realistic.environs.RealisticBiomeENVWastelandSpikes;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIRoseLand;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORITulipLand;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
@@ -354,6 +368,10 @@ public final class BiomeInit {
 
         if (Mods.douglas_forest.isLoaded()) {
             init_douglasforest();
+        }
+
+        if (Mods.environs.isLoaded()) {
+            init_environs();
         }
 
         if (Mods.floricraft.isLoaded()) {
@@ -1119,6 +1137,85 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(maple_forest)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFMapleForest(biome));
+        }
+    }
+
+    private static void init_environs() {
+
+        String modid = Mods.environs.name();
+        Biome biome;
+        ResourceLocation extreme_jungle = new ResourceLocation(modid, "extreme_jungle");
+        ResourceLocation moor = new ResourceLocation(modid, "moor");
+        ResourceLocation emerald_cliffs = new ResourceLocation(modid, "emerald_cliffs");
+        ResourceLocation pine_forest = new ResourceLocation(modid, "pine_forest");
+        ResourceLocation pine_forest_hills = new ResourceLocation(modid, "pine_forest_hills");
+        ResourceLocation silkglades = new ResourceLocation(modid, "silkglades");
+        ResourceLocation stone_flats = new ResourceLocation(modid, "stone_flats");
+        ResourceLocation end_forest = new ResourceLocation(modid, "end_forest");
+        ResourceLocation sparse_end_forest = new ResourceLocation(modid, "sparse_end_forest");
+        ResourceLocation end_shrubland = new ResourceLocation(modid, "end_shrubland");
+        ResourceLocation tall_oak_forest = new ResourceLocation(modid, "tall_oak_forest");
+        ResourceLocation tall_oak_forest_hills = new ResourceLocation(modid, "tall_oak_forest_hills");
+        ResourceLocation tall_oak_wetland = new ResourceLocation(modid, "tall_oak_wetland");
+        ResourceLocation wasteland_spikes = new ResourceLocation(modid, "wasteland_spikes");
+        ResourceLocation wasteland_eroded = new ResourceLocation(modid, "wasteland_eroded");
+        ResourceLocation dead_oak_forest = new ResourceLocation(modid, "dead_oak_forest");
+        ResourceLocation dead_oak_forest_hills = new ResourceLocation(modid, "dead_oak_forest_hills");
+        ResourceLocation icy_hills = new ResourceLocation(modid, "icy_hills");
+
+        if ((biome = Biome.REGISTRY.getObject(extreme_jungle)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVExtremeJungle(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(moor)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVMoor(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(emerald_cliffs)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVEmeraldCliffs(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(pine_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVPineTaiga(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(pine_forest_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVPineTaigaHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(silkglades)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVSilkglades(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(stone_flats)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVStoneFlats(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(end_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVEndForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(sparse_end_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVSparseEndForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(end_shrubland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVEndShrubland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(tall_oak_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVTallOakForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(tall_oak_forest_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVTallOakForestHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(tall_oak_wetland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVTallOakWetland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland_spikes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVWastelandSpikes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland_eroded)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVWastelandEroded(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(dead_oak_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVDeadOakForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(dead_oak_forest_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVDeadOakForestHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(icy_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVIcyHills(biome));
         }
     }
 

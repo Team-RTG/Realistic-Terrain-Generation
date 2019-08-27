@@ -251,7 +251,8 @@ public final class ModCompat {
         terscraft,
         thaumcraft,
         traverse,
-        vampirism;
+        vampirism,
+        valoegheses_be("zoesteria");
 
         private final String prettyName;
         private boolean loaded;

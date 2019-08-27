@@ -317,6 +317,58 @@ import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSwamplandM;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaiga;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaHills;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaTaigaM;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEArchipelago;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEAustralianOutback;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEBarelands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEBluff;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEBrushlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEBrushlandsHills;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEBush;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEBushlandHills;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEDenseBrushlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEExtremeSouthernAlps;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEForestedCanyonPillars;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEForestedCanyonPlateau;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEForestedCanyonPlateauM;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEGhostForest;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEGrassyFen;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEGrassyMarshland;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEHighInhabitedWoodlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEHighWoodlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEHighlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEHotBrushlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOELowSpruceWoodlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOELowTallWoodlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOELowWoodlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOELowlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOELowlandsChapparal;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEMire;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEMoorlands;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOENorthernAlps;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOENorthernSnowAlps;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOENorthernSnowSubalpineAlps;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOENorthernSubalpineAlps;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEOrchidFields;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOERedSandDunes;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESandDunes;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESandDunesM;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESandDunesOasis;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESnowRocks;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESnowRocksMountains;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESnowRocksPlateau;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESouthernAlps;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOESouthernAlpsSubalpine;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEStonyReef;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOETropicalJungle;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWastelandFlats;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWastelandFlatsOasis;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWastelandFlatsSlopes;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWastelandFlatsTrees;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWhiteOaks;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWhiteOaksHills;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWhiteWoods;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWhiteWoodsHills;
+import rtg.world.biome.realistic.zoesteria.RealisticBiomeZOEWoodlandsHills;
 
 
 @UtilityClass
@@ -432,6 +484,10 @@ public final class BiomeInit {
 
         if (Mods.traverse.isLoaded()) {
             init_traverse();
+        }
+
+        if (Mods.valoegheses_be.isLoaded()) {
+            init_zoesteria();
         }
 
         if (Mods.vampirism.isLoaded()) {
@@ -1644,6 +1700,221 @@ public final class BiomeInit {
 
         if ((biome = Biome.REGISTRY.getObject(vampireforest)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeVAMPVampireForest(biome));
+        }
+    }
+
+    private static void init_zoesteria() {
+
+        String modid = Mods.valoegheses_be.name();
+        Biome biome;
+        ResourceLocation archipelago = new ResourceLocation(modid, "archipelago");
+        ResourceLocation australian_outback = new ResourceLocation(modid, "australian outback");
+        ResourceLocation barelands = new ResourceLocation(modid, "barelands");
+        ResourceLocation bluff = new ResourceLocation(modid, "bluff");
+        ResourceLocation brushlands = new ResourceLocation(modid, "brushlands");
+        ResourceLocation brushlands_hills = new ResourceLocation(modid, "brushlands hills");
+        ResourceLocation bush = new ResourceLocation(modid, "bush");
+        ResourceLocation bushland_hills = new ResourceLocation(modid, "bushland hills");
+        ResourceLocation dense_brushlands = new ResourceLocation(modid, "dense brushlands");
+        ResourceLocation extreme_southern_alps = new ResourceLocation(modid, "extreme southern alps");
+        ResourceLocation forested_canyon_pillars = new ResourceLocation(modid, "forested canyon pillars");
+        ResourceLocation forested_canyon_plateau = new ResourceLocation(modid, "forested canyon plateau");
+        ResourceLocation forested_canyon_plateau_m = new ResourceLocation(modid, "forested canyon plateau m");
+        ResourceLocation ghost_forest = new ResourceLocation(modid, "ghost forest");
+        ResourceLocation grassy_fen = new ResourceLocation(modid, "grassy fen");
+        ResourceLocation grassy_marshland = new ResourceLocation(modid, "grassy marshland");
+        ResourceLocation high_inhabited_woodlands = new ResourceLocation(modid, "high inhabited woodlands");
+        ResourceLocation high_woodlands = new ResourceLocation(modid, "high woodlands");
+        ResourceLocation highlands = new ResourceLocation(modid, "highlands");
+        ResourceLocation hot_brushlands = new ResourceLocation(modid, "hot brushlands");
+        ResourceLocation low_spruce_woodlands = new ResourceLocation(modid, "low spruce woodlands");
+        ResourceLocation low_tall_woodlands = new ResourceLocation(modid, "low tall woodlands");
+        ResourceLocation low_woodlands = new ResourceLocation(modid, "low woodlands");
+        ResourceLocation lowlands = new ResourceLocation(modid, "lowlands");
+        ResourceLocation lowlands_chapparal = new ResourceLocation(modid, "lowlands chapparal");
+        ResourceLocation mire = new ResourceLocation(modid, "mire");
+        ResourceLocation moorlands = new ResourceLocation(modid, "moorlands");
+        ResourceLocation northern_alps = new ResourceLocation(modid, "northern alps");
+        ResourceLocation northern_snow_alps = new ResourceLocation(modid, "northern snow alps");
+        ResourceLocation northern_snow_subalpine_alps = new ResourceLocation(modid, "northern snow subalpine alps");
+        ResourceLocation northern_subalpine_alps = new ResourceLocation(modid, "northern subalpine alps");
+        ResourceLocation orchid_fields = new ResourceLocation(modid, "orchid fields");
+        ResourceLocation red_sand_dunes = new ResourceLocation(modid, "red sand dunes");
+        ResourceLocation sand_dunes = new ResourceLocation(modid, "sand dunes");
+        ResourceLocation sand_dunes_m = new ResourceLocation(modid, "sand dunes m");
+        ResourceLocation sand_dunes_oasis = new ResourceLocation(modid, "sand dunes oasis");
+        ResourceLocation snow_rocks = new ResourceLocation(modid, "snow rocks");
+        ResourceLocation snow_rocks_mountains = new ResourceLocation(modid, "snow rocks mountains");
+        ResourceLocation snow_rocks_plateau = new ResourceLocation(modid, "snow rocks plateau");
+        ResourceLocation southern_alps = new ResourceLocation(modid, "southern alps");
+        ResourceLocation southern_alps_subalpine = new ResourceLocation(modid, "southern alps subalpine");
+        ResourceLocation stony_reef = new ResourceLocation(modid, "stony reef");
+        ResourceLocation tropical_jungle = new ResourceLocation(modid, "tropical jungle");
+        ResourceLocation wasteland_flats = new ResourceLocation(modid, "wasteland flats");
+        ResourceLocation wasteland_flats_oasis = new ResourceLocation(modid, "wasteland flats oasis");
+        ResourceLocation wasteland_flats_slopes = new ResourceLocation(modid, "wasteland flats slopes");
+        ResourceLocation wasteland_flats_trees = new ResourceLocation(modid, "wasteland flats trees");
+        ResourceLocation white_oaks = new ResourceLocation(modid, "white oaks");
+        ResourceLocation white_oaks_hills = new ResourceLocation(modid, "white oaks hills");
+        ResourceLocation white_woods = new ResourceLocation(modid, "white woods");
+        ResourceLocation white_woods_hills = new ResourceLocation(modid, "white woods hills");
+        ResourceLocation woodlands_hills = new ResourceLocation(modid, "woodlands hills");
+
+        if ((biome = Biome.REGISTRY.getObject(archipelago)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEArchipelago(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(australian_outback)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEAustralianOutback(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(barelands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBarelands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bluff)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBluff(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(brushlands_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBrushlandsHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(brushlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBrushlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bush)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBush(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(bushland_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBushlandHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(dense_brushlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEDenseBrushlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(extreme_southern_alps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEExtremeSouthernAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forested_canyon_pillars)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEForestedCanyonPillars(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forested_canyon_plateau_m)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEForestedCanyonPlateauM(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forested_canyon_plateau)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEForestedCanyonPlateau(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(ghost_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEGhostForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(grassy_fen)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEGrassyFen(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(grassy_marshland)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEGrassyMarshland(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(high_inhabited_woodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHighInhabitedWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(high_woodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHighWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(highlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHighlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(hot_brushlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHotBrushlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(low_spruce_woodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowSpruceWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(low_tall_woodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowTallWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(low_woodlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowWoodlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(lowlands_chapparal)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowlandsChapparal(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(lowlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(mire)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEMire(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(moorlands)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEMoorlands(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(northern_alps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(northern_snow_alps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernSnowAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(northern_snow_subalpine_alps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernSnowSubalpineAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(northern_subalpine_alps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernSubalpineAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(orchid_fields)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEOrchidFields(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(red_sand_dunes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOERedSandDunes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(sand_dunes_m)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESandDunesM(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(sand_dunes_oasis)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESandDunesOasis(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(sand_dunes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESandDunes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snow_rocks_mountains)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESnowRocksMountains(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snow_rocks_plateau)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESnowRocksPlateau(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snow_rocks)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESnowRocks(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(southern_alps_subalpine)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESouthernAlpsSubalpine(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(southern_alps)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESouthernAlps(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(stony_reef)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEStonyReef(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(tropical_jungle)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOETropicalJungle(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland_flats_oasis)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlatsOasis(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland_flats_slopes)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlatsSlopes(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland_flats_trees)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlatsTrees(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(wasteland_flats)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlats(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(white_oaks_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteOaksHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(white_oaks)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteOaks(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(white_woods_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteWoodsHills(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(white_woods)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteWoods(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(woodlands_hills)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWoodlandsHills(biome));
         }
     }
 

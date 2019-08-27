@@ -79,7 +79,6 @@ public final class RTGAPI {
         if (rtgBiome != null) {
             return rtgBiome;
         }
-        Logger.debug("A realistic version of {} not found, using patch biome: {}", biome.getRegistryName(), patchBiome.baseBiomeResLoc());
         return patchBiome;
     }
 
@@ -88,7 +87,6 @@ public final class RTGAPI {
         if (rtgBiome != null) {
             return rtgBiome;
         }
-        Logger.debug("A realistic version of biome with ID {} not found, using patch biome: {}", biomeId, patchBiome.baseBiomeResLoc());
         return patchBiome;
     }
 

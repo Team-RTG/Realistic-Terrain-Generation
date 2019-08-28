@@ -12,6 +12,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 
 import net.minecraftforge.common.config.ConfigElement;
@@ -25,11 +26,11 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEve
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import rtg.api.RTGAPI;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.Logger;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.deco.DecoTree;
 
 @SuppressWarnings("WeakerAccess")
@@ -286,10 +287,10 @@ public final class RTGConfig
     public static boolean     additionalBiomeInfo()    { return (Boolean)Setting.additionalBiomeInfo.getCurVal(); }
     public static Biome       patchBiome()             {
         final String cfgBiome = (String)Setting.patchBiome.getCurVal();
-        Biome biome;
-        if ((biome = WorldUtil.Biomes.getBiomeFromCfgString(cfgBiome)) == null) {
+        final Biome biome;
+        if ((biome = getBiomeFromCfgString(cfgBiome)) == null) {
             Logger.error("Erroneous patch biome set in config: {} (non-existant). Using default.", cfgBiome);
-            biome = Biomes.PLAINS;
+            return Biomes.PLAINS;
         }
         return biome;
     }
@@ -336,5 +337,16 @@ public final class RTGConfig
     @SubscribeEvent
     public static void onConfigChange(OnConfigChangedEvent event) {
         if (RTG.MOD_ID.equals(event.getModID())) { sync(); }
+    }
+
+    @Nullable
+    public static Biome getBiomeFromCfgString(final String cfgString) {
+        ResourceLocation rl = new ResourceLocation(cfgString);
+        return ForgeRegistries.BIOMES.containsKey(rl) ? ForgeRegistries.BIOMES.getValue(rl) : null;
+    }
+
+    public static Biome getBiomeFromCfgString(final String cfgString, final Biome fallback) {
+        Biome biome = getBiomeFromCfgString(cfgString);
+        return biome != null ? biome : fallback;
     }
 }

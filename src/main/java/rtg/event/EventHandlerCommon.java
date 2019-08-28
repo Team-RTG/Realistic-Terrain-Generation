@@ -17,7 +17,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
-import net.minecraftforge.event.terraingen.WorldTypeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,7 +26,6 @@ import rtg.api.RTGAPI;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -43,17 +41,7 @@ public final class EventHandlerCommon
         MinecraftForge.TERRAIN_GEN_BUS.register(EventHandlerCommon.class);
     }
 
-
-// TERRAIN_GEN_BUS
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onInitBiomeGens(WorldTypeEvent.InitBiomeGens event) {
-        // Remove the river GenLayer if we are in an RTG world.
-        if (RTGAPI.checkWorldType(event.getWorldType())) {
-            event.setNewBiomeGens(WorldUtil.Biomes.removeRivers(event.getNewBiomeGens()));
-        }
-    }
-
+    // TERRAIN_GEN_BUS
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onDecorateBiome(final DecorateBiomeEvent.Decorate event) {
 
@@ -88,6 +76,7 @@ public final class EventHandlerCommon
         }
     }
 
+    // TERRAIN_GEN_BUS
     @SuppressWarnings("deprecation")
     @SubscribeEvent
     public static void saplingGrowTreeRTG(SaplingGrowTreeEvent event) {

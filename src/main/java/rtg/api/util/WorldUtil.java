@@ -1,69 +1,14 @@
 package rtg.api.util;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.BlockSnow;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.layer.GenLayer;
-import net.minecraft.world.gen.layer.GenLayerRiverMix;
-import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
-
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import rtg.world.gen.genlayer.GenLayerNoRivers;
 
 
 @UtilityClass
 public final class WorldUtil {
 
     private WorldUtil() {
-    }
-
-    @UtilityClass
-    public static final class Biomes {
-
-        private Biomes() {
-        }
-
-        @Nullable
-        public static Biome getBiomeFromCfgString(final String cfgString) {
-            ResourceLocation rl = new ResourceLocation(cfgString);
-            if (Biome.REGISTRY.containsKey(rl)) {
-                return Biome.REGISTRY.getObject(rl);
-            }
-            return null;
-        }
-
-        public static Biome getBiomeFromCfgString(final String cfgString, final Biome fallback) {
-            Biome biome = getBiomeFromCfgString(cfgString);
-            return biome != null ? biome : fallback;
-        }
-
-        public static GenLayer[] removeRivers(GenLayer[] original) {
-            try {
-                GenLayer biomePattern = ObfuscationReflectionHelper.getPrivateValue(GenLayerRiverMix.class, (GenLayerRiverMix) original[0], "field_75910_b");
-                GenLayer noRivers = new GenLayerNoRivers(100L, biomePattern);
-                GenLayerVoronoiZoom vzoon = new GenLayerVoronoiZoom(10L, noRivers);
-                return new GenLayer[]{noRivers, vzoon, noRivers};
-            }
-            catch (Exception ex) {
-                Logger.error("RiverRemover failed, returning original GenLayers. -> {}", ex.getMessage());
-                return original;
-            }
-        }
-
-        public static String getBiomeName(Biome b) {
-            String biomeName = "";
-            try {
-                biomeName = ObfuscationReflectionHelper.getPrivateValue(Biome.class, b, "field_76791_y");
-            }
-            catch (Exception e) {
-                Logger.error(e.getMessage());
-            }
-            return biomeName;
-        }
     }
 
     @UtilityClass

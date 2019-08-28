@@ -199,10 +199,10 @@ public final class ModCompat {
 
                 supportedBiomes.forEach(b -> supported[0] +=
                     System.lineSeparator() + "|| " + String.format(ID_FORMAT, Biome.getIdForBiome(b))
-                    + " | " + String.format(BIOME_NAME_FORMAT, WorldUtil.Biomes.getBiomeName(b))
+                    + " | " + String.format(BIOME_NAME_FORMAT, b.biomeName)
                     + " | " + String.format(BIOME_CLASS_FORMAT, b.getBiomeClass().getSimpleName())
                     + " | " + String.format(BIOME_RESLOC_FORMAT, b.getRegistryName())
-                    + " | " + String.format(BEACH_NAME_FORMAT, WorldUtil.Biomes.getBiomeName(RTGAPI.getRTGBiome(b).getBeachBiome().baseBiome()))
+                    + " | " + String.format(BEACH_NAME_FORMAT, RTGAPI.getRTGBiome(b).getBeachBiome().baseBiome().biomeName)
                     + " ||");
 
                 supported[0] += System.lineSeparator() + ".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))

@@ -6,7 +6,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -59,7 +58,7 @@ public class RealisticBiomeTCMagicalForest extends RealisticBiomeBase
                 if (bs == Blocks.AIR.getDefaultState()) { depth = -1; } else if (bs == Blocks.STONE.getDefaultState()) {
 
                     depth++;
-                    if (Terrain.calcCliff(x, z, noise) > 1.4f) {
+                    if (TerrainBase.calcCliff(x, z, noise) > 1.4f) {
                         if (depth > -1 && depth < 2) {
                             if (rtgWorld.rand().nextInt(3) == 0) {
                                 primer.setBlockState(x, y, z, this.hcCobble());

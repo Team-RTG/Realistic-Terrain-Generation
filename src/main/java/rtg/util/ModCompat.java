@@ -18,7 +18,6 @@ import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
-import rtg.api.util.WorldUtil;
 
 @UtilityClass
 public final class ModCompat {

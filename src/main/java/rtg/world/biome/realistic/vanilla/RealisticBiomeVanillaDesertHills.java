@@ -7,7 +7,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.collection.DecoCollectionDesert;
@@ -113,7 +112,7 @@ public class RealisticBiomeVanillaDesertHills extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

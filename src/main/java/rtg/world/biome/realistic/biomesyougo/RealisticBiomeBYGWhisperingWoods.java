@@ -8,15 +8,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoPumpkin;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -88,7 +80,7 @@ public class RealisticBiomeBYGWhisperingWoods extends RealisticBiomeBYGBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {

@@ -1,7 +1,5 @@
 package rtg.api.util.noise;
 
-import rtg.api.util.MathUtils;
-
 
 /**
  * Generates OpenSimplex Noise
@@ -342,7 +340,7 @@ public class OpenSimplexNoise implements SimplexNoise {
             double dx = xi + lattice.getDx();
             double dy = yi + lattice.getDy();
 
-            double attn = 2.0 - MathUtils.pow2(dx) - MathUtils.pow2(dy);
+            double attn = 2.0 - Math.pow(dx, 2) - Math.pow(dy, 2);
             if (attn <= 0) {
                 continue;
             }
@@ -353,7 +351,7 @@ public class OpenSimplexNoise implements SimplexNoise {
 
             double extrp = GRADIENTS_2D[gi] * dx + GRADIENTS_2D[gi + 1] * dy;
 
-            value += MathUtils.pow2(MathUtils.pow2(attn)) * extrp;
+            value += Math.pow(attn, 4) * extrp;
         }
         return value;
     }
@@ -410,7 +408,7 @@ public class OpenSimplexNoise implements SimplexNoise {
 
                 double valuePart = GRADIENTS_3D[i] * dx + GRADIENTS_3D[i + 1] * dy + GRADIENTS_3D[i + 2] * dz;
 
-                value += MathUtils.pow2(MathUtils.pow2(attn)) * valuePart;
+                value += Math.pow(attn, 4) * valuePart;
             }
             c = c.getNext();
         }
@@ -450,7 +448,7 @@ public class OpenSimplexNoise implements SimplexNoise {
 
             double dx = xi + lattice.getDx();
             double dy = yi + lattice.getDy();
-            double attn = 2.0 - MathUtils.pow2(dx) - MathUtils.pow2(dy);
+            double attn = 2.0 - Math.pow(dx, 2) - Math.pow(dy, 2);
             if (attn <= 0) {
                 continue;
             }

@@ -8,14 +8,11 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
-import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
-import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 
 import java.util.Random;
 
@@ -94,7 +91,7 @@ public class RealisticBiomeBYGSkyrisHighlands extends RealisticBiomeBYGBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {

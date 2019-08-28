@@ -16,7 +16,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
@@ -85,7 +84,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         rtgWorld.simplexInstance(1).multiEval2D(x / 40.0d, y / 40.0d, jitterData);
         pX += jitterData.getDeltaX() * 35d;
         pY += jitterData.getDeltaY() * 35d;
-        return Terrain.bayesianAdjustment((float) rtgWorld.cellularInstance(0).eval2D(pX / 150.0, pY / 150.0).interiorValue(), 0.25f);
+        return TerrainBase.bayesianAdjustment((float) rtgWorld.cellularInstance(0).eval2D(pX / 150.0, pY / 150.0).interiorValue(), 0.25f);
     }
 
     @Override
@@ -242,7 +241,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

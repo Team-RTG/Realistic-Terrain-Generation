@@ -1,6 +1,5 @@
 package rtg.world.biome.realistic.biomesyougo;
 
-import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
@@ -9,17 +8,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 import java.util.Random;
-
-import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
 public class RealisticBiomeBYGRedwoodTropics extends RealisticBiomeBYGBase {
@@ -108,7 +102,7 @@ public class RealisticBiomeBYGRedwoodTropics extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
 
             Block b;

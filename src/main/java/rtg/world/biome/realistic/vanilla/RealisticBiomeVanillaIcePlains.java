@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -95,7 +94,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
@@ -195,7 +194,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
                         primer.setBlockState(x, k, z, topBlock);
 
                         if (depth == 0 && k > 61 && k < 254) {
-                            Terrain.calcSnowHeight(x, k, z, primer, noise);
+                            TerrainBase.calcSnowHeight(x, k, z, primer, noise);
                         }
                     }
                 }

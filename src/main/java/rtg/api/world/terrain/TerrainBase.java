@@ -1,7 +1,10 @@
 package rtg.api.world.terrain;
 
+import net.minecraft.block.BlockSnow;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import rtg.api.util.WorldUtil.Terrain;
+import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
@@ -133,7 +136,7 @@ public abstract class TerrainBase {
         }
         // experimental adjustment to make riverbanks more varied
         float adjustment = (height - 62.45f) / 10f + .6f;
-        river = Terrain.bayesianAdjustment(river, adjustment);
+        river = bayesianAdjustment(river, adjustment);
         return 62.45f + (height - 62.45f) * river;
     }
 
@@ -607,11 +610,54 @@ public abstract class TerrainBase {
         double riverFactor = rtgWorld.cellularInstance(0).eval2D(pX, pZ).interiorValue();
 
         // the output is a curved function of relative distance from the center, so adjust to make it flatter
-        riverFactor = Terrain.bayesianAdjustment((float) riverFactor, 0.5f);
+        riverFactor = bayesianAdjustment((float) riverFactor, 0.5f);
         if (riverFactor > rtgWorld.getRiverValleyLevel()) {
             return 0;
         }// no river effect
         return (float) (riverFactor / rtgWorld.getRiverValleyLevel() - 1d);
+    }
+
+    public static float calcCliff(int x, int z, float[] noise) {
+        float cliff = 0f;
+        if (x > 0) {
+            cliff = Math.max(cliff, Math.abs(noise[x * 16 + z] - noise[(x - 1) * 16 + z]));
+        }
+        if (z > 0) {
+            cliff = Math.max(cliff, Math.abs(noise[x * 16 + z] - noise[x * 16 + z - 1]));
+        }
+        if (x < 15) {
+            cliff = Math.max(cliff, Math.abs(noise[x * 16 + z] - noise[(x + 1) * 16 + z]));
+        }
+        if (z < 15) {
+            cliff = Math.max(cliff, Math.abs(noise[x * 16 + z] - noise[x * 16 + z + 1]));
+        }
+        return cliff;
+    }
+
+    public static void calcSnowHeight(int x, int y, int z, ChunkPrimer primer, float[] noise) {
+        if (y < 254) {
+            byte h = (byte) ((noise[x * 16 + z] - ((int) noise[x * 16 + z])) * 8);
+            if (h > 7) {
+                primer.setBlockState(x, y + 2, z, Blocks.SNOW_LAYER.getDefaultState());
+                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, 7));
+            }
+            else if (h > 0) {
+                primer.setBlockState(x, y + 1, z, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, (int) h));
+            }
+        }
+    }
+
+    public static float bayesianAdjustment(float probability, float multiplier) {
+        // returns the original probability adjusted for the multiplier to the confidence ratio
+        // useful for computationally cheap remappings within [0,1]
+        if (probability >= 1) {
+            return probability;
+        }
+        if (probability <= 0) {
+            return probability;
+        }
+        float newConfidence = probability * multiplier / (1f - probability);
+        return newConfidence / (1f + newConfidence);
     }
 
     public abstract float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river);

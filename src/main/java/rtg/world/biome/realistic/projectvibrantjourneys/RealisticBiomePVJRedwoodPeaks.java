@@ -8,7 +8,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -128,7 +127,7 @@ public class RealisticBiomePVJRedwoodPeaks extends RealisticBiomePVJBase {
             // ground effect is increased by the multiplier
             float groundEffectLevel = groundEffect.added(rtgWorld, (float) x, (float) y);
             float ridging = multiplier.added(rtgWorld, (float) x, (float) y);
-            ridging = WorldUtil.Terrain.bayesianAdjustment(ridging, 2);
+            ridging = TerrainBase.bayesianAdjustment(ridging, 2);
             float result = base + ridging * (groundEffectLevel + heightIncrease.added(rtgWorld, (float) x, (float) y))
                     + groundEffectLevel;
             return TerrainBase.mountainCap(result);
@@ -191,7 +190,7 @@ public class RealisticBiomePVJRedwoodPeaks extends RealisticBiomePVJBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

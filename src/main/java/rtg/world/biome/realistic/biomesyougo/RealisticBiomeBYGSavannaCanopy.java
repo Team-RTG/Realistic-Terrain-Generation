@@ -1,41 +1,21 @@
 package rtg.world.biome.realistic.biomesyougo;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenBigMushroom;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoCobwebs;
-import rtg.api.world.deco.DecoDeadBush;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
-import rtg.api.world.deco.DecoWorldGen;
-import rtg.api.world.deco.helper.DecoHelperRandomSplit;
-import rtg.api.world.deco.helper.DecoHelperThisOrThat;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 
 import java.util.Random;
-
-import static rtg.api.RTGAPI.getShadowStoneBlock;
 
 
 public class RealisticBiomeBYGSavannaCanopy extends RealisticBiomeBYGBase {
@@ -121,7 +101,7 @@ public class RealisticBiomeBYGSavannaCanopy extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

@@ -103,6 +103,6 @@ public class CircularSearchCreator {
     }
 
     private float distanceFromCenter(int x, int y) {
-        return (float) Math.sqrt(MathUtils.pow2(x - this.center) + MathUtils.pow2(y - this.center));
+        return (float) Math.sqrt(Math.pow((x - this.center), 2) + Math.pow((y - this.center), 2));
     }
 }

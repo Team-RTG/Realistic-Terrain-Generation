@@ -2,9 +2,9 @@ package rtg.api.world.terrain.heighteffect;
 
 import java.awt.geom.Point2D;
 
-import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.VoronoiResult;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.terrain.TerrainBase;
 
 
 /**
@@ -32,8 +32,8 @@ public class VoronoiPlateauEffect extends HeightEffect {
         float adjustment = (float) rtgWorld.cellularInstance(2).eval2D(adjustAt.x, adjustAt.y).interiorValue() * multiplier + noZeros;
         float reAdjustment = (float) rtgWorld.cellularInstance(3).eval2D(adjustAt.x, adjustAt.y).interiorValue() * multiplier + noZeros;
         // 0 to 1 which is currently undesirable so increase to average closer to 1
-        adjustment = Terrain.bayesianAdjustment(adjustment, reAdjustment);
-        raise = Terrain.bayesianAdjustment(raise, adjustment);
+        adjustment = TerrainBase.bayesianAdjustment(adjustment, reAdjustment);
+        raise = TerrainBase.bayesianAdjustment(raise, adjustment);
         return raise;
     }
 

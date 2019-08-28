@@ -4,25 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.PlateauUtil;
-import rtg.api.util.WorldUtil;
-import rtg.api.util.noise.ISimplexData2D;
-import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoWorldGen;
-import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
-import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.gen.feature.WorldGenPond;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaBryce;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -121,7 +113,7 @@ public class RealisticBiomeBYGDeadSea extends RealisticBiomeBYGBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
 

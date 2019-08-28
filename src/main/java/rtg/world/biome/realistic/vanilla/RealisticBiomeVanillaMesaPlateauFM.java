@@ -12,7 +12,6 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.PlateauUtil;
-import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoTree;
@@ -119,7 +118,7 @@ public class RealisticBiomeVanillaMesaPlateauFM extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
 

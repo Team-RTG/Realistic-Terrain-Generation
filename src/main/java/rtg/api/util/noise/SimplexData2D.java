@@ -1,7 +1,5 @@
 package rtg.api.util.noise;
 
-import rtg.api.util.MathUtils;
-
 
 public abstract class SimplexData2D implements ISimplexData2D {
 
@@ -77,8 +75,8 @@ public abstract class SimplexData2D implements ISimplexData2D {
         @Override
         public DataRequest request() {
             return (double attn, double extrapolation, double gx, double gy, int gi_sph2, double dx, double dy) -> {
-                double attnSq = MathUtils.pow2(attn);
-                double extrap = MathUtils.pow2(attnSq) * extrapolation;
+                double attnSq = Math.pow(attn, 2);
+                double extrap = Math.pow(attnSq, 2) * extrapolation;
                 this.addToDeltaX(extrap * OpenSimplexNoise.GRADIENTS_SPH2[gi_sph2]);
                 this.addToDeltaY(extrap * OpenSimplexNoise.GRADIENTS_SPH2[gi_sph2 + 1]);
             };
@@ -94,7 +92,7 @@ public abstract class SimplexData2D implements ISimplexData2D {
         @Override
         public DataRequest request() {
             return (double attn, double extrapolation, double gx, double gy, int gi_sph2, double dx, double dy) -> {
-                double attnSq = MathUtils.pow2(attn);
+                double attnSq = Math.pow(attn, 2);
                 this.addToDeltaX((gx * attn - 8 * dx * extrapolation) * attnSq * attn);
                 this.addToDeltaY((gy * attn - 8 * dy * extrapolation) * attnSq * attn);
             };

@@ -8,18 +8,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.util.WorldUtil;
-import rtg.api.util.noise.ISimplexData2D;
-import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoPumpkin;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -123,7 +113,7 @@ public class RealisticBiomeBYGBayou extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
             boolean m = false;
 

@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.Random;
 
 import rtg.api.util.LimitedArrayCacheMap;
-import rtg.api.util.MathUtils;
 
 
 /**
@@ -82,7 +81,7 @@ public class SpacedCellularNoise implements CellularNoise {
         if (yDist > 0.5) {
             yDist = 1.0 - yDist;
         }
-        return MathUtils.pow2(xDist) + MathUtils.pow2(yDist);
+        return Math.pow(xDist, 2) + Math.pow(yDist, 2);
     }
 
     @Override

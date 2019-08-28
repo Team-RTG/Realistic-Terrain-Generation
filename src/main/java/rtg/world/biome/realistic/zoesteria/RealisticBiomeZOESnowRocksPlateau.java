@@ -1,27 +1,14 @@
 package rtg.world.biome.realistic.zoesteria;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
-import rtg.api.util.BlockUtil;
-import rtg.api.util.PlateauUtil;
-import rtg.api.util.WorldUtil;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoCactus;
-import rtg.api.world.deco.DecoDoubleGrass;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
-import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTGAcaciaBucheri;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaSavannaPlateau;
 
 import java.util.Random;
 
@@ -120,7 +107,7 @@ public class RealisticBiomeZOESnowRocksPlateau extends RealisticBiomeZOEBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = WorldUtil.Terrain.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise);
             boolean cliff = c > 1.3f;
             Block b;
 

@@ -269,6 +269,13 @@ public final class ModCompat {
             Arrays.stream(Mods.values()).forEach(mod -> mod.loaded = Loader.isModLoaded(mod.name()));
         }
 
+        public static Mods get(final String modId) {
+            return Arrays.stream(values())
+                .filter(mod -> mod.name().equals(modId))
+                .findFirst()
+                .orElseThrow(() -> new NullPointerException("Mod does not exist in Mods enum."));
+        }
+
         public boolean isLoaded() {
             return this.loaded;
         }

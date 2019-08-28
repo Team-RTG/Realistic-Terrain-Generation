@@ -19,6 +19,7 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.surface.SurfaceRiverOasis;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.util.ModCompat.Mods;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -310,7 +311,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     private File getConfigFile() {
         return RTGAPI.getConfigPath()
             .resolve(BIOME_CONFIG_SUBDIR)
-            .resolve(baseBiomeResLoc().getNamespace())
+            .resolve(Mods.get(baseBiomeResLoc().getNamespace()).getPrettyName())
             .resolve(baseBiomeResLoc().getPath() + ".cfg")
             .toFile();
     }

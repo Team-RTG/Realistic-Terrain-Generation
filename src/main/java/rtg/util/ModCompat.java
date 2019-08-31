@@ -239,6 +239,7 @@ public final class ModCompat {
         gravityfalls,
         minecraft("vanilla"),
         mistbiomes,
+        nt("novamterram"),
         odioitamod,
         plants2,
         pvj,

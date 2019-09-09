@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -18,18 +19,22 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBaseGlacier extends RealisticBiomeNTBase {
 
     public RealisticBiomeNTBaseGlacier(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBaseGlacier(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseGlacier(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseGlacier(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
@@ -48,9 +53,9 @@ public abstract class RealisticBiomeNTBaseGlacier extends RealisticBiomeNTBase {
     public SurfaceBase initSurface() {
 
         return new SurfaceBOPGlacier(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock,
-                baseBiome().topBlock, baseBiome().fillerBlock,
-                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
-                60f, -0.14f, 14f, 0.25f
+            baseBiome().topBlock, baseBiome().fillerBlock,
+            Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
+            60f, -0.14f, 14f, 0.25f
         );
     }
 

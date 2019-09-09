@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -21,23 +22,28 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBaseMountain extends RealisticBiomeNTBase {
 
     public RealisticBiomeNTBaseMountain(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBaseMountain(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseMountain(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseMountain(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
     @Override
     public void initConfig() {
+
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
     }
@@ -52,13 +58,13 @@ public abstract class RealisticBiomeNTBaseMountain extends RealisticBiomeNTBase 
     public SurfaceBase initSurface() {
 
         return new SurfaceBOPMountainPeaks(getConfig(), baseBiome().topBlock, //Block top
-                baseBiome().fillerBlock, //Block filler,
-                getMixBlock1(), //IBlockState mixTop,
-                baseBiome().fillerBlock, //IBlockState mixFill,
-                80f, //float mixWidth,
-                -0.15f, //float mixHeight,
-                10f, //float smallWidth,
-                0.5f //float smallStrength
+            baseBiome().fillerBlock, //Block filler,
+            getMixBlock1(), //IBlockState mixTop,
+            baseBiome().fillerBlock, //IBlockState mixFill,
+            80f, //float mixWidth,
+            -0.15f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
         );
     }
 
@@ -159,7 +165,7 @@ public abstract class RealisticBiomeNTBaseMountain extends RealisticBiomeNTBase 
                     else {
                         if (depth == 0 && k > 61) {
                             if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
-                                    * floSmallStrength > floMixHeight) {
+                                                                                        * floSmallStrength > floMixHeight) {
                                 primer.setBlockState(x, k, z, blockMixTop);
 
                                 mix = true;

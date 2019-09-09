@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -18,18 +19,22 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBaseCliffs extends RealisticBiomeNTBase {
 
     public RealisticBiomeNTBaseCliffs(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBaseCliffs(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseCliffs(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseCliffs(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
@@ -58,13 +63,13 @@ public abstract class RealisticBiomeNTBaseCliffs extends RealisticBiomeNTBase {
         private float lakeWidth;
         private float terrainHeight;
 
-	/*
-     * width = 230f
-	 * strength = 120f
-	 * lake = 50f;
-	 *
-	 * 230f, 120f, 50f
-	 */
+        /*
+         * width = 230f
+         * strength = 120f
+         * lake = 50f;
+         *
+         * 230f, 120f, 50f
+         */
 
         public TerrainBOPOvergrownCliffs(float mountainWidth, float mountainStrength, float depthLake) {
 

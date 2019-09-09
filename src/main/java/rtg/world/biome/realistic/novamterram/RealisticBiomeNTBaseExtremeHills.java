@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -24,23 +25,28 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBaseExtremeHills extends RealisticBiomeNTBase {
 
     public RealisticBiomeNTBaseExtremeHills(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBaseExtremeHills(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseExtremeHills(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseExtremeHills(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
     @Override
     public void initConfig() {
+
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
@@ -49,6 +55,7 @@ public abstract class RealisticBiomeNTBaseExtremeHills extends RealisticBiomeNTB
 
     @Override
     public TerrainBase initTerrain() {
+
         return new RidgedExtremeHills(150f, 67f, 200f);
         //return new TerrainVanillaExtremeHills(10f, 120f, 10f, 200f);
     }
@@ -57,7 +64,7 @@ public abstract class RealisticBiomeNTBaseExtremeHills extends RealisticBiomeNTB
     public SurfaceBase initSurface() {
 
         return new SurfaceVanillaExtremeHills(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock,
-                baseBiome().topBlock, baseBiome().fillerBlock, 60f, -0.14f, 14f, 0.25f);
+            baseBiome().topBlock, baseBiome().fillerBlock, 60f, -0.14f, 14f, 0.25f);
     }
 
     public static class RidgedExtremeHills extends TerrainBase {
@@ -71,6 +78,7 @@ public abstract class RealisticBiomeNTBaseExtremeHills extends RealisticBiomeNTB
         private float valleyFloor = -0.2f;
 
         public RidgedExtremeHills(float landHeight, float baseHeight, float hillWidth) {
+
             height = landHeight;
             base = baseHeight;
             width = hillWidth;
@@ -135,11 +143,11 @@ public abstract class RealisticBiomeNTBaseExtremeHills extends RealisticBiomeNTB
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
             // ground effect is increased by the multiplier
-            float groundEffectLevel = groundEffect.added(rtgWorld, (float) x, (float) y);
-            float ridging = multiplier.added(rtgWorld, (float) x, (float) y);
+            float groundEffectLevel = groundEffect.added(rtgWorld, (float)x, (float)y);
+            float ridging = multiplier.added(rtgWorld, (float)x, (float)y);
             ridging = TerrainBase.bayesianAdjustment(ridging, 2);
-            float result = base + ridging * (groundEffectLevel + heightIncrease.added(rtgWorld, (float) x, (float) y))
-                    + groundEffectLevel;
+            float result = base + ridging * (groundEffectLevel + heightIncrease.added(rtgWorld, (float)x, (float)y))
+                               + groundEffectLevel;
             return TerrainBase.mountainCap(result);
         }
     }
@@ -160,6 +168,7 @@ public abstract class RealisticBiomeNTBaseExtremeHills extends RealisticBiomeNTB
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
             return terrainHighland(x, y, rtgWorld, river, start, width, height, base);
         }
     }

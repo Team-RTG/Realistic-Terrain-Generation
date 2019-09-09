@@ -6,11 +6,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.RTGAPI;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.DecoBase;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.util.ModCompat;
@@ -22,32 +26,40 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBase extends RealisticBiomeBase {
 
     public RealisticBiomeNTBase(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBase(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBase(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBase(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
     @Override
     public void initConfig() {
+
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_3_BLOCK).set("");
     }
 
     @Override
     public SurfaceBase initSurface() {
+
         return new SurfaceNTGeneric(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock,
-                0f, 1.5f, 60f, 65f, 1.5f,
-                getMixBlock1(), 0.6f, getMixBlock2(), -0.4f);
+            0f, 1.5f, 60f, 65f, 1.5f,
+            getMixBlock1(), 0.6f, getMixBlock2(), -0.2f, getMixBlock3(), -0.4f
+        );
     }
 
     @Override
@@ -56,10 +68,17 @@ public abstract class RealisticBiomeNTBase extends RealisticBiomeBase {
     }
 
     protected IBlockState getMixBlock1() {
+
         return baseBiome().topBlock;
     }
 
     protected IBlockState getMixBlock2() {
+
+        return baseBiome().topBlock;
+    }
+
+    protected IBlockState getMixBlock3() {
+
         return baseBiome().topBlock;
     }
 
@@ -76,10 +95,12 @@ public abstract class RealisticBiomeNTBase extends RealisticBiomeBase {
         private float mixHeight;
         private IBlockState mix2Block;
         private float mix2Height;
+        private IBlockState mix3Block;
+        private float mix3Height;
 
         public SurfaceNTGeneric(BiomeConfig config, IBlockState top, IBlockState fill,
-                    float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff,
-                    IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+                                float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff,
+                                IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height, IBlockState mix3, float mix3Height) {
 
             super(config, top, fill);
             min = minCliff;
@@ -93,6 +114,8 @@ public abstract class RealisticBiomeNTBase extends RealisticBiomeBase {
             this.mixHeight = mixHeight;
             this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
             this.mix2Height = mix2Height;
+            this.mix3Block = this.getConfigBlock(config.SURFACE_MIX_3_BLOCK.get(), mix3);
+            this.mix3Height = mix3Height;
         }
 
         @Override
@@ -147,7 +170,11 @@ public abstract class RealisticBiomeNTBase extends RealisticBiomeBase {
                         else {
                             float mixNoise = simplex.noise2f(i / 12f, j / 12f);
 
-                            if (mixNoise < mix2Height) {
+                            if (mixNoise < mix3Height) {
+                                primer.setBlockState(x, k, z, mix3Block);
+                                m = true;
+                            }
+                            else if (mixNoise < mix2Height) {
                                 primer.setBlockState(x, k, z, mix2Block);
                                 m = true;
                             }
@@ -176,19 +203,9 @@ public abstract class RealisticBiomeNTBase extends RealisticBiomeBase {
         }
     }
 
-    /*
-black_beach
-brown_beach
-iron_beach
-olivine_beach
-orange_beach
-pink_beach
-purple_beach
-white_beach
-     */
-
 
     public static Biome getNTBiome(String biomeName, Biome fallbackBiome) {
+
         Biome biome;
         String modid = ModCompat.Mods.nt.name();
         ResourceLocation resLoc = new ResourceLocation(modid, biomeName);
@@ -198,5 +215,25 @@ white_beach
         else {
             return fallbackBiome;
         }
+    }
+
+    public void fallenTrees(IBlockState[] fallenTreeLogs, int[] fallenTreeChances) {
+
+        if (fallenTreeLogs.length < 1 || (fallenTreeLogs.length != fallenTreeChances.length)) {
+            return;
+        }
+
+        DecoBase[] fallenTreeDecos = new DecoBase[fallenTreeLogs.length];
+
+        for (int i = 0; i < fallenTreeLogs.length; i++) {
+            fallenTreeDecos[i] = new DecoFallenTree()
+                                     .setLogBlock(fallenTreeLogs[i])
+                                     .setLogConditionChance(20)
+                                     .setMaxSize(4);
+        }
+
+        this.addDeco(new DecoHelperRandomSplit()
+                         .setDecos(fallenTreeDecos)
+                         .setChances(fallenTreeChances));
     }
 }

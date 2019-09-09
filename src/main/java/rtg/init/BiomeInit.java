@@ -1,7 +1,17 @@
 package rtg.init;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+
+import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
 import rtg.RTGConfig;
 import rtg.api.RTGAPI;
 import rtg.api.util.UtilityClass;
@@ -535,7 +545,7 @@ public final class BiomeInit {
         }
 
         if (Mods.nt.isLoaded()) {
-            init_novamterram();
+            //init_novamterram();
         }
 
         if (Mods.odioitamod.isLoaded()) {
@@ -1479,6 +1489,31 @@ public final class BiomeInit {
 
         String modid = Mods.nt.name();
         Biome biome;
+
+        /*
+        NT beaches generate as normal biomes in RTG worlds for some reason, so instead of just letting the biome patcher
+        replace them with Plains, let's remove them from the Biome Manager completely.
+         */
+
+        final List<Biome> ntbeaches = Stream.of(
+            new ResourceLocation(modid, "black_beach"),
+            new ResourceLocation(modid, "brown_beach"),
+            new ResourceLocation(modid, "iron_beach"),
+            new ResourceLocation(modid, "olivine_beach"),
+            new ResourceLocation(modid, "orange_beach"),
+            new ResourceLocation(modid, "pink_beach"),
+            new ResourceLocation(modid, "purple_beach"),
+            new ResourceLocation(modid, "white_beach")
+        )
+            .map(ForgeRegistries.BIOMES::getValue)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+
+        Arrays.stream(BiomeManager.BiomeType.values()).forEach(type ->
+            Objects.requireNonNull(BiomeManager.getBiomes(type)).stream()
+                .filter(biomeEntry -> ntbeaches.contains(biomeEntry.biome))
+                .forEach(biomeEntry -> BiomeManager.removeBiome(type, biomeEntry)));
+
         ResourceLocation aegean_archipelago = new ResourceLocation(modid, "aegean_archipelago");
         ResourceLocation alium_meadow = new ResourceLocation(modid, "alium_meadow");
         ResourceLocation alps = new ResourceLocation(modid, "alps");

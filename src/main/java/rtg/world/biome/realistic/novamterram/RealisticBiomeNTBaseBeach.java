@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.surface.SurfaceBase;
@@ -17,23 +18,28 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBaseBeach extends RealisticBiomeNTBase {
 
     public RealisticBiomeNTBaseBeach(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBaseBeach(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseBeach(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseBeach(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
     @Override
     public Biome preferredBeach() {
+
         return baseBiome();
     }
 
@@ -62,6 +68,7 @@ public abstract class RealisticBiomeNTBaseBeach extends RealisticBiomeNTBase {
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
             return terrainBeach(x, y, rtgWorld, river, 63f);
         }
     }

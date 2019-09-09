@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
@@ -21,23 +22,28 @@ import java.util.Random;
 public abstract class RealisticBiomeNTBaseMangrove extends RealisticBiomeNTBase {
 
     public RealisticBiomeNTBaseMangrove(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+
         super(baseBiome, riverType, beachType);
     }
 
     public RealisticBiomeNTBaseMangrove(@Nonnull final Biome baseBiome) {
+
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseMangrove(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
     public RealisticBiomeNTBaseMangrove(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+
         this(baseBiome, RiverType.NORMAL, beachType);
     }
 
     @Override
     public Biome preferredBeach() {
+
         return baseBiome();
     }
 
@@ -48,6 +54,7 @@ public abstract class RealisticBiomeNTBaseMangrove extends RealisticBiomeNTBase 
 
     @Override
     public double waterLakeMult() {
+
         return 4d;
     }
 
@@ -61,23 +68,25 @@ public abstract class RealisticBiomeNTBaseMangrove extends RealisticBiomeNTBase 
     public SurfaceBase initSurface() {
 
         return new RealisticBiomeBYGLushDesert.SurfaceBOPLushDesert(getConfig(), baseBiome().topBlock, //Block top
-                baseBiome().fillerBlock, //Block filler,
-                baseBiome().topBlock, //IBlockState mixTop,
-                baseBiome().fillerBlock, //IBlockState mixFill,
-                40f, //float mixWidth,
-                0.5f, //float mixHeight,
-                10f, //float smallWidth,
-                0.5f //float smallStrength
+            baseBiome().fillerBlock, //Block filler,
+            baseBiome().topBlock, //IBlockState mixTop,
+            baseBiome().fillerBlock, //IBlockState mixFill,
+            40f, //float mixWidth,
+            0.5f, //float mixHeight,
+            10f, //float smallWidth,
+            0.5f //float smallStrength
         );
     }
 
     public static class TerrainBOPMangrove extends TerrainBase {
 
         public TerrainBOPMangrove() {
+
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
             return terrainBeach(x, y, rtgWorld, river, 60f);
         }
     }
@@ -141,7 +150,7 @@ public abstract class RealisticBiomeNTBaseMangrove extends RealisticBiomeNTBase 
                     else {
                         if (depth == 0 && k > 61) {
                             if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
-                                    * floSmallStrength > floMixHeight) {
+                                                                                        * floSmallStrength > floMixHeight) {
                                 primer.setBlockState(x, k, z, blockMixTop);
 
                                 mix = true;

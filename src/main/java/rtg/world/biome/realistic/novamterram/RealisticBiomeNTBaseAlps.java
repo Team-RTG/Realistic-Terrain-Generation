@@ -15,25 +15,24 @@ import rtg.api.world.terrain.TerrainBase;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
+public abstract class RealisticBiomeNTBaseAlps extends RealisticBiomeNTBase {
 
-public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
-
-    public RealisticBiomeNTBaseHills(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
+    public RealisticBiomeNTBaseAlps(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType, @Nonnull final BeachType beachType) {
 
         super(baseBiome, riverType, beachType);
     }
 
-    public RealisticBiomeNTBaseHills(@Nonnull final Biome baseBiome) {
+    public RealisticBiomeNTBaseAlps(@Nonnull final Biome baseBiome) {
 
         this(baseBiome, RiverType.NORMAL, BeachType.NORMAL);
     }
 
-    public RealisticBiomeNTBaseHills(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
+    public RealisticBiomeNTBaseAlps(@Nonnull final Biome baseBiome, @Nonnull final RiverType riverType) {
 
         this(baseBiome, riverType, BeachType.NORMAL);
     }
 
-    public RealisticBiomeNTBaseHills(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
+    public RealisticBiomeNTBaseAlps(@Nonnull final Biome baseBiome, @Nonnull final BeachType beachType) {
 
         this(baseBiome, RiverType.NORMAL, beachType);
     }
@@ -41,76 +40,71 @@ public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
     @Override
     public void initConfig() {
 
+        this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
-        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaForestHills();
+        return new TerrainBOPAlps();
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForestHills(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f,
-            getMixBlock1(), 0.6f, getMixBlock2(), -0.4f);
+        return new SurfaceBOPAlps(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.45f);
     }
 
-    public static class TerrainVanillaForestHills extends TerrainBase {
+    public static class TerrainBOPAlps extends TerrainBase {
 
-        private float hillStrength = 30f;
+        // the BoP version has steep slopes and a flat area on top. The RTG version will mimic that.
+        private float start = 0f;// this puts a minimum on "ruggedness" on the top. We want to allow flats
+        private float height = 40f; // sets the variability range
+        private float width = 80f; // width of irregularity noise on top. We want low, for a lot of features.
 
-        public TerrainVanillaForestHills() {
+        public TerrainBOPAlps() {
 
-            this(72f, 30f);
-        }
-
-        public TerrainVanillaForestHills(float bh, float hs) {
-
-            base = bh;
-            hillStrength = hs;
+            base = 120f;
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld, river, 10f, 68f, hillStrength, base - 62f);
-
+            return terrainHighland(x, y, rtgWorld, river, start, width, height, base - 62f);
+            //return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
         }
     }
 
-    public static class SurfaceVanillaForestHills extends SurfaceBase {
+    public static class SurfaceBOPAlps extends SurfaceBase {
 
         private float min;
 
         private float sCliff = 1.5f;
         private float sHeight = 60f;
         private float sStrength = 65f;
+        private float iCliff = 0.3f;
+        private float iHeight = 100f;
+        private float iStrength = 50f;
         private float cCliff = 1.5f;
 
-        private IBlockState mixBlock;
-        private float mixHeight;
-        private IBlockState mix2Block;
-        private float mix2Height;
-
-        public SurfaceVanillaForestHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                         float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixHeight, IBlockState mix2, float mix2Height) {
+        public SurfaceBOPAlps(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
             super(config, top, fill);
             min = minCliff;
+        }
+
+        public SurfaceBOPAlps(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
+
+            this(config, top, fill, minCliff);
 
             sCliff = stoneCliff;
             sHeight = stoneHeight;
             sStrength = stoneStrength;
+            iCliff = snowCliff;
+            iHeight = snowHeight;
+            iStrength = snowStrength;
             cCliff = clayCliff;
-
-            this.mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
-            this.mixHeight = mixHeight;
-            this.mix2Block = this.getConfigBlock(config.SURFACE_MIX_2_BLOCK.get(), mix2);
-            this.mix2Height = mix2Height;
         }
 
         @Override
@@ -120,7 +114,6 @@ public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = TerrainBase.calcCliff(x, z, noise);
             int cliff = 0;
-            boolean m = false;
 
             Block b;
             for (int k = 255; k > -1; k--) {
@@ -140,6 +133,9 @@ public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
                         if (c > cCliff) {
                             cliff = 2;
                         }
+                        if (k > 110 + (p * 4) && c < iCliff + ((k - iHeight) / iStrength) + p) {
+                            cliff = 3;
+                        }
 
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
@@ -154,6 +150,9 @@ public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
+                        else if (cliff == 3) {
+                            primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
+                        }
                         else if (k < 63) {
                             if (k < 62) {
                                 primer.setBlockState(x, k, z, fillerBlock);
@@ -163,19 +162,7 @@ public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
                             }
                         }
                         else {
-                            float mixNoise = simplex.noise2f(i / 12f, j / 12f);
-
-                            if (mixNoise < mix2Height) {
-                                primer.setBlockState(x, k, z, mix2Block);
-                                m = true;
-                            }
-                            else if (mixNoise > mixHeight) {
-                                primer.setBlockState(x, k, z, mixBlock);
-                                m = true;
-                            }
-                            else {
-                                primer.setBlockState(x, k, z, topBlock);
-                            }
+                            primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
                         }
                     }
                     else if (depth < 6) {
@@ -185,8 +172,11 @@ public abstract class RealisticBiomeNTBaseHills extends RealisticBiomeNTBase {
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
+                        else if (cliff == 3) {
+                            primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
+                        }
                         else {
-                            primer.setBlockState(x, k, z, fillerBlock);
+                            primer.setBlockState(x, k, z, Blocks.DIRT.getDefaultState());
                         }
                     }
                 }

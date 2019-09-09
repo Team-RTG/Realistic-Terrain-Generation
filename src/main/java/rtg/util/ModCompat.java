@@ -234,6 +234,7 @@ public final class ModCompat {
         defiledlands,
         douglas_forest,
         environs,
+        explorercraft,
         floricraft,
         fyrecraft,
         gravityfalls,

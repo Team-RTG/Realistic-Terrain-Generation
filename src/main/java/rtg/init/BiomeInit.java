@@ -189,6 +189,9 @@ import rtg.world.biome.realistic.environs.RealisticBiomeENVTallOakForestHills;
 import rtg.world.biome.realistic.environs.RealisticBiomeENVTallOakWetland;
 import rtg.world.biome.realistic.environs.RealisticBiomeENVWastelandEroded;
 import rtg.world.biome.realistic.environs.RealisticBiomeENVWastelandSpikes;
+import rtg.world.biome.realistic.explorercraft.RealisticBiomeECBambooForest;
+import rtg.world.biome.realistic.explorercraft.RealisticBiomeECForestedMountain;
+import rtg.world.biome.realistic.explorercraft.RealisticBiomeECSnowdonia;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORIRoseLand;
 import rtg.world.biome.realistic.floricraft.RealisticBiomeFLORITulipLand;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRECrimsonGrove;
@@ -526,6 +529,10 @@ public final class BiomeInit {
 
         if (Mods.environs.isLoaded()) {
             init_environs();
+        }
+
+        if (Mods.explorercraft.isLoaded()) {
+            init_explorercraft();
         }
 
         if (Mods.floricraft.isLoaded()) {
@@ -1378,6 +1385,25 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(icy_hills)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVIcyHills(biome));
+        }
+    }
+
+    private static void init_explorercraft() {
+
+        String modid = Mods.explorercraft.name();
+        Biome biome;
+        ResourceLocation bamboo_forest = new ResourceLocation(modid, "bamboo_forest");
+        ResourceLocation forested_mountain = new ResourceLocation(modid, "forested_mountain");
+        ResourceLocation snowdonia = new ResourceLocation(modid, "snowdonia");
+
+        if ((biome = Biome.REGISTRY.getObject(bamboo_forest)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeECBambooForest(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(forested_mountain)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeECForestedMountain(biome));
+        }
+        if ((biome = Biome.REGISTRY.getObject(snowdonia)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeECSnowdonia(biome));
         }
     }
 

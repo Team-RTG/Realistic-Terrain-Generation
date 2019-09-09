@@ -3,6 +3,7 @@ package rtg.api.world.gen.feature.tree.rtg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -185,13 +186,17 @@ public abstract class TreeRTG extends WorldGenAbstractTree {
     }
 
     @Override
-    protected boolean canGrowInto(Block blockType) {
+    protected boolean canGrowInto(Block block) {
 
-        Material material = blockType.getDefaultState().getMaterial();
+        if (block instanceof BlockPlanks) {
+            return false;
+        }
+
+        Material material = block.getDefaultState().getMaterial();
 
         for (int i = 0; i < this.canGrowIntoMaterials.size(); i++) {
             if (material == this.canGrowIntoMaterials.get(i)) {
-                //Logger.debug("Log has grown into %s (%s)", this.canGrowIntoMaterials.get(i).toString(), blockType.getLocalizedName());
+                //Logger.debug("Log has grown into %s (%s)", this.canGrowIntoMaterials.get(i).toString(), block.getLocalizedName());
                 return true;
             }
         }

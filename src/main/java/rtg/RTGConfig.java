@@ -81,7 +81,7 @@ public final class RTGConfig
 
         additionalBiomeInfo     (Type.BOOLEAN, Category.debug,
                                 "Enable the logging of additional biome information on startup.",
-                                true),
+                                false),
 
         patchBiome              (Type.STRING,  Category.debug,
                                 "If RTG encounters an unsupported biome it will generate this biome instead.\n" +

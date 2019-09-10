@@ -14,6 +14,10 @@ import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHills;
 
 import java.util.Random;
 
@@ -32,6 +36,7 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
 
     @Override
     public Biome preferredBeach() {
+
         return BOPBiomes.white_beach.orNull();
     }
 
@@ -39,26 +44,21 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
     public void initConfig() {
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
+        this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPTropicalIsland();
+        return new RealisticBiomeVanillaExtremeHills.RidgedExtremeHills(84f, 65f, 200f);
     }
 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPTropicalIsland(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            Blocks.SAND.getDefaultState(), //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            10f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            5f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceVanillaExtremeHillsPlus(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock,
+            0.4f, 1.6f, 60f, 65f, 1.5f,
+            baseBiome().topBlock, 0.08f);
     }
 
     @Override
@@ -77,41 +77,62 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public static class TerrainBOPTropicalIsland extends TerrainBase {
+    public static class TerrainVanillaExtremeHillsPlus extends TerrainBase {
 
-        public TerrainBOPTropicalIsland() {
+        private float width;
+        private float strength;
+        private float spikeWidth = 40;
+        private float spikeHeight = 70;
+        private HeightEffect heightEffect;
 
+        public TerrainVanillaExtremeHillsPlus(float mountainWidth, float mountainStrength, float height) {
+
+            width = mountainWidth;
+            strength = mountainStrength;
+            base = height;
+            MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+            mountainEffect.mountainHeight = strength;
+            mountainEffect.mountainWavelength = width;
+            mountainEffect.spikeHeight = this.spikeHeight;
+            mountainEffect.spikeWavelength = this.spikeWidth;
+
+            heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+            heightEffect = new JitterEffect(3f, 6f, heightEffect);
+            //this(mountainWidth, mountainStrength, depthLake, 260f, 68f);
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainBeach(x, y, rtgWorld, river, 65f);
+            return riverized(heightEffect.added(rtgWorld, x, y) + base, river);
         }
     }
 
-    public static class SurfaceBOPTropicalIsland extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHillsPlus extends SurfaceBase {
 
+        private float min;
 
-        private IBlockState blockMixTop;
-        private IBlockState blockMixFiller;
-        private float floMixWidth;
-        private float floMixHeight;
-        private float floSmallWidth;
-        private float floSmallStrength;
+        private float sCliff = 1.5f;
+        private float sHeight = 60f;
+        private float sStrength = 65f;
+        private float cCliff = 1.5f;
 
-        public SurfaceBOPTropicalIsland(BiomeConfig config, IBlockState top, IBlockState filler, IBlockState mixTop, IBlockState mixFiller,
-                                        float mixWidth, float mixHeight, float smallWidth, float smallStrength) {
+        private IBlockState mixBlock;
+        private float mixHeight;
 
-            super(config, top, filler);
+        public SurfaceVanillaExtremeHillsPlus(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
+                                              float stoneHeight, float stoneStrength, float clayCliff, IBlockState mix, float mixSize) {
 
-            blockMixTop = mixTop;
-            blockMixFiller = mixFiller;
+            super(config, top, fill);
+            min = minCliff;
 
-            floMixWidth = mixWidth;
-            floMixHeight = mixHeight;
-            floSmallWidth = smallWidth;
-            floSmallStrength = smallStrength;
+            sCliff = stoneCliff;
+            sHeight = stoneHeight;
+            sStrength = stoneStrength;
+            cCliff = clayCliff;
+
+            mixBlock = this.getConfigBlock(config.SURFACE_MIX_BLOCK.get(), mix);
+            mixHeight = mixSize;
         }
 
         @Override
@@ -120,19 +141,29 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = TerrainBase.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f;
-            boolean mix = false;
+            int cliff = 0;
+            boolean m = false;
 
+            Block b;
             for (int k = 255; k > -1; k--) {
-                Block b = primer.getBlockState(x, k, z).getBlock();
+                b = primer.getBlockState(x, k, z).getBlock();
                 if (b == Blocks.AIR) {
                     depth = -1;
                 }
                 else if (b == Blocks.STONE) {
                     depth++;
 
-                    if (cliff) {
-                        if (depth > -1 && depth < 2) {
+                    if (depth == 0) {
+
+                        float p = simplex.noise3f(i / 8f, j / 8f, k / 8f) * 0.5f;
+                        if (c > min && c > sCliff - ((k - sHeight) / sStrength) + p) {
+                            cliff = 1;
+                        }
+                        if (c > cCliff) {
+                            cliff = 2;
+                        }
+
+                        if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
 
                                 primer.setBlockState(x, k, z, hcCobble());
@@ -142,29 +173,34 @@ public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
                                 primer.setBlockState(x, k, z, hcStone());
                             }
                         }
-                        else if (depth < 10) {
-                            primer.setBlockState(x, k, z, hcStone());
+                        else if (cliff == 2) {
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
-                    }
-                    else {
-                        if (depth == 0 && k > 61) {
-                            if (simplex.noise2f(i / floMixWidth, j / floMixWidth) + simplex.noise2f(i / floSmallWidth, j / floSmallWidth)
-                                * floSmallStrength > floMixHeight) {
-                                primer.setBlockState(x, k, z, blockMixTop);
-
-                                mix = true;
+                        else if (k < 63) {
+                            if (k < 62) {
+                                primer.setBlockState(x, k, z, fillerBlock);
                             }
                             else {
                                 primer.setBlockState(x, k, z, topBlock);
                             }
                         }
-                        else if (depth < 4) {
-                            if (mix) {
-                                primer.setBlockState(x, k, z, blockMixFiller);
-                            }
-                            else {
-                                primer.setBlockState(x, k, z, fillerBlock);
-                            }
+                        else if (simplex.noise2f(i / 12f, j / 12f) > mixHeight) {
+                            primer.setBlockState(x, k, z, mixBlock);
+                            m = true;
+                        }
+                        else {
+                            primer.setBlockState(x, k, z, topBlock);
+                        }
+                    }
+                    else if (depth < 6) {
+                        if (cliff == 1) {
+                            primer.setBlockState(x, k, z, hcStone());
+                        }
+                        else if (cliff == 2) {
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
+                        }
+                        else {
+                            primer.setBlockState(x, k, z, fillerBlock);
                         }
                     }
                 }

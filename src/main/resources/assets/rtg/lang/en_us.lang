@@ -309,3 +309,6 @@ rtgconfig.common.trees.shrubsBelowSurface=Shrubs Below Surface
 rtgconfig.common.trees.shrubsBelowSurface.tooltip=Set this to FALSE to prevent shrub trunks from generating below the surface.
 rtgconfig.common.trees.barkCoveredLogs=Bark Covered Logs
 rtgconfig.common.trees.barkCoveredLogs.tooltip=Set this to FALSE to prevent the trunks of RTG trees from using the 'all-bark' texture model.\nFor more information, visit http://minecraft.gamepedia.com/Wood#Block_data
+
+rtg.command.prefix.error=Error
+rtg.command.whereami.error=This command is meant for players in the world

@@ -11,12 +11,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import rtg.RTGConfig.RTGGuiConfigFactory;
 import rtg.api.RTGAPI;
 import rtg.api.util.PlateauUtil;
 import rtg.event.EventHandlerCommon;
 import rtg.init.BiomeInit;
+import rtg.server.RTGCommandTree;
 import rtg.util.ModCompat;
 import rtg.world.WorldTypeRTG;
 
@@ -84,6 +86,11 @@ public final class RTG {
     @Mod.EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {
         RTGAPI.RTG_BIOMES.setLocked();// We don't want the biome map to change after this point, so we lock it.
+    }
+
+    @Mod.EventHandler
+    public void serverStarting(final FMLServerStartingEvent event) {
+        event.registerServerCommand(new RTGCommandTree());
     }
 
     public static boolean decorationsDisable() {

@@ -371,8 +371,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
                             if (world.getBlockState(checkPos).getMaterial() == Material.AIR) {
                                 final float temp = biomeProvider.getBiome(surfacePos).getTemperature(checkPos);
                                 if (temp <= settings.getClampedSnowLayerTemp()) {
-                                    final IBlockState below = world.getBlockState(checkPos.down());
-                                    if (below.isFullBlock() || below.getMaterial() == Material.LEAVES) {
+                                    if (Blocks.SNOW_LAYER.canPlaceBlockAt(world, checkPos)) {
                                         this.world.setBlockState(checkPos, Blocks.SNOW_LAYER.getDefaultState(), 2);
                                         // we already know the next check block is not air, so skip ahead.
                                         checkPos = checkPos.down();

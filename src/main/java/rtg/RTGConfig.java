@@ -95,11 +95,13 @@ public final class RTGConfig
                                 32, 8, 32),
 
         shadowStoneBlock        (Type.STRING,  Category.surface,
-                                "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains.",
+                                "The block to use for stone terrain shadowing, typically seen on the cliffs of stone mountains.\n" +
+                                "Leave blank to disable",
                                 "minecraft:stained_hardened_clay[color=cyan]", true),
 
         shadowDesertBlock       (Type.STRING,  Category.surface,
-                                "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains.",
+                                "The block to use for desert terrain shadowing, typically seen on the cliffs of desert mountains.\n" +
+                                "Leave blank to disable",
                                 "minecraft:stained_hardened_clay[color=gray]", true),
 
         rtgTreesFromSaplings    (Type.BOOLEAN, Category.trees,
@@ -286,8 +288,10 @@ public final class RTGConfig
 
     public static boolean     lushRiverbanksInDesert() { return (Boolean)Setting.lushRiverbanksInDesert.getCurVal(); }
     public static int         surfaceBlendRadius()     { return (Integer)Setting.surfaceBlendRadius.getCurVal(); }
-    public static IBlockState shadowStoneBlock()       { return BlockUtil.getBlockStateFromCfgString((String)Setting.shadowStoneBlock.getCurVal(),  BlockUtil.getStateClay(EnumDyeColor.CYAN)); }
-    public static IBlockState shadowDesertBlock()      { return BlockUtil.getBlockStateFromCfgString((String)Setting.shadowDesertBlock.getCurVal(), BlockUtil.getStateClay(EnumDyeColor.GRAY)); }
+    @Nullable
+    public static IBlockState shadowStoneBlock()       { return BlockUtil.getBlockStateFromCfgString((String)Setting.shadowStoneBlock.getCurVal()); }
+    @Nullable
+    public static IBlockState shadowDesertBlock()      { return BlockUtil.getBlockStateFromCfgString((String)Setting.shadowDesertBlock.getCurVal()); }
 
     public static boolean     rtgTreesFromSaplings()   { return (Boolean)Setting.rtgTreesFromSaplings.getCurVal(); }
     public static int         rtgTreeChance()          { return (Integer)Setting.rtgTreeChance.getCurVal(); }

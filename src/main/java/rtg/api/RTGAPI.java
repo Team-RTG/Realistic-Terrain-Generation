@@ -1,6 +1,7 @@
 package rtg.api;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Set;
@@ -9,13 +10,12 @@ import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.DimensionManager;
 
-import rtg.api.util.BlockUtil;
 import rtg.api.util.Logger;
 import rtg.api.util.UtilityClass;
 import rtg.api.util.storage.BiomeMap;
@@ -100,9 +100,9 @@ public final class RTGAPI {
         patchBiome = rtgBiome;
     }
 
-    public static void setShadowBlocks(IBlockState stone, IBlockState desert) {
-        if (shadowStoneBlock  == null) { shadowStoneBlock  = stone  != null ? stone  : BlockUtil.getStateClay(EnumDyeColor.CYAN); }
-        if (shadowDesertBlock == null) { shadowDesertBlock = desert != null ? desert : BlockUtil.getStateClay(EnumDyeColor.GRAY); }
+    public static void setShadowBlocks(@Nullable IBlockState stone, @Nullable IBlockState desert) {
+        if (shadowStoneBlock  == null) { shadowStoneBlock  = stone  != null ? stone  : Blocks.STONE.getDefaultState(); }
+        if (shadowDesertBlock == null) { shadowDesertBlock = desert != null ? desert : Blocks.SAND.getDefaultState(); }
     }
 
     public static IBlockState getShadowStoneBlock() {

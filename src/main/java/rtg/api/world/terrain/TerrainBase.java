@@ -528,42 +528,6 @@ public abstract class TerrainBase {
         return riverized(floNoise + baseHeight, river);
     }
 
-    public static float terrainSwampMountain(int x, int y, RTGWorld rtgWorld, float river, float width, float heigth, float hMax, float hDivisor, float baseHeight) {
-
-        SimplexNoise simplex = rtgWorld.simplexInstance(0);
-        float h = simplex.noise2f(x / width, y / width) * heigth * river;
-        h *= h / hDivisor;
-        h = h > hMax ? hMax : h;
-
-        if (h < 14f) {
-            h += simplex.noise2f(x / 25f, y / 25f) * (14f - h) * 0.8f;
-        }
-
-        if (h < 6) {
-            h = 6f - ((6f - h) * 0.07f) + simplex.noise2f(x / 20f, y / 20f) + simplex.noise2f(x / 5f, y / 5f);
-        }
-
-        if (h > 10f) {
-            float d = (h - 10f) / 2f > 8f ? 8f : (h - 10f) / 2f;
-            h += simplex.noise2f(x / 35f, y / 35f) * d;
-            h += simplex.noise2f(x / 60f, y / 60f) * d * 0.5f;
-
-            if (h > 35f) {
-                float d2 = (h - 35f) / 1.5f > 30f ? 30f : (h - 35f) / 1.5f;
-                h += rtgWorld.simplexInstance(4).noise3f(x / 25f, y / 25f, 1f) * d2;
-            }
-        }
-
-        if (h > 2f) {
-            float d = (h - 2f) / 2f > 4f ? 4f : (h - 2f) / 2f;
-            h += simplex.noise2f(x / 28f, y / 28f) * d;
-            h += simplex.noise2f(x / 18f, y / 18f) * (d / 2f);
-            h += simplex.noise2f(x / 8f, y / 8f) * (d / 2f);
-        }
-
-        return riverized(h + baseHeight, river);
-    }
-
     public static float terrainVolcano(int x, int y, RTGWorld rtgWorld, float border, float baseHeight) {
 
         SimplexNoise simplex = rtgWorld.simplexInstance(0);

@@ -38,7 +38,7 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPRainforest(90f, 300f);
+        return new TerrainBOPRainforest();
     }
 
     @Override
@@ -49,19 +49,12 @@ public class RealisticBiomeBOPRainforest extends RealisticBiomeBOPBase {
 
     public static class TerrainBOPRainforest extends TerrainBase {
 
-        private float heigth;
-        private float width;
-
-        public TerrainBOPRainforest(float mountainHeight, float mountainWidth) {
-
-            heigth = mountainHeight;
-            width = mountainWidth;
-        }
+        public TerrainBOPRainforest() {}
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainSwampMountain(x, y, rtgWorld, river, width, heigth, 140f, 39f, 65f);
+            return terrainHighland(x, y, rtgWorld, river, 10f, 68f, 40f, 10f);
         }
     }
 

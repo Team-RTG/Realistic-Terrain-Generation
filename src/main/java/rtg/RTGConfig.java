@@ -70,10 +70,6 @@ public final class RTGConfig
                                 "This will display once and automatically disable itself.",
                                 true),
 
-        rtgWorldTypeByDefault   (Type.BOOLEAN, Category.client,
-                                "Automatically select the RTG world type when creating a new world",
-                                true),
-
         enableDebugging         (Type.BOOLEAN, Category.debug,
                                 "Enable extra debug logging.\n" +
                                 "!This setting has a severe performance penalty. Only enable if you know what you are doing!",
@@ -87,10 +83,6 @@ public final class RTGConfig
                                 "If RTG encounters an unsupported biome it will generate this biome instead.\n" +
                                 "This uses the standard ResourceLocation format: mod_id:biome_registry_name",
                                 "minecraft:plains"),
-
-        oreGenEventCancellation (Type.BOOLEAN, Category.debug,
-                                "\nTO BE REMOVED\n",
-                                true),
 
         lushRiverbanksInDesert  (Type.BOOLEAN, Category.surface,
                                 "Set this to FALSE to prevent RTG from generating lush river bank decorations in hot biomes,\n" +
@@ -216,10 +208,8 @@ public final class RTGConfig
         Arrays.stream(Setting.values()).forEach(setting-> {
             switch (setting) {
                 case worldTypeNotification  :
-                case rtgWorldTypeByDefault  :
                 case enableDebugging        :
                 case additionalBiomeInfo    :
-                case oreGenEventCancellation:
                 case lushRiverbanksInDesert :
                 case rtgTreesFromSaplings   :
                 case treesCanGenerateOnSand :
@@ -281,7 +271,6 @@ public final class RTGConfig
     }
 
     public static boolean     worldTypeNotification()  { return (Boolean)Setting.worldTypeNotification.getCurVal(); }
-    public static boolean     rtgWorldTypeByDefault()  { return (Boolean)Setting.rtgWorldTypeByDefault.getCurVal(); }
 
     public static boolean     enableDebugging()        { return (Boolean)Setting.enableDebugging.getCurVal(); }
     public static boolean     additionalBiomeInfo()    { return (Boolean)Setting.additionalBiomeInfo.getCurVal(); }
@@ -294,7 +283,6 @@ public final class RTGConfig
         }
         return biome;
     }
-    public static boolean     allowOreGenEventCancel() { return (Boolean)Setting.oreGenEventCancellation.getCurVal(); }
 
     public static boolean     lushRiverbanksInDesert() { return (Boolean)Setting.lushRiverbanksInDesert.getCurVal(); }
     public static int         surfaceBlendRadius()     { return (Integer)Setting.surfaceBlendRadius.getCurVal(); }

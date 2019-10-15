@@ -177,7 +177,7 @@ public class DecoTree extends DecoBase {
         }
 
         // Now let's check the configs to see if we should increase/decrease this value.
-        loopCount = this.calculateLoopCountFromTreeDensity(loopCount, biome);
+        loopCount = this.applyConfigMultipliers(loopCount, biome);
 
         if (loopCount < 1) {
             return;
@@ -622,16 +622,7 @@ public class DecoTree extends DecoBase {
         }
     }
 
-    private int calculateLoopCountFromTreeDensity(int loopCount, IRealisticBiome biome) {
-
-        float biomeMultiplier;
-        double multiplier = RTGConfig.treeDensityMultiplier();
-        if ((biomeMultiplier = biome.getConfig().TREE_DENSITY_MULTIPLIER.get()) >= 0f) {
-            multiplier = (biomeMultiplier > MAX_TREE_DENSITY) ? MAX_TREE_DENSITY : biomeMultiplier;
-        }
-
-        loopCount = (int) (loopCount * multiplier);
-
-        return loopCount;
+    private int applyConfigMultipliers(final int loopCount, final IRealisticBiome biome) {
+        return (int)(loopCount * Math.min(RTGConfig.treeDensityMultiplier() * biome.getConfig().TREE_DENSITY_MULTIPLIER.get(), MAX_TREE_DENSITY));
     }
 }

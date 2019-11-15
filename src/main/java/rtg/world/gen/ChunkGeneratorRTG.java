@@ -434,7 +434,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
             return this.mineshaftGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
         }
         if ("Temple".equals(structureName) && this.scatteredFeatureGenerator != null) {
-            this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
+            return this.scatteredFeatureGenerator.getNearestStructurePos(worldIn, position, findUnexplored);
         }
         return null;
     }

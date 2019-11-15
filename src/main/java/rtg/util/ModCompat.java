@@ -238,6 +238,7 @@ public final class ModCompat {
         floricraft,
         fyrecraft,
         gravityfalls,
+        iceandfire,
         minecraft("vanilla"),
         mistbiomes,
         nt("novamterram"),

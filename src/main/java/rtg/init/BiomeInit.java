@@ -217,6 +217,7 @@ import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYRETropicalLakes;
 import rtg.world.biome.realistic.fyrecraft.RealisticBiomeFYREVolcanicWasteland;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFGravityFalls;
 import rtg.world.biome.realistic.gravityfalls.RealisticBiomeGFNightmareRealm;
+import rtg.world.biome.realistic.iceandfire.RealisticBiomeIAFGlacier;
 import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBColdMistTaiga;
 import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistDesert;
 import rtg.world.biome.realistic.mistbiomes.RealisticBiomeMBMistForest;
@@ -558,6 +559,10 @@ public final class BiomeInit {
 
         if (Mods.gravityfalls.isLoaded()) {
             init_gravityfalls();
+        }
+
+        if (Mods.iceandfire.isLoaded()) {
+            init_iceandfire();
         }
 
         if (Mods.mistbiomes.isLoaded()) {
@@ -1538,6 +1543,17 @@ public final class BiomeInit {
         }
         if ((biome = Biome.REGISTRY.getObject(nightmarerealm)) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFNightmareRealm(biome));
+        }
+    }
+
+    public static void init_iceandfire() {
+
+        String modid = Mods.iceandfire.name();
+        Biome biome;
+        ResourceLocation glacier = new ResourceLocation(modid, "glacier");
+
+        if ((biome = Biome.REGISTRY.getObject(glacier)) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeIAFGlacier(biome));
         }
     }
 

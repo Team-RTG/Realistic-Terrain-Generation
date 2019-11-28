@@ -110,7 +110,37 @@ public final class ModCompat {
                     .forEach(invalidBiomes::add);
         }
 
-        // TODO: Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
+        if (Mods.twilightforest.isLoaded()) {
+
+          String modid = Mods.twilightforest.name();
+          Stream.of(
+                  new ResourceLocation(modid, "twilight_lake"),
+                  new ResourceLocation(modid, "twilight_forest"),
+                  new ResourceLocation(modid, "dense_twilight_forest"),
+                  new ResourceLocation(modid, "twilight_highlands"),
+                  new ResourceLocation(modid, "mushroom_forest"),
+                  new ResourceLocation(modid, "twilight_swamp"),
+                  new ResourceLocation(modid, "twilight_stream"),
+                  new ResourceLocation(modid, "snowy_forest"),
+                  new ResourceLocation(modid, "twilight_glacier"),
+                  new ResourceLocation(modid, "twilight_clearing"),
+                  new ResourceLocation(modid, "oak_savannah"),
+                  new ResourceLocation(modid, "firefly_forest"),
+                  new ResourceLocation(modid, "deep_mushroom_forest"),
+                  new ResourceLocation(modid, "dark_forest"),
+                  new ResourceLocation(modid, "enchanted_forest"),
+                  new ResourceLocation(modid, "fire_swamp"),
+                  new ResourceLocation(modid, "dark_forest_center"),
+                  new ResourceLocation(modid, "highlands_center"),
+                  new ResourceLocation(modid, "thornlands"),
+                  new ResourceLocation(modid, "spooky_forest")
+          )
+                  .map(Biome.REGISTRY::getObject)
+                  .filter(Objects::nonNull)
+                  .forEach(invalidBiomes::add);
+        }
+
+        // TODO: Add other biome exceptions. AE2 storage biome, etc.
 
         Collection<Biome> unsupportedBiomes = ForgeRegistries.BIOMES.getValuesCollection();
 
@@ -252,6 +282,7 @@ public final class ModCompat {
         terscraft,
         thaumcraft,
         traverse,
+        twilightforest,
         vampirism,
         valoegheses_be("zoesteria");
 

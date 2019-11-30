@@ -99,6 +99,29 @@ public final class ModCompat {
                 .forEach(invalidBiomes::add);
         }
 
+        if (Mods.galacticraftcore.isLoaded()) {
+
+            String modid = Mods.galacticraftcore.name();
+            Stream.of(
+                    new ResourceLocation(modid, "outer space")
+            )
+                    .map(Biome.REGISTRY::getObject)
+                    .filter(Objects::nonNull)
+                    .forEach(invalidBiomes::add);
+        }
+
+        if (Mods.galacticraftplanets.isLoaded()) {
+
+            String modid = Mods.galacticraftplanets.name();
+            Stream.of(
+                    new ResourceLocation(modid, "outer space 1"),
+                    new ResourceLocation(modid, "outer space 2")
+            )
+                    .map(Biome.REGISTRY::getObject)
+                    .filter(Objects::nonNull)
+                    .forEach(invalidBiomes::add);
+        }
+
         if (Mods.thaumcraft.isLoaded()) {
 
             String modid = Mods.thaumcraft.name();
@@ -237,6 +260,8 @@ public final class ModCompat {
         explorercraft,
         floricraft,
         fyrecraft,
+        galacticraftcore,
+        galacticraftplanets,
         gravityfalls,
         minecraft("vanilla"),
         mistbiomes,

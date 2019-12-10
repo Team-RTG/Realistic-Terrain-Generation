@@ -1,5 +1,6 @@
 package rtg.init;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ import rtg.util.ModCompat.Mods;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACCoraliumInfestedSwamp;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklands;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsForest;
-import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHighland;
+import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsHills;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsMountains;
 import rtg.world.biome.realistic.abyssalcraft.RealisticBiomeACDarklandsPlains;
 import rtg.world.biome.realistic.auxiliarybiomes.RealisticBiomeAUXForestedIsland;
@@ -499,126 +500,38 @@ public final class BiomeInit {
     public static void init() {
 
         init_minecraft();
-
-        if (Mods.abyssalcraft.isLoaded()) {
-            init_abyssalcraft();
-        }
-
-        if (Mods.auxbiomes.isLoaded()) {
-            init_auxiliarybiomes();
-        }
-
-        if (Mods.betteragriculture.isLoaded()) {
-            init_betteragriculture();
-        }
-
-        if (Mods.biomesoplenty.isLoaded()) {
-            init_biomesoplenty();
-        }
-
-        if (Mods.byg.isLoaded()) {
-            init_biomesyougo();
-        }
-
-        if (Mods.bionisation3.isLoaded()) {
-            init_bionisation();
-        }
-
-        if (Mods.buildcraftenergy.isLoaded()) {
-            init_buildcraft();
-        }
-
-        if (Mods.candymod.isLoaded()) {
-            init_candymod();
-        }
-
-        if (Mods.defiledlands.isLoaded()) {
-            init_defiledlands();
-        }
-
-        if (Mods.douglas_forest.isLoaded()) {
-            init_douglasforest();
-        }
-
-        if (Mods.environs.isLoaded()) {
-            init_environs();
-        }
-
-        if (Mods.explorercraft.isLoaded()) {
-            init_explorercraft();
-        }
-
-        if (Mods.floricraft.isLoaded()) {
-            init_floricraft();
-        }
-
-        if (Mods.fyrecraft.isLoaded()) {
-            init_fyrecraft();
-        }
-
-        if (Mods.gravityfalls.isLoaded()) {
-            init_gravityfalls();
-        }
-
-        if (Mods.mistbiomes.isLoaded()) {
-            init_mistbiomes();
-        }
-
-        if (Mods.nt.isLoaded()) {
-            //init_novamterram();
-        }
-
-        if (Mods.odioitamod.isLoaded()) {
-            init_odioitamod();
-        }
-
-        if (Mods.plants2.isLoaded()) {
-            init_plants();
-        }
-
-        if (Mods.pvj.isLoaded()) {
-            init_pvj();
-        }
-
-        if (Mods.realworld.isLoaded()) {
-            init_realworld();
-        }
-
-        if (Mods.redwoods.isLoaded()) {
-            init_redwoods();
-        }
-
-        if (Mods.rockhounding_surface.isLoaded()) {
-            init_rockhounding();
-        }
-
-        if (Mods.spookybiomes.isLoaded()) {
-            init_spookybiomes();
-        }
-
-        if (Mods.sugiforest.isLoaded()) {
-            init_sugiforest();
-        }
-
-        if (Mods.terscraft.isLoaded()) {
-            init_terscraft();
-        }
-
-        if (Mods.thaumcraft.isLoaded()) {
-            init_thaumcraft();
-        }
-
-        if (Mods.traverse.isLoaded()) {
-            init_traverse();
-        }
-
-        if (Mods.valoegheses_be.isLoaded()) {
-            init_zoesteria();
-        }
-
-        if (Mods.vampirism.isLoaded()) {
-            init_vampirism();
-        }
+        if (Mods.abyssalcraft.isLoaded()) { init_abyssalcraft(); }
+        if (Mods.auxbiomes.isLoaded()) { init_auxiliarybiomes(); }
+        if (Mods.betteragriculture.isLoaded()) { init_betteragriculture(); }
+        if (Mods.biomesoplenty.isLoaded()) { init_biomesoplenty(); }
+        if (Mods.byg.isLoaded()) { init_biomesyougo(); }
+        if (Mods.bionisation3.isLoaded()) { init_bionisation(); }
+        if (Mods.buildcraftenergy.isLoaded()) { init_buildcraft(); }
+        if (Mods.candymod.isLoaded()) { init_candymod(); }
+        if (Mods.defiledlands.isLoaded()) { init_defiledlands(); }
+        if (Mods.douglas_forest.isLoaded()) { init_douglasforest(); }
+        if (Mods.environs.isLoaded()) { init_environs(); }
+        if (Mods.explorercraft.isLoaded()) { init_explorercraft(); }
+        if (Mods.floricraft.isLoaded()) { init_floricraft(); }
+        if (Mods.fyrecraft.isLoaded()) { init_fyrecraft(); }
+        if (Mods.gravityfalls.isLoaded()) { init_gravityfalls(); }
+        if (Mods.mistbiomes.isLoaded()) { init_mistbiomes(); }
+        //if (Mods.nt.isLoaded()) {
+        //    init_novamterram();
+        //}
+        if (Mods.odioitamod.isLoaded()) { init_odioitamod(); }
+        if (Mods.plants2.isLoaded()) { init_plants(); }
+        if (Mods.pvj.isLoaded()) { init_pvj(); }
+        if (Mods.realworld.isLoaded()) { init_realworld(); }
+        if (Mods.redwoods.isLoaded()) { init_redwoods(); }
+        if (Mods.rockhounding_surface.isLoaded()) { init_rockhounding(); }
+        if (Mods.spookybiomes.isLoaded()) { init_spookybiomes(); }
+        if (Mods.sugiforest.isLoaded()) { init_sugiforest(); }
+        if (Mods.terscraft.isLoaded()) { init_terscraft(); }
+        if (Mods.thaumcraft.isLoaded()) { init_thaumcraft(); }
+        if (Mods.traverse.isLoaded()) { init_traverse(); }
+        if (Mods.valoegheses_be.isLoaded()) { init_zoesteria(); }
+        if (Mods.vampirism.isLoaded()) { init_vampirism(); }
 
         // This must be done after all biomes have been initialised so that they are all available.
         RTGAPI.initPatchBiome(RTGConfig.patchBiome());
@@ -696,889 +609,708 @@ public final class BiomeInit {
 
     private static void init_abyssalcraft() {
 
-        String modid = Mods.abyssalcraft.name();
-
-        if (isBiomePresent(modid, "coralium_infested_swamp")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACCoraliumInfestedSwamp());
+        Biome biome;
+        if ((biome = getBiome(Mods.abyssalcraft.getResourceLocation("coralium_infested_swamp"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACCoraliumInfestedSwamp(biome));
         }
-        if (isBiomePresent(modid, "darklands")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklands());
+        if ((biome = getBiome(Mods.abyssalcraft.getResourceLocation("darklands"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklands(biome));
         }
-        if (isBiomePresent(modid, "darklands_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsForest());
+        if ((biome = getBiome(Mods.abyssalcraft.getResourceLocation("darklands_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsForest(biome));
         }
-        if (isBiomePresent(modid, "darklands_hills")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsHighland());
+        if ((biome = getBiome(Mods.abyssalcraft.getResourceLocation("darklands_hills"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsHills(biome));
         }
-        if (isBiomePresent(modid, "darklands_mountains")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsMountains());
+        if ((biome = getBiome(Mods.abyssalcraft.getResourceLocation("darklands_mountains"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsMountains(biome));
         }
-        if (isBiomePresent(modid, "darklands_plains")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsPlains());
+        if ((biome = getBiome(Mods.abyssalcraft.getResourceLocation("darklands_plains"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeACDarklandsPlains(biome));
         }
     }
 
     private static void init_auxiliarybiomes() {
 
-        String modid = Mods.auxbiomes.name();
         Biome biome;
-        ResourceLocation marsh = new ResourceLocation(modid, "marsh");
-        ResourceLocation wasteland = new ResourceLocation(modid, "wasteland");
-        ResourceLocation ice_wasteland = new ResourceLocation(modid, "ice_wasteland");
-        ResourceLocation forested_island = new ResourceLocation(modid, "forested_island");
-        ResourceLocation white_forest = new ResourceLocation(modid, "white_forest");
-
-        if ((biome = Biome.REGISTRY.getObject(marsh)) != null) {
+        if ((biome = getBiome(Mods.auxbiomes.getResourceLocation("marsh"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXMarsh(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland)) != null) {
+        if ((biome = getBiome(Mods.auxbiomes.getResourceLocation("wasteland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXWasteland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(ice_wasteland)) != null) {
+        if ((biome = getBiome(Mods.auxbiomes.getResourceLocation("ice_wasteland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXIceWasteland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forested_island)) != null) {
+        if ((biome = getBiome(Mods.auxbiomes.getResourceLocation("forested_island"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXForestedIsland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_forest)) != null) {
+        if ((biome = getBiome(Mods.auxbiomes.getResourceLocation("white_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeAUXWhiteForest(biome));
         }
     }
 
     private static void init_betteragriculture() {
 
-        String modid = Mods.betteragriculture.name();
-        Biome biome;
-        ResourceLocation farmlandbiome = new ResourceLocation(modid, "farmlandbiome");
-
-        if ((biome = Biome.REGISTRY.getObject(farmlandbiome)) != null) {
+        final Biome biome;
+        if ((biome = getBiome(Mods.betteragriculture.getResourceLocation("farmlandbiome"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBAFarmlandBiome(biome));
         }
     }
 
     private static void init_biomesoplenty() {
 
-        String modid = Mods.biomesoplenty.name();
-
-        if (isBiomePresent(modid, "alps")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPAlps());
+        Biome biome;
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("alps"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPAlps(biome));
         }
-        if (isBiomePresent(modid, "alps_foothills")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPAlpsFoothills());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("alps_foothills"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPAlpsFoothills(biome));
         }
-        if (isBiomePresent(modid, "bamboo_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBambooForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("bamboo_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBambooForest(biome));
         }
-        if (isBiomePresent(modid, "bayou")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBayou());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("bayou"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBayou(biome));
         }
-        if (isBiomePresent(modid, "bog")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBog());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("bog"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBog(biome));
         }
-        if (isBiomePresent(modid, "boreal_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBorealForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("boreal_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBorealForest(biome));
         }
-        if (isBiomePresent(modid, "brushland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBrushland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("brushland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPBrushland(biome));
         }
-        if (isBiomePresent(modid, "chaparral")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPChaparral());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("chaparral"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPChaparral(biome));
         }
-        if (isBiomePresent(modid, "cherry_blossom_grove")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPCherryBlossomGrove());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("cherry_blossom_grove"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPCherryBlossomGrove(biome));
         }
-        if (isBiomePresent(modid, "cold_desert")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPColdDesert());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("cold_desert"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPColdDesert(biome));
         }
-        if (isBiomePresent(modid, "coniferous_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPConiferousForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("coniferous_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPConiferousForest(biome));
         }
-        if (isBiomePresent(modid, "coral_reef")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPCoralReef());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("coral_reef"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPCoralReef(biome));
         }
-        if (isBiomePresent(modid, "crag")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPCrag());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("crag"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPCrag(biome));
         }
-        if (isBiomePresent(modid, "dead_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPDeadForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("dead_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPDeadForest(biome));
         }
-        if (isBiomePresent(modid, "dead_swamp")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPDeadSwamp());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("dead_swamp"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPDeadSwamp(biome));
         }
-        if (isBiomePresent(modid, "eucalyptus_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPEucalyptusForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("eucalyptus_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPEucalyptusForest(biome));
         }
-        if (isBiomePresent(modid, "fen")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPFen());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("fen"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPFen(biome));
         }
-        if (isBiomePresent(modid, "flower_field")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPFlowerField());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("flower_field"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPFlowerField(biome));
         }
-        if (isBiomePresent(modid, "flower_island")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPFlowerIsland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("flower_island"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPFlowerIsland(biome));
         }
-        if (isBiomePresent(modid, "glacier")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGlacier());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("glacier"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGlacier(biome));
         }
-        if (isBiomePresent(modid, "grassland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGrassland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("grassland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGrassland(biome));
         }
-        if (isBiomePresent(modid, "gravel_beach")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGravelBeach());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("gravel_beach"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGravelBeach(biome));
         }
-        if (isBiomePresent(modid, "grove")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGrove());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("grove"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPGrove(biome));
         }
-        if (isBiomePresent(modid, "highland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPHighland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("highland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPHighland(biome));
         }
-        if (isBiomePresent(modid, "kelp_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPKelpForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("kelp_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPKelpForest(biome));
         }
-        if (isBiomePresent(modid, "land_of_lakes")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLandOfLakes());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("land_of_lakes"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLandOfLakes(biome));
         }
-        if (isBiomePresent(modid, "lavender_fields")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLavenderFields());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("lavender_fields"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLavenderFields(biome));
         }
-        if (isBiomePresent(modid, "lush_desert")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLushDesert());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("lush_desert"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLushDesert(biome));
         }
-        if (isBiomePresent(modid, "lush_swamp")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLushSwamp());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("lush_swamp"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPLushSwamp(biome));
         }
-        if (isBiomePresent(modid, "mangrove")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMangrove());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("mangrove"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMangrove(biome));
         }
-        if (isBiomePresent(modid, "maple_woods")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMapleWoods());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("maple_woods"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMapleWoods(biome));
         }
-        if (isBiomePresent(modid, "marsh")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMarsh());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("marsh"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMarsh(biome));
         }
-        if (isBiomePresent(modid, "meadow")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMeadow());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("meadow"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMeadow(biome));
         }
-        if (isBiomePresent(modid, "moor")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMoor());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("moor"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMoor(biome));
         }
-        if (isBiomePresent(modid, "mountain")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMountainPeaks());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("mountain"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMountainPeaks(biome));
         }
-        if (isBiomePresent(modid, "mountain_foothills")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMountainFoothills());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("mountain_foothills"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMountainFoothills(biome));
         }
-        if (isBiomePresent(modid, "mystic_grove")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMysticGrove());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("mystic_grove"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPMysticGrove(biome));
         }
-        if (isBiomePresent(modid, "oasis")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOasis());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("oasis"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOasis(biome));
         }
-        if (isBiomePresent(modid, "ominous_woods")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOminousWoods());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("ominous_woods"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOminousWoods(biome));
         }
-        if (isBiomePresent(modid, "orchard")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOrchard());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("orchard"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOrchard(biome));
         }
-        if (isBiomePresent(modid, "origin_beach")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOriginBeach());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("origin_beach"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOriginBeach(biome));
         }
-        if (isBiomePresent(modid, "origin_island")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOriginIsland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("origin_island"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOriginIsland(biome));
         }
-        if (isBiomePresent(modid, "outback")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOutback());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("outback"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOutback(biome));
         }
-        if (isBiomePresent(modid, "overgrown_cliffs")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOvergrownCliffs());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("overgrown_cliffs"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPOvergrownCliffs(biome));
         }
-        if (isBiomePresent(modid, "pasture")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPPasture());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("pasture"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPPasture(biome));
         }
-        if (isBiomePresent(modid, "prairie")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPPrairie());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("prairie"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPPrairie(biome));
         }
-        if (isBiomePresent(modid, "quagmire")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPQuagmire());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("quagmire"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPQuagmire(biome));
         }
-        if (isBiomePresent(modid, "rainforest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPRainforest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("rainforest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPRainforest(biome));
         }
-        if (isBiomePresent(modid, "redwood_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPRedwoodForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("redwood_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPRedwoodForest(biome));
         }
-        if (isBiomePresent(modid, "sacred_springs")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSacredSprings());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("sacred_springs"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSacredSprings(biome));
         }
-        if (isBiomePresent(modid, "seasonal_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSeasonalForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("seasonal_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSeasonalForest(biome));
         }
-        if (isBiomePresent(modid, "shield")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPShield());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("shield"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPShield(biome));
         }
-        if (isBiomePresent(modid, "shrubland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPShrubland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("shrubland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPShrubland(biome));
         }
-        if (isBiomePresent(modid, "snowy_coniferous_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSnowyConiferousForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("snowy_coniferous_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSnowyConiferousForest(biome));
         }
-        if (isBiomePresent(modid, "snowy_forest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSnowyForest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("snowy_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSnowyForest(biome));
         }
-        if (isBiomePresent(modid, "steppe")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSteppe());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("steppe"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSteppe(biome));
         }
-        if (isBiomePresent(modid, "temperate_rainforest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTemperateRainforest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("temperate_rainforest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTemperateRainforest(biome));
         }
-        if (isBiomePresent(modid, "tropical_island")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTropicalIsland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("tropical_island"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTropicalIsland(biome));
         }
-        if (isBiomePresent(modid, "tropical_rainforest")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTropicalRainforest());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("tropical_rainforest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTropicalRainforest(biome));
         }
-        if (isBiomePresent(modid, "tundra")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTundra());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("tundra"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPTundra(biome));
         }
-        if (isBiomePresent(modid, "volcanic_island")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPVolcanicIsland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("volcanic_island"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPVolcanicIsland(biome));
         }
-        if (isBiomePresent(modid, "wasteland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWasteland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("wasteland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWasteland(biome));
         }
-        if (isBiomePresent(modid, "wetland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWetland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("wetland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWetland(biome));
         }
-        if (isBiomePresent(modid, "white_beach")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWhiteBeach());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("white_beach"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWhiteBeach(biome));
         }
-        if (isBiomePresent(modid, "woodland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWoodland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("woodland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPWoodland(biome));
         }
-        if (isBiomePresent(modid, "xeric_shrubland")) {
-            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPXericShrubland());
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("xeric_shrubland"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPXericShrubland(biome));
         }
     }
 
     private static void init_biomesyougo() {
 
-        String modid = Mods.byg.name();
         Biome biome;
-        //ResourceLocation babyssalbog = new ResourceLocation(modid, "babyssalbog");
-        ResourceLocation balliumfields = new ResourceLocation(modid, "balliumfields");
-        ResourceLocation balps = new ResourceLocation(modid, "balps");
-        ResourceLocation bamaranth_fields = new ResourceLocation(modid, "bamaranth_fields");
-        ResourceLocation bancientforest = new ResourceLocation(modid, "bancientforest");
-        ResourceLocation baspenforest = new ResourceLocation(modid, "baspenforest");
-        //ResourceLocation bastralisle = new ResourceLocation(modid, "bastralisle");
-        ResourceLocation bbambooforest = new ResourceLocation(modid, "bbambooforest");
-        ResourceLocation bbaobabsavanna = new ResourceLocation(modid, "bbaobabsavanna");
-        ResourceLocation bbayou = new ResourceLocation(modid, "bbayou");
-        ResourceLocation bbluetaiga = new ResourceLocation(modid, "bbluetaiga");
-        ResourceLocation bbluff_mountains = new ResourceLocation(modid, "bbluff_mountains");
-        ResourceLocation bbog = new ResourceLocation(modid, "bbog");
-        ResourceLocation bborealforest = new ResourceLocation(modid, "bborealforest");
-        ResourceLocation bcanyons = new ResourceLocation(modid, "bcanyons");
-        ResourceLocation bchaparrallowlands = new ResourceLocation(modid, "bchaparrallowlands");
-        ResourceLocation bcherrygrove = new ResourceLocation(modid, "bcherrygrove");
-        ResourceLocation bcikaforest = new ResourceLocation(modid, "bcikaforest");
-        ResourceLocation bconiferousforest = new ResourceLocation(modid, "bconiferousforest");
-        //ResourceLocation bcosmicocean = new ResourceLocation(modid, "bcosmicocean");
-        ResourceLocation bcypress_swamplands = new ResourceLocation(modid, "bcypress_swamplands");
-        ResourceLocation bdeadsea = new ResourceLocation(modid, "bdeadsea");
-        ResourceLocation bdeciduousforest = new ResourceLocation(modid, "bdeciduousforest");
-        ResourceLocation bdovermoutains = new ResourceLocation(modid, "bdovermoutains");
-        ResourceLocation bdunes = new ResourceLocation(modid, "bdunes");
-        ResourceLocation bebonywoods = new ResourceLocation(modid, "bebonywoods");
-        ResourceLocation benchantedforest = new ResourceLocation(modid, "benchantedforest");
-        ResourceLocation beucalyptustropics = new ResourceLocation(modid, "beucalyptustropics");
-        ResourceLocation bevergreentaiga = new ResourceLocation(modid, "bevergreentaiga");
-        ResourceLocation bfrostyforest = new ResourceLocation(modid, "bfrostyforest");
-        ResourceLocation bfungaljungle = new ResourceLocation(modid, "bfungaljungle");
-        ResourceLocation bgiant_blue_spruce_taiga = new ResourceLocation(modid, "bgiant_blue_spruce_taiga");
-        ResourceLocation bgiant_seasonal_spruce_taiga = new ResourceLocation(modid, "bgiant_seasonal_spruce_taiga");
-        ResourceLocation bglaciers = new ResourceLocation(modid, "bglaciers");
-        ResourceLocation bglowshroombayou = new ResourceLocation(modid, "bglowshroombayou");
-        ResourceLocation bgrasslandplateau = new ResourceLocation(modid, "bgrasslandplateau");
-        ResourceLocation bgreatlakes = new ResourceLocation(modid, "bgreatlakes");
-        ResourceLocation bgreatoaklowlands = new ResourceLocation(modid, "bgreatoaklowlands");
-        ResourceLocation bjacarandaforest = new ResourceLocation(modid, "bjacarandaforest");
-        ResourceLocation blushdesert = new ResourceLocation(modid, "blushdesert");
-        ResourceLocation bmangrovemarshes = new ResourceLocation(modid, "bmangrovemarshes");
-        ResourceLocation bmapleforest = new ResourceLocation(modid, "bmapleforest");
-        ResourceLocation bmeadow = new ResourceLocation(modid, "bmeadow");
-        ResourceLocation borchard = new ResourceLocation(modid, "borchard");
-        ResourceLocation boutback = new ResourceLocation(modid, "boutback");
-        ResourceLocation boutlands = new ResourceLocation(modid, "boutlands");
-        ResourceLocation bpaperbirchforest = new ResourceLocation(modid, "bpaperbirchforest");
-        ResourceLocation bpine_lowlands = new ResourceLocation(modid, "bpine_lowlands");
-        ResourceLocation bpinemountains = new ResourceLocation(modid, "bpinemountains");
-        ResourceLocation bpraire = new ResourceLocation(modid, "bpraire");
-        ResourceLocation bprairie = new ResourceLocation(modid, "bprairie");
-        ResourceLocation bquagmire = new ResourceLocation(modid, "bquagmire");
-        ResourceLocation breddesert = new ResourceLocation(modid, "breddesert");
-        ResourceLocation bredoakforest = new ResourceLocation(modid, "bredoakforest");
-        ResourceLocation bred_outlands = new ResourceLocation(modid, "bred_outlands");
-        ResourceLocation bredwoodtropics = new ResourceLocation(modid, "bredwoodtropics");
-        ResourceLocation bsavannacanopy = new ResourceLocation(modid, "bsavannacanopy");
-        ResourceLocation bseasonalbirchforest = new ResourceLocation(modid, "bseasonalbirchforest");
-        ResourceLocation bseasonaldeciduous = new ResourceLocation(modid, "bseasonaldeciduous");
-        ResourceLocation bseasonalforest = new ResourceLocation(modid, "bseasonalforest");
-        ResourceLocation bseasonaltaiga = new ResourceLocation(modid, "bseasonaltaiga");
-        //ResourceLocation bshattereddesert = new ResourceLocation(modid, "bshattereddesert");
-        ResourceLocation bshrublands = new ResourceLocation(modid, "bshrublands");
-        ResourceLocation bstone_brushlands = new ResourceLocation(modid, "bstone_brushlands");
-        ResourceLocation bskyrishighlands = new ResourceLocation(modid, "bskyrishighlands");
-        ResourceLocation bsnowyconiferousforest = new ResourceLocation(modid, "bsnowyconiferousforest");
-        ResourceLocation bsnowyevergeentaiga = new ResourceLocation(modid, "bsnowyevergeentaiga");
-        ResourceLocation bsnowypinemountains = new ResourceLocation(modid, "bsnowypinemountains");
-        ResourceLocation bsonorandesert = new ResourceLocation(modid, "bsonorandesert");
-        ResourceLocation bstellatapasture = new ResourceLocation(modid, "bstellatapasture");
-        ResourceLocation btropical_islands = new ResourceLocation(modid, "btropical_islands");
-        ResourceLocation btropicalmountains = new ResourceLocation(modid, "btropicalmountains");
-        ResourceLocation btropicalrainforest = new ResourceLocation(modid, "btropicalrainforest");
-        ResourceLocation btundra = new ResourceLocation(modid, "btundra");
-        ResourceLocation bweepingwitchforest = new ResourceLocation(modid, "bweepingwitchforest");
-        ResourceLocation bwhisperingwoods = new ResourceLocation(modid, "bwhisperingwoods");
-        ResourceLocation bwoodlands = new ResourceLocation(modid, "bwoodlands");
-        ResourceLocation bzelkovaforest = new ResourceLocation(modid, "bzelkovaforest");
-
-//        if ((biome = Biome.REGISTRY.getObject(babyssalbog)) != null) {
-//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAbyssalBog(biome));
-//        }
-        if ((biome = Biome.REGISTRY.getObject(balliumfields)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("balliumfields"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAlliumFields(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(balps)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("balps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bamaranth_fields)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bamaranth_fields"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAmaranthFields(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bancientforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bancientforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAncientForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(baspenforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("baspenforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAspenForest(biome));
         }
-//        if ((biome = Biome.REGISTRY.getObject(bastralisle)) != null) {
-//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGAstralIsle(biome));
-//        }
-        if ((biome = Biome.REGISTRY.getObject(bbambooforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bbambooforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBambooForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bbaobabsavanna)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bbaobabsavanna"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBaobabSavanna(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bbayou)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bbayou"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBayou(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bbluetaiga)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bbluetaiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBlueTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bbluff_mountains)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bbluff_mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBluffMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bbog)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bbog"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBog(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bborealforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bborealforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGBorealForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bcanyons)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bcanyons"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCanyons(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bchaparrallowlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bchaparrallowlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGChaparralLowlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bcherrygrove)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bcherrygrove"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCherryGrove(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bcikaforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bcikaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCikaForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bconiferousforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bconiferousforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGConiferousForest(biome));
         }
-//        if ((biome = Biome.REGISTRY.getObject(bcosmicocean)) != null) {
-//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCosmicOcean(biome));
-//        }
-        if ((biome = Biome.REGISTRY.getObject(bcypress_swamplands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bcypress_swamplands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGCyprusSwampland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bdeadsea)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bdeadsea"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDeadSea(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bdeciduousforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bdeciduousforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDeciduousForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bdovermoutains)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bdovermoutains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDoverMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bdunes)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bdunes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGDunes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bebonywoods)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bebonywoods"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEbonyWoods(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(benchantedforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("benchantedforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEnchantedForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(beucalyptustropics)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("beucalyptustropics"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEucalyptusTropics(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bevergreentaiga)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bevergreentaiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGEvergreenTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bfrostyforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bfrostyforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGFrostyForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bfungaljungle)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bfungaljungle"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGFungalJungle(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bgiant_blue_spruce_taiga)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bgiant_blue_spruce_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGiantBlueSpruceTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bgiant_seasonal_spruce_taiga)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bgiant_seasonal_spruce_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGiantSeasonalSpruceTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bglaciers)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bglaciers"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGlaciers(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bglowshroombayou)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bglowshroombayou"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGlowshroomBayou(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bgrasslandplateau)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bgrasslandplateau"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGrasslandPlateau(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bgreatlakes)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bgreatlakes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGreatLakes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bgreatoaklowlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bgreatoaklowlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGGreatOakLowlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bjacarandaforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bjacarandaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGJacarandaForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(blushdesert)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("blushdesert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGLushDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bmangrovemarshes)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bmangrovemarshes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMangroveMarshes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bmapleforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bmapleforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMapleForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bmeadow)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bmeadow"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGMeadow(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(borchard)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("borchard"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGOrchard(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(boutback)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("boutback"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGOutback(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(boutlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("boutlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGOutlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bpaperbirchforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bpaperbirchforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPaperBirchForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bpine_lowlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bpine_lowlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPineLowlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bpinemountains)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bpinemountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPineMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bpraire)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bpraire"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPraire(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bprairie)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bprairie"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGPrairie(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bquagmire)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bquagmire"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGQuagmire(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(breddesert)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("breddesert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bredoakforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bredoakforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bred_outlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bred_outlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedOutlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bredwoodtropics)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bredwoodtropics"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGRedwoodTropics(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bsavannacanopy)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bsavannacanopy"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSavannaCanopy(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bseasonalbirchforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bseasonalbirchforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalBirchForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bseasonaldeciduous)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bseasonaldeciduous"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalDeciduous(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bseasonalforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bseasonalforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bseasonaltaiga)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bseasonaltaiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSeasonalTaiga(biome));
         }
-//        if ((biome = Biome.REGISTRY.getObject(bshattereddesert)) != null) {
-//            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGShatteredDesert(biome));
-//        }
-        if ((biome = Biome.REGISTRY.getObject(bshrublands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bshrublands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGShrublands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bskyrishighlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bskyrishighlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSkyrisHighlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bsnowyconiferousforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bsnowyconiferousforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSnowyConiferousForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bsnowyevergeentaiga)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bsnowyevergeentaiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSnowyEvergeenTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bsnowypinemountains)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bsnowypinemountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSnowyPineMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bsonorandesert)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bsonorandesert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGSonoranDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bstellatapasture)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bstellatapasture"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGStellataPasture(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bstone_brushlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bstone_brushlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGStoneBrushlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(btropical_islands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("btropical_islands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTropicalIslands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(btropicalmountains)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("btropicalmountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTropicalMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(btropicalrainforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("btropicalrainforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTropicalRainforest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(btundra)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("btundra"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGTundra(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bweepingwitchforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bweepingwitchforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGWeepingWitchForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bwhisperingwoods)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bwhisperingwoods"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGWhisperingWoods(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bwoodlands)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bwoodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bzelkovaforest)) != null) {
+        if ((biome = getBiome(Mods.byg.getResourceLocation("bzelkovaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBYGZelkovaForest(biome));
         }
     }
 
     private static void init_bionisation() {
 
-        String modid = Mods.bionisation3.name();
-        Biome biome;
-        ResourceLocation infected_forest = new ResourceLocation(modid, "infected_forest");
-
-        if ((biome = Biome.REGISTRY.getObject(infected_forest)) != null) {
+        final Biome biome;
+        if ((biome = getBiome(Mods.bionisation3.getResourceLocation("infected_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBIOInfectedForest(biome));
         }
     }
 
     private static void init_buildcraft() {
 
-        String modid = Mods.buildcraftenergy.name();
         Biome biome;
-        ResourceLocation bc_oil_desert = new ResourceLocation(modid, "oil_desert");
-        ResourceLocation bc_oil_ocean = new ResourceLocation(modid, "oil_ocean");
-
-        if ((biome = Biome.REGISTRY.getObject(bc_oil_desert)) != null) {
+        if ((biome = getBiome(Mods.buildcraftenergy.getResourceLocation("oil_desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCDesertOilField(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bc_oil_ocean)) != null) {
+        if ((biome = getBiome(Mods.buildcraftenergy.getResourceLocation("oil_ocean"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBCOceanOilField(biome));
         }
     }
 
     private static void init_candymod() {
 
-        String modid = Mods.candymod.name();
         Biome biome;
-        ResourceLocation biome_cotton_candy = new ResourceLocation(modid, "biome_cotton_candy");
-        ResourceLocation biome_chocolate_forest = new ResourceLocation(modid, "biome_chocolate_forest");
-        ResourceLocation biome_gummy_swamp = new ResourceLocation(modid, "biome_gummy_swamp");
-
-        if ((biome = Biome.REGISTRY.getObject(biome_cotton_candy)) != null) {
+        if ((biome = getBiome(Mods.candymod.getResourceLocation("biome_cotton_candy"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWCottonCandyPlains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(biome_chocolate_forest)) != null) {
+        if ((biome = getBiome(Mods.candymod.getResourceLocation("biome_chocolate_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWChocolateForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(biome_gummy_swamp)) != null) {
+        if ((biome = getBiome(Mods.candymod.getResourceLocation("biome_gummy_swamp"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeCWGummySwamp(biome));
         }
     }
 
     private static void init_defiledlands() {
 
-        String modid = Mods.defiledlands.name();
         Biome biome;
-        ResourceLocation desert_defiled = new ResourceLocation(modid, "desert_defiled");
-        ResourceLocation plains_defiled = new ResourceLocation(modid, "plains_defiled");
-        ResourceLocation forest_tenebra = new ResourceLocation(modid, "forest_tenebra");
-        ResourceLocation forest_vilespine = new ResourceLocation(modid, "forest_vilespine");
-        ResourceLocation hills_defiled = new ResourceLocation(modid, "hills_defiled");
-        ResourceLocation swamp_defiled = new ResourceLocation(modid, "swamp_defiled");
-        ResourceLocation ice_plains_defiled = new ResourceLocation(modid, "ice_plains_defiled");
-
-        if ((biome = Biome.REGISTRY.getObject(desert_defiled)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("desert_defiled"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLDesertDefiled(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(plains_defiled)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("plains_defiled"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLPlainsDefiled(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forest_tenebra)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("forest_tenebra"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLForestTenebra(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forest_vilespine)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("forest_vilespine"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLForestVilespine(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(hills_defiled)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("hills_defiled"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLHillsDefiled(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(swamp_defiled)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("swamp_defiled"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLSwampDefiled(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(ice_plains_defiled)) != null) {
+        if ((biome = getBiome(Mods.defiledlands.getResourceLocation("ice_plains_defiled"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDLIcePlainsDefiled(biome));
         }
     }
 
     private static void init_douglasforest() {
 
-        String modid = Mods.douglas_forest.name();
         Biome biome;
-        ResourceLocation douglas_forest = new ResourceLocation(modid, "douglas_forest");
-        ResourceLocation maple_forest = new ResourceLocation(modid, "maple_forest");
-
-        if ((biome = Biome.REGISTRY.getObject(douglas_forest)) != null) {
+        if ((biome = getBiome(Mods.douglas_forest.getResourceLocation("douglas_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFDouglasForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(maple_forest)) != null) {
+        if ((biome = getBiome(Mods.douglas_forest.getResourceLocation("maple_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeDFMapleForest(biome));
         }
     }
 
     private static void init_environs() {
 
-        String modid = Mods.environs.name();
         Biome biome;
-        ResourceLocation extreme_jungle = new ResourceLocation(modid, "extreme_jungle");
-        ResourceLocation moor = new ResourceLocation(modid, "moor");
-        ResourceLocation emerald_cliffs = new ResourceLocation(modid, "emerald_cliffs");
-        ResourceLocation pine_forest = new ResourceLocation(modid, "pine_forest");
-        ResourceLocation pine_forest_hills = new ResourceLocation(modid, "pine_forest_hills");
-        ResourceLocation silkglades = new ResourceLocation(modid, "silkglades");
-        ResourceLocation stone_flats = new ResourceLocation(modid, "stone_flats");
-        ResourceLocation end_forest = new ResourceLocation(modid, "end_forest");
-        ResourceLocation sparse_end_forest = new ResourceLocation(modid, "sparse_end_forest");
-        ResourceLocation end_shrubland = new ResourceLocation(modid, "end_shrubland");
-        ResourceLocation tall_oak_forest = new ResourceLocation(modid, "tall_oak_forest");
-        ResourceLocation tall_oak_forest_hills = new ResourceLocation(modid, "tall_oak_forest_hills");
-        ResourceLocation tall_oak_wetland = new ResourceLocation(modid, "tall_oak_wetland");
-        ResourceLocation wasteland_spikes = new ResourceLocation(modid, "wasteland_spikes");
-        ResourceLocation wasteland_eroded = new ResourceLocation(modid, "wasteland_eroded");
-        ResourceLocation dead_oak_forest = new ResourceLocation(modid, "dead_oak_forest");
-        ResourceLocation dead_oak_forest_hills = new ResourceLocation(modid, "dead_oak_forest_hills");
-        ResourceLocation icy_hills = new ResourceLocation(modid, "icy_hills");
-
-        if ((biome = Biome.REGISTRY.getObject(extreme_jungle)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("extreme_jungle"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVExtremeJungle(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(moor)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("moor"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVMoor(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(emerald_cliffs)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("emerald_cliffs"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVEmeraldCliffs(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(pine_forest)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("pine_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVPineTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(pine_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("pine_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVPineTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(silkglades)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("silkglades"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVSilkglades(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(stone_flats)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("stone_flats"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVStoneFlats(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(end_forest)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("end_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVEndForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sparse_end_forest)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("sparse_end_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVSparseEndForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(end_shrubland)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("end_shrubland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVEndShrubland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tall_oak_forest)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("tall_oak_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVTallOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tall_oak_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("tall_oak_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVTallOakForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tall_oak_wetland)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("tall_oak_wetland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVTallOakWetland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland_spikes)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("wasteland_spikes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVWastelandSpikes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland_eroded)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("wasteland_eroded"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVWastelandEroded(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(dead_oak_forest)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("dead_oak_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVDeadOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(dead_oak_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("dead_oak_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVDeadOakForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(icy_hills)) != null) {
+        if ((biome = getBiome(Mods.environs.getResourceLocation("icy_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeENVIcyHills(biome));
         }
     }
 
     private static void init_explorercraft() {
 
-        String modid = Mods.explorercraft.name();
         Biome biome;
-        ResourceLocation bamboo_forest = new ResourceLocation(modid, "bamboo_forest");
-        ResourceLocation forested_mountain = new ResourceLocation(modid, "forested_mountain");
-        ResourceLocation snowdonia = new ResourceLocation(modid, "snowdonia");
-
-        if ((biome = Biome.REGISTRY.getObject(bamboo_forest)) != null) {
+        if ((biome = getBiome(Mods.explorercraft.getResourceLocation("bamboo_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeECBambooForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forested_mountain)) != null) {
+        if ((biome = getBiome(Mods.explorercraft.getResourceLocation("forested_mountain"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeECForestedMountain(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snowdonia)) != null) {
+        if ((biome = getBiome(Mods.explorercraft.getResourceLocation("snowdonia"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeECSnowdonia(biome));
         }
     }
 
     private static void init_floricraft() {
 
-        String modid = Mods.floricraft.name();
         Biome biome;
-        ResourceLocation tulip_land = new ResourceLocation(modid, "tulip land");
-        ResourceLocation rose_land = new ResourceLocation(modid, "rose land");
-
-        if ((biome = Biome.REGISTRY.getObject(tulip_land)) != null) {
+        if ((biome = getBiome(Mods.floricraft.getResourceLocation("tulip land"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFLORITulipLand(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rose_land)) != null) {
+        if ((biome = getBiome(Mods.floricraft.getResourceLocation("rose land"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFLORIRoseLand(biome));
         }
     }
 
     private static void init_fyrecraft() {
 
-        String modid = Mods.fyrecraft.name();
         Biome biome;
-        ResourceLocation rocky_wasteland = new ResourceLocation(modid, "rocky wasteland");
-        ResourceLocation mushroom_grove = new ResourceLocation(modid, "mushroom grove");
-        ResourceLocation tropical_lakes = new ResourceLocation(modid, "tropical lakes");
-        ResourceLocation mega_mountains = new ResourceLocation(modid, "mega mountains");
-        ResourceLocation red_desert = new ResourceLocation(modid, "red desert");
-        ResourceLocation red_desert_hills = new ResourceLocation(modid, "red desert hills");
-        ResourceLocation volcanic_wasteland = new ResourceLocation(modid, "volcanic wasteland");
-        ResourceLocation crimson_grove = new ResourceLocation(modid, "crimson grove");
-
-        if ((biome = Biome.REGISTRY.getObject(rocky_wasteland)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("rocky wasteland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERockyWasteland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mushroom_grove)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("mushroom grove"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREMushroomGrove(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tropical_lakes)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("tropical lakes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRETropicalLakes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_mountains)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("mega mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREMegaMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(red_desert)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("red desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERedDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(red_desert_hills)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("red desert hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRERedDesertHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(volcanic_wasteland)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("volcanic wasteland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYREVolcanicWasteland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(crimson_grove)) != null) {
+        if ((biome = getBiome(Mods.fyrecraft.getResourceLocation("crimson grove"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeFYRECrimsonGrove(biome));
         }
     }
 
     private static void init_gravityfalls() {
 
-        String modid = Mods.gravityfalls.name();
         Biome biome;
-        ResourceLocation gravityfalls = new ResourceLocation(modid, "gravityfalls");
-        ResourceLocation nightmarerealm = new ResourceLocation(modid, "nightmarerealm");
-
-        if ((biome = Biome.REGISTRY.getObject(gravityfalls)) != null) {
+        if ((biome = getBiome(Mods.gravityfalls.getResourceLocation("gravityfalls"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFGravityFalls(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(nightmarerealm)) != null) {
+        if ((biome = getBiome(Mods.gravityfalls.getResourceLocation("nightmarerealm"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeGFNightmareRealm(biome));
         }
     }
 
     private static void init_mistbiomes() {
 
-        String modid = Mods.mistbiomes.name();
         Biome biome;
-        ResourceLocation mistforest = new ResourceLocation(modid, "mistforest");
-        ResourceLocation mistplains = new ResourceLocation(modid, "mistplains");
-        ResourceLocation misttaiga = new ResourceLocation(modid, "misttaiga");
-        ResourceLocation mistdesert = new ResourceLocation(modid, "mistdesert");
-        ResourceLocation coldmisttaiga = new ResourceLocation(modid, "coldmisttaiga");
-        ResourceLocation mistswamp = new ResourceLocation(modid, "mistswamp");
-        ResourceLocation mistymushroomisland = new ResourceLocation(modid, "mistymushroomisland");
-
-        if ((biome = Biome.REGISTRY.getObject(mistforest)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("mistforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mistplains)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("mistplains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistPlains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(misttaiga)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("misttaiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mistdesert)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("mistdesert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(coldmisttaiga)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("coldmisttaiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBColdMistTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mistswamp)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("mistswamp"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistSwamp(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mistymushroomisland)) != null) {
+        if ((biome = getBiome(Mods.mistbiomes.getResourceLocation("mistymushroomisland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeMBMistMushroomIsland(biome));
         }
     }
 
+    @SuppressWarnings("unused")
     private static void init_novamterram() {
 
-        String modid = Mods.nt.name();
         Biome biome;
 
         /*
@@ -1587,14 +1319,14 @@ public final class BiomeInit {
          */
 
         final List<Biome> ntbeaches = Stream.of(
-            new ResourceLocation(modid, "black_beach"),
-            new ResourceLocation(modid, "brown_beach"),
-            new ResourceLocation(modid, "iron_beach"),
-            new ResourceLocation(modid, "olivine_beach"),
-            new ResourceLocation(modid, "orange_beach"),
-            new ResourceLocation(modid, "pink_beach"),
-            new ResourceLocation(modid, "purple_beach"),
-            new ResourceLocation(modid, "white_beach")
+            Mods.nt.getResourceLocation("black_beach"),
+            Mods.nt.getResourceLocation("brown_beach"),
+            Mods.nt.getResourceLocation("iron_beach"),
+            Mods.nt.getResourceLocation("olivine_beach"),
+            Mods.nt.getResourceLocation("orange_beach"),
+            Mods.nt.getResourceLocation("pink_beach"),
+            Mods.nt.getResourceLocation("purple_beach"),
+            Mods.nt.getResourceLocation("white_beach")
         )
             .map(ForgeRegistries.BIOMES::getValue)
             .filter(Objects::nonNull)
@@ -1605,922 +1337,688 @@ public final class BiomeInit {
                 .filter(biomeEntry -> ntbeaches.contains(biomeEntry.biome))
                 .forEach(biomeEntry -> BiomeManager.removeBiome(type, biomeEntry)));
 
-        ResourceLocation aegean_archipelago = new ResourceLocation(modid, "aegean_archipelago");
-        ResourceLocation alium_meadow = new ResourceLocation(modid, "alium_meadow");
-        ResourceLocation alps = new ResourceLocation(modid, "alps");
-        ResourceLocation autumn_forest = new ResourceLocation(modid, "autumn_forest");
-        ResourceLocation autumn_forest_hills = new ResourceLocation(modid, "autumn_forest_hills");
-        ResourceLocation autumn_taiga = new ResourceLocation(modid, "autumn_taiga");
-        ResourceLocation autumn_taiga_hills = new ResourceLocation(modid, "autumn_taiga_hills");
-        ResourceLocation birch_hills = new ResourceLocation(modid, "birch_hills");
-        ResourceLocation black_beach = new ResourceLocation(modid, "black_beach");
-        ResourceLocation blossom_forest = new ResourceLocation(modid, "blossom_forest");
-        ResourceLocation blossom_forest_hills = new ResourceLocation(modid, "blossom_forest_hills");
-        ResourceLocation blue_taiga = new ResourceLocation(modid, "blue_taiga");
-        ResourceLocation blue_taiga_hills = new ResourceLocation(modid, "blue_taiga_hills");
-        ResourceLocation brown_beach = new ResourceLocation(modid, "brown_beach");
-        ResourceLocation clayland = new ResourceLocation(modid, "clayland");
-        ResourceLocation cliffs = new ResourceLocation(modid, "cliffs");
-        ResourceLocation cold_birch_forest = new ResourceLocation(modid, "cold_birch_forest");
-        ResourceLocation cold_birch_forest_hills = new ResourceLocation(modid, "cold_birch_forest_hills");
-        ResourceLocation cold_blue_taiga = new ResourceLocation(modid, "cold_blue_taiga");
-        ResourceLocation cold_blue_taiga_hills = new ResourceLocation(modid, "cold_blue_taiga_hills");
-        ResourceLocation cold_desert = new ResourceLocation(modid, "cold_desert");
-        ResourceLocation cold_flower_forest = new ResourceLocation(modid, "cold_flower_forest");
-        ResourceLocation cold_flower_forest_hills = new ResourceLocation(modid, "cold_flower_forest_hills");
-        ResourceLocation cold_forest = new ResourceLocation(modid, "cold_forest");
-        ResourceLocation cold_forest_hills = new ResourceLocation(modid, "cold_forest_hills");
-        ResourceLocation cold_mega_blue_taiga = new ResourceLocation(modid, "cold_mega_blue_taiga");
-        ResourceLocation cold_mega_blue_taiga_hills = new ResourceLocation(modid, "cold_mega_blue_taiga_hills");
-        ResourceLocation cold_mega_spruce_taiga = new ResourceLocation(modid, "cold_mega_spruce_taiga");
-        ResourceLocation cold_mega_spruce_taiga_hills = new ResourceLocation(modid, "cold_mega_spruce_taiga_hills");
-        ResourceLocation cold_mega_taiga = new ResourceLocation(modid, "cold_mega_taiga");
-        ResourceLocation cold_mega_taiga_hills = new ResourceLocation(modid, "cold_mega_taiga_hills");
-        ResourceLocation cold_roofed_forest = new ResourceLocation(modid, "cold_roofed_forest");
-        ResourceLocation cold_roofed_forest_hills = new ResourceLocation(modid, "cold_roofed_forest_hills");
-        ResourceLocation estuary = new ResourceLocation(modid, "estuary");
-        ResourceLocation fen = new ResourceLocation(modid, "fen");
-        ResourceLocation fungal_jungle = new ResourceLocation(modid, "fungal_jungle");
-        ResourceLocation fungal_jungle_hills = new ResourceLocation(modid, "fungal_jungle_hills");
-        ResourceLocation glacier = new ResourceLocation(modid, "glacier");
-        ResourceLocation grass_hills = new ResourceLocation(modid, "grass_hills");
-        ResourceLocation green_mixed_forest = new ResourceLocation(modid, "green_mixed_forest");
-        ResourceLocation green_mixed_forest_hills = new ResourceLocation(modid, "green_mixed_forest_hills");
-        ResourceLocation green_swamp = new ResourceLocation(modid, "green_swamp");
-        ResourceLocation heath = new ResourceLocation(modid, "heath");
-        ResourceLocation highland = new ResourceLocation(modid, "highland");
-        ResourceLocation hills = new ResourceLocation(modid, "hills");
-        ResourceLocation hotspring = new ResourceLocation(modid, "hotspring");
-        ResourceLocation icy_tundra = new ResourceLocation(modid, "icy_tundra");
-        ResourceLocation iron_beach = new ResourceLocation(modid, "iron_beach");
-        ResourceLocation lake = new ResourceLocation(modid, "lake");
-        ResourceLocation lowland = new ResourceLocation(modid, "lowland");
-        ResourceLocation lush_desert = new ResourceLocation(modid, "lush_desert");
-        ResourceLocation maple_forest = new ResourceLocation(modid, "maple_forest");
-        ResourceLocation maple_forest_hills = new ResourceLocation(modid, "maple_forest_hills");
-        ResourceLocation meadow = new ResourceLocation(modid, "meadow");
-        ResourceLocation mega_autumn_taiga = new ResourceLocation(modid, "mega_autumn_taiga");
-        ResourceLocation mega_autumn_taiga_hills = new ResourceLocation(modid, "mega_autumn_taiga_hills");
-        ResourceLocation mega_blue_taiga = new ResourceLocation(modid, "mega_blue_taiga");
-        ResourceLocation mega_blue_taiga_hills = new ResourceLocation(modid, "mega_blue_taiga_hills");
-        ResourceLocation mega_maple_forest = new ResourceLocation(modid, "mega_maple_forest");
-        ResourceLocation mega_maple_forest_hills = new ResourceLocation(modid, "mega_maple_forest_hills");
-        ResourceLocation mixed_forest = new ResourceLocation(modid, "mixed_forest");
-        ResourceLocation mixed_forest_hills = new ResourceLocation(modid, "mixed_forest_hills");
-        ResourceLocation monsoon_forest = new ResourceLocation(modid, "monsoon_forest");
-        ResourceLocation moorland = new ResourceLocation(modid, "moorland");
-        ResourceLocation mountains = new ResourceLocation(modid, "mountains");
-        ResourceLocation oak_forest = new ResourceLocation(modid, "oak_forest");
-        ResourceLocation oak_forest_hills = new ResourceLocation(modid, "oak_forest_hills");
-        ResourceLocation olivine_beach = new ResourceLocation(modid, "olivine_beach");
-        ResourceLocation orange_beach = new ResourceLocation(modid, "orange_beach");
-        ResourceLocation pineland = new ResourceLocation(modid, "pineland");
-        ResourceLocation pink_beach = new ResourceLocation(modid, "pink_beach");
-        ResourceLocation poppy_meadow = new ResourceLocation(modid, "poppy_meadow");
-        ResourceLocation purple_beach = new ResourceLocation(modid, "purple_beach");
-        ResourceLocation red_sand_dune = new ResourceLocation(modid, "red_sand_dune");
-        ResourceLocation rockland = new ResourceLocation(modid, "rockland");
-        ResourceLocation rocky_taiga = new ResourceLocation(modid, "rocky_taiga");
-        ResourceLocation royal_forest = new ResourceLocation(modid, "royal_forest");
-        ResourceLocation royal_forest_hills = new ResourceLocation(modid, "royal_forest_hills");
-        ResourceLocation sahel = new ResourceLocation(modid, "sahel");
-        ResourceLocation sand_dune = new ResourceLocation(modid, "sand_dune");
-        ResourceLocation sandy_mountains = new ResourceLocation(modid, "sandy_mountains");
-        ResourceLocation scrubland = new ResourceLocation(modid, "scrubland");
-        ResourceLocation shrubland = new ResourceLocation(modid, "shrubland");
-        ResourceLocation snowdune = new ResourceLocation(modid, "snowdune");
-        ResourceLocation stone_fields = new ResourceLocation(modid, "stone_fields");
-        ResourceLocation stone_mountains = new ResourceLocation(modid, "stone_mountains");
-        ResourceLocation tall_oak_forest = new ResourceLocation(modid, "tall_oak_forest");
-        ResourceLocation tall_oak_forest_hills = new ResourceLocation(modid, "tall_oak_forest_hills");
-        ResourceLocation tropical_desert = new ResourceLocation(modid, "tropical_desert");
-        ResourceLocation tundra = new ResourceLocation(modid, "tundra");
-        ResourceLocation white_beach = new ResourceLocation(modid, "white_beach");
-        ResourceLocation white_orchard = new ResourceLocation(modid, "white_orchard");
-
-        if ((biome = Biome.REGISTRY.getObject(aegean_archipelago)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("aegean_archipelago"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAegeanArchipelago(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(alium_meadow)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("alium_meadow"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAliumMeadow(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(alps)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(autumn_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("autumn_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAutumnForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(autumn_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("autumn_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAutumnForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(autumn_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("autumn_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAutumnTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(autumn_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("autumn_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTAutumnTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(birch_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("birch_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBirchHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(black_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("black_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBlackBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(blossom_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("blossom_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBlossomForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(blossom_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("blossom_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBlossomForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(blue_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("blue_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBlueTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(blue_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("blue_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBlueTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(brown_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("brown_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTBrownBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(clayland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("clayland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTClayland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cliffs)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cliffs"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTCliffs(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_birch_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_birch_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdBirchForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_birch_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_birch_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdBirchForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_blue_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_blue_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdBlueTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_blue_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_blue_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdBlueTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_desert)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_flower_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_flower_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdFlowerForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_flower_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_flower_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdFlowerForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_mega_blue_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_mega_blue_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdMegaBlueTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_mega_blue_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_mega_blue_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdMegaBlueTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_mega_spruce_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_mega_spruce_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdMegaSpruceTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_mega_spruce_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_mega_spruce_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdMegaSpruceTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_mega_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_mega_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdMegaTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_mega_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_mega_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdMegaTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_roofed_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_roofed_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdRoofedForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cold_roofed_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("cold_roofed_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTColdRoofedForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(estuary)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("estuary"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTEstuary(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(fen)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("fen"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTFen(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(fungal_jungle)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("fungal_jungle"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTFungalJungle(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(fungal_jungle_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("fungal_jungle_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTFungalJungleHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(glacier)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("glacier"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTGlacier(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(grass_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("grass_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTGrassHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(green_mixed_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("green_mixed_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTGreenMixedForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(green_mixed_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("green_mixed_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTGreenMixedForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(green_swamp)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("green_swamp"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTGreenSwamp(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(heath)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("heath"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTHeath(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(highland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("highland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTHighland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(hotspring)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("hotspring"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTHotspring(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(icy_tundra)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("icy_tundra"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTIcyTundra(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(iron_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("iron_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTIronBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lake)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("lake"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTLake(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lowland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("lowland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTLowland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lush_desert)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("lush_desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTLushDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(maple_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("maple_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMapleForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(maple_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("maple_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMapleForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(meadow)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("meadow"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMeadow(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_autumn_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mega_autumn_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMegaAutumnTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_autumn_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mega_autumn_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMegaAutumnTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_blue_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mega_blue_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMegaBlueTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_blue_taiga_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mega_blue_taiga_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMegaBlueTaigaHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_maple_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mega_maple_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMegaMapleForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mega_maple_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mega_maple_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMegaMapleForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mixed_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mixed_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMixedForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mixed_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mixed_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMixedForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(monsoon_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("monsoon_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMonsoonForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(moorland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("moorland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMoorland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mountains)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(oak_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("oak_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(oak_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("oak_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTOakForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(olivine_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("olivine_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTOlivineBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(orange_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("orange_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTOrangeBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(pineland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("pineland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTPineland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(pink_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("pink_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTPinkBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(poppy_meadow)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("poppy_meadow"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTPoppyMeadow(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(purple_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("purple_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTPurpleBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(red_sand_dune)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("red_sand_dune"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTRedSandDune(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rockland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("rockland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTRockland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rocky_taiga)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("rocky_taiga"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTRockyTaiga(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(royal_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("royal_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTRoyalForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(royal_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("royal_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTRoyalForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sahel)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("sahel"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTSahel(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sand_dune)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("sand_dune"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTSandDune(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sandy_mountains)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("sandy_mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTSandyMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(scrubland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("scrubland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTScrubland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(shrubland)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("shrubland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTShrubland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snowdune)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("snowdune"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTSnowdune(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(stone_fields)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("stone_fields"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTStoneFields(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(stone_mountains)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("stone_mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTStoneMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tall_oak_forest)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("tall_oak_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTTallOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tall_oak_forest_hills)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("tall_oak_forest_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTTallOakForestHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tropical_desert)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("tropical_desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTTropicalDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tundra)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("tundra"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTTundra(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_beach)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("white_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTWhiteBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_orchard)) != null) {
+        if ((biome = getBiome(Mods.nt.getResourceLocation("white_orchard"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeNTWhiteOrchard(biome));
         }
     }
 
     private static void init_odioitamod() {
 
-        String modid = Mods.odioitamod.name();
         Biome biome;
-        ResourceLocation whiteblancoaforest = new ResourceLocation(modid, "whiteblancoaforest");
-        ResourceLocation orangeblancoaforest = new ResourceLocation(modid, "orangeblancoaforest");
-        ResourceLocation pinkblancoaforest = new ResourceLocation(modid, "pinkblancoaforest");
-        ResourceLocation redblancoaforest = new ResourceLocation(modid, "redblancoaforest");
-
-        if ((biome = Biome.REGISTRY.getObject(whiteblancoaforest)) != null) {
+        if ((biome = getBiome(Mods.odioitamod.getResourceLocation("whiteblancoaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOWhiteBlancoaForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(orangeblancoaforest)) != null) {
+        if ((biome = getBiome(Mods.odioitamod.getResourceLocation("orangeblancoaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOOrangeBlancoaForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(pinkblancoaforest)) != null) {
+        if ((biome = getBiome(Mods.odioitamod.getResourceLocation("pinkblancoaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIOPinkBlancoaForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(redblancoaforest)) != null) {
+        if ((biome = getBiome(Mods.odioitamod.getResourceLocation("redblancoaforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeODIORedBlancoaForest(biome));
         }
     }
 
     private static void init_plants() {
 
-        String modid = Mods.plants2.name();
-        Biome biome;
-        ResourceLocation crystal_forest = new ResourceLocation(modid, "crystal_forest");
-
-        if ((biome = Biome.REGISTRY.getObject(crystal_forest)) != null) {
+        final Biome biome;
+        if ((biome = getBiome(Mods.plants2.getResourceLocation("crystal_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePLANTSCrystalForest(biome));
         }
     }
 
     private static void init_pvj() {
 
-        String modid = Mods.pvj.name();
         Biome biome;
-        ResourceLocation prairie = new ResourceLocation(modid, "prairie");
-        ResourceLocation redwoods = new ResourceLocation(modid, "redwoods");
-        ResourceLocation redwood_peaks = new ResourceLocation(modid, "redwood_peaks");
-        ResourceLocation willow_swamp = new ResourceLocation(modid, "willow_swamp");
-        ResourceLocation boreal_forest = new ResourceLocation(modid, "boreal_forest");
-        ResourceLocation snowy_boreal_forest = new ResourceLocation(modid, "snowy_boreal_forest");
-        ResourceLocation aspen_grove = new ResourceLocation(modid, "aspen_grove");
-        ResourceLocation overgrown_spires = new ResourceLocation(modid, "overgrown_spires");
-        ResourceLocation blossoming_fields = new ResourceLocation(modid, "blossoming_fields");
-        ResourceLocation baobab_fields = new ResourceLocation(modid, "baobab_fields");
-
-        if ((biome = Biome.REGISTRY.getObject(prairie)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("prairie"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJPraire(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(redwoods)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("redwoods"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJRedwoods(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(redwood_peaks)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("redwood_peaks"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJRedwoodPeaks(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(willow_swamp)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("willow_swamp"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJWillowSwamp(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(boreal_forest)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("boreal_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJBorealForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snowy_boreal_forest)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("snowy_boreal_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJSnowyBorealForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(aspen_grove)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("aspen_grove"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJAspenGrove(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(overgrown_spires)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("overgrown_spires"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJOvergrownSpires(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(blossoming_fields)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("blossoming_fields"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJBlossomingFields(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(baobab_fields)) != null) {
+        if ((biome = getBiome(Mods.pvj.getResourceLocation("baobab_fields"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomePVJBaobabFields(biome));
         }
     }
 
     private static void init_realworld() {
 
-        String modid = Mods.realworld.name();
         Biome biome;
-        ResourceLocation rw_bamboo_marsh = new ResourceLocation(modid, "rw_bamboo_marsh");
-        ResourceLocation rw_birch_autumn_forest = new ResourceLocation(modid, "rw_birch_autumn_forest");
-        ResourceLocation rw_blue_oak_forest = new ResourceLocation(modid, "rw_blue_oak_forest");
-        ResourceLocation rw_bombona_beach = new ResourceLocation(modid, "rw_bombona_beach");
-        ResourceLocation rw_bur_oak_forest = new ResourceLocation(modid, "rw_bur_oak_forest");
-        ResourceLocation rw_flatland_thicket = new ResourceLocation(modid, "rw_flatland_thicket");
-        ResourceLocation rw_emperor_ridge = new ResourceLocation(modid, "rw_emperor_ridge");
-        ResourceLocation rw_silver_birch_hills = new ResourceLocation(modid, "rw_silver_birch_hills");
-        ResourceLocation rw_spiny_forest = new ResourceLocation(modid, "rw_spiny_forest");
-        ResourceLocation rw_spruce_mountains = new ResourceLocation(modid, "rw_spruce_mountains");
-
-        if ((biome = Biome.REGISTRY.getObject(rw_bamboo_marsh)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_bamboo_marsh"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBambooMarsh(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_birch_autumn_forest)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_birch_autumn_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBirchAutumnForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_blue_oak_forest)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_blue_oak_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBlueOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_bombona_beach)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_bombona_beach"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBombonaBeach(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_bur_oak_forest)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_bur_oak_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWBurOakForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_flatland_thicket)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_flatland_thicket"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWFlatlandThicket(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_emperor_ridge)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_emperor_ridge"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWEmperorRidge(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_silver_birch_hills)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_silver_birch_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSilverBirchHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_spiny_forest)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_spiny_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpinyForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rw_spruce_mountains)) != null) {
+        if ((biome = getBiome(Mods.realworld.getResourceLocation("rw_spruce_mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRWSpruceMountains(biome));
         }
     }
 
     private static void init_redwoods() {
 
-        String modid = Mods.redwoods.name();
         Biome biome;
-        ResourceLocation redwood_forest = new ResourceLocation(modid, "redwood_forest");
-        ResourceLocation lush_redwood_forest = new ResourceLocation(modid, "lush_redwood_forest");
-        ResourceLocation temperate_rainforest = new ResourceLocation(modid, "temperate_rainforest");
-        ResourceLocation snowy_rainforest = new ResourceLocation(modid, "snowy_rainforest");
-        ResourceLocation alpine = new ResourceLocation(modid, "alpine"); // Doesn't actually generate in-game.
-
-        if ((biome = Biome.REGISTRY.getObject(redwood_forest)) != null) {
+        if ((biome = getBiome(Mods.redwoods.getResourceLocation("redwood_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDRedwoodForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lush_redwood_forest)) != null) {
+        if ((biome = getBiome(Mods.redwoods.getResourceLocation("lush_redwood_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDLushRedwoodForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(temperate_rainforest)) != null) {
+        if ((biome = getBiome(Mods.redwoods.getResourceLocation("temperate_rainforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDTemperateRainforest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snowy_rainforest)) != null) {
+        if ((biome = getBiome(Mods.redwoods.getResourceLocation("snowy_rainforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDSnowyRainforest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(alpine)) != null) {
+        if ((biome = getBiome(Mods.redwoods.getResourceLocation("alpine"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeREDAlpine(biome));
         }
     }
 
     private static void init_rockhounding() {
 
-        String modid = Mods.rockhounding_surface.name();
         Biome biome;
-        ResourceLocation white_sands = new ResourceLocation(modid, "white_sands");
-
-        if ((biome = Biome.REGISTRY.getObject(white_sands)) != null) {
+        if ((biome = getBiome(Mods.rockhounding_surface.getResourceLocation("white_sands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRHWhiteSands(biome));
         }
     }
 
     private static void init_spookybiomes() {
 
-        String modid = Mods.spookybiomes.name();
         Biome biome;
-        ResourceLocation witchwood_forest = new ResourceLocation(modid, "witchwood_forest");
-        ResourceLocation ghostly_forest = new ResourceLocation(modid, "ghostly_forest");
-
-        if ((biome = Biome.REGISTRY.getObject(witchwood_forest)) != null) {
+        if ((biome = getBiome(Mods.spookybiomes.getResourceLocation("witchwood_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBWitchwoodForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(ghostly_forest)) != null) {
+        if ((biome = getBiome(Mods.spookybiomes.getResourceLocation("ghostly_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSBGhostlyForest(biome));
         }
     }
 
     private static void init_sugiforest() {
 
-        String modid = Mods.sugiforest.name();
-        Biome biome;
-        ResourceLocation sugi_forest = new ResourceLocation(modid, "sugi_forest");
-
-        if ((biome = Biome.REGISTRY.getObject(sugi_forest)) != null) {
+        final Biome biome;
+        if ((biome = getBiome(Mods.sugiforest.getResourceLocation("sugi_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSFSugiForest(biome));
         }
     }
 
     private static void init_terscraft() {
 
-        String modid = Mods.terscraft.name();
-        Biome biome;
-        ResourceLocation biomedemonite = new ResourceLocation(modid, "biomedemonite");
-
-        if ((biome = Biome.REGISTRY.getObject(biomedemonite)) != null) {
+        final Biome biome;
+        if ((biome = getBiome(Mods.terscraft.getResourceLocation("biomedemonite"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTERSBiomeDemonite(biome));
         }
     }
 
     private static void init_thaumcraft() {
 
-        final ResourceLocation magicalForest = new ResourceLocation(Mods.thaumcraft.name(), "magical_forest");
-        final ResourceLocation eerie = new ResourceLocation(Mods.thaumcraft.name(), "eerie");
         Biome biome;
-
-        if ((biome = Biome.REGISTRY.getObject(magicalForest)) != null) {
+        if ((biome = getBiome(Mods.thaumcraft.getResourceLocation("magical_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTCMagicalForest(biome));
         }
-
-        if ((biome = Biome.REGISTRY.getObject(eerie)) != null) {
+        if ((biome = getBiome(Mods.thaumcraft.getResourceLocation("eerie"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTCEerie(biome));
         }
     }
 
     private static void init_traverse() {
 
-        String modid = Mods.traverse.name();
         Biome biome;
-        ResourceLocation autumnal_woods = new ResourceLocation(modid, "autumnal_woods");
-        ResourceLocation woodlands = new ResourceLocation(modid, "woodlands");
-        ResourceLocation mini_jungle = new ResourceLocation(modid, "mini_jungle");
-        ResourceLocation meadow = new ResourceLocation(modid, "meadow");
-        ResourceLocation green_swamp = new ResourceLocation(modid, "green_swamp");
-        ResourceLocation red_desert = new ResourceLocation(modid, "red_desert");
-        ResourceLocation temperate_rainforest = new ResourceLocation(modid, "temperate_rainforest");
-        ResourceLocation badlands = new ResourceLocation(modid, "badlands");
-        ResourceLocation mountainous_desert = new ResourceLocation(modid, "mountainous_desert");
-        ResourceLocation rocky_plateau = new ResourceLocation(modid, "rocky_plateau");
-        ResourceLocation forested_hills = new ResourceLocation(modid, "forested_hills");
-        ResourceLocation birch_forested_hills = new ResourceLocation(modid, "birch_forested_hills");
-        ResourceLocation autumnal_wooded_hills = new ResourceLocation(modid, "autumnal_wooded_hills");
-        ResourceLocation cliffs = new ResourceLocation(modid, "cliffs");
-        ResourceLocation glacier = new ResourceLocation(modid, "glacier");
-        ResourceLocation glacier_spikes = new ResourceLocation(modid, "glacier_spikes");
-        ResourceLocation snowy_coniferous_forest = new ResourceLocation(modid, "snowy_coniferous_forest");
-        ResourceLocation lush_hills = new ResourceLocation(modid, "lush_hills");
-        ResourceLocation desert_shrubland = new ResourceLocation(modid, "desert_shrubland");
-        ResourceLocation thicket = new ResourceLocation(modid, "thicket");
-        ResourceLocation arid_highland = new ResourceLocation(modid, "arid_highland");
-        ResourceLocation rocky_plains = new ResourceLocation(modid, "rocky_plains");
-
-        if ((biome = Biome.REGISTRY.getObject(autumnal_woods)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("autumnal_woods"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVAutumnalWoods(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(woodlands)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("woodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mini_jungle)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("mini_jungle"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVMiniJungle(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(meadow)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("meadow"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVMeadow(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(green_swamp)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("green_swamp"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVGreenSwamp(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(red_desert)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("red_desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVRedDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(temperate_rainforest)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("temperate_rainforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVTemperateRainforest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(badlands)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("badlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVBadlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mountainous_desert)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("mountainous_desert"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVMountainousDesert(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rocky_plateau)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("rocky_plateau"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVRockyPlateau(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forested_hills)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("forested_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVForestedHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(birch_forested_hills)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("birch_forested_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVBirchForestedHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(autumnal_wooded_hills)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("autumnal_wooded_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVAutumnalWoodedHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(cliffs)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("cliffs"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVCliffs(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(glacier)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("glacier"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVGlacier(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(glacier_spikes)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("glacier_spikes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVGlacierSpikes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snowy_coniferous_forest)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("snowy_coniferous_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVSnowyConiferousForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lush_hills)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("lush_hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVLushHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(desert_shrubland)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("desert_shrubland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVDesertShrubland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(thicket)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("thicket"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVThicket(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(arid_highland)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("arid_highland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVAridHighland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(rocky_plains)) != null) {
+        if ((biome = getBiome(Mods.traverse.getResourceLocation("rocky_plains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeTRAVRockyPlains(biome));
         }
     }
 
     private static void init_vampirism() {
 
-        String modid = Mods.vampirism.name();
-        Biome biome;
-        ResourceLocation vampireforest = new ResourceLocation(modid, "vampireforest");
-
-        if ((biome = Biome.REGISTRY.getObject(vampireforest)) != null) {
+        final Biome biome;
+        if ((biome = getBiome(Mods.vampirism.getResourceLocation("vampireforest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeVAMPVampireForest(biome));
         }
     }
 
     private static void init_zoesteria() {
 
-        String modid = Mods.valoegheses_be.name();
         Biome biome;
-        ResourceLocation archipelago = new ResourceLocation(modid, "archipelago");
-        ResourceLocation australian_outback = new ResourceLocation(modid, "australian outback");
-        ResourceLocation barelands = new ResourceLocation(modid, "barelands");
-        ResourceLocation bluff = new ResourceLocation(modid, "bluff");
-        ResourceLocation brushlands = new ResourceLocation(modid, "brushlands");
-        ResourceLocation brushlands_hills = new ResourceLocation(modid, "brushlands hills");
-        ResourceLocation bush = new ResourceLocation(modid, "bush");
-        ResourceLocation bushland_hills = new ResourceLocation(modid, "bushland hills");
-        ResourceLocation dense_brushlands = new ResourceLocation(modid, "dense brushlands");
-        ResourceLocation extreme_southern_alps = new ResourceLocation(modid, "extreme southern alps");
-        ResourceLocation forested_canyon_pillars = new ResourceLocation(modid, "forested canyon pillars");
-        ResourceLocation forested_canyon_plateau = new ResourceLocation(modid, "forested canyon plateau");
-        ResourceLocation forested_canyon_plateau_m = new ResourceLocation(modid, "forested canyon plateau m");
-        ResourceLocation ghost_forest = new ResourceLocation(modid, "ghost forest");
-        ResourceLocation grassy_fen = new ResourceLocation(modid, "grassy fen");
-        ResourceLocation grassy_marshland = new ResourceLocation(modid, "grassy marshland");
-        ResourceLocation high_inhabited_woodlands = new ResourceLocation(modid, "high inhabited woodlands");
-        ResourceLocation high_woodlands = new ResourceLocation(modid, "high woodlands");
-        ResourceLocation highlands = new ResourceLocation(modid, "highlands");
-        ResourceLocation hot_brushlands = new ResourceLocation(modid, "hot brushlands");
-        ResourceLocation low_spruce_woodlands = new ResourceLocation(modid, "low spruce woodlands");
-        ResourceLocation low_tall_woodlands = new ResourceLocation(modid, "low tall woodlands");
-        ResourceLocation low_woodlands = new ResourceLocation(modid, "low woodlands");
-        ResourceLocation lowlands = new ResourceLocation(modid, "lowlands");
-        ResourceLocation lowlands_chapparal = new ResourceLocation(modid, "lowlands chapparal");
-        ResourceLocation mire = new ResourceLocation(modid, "mire");
-        ResourceLocation moorlands = new ResourceLocation(modid, "moorlands");
-        ResourceLocation northern_alps = new ResourceLocation(modid, "northern alps");
-        ResourceLocation northern_snow_alps = new ResourceLocation(modid, "northern snow alps");
-        ResourceLocation northern_snow_subalpine_alps = new ResourceLocation(modid, "northern snow subalpine alps");
-        ResourceLocation northern_subalpine_alps = new ResourceLocation(modid, "northern subalpine alps");
-        ResourceLocation orchid_fields = new ResourceLocation(modid, "orchid fields");
-        ResourceLocation red_sand_dunes = new ResourceLocation(modid, "red sand dunes");
-        ResourceLocation sand_dunes = new ResourceLocation(modid, "sand dunes");
-        ResourceLocation sand_dunes_m = new ResourceLocation(modid, "sand dunes m");
-        ResourceLocation sand_dunes_oasis = new ResourceLocation(modid, "sand dunes oasis");
-        ResourceLocation snow_rocks = new ResourceLocation(modid, "snow rocks");
-        ResourceLocation snow_rocks_mountains = new ResourceLocation(modid, "snow rocks mountains");
-        ResourceLocation snow_rocks_plateau = new ResourceLocation(modid, "snow rocks plateau");
-        ResourceLocation southern_alps = new ResourceLocation(modid, "southern alps");
-        ResourceLocation southern_alps_subalpine = new ResourceLocation(modid, "southern alps subalpine");
-        ResourceLocation stony_reef = new ResourceLocation(modid, "stony reef");
-        ResourceLocation tropical_jungle = new ResourceLocation(modid, "tropical jungle");
-        ResourceLocation wasteland_flats = new ResourceLocation(modid, "wasteland flats");
-        ResourceLocation wasteland_flats_oasis = new ResourceLocation(modid, "wasteland flats oasis");
-        ResourceLocation wasteland_flats_slopes = new ResourceLocation(modid, "wasteland flats slopes");
-        ResourceLocation wasteland_flats_trees = new ResourceLocation(modid, "wasteland flats trees");
-        ResourceLocation white_oaks = new ResourceLocation(modid, "white oaks");
-        ResourceLocation white_oaks_hills = new ResourceLocation(modid, "white oaks hills");
-        ResourceLocation white_woods = new ResourceLocation(modid, "white woods");
-        ResourceLocation white_woods_hills = new ResourceLocation(modid, "white woods hills");
-        ResourceLocation woodlands_hills = new ResourceLocation(modid, "woodlands hills");
-
-        if ((biome = Biome.REGISTRY.getObject(archipelago)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("archipelago"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEArchipelago(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(australian_outback)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("australian outback"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEAustralianOutback(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(barelands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("barelands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBarelands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bluff)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("bluff"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBluff(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(brushlands_hills)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("brushlands hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBrushlandsHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(brushlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("brushlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBrushlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bush)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("bush"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBush(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(bushland_hills)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("bushland hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEBushlandHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(dense_brushlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("dense brushlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEDenseBrushlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(extreme_southern_alps)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("extreme southern alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEExtremeSouthernAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forested_canyon_pillars)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("forested canyon pillars"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEForestedCanyonPillars(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forested_canyon_plateau_m)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("forested canyon plateau m"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEForestedCanyonPlateauM(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(forested_canyon_plateau)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("forested canyon plateau"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEForestedCanyonPlateau(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(ghost_forest)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("ghost forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEGhostForest(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(grassy_fen)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("grassy fen"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEGrassyFen(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(grassy_marshland)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("grassy marshland"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEGrassyMarshland(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(high_inhabited_woodlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("high inhabited woodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHighInhabitedWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(high_woodlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("high woodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHighWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(highlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("highlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHighlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(hot_brushlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("hot brushlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEHotBrushlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(low_spruce_woodlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("low spruce woodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowSpruceWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(low_tall_woodlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("low tall woodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowTallWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(low_woodlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("low woodlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowWoodlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lowlands_chapparal)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("lowlands chapparal"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowlandsChapparal(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(lowlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("lowlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOELowlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(mire)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("mire"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEMire(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(moorlands)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("moorlands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEMoorlands(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(northern_alps)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("northern alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(northern_snow_alps)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("northern snow alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernSnowAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(northern_snow_subalpine_alps)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("northern snow subalpine alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernSnowSubalpineAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(northern_subalpine_alps)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("northern subalpine alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOENorthernSubalpineAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(orchid_fields)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("orchid fields"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEOrchidFields(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(red_sand_dunes)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("red sand dunes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOERedSandDunes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sand_dunes_m)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("sand dunes m"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESandDunesM(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sand_dunes_oasis)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("sand dunes oasis"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESandDunesOasis(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(sand_dunes)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("sand dunes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESandDunes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snow_rocks_mountains)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("snow rocks mountains"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESnowRocksMountains(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snow_rocks_plateau)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("snow rocks plateau"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESnowRocksPlateau(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(snow_rocks)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("snow rocks"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESnowRocks(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(southern_alps_subalpine)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("southern alps subalpine"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESouthernAlpsSubalpine(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(southern_alps)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("southern alps"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOESouthernAlps(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(stony_reef)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("stony reef"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEStonyReef(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(tropical_jungle)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("tropical jungle"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOETropicalJungle(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland_flats_oasis)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("wasteland flats oasis"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlatsOasis(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland_flats_slopes)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("wasteland flats slopes"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlatsSlopes(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland_flats_trees)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("wasteland flats trees"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlatsTrees(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(wasteland_flats)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("wasteland flats"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWastelandFlats(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_oaks_hills)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("white oaks hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteOaksHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_oaks)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("white oaks"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteOaks(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_woods_hills)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("white woods hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteWoodsHills(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(white_woods)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("white woods"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWhiteWoods(biome));
         }
-        if ((biome = Biome.REGISTRY.getObject(woodlands_hills)) != null) {
+        if ((biome = getBiome(Mods.valoegheses_be.getResourceLocation("woodlands hills"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeZOEWoodlandsHills(biome));
         }
     }
 
-    private static boolean isBiomePresent(ResourceLocation rl) {
-        return Biome.REGISTRY.containsKey(rl);
-    }
-
-    private static boolean isBiomePresent(String modid, String biomeName) {
-        ResourceLocation rl = new ResourceLocation(modid, biomeName);
-        return Biome.REGISTRY.containsKey(rl);
+    @Nullable
+    private static Biome getBiome(final ResourceLocation resloc)
+    {
+        return ForgeRegistries.BIOMES.getValue(resloc);
     }
 }

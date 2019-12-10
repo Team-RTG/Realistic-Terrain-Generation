@@ -2,32 +2,29 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.sacred_springs.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPSacredSprings(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPSacredSprings() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -44,8 +41,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPSacredSprings(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPSacredSprings(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     public static class TerrainBOPSacredSprings extends TerrainBase {

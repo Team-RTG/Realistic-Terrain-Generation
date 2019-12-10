@@ -1,43 +1,39 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.Random;
+
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
-
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.shield.orNull();
-    public static Biome river = Biomes.RIVER;
+public class RealisticBiomeBOPShield extends RealisticBiomeBase {
 
     private double lakeWaterLevel = 0.04;// the lakeStrength below which things should be below water
     private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBOPShield() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPShield(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
@@ -59,8 +55,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPShield(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f);
+        return new SurfaceBOPShield(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, Blocks.STONE.getDefaultState(), 0.10f);
     }
 
     @Override

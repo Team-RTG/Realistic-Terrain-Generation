@@ -2,32 +2,32 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import java.util.Random;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
 
 
-public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
+public class RealisticBiomeACDarklandsPlains extends RealisticBiomeBase {
 
-    public static Biome biome = ACBiomes.darklands_plains;
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeACDarklandsPlains(final Biome biome) { super(biome); }
 
-    public RealisticBiomeACDarklandsPlains() {
-
-        super(biome);
+    @Override
+    public void initConfig() {
+        this.getConfig().SURFACE_CLIFF_STONE_BLOCK.set("abyssalcraft:stone");
+        this.getConfig().SURFACE_CLIFF_COBBLE_BLOCK.set("abyssalcraft:cobblestone");
     }
 
     @Override
-    public void initConfig() {}
+    public void initDecos() {}
 
     @Override
     public TerrainBase initTerrain() {
@@ -53,10 +53,10 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACDarklandsPlains(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceACDarklandsPlains(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
-    public static class SurfaceACDarklandsPlains extends SurfaceACBase {
+    public static class SurfaceACDarklandsPlains extends SurfaceBase {
 
         public SurfaceACDarklandsPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 

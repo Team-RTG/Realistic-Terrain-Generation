@@ -2,33 +2,30 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPCrag extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.crag.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPCrag(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPCrag() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -46,7 +43,6 @@ public class RealisticBiomeBOPCrag extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
         return new SurfaceBOPCrag(getConfig(), Blocks.STONE.getDefaultState(), Blocks.STONE.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.8f, Blocks.GRASS.getDefaultState(), 1.9f, Blocks.GRAVEL.getDefaultState(), -0.4f);
     }
 

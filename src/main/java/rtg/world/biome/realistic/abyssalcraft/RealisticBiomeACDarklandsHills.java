@@ -2,37 +2,36 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import java.util.Random;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
+public class RealisticBiomeACDarklandsHills extends RealisticBiomeBase {
 
-    public static Biome biome = ACBiomes.darklands_hills;
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeACDarklandsHighland() {
-
-        super(biome);
-    }
+    public RealisticBiomeACDarklandsHills(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().SURFACE_CLIFF_STONE_BLOCK.set("abyssalcraft:stone");
+        this.getConfig().SURFACE_CLIFF_COBBLE_BLOCK.set("abyssalcraft:cobblestone");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
     }
+
+    @Override
+    public void initDecos() {}
 
     @Override
     public TerrainBase initTerrain() {
@@ -64,10 +63,10 @@ public class RealisticBiomeACDarklandsHighland extends RealisticBiomeACBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACDarklandsHighland(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, 60f, -0.14f, 14f, 0.25f);
+        return new SurfaceACDarklandsHighland(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().fillerBlock, 60f, -0.14f, 14f, 0.25f);
     }
 
-    public static class SurfaceACDarklandsHighland extends SurfaceACBase {
+    public static class SurfaceACDarklandsHighland extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;

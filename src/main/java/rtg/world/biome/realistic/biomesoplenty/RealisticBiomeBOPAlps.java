@@ -2,33 +2,30 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPAlps extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.alps.orNull();
-    public static Biome river = Biomes.FROZEN_RIVER;
+    public RealisticBiomeBOPAlps(final Biome biome) { super(biome, RiverType.FROZEN); }
 
-    public RealisticBiomeBOPAlps() {
-
-        super(biome, RiverType.FROZEN);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -45,8 +42,7 @@ public class RealisticBiomeBOPAlps extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPAlps(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
+        return new SurfaceBOPAlps(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.45f);
     }
 
     public static class TerrainBOPAlps extends TerrainBase {

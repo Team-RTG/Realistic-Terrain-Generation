@@ -2,29 +2,26 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.volcanic_island.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPVolcanicIsland(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPVolcanicIsland() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
@@ -40,16 +37,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPVolcanicIsland(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceBOPVolcanicIsland(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().fillerBlock, 80f, -0.15f, 10f, 0.5f);
     }
 
     public static class TerrainBOPVolcanicIsland extends TerrainBase {

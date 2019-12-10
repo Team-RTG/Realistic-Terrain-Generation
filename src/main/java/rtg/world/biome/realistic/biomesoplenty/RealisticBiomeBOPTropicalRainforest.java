@@ -2,28 +2,25 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.tropical_rainforest.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPTropicalRainforest(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPTropicalRainforest() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
@@ -39,8 +36,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPTropicalRainforest(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPTropicalRainforest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     public static class TerrainBOPTropicalRainforest extends TerrainBase {

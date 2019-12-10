@@ -1,31 +1,25 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
 
+public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.lavender_fields.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPLavenderFields() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPLavenderFields(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
@@ -39,8 +33,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPLavenderFields(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f);
+        return new SurfaceBOPLavenderFields(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.05f);
     }
 
     @Override

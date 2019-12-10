@@ -2,15 +2,15 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
@@ -19,19 +19,13 @@ import rtg.api.world.terrain.TerrainBase;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.lush_swamp.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPLushSwamp() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPLushSwamp(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -48,8 +42,7 @@ public class RealisticBiomeBOPLushSwamp extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPLushSwamp(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPLushSwamp(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     @Override

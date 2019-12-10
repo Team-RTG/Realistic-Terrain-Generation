@@ -1,17 +1,21 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.Random;
+
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
@@ -25,18 +29,10 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 
-import java.util.Random;
 
+public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.land_of_lakes.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPLandOfLakes() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPLandOfLakes(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {

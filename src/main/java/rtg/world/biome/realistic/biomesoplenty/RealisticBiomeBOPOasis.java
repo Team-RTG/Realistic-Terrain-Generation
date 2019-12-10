@@ -2,17 +2,18 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -20,15 +21,9 @@ import rtg.api.world.terrain.TerrainBase;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPOasis extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.oasis.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPOasis() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPOasis(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
@@ -44,16 +39,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPOasis(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            Blocks.SAND.getDefaultState(), //IBlockState mixTop,
-            Blocks.SANDSTONE.getDefaultState(), //IBlockState mixFill,
-            40f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceBOPOasis(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, Blocks.SAND.getDefaultState(), Blocks.SANDSTONE.getDefaultState(), 40f, -0.15f, 10f, 0.5f );
     }
 
     @Override

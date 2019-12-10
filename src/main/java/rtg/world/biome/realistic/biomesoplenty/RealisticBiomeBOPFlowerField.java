@@ -2,22 +2,25 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static net.minecraft.block.BlockDoublePlant.EnumPlantType.*;
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.PAEONIA;
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.ROSE;
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.SUNFLOWER;
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.SYRINGA;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
@@ -30,15 +33,9 @@ import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
 import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 
 
-public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPFlowerField extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.flower_field.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPFlowerField() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPFlowerField(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
@@ -53,8 +50,7 @@ public class RealisticBiomeBOPFlowerField extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPFlowerField(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.05f);
+        return new SurfaceBOPFlowerField(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.05f);
     }
 
     @Override

@@ -2,17 +2,18 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
@@ -20,19 +21,16 @@ import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 
 
-public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.dead_swamp.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPDeadSwamp(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPDeadSwamp() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override

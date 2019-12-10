@@ -1,36 +1,30 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
 
+public class RealisticBiomeBOPGrove extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.grove.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPGrove() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPGrove(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
@@ -46,8 +40,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPGrove(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
+        return new SurfaceBOPGrove(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     @Override

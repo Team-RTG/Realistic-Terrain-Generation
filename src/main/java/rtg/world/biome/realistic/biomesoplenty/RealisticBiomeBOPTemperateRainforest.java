@@ -3,28 +3,27 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.temperate_rainforest.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPTemperateRainforest(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPTemperateRainforest() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
@@ -43,8 +42,7 @@ public class RealisticBiomeBOPTemperateRainforest extends RealisticBiomeBOPBase 
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPTemperateRainforest(getConfig(), biome.topBlock, biome.fillerBlock, 0.45f);
+        return new SurfaceBOPTemperateRainforest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.45f);
     }
 
     public static class TerrainBOPTemperateRainforest extends TerrainBase {

@@ -2,16 +2,17 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -19,19 +20,13 @@ import rtg.api.world.terrain.TerrainBase;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.ominous_woods.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPOminousWoods() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPOminousWoods(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override

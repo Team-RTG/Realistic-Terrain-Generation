@@ -2,34 +2,31 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 
 
-public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPHighland extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.highland.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPHighland(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPHighland() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -45,8 +42,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPHighland(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPHighland(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     public static class TerrainBOPHighland extends TerrainBase {

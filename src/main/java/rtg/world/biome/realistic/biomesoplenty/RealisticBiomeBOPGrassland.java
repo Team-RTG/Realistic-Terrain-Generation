@@ -3,27 +3,26 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPGrassland extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.grassland.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPGrassland(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPGrassland() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
@@ -42,8 +41,7 @@ public class RealisticBiomeBOPGrassland extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPGrassland(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPGrassland(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     public static class TerrainBOPGrassland extends TerrainBase {

@@ -2,31 +2,31 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import java.util.Random;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase {
+public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeBase {
 
-    public static Biome biome = ACBiomes.coralium_infested_swamp;
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeACCoraliumInfestedSwamp(final Biome biome) { super(biome); }
 
-    public RealisticBiomeACCoraliumInfestedSwamp() {
-
-        super(biome);
+    @Override
+    public void initConfig() {
+        this.getConfig().SURFACE_CLIFF_STONE_BLOCK.set("abyssalcraft:stone");
+        this.getConfig().SURFACE_CLIFF_COBBLE_BLOCK.set("abyssalcraft:cobblestone");
     }
 
     @Override
-    public void initConfig() {}
+    public void initDecos() {}
 
     @Override
     public TerrainBase initTerrain() {
@@ -50,10 +50,10 @@ public class RealisticBiomeACCoraliumInfestedSwamp extends RealisticBiomeACBase 
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACCoraliumInfestedSwamp(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceACCoraliumInfestedSwamp(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
-    public static class SurfaceACCoraliumInfestedSwamp extends SurfaceACBase {
+    public static class SurfaceACCoraliumInfestedSwamp extends SurfaceBase {
 
         public SurfaceACCoraliumInfestedSwamp(BiomeConfig config, IBlockState top, IBlockState filler) {
 

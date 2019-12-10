@@ -2,16 +2,16 @@ package rtg.world.biome.realistic.abyssalcraft;
 
 import java.util.Random;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightEffect;
@@ -20,21 +20,20 @@ import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 
 
-public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
+public class RealisticBiomeACDarklandsMountains extends RealisticBiomeBase {
 
-    public static Biome biome = ACBiomes.darklands_mountains;
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeACDarklandsMountains() {
-
-        super(biome);
-    }
+    public RealisticBiomeACDarklandsMountains(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().SURFACE_CLIFF_STONE_BLOCK.set("abyssalcraft:stone");
+        this.getConfig().SURFACE_CLIFF_COBBLE_BLOCK.set("abyssalcraft:cobblestone");
     }
+
+    @Override
+    public void initDecos() { }
 
     @Override
     public TerrainBase initTerrain() {
@@ -87,10 +86,10 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACDarklandsMountains(getConfig(), biome.topBlock, biome.fillerBlock, 0.2f);
+        return new SurfaceACDarklandsMountains(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.2f);
     }
 
-    public static class SurfaceACDarklandsMountains extends SurfaceACBase {
+    public static class SurfaceACDarklandsMountains extends SurfaceBase {
 
         private float min;
 
@@ -106,20 +105,6 @@ public class RealisticBiomeACDarklandsMountains extends RealisticBiomeACBase {
 
             super(config, top, fill);
             min = minCliff;
-        }
-
-        public SurfaceACDarklandsMountains(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                           float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
-
-            this(config, top, fill, minCliff);
-
-            sCliff = stoneCliff;
-            sHeight = stoneHeight;
-            sStrength = stoneStrength;
-            iCliff = snowCliff;
-            iHeight = snowHeight;
-            iStrength = snowStrength;
-            cCliff = clayCliff;
         }
 
         @Override

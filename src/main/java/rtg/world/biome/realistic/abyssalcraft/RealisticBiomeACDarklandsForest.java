@@ -1,36 +1,32 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
-import com.shinoow.abyssalcraft.api.block.ACBlocks;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
+import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.util.ModCompat.Mods;
 
-import java.util.Random;
 
+public class RealisticBiomeACDarklandsForest extends RealisticBiomeBase {
 
-public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
-
-    public static Biome biome = ACBiomes.darklands_forest;
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeACDarklandsForest() {
-
-        super(biome);
-    }
+    public RealisticBiomeACDarklandsForest(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_CLIFF_STONE_BLOCK.set("abyssalcraft:stone");
+        this.getConfig().SURFACE_CLIFF_COBBLE_BLOCK.set("abyssalcraft:cobblestone");
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
@@ -66,10 +62,10 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceACDarklandsForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+        return new SurfaceACDarklandsForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.10f);
     }
 
-    public static class SurfaceACDarklandsForest extends SurfaceACBase {
+    public static class SurfaceACDarklandsForest extends SurfaceBase {
 
         private float min;
 
@@ -174,15 +170,15 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.setLogConditionChance(12);
-        decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
-        decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
+        decoFallenTree.setLogBlock(BlockUtil.getBlock(Mods.abyssalcraft.getResourceLocation("dltlog"), Blocks.LOG).getDefaultState());
+        decoFallenTree.setLeavesBlock(BlockUtil.getBlock(Mods.abyssalcraft.getResourceLocation("dltleaves"), Blocks.LEAVES).getDefaultState());
         decoFallenTree.setMinSize(2);
         decoFallenTree.setMaxSize(3);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
         DecoShrub decoShrubCustom = new DecoShrub();
-        decoShrubCustom.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
-        decoShrubCustom.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
+        decoShrubCustom.setLogBlock(BlockUtil.getBlock(Mods.abyssalcraft.getResourceLocation("dltlog"), Blocks.LOG).getDefaultState());
+        decoShrubCustom.setLeavesBlock(BlockUtil.getBlock(Mods.abyssalcraft.getResourceLocation("dltleaves"), Blocks.LEAVES).getDefaultState());
         decoShrubCustom.setMaxY(110);
         decoShrubCustom.setNotEqualsZeroChance(3);
         decoShrubCustom.setLoopMultiplier(3f);

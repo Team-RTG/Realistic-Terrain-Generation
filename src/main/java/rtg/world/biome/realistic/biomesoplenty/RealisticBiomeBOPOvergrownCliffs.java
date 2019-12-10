@@ -2,33 +2,30 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.overgrown_cliffs.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPOvergrownCliffs(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPOvergrownCliffs() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -45,8 +42,7 @@ public class RealisticBiomeBOPOvergrownCliffs extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPOvergrownCliffs(getConfig(), biome.topBlock, biome.fillerBlock, 0.95f);
+        return new SurfaceBOPOvergrownCliffs(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.95f);
     }
 
     public static class TerrainBOPOvergrownCliffs extends TerrainBase {

@@ -2,31 +2,28 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPChaparral extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.chaparral.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPChaparral(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPChaparral() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
@@ -40,8 +37,7 @@ public class RealisticBiomeBOPChaparral extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPChaparral(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f);
+        return new SurfaceBOPChaparral(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, Blocks.SAND.getDefaultState(), 26f, 0.35f);
     }
 
     public static class TerrainBOPChaparral extends TerrainBase {

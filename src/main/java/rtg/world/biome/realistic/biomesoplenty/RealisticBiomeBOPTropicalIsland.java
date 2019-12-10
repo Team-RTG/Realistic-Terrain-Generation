@@ -1,16 +1,20 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.Random;
+
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -19,20 +23,12 @@ import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaExtremeHills;
 
-import java.util.Random;
-
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPTropicalIsland extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.tropical_island.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPTropicalIsland() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPTropicalIsland(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {

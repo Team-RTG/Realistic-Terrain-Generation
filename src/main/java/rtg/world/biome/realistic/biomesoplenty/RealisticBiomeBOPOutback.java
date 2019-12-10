@@ -2,16 +2,16 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
@@ -21,15 +21,12 @@ import rtg.api.world.terrain.heighteffect.RaiseEffect;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
 
 
-public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPOutback extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.outback.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPOutback(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPOutback() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
@@ -43,16 +40,7 @@ public class RealisticBiomeBOPOutback extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPOutback(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            40f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceBOPOutback(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().fillerBlock, 40f, -0.15f, 10f, 0.5f );
     }
 
     public static class TerrainBOPOutback extends TerrainBase {

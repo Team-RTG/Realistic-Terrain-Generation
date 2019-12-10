@@ -1,16 +1,19 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
+import java.util.Random;
+
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
@@ -20,22 +23,14 @@ import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 
-import java.util.Random;
 
+public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.mountain.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPMountainPeaks() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPMountainPeaks(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -54,16 +49,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPMountainPeaks(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceBOPMountainPeaks(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().fillerBlock, 80f, -0.15f, 10f, 0.5f );
     }
 
     @Override

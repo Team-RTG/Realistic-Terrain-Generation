@@ -20,12 +20,10 @@ archivesBaseName = "${project.name}-${project.mc_version}"
 version = (project.prerelease != "") ? "${project.mod_version}-${project.prerelease}" : "${project.mod_version}"
 
 repositories {
-    maven { url "https://dl.bintray.com/shinoow/maven/" } //AbyssalCraft
     maven { url "https://files.minecraftforge.net/maven" } //BiomesOPlenty
 }
 
 dependencies {
-    provided "com.shinoow.abyssalcraft:AbyssalCraft:${ac_ver}:api"
     provided "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:${bop_ver}:deobf"
 }
 

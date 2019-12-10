@@ -2,33 +2,30 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.alps_foothills.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPAlpsFoothills(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPAlpsFoothills() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -45,16 +42,7 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPAlpsFoothills(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            Blocks.DIRT.getDefaultState(), //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            80f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceBOPAlpsFoothills(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, Blocks.DIRT.getDefaultState(), baseBiome().fillerBlock, 80f, -0.15f, 10f, 0.5f);
     }
 
     public static class TerrainBOPAlpsFoothills extends TerrainBase {

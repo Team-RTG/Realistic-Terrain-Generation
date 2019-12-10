@@ -2,29 +2,26 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPWhiteBeach extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPWhiteBeach extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.white_beach.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPWhiteBeach(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPWhiteBeach() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
@@ -39,8 +36,7 @@ public class RealisticBiomeBOPWhiteBeach extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPWhiteBeach(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, 1);
+        return new SurfaceBOPWhiteBeach(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().fillerBlock, 1);
     }
 
     public static class TerrainBOPWhiteBeach extends TerrainBase {

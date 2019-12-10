@@ -4,27 +4,26 @@ import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
-public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPWetland extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.wetland.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPWetland(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPWetland() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {

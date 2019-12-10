@@ -1,38 +1,36 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
+import java.util.Random;
+
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.api.enums.BOPTrees;
 import biomesoplenty.api.enums.BOPWoods;
 import biomesoplenty.common.block.BlockBOPLeaves;
 import biomesoplenty.common.block.BlockBOPLog;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoMushrooms;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
 
-
-public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.bayou.orNull();
-    public static Biome river = Biomes.RIVER;
+public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
 
     private static IBlockState mudBlock = BOPBlocks.mud.getDefaultState();
     private static IBlockState logBlock = BlockBOPLog.paging.getVariantState(BOPWoods.WILLOW)
@@ -44,14 +42,11 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     private double lakeWaterLevel = 0.04;// the lakeStrength below which things should be below water
     private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBOPBayou() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPBayou(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
-        return biome;
+        return baseBiome();
     }
 
     @Override
@@ -70,8 +65,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPBayou(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
+        return new SurfaceBOPBayou(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.10f);
     }
 
     @Override

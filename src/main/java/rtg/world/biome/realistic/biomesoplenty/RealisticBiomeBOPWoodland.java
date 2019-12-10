@@ -1,17 +1,24 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.Random;
+
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.*;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionBase;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -20,20 +27,21 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 
+public class RealisticBiomeBOPWoodland extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.woodland.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPWoodland() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPWoodland(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
@@ -54,8 +62,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPWoodland(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPWoodland(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     @Override

@@ -2,18 +2,18 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
@@ -24,15 +24,12 @@ import rtg.api.world.terrain.heighteffect.RaiseEffect;
 import rtg.api.world.terrain.heighteffect.VariableRuggednessEffect;
 
 
-public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPBambooForest extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.bamboo_forest.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPBambooForest(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPBambooForest() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
@@ -46,8 +43,7 @@ public class RealisticBiomeBOPBambooForest extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPBambooForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
+        return new SurfaceBOPBambooForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     public static class TerrainBOPBambooForest extends TerrainBase {

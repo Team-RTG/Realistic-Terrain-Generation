@@ -3,17 +3,19 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
@@ -22,15 +24,9 @@ import rtg.api.world.terrain.TerrainBase;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.seasonal_forest.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPSeasonalForest() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPSeasonalForest(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
@@ -51,16 +47,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPSeasonalForest(getConfig(), biome.topBlock, //Block top
-            biome.fillerBlock, //Block filler,
-            biome.topBlock, //IBlockState mixTop,
-            biome.fillerBlock, //IBlockState mixFill,
-            0.5f, //float mixWidth,
-            -0.15f, //float mixHeight,
-            10f, //float smallWidth,
-            0.5f //float smallStrength
-        );
+        return new SurfaceBOPSeasonalForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, baseBiome().topBlock, baseBiome().fillerBlock, 0.5f, -0.15f, 10f, 0.5f );
     }
 
     @Override

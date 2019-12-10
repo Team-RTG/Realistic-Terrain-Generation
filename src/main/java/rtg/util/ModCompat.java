@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import com.google.common.collect.Lists;
-import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -47,15 +46,21 @@ public final class ModCompat {
         List<Biome> invalidBiomes = Lists.newArrayList(Biomes.HELL, Biomes.SKY, Biomes.VOID);
 
         if (Mods.abyssalcraft.isLoaded()) {
-            invalidBiomes.addAll(Arrays.asList(
-                ACBiomes.abyssal_wastelands,
-                ACBiomes.dark_realm,
-                ACBiomes.dreadlands,
-                ACBiomes.dreadlands_forest,
-                ACBiomes.dreadlands_mountains,
-                ACBiomes.omothol,
-                ACBiomes.purified_dreadlands
-            ));
+            invalidBiomes.addAll(
+                Stream.of(
+                    Mods.abyssalcraft.getResourceLocation("abyssal_wastelands"),
+                    Mods.abyssalcraft.getResourceLocation("dark_realm"),
+                    Mods.abyssalcraft.getResourceLocation("dreadlands"),
+                    Mods.abyssalcraft.getResourceLocation("dreadlands_forest"),
+                    Mods.abyssalcraft.getResourceLocation("dreadlands_mountains"),
+                    Mods.abyssalcraft.getResourceLocation("omothol"),
+                    Mods.abyssalcraft.getResourceLocation("purified_dreadlands"),
+                    Mods.abyssalcraft.getResourceLocation("purged")
+                )
+                    .map(ForgeRegistries.BIOMES::getValue)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList())
+            );
         }
 
         if (Mods.biomesoplenty.isLoaded()) {
@@ -279,6 +284,11 @@ public final class ModCompat {
 
         public boolean isLoaded() {
             return this.loaded;
+        }
+
+        public ResourceLocation getResourceLocation(final String biome)
+        {
+            return new ResourceLocation(name() + ":" + biome);
         }
 
         public String getPrettyName() {

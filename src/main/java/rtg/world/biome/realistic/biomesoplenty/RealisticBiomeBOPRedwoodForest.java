@@ -2,17 +2,18 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
-import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
@@ -21,15 +22,9 @@ import rtg.api.world.terrain.TerrainBase;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.redwood_forest.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPRedwoodForest() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPRedwoodForest(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
@@ -45,8 +40,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPRedwoodForest(getConfig(), biome.topBlock, biome.fillerBlock, 0.4f);
+        return new SurfaceBOPRedwoodForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.4f);
     }
 
     @Override

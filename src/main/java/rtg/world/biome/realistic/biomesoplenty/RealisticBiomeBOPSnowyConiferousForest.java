@@ -1,33 +1,28 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import biomesoplenty.api.biome.BOPBiomes;
+import java.util.Random;
+
 import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
 
+public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.snowy_coniferous_forest.orNull();
-    public static Biome river = Biomes.FROZEN_RIVER;
-
-    public RealisticBiomeBOPSnowyConiferousForest() {
-
-        super(biome, RiverType.FROZEN, BeachType.COLD);
-    }
+    public RealisticBiomeBOPSnowyConiferousForest(final Biome biome) { super(biome, RiverType.FROZEN, BeachType.COLD); }
 
     @Override
     public void initConfig() {

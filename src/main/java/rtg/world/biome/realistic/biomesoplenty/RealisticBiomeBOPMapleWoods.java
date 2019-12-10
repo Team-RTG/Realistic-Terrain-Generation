@@ -1,31 +1,27 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
+import java.util.Random;
+
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import java.util.Random;
+public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBase {
 
-public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
-
-    public static Biome biome = BOPBiomes.maple_woods.orNull();
-    public static Biome river = Biomes.RIVER;
-
-    public RealisticBiomeBOPMapleWoods() {
-
-        super(biome);
-    }
+    public RealisticBiomeBOPMapleWoods(final Biome biome) { super(biome); }
 
     @Override
     public Biome preferredBeach() {
@@ -46,8 +42,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPMapleWoods(getConfig(), biome.topBlock, biome.fillerBlock);
+        return new SurfaceBOPMapleWoods(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
     @Override

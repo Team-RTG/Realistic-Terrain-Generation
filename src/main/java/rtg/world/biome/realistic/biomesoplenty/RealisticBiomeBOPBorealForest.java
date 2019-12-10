@@ -3,31 +3,30 @@ package rtg.world.biome.realistic.biomesoplenty;
 import java.util.Random;
 
 import biomesoplenty.api.biome.BOPBiomes;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.BumpyHillsEffect;
 
 
-public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
+public class RealisticBiomeBOPBorealForest extends RealisticBiomeBase {
 
-    public static Biome biome = BOPBiomes.boreal_forest.orNull();
-    public static Biome river = Biomes.RIVER;
+    public RealisticBiomeBOPBorealForest(final Biome biome) { super(biome); }
 
-    public RealisticBiomeBOPBorealForest() {
-
-        super(biome);
-    }
+    @Override
+    public void initDecos() {}
 
     @Override
     public Biome preferredBeach() {
@@ -46,8 +45,7 @@ public class RealisticBiomeBOPBorealForest extends RealisticBiomeBOPBase {
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceBOPBorealForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
+        return new SurfaceBOPBorealForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.15f);
     }
 
     public static class TerrainBOPBorealForest extends TerrainBase {

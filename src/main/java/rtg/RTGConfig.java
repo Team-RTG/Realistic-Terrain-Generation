@@ -84,6 +84,17 @@ public final class RTGConfig
                                 "This uses the standard ResourceLocation format: mod_id:biome_registry_name",
                                 "minecraft:plains"),
 
+        blacklistMods           (Type.STRING, Category.debug,
+                                "A blacklist of mods whose biomes will never be supported, so ignore them.\n" +
+                                "This will only suppress log warnings during initialization.",
+                                "appliedenergistics2",
+                                "galacticraftcore",
+                                "galacticraftplanets",
+                                "extraplanets",
+                                "moreplanets",
+                                "twilightforest"
+                                ),
+
         lushRiverbanksInDesert  (Type.BOOLEAN, Category.surface,
                                 "Set this to FALSE to prevent RTG from generating lush river bank decorations in hot biomes,\n" +
                                 "like Desert and Mesa. Lush decorations consist of tallgrass, trees, shrubs, and other flora.",
@@ -139,6 +150,7 @@ public final class RTGConfig
                                 true);
 
         private final Type     type;
+        private final boolean  isArray;
         private final Category category;
         private final String   comment;
         private final boolean  reqRestart;
@@ -148,20 +160,25 @@ public final class RTGConfig
         private final Object   maxVal;
         private       Object   curVal;
 
+        Setting(Type type, Category category, String comment, String... defVal) {
+            this(type, category, comment, defVal, null, null, false, true);
+        }
+
         Setting(Type type, Category category, String comment, Object defVal) {
             this(type, category, comment, defVal, false);
         }
 
         Setting(Type type, Category category, String comment, Object defVal, boolean reqRestart) {
-            this(type, category, comment, defVal, null, null, reqRestart);
+            this(type, category, comment, defVal, null, null, reqRestart, false);
         }
 
         Setting(Type type, Category category, String comment, Object defVal, @Nullable Object minVal, @Nullable Object maxVal) {
-            this(type, category, comment, defVal, minVal, maxVal, false);
+            this(type, category, comment, defVal, minVal, maxVal, false, false);
         }
 
-        Setting(Type type, Category category, String comment, Object defVal, @Nullable Object minVal, @Nullable Object maxVal, boolean reqRestart) {
+        Setting(Type type, Category category, String comment, Object defVal, @Nullable Object minVal, @Nullable Object maxVal, boolean reqRestart, boolean isArray) {
             this.type       = type;
+            this.isArray    = isArray;
             this.category   = category;
             this.comment    = comment;
             this.reqRestart = reqRestart;
@@ -173,6 +190,7 @@ public final class RTGConfig
         }
 
         Type     getType()     { return type; }
+        boolean  isArray()     { return isArray; }
         String   getCategory() { return category.toString(); }
         String   getComment()  { return comment; }
         boolean  reqRestart()  { return reqRestart; }
@@ -242,9 +260,15 @@ public final class RTGConfig
                     .setRequiresMcRestart(setting.reqRestart());
 
             case STRING :
-                return config.get(setting.getCategory(), setting.name(), (String) setting.getCurVal(), setting.getComment())
-                    .setLanguageKey(setting.getLangKey())
-                    .setRequiresMcRestart(setting.reqRestart());
+                if (setting.isArray()) {
+                    return config.get(setting.getCategory(), setting.name(), (String[]) setting.getCurVal(), setting.getComment())
+                        .setLanguageKey(setting.getLangKey())
+                        .setRequiresMcRestart(setting.reqRestart());
+                } else {
+                    return config.get(setting.getCategory(), setting.name(), (String) setting.getCurVal(), setting.getComment())
+                        .setLanguageKey(setting.getLangKey())
+                        .setRequiresMcRestart(setting.reqRestart());
+                }
 
             case INTEGER:
                 return config.get(setting.getCategory(), setting.name(), (Integer)setting.getCurVal(), setting.getComment())
@@ -286,6 +310,7 @@ public final class RTGConfig
         }
         return biome;
     }
+    public static Set<String> getBlacklistMods()       { return Arrays.stream((String[])Setting.blacklistMods.getCurVal()).collect(Collectors.toSet()); }
 
     public static boolean     lushRiverbanksInDesert() { return (Boolean)Setting.lushRiverbanksInDesert.getCurVal(); }
     public static int         surfaceBlendRadius()     { return (Integer)Setting.surfaceBlendRadius.getCurVal(); }

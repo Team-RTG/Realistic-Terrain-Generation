@@ -64,71 +64,70 @@ public final class ModCompat {
         }
 
         if (Mods.biomesoplenty.isLoaded()) {
-
-            String modid = Mods.biomesoplenty.name();
-            Stream.of(
-                    new ResourceLocation(modid, "corrupted_sands"),
-                    new ResourceLocation(modid, "fungi_forest"),
-                    new ResourceLocation(modid, "phantasmagoric_inferno"),
-                    new ResourceLocation(modid, "undergarden"),
-                    new ResourceLocation(modid, "visceral_heap")
-            )
-                    .map(Biome.REGISTRY::getObject)
+            invalidBiomes.addAll(
+                Stream.of(
+                    Mods.biomesoplenty.getResourceLocation("corrupted_sands"),
+                    Mods.biomesoplenty.getResourceLocation("fungi_forest"),
+                    Mods.biomesoplenty.getResourceLocation("phantasmagoric_inferno"),
+                    Mods.biomesoplenty.getResourceLocation("undergarden"),
+                    Mods.biomesoplenty.getResourceLocation("visceral_heap")
+                )
+                    .map(ForgeRegistries.BIOMES::getValue)
                     .filter(Objects::nonNull)
-                    .forEach(invalidBiomes::add);
+                    .collect(Collectors.toList())
+            );
         }
 
         if (Mods.byg.isLoaded()) {
-
-            String modid = Mods.byg.name();
-            Stream.of(
-                    new ResourceLocation(modid, "babyssalbog"),
-                    new ResourceLocation(modid, "bastralisle"),
-                    new ResourceLocation(modid, "bcosmicocean"),
-                    new ResourceLocation(modid, "bshattereddesert")
-            )
-                    .map(Biome.REGISTRY::getObject)
+            invalidBiomes.addAll(
+                Stream.of(
+                    Mods.byg.getResourceLocation("babyssalbog"),
+                    Mods.byg.getResourceLocation("bastralisle"),
+                    Mods.byg.getResourceLocation("bcosmicocean"),
+                    Mods.byg.getResourceLocation("bshattereddesert")
+                )
+                    .map(ForgeRegistries.BIOMES::getValue)
                     .filter(Objects::nonNull)
-                    .forEach(invalidBiomes::add);
+                    .collect(Collectors.toList())
+            );
         }
 
         if (Mods.fyrecraft.isLoaded()) {
-
-            String modid = Mods.fyrecraft.name();
+            invalidBiomes.addAll(
             Stream.of(
-                new ResourceLocation(modid, "miner's caves"),
-                new ResourceLocation(modid, "waterfalls")
+                Mods.fyrecraft.getResourceLocation("miner's caves"),
+                Mods.fyrecraft.getResourceLocation("waterfalls")
             )
                 .map(Biome.REGISTRY::getObject)
                 .filter(Objects::nonNull)
-                .forEach(invalidBiomes::add);
+                .collect(Collectors.toList())
+            );
         }
 
         if (Mods.thaumcraft.isLoaded()) {
-
-            String modid = Mods.thaumcraft.name();
-            Stream.of(
-                    new ResourceLocation(modid, "eldritch")
-            )
-                    .map(Biome.REGISTRY::getObject)
-                    .filter(Objects::nonNull)
-                    .forEach(invalidBiomes::add);
+            final Biome biome;
+            if ((biome = ForgeRegistries.BIOMES.getValue(Mods.thaumcraft.getResourceLocation("eldritch"))) != null) {
+                invalidBiomes.add(biome);
+            }
         }
+
+        //noinspection ConstantConditions (Biome#getRegistryName can never return null here)
+        RTGConfig.getBlacklistMods().stream()
+            .filter(Loader::isModLoaded)
+            .map(modId -> ForgeRegistries.BIOMES.getValuesCollection()
+                .stream()
+                .filter(biome -> biome.getRegistryName().getNamespace().equals(modId))
+                .collect(Collectors.toList()))
+            .flatMap(Collection::stream)
+            .forEach(invalidBiomes::add);
 
         // TODO: Add other biome exceptions. AE2 storage biome, Twilight Forest, etc..
 
-        Collection<Biome> unsupportedBiomes = ForgeRegistries.BIOMES.getValuesCollection();
-
-        List<Biome> supportedBiomes = Lists.newArrayList(ForgeRegistries.BIOMES.getValuesCollection());
-        final String[] supported = {""};
-
-        unsupportedBiomes = unsupportedBiomes.stream()
+        final Collection<Biome> unsupportedBiomes = ForgeRegistries.BIOMES.getValuesCollection()
+            .stream()
             .filter(b -> !invalidBiomes.contains(b) && !RTGAPI.RTG_BIOMES.containsKey(b))
             .sorted(Comparator.comparingInt(Biome::getIdForBiome))
             .collect(Collectors.toList());
-
-        supportedBiomes.removeAll(invalidBiomes);
-        supportedBiomes.removeAll(unsupportedBiomes);
 
         if (!unsupportedBiomes.isEmpty()) {
 
@@ -168,7 +167,15 @@ public final class ModCompat {
         }
 
         if (RTGConfig.additionalBiomeInfo()) {
+
+            Collection<Biome> supportedBiomes = ForgeRegistries.BIOMES.getValuesCollection()
+                .stream()
+                .filter(RTGAPI.RTG_BIOMES::containsKey)
+                .sorted(Comparator.comparingInt(Biome::getIdForBiome))
+                .collect(Collectors.toList());
+
             if (!supportedBiomes.isEmpty()) {
+                String[] supported = {""};
 
                 supported[0] += System.lineSeparator() + ".= " + String.format(ID_FORMAT, new String(new char[ID_LENGTH]).replace('\0', '='))
                     + " = " + String.format(BIOME_NAME_FORMAT, new String(new char[BIOME_NAME_LENGTH]).replace('\0', '='))
@@ -221,9 +228,7 @@ public final class ModCompat {
         }
     }
 
-    public static void init() {
-        Mods.init();
-    }
+    public static void init() { Mods.init(); }
 
     // enum entries must match mod ids
     // optional 'friendly name' used for configs
@@ -232,7 +237,7 @@ public final class ModCompat {
         auxbiomes,
         betteragriculture,
         biomesoplenty,
-        byg,
+        byg("biomesyougo"),
         bionisation3,
         buildcraftenergy,
         candymod,
@@ -243,12 +248,12 @@ public final class ModCompat {
         floricraft,
         fyrecraft,
         gravityfalls,
-        minecraft("vanilla"),
+        minecraft,
         mistbiomes,
         nt("novamterram"),
         odioitamod,
         plants2,
-        pvj,
+        pvj("vibrantjourneys"),
         realworld,
         redwoods,
         rockhounding_surface,
@@ -263,15 +268,11 @@ public final class ModCompat {
         private final String prettyName;
         private boolean loaded;
 
-        Mods() {
-            this("");
-        }
+        Mods() { this(""); }
 
-        Mods(String name) {
-            this.prettyName = (!name.isEmpty()) ? name : name();
-        }
+        Mods(String name) { this.prettyName = (!name.isEmpty()) ? name : name(); }
 
-        public static void init() {
+        private static void init() {
             Arrays.stream(Mods.values()).forEach(mod -> mod.loaded = Loader.isModLoaded(mod.name()));
         }
 

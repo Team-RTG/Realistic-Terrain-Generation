@@ -340,7 +340,7 @@ public class OpenSimplexNoise implements SimplexNoise {
             double dx = xi + lattice.getDx();
             double dy = yi + lattice.getDy();
 
-            double attn = 2.0 - Math.pow(dx, 2) - Math.pow(dy, 2);
+            double attn = 2.0 - (dx * dx) - (dy * dy);
             if (attn <= 0) {
                 continue;
             }
@@ -450,7 +450,7 @@ public class OpenSimplexNoise implements SimplexNoise {
 
             double dx = xi + lattice.getDx();
             double dy = yi + lattice.getDy();
-            double attn = 2.0 - Math.pow(dx, 2) - Math.pow(dy, 2);
+            double attn = 2.0 - (dx * dx) - (dy * dy);
             if (attn <= 0) {
                 continue;
             }

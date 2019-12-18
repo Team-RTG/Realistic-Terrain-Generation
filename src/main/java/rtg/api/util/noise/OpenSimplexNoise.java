@@ -351,7 +351,8 @@ public class OpenSimplexNoise implements SimplexNoise {
 
             double extrp = GRADIENTS_2D[gi] * dx + GRADIENTS_2D[gi + 1] * dy;
 
-            value += Math.pow(attn, 4) * extrp;
+            attn *= attn;
+            value += attn * attn * extrp;
         }
         return value;
     }
@@ -408,7 +409,8 @@ public class OpenSimplexNoise implements SimplexNoise {
 
                 double valuePart = GRADIENTS_3D[i] * dx + GRADIENTS_3D[i + 1] * dy + GRADIENTS_3D[i + 2] * dz;
 
-                value += Math.pow(attn, 4) * valuePart;
+                attn *= attn;
+                value += attn * attn * valuePart;
             }
             c = c.getNext();
         }

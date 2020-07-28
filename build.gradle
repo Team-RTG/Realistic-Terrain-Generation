@@ -13,9 +13,9 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 apply from: "build-common.gradle"
 
-sourceCompatibility = targetCompatibility = 1.8
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
-group = "${project.package_base}"
+group = "org.teamrtg"
 archivesBaseName = "${project.name}-${project.mc_version}"
 version = (project.prerelease != "") ? "${project.mod_version}-${project.prerelease}" : "${project.mod_version}"
 

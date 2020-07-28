@@ -1,5 +1,6 @@
 package rtg.util;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -276,11 +277,12 @@ public final class ModCompat {
             Arrays.stream(Mods.values()).forEach(mod -> mod.loaded = Loader.isModLoaded(mod.name()));
         }
 
+        @Nullable
         public static Mods get(final String modId) {
             return Arrays.stream(values())
                 .filter(mod -> mod.name().equals(modId))
                 .findFirst()
-                .orElseThrow(() -> new NullPointerException("Mod does not exist in Mods enum."));
+                .orElse(null);
         }
 
         public boolean isLoaded() {

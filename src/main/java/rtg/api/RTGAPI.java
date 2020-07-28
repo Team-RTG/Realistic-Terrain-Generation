@@ -41,6 +41,7 @@ public final class RTGAPI {
     private static final Set<DimensionType> ALLOWED_DIMENSION_TYPES = new ObjectArraySet<>();
 
     private static Path            configPath;
+    private static Path            biomeConfigPath;
     private static IRealisticBiome patchBiome;
     private static IBlockState     shadowStoneBlock  = null;
     private static IBlockState     shadowDesertBlock = null;
@@ -53,9 +54,14 @@ public final class RTGAPI {
         return configPath;
     }
 
+    public static Path getBiomeConfigPath() {
+        return biomeConfigPath;
+    }
+
     public static void setConfigPath(Path path) {
         if (configPath == null) {
             configPath = path;
+            biomeConfigPath = path.resolve("biomes");
         }
     }
 

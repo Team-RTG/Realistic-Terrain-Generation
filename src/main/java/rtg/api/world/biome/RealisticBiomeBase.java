@@ -25,11 +25,10 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 
 public abstract class RealisticBiomeBase implements IRealisticBiome {
-
-    private static final String BIOME_CONFIG_SUBDIR = "biomes";
 
     private final Biome baseBiome;
     private final ResourceLocation baseBiomeResLoc;
@@ -309,9 +308,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     private File getConfigFile() {
-        return RTGAPI.getConfigPath()
-            .resolve(BIOME_CONFIG_SUBDIR)
-            .resolve(Mods.get(baseBiomeResLoc().getNamespace()).getPrettyName())
+        final Mods mod = Objects.requireNonNull(Mods.get(baseBiomeResLoc().getNamespace()), "ModCompat.Mods does not have a value for the mod that added this biome.");
+        return RTGAPI.getBiomeConfigPath()
+            .resolve(mod.getPrettyName())
             .resolve(baseBiomeResLoc().getPath() + ".cfg")
             .toFile();
     }

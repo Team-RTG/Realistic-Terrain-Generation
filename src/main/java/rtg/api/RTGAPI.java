@@ -78,12 +78,12 @@ public final class RTGAPI {
     }
 
     public static boolean isAllowedDimensionType(DimensionType dimType) {
-        return ALLOWED_DIMENSION_TYPES.contains(dimType);
+        return ALLOWED_DIMENSION_TYPES.contains(dimType) || dimType.getSuffix().equals("_rtg") || dimType.name().startsWith("jed_surface");
     }
 
     public static boolean isAllowedDimensionType(int dimId) {
         DimensionType type = (DimensionManager.isDimensionRegistered(dimId)) ? DimensionManager.getProviderType(dimId) : null;
-        return type != null && ALLOWED_DIMENSION_TYPES.contains(type);
+        return type != null && isAllowedDimensionType(type);
     }
 
     public static IRealisticBiome getRTGBiome(@Nonnull Biome biome) {

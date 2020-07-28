@@ -3,10 +3,13 @@ package rtg.api;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
+import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -14,6 +17,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.layer.GenLayer;
+import net.minecraft.world.gen.layer.GenLayerRiverMix;
+
 import net.minecraftforge.common.DimensionManager;
 
 import rtg.api.util.Logger;
@@ -111,5 +117,42 @@ public final class RTGAPI {
 
     public static IBlockState getShadowDesertBlock() {
         return shadowDesertBlock;
+    }
+
+    public static void dumpGenLayerStack(@Nonnull final GenLayer layersIn, final Level level)
+    {
+        final Collection<String> initialStack = Lists.newArrayList();
+        final Collection<String> riverStack = Lists.newArrayList();
+        final Collection<String> biomeStack = Lists.newArrayList();
+
+        int count = 0;
+        int biomecount;
+        int rivercount;
+        GenLayer layer = layersIn;
+        initialStack.add(String.format("%s. %s", ++count, layer.getClass().getName()));
+        while (layer.parent != null) {
+            initialStack.add(String.format("%s. %s", ++count, layer.parent.getClass().getName()));
+            layer = layer.parent;
+        }
+        if (layer instanceof GenLayerRiverMix) {
+            biomecount = rivercount = count;
+            GenLayer biomeLayer = ((GenLayerRiverMix)layer).biomePatternGeneratorChain;
+            while (biomeLayer.parent != null) {
+                biomeStack.add(String.format("%s. %s", ++biomecount, biomeLayer.parent.getClass().getName()));
+                biomeLayer = biomeLayer.parent;
+            }
+            GenLayer riverLayer = ((GenLayerRiverMix)layer).riverPatternGeneratorChain;
+            while (riverLayer.parent != null) {
+                riverStack.add(String.format("%s. %s", ++rivercount, riverLayer.parent.getClass().getName()));
+                riverLayer = riverLayer.parent;
+            }
+        }
+
+        if (biomeStack.isEmpty() || riverStack.isEmpty()) {
+            Logger.log(level, "\nGenLayer stack:\n{}", String.join("\n  ", initialStack));
+        } else {
+            Logger.log(level, "\nInitial GenLayer stack:\n  {}\nBiome GenLayer stack:\n  {}\nRiver GenLayer stack:\n  {}",
+                String.join("\n  ", initialStack), String.join("\n  ", biomeStack), String.join("\n  ", riverStack));
+        }
     }
 }

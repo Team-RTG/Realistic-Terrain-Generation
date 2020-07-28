@@ -57,4 +57,9 @@ public final class Logger {
 
         LOGGER.log(org.apache.logging.log4j.Level.FATAL, format, data);
     }
+
+    public static void log(org.apache.logging.log4j.Level level, String format, Object... data) {
+
+        LOGGER.log(level, format, data);
+    }
 }

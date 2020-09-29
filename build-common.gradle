@@ -1,31 +1,28 @@
-// use -DEBUG CLI arguement for a debug session
-tasks.withType(JavaExec) {
-    jvmArgs "-Xms2G", "-Xmx4G"
-    if (System.getProperty("EBUG") != null)
-        jvmArgs "-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y"
-}
-
-// use -Dwarn[=[none|all|unchecked|rawtypes|deprecation]] CLI arguement for verbose compiler warnings
-tasks.withType(JavaCompile) {
-    if (System.getProperty("warn") != null) {
-        if (System.getProperty("warn").toLowerCase() == "none")        options.compilerArgs << "-Xlint:none"
-        if (System.getProperty("warn").toLowerCase() == "all")         options.compilerArgs << "-Xlint:all"
-        if (System.getProperty("warn").toLowerCase() == "unchecked")   options.compilerArgs << "-Xlint:unchecked"
-        if (System.getProperty("warn").toLowerCase() == "rawtypes")    options.compilerArgs << "-Xlint:rawtypes"
-        if (System.getProperty("warn").toLowerCase() == "deprecation") options.compilerArgs << "-Xlint:deprecation"
-        if (System.getProperty("warn") == "") options.compilerArgs << "-Xlint:unchecked" << "-Xlint:rawtypes" << "-Xlint:deprecation"
+task cleanOutputs(type: Delete) {
+    def files
+    if (!(files = project.tasks.getByName("compileJava").getOutputs().getFiles()).empty) { delete(files) }
+    if (!(files = project.tasks.getByName("processResources").getOutputs().getFiles()).empty) { delete(files) }
+    if ((files = project.buildDir.toPath().resolve("libs").toFile()).exists()) { delete(files) }
+    doFirst {
+        targetFiles.each {f -> logger.lifecycle "removing: $f.canonicalPath"}
     }
 }
 
 // log project header during certain tasks
 def dumpProjectInfo = {
     def name = "Project      : ${project.name}"
-    def ver  = "Version      : ${project.version}"
+    def ver  = "Version      : ${project.mod_version} (API: ${project.api_version})"
+    def mcver= "MC Version   : ${project.mc_version}"
+    def fver = "Forge Version: ${project.forge_version}"
+    def maps = "Mappings     : ${project.mapping_channel}_${project.mapping_version}"
     def ts   = "Started at   : ${java.time.OffsetDateTime.now().toString()}"
     def sep  = new String(new char[10 + ts.length()]).replace('\0', '~')
     logger.lifecycle "-=[ ${sep} ]=-"
     logger.lifecycle "-=[     ${name}${(new String(new char[7 + ts.length() - name.length()]).replace('\0', ' '))}]=-"
     logger.lifecycle "-=[     ${ver}${(new String(new char[7 + ts.length() - ver.length()]).replace('\0', ' '))}]=-"
+    logger.lifecycle "-=[     ${mcver}${(new String(new char[7 + ts.length() - mcver.length()]).replace('\0', ' '))}]=-"
+    logger.lifecycle "-=[     ${fver}${(new String(new char[7 + ts.length() - fver.length()]).replace('\0', ' '))}]=-"
+    logger.lifecycle "-=[     ${maps}${(new String(new char[7 + ts.length() - maps.length()]).replace('\0', ' '))}]=-"
     logger.lifecycle "-=[     ${ts}${(new String(new char[7]).replace('\0', ' '))}]=-"
     logger.lifecycle "-=[ ${sep} ]=-\n"
 }

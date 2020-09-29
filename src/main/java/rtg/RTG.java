@@ -26,19 +26,15 @@ import rtg.world.WorldTypeRTG;
 @SuppressWarnings({"unused", "WeakerAccess"})
 @Mod(
     modid        = RTG.MOD_ID,
-    name         = RTG.MOD_NAME,
-    version      = RTG.MOD_VERSION,
-    dependencies = "required-after:forge@[" + RTG.MCF_MINVER + ",);required:" + RTGAPI.RTG_API_ID + "@[" + RTGAPI.VERSION + ",);" + RTG.MOD_DEPS,
+    name         = "Realistic Terrain Generation",
+    version      = "@MOD_VERSION@",
+    dependencies = "required-after:forge@[" + "@FORGE_MINVER@" + ",);required:" + RTGAPI.RTG_API_ID + "@[" + RTGAPI.VERSION + ",);" + "@MOD_DEPS@",
     guiFactory   = RTGGuiConfigFactory.LOCATION,
     acceptableRemoteVersions = "*"
 )
 public final class RTG {
 
     public  static final String MOD_ID      = RTGAPI.RTG_MOD_ID;
-    public  static final String MOD_NAME    = "Realistic Terrain Generation";
-    public  static final String MOD_VERSION = "@MOD_VERSION@";
-    public  static final String MCF_MINVER  = "0.0-MCF+MINVER";
-    public  static final String MOD_DEPS    = "after:MODDEPS";
     private static final RTG    instance    = new RTG();
 
     private static boolean DISABLE_DECORATIONS;

@@ -3,7 +3,7 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            url = 'https://maven.minecraftforge.net'
         }
     }
     dependencies {
@@ -11,16 +11,16 @@ buildscript {
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
-apply from: "build-common.gradle"
+apply from: 'build-common.gradle'
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
-group = "org.teamrtg"
+group = 'org.teamrtg'
 archivesBaseName = "${project.name}-${project.mc_version}"
-version = (project.prerelease != "") ? "${project.mod_version}-${project.prerelease}" : "${project.mod_version}"
+version = (project.prerelease != '') ? "${project.mod_version}-${project.prerelease}" : "${project.mod_version}"
 
 repositories {
-    maven { url "https://files.minecraftforge.net/maven" } //BiomesOPlenty
+    maven { url 'https://maven.minecraftforge.net' } //BiomesOPlenty
 }
 
 dependencies {
@@ -30,7 +30,7 @@ dependencies {
 
 minecraft {
     mappings channel: project.mapping_channel, version: project.mapping_version
-    accessTransformer = sourceSets.main.resources.files.find{it.name == "rtg_at.cfg"}
+    accessTransformer = sourceSets.main.resources.files.find{it.name == 'rtg_at.cfg'}
     runs {
         client {
             taskName 'RTG-Client'
@@ -52,13 +52,13 @@ minecraft {
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
-        include "mcmod.info"
+        include 'mcmod.info'
 		expand ([
-			"version"  :project.version,
-			"mcversion":project.mc_version
+			'version'  :project.version,
+			'mcversion':project.mc_version
 		])
 	}
-	from(sourceSets.main.resources.srcDirs) {exclude "mcmod.info"}
+	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
 }
 
 def replaced = file("${project.buildDir}/replaced")

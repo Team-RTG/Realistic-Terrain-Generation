@@ -1,13 +1,13 @@
 buildscript {
     repositories {
-        jcenter()
         maven {
             name = "forge"
             url = 'https://maven.minecraftforge.net'
         }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:5.1.+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -53,12 +53,12 @@ minecraft {
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-		expand ([
-			'version'  :project.version,
-			'mcversion':project.mc_version
-		])
-	}
-	from(sourceSets.main.resources.srcDirs) {exclude 'mcmod.info'}
+        filter tokens: [
+            'version' : project.version as String,
+            'mcversion': project.mc_version as String
+        ], org.apache.tools.ant.filters.ReplaceTokens
+    }
+    duplicatesStrategy = 'include'
 }
 
 def replaced = file("${project.buildDir}/replaced")

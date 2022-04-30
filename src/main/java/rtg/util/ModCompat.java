@@ -258,6 +258,7 @@ public final class ModCompat {
         realworld,
         redwoods,
         rockhounding_surface,
+        sakura,
         spookybiomes,
         sugiforest,
         terscraft,

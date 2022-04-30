@@ -348,6 +348,8 @@ import rtg.world.biome.realistic.redwoods.RealisticBiomeREDRedwoodForest;
 import rtg.world.biome.realistic.redwoods.RealisticBiomeREDSnowyRainforest;
 import rtg.world.biome.realistic.redwoods.RealisticBiomeREDTemperateRainforest;
 import rtg.world.biome.realistic.rockhounding.RealisticBiomeRHWhiteSands;
+import rtg.world.biome.realistic.sakura.RealisticBiomeSAKURABambooForest;
+import rtg.world.biome.realistic.sakura.RealisticBiomeSAKURAMapleForest;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBGhostlyForest;
 import rtg.world.biome.realistic.spookybiomes.RealisticBiomeSBWitchwoodForest;
 import rtg.world.biome.realistic.sugiforest.RealisticBiomeSFSugiForest;
@@ -525,6 +527,7 @@ public final class BiomeInit {
         if (Mods.realworld.isLoaded()) { init_realworld(); }
         if (Mods.redwoods.isLoaded()) { init_redwoods(); }
         if (Mods.rockhounding_surface.isLoaded()) { init_rockhounding(); }
+        if (Mods.sakura.isLoaded()) { init_sakura(); }
         if (Mods.spookybiomes.isLoaded()) { init_spookybiomes(); }
         if (Mods.sugiforest.isLoaded()) { init_sugiforest(); }
         if (Mods.terscraft.isLoaded()) { init_terscraft(); }
@@ -1735,6 +1738,17 @@ public final class BiomeInit {
         Biome biome;
         if ((biome = getBiome(Mods.rockhounding_surface.getResourceLocation("white_sands"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeRHWhiteSands(biome));
+        }
+    }
+
+    private static void init_sakura() {
+
+        Biome biome;
+        if ((biome = getBiome(Mods.sakura.getResourceLocation("bamboo_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSAKURABambooForest(biome));
+        }
+        if ((biome = getBiome(Mods.sakura.getResourceLocation("maple_forest"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeSAKURAMapleForest(biome));
         }
     }
 

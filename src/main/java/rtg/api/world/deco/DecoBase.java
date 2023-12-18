@@ -4,6 +4,7 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
@@ -20,15 +21,12 @@ import java.util.Random;
  */
 public abstract class DecoBase {
 
-    @Deprecated
-    private ArrayList<DecoType> decoTypes;
     private boolean checkRiver;
     private float minRiver; // Minimum river value required to generate.
     private float maxRiver; // Maximum river value required to generate.
 
     public DecoBase() {
 
-        this.decoTypes = new ArrayList<>();
         this.checkRiver = false;
         this.minRiver = -2f;
         this.setMaxRiver(2f);
@@ -70,25 +68,8 @@ public abstract class DecoBase {
         return !this.checkRiver || !(river > this.maxRiver) && !(river < this.minRiver);
     }
 
-    public abstract void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage);
+    public abstract void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInfo);
 
-    @Deprecated
-    public void addDecoTypes(DecoType... decos) {
-        this.decoTypes.addAll(Arrays.asList(decos));
-    }
-
-    @Deprecated
-    public ArrayList<DecoType> getDecoTypes() {
-
-        return decoTypes;
-    }
-
-    @Deprecated
-    public DecoBase setDecoTypes(ArrayList<DecoType> decoTypes) {
-
-        this.decoTypes = decoTypes;
-        return this;
-    }
 
     public boolean isCheckRiver() {
 
@@ -123,46 +104,7 @@ public abstract class DecoBase {
         return this;
     }
 
-    /**
-     * Enum to classify the various decos.
-     *
-     * @author WhichOnesPink
-     */
-    // TODO: [1.12] These enum values are added to a list for each Deco but are not used anywhere. Marked for removal.
-    @Deprecated
-    public enum DecoType {
-        BASE_BIOME_DECORATION,
-        BIG_SHROOM,
-        BOULDER,
-        COBWEB,
-        CACTUS,
-        DEAD_BUSH,
-        DESERT_WELL,
-        FALLEN_LEAVES,
-        FALLEN_TREE,
-        FERN,
-        FERN_DOUBLE,
-        FLOWER,
-        GRASS,
-        GRASS_DOUBLE,
-        LAYER,
-        LEAVES,
-        LILYPAD,
-        MUSHROOM,
-        PUMPKIN,
-        REED,
-        ROCK_SPIRE,
-        SEAWEED,
-        SHRUB,
-        SPONGE,
-        TEST,
-        TREE,
-        VINE,
-        WHEAT,
-        WORLDGEN
-    }
-
-    static BlockPos getOffsetPos(final ChunkPos pos) {
+    public static BlockPos getOffsetPos(final ChunkPos pos) {
         return new BlockPos(pos.x * 16 + 8, 0, pos.z * 16 + 8);
     }
 

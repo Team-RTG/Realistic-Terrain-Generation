@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenSponge;
@@ -56,12 +57,10 @@ public class DecoSponge extends DecoBase {
             Blocks.CLAY,
             Blocks.SAND
         ));
-
-        this.addDecoTypes(DecoType.SPONGE);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         for (int i = 0; i < this.strengthFactor; ++i) {
 

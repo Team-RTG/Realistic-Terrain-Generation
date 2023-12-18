@@ -74,19 +74,21 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-
+        
+        SkylightTracker lightTracker = new SkylightTracker(this.furthestLikelyExtension(),pos,world);
+        
         this.trunkLog = this.getTrunkLog(this.logBlock);
 
         float r = rand.nextFloat() * 360;
         if (this.trunkSize > 0) {
             for (int k = 0; k < 5; k++) {
-                generateBranch(world, rand, (float) x + 0.5f, y + this.trunkSize, (float) z + 0.5f, (120 * k) - 25 + rand.nextInt(50) + r, 1.6f + rand.nextFloat() * 0.1f, this.trunkSize * 1.6f, 1f, true, treeData);
+                generateBranch(world, rand, (float) x + 0.5f, y + this.trunkSize, (float) z + 0.5f, (120 * k) - 25 + rand.nextInt(50) + r, 1.6f + rand.nextFloat() * 0.1f, this.trunkSize * 1.6f, 1f, true, lightTracker);
             }
         }
 
         for (int i = y + this.trunkSize - 2; i < y + this.crownSize + 2; i++) {
-            this.placeLogBlock(world, new BlockPos(x, i, z), this.logBlock, this.generateFlag, treeData);
-            this.placeLogBlock(world, new BlockPos(x + 1, i, z + 1), this.logBlock, this.generateFlag, treeData);
+            this.placeTrunkBlock(world, new BlockPos(x, i, z), this.generateFlag, lightTracker);
+            this.placeTrunkBlock(world, new BlockPos(x + 1, i, z + 1), this.generateFlag, lightTracker);
         }
 
         float horDir, verDir;
@@ -94,21 +96,21 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         for (int j = 0; j < branch; j++) {
             horDir = (80 * j) - 40 + rand.nextInt(80);
             verDir = verStart + rand.nextFloat() * verRand;
-            generateBranch(world, rand, (float) x + 0.5f, y + this.crownSize, (float) z + 0.5f, horDir, verDir, length, 1f, false, treeData);
+            generateBranch(world, rand, (float) x + 0.5f, y + this.crownSize, (float) z + 0.5f, horDir, verDir, length, 1f, false, lightTracker);
 
             eX = (int) (Math.cos(horDir * Math.PI / 180D) * verDir * length);
             eZ = (int) (Math.sin(horDir * Math.PI / 180D) * verDir * length);
             eY = (int) ((1f - verDir) * length);
 
             for (int m = 0; m < 2; m++) {
-                generateLeaves(world, rand, x + eX - 2 + rand.nextInt(5), y + this.crownSize + eY + rand.nextInt(2), z + eZ - 2 + rand.nextInt(5), 4f, 0.8f, treeData);
+                generateLeaves(world, rand, x + eX - 2 + rand.nextInt(5), y + this.crownSize + eY + rand.nextInt(2), z + eZ - 2 + rand.nextInt(5), 4f, 0.8f, lightTracker);
             }
 
             eX *= 0.8f;
             eY *= 0.8f;
             eZ *= 0.8f;
 
-            generateLeaves(world, rand, x + eX, y + this.crownSize + eY, z + eZ, 3f, 0.8f, treeData);
+            generateLeaves(world, rand, x + eX, y + this.crownSize + eY, z + eZ, 3f, 0.8f, lightTracker);
         }
 
         //treeData.dumpTreeData();
@@ -120,7 +122,7 @@ public class TreeRTGCeibaRosea extends TreeRTG {
      * horDir = number between -180D and 180D
      * verDir = number between 1F (horizontal) and 0F (vertical)
      */
-    public void generateBranch(World world, Random rand, float x, float y, float z, double horDir, float verDir, float length, float speed, boolean isTrunk, RTGTreeData treeData) {
+    public void generateBranch(World world, Random rand, float x, float y, float z, double horDir, float verDir, float length, float speed, boolean isTrunk, SkylightTracker lightTracker) {
 
         if (verDir < 0f) {
             verDir = -verDir;
@@ -139,10 +141,10 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         while (c < length) {
 
             if (isTrunk) {
-                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag, treeData);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.trunkLog, this.generateFlag, lightTracker);
             }
             else {
-                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag, treeData);
+                this.placeLogBlock(world, new BlockPos((int) x, (int) y, (int) z), this.logBlock, this.generateFlag, lightTracker);
             }
 
             x += velX;
@@ -153,7 +155,7 @@ public class TreeRTGCeibaRosea extends TreeRTG {
         }
     }
 
-    public void generateLeaves(World world, Random rand, float x, float y, float z, float size, float width, RTGTreeData treeData) {
+    public void generateLeaves(World world, Random rand, float x, float y, float z, float size, float width, SkylightTracker lightTracker) {
 
         float dist;
         int i, j, k, s = (int) (size - 1f), w = (int) ((size - 1f) * width);
@@ -163,12 +165,12 @@ public class TreeRTGCeibaRosea extends TreeRTG {
                     dist = Math.abs((float) i / width) + (float) Math.abs(j) + Math.abs((float) k / width);
                     if (dist <= size - 0.5f || (dist <= size && rand.nextBoolean())) {
                         if (dist < 1.3f) {
-                            this.placeLogBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.logBlock, this.generateFlag, treeData);
+                            this.placeLogBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.logBlock, this.generateFlag, lightTracker);
                         }
 
                         if (!this.noLeaves) {
 
-                            this.placeLeavesBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.leavesBlock, this.generateFlag, treeData);
+                            this.placeLeavesBlock(world, new BlockPos((int) x + i, (int) y + j, (int) z + k), this.leavesBlock, this.generateFlag, lightTracker);
                         }
                     }
                 }

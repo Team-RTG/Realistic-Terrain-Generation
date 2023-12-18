@@ -9,6 +9,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Distribution;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.*;
@@ -98,7 +99,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         DecoTree oakTrees = new DecoTree(roburTree1);
         oakTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         oakTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        oakTrees.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));
+        oakTrees.setDistribution(new Distribution(100f, 6f, 0.8f));
         oakTrees.setTreeConditionNoise(0.4f);
         oakTrees.setTreeConditionChance(48);
 
@@ -114,7 +115,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         DecoTree birchTrees = new DecoTree(roburTree2);
         birchTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         birchTrees.setTreeCondition(DecoTree.TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        birchTrees.setDistribution(new DecoTree.Distribution(100f, 6f, 0.8f));
+        birchTrees.setDistribution(new Distribution(100f, 6f, 0.8f));
         birchTrees.setTreeConditionNoise(0.4f);
         birchTrees.setTreeConditionChance(48);
 
@@ -159,7 +160,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {

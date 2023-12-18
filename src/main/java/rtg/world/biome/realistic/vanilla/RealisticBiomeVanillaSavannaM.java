@@ -33,7 +33,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().ALLOW_RIVERS.set(false);
+        this.getConfig().ALLOW_RIVERS.set(true);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
@@ -52,6 +52,12 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
 
         return new SurfaceVanillaSavannaM(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.COARSE_DIRT));
     }
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
 
     @Override
     public void initDecos() {
@@ -140,7 +146,7 @@ public class RealisticBiomeVanillaSavannaM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

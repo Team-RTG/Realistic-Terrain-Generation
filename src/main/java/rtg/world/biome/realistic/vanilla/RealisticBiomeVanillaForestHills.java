@@ -37,6 +37,11 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_2_BLOCK).set("");
     }
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
 
     @Override
     public TerrainBase initTerrain() {
@@ -115,7 +120,7 @@ public class RealisticBiomeVanillaForestHills extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

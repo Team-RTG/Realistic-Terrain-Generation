@@ -10,6 +10,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
@@ -67,12 +68,10 @@ public class DecoFlowersRTG extends DecoBase {
         this.setHeightType(HeightType.NEXT_INT);
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setLoops(1);
-
-        this.addDecoTypes(DecoType.FLOWER);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         if ((this.flowers == null || this.flowers.isEmpty()) && (this.plants == null || this.plants.isEmpty())) {
             Logger.error("DecoFlowersRTG called with a null or empty flower/plant list in biome {} at chunk {}", Biome.REGISTRY.getNameForObject(biome.baseBiome()), chunkPos.toString());

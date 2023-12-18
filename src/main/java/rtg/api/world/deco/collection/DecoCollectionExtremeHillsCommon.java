@@ -22,10 +22,10 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
 
         this.addDeco(logDecos(), config.ALLOW_LOGS.get()) // Logs.
             .addDeco(shrubDecos()) // Shrubs.
-            .addDeco(boulders()) // Boulders.
-            .addDeco(flowers()) // Flowers.
-            .addDeco(mushrooms()) // Mushrooms.
-            .addDeco(pumpkins()); // Pumpkins.
+            .addDeco(boulders()); // Boulders.
+            //.addDeco(flowers()) // Flowers.
+            //.addDeco(mushrooms()) // Mushrooms.
+            //.addDeco(pumpkins()); // Pumpkins.
     }
 
     private DecoFallenTree logs(IBlockState log, IBlockState leaves) {

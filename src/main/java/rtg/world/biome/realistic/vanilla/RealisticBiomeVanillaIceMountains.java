@@ -108,7 +108,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.4f;
             boolean mix = false;
 

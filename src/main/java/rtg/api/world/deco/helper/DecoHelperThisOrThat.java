@@ -9,7 +9,7 @@ package rtg.api.world.deco.helper;
 import java.util.Random;
 
 import net.minecraft.util.math.ChunkPos;
-
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
@@ -40,16 +40,16 @@ public class DecoHelperThisOrThat extends DecoBase {
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInfo) {
 
         switch (this.chanceType) {
             case EQUALS_ZERO:
 
                 if (rand.nextInt(this.chance) == 0) {
-                    this.decoThis.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+                    this.decoThis.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage, chunkInfo);
                 }
                 else {
-                    this.decoThat.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+                    this.decoThat.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage, chunkInfo);
                 }
 
                 break;
@@ -57,10 +57,10 @@ public class DecoHelperThisOrThat extends DecoBase {
             case NOT_EQUALS_ZERO:
 
                 if (rand.nextInt(this.chance) != 0) {
-                    this.decoThis.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+                    this.decoThis.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage, chunkInfo);
                 }
                 else {
-                    this.decoThat.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+                    this.decoThat.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage, chunkInfo);
                 }
 
                 break;

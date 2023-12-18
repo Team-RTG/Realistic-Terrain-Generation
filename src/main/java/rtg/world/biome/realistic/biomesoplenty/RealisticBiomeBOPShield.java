@@ -105,7 +105,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBase {
     }
 
     @Override
-    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
+    public float lakeToRiverProportions(float pressure, float bottomLevel, float topLevel) {
 
         // these are rivers so not necessary to fake the lake values as river
         return pressure;
@@ -199,7 +199,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

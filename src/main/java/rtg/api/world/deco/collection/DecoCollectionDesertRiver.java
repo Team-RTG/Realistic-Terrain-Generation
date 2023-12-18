@@ -26,8 +26,10 @@ public class DecoCollectionDesertRiver extends DecoCollectionBase {
         TreeRTG acaciaTree = new TreeRTGAcaciaBucheri();
         acaciaTree.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaTree.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
-        acaciaTree.setMinTrunkSize(12);
-        acaciaTree.setMaxTrunkSize(16);
+        acaciaTree.setMinTrunkSize(2);
+        acaciaTree.setMaxTrunkSize(4);
+        acaciaTree.setMinCrownSize(3);
+        acaciaTree.setMaxCrownSize(6);
         this.addTree(acaciaTree);
 
         DecoTree acaciaTrees = new DecoTree(acaciaTree);

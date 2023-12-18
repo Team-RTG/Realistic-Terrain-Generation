@@ -9,6 +9,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Logger;
 import rtg.api.util.PlateauUtil;
 import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
@@ -87,8 +88,12 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeBase {
         final int groundNoise;
         private float jitterWavelength = 30;
         private float jitterAmplitude = 10;
-        private float bumpinessMultiplier = 0.05f;
+        private float bumpinessMultiplier = 0.1f;
         private float bumpinessWavelength = 10f;
+        private float variabilityMultiplier = 0.15f;
+        private float variabilityWavelength = 30f;
+        private float variabilityMultiplier2 = 0.075f;
+        private float variabilityWavelength2 = 15f;
 
         public TerrainRTGMesaPlateau(float base) {
             plateau = new VoronoiPlateauEffect();
@@ -106,9 +111,21 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeBase {
             float bordercap = (bordercap = border * 3.5f - 2.5f) > 1 ? 1.0f : bordercap;
             float rivercap = (rivercap = 3f * river) > 1 ? 1.0f : rivercap;
             float bumpiness = rtgWorld.simplexInstance(2).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
-            float simplex = plateau.added(rtgWorld, x, y) * bordercap * rivercap + bumpiness;
+            float variability = rtgWorld.simplexInstance(3).noise2f(x / variabilityWavelength, y / variabilityWavelength) * variabilityMultiplier;
+            float variability2 = rtgWorld.simplexInstance(3).noise2f(x / variabilityWavelength2, y / variabilityWavelength2) * variabilityMultiplier2;
+            // no holes
+            variability += variability2;
+            variability= Math.max(variability, 0f);
+            float baseSimplex = plateau.added(rtgWorld, x, y);
+            baseSimplex += variability ;
+            float simplex = baseSimplex * bordercap * rivercap + bumpiness;
             float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight) / border;
-            return riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld), river) + added;
+            float result = riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld), river) + added;
+            if (border> .1) {
+                //Logger.info("Mesa ({},{}) Simplex {} added {} border {} result {}",passedX, passedY,simplex,added,border, result);
+                
+           } 
+            return result;//64f + 100f*simplex;//result;
         }
 
     }
@@ -132,7 +149,7 @@ public class RealisticBiomeVanillaMesaPlateau extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.3f;
             Block b;
 

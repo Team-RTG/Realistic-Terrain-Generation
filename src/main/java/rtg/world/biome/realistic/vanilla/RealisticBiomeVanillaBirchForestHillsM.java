@@ -10,6 +10,7 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionBirchForest;
+import rtg.api.world.deco.collection.DecoCollectionBirchForestM;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -25,7 +26,10 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
 
         super(biome);
     }
-
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
@@ -47,7 +51,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-        this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
+    	this.addDecoCollection(new DecoCollectionBirchForestM(this.getConfig()));
     }
 
 //    @Override
@@ -82,7 +86,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {

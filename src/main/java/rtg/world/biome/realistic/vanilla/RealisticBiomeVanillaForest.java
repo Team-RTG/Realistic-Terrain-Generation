@@ -15,6 +15,7 @@ import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaPlains.SurfaceVanillaPlains;
 
 import java.util.Random;
 
@@ -45,16 +46,24 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
 
     @Override
     public SurfaceBase initSurface() {
+    	if (getConfig().DISABLE_RTG_SURFACES.get()) {
+
+            return new SurfaceVanillaPlains(getConfig(), biome.topBlock, biome.fillerBlock);
+    	}
 
         return new SurfaceVanillaForest(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, BlockUtil.getStateDirt(DirtType.PODZOL), -0.4f);
     }
-
     @Override
     public void initDecos() {
 
         this.addDecoCollection(new DecoCollectionForest(this.getConfig()));
     }
 
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
     public static class TerrainVanillaForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
@@ -112,7 +121,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

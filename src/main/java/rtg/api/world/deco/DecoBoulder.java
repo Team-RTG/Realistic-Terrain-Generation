@@ -9,6 +9,7 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenBlob;
@@ -41,11 +42,10 @@ public class DecoBoulder extends DecoBase {
         this.setChance(10);
         this.water = true;
         this.validGroundBlocks = Arrays.asList(Blocks.GRASS, Blocks.DIRT, Blocks.STONE, Blocks.GRAVEL, Blocks.CLAY, Blocks.SAND);
-        this.addDecoTypes(DecoType.BOULDER);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         // TODO: [1.12] Boulders are a decoration and not a terrain feature. This should probably have a config setting, not a generator setting.
         if (rtgWorld.getGeneratorSettings().useBoulders && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.ROCK)) {

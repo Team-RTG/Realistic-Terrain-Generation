@@ -141,7 +141,7 @@ public class RealisticBiomeBYGLushDesert extends RealisticBiomeBYGBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 3.4f;
             boolean mix = false;
 

@@ -53,7 +53,7 @@ public class RealisticBiomeTCEerie extends RealisticBiomeBase
                 if (bs == Blocks.AIR.getDefaultState()) { depth = -1; } else if (bs == Blocks.STONE.getDefaultState()) {
 
                     depth++;
-                    if (TerrainBase.calcCliff(x, z, noise) > 1.4f) {
+                    if (TerrainBase.calcCliff(x, z, noise, river) > 1.4f) {
                         if (depth > -1 && depth < 2) {
                             if (rtgWorld.rand().nextInt(3) == 0) {
                                 primer.setBlockState(x, y, z, this.hcCobble());

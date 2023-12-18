@@ -52,7 +52,7 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
 
         DecoTree spruceTrees = new DecoTree(pungensTree);
         spruceTrees.setStrengthNoiseFactorXForLoops(true);
-        spruceTrees.setStrengthFactorForLoops(4f);
+        spruceTrees.setStrengthFactorForLoops(3f);
         spruceTrees.setTreeType(TreeType.RTG_TREE);
         spruceTrees.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
         spruceTrees.setTreeConditionChance(1);
@@ -69,7 +69,7 @@ public class DecoCollectionMegaTaiga extends DecoCollectionBase {
 
         DecoTree oakPines = new DecoTree(ponderosaTree);
         oakPines.setStrengthNoiseFactorXForLoops(true);
-        oakPines.setStrengthFactorForLoops(4f);
+        oakPines.setStrengthFactorForLoops(3f);
         oakPines.setTreeType(TreeType.RTG_TREE);
         oakPines.setTreeCondition(TreeCondition.ALWAYS_GENERATE);
         oakPines.setTreeConditionChance(1);

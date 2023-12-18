@@ -55,6 +55,8 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 10f));
     }
 
+    public boolean allowVanillaTrees() {return false;}
+    
     public static class TerrainVanillaTaigaM extends TerrainBase {
 
         private float hHeight;
@@ -103,7 +105,7 @@ public class RealisticBiomeVanillaTaigaM extends RealisticBiomeBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float p = simplex.noise2f(i / 8f, j / 8f) * 0.5f;
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
 
             Block b;

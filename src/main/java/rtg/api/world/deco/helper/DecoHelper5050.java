@@ -3,7 +3,7 @@ package rtg.api.world.deco.helper;
 import java.util.Random;
 
 import net.minecraft.util.math.ChunkPos;
-
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.deco.DecoBase;
@@ -33,13 +33,13 @@ public class DecoHelper5050 extends DecoBase {
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInfo) {
 
         if (rand.nextBoolean()) {
-            this.deco1.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+            this.deco1.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage, chunkInfo);
         }
         else {
-            this.deco2.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage);
+            this.deco2.generate(biome, rtgWorld, rand, chunkPos, river, hasVillage, chunkInfo);
         }
     }
 

@@ -49,11 +49,17 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
 
         return new SurfaceVanillaSavanna(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), Blocks.GRASS.getDefaultState(), 13f, 0.27f);
     }
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
 
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
+        //this.addDecoCollection(new DecoCollectionDesertRiver(this.getConfig()));
         this.addDecoCollection(new DecoCollectionSavanna(this.getConfig()));
     }
 
@@ -98,7 +104,7 @@ public class RealisticBiomeVanillaSavanna extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {

@@ -13,6 +13,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Distribution;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
@@ -102,7 +103,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
@@ -145,7 +146,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBase {
     private static class DecoCollectionWoodland extends DecoCollectionBase {
 
         // Tends to return values between -3f to 5f, with some overflow.
-        private DecoTree.Distribution forestDistribution = new DecoTree.Distribution(100f, 6f, 0.8f);
+        private Distribution forestDistribution = new Distribution(100f, 6f, 0.8f);
 
         private float tallMin = -1f;
         private float tallMax = 3f;

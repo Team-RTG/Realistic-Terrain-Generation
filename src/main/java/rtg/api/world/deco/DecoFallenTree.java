@@ -6,6 +6,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
+import rtg.api.util.ChunkInfo;
+import rtg.api.util.Distribution;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLog;
@@ -19,7 +21,7 @@ import java.util.Random;
 public class DecoFallenTree extends DecoBase {
 
     private int loops;
-    private DecoFallenTree.Distribution distribution; // Parameter object for noise calculations.
+    private Distribution distribution; // Parameter object for noise calculations.
     private LogCondition logCondition; // Enum for the various conditions/chances for log gen.
     private float logConditionNoise; // Only applies to a noise-related LogCondition.
     private int logConditionChance; // Only applies to a chance-related LogCondition.
@@ -39,7 +41,7 @@ public class DecoFallenTree extends DecoBase {
          * These can be overridden when configuring the Deco object in the realistic biome.
          */
         this.setLoops(1);
-        this.setDistribution(new DecoFallenTree.Distribution(100f, 5f, 0.8f));
+        this.setDistribution(new Distribution(100f, 5f, 0.8f));
         this.setLogCondition(LogCondition.RANDOM_CHANCE);
         this.setLogConditionChance(1);
         this.setMaxY(80);
@@ -48,12 +50,10 @@ public class DecoFallenTree extends DecoBase {
         this.setMinSize(2);
         this.setMaxSize(4);
         this.randomLogBlocks = new IBlockState[]{};
-
-        this.addDecoTypes(DecoType.FALLEN_TREE);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         final BlockPos offsetpos = getOffsetPos(chunkPos);
 
@@ -224,60 +224,7 @@ public class DecoFallenTree extends DecoBase {
         RANDOM_CHANCE
     }
 
-    /**
-     * Parameter object for noise calculations.
-     * <p>
-     * simplex.noise2(chunkX / noiseDivisor, chunkY / noiseDivisor) * noiseFactor + noiseAddend;
-     *
-     * @author WhichOnesPink
-     * @author Zeno410
-     */
-    public static class Distribution {
 
-        private float noiseDivisor;
-        private float noiseFactor;
-        private float noiseAddend;
-
-        public Distribution(float noiseDivisor, float noiseFactor, float noiseAddend) {
-
-            this.noiseDivisor = noiseDivisor;
-            this.noiseFactor = noiseFactor;
-            this.noiseAddend = noiseAddend;
-        }
-
-        public float getNoiseDivisor() {
-
-            return noiseDivisor;
-        }
-
-        public Distribution setNoiseDivisor(float noiseDivisor) {
-
-            this.noiseDivisor = noiseDivisor;
-            return this;
-        }
-
-        public float getNoiseFactor() {
-
-            return noiseFactor;
-        }
-
-        public Distribution setNoiseFactor(float noiseFactor) {
-
-            this.noiseFactor = noiseFactor;
-            return this;
-        }
-
-        public float getNoiseAddend() {
-
-            return noiseAddend;
-        }
-
-        public Distribution setNoiseAddend(float noiseAddend) {
-
-            this.noiseAddend = noiseAddend;
-            return this;
-        }
-    }
 
     private int adjustChanceFromMultiplier(int chanceIn, float multiplier) {
         int chanceOut = (multiplier != 0f) ? ((int) Math.floor(chanceIn / multiplier)) : chanceIn;

@@ -581,8 +581,38 @@ public abstract class TerrainBase {
         return (float) (riverFactor / rtgWorld.getRiverValleyLevel() - 1d);
     }
 
-    public static float calcCliff(int x, int z, float[] noise) {
+    public static float calcCliff(int x, int z, float[] noise, float river) {
         float cliff = 0f;
+        
+        // this is to solve a chronic problem where the edges of rivers are "cliffs"
+        // Algorithm - in both x and z directions look for the *lowest* number in both x and z directions
+        // Then return the higher of those two.
+        if (noise[x*16+z]<64.5&&noise[x*16+z]>61.5) {
+        	// near water level
+        	if (river + RTGWorld.ACTUAL_RIVER_PROPORTION > 0.97f) {
+        		//near river (here near 1 means river)  
+        		float xUp = 0f;
+        		float xDown = 0f;
+        		float zUp = 0f;
+        		float zDown = 0f;
+	            if (x > 0) {
+	                xDown = Math.abs(noise[x * 16 + z] - noise[(x - 1) * 16 + z]);
+	            }
+	            if (z > 0) {
+	                zDown = Math.abs(noise[x * 16 + z] - noise[x * 16 + z - 1]);
+	            }
+	            if (x < 15) {
+	                xUp = Math.abs(noise[x * 16 + z] - noise[(x + 1) * 16 + z]);
+	            }
+	            if (z < 15) {
+	                zUp = Math.abs(noise[x * 16 + z] - noise[x * 16 + z + 1]);
+	            }
+	            float xCliff = Math.min(xUp, xDown);// Again, *minimum* because we are trying to ignore the river edge drop
+	            float zCliff = Math.min(zDown, zUp);
+        		
+        		return Math.max(xCliff,zCliff);
+        	}
+        }
         if (x > 0) {
             cliff = Math.max(cliff, Math.abs(noise[x * 16 + z] - noise[(x - 1) * 16 + z]));
         }

@@ -5,6 +5,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
@@ -33,12 +34,10 @@ public class DecoDeadBush extends DecoBase {
         this.setStrengthFactor(0f); // The higher the value, the more there will be.
         this.setChance(1);
         this.setLoops(1);
-
-        this.addDecoTypes(DecoType.DEAD_BUSH);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.DEAD_BUSH)) {
 

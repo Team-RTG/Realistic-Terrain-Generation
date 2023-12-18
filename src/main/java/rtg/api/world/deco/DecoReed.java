@@ -5,6 +5,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
@@ -31,12 +32,10 @@ public class DecoReed extends DecoBase {
         this.setMaxY(255); // No height limit by default.
         this.setStrengthFactor(0f); // Not sure why it was done like this, but... the higher the value, the more there will be.
         this.setLoops(1);
-
-        this.addDecoTypes(DecoType.REED);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.REED)) {
 

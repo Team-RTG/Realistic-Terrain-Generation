@@ -4,6 +4,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenJungleCacti;
@@ -33,12 +34,10 @@ public class DecoJungleCacti extends DecoBase {
         this.setMaxY(255); // No height limit by default.
         this.setSandOnly(false);
         this.setExtraHeight(7);
-
-        this.addDecoTypes(DecoType.CACTUS);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CACTUS)) {
 

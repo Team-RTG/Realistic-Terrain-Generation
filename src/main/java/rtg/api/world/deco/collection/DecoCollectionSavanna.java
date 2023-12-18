@@ -43,7 +43,7 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         bucheriTree.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         bucheriTree.setMinTrunkSize(4);
         bucheriTree.setMaxTrunkSize(9);
-        this.addTree(bucheriTree);
+        //this.addTree(bucheriTree);
 
         DecoTree bucheriTrees = new DecoTree(bucheriTree);
         bucheriTrees.setLoops(1);
@@ -54,7 +54,8 @@ public class DecoCollectionSavanna extends DecoCollectionBase {
         bucheriTrees.setTreeCondition(TreeCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
         bucheriTrees.setTreeConditionNoise(-0.4f);
         bucheriTrees.setTreeConditionChance(28);
-        this.addDeco(bucheriTrees);
+        //this.addDeco(bucheriTrees);
+        this.addDeco(new DecoVariableAcacia());
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());

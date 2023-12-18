@@ -42,7 +42,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
     private double lakeWaterLevel = 0.04;// the lakeStrength below which things should be below water
     private double lakeDepressionLevel = 0.3;// the lakeStrength below which land should start to be lowered
 
-    public RealisticBiomeBOPBayou(final Biome biome) { super(biome); }
+    public RealisticBiomeBOPBayou(final Biome biome) { 
+    	super(biome);  
+    }
 
     @Override
     public Biome preferredBeach() {
@@ -65,7 +67,10 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
 
     @Override
     public SurfaceBase initSurface() {
-        return new SurfaceBOPBayou(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.10f);
+    	SurfaceBase result =  new SurfaceBOPBayou(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, baseBiome().topBlock, 0.10f);
+    	result.shadowStoneBlock = Blocks.DIRT.getDefaultState();
+    	//BOPBlocks.mud.getStateFromMeta(0);
+    	return result;
     }
 
     @Override
@@ -115,7 +120,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
     }
 
     @Override
-    public float lakeFlattening(float pressure, float bottomLevel, float topLevel) {
+    public float lakeToRiverProportions(float pressure, float bottomLevel, float topLevel) {
 
         // these are rivers so not necessary to fake the lake values as river
         return pressure;
@@ -235,7 +240,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

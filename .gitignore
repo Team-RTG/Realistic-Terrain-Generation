@@ -30,3 +30,6 @@
 # Integrations
 !codeformat/
 !.travis.yml
+
+# Ignore Mac directory files
+*.DS_Store

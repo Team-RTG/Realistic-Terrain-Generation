@@ -9,13 +9,18 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Logger;
 import rtg.api.util.PlateauUtil;
+import rtg.api.util.noise.ISimplexData2D;
+import rtg.api.util.noise.SimplexData2D;
+import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.deco.collection.DecoCollectionMesa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.VoronoiPlateauEffect;
 
 import java.util.Random;
 
@@ -47,7 +52,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
 
     @Override
     public TerrainBase initTerrain() {
-        return new TerrainRTGMesaBryce();
+        return new TerrainRTGBrycePlateau(67f);
     }
 
     @Override
@@ -82,7 +87,70 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
         }
 
     }
+    
+    public static class TerrainRTGBrycePlateau extends TerrainBase {
 
+        private static final float stepStart = 0.25f;
+        private static final float stepFinish = 0.4f;
+        private static final float stepHeight = 32;
+        private static final float hoodooStepStart = .05f;
+        final VoronoiPlateauEffect plateau;
+        final int groundNoise;
+        private float jitterWavelength = 30;
+        private float jitterAmplitude = 10;
+        private float bumpinessMultiplier = 0.05f;
+        private float bumpinessWavelength = 10f;
+
+        public TerrainRTGBrycePlateau(float base) {
+            plateau = new VoronoiPlateauEffect();
+            plateau.pointWavelength = 200;
+            this.base = base;
+            groundNoise = 4;
+        }
+
+        @Override
+        public float generateNoise(RTGWorld rtgWorld, int passedX, int passedY, float border, float river) {
+            ISimplexData2D jitterData = SimplexData2D.newDisk();
+            rtgWorld.simplexInstance(1).multiEval2D(passedX / jitterWavelength, passedY / jitterWavelength, jitterData);
+            float x = (float) (passedX + jitterData.getDeltaX() * jitterAmplitude);
+            float y = (float) (passedY + jitterData.getDeltaY() * jitterAmplitude);
+            float bordercap = (bordercap = border * 3.5f - 2.5f) > 1 ? 1.0f : bordercap;
+            float rivercap = (rivercap = 3f * river) > 1 ? 1.0f : rivercap;
+            float bumpiness = rtgWorld.simplexInstance(2).noise2f(x / bumpinessWavelength, y / bumpinessWavelength) * bumpinessMultiplier;
+            float simplex = plateau.added(rtgWorld, x, y) * bordercap * rivercap + bumpiness;
+            float added = PlateauUtil.stepIncrease(simplex, stepStart, stepFinish, stepHeight)/ border;
+            float hoodooTop = PlateauUtil.stepIncrease(simplex, hoodooStepStart, stepFinish, stepHeight) / border;
+            if (hoodooTop>added) {
+            	added += hoodooHeight(x,y,rtgWorld,hoodooTop-added);
+            }
+            float result = riverized(base + TerrainBase.groundNoise(x, y, groundNoise, rtgWorld), river) + added;
+            return result;
+        }
+        
+        public static float hoodooHeight(float x, float y, RTGWorld rtgWorld, float height) {
+
+            SimplexNoise simplex = rtgWorld.simplexInstance(0);
+            float sn = simplex.noise2f(x / 2f, y / 2f) * 0.5f + 0.5f;
+            sn += simplex.noise2f(x, y) * 0.2 + 0.2;
+            sn += simplex.noise2f(x / 4f, y / 4f) * 4f + 4f;
+            sn += simplex.noise2f(x / 8f, y / 8f) * 2f + 2f;
+            sn = sn*2/6.7f;// adjust to [-1,1]
+            // extremify
+            if (sn < 1) {
+            	sn = - bayesianAdjustment(-sn,1);
+            } else {
+            	sn = bayesianAdjustment(sn,1);
+            }
+            sn = sn/2 + .5f;
+            float n = height * sn;
+            //float n = height / sn * 2;
+            //n += simplex.noise2f(x / 64f, y / 64f) * 4f;
+            //n = (sn < 6) ? n : 0f;
+            return n;
+        }
+
+    }
+    
     public class SurfaceVanillaMesaBryce extends SurfaceBase {
 
         private int grassRaise = 0;
@@ -102,7 +170,7 @@ public class RealisticBiomeVanillaMesaBryce extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.3f;
             Block b;
 

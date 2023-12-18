@@ -39,8 +39,20 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
         this.setLogBlock(Blocks.LOG2.getDefaultState());
         this.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         this.trunkSize = 10;
+        this.lowestVariableTrunkProportion = 0.45f;
+        this.trunkProportionVariability = 0.2f;
+        this.maxAllowedObstruction = 4;
     }
-
+    @Override
+    public int furthestLikelyExtension() {
+    	return crownSize+1;
+    }
+    
+    @Override
+    public float estimatedSize() {
+    	return (float)(furthestLikelyExtension()*furthestLikelyExtension())/32f;// doesn't go in all directions
+    } 
+    
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
@@ -51,38 +63,40 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
+        
+        SkylightTracker lightTracker = new SkylightTracker(this.furthestLikelyExtension(),pos,world);
+        lightTracker.tolerableObstruction = this.maxAllowedObstruction;
 
-        int h = this.trunkSize;
-        int bh = h - 3;
 
-        for (int i = 0; i < h; i++) {
-            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+        for (int i = 0; i < trunkSize + crownSize; i++) {
+            this.placeTrunkBlock(world, new BlockPos(x, y + i, z), this.generateFlag, lightTracker);
         }
-        genLeaves(world, rand, x, y + h, z);
+        genLeaves(world, rand, x, y + trunkSize + crownSize, z, lightTracker);
 
         int sh, eh, dir;
         float xd, yd, c;
 
+        dir = rand.nextInt(360);
         for (int a = 1 + rand.nextInt(2); a > -1; a--) {
-            sh = bh + rand.nextInt(2);
-            eh = h - (int) ((h - sh) * 0.25f);
-            dir = rand.nextInt(360);
+        	int belowTop = 1;// rand.nextInt(3);
+            sh = trunkSize + rand.nextInt(3);
             xd = (float) Math.cos(dir * Math.PI / 180f) * 2f;
             yd = (float) Math.sin(dir * Math.PI / 180f) * 2f;
             c = 1;
 
-            while (sh < h) {
-                this.placeLogBlock(world, new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), this.logBlock, this.generateFlag);
+            while (sh < trunkSize+crownSize-belowTop) {
+                this.placeLogBlock(world, new BlockPos(x + (int) (xd * c), y + sh, z + (int) (yd * c)), this.logBlock, this.generateFlag, lightTracker);
                 sh++;
                 c += 0.5f;
             }
-            genLeaves(world, rand, x + (int) (xd * c), y + sh, z + (int) (yd * c));
+            dir += 50 + rand.nextInt(172);// roughly golden mean with LOTS of variability
+            genLeaves(world, rand, x + (int) (xd * c), y + sh, z + (int) (yd * c), lightTracker);
         }
 
         return true;
     }
 
-    public void genLeaves(World world, Random rand, int x, int y, int z) {
+    public void genLeaves(World world, Random rand, int x, int y, int z, SkylightTracker lightTracker) {
 
         if (!this.noLeaves) {
 
@@ -90,19 +104,19 @@ public class TreeRTGAcaciaBucheri extends TreeRTG {
             int j;
             for (i = -1; i <= 1; i++) {
                 for (j = -1; j <= 1; j++) {
-                    this.placeLeavesBlock(world, new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag);
+                    this.placeLeavesBlock(world, new BlockPos(x + i, y + 1, z + j), this.leavesBlock, this.generateFlag, lightTracker);
                 }
             }
 
             for (i = -2; i <= 2; i++) {
                 for (j = -2; j <= 2; j++) {
                     if (Math.abs(i) + Math.abs(j) < 4) {
-                        this.placeLeavesBlock(world, new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag);
+                        this.placeLeavesBlock(world, new BlockPos(x + i, y, z + j), this.leavesBlock, this.generateFlag, lightTracker);
                     }
                 }
             }
         }
 
-        this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+        this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag, lightTracker);
     }
 }

@@ -72,6 +72,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         TreeRTG mucronataTree = new TreeRTGRhizophoraMucronata(3, 4, 13f, 0.32f, 0.1f);
         mucronataTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         mucronataTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
+        mucronataTree.setMaxAllowedObstruction(TreeRTG.ROOFED_FOREST_LIGHT_OBSTRUCTION_LIMIT);
+        
         mucronataTree.setMinTrunkSize(2);
         mucronataTree.setMaxTrunkSize(3);
         mucronataTree.setMinCrownSize(9);
@@ -87,9 +89,10 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         mangroveTree.setMaxY(110);
         //this.addDeco(mangroveTree);
 
-        TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
+        TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);;
         pentandraTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         pentandraTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
+        pentandraTree.setMaxAllowedObstruction(TreeRTG.ROOFED_FOREST_LIGHT_OBSTRUCTION_LIMIT);
         pentandraTree.setMinTrunkSize(2);
         pentandraTree.setMaxTrunkSize(3);
         pentandraTree.setMinCrownSize(9);
@@ -103,21 +106,24 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         ceibaPentandraTree.setTreeConditionChance(1);
         ceibaPentandraTree.setStrengthFactorForLoops(14f);
         ceibaPentandraTree.setMaxY(110);
-        //this.addDeco(ceibaPentandraTree);
+        this.addDeco(ceibaPentandraTree);
 
         TreeRTG bucheriTree = new TreeRTGAcaciaBucheri();
         bucheriTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         bucheriTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
-        bucheriTree.setMinTrunkSize(6);
-        bucheriTree.setMaxTrunkSize(14);
-        this.addTree(bucheriTree);
+        bucheriTree.setMinTrunkSize(3);
+        bucheriTree.setMaxTrunkSize(6);
+        bucheriTree.setMinCrownSize(3);
+        bucheriTree.setMaxCrownSize(8);
+        bucheriTree.setMaxAllowedObstruction(TreeRTG.ROOFED_FOREST_LIGHT_OBSTRUCTION_LIMIT);
+        //this.addTree(bucheriTree);
 
         DecoTree bucheriTrees = new DecoTree(bucheriTree);
         bucheriTrees.setLoops(2);
         bucheriTrees.setTreeType(DecoTree.TreeType.RTG_TREE);
         bucheriTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         bucheriTrees.setTreeConditionChance(1);
-        //this.addDeco(bucheriTrees);
+        this.addDeco(bucheriTrees);
 
         DecoHelperRandomSplit decoHelperRandomSplit = new DecoHelperRandomSplit();
         decoHelperRandomSplit.decos = new DecoBase[]{mangroveTree, ceibaPentandraTree, bucheriTrees};
@@ -242,7 +248,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

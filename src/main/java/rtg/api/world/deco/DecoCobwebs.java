@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenBlock;
@@ -42,12 +43,10 @@ public class DecoCobwebs extends DecoBase {
         this.setChance(10);
         this.setAdjacentBlock(Blocks.AIR.getDefaultState());
         this.setMinAdjacents(1);
-
-        this.addDecoTypes(DecoType.COBWEB);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         if (TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CUSTOM)) {
             for (int i = 0; i < this.strengthFactor; ++i) {

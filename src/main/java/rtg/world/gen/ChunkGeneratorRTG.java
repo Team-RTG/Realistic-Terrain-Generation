@@ -4,6 +4,7 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
@@ -36,6 +37,7 @@ import rtg.api.world.gen.RTGChunkGenSettings;
 import rtg.api.world.gen.feature.WorldGenPond;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.world.biome.BiomeAnalyzer;
+import rtg.world.biome.realistic.vanilla.RealisticBiomeVanillaMesaPlateau;
 import rtg.world.gen.structure.WoodlandMansionRTG;
 
 import javax.annotation.Nullable;
@@ -62,7 +64,6 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private final int sampleSize = 8;
     private final int sampleArraySize = sampleSize * 2 + 5;
     private final int[] biomeData = new int[sampleArraySize * sampleArraySize];
-    private final float[] weightedBiomes = new float[256];
     private final float[][] weightings = new float[sampleArraySize * sampleArraySize][256];
     private final MesaBiomeCombiner mesaCombiner = new MesaBiomeCombiner();
     private BiomeAnalyzer analyzer = new BiomeAnalyzer();
@@ -70,6 +71,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     private boolean mapFeaturesEnabled;
     private Random rand;
     private Biome[] baseBiomesList;
+    private TerrainBase mesaPlateau = new RealisticBiomeVanillaMesaPlateau.TerrainRTGMesaPlateau(67);
 
     public ChunkGeneratorRTG(RTGWorld rtgWorld) {
 
@@ -80,7 +82,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
         this.settings = rtgWorld.getGeneratorSettings();
 
 // TODO: [1.12] seaLevel will be removed as terrain noise values are all hardcoded and will not variate properly.
-//        this.world.setSeaLevel(this.settings.seaLevel);
+        this.world.setSeaLevel(this.settings.seaLevel);
         this.rand = new Random(rtgWorld.seed());
         this.rtgWorld.setRandom(this.rand);
         this.mapFeaturesEnabled = world.getWorldInfo().isMapFeaturesEnabled();
@@ -535,6 +537,7 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
     }
 
     private synchronized void getNewerNoise(final BiomeProvider biomeProvider, final int worldX, final int worldZ, ChunkLandscape landscape) {
+       float[] weightedBiomes = new float[256];
 
         // get area biome map
         for (int x = -sampleSize; x < sampleSize + 5; x++) {
@@ -570,17 +573,19 @@ public class ChunkGeneratorRTG implements IChunkGenerator {
 
                 float river = TerrainBase.getRiverStrength(mpos.setPos(worldX + x, 0, worldZ + z), rtgWorld);
                 landscape.river[x * 16 + z] = -river;
-
+                int mesaBryce = Biome.getIdForBiome(Biomes.MUTATED_MESA);
                 for (int i = 0; i < 256; i++) {
 
                     if (weightedBiomes[i] > 0f) {
 
                         landscape.noise[x * 16 + z] += RTGAPI.getRTGBiome(i).rNoise(this.rtgWorld, worldX + x, worldZ + z, weightedBiomes[i], river + 1f) * weightedBiomes[i];
 
+                    	//Logger.info("Biome {}: {}",i,landscape.noise[x * 16 + z]);
                         // 0 for the next column
                         weightedBiomes[i] = 0f;
                     }
                 }
+                
             }
         }
 

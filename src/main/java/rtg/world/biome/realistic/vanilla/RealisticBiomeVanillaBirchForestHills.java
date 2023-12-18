@@ -28,7 +28,10 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeBase {
 
         super(biome);
     }
-
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
@@ -113,7 +116,7 @@ public class RealisticBiomeVanillaBirchForestHills extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

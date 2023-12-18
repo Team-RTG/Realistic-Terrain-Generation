@@ -46,11 +46,19 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeBase {
 
         return new SurfaceVanillaColdTaiga(getConfig(), biome.topBlock, biome.fillerBlock);
     }
-
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
     @Override
     public void initDecos() {
 
-        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
+    	DecoCollectionTaiga decos = new DecoCollectionTaiga(this.getConfig(), 8f);
+    	decos.changeAvgHeightSqrt(-1f);
+    	decos.changeHeightVariability(-0.5f);
+        this.addDecoCollection(decos);
     }
 
     public static class TerrainVanillaColdTaiga extends TerrainBase {
@@ -79,7 +87,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float p = simplex.noise2f(i / 8f, j / 8f) * 0.5f;
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
 
             Block b;

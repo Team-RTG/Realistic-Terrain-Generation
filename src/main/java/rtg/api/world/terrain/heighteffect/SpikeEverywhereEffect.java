@@ -17,7 +17,7 @@ public class SpikeEverywhereEffect extends HeightEffect {
     ;
     public float wavelength = 0;
     public float minimumSimplex = Integer.MAX_VALUE;// normal range is -1 to 1;
-    //usually numbers above 0 are often preferred to avoid dead basins
+    //usually numbers above 0 are  preferred to avoid dead basins
     public int octave;
     public float power = 1.6f;// usually a range of 1 to 2
     public HeightEffect spiked;

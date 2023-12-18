@@ -4,6 +4,8 @@ import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.init.Blocks;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Distribution;
+import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.*;
 import rtg.api.world.deco.DecoTree.TreeCondition;
 import rtg.api.world.deco.DecoTree.TreeType;
@@ -18,11 +20,20 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGPiceaSitchensis;
  * @author WhichOnesPink
  */
 public class DecoCollectionTaiga extends DecoCollectionBase {
+	
+    private Distribution treeFrequencyDistribution = new Distribution(RTGWorld.getTreeFrequencyNoiseDivisor(), 2.5f, 4.5f);
+    private final DecoVariableTaigaTree variableTrees;
+    		
+    private float tallMin = -1f;
+    private float tallMax = 3f;
 
     public DecoCollectionTaiga(BiomeConfig config, float grassStrengthFactor) {
 
         super(config);
-
+        variableTrees = initVariableTrees(tallMin, tallMax);
+        
+        this.addDeco(variableTrees);
+        
         TreeRTG sempervirensSpruceTree1 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceTree1.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
         sempervirensSpruceTree1.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
@@ -30,7 +41,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sempervirensSpruceTree1.setMaxTrunkSize(7);
         sempervirensSpruceTree1.setMinCrownSize(5);
         sempervirensSpruceTree1.setMaxCrownSize(10);
-        this.addTree(sempervirensSpruceTree1);
+        //this.addTree(sempervirensSpruceTree1);
 
         DecoTree bigSpruceTrees1 = new DecoTree(sempervirensSpruceTree1);
         bigSpruceTrees1.setStrengthFactorForLoops(4f);
@@ -50,7 +61,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sempervirensSpruceOakTree1.setMaxTrunkSize(7);
         sempervirensSpruceOakTree1.setMinCrownSize(5);
         sempervirensSpruceOakTree1.setMaxCrownSize(10);
-        this.addTree(sempervirensSpruceOakTree1);
+        //this.addTree(sempervirensSpruceOakTree1);
 
         DecoTree bigSpruceOakTrees1 = new DecoTree(sempervirensSpruceOakTree1);
         bigSpruceOakTrees1.setStrengthFactorForLoops(4f);
@@ -64,7 +75,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceOakTrees1.setMaxY(110);
 
         DecoHelperThisOrThat decoHelperThisOrThat1 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees1, bigSpruceOakTrees1);
-        this.addDeco(decoHelperThisOrThat1);
+        //this.addDeco(decoHelperThisOrThat1);
 
         TreeRTG sempervirensSpruceTree2 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceTree2.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
@@ -73,7 +84,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sempervirensSpruceTree2.setMaxTrunkSize(7);
         sempervirensSpruceTree2.setMinCrownSize(5);
         sempervirensSpruceTree2.setMaxCrownSize(10);
-        this.addTree(sempervirensSpruceTree2);
+        //this.addTree(sempervirensSpruceTree2);
 
         DecoTree bigSpruceTrees2 = new DecoTree(sempervirensSpruceTree2);
         bigSpruceTrees2.setStrengthFactorForLoops(4f);
@@ -93,7 +104,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sempervirensSpruceOakTree2.setMaxTrunkSize(7);
         sempervirensSpruceOakTree2.setMinCrownSize(5);
         sempervirensSpruceOakTree2.setMaxCrownSize(10);
-        this.addTree(sempervirensSpruceOakTree2);
+        //this.addTree(sempervirensSpruceOakTree2);
 
         DecoTree bigSpruceOakTrees2 = new DecoTree(sempervirensSpruceOakTree2);
         bigSpruceOakTrees2.setStrengthFactorForLoops(4f);
@@ -107,7 +118,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceOakTrees2.setMaxY(110);
 
         DecoHelperThisOrThat decoHelperThisOrThat2 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees2, bigSpruceOakTrees2);
-        this.addDeco(decoHelperThisOrThat2);
+        //this.addDeco(decoHelperThisOrThat2);
 
         TreeRTG sempervirensSpruceTree3 = new TreeRTGCupressusSempervirens();
         sempervirensSpruceTree3.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
@@ -116,7 +127,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sempervirensSpruceTree3.setMaxTrunkSize(7);
         sempervirensSpruceTree3.setMinCrownSize(5);
         sempervirensSpruceTree3.setMaxCrownSize(10);
-        this.addTree(sempervirensSpruceTree3);
+        //this.addTree(sempervirensSpruceTree3);
 
         DecoTree bigSpruceTrees3 = new DecoTree(sempervirensSpruceTree3);
         bigSpruceTrees3.setStrengthFactorForLoops(3f);
@@ -135,7 +146,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sempervirensSpruceOakTree3.setMaxTrunkSize(7);
         sempervirensSpruceOakTree3.setMinCrownSize(5);
         sempervirensSpruceOakTree3.setMaxCrownSize(10);
-        this.addTree(sempervirensSpruceOakTree3);
+        //this.addTree(sempervirensSpruceOakTree3);
 
         DecoTree bigSpruceOakTrees3 = new DecoTree(sempervirensSpruceOakTree3);
         bigSpruceOakTrees3.setStrengthFactorForLoops(3f);
@@ -148,7 +159,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         bigSpruceOakTrees3.setMaxY(120);
 
         DecoHelperThisOrThat decoHelperThisOrThat3 = new DecoHelperThisOrThat(4, ChanceType.NOT_EQUALS_ZERO, bigSpruceTrees3, bigSpruceOakTrees3);
-        this.addDeco(decoHelperThisOrThat3);
+        //this.addDeco(decoHelperThisOrThat3);
 
         TreeRTG sitchensisTree = new TreeRTGPiceaSitchensis();
         sitchensisTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
@@ -157,7 +168,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         sitchensisTree.setMaxTrunkSize(9);
         sitchensisTree.setMinCrownSize(5);
         sitchensisTree.setMaxCrownSize(14);
-        this.addTree(sitchensisTree);
+        //this.addTree(sitchensisTree);
 
         DecoTree decoTrees = new DecoTree(sitchensisTree);
         decoTrees.setStrengthFactorForLoops(4f);
@@ -165,7 +176,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoTrees.setTreeCondition(TreeCondition.RANDOM_CHANCE);
         decoTrees.setTreeConditionChance(3);
         decoTrees.setMaxY(120);
-        this.addDeco(decoTrees);
+        //this.addDeco(decoTrees);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
@@ -182,7 +193,7 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoShrubSpruce.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
         decoShrubSpruce.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoShrubSpruce.setMaxY(100);
-        decoShrubSpruce.setLoopMultiplier(3f);
+        decoShrubSpruce.setLoopMultiplier(6f);
         decoShrubSpruce.setChance(6);
         this.addDeco(decoShrubSpruce);
 
@@ -196,11 +207,37 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
         decoPumpkin.setRandomFloat(32f);
-        this.addDeco(decoPumpkin);
+        //this.addDeco(decoPumpkin);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
         decoMushrooms.setRandomFloat(24f);
-        this.addDeco(decoMushrooms);
+        //this.addDeco(decoMushrooms);
+    }
+    
+    public void changeAvgHeightSqrt(float change) {
+    	variableTrees.changeAvgHeightSqrt(change);
+    }
+    
+    public void changeHeightVariability(float change) {
+    	variableTrees.changeHeightVariability(change);
+    }
+    
+    private DecoVariableTaigaTree initVariableTrees(float noiseMin, float noiseMax) {
+    	
+    	DecoVariableTaigaTree result = new DecoVariableTaigaTree();
+        
+            result.setStrengthFactorForLoops(6f)
+            .setTreeType(TreeType.RTG_TREE)
+            .setDistribution(treeFrequencyDistribution)
+            .setTreeCondition(TreeCondition.ALWAYS_GENERATE)
+            .setTreeConditionNoise(noiseMin)
+            .setTreeConditionNoise2(noiseMax)
+            .setTreeConditionChance(1)
+            .setMaxY(120)
+            .setStrengthNoiseFactorForLoops(true)
+            .setStrengthNoiseFactorXForLoops(false)// just in case
+            ;
+            return result;
     }
 }

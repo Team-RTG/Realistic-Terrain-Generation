@@ -16,6 +16,7 @@ import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.collection.DecoCollectionBirchForestM;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGBetulaPapyrifera;
 import rtg.api.world.surface.SurfaceBase;
@@ -36,6 +37,11 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         super(biome);
     }
 
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
@@ -58,6 +64,8 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
+    	
+    	this.addDecoCollection(new DecoCollectionBirchForestM(this.getConfig()));
 
         TreeRTG tallBirch = new TreeRTGBetulaPapyrifera();
         tallBirch.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
@@ -66,7 +74,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         tallBirch.setMaxTrunkSize(23);
         tallBirch.setMinCrownSize(4);
         tallBirch.setMaxCrownSize(11);
-        this.addTree(tallBirch);
+        //this.addTree(tallBirch);
 
         DecoTree superTallBirch = new DecoTree(tallBirch);
         superTallBirch.setStrengthFactorForLoops(16f);
@@ -77,7 +85,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         superTallBirch.getDistribution().setNoiseAddend(-15f);
         superTallBirch.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
         superTallBirch.setMaxY(100);
-        this.addDeco(superTallBirch);
+        //this.addDeco(superTallBirch);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.setLogCondition(RANDOM_CHANCE);
@@ -145,7 +153,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

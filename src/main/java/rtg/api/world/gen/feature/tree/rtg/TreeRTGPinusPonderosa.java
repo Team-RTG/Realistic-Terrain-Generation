@@ -42,7 +42,17 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
 
         super();
     }
-
+    
+    public float estimatedSize() {
+    	//return estimated size of current tree in area. 1f is roughly an 8 diameter circle.
+    	float branchLength = crownSize/6 +1;
+    	return branchLength*branchLength/30f;
+    }
+    
+    public int furthestLikelyExtension() { 
+    	return 9;
+    }
+    
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
@@ -61,14 +71,11 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
             return false;
         }
 
-        buildTrunk(world, rand, x + 1, y, z);
-        buildTrunk(world, rand, x - 1, y, z);
-        buildTrunk(world, rand, x, y, z + 1);
-        buildTrunk(world, rand, x, y, z - 1);
+        SkylightTracker lightTracker = new SkylightTracker(this.furthestLikelyExtension(),pos,world);
 
         int i;
         for (i = 0; i < trunkSize; i++) {
-            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            if (!this.placeTrunkBlock(world, new BlockPos(x, y, z), this.generateFlag, lightTracker)) return false;
             if (i > 5 && rand.nextInt(7) == 0) {
                 int dX = -1 + rand.nextInt(3);
                 int dZ = -1 + rand.nextInt(3);
@@ -76,19 +83,27 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
                 if (dX == 0 && dZ == 0) {
                     dX = -1 + rand.nextInt(3);
                     dZ = -1 + rand.nextInt(3);
-                }
-
-                buildBranch(world, rand, x, y, z, dX, dZ, 1, 1);
+                }                
+                buildBranch(world, rand, x, y, z, dX, dZ, 1, 1, lightTracker);
             }
 
             y++;
         }
-
+        
+        y = pos.getY();
+        
+        buildTrunk(world, rand, x + 1, y, z, lightTracker);
+        buildTrunk(world, rand, x - 1, y, z, lightTracker);
+        buildTrunk(world, rand, x, y, z + 1, lightTracker);
+        buildTrunk(world, rand, x, y, z - 1, lightTracker);
+        
+        y+= trunkSize;
+        
         int pX = 0;
         int pZ = 0;
         int j;
         for (i = 0; i < crownSize; i++) {
-            if (rand.nextInt(i < crownSize - 12 && i > 2 ? 2 : 1) == 0 && i < crownSize - 2) {
+            if (rand.nextInt(i < crownSize - 12 && i > 2 ? 3 : 2) <= 1 && i < crownSize - 2) {
                 int dX = -1 + rand.nextInt(3);
                 int dZ = -1 + rand.nextInt(3);
 
@@ -97,88 +112,115 @@ public class TreeRTGPinusPonderosa extends TreeRTG {
                     dZ = -1 + rand.nextInt(3);
                 }
 
-                if (pX == dX && rand.nextBoolean()) {
+                if (pX != 0 && pX == dX && rand.nextInt(3)<2) {
                     dX = -dX;
                 }
-                if (pZ == dZ && rand.nextBoolean()) {
+                if (pZ != 0 && pZ == dZ && rand.nextInt(3)<2) {
                     dZ = -dZ;
                 }
 
                 pX = dX;
                 pZ = dZ;
 
+                int logSize = i < crownSize - 12 && i > 3 ? 3 : i < crownSize - 8 ? 2 : 1;
+                
+                int leafSize = i < crownSize - 4 ? 2 : 1;
+                //leafSize = (crownSize - i)/5 + 1;
+                
                 buildBranch(world, rand, x, y, z, dX, dZ,
-                    i < crownSize - 12 && i > 3 ? 3 : i < crownSize - 8 ? 2 : 1,
-                    i < crownSize - 5 ? 2 : 1
+                    logSize,
+                    leafSize,
+                     lightTracker
                 );
             }
 
-            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y, z), this.logBlock, this.generateFlag, lightTracker);
 
             if (i < crownSize - 2) {
                 if (rand.nextBoolean()) {
-                    buildLeaves(world, x, y, z + 1);
+                    buildLeaves(world, x, y, z + 1, lightTracker);
                 }
                 if (rand.nextBoolean()) {
-                    buildLeaves(world, x, y, z - 1);
+                    buildLeaves(world, x, y, z - 1, lightTracker);
                 }
                 if (rand.nextBoolean()) {
-                    buildLeaves(world, x + 1, y, z);
+                    buildLeaves(world, x + 1, y, z, lightTracker);
                 }
                 if (rand.nextBoolean()) {
-                    buildLeaves(world, x - 1, y, z);
+                    buildLeaves(world, x - 1, y, z, lightTracker);
                 }
             }
 
             y++;
         }
 
-        buildLeaves(world, x, y - 1, z + 1);
-        buildLeaves(world, x, y - 1, z - 1);
-        buildLeaves(world, x + 1, y - 1, z);
-        buildLeaves(world, x - 1, y - 1, z);
-        buildLeaves(world, x, y, z);
+        buildLeaves(world, x, y - 1, z + 1, lightTracker);
+        buildLeaves(world, x, y - 1, z - 1, lightTracker);
+        buildLeaves(world, x + 1, y - 1, z, lightTracker);
+        buildLeaves(world, x - 1, y - 1, z, lightTracker);
+        buildLeaves(world, x, y, z, lightTracker);
 
+        lightTracker.checkLighting(world);
         return true;
     }
 
     @Override
-    public void buildTrunk(World world, Random rand, int x, int y, int z) {
+    public void buildTrunk(World world, Random rand, int x, int y, int z, SkylightTracker lightTracker) {
 
         int h = (int) Math.ceil(this.trunkSize / 4f);
         h = h + rand.nextInt(h * 2);
         for (int i = -1; i < h; i++) {
-            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.trunkLog, this.generateFlag);
+            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.trunkLog, this.generateFlag, lightTracker);
         }
     }
 
     @Override
-    public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize) {
+    public void buildBranch(World world, Random rand, int x, int y, int z, int dX, int dZ, int logLength, int leaveSize, SkylightTracker lightTracker) {
 
         if (logLength == 3 && Math.abs(dX) + Math.abs(dZ) == 2) {
-            logLength--;
+            //logLength--;
         }
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                for (int k = 0; k < 2; k++) {
+                for (int k = 0; k < 1; k++) {
                     if (Math.abs(i) + Math.abs(j) + Math.abs(k) < leaveSize + 1) {
-                        buildLeaves(world, x + i + (dX * logLength), y + k, z + j + (dZ * logLength));
+                        buildLeaves(world, x + i + (dX * logLength), y + k, z + j + (dZ * logLength), lightTracker);
                     }
                 }
             }
         }
 
+        buildLeaves(world, x + (dX * logLength), y + 1, z + (dZ * logLength), lightTracker);
+        
         for (int m = 1; m <= logLength; m++) {
-            this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag);
+        	if (m < logLength) {
+                 this.placeLogBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag, lightTracker);
+        	} else {
+
+                this.placeLeavesBlock(world, new BlockPos(x + (dX * m), y, z + (dZ * m)), this.logBlock, this.generateFlag, lightTracker);
+        	}
+            if (m>1) {
+            	// extra leaves
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        for (int k = 0; k < 1; k++) {
+                            if (Math.abs(i) + Math.abs(j) + Math.abs(k) < leaveSize + 1) {
+                                buildLeaves(world, x + i + (dX * m), y + k, z + j + (dZ * m), lightTracker);
+                            }
+                        }
+                    }
+                }
+                buildLeaves(world, x + (dX * m), y + 1, z + (dZ * m), lightTracker);
+            }
         }
     }
 
     @Override
-    public void buildLeaves(World world, int x, int y, int z) {
+    public void buildLeaves(World world, int x, int y, int z, SkylightTracker lightTracker) {
 
         if (!this.noLeaves) {
-            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag);
+            this.placeLeavesBlock(world, new BlockPos(x, y, z), this.leavesBlock, this.generateFlag, lightTracker);
         }
     }
 }

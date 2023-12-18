@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkProviderServer;
 
@@ -12,6 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import rtg.api.RTGAPI;
+import rtg.api.util.Distribution;
 import rtg.api.util.Logger;
 import rtg.api.util.noise.CellularNoise;
 import rtg.api.util.noise.OpenSimplexNoise;
@@ -32,6 +35,8 @@ public final class RTGWorld {
 
     public static final float ACTUAL_RIVER_PROPORTION = 150f / 1600f;//This value is also used in BiomeAnalyser#riverAdjusted
     public static final float RIVER_FLATTENING_ADDEND = ACTUAL_RIVER_PROPORTION / (1f - ACTUAL_RIVER_PROPORTION);
+    public static final float RIVER_BOTTOM = 57f;
+    public static final float LAKE_BOTTOM = 53f;
     private static final double RIVER_LARGE_BEND_SIZE_BASE = 140D;
     private static final double RIVER_SMALL_BEND_SIZE_BASE = 30D;
     private static final double RIVER_SEPARATION_BASE = 975D;
@@ -44,6 +49,8 @@ public final class RTGWorld {
     private static final float LAKE_BEND_SIZE_SMALL = 12;
     private static final int SIMPLEX_INSTANCE_COUNT = 10;
     private static final int CELLULAR_INSTANCE_COUNT = 5;
+    private static final float TREE_FREQUENCY_DIVISOR = 837; // the noise divisor for tree frequency noise (repeats over this distance)
+    private static final float TREE_MATERIALS_DIVISOR = 631;// the noise divisor for tree material noise (repeats over this distance)
 
     private static final Map<World, RTGWorld> INSTANCE_CACHE = new HashMap<>();
 
@@ -237,6 +244,26 @@ public final class RTGWorld {
     public float getLakeBendSizeSmall() {
         return LAKE_BEND_SIZE_SMALL * generatorSettings.RTGlakeShoreBend;
     }
+    
+    public static float riverAdjustedforDepthDifference(float river) {
+    	if (river > ACTUAL_RIVER_PROPORTION) return river;// no adjustment for land area.
+    	// otherwise adjust the amount below 
+    	river -= ACTUAL_RIVER_PROPORTION;
+    	river = river * (63F-RTGWorld.RIVER_BOTTOM)/(63F-RTGWorld.LAKE_BOTTOM);
+    	river += ACTUAL_RIVER_PROPORTION;
+    	return river;
+    }
+
+	public final int TREE_DISTRIBUTION_INDEX= 9;
+    public SimplexNoise treeDistributionNoise() {return this.simplexNoiseInstances[this.TREE_DISTRIBUTION_INDEX];}
+    
+    public static float getTreeFrequencyNoiseDivisor() {
+    	return RTGWorld.TREE_FREQUENCY_DIVISOR;
+    }
+    
+    private final int TREE_MATERIALS_NOISE_INDEX = 7;
+    public SimplexNoise treeMaterialsNoise() {return this.simplexNoiseInstances[this.TREE_MATERIALS_NOISE_INDEX];}
+    public static float getTreeMaterialsNoiseDivisor() {return RTGWorld.TREE_MATERIALS_DIVISOR;}
 
     @SubscribeEvent
     public static void onWorldLoad(WorldEvent.Load event) {

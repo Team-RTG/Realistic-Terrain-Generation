@@ -5,6 +5,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 
@@ -37,8 +38,6 @@ public class DecoWorldGen extends DecoBase {
         this.setChance(1); // Always generate.
         this.setMinY(1); // No lower height limit by default.
         this.setMaxY(255); // No upper height limit by default.
-
-        this.addDecoTypes(DecoType.WORLDGEN);
     }
 
     public DecoWorldGen(WorldGenerator worldgen, Decorate.EventType eventtype) {
@@ -47,7 +46,7 @@ public class DecoWorldGen extends DecoBase {
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         for (int i = 0; i <= loops; i++) {
 

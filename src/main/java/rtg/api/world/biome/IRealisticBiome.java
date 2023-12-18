@@ -7,10 +7,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.RTGConfig;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase.BeachType;
 import rtg.api.world.biome.RealisticBiomeBase.RiverType;
@@ -62,6 +64,8 @@ public interface IRealisticBiome {
     float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);
 
     void initDecos();
+    
+    public boolean allowVanillaTrees();
 
     Collection<DecoBase> getDecos();
 
@@ -166,14 +170,23 @@ public interface IRealisticBiome {
     }
 
     default void rDecorate(final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    	ChunkInfo info = new ChunkInfo(chunkPos,rtgWorld);
         this.getDecos().stream()
                 .filter(deco -> deco.preGenerate(river))
-                .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage));
+                .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage, info));
 
         if (overridesHardcoded()) {
             this.baseBiome().decorator.decorate(rtgWorld.world(), rand, baseBiome(), new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
         } else {
-            this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        	if (this.allowVanillaTrees()) {
+                this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        	} else {
+        		// have to shut off tree decorations but not the rest
+        		BiomeDecorator decorator = this.baseBiome().decorator;
+        		decorator.extraTreeChance = 0f;
+        		decorator.treesPerChunk = 0;
+                this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        	}
         }
     }
 

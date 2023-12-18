@@ -9,16 +9,21 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Distribution;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
+import rtg.api.world.deco.DecoVariableSpruce;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.DecoVariableMaterialTree;
+import rtg.api.world.deco.DecoTree.TreeCondition;
+import rtg.api.world.deco.DecoTree.TreeType;
 import rtg.api.world.deco.collection.DecoCollectionSmallPineTreesForest;
 import rtg.api.world.deco.helper.DecoHelper5050;
-import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
+import rtg.api.world.gen.feature.tree.rtg.TreeMaterials;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -83,54 +88,16 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         this.addDeco(decoFlowers2);
 
         // Trees first.
+        
+        // variable trees
 
-        TreeRTG ponderosaOakTree = new TreeRTGPinusPonderosa();
-        ponderosaOakTree.setLogBlock(Blocks.LOG.getDefaultState());
-        ponderosaOakTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
-        ponderosaOakTree.setMinTrunkSize(11);
-        ponderosaOakTree.setMaxTrunkSize(21);
-        ponderosaOakTree.setMinCrownSize(15);
-        ponderosaOakTree.setMaxCrownSize(29);
-        this.addTree(ponderosaOakTree);
-
-        DecoTree oakPines = new DecoTree(ponderosaOakTree);
-        oakPines.setStrengthNoiseFactorForLoops(true);
-        oakPines.setTreeType(DecoTree.TreeType.RTG_TREE);
-        oakPines.getDistribution().setNoiseDivisor(80f);
-        oakPines.getDistribution().setNoiseFactor(60f);
-        oakPines.getDistribution().setNoiseAddend(-15f);
-        oakPines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
-        oakPines.setTreeConditionNoise(0f);
-        oakPines.setTreeConditionChance(1);
-        oakPines.setMaxY(140);
-
-        TreeRTG ponderosaSpruceTree = new TreeRTGPinusPonderosa();
-        ponderosaSpruceTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
-        ponderosaSpruceTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
-        ponderosaSpruceTree.setMinTrunkSize(11);
-        ponderosaSpruceTree.setMaxTrunkSize(21);
-        ponderosaSpruceTree.setMinCrownSize(15);
-        ponderosaSpruceTree.setMaxCrownSize(29);
-        this.addTree(ponderosaSpruceTree);
-
-        DecoTree sprucePines = new DecoTree(ponderosaSpruceTree);
-        sprucePines.setStrengthNoiseFactorForLoops(true);
-        sprucePines.setTreeType(DecoTree.TreeType.RTG_TREE);
-        sprucePines.getDistribution().setNoiseDivisor(80f);
-        sprucePines.getDistribution().setNoiseFactor(60f);
-        sprucePines.getDistribution().setNoiseAddend(-15f);
-        sprucePines.setTreeCondition(DecoTree.TreeCondition.ALWAYS_GENERATE);
-        sprucePines.setTreeConditionNoise(0f);
-        sprucePines.setTreeConditionChance(1);
-        sprucePines.setMaxY(140);
-
-        DecoHelper5050 decoPines = new DecoHelper5050(oakPines, sprucePines);
-        this.addDeco(decoPines);
 
         // More trees.
-        this.addDecoCollection(new DecoCollectionSmallPineTreesForest(this.getConfig()));
+        //this.addDecoCollection(new DecoCollectionSmallPineTreesForest(this.getConfig()));
 
         //decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
+        
+        this.addDeco(variableTrees(0f, 1f));
 
         // Add some fallen trees of the oak and spruce variety (50/50 distribution).
         DecoFallenTree decoFallenOak = new DecoFallenTree();
@@ -161,8 +128,32 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
     @Override
     public boolean overridesHardcoded() {
         return true;
+    }    
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
     }
+    
+    private DecoTree variableTrees(float noiseMin, float noiseMax) {
+        Distribution treeFrequencyDistribution = new Distribution(RTGWorld.getTreeFrequencyNoiseDivisor(), 1.5f, 2.5f); 
+        // about half as many as usual
 
+    	DecoTree result = new DecoVariableMaterialTree(TreeMaterials.inOakForest);
+
+        return result
+            .setStrengthFactorForLoops(.5f)
+            .setTreeType(TreeType.RTG_TREE)
+            .setDistribution(treeFrequencyDistribution)
+            .setTreeCondition(TreeCondition.ALWAYS_GENERATE)
+            .setTreeConditionNoise(noiseMin)
+            .setTreeConditionNoise2(noiseMax)
+            .setTreeConditionChance(1)
+            .setMaxY(120)
+            .setStrengthNoiseFactorForLoops(false)
+            .setStrengthNoiseFactorXForLoops(true)// just in case
+            ;
+    }
     public static class TerrainVanillaFlowerForest extends TerrainBase {
 
         public TerrainVanillaFlowerForest() {
@@ -208,7 +199,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
             boolean m = false;
 

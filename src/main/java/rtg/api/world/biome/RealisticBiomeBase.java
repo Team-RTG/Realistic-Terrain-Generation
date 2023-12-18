@@ -71,19 +71,16 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         this.baseBiomeId = Biome.getIdForBiome(baseBiome);
         this.riverType = riverType;
         this.beachType = beachType;
+        
         this.config = new BiomeConfig(getConfigFile());
+        initConfig(); 
+    	this.config.loadConfig();// Must be done before anything using configs.
+    	
         this.terrain = initTerrain();
         this.surface = initSurface();
         this.surfaceRiver = new SurfaceRiverOasis(config);
-        // TODO [1.12] Ultimately it would be best for this Collection to be hash-based with a Deco's hash determined by its internal data.
-        //             Thus there could be, for example, multiple instances of a flower deco with differing hashes based on different flower
-        //             types, but not multiple identical decos.
         this.decos = new ArrayList<>();
         this.rtgTrees = new ArrayList<>();
-
-        initConfig();
-
-        getConfig().loadConfig();
 
         initDecos();
 
@@ -129,7 +126,12 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         }
         return rbb;
     }
-
+    
+    @Override
+    public boolean allowVanillaTrees() {
+        return true;
+    }
+    
     @Override
     public void overrideDecorations() {
         //baseBiome().decorator.grassPerChunk = -999;
@@ -157,6 +159,9 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     @Override
     public float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+    	return newrNoise( rtgWorld,  x,  y,  border,  river);
+    }
+    public float newrNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
         // we now have both lakes and rivers lowering land
         if (!this.getConfig().ALLOW_RIVERS.get()) {
@@ -170,8 +175,76 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
 
         float lakeStrength = lakePressure(rtgWorld, x, y, border, rtgWorld.getLakeFrequency(),
             rtgWorld.getLakeBendSizeLarge(), rtgWorld.getLakeBendSizeMedium(), rtgWorld.getLakeBendSizeSmall());
-        float lakeFlattening = lakeFlattening(lakeStrength, rtgWorld.getLakeShoreLevel(), rtgWorld.getLakeDepressionLevel());
+        float adjustedLake = lakeToRiverProportions(lakeStrength, rtgWorld.getLakeShoreLevel(), rtgWorld.getLakeDepressionLevel());
+        
+        // make the water areas flat for water features
+        // this happens twice: first to make river bottoms flat, then to make lake bottoms flat
+        //river = river * (1f + RTGWorld.RIVER_FLATTENING_ADDEND) - RTGWorld.RIVER_FLATTENING_ADDEND;
+        if (river < 0) {
+        	river = 0;
+        }
+        	
+        // adjust river intensity to allow different maximum depths for rivers and lakes
+        river = RTGWorld.riverAdjustedforDepthDifference(river);
+             
+             
+        // make lake bottom area larger
+        if (adjustedLake < RTGWorld.ACTUAL_RIVER_PROPORTION) {
+        	adjustedLake -= RTGWorld.ACTUAL_RIVER_PROPORTION;
+        	adjustedLake *=2f;
+        	adjustedLake += RTGWorld.ACTUAL_RIVER_PROPORTION;
+        	if (adjustedLake < 0) adjustedLake = 0;
+        }
+       
+        
+        // combine rivers and lakes
+        if ((river < 1) && (adjustedLake < 1)) {
+        	float leastLowering = Math.min(adjustedLake, river);
+            river = (1f - river) / river + (1f - adjustedLake) / adjustedLake;
+            river = (1f / (river + 1f));
+            // average with minimum to reduce excess flattening
+            river = (river + leastLowering)/2f;
+        }
+        else if (adjustedLake < river) {
+            river = adjustedLake;
+        }
 
+        // smooth the edges on the top
+        river = 1f - river;
+        river = river * (river / (river + 0.05f) * (1.05f));
+        river = 1f - river;
+
+        // make the water areas flat for water features
+        float riverFlattening = river * (1f + RTGWorld.RIVER_FLATTENING_ADDEND) - RTGWorld.RIVER_FLATTENING_ADDEND;
+        if (riverFlattening < 0) {
+            riverFlattening = 0;
+        }
+
+        // flatten terrain to set up for the water features
+        float terrainNoise = terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
+        // place water features
+        return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise);
+    }
+    
+    public float oldrNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+        // we now have both lakes and rivers lowering land
+        if (!this.getConfig().ALLOW_RIVERS.get()) {
+            float borderForRiver = border * 2;
+            if (borderForRiver > 1f) {
+                borderForRiver = 1;
+            }
+            river = 1f - (1f - borderForRiver) * (1f - river);
+            return terrain.generateNoise(rtgWorld, x, y, border, river);
+        }
+
+        float lakeStrength = lakePressure(rtgWorld, x, y, border, rtgWorld.getLakeFrequency(),
+            rtgWorld.getLakeBendSizeLarge(), rtgWorld.getLakeBendSizeMedium(), rtgWorld.getLakeBendSizeSmall());
+        float lakeFlattening = lakeToRiverProportions(lakeStrength, rtgWorld.getLakeShoreLevel(), rtgWorld.getLakeDepressionLevel());
+        
+        // make the water areas flat for water features
+        // this happens twice: first to make river bottoms flat, then to make lake bottoms flat
+        
         // combine rivers and lakes
         if ((river < 1) && (lakeFlattening < 1)) {
             river = (1f - river) / river + (1f - lakeFlattening) / lakeFlattening;
@@ -195,10 +268,39 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         // flatten terrain to set up for the water features
         float terrainNoise = terrain.generateNoise(rtgWorld, x, y, border, riverFlattening);
         // place water features
-        return this.erodedNoise(rtgWorld, x, y, river, border, terrainNoise);
+        return this.oldErodedNoise(rtgWorld, x, y, river, border, terrainNoise);
     }
-
+    
     public float erodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
+        float r;
+        // river of actualRiverProportions now maps to 1;
+        float riverFlattening = 1f - river;
+        riverFlattening = riverFlattening - (1 - RTGWorld.ACTUAL_RIVER_PROPORTION);
+        // return biomeHeight if no river effect
+        if (riverFlattening < 0) {
+            return biomeHeight;
+        }
+        // what was 1 set back to 1;
+        riverFlattening /= RTGWorld.ACTUAL_RIVER_PROPORTION;
+        
+        // Adjust for preferred lake depth
+        
+
+        // back to usual meanings: 1 = no river 0 = river
+        r = 1f - riverFlattening;
+
+        if ((r < 1f && biomeHeight > RTGWorld.LAKE_BOTTOM)) {
+            float irregularity = rtgWorld.simplexInstance(0).noise2f(x / 12f, y / 12f) * 2f + rtgWorld.simplexInstance(0).noise2f(x / 8f, y / 8f);
+            // less on the bottom and more on the sides
+            irregularity = irregularity * (1 + r);
+            return (biomeHeight * (r)) + ((RTGWorld.LAKE_BOTTOM + irregularity) * 1.0f) * (1f - r);
+        }
+        else {
+            return biomeHeight;
+        }
+    }
+    
+    public float oldErodedNoise(RTGWorld rtgWorld, int x, int y, float river, float border, float biomeHeight) {
         float r;
         // river of actualRiverProportions now maps to 1;
         float riverFlattening = 1f - river;
@@ -251,7 +353,7 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
         return (float)(1.0d - lakeResults.interiorValue());
     }
 
-    public float lakeFlattening(float pressure, float shoreLevel, float topLevel) {
+    public float lakeToRiverProportions(float pressure, float shoreLevel, float topLevel) {
         // adjusts the lake pressure to the river numbers. The lake shoreLevel is mapped
         // to become equivalent to actualRiverProportion
         if (pressure > topLevel) {
@@ -315,6 +417,8 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
             .toFile();
     }
 
+    public void initConfig() {} // for any biome-specific tweaking of config defaults
+    
     protected BeachType determineBeachType() {
 
         if (baseBiome().getDefaultTemperature() <= 0.05f || BiomeDictionary.hasType(baseBiome(), BiomeDictionary.Type.SNOWY)) {

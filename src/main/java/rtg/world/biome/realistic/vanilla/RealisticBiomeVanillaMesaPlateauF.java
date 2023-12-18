@@ -11,6 +11,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
+import rtg.api.util.Distribution;
 import rtg.api.util.PlateauUtil;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
@@ -78,7 +79,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeBase {
         DecoTree decoTree = new DecoTree(new WorldGenTrees(false));
         decoTree.setLoops(24);
         decoTree.setTreeType(DecoTree.TreeType.WORLDGEN);
-        decoTree.setDistribution(new DecoTree.Distribution(24f, 1f, 0f));
+        decoTree.setDistribution(new Distribution(24f, 1f, 0f));
         decoTree.setTreeConditionChance(1);
         decoTree.setTreeConditionFloat(4f);
         decoTree.setTreeConditionNoise(0f);
@@ -118,7 +119,7 @@ public class RealisticBiomeVanillaMesaPlateauF extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.3f;
             Block b;
 

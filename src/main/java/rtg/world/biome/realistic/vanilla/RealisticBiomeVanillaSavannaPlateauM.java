@@ -53,6 +53,12 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
 
         return new SurfaceVanillaSavannaPlateauM(getConfig(), biome.topBlock, biome.fillerBlock, 0);
     }
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
 
     @Override
     public void initDecos() {
@@ -84,7 +90,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         acaciaTree.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaTree.setMinTrunkSize(12);
         acaciaTree.setMaxTrunkSize(16);
-        this.addTree(acaciaTree);
+        //this.addTree(acaciaTree);
 
         DecoTree acaciaTrees = new DecoTree(acaciaTree);
         acaciaTrees.setStrengthFactorForLoops(2f);
@@ -92,7 +98,8 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         acaciaTrees.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
         acaciaTrees.setTreeConditionChance(12);
         acaciaTrees.setMaxY(90);
-        this.addDeco(acaciaTrees);
+        //this.addDeco(acaciaTrees);
+        this.addDeco(new DecoVariableAcacia());
 
         DecoCactus decoCactus = new DecoCactus();
         decoCactus.setMaxY(160);
@@ -144,7 +151,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
              * Values come in pairs per layer. First is how high to step up.
              * 	Second is a value between 0 and 1, signifying when to step up.
              */
-            height = new float[]{18f, 0.4f, 12f, 0.6f, 8f, 0.8f};
+            height = new float[]{22f, 0.4f, 16f, 0.6f, 12f, 0.8f};
             strength = 10f;
             heightLength = height.length;
         }
@@ -173,7 +180,7 @@ public class RealisticBiomeVanillaSavannaPlateauM extends RealisticBiomeBase {
         public void paintTerrain(ChunkPrimer primer, int i, int j, int x, int z, int depth, RTGWorld rtgWorld, float[] noise, float river, Biome[] base) {
 
             Random rand = rtgWorld.rand();
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             boolean cliff = c > 1.3f;
             Block b;
 

@@ -55,6 +55,8 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
         int z = pos.getZ();
 
         this.trunkLog = this.getTrunkLog(this.logBlock);
+        
+        SkylightTracker lightTracker = new SkylightTracker(this.furthestLikelyExtension(),pos,world);
 
         int height = 13;
         int leaveheight = 5;
@@ -62,10 +64,10 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
         int branchLenght = 6;
 
         for (int i = 0; i < height; i++) {
-            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeTrunkBlock(world, new BlockPos(x, y + i, z), this.generateFlag, lightTracker);
         }
-        createLeavesAroundBranch(world, rand, x, y + height, z, 3, 2);
-        createTrunk(world, rand, x, y, z);
+        createLeavesAroundBranch(world, rand, x, y + height, z, 3, 2, lightTracker);
+        createTrunk(world, rand, x, y, z, lightTracker);
 
         int dir = rand.nextInt((int) (360f / branches));
         int bl;
@@ -82,22 +84,22 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
             while (c < branchLenght) {
                 if (c > branchLenght / 2 && !m) {
                     m = true;
-                    createLeavesAroundBranch(world, rand, x + (int) (c * xd), y + (int) hd, z + (int) (c * yd), 2, 1);
+                    createLeavesAroundBranch(world, rand, x + (int) (c * xd), y + (int) hd, z + (int) (c * yd), 2, 1, lightTracker);
                 }
                 c++;
                 hd += 0.5f;
 
                 this.placeLogBlock(world,
-                    new BlockPos(x + (int) (c * xd), y + (int) hd, z + (int) (c * yd)), this.trunkLog, this.generateFlag
+                    new BlockPos(x + (int) (c * xd), y + (int) hd, z + (int) (c * yd)), this.trunkLog, this.generateFlag, lightTracker
                 );
             }
-            createLeavesAroundBranch(world, rand, x + (int) (c * xd), y + (int) hd, z + (int) (c * yd), 2, 1);
+            createLeavesAroundBranch(world, rand, x + (int) (c * xd), y + (int) hd, z + (int) (c * yd), 2, 1, lightTracker);
         }
 
         return true;
     }
 
-    private void createLeavesAroundBranch(World world, Random rand, int x, int y, int z, int s, int c) {
+    private void createLeavesAroundBranch(World world, Random rand, int x, int y, int z, int s, int c,SkylightTracker lightTracker) {
 
         int l;
         int t = (int) Math.pow(s, 2);
@@ -109,9 +111,9 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
                         if ((l < t - c || rand.nextBoolean())) {
                             if (!this.noLeaves) {
 
-                                this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
+                                this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag, lightTracker);
                                 if (j < -(s - 2) && rand.nextInt(3) != 0) {
-                                    createVine(world, rand, x + i, y + j, z + k);
+                                    createVine(world, rand, x + i, y + j, z + k, lightTracker);
                                 }
                             }
                         }
@@ -121,15 +123,15 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
         }
     }
 
-    private void createVine(World world, Random rand, int x, int y, int z) {
+    private void createVine(World world, Random rand, int x, int y, int z, SkylightTracker lightTracker) {
 
         int r = rand.nextInt(3) + 5;
         for (int i = -1; i > -r; i--) {
-            this.placeLeavesBlock(world, new BlockPos(x, y + i, z), this.leavesBlock, this.generateFlag);
+            this.placeLeavesBlock(world, new BlockPos(x, y + i, z), this.leavesBlock, this.generateFlag, lightTracker);
         }
     }
 
-    private void createTrunk(World world, Random rand, int x, int y, int z) {
+    private void createTrunk(World world, Random rand, int x, int y, int z, SkylightTracker lightTracker) {
 
         int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
         int sh;
@@ -137,7 +139,7 @@ public class TreeRTGSalixMyrtilloides extends TreeRTG {
         for (int t = 0; t < 5; t++) {
             sh = rand.nextInt(3) + y;
             while (sh > y - 3) {
-                this.placeLogBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag, lightTracker);
                 sh--;
             }
         }

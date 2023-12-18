@@ -90,7 +90,7 @@ public class RealisticBiomePVJOvergrownSpires extends RealisticBiomePVJBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
 
             Block b;

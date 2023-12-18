@@ -45,7 +45,12 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
 
         return new SurfaceVanillaColdTaigaHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f);
     }
-
+    
+    @Override
+    public boolean allowVanillaTrees() {
+    	return false;
+    }
+    
     @Override
     public void initDecos() {
 
@@ -103,7 +108,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
-            float c = TerrainBase.calcCliff(x, z, noise);
+            float c = TerrainBase.calcCliff(x, z, noise, river);
             int cliff = 0;
 
             Block b;

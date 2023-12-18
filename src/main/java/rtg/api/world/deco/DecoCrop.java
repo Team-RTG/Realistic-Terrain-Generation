@@ -4,6 +4,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 import net.minecraftforge.event.terraingen.TerrainGen;
+import rtg.api.util.ChunkInfo;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenCrops;
@@ -44,12 +45,10 @@ public class DecoCrop extends DecoBase {
         this.setMaxY(255); // No upper height limit by default.
         this.setChance(10); //The higher the number the less common it will be
         this.water = true; //whether or not to spawn water with the crops
-
-        this.addDecoTypes(DecoType.WHEAT);
     }
 
     @Override
-    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage, ChunkInfo chunkInot) {
 
         if (this.chance > 1 && rand.nextInt(this.chance) == 0 && TerrainGen.decorate(rtgWorld.world(), rand, chunkPos, Decorate.EventType.CUSTOM)) {
             for (int i = 0; i < this.strengthFactor; ++i) {

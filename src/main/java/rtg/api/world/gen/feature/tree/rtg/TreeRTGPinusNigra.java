@@ -41,7 +41,19 @@ public class TreeRTGPinusNigra extends TreeRTG {
 
         super();
     }
+	public float estimatedSize() {
 
+    	float branchLength= 4f;
+    	return branchLength*branchLength/16f;
+	}
+	
+	@Override
+    public int furthestLikelyExtension() {
+    	float branchLength= 4f;
+    	float extension = 1f;
+    	return (int)(extension + branchLength);
+	}
+	
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
 
@@ -54,16 +66,19 @@ public class TreeRTGPinusNigra extends TreeRTG {
         int z = pos.getZ();
 
         this.trunkLog = this.getTrunkLog(this.logBlock);
+        
+
+        SkylightTracker lightTracker = new SkylightTracker(this.furthestLikelyExtension(),pos,world);
 
         int height = this.trunkSize;
         int leafheight = this.crownSize;
         float branchIncrease = 0.25f;
 
         for (int i = 0; i <= height; i++) {
-            this.placeLogBlock(world, new BlockPos(x, y + i, z), this.logBlock, this.generateFlag);
+            this.placeTrunkBlock(world, new BlockPos(x, y + i, z), this.generateFlag,lightTracker);
         }
-        buildLeaves(world, rand, x, y + height, z, 2);
-        buildTrunk(world, rand, x, y, z);
+        buildLeaves(world, rand, x, y + height, z, 2, lightTracker);
+        buildTrunk(world, rand, x, y, z, lightTracker);
 
         int dir = 0, b;
         float xd, yd, bl = 1f;
@@ -75,17 +90,17 @@ public class TreeRTGPinusNigra extends TreeRTG {
             yd = (float) Math.sin(dir * Math.PI / 180f);
 
             for (b = 0; b <= bl; b++) {
-                this.placeLogBlock(world, new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), this.trunkLog, this.generateFlag);
+                this.placeLogBlock(world, new BlockPos(x + (int) (b * xd), y + j, z + (int) (b * yd)), this.trunkLog, this.generateFlag, lightTracker);
             }
-            buildLeaves(world, rand, x, y + j, z, 2);
-            buildLeaves(world, rand, x + (int) (b * xd), y + j, z + (int) (b * yd), 2);
+            buildLeaves(world, rand, x, y + j, z, 2, lightTracker);
+            buildLeaves(world, rand, x + (int) (b * xd), y + j, z + (int) (b * yd), 2, lightTracker);
         }
 
         return true;
     }
 
     @Override
-    public void buildLeaves(World world, Random rand, int x, int y, int z, int size) {
+    public void buildLeaves(World world, Random rand, int x, int y, int z, int size, SkylightTracker lightTracker) {
 
         if (!this.noLeaves) {
 
@@ -97,7 +112,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
                         l = i * i + j * j + k * k;
                         if (l <= t) {
                             if ((l < t / 2 || rand.nextBoolean())) {
-                                this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag);
+                                this.placeLeavesBlock(world, new BlockPos(x + i, y + j, z + k), this.leavesBlock, this.generateFlag, lightTracker);
                             }
                         }
                     }
@@ -107,7 +122,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
     }
 
     @Override
-    public void buildTrunk(World world, Random rand, int x, int y, int z) {
+    public void buildTrunk(World world, Random rand, int x, int y, int z, SkylightTracker lightTracker) {
 
         int[] pos = new int[]{0, 0, 1, 0, 0, 1, -1, 0, 0, -1};
         int sh;
@@ -118,7 +133,7 @@ public class TreeRTGPinusNigra extends TreeRTG {
                     break;
                 }
 
-                this.placeLogBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.trunkLog, this.generateFlag);
+                this.placeTrunkBlock(world, new BlockPos(x + pos[t * 2], sh, z + pos[t * 2 + 1]), this.generateFlag, lightTracker);
                 sh--;
             }
         }

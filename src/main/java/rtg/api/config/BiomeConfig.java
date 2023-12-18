@@ -272,4 +272,9 @@ public class BiomeConfig extends Config {
         ALLOW_ICE_TREES = new ConfigPropertyBoolean("Allow Ice Trees", "Decorations.Ice Trees", "", true);
         ALLOW_SPONGE = new ConfigPropertyBoolean("Allow Sponge", "Decorations.Sponge", "", true);
     }
+    
+    public void loadConfig() {
+    	super.loadConfig();
+    	
+    }
 }

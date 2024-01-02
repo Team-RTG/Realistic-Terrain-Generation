@@ -47,29 +47,24 @@ public class RealisticBiomeBOPAlpsFoothills extends RealisticBiomeBase {
 
     public static class TerrainBOPAlpsFoothills extends TerrainBase {
 
-        private float baseHeight = 76f;
-        private float hillStrength = 30f;
+    	    // same style as the full alps, but less high.
+            // the BoP version has steep slopes and a flat area on top. The RTG version will mimic that.
+            private float start = 0f;// this puts a minimum on "ruggedness" on the top. We want to allow flats
+            private float height = 30f; // sets the variability range
+            private float width = 80f; // width of irregularity noise on top. We want low, for a lot of features.
 
-        public TerrainBOPAlpsFoothills() {
+            public TerrainBOPAlpsFoothills() {
 
+                base = 90f;
+            }
+
+            @Override
+            public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
+
+                return terrainHighland(x, y, rtgWorld, river, start, width, height, base - 62f);
+                //return terrainMountainRiver(x, y, simplex, cell, river, 300f, 67f);
+            }
         }
-
-        public TerrainBOPAlpsFoothills(float bh, float hs) {
-
-            baseHeight = bh;
-            hillStrength = hs;
-        }
-
-        @Override
-        public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
-
-            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
-
-            float m = hills(x, y, hillStrength, rtgWorld);
-
-            return riverized(baseHeight + groundNoise + m, river);
-        }
-    }
 
     public static class SurfaceBOPAlpsFoothills extends SurfaceBase {
 

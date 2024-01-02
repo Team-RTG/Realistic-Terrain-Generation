@@ -2,6 +2,7 @@ package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
@@ -14,8 +15,15 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
+import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+import rtg.api.world.terrain.heighteffect.HeightEffect;
+import rtg.api.world.terrain.heighteffect.JitterEffect;
+import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPMountainPeaks.TerrainBOPMountainPeaks;
 
 
 public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
@@ -24,7 +32,32 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
     public RealisticBiomeBOPMountainFoothills(final Biome biome) { super(biome); }
 
     @Override
-    public void initDecos() {}
+    public void initDecos() {
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(90);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(2f);
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(100f);
+        decoFallenTree.getDistribution().setNoiseFactor(6f);
+        decoFallenTree.getDistribution().setNoiseAddend(0.8f);
+        decoFallenTree.setLogConditionChance(6);
+        decoFallenTree.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(6);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+
+        DecoShrub decoShrub = new DecoShrub();
+        decoShrub.setMaxY(110);
+        decoShrub.setLoopMultiplier(1f);
+        decoShrub.setChance(10);
+        this.addDeco(decoShrub);
+    }
 
     @Override
     public Biome preferredBeach() {
@@ -40,8 +73,9 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainBOPMountainFoothills();
+        return new TerrainBOPMountainPeaks(120f, 50f);
     }
+
 
     @Override
     public SurfaceBase initSurface() {
@@ -50,28 +84,41 @@ public class RealisticBiomeBOPMountainFoothills extends RealisticBiomeBase {
 
     public static class TerrainBOPMountainFoothills extends TerrainBase {
 
-        private float baseHeight = 76f;
-        private float hillStrength = 30f;
+        private float width;
+        private float strength;
+        private float terrainHeight;
+        private float spikeWidth = 30;
+        private float spikeHeight = 50;
+        private HeightEffect heightEffect;
 
-        public TerrainBOPMountainFoothills() {
+        public TerrainBOPMountainFoothills(float mountainWidth, float mountainStrength) {
 
+            this(mountainWidth, mountainStrength, 75f);
         }
 
-        public TerrainBOPMountainFoothills(float bh, float hs) {
+        public TerrainBOPMountainFoothills(float mountainWidth, float mountainStrength, float height) {
 
-            baseHeight = bh;
-            hillStrength = hs;
+            width = mountainWidth;
+            strength = mountainStrength;
+            terrainHeight = height;
+            MountainsWithPassesEffect mountainEffect = new MountainsWithPassesEffect();
+            mountainEffect.mountainHeight = strength;
+            mountainEffect.mountainWavelength = width;
+            mountainEffect.spikeHeight = this.spikeHeight;
+            mountainEffect.spikeWavelength = this.spikeWidth;
+
+
+            heightEffect = new JitterEffect(7f, 10f, mountainEffect);
+            heightEffect = new JitterEffect(3f, 6f, heightEffect);
+
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            groundNoise = groundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
-
-            float m = hills(x, y, hillStrength, rtgWorld);
-
-            return riverized(baseHeight + groundNoise + m, river);
+            return riverized(heightEffect.added(rtgWorld, x, y) + terrainHeight, river);
         }
+        
     }
 
     public static class SurfaceBOPMountainFoothills extends SurfaceBase {

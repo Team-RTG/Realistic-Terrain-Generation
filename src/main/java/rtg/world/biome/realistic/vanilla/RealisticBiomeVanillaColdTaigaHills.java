@@ -53,8 +53,12 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
     
     @Override
     public void initDecos() {
-
-        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
+    	
+    	DecoCollectionTaiga decos = new DecoCollectionTaiga(this.getConfig(), 8f);
+    	// smaller for cold
+    	decos.changeAvgHeightSqrt(-1f);
+    	decos.changeHeightVariability(-0.5f);
+        this.addDecoCollection(decos);
     }
 
     public static class TerrainVanillaColdTaigaHills extends TerrainBase {

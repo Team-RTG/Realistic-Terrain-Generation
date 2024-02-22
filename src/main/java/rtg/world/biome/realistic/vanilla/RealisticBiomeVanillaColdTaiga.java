@@ -56,6 +56,7 @@ public class RealisticBiomeVanillaColdTaiga extends RealisticBiomeBase {
     public void initDecos() {
 
     	DecoCollectionTaiga decos = new DecoCollectionTaiga(this.getConfig(), 8f);
+    	// smaller for cold
     	decos.changeAvgHeightSqrt(-1f);
     	decos.changeHeightVariability(-0.5f);
         this.addDecoCollection(decos);

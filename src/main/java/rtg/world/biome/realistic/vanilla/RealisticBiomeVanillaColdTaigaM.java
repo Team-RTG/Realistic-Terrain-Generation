@@ -54,6 +54,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeBase {
     @Override
     public void initDecos() {
 
+    	// unlike the other cold taigas, *not* smaller than ordinary Taiga, to be different
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
     }
 

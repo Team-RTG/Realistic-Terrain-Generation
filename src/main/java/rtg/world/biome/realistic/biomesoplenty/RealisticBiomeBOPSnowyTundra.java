@@ -19,7 +19,8 @@ import rtg.api.world.terrain.TerrainBase;
 
 public class RealisticBiomeBOPSnowyTundra extends RealisticBiomeBase {
 
-    public RealisticBiomeBOPSnowyTundra(final Biome biome) { super(biome); }
+=======
+    public RealisticBiomeBOPSnowyTundra(final Biome biome) { super(biome, RiverType.FROZEN, BeachType.COLD); }
 
     @Override
     public void initDecos() {}
@@ -30,6 +31,7 @@ public class RealisticBiomeBOPSnowyTundra extends RealisticBiomeBase {
     }
 
     @Override
+=======
     public void initConfig() {
     }
 

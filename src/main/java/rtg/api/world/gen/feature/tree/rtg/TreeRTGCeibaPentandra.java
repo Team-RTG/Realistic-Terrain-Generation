@@ -46,7 +46,7 @@ public class TreeRTGCeibaPentandra extends TreeRTG {
 
         super();
 
-        this.length = 13f;
+        this.length = 5f;
         this.branch = 3;
         this.verStart = 0.32f;
         this.verRand = 0.1f;

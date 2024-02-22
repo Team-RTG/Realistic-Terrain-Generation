@@ -248,6 +248,7 @@ public final class ModCompat {
         explorercraft,
         floricraft,
         fyrecraft,
+        geographicraft,
         gravityfalls,
         minecraft,
         mistbiomes,

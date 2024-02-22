@@ -79,12 +79,14 @@ import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPPrairie;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPQuagmire;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPRainforest;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPRedwoodForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPRedwoodForestEdge;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSacredSprings;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSeasonalForest;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPShield;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPShrubland;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSnowyConiferousForest;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSnowyForest;
+import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSnowyTundra;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPSteppe;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPTemperateRainforest;
 import rtg.world.biome.realistic.biomesoplenty.RealisticBiomeBOPTropicalIsland;
@@ -808,6 +810,9 @@ public final class BiomeInit {
         if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("redwood_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPRedwoodForest(biome));
         }
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("redwood_forest_edge"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPRedwoodForestEdge(biome));
+        }
         if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("sacred_springs"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSacredSprings(biome));
         }
@@ -825,6 +830,9 @@ public final class BiomeInit {
         }
         if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("snowy_forest"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSnowyForest(biome));
+        }
+        if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("snowy_tundra"))) != null) {
+            RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSnowyTundra(biome));
         }
         if ((biome = getBiome(Mods.biomesoplenty.getResourceLocation("steppe"))) != null) {
             RTGAPI.RTG_BIOMES.addBiomes(new RealisticBiomeBOPSteppe(biome));

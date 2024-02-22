@@ -1,35 +1,33 @@
-package rtg.world.biome.realistic.vanilla;
+package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import biomesoplenty.api.block.BOPBlocks;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
+
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.collection.DecoCollectionTaiga;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.DecoBoulder;
+import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
-public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
+public class RealisticBiomeBOPRedwoodForestEdge extends RealisticBiomeBase {
 
-    public static Biome biome = Biomes.COLD_TAIGA_HILLS;
-    public static Biome river = Biomes.FROZEN_RIVER;
-
-    public RealisticBiomeVanillaColdTaigaHills() {
-
-        super(biome, RiverType.FROZEN, BeachType.COLD);
-    }
+    public RealisticBiomeBOPRedwoodForestEdge(final Biome biome) { super(biome); }
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
@@ -37,73 +35,80 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaColdTaigaHills();
+        return new TerrainBOPRedwoodForest();
     }
 
     @Override
     public SurfaceBase initSurface() {
+        return new SurfaceBOPRedwoodForest(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock, 0.4f);
+    }
 
-        return new SurfaceVanillaColdTaigaHills(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0.2f);
-    }
-    
-    @Override
-    public boolean allowVanillaTrees() {
-    	return false;
-    }
-    
     @Override
     public void initDecos() {
-    	
-    	DecoCollectionTaiga decos = new DecoCollectionTaiga(this.getConfig(), 8f);
-    	// smaller for cold
-    	decos.changeAvgHeightSqrt(-1f);
-    	decos.changeHeightVariability(-0.5f);
-        this.addDecoCollection(decos);
+
+        DecoBoulder decoBoulder = new DecoBoulder();
+        decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
+        decoBoulder.setMaxY(80);
+        decoBoulder.setChance(16);
+        decoBoulder.setStrengthFactor(1f);
+        this.addDeco(decoBoulder);
+
+        DecoFallenTree decoFallenTree = new DecoFallenTree();
+        decoFallenTree.getDistribution().setNoiseDivisor(80f);
+        decoFallenTree.getDistribution().setNoiseFactor(60f);
+        decoFallenTree.getDistribution().setNoiseAddend(-15f);
+        decoFallenTree.setLogCondition(RANDOM_CHANCE);
+        decoFallenTree.setLogConditionChance(12);
+        decoFallenTree.setLogBlock(BOPBlocks.log_2.getStateFromMeta(4));
+        decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
+        decoFallenTree.setMinSize(3);
+        decoFallenTree.setMaxSize(9);
+        this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public static class TerrainVanillaColdTaigaHills extends TerrainBase {
+    public static class TerrainBOPRedwoodForest extends TerrainBase {
 
-        public TerrainVanillaColdTaigaHills() {
+        private float hillStrength = 10f;// this needs to be linked to the
 
-            base = 72f;
+        public TerrainBOPRedwoodForest() {
+
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainHighland(x, y, rtgWorld, river, 10f, 68f, 35f, base - 62f);
+            groundNoise = groundNoise(x, y, groundVariation, rtgWorld);
+
+            float m = hills(x, y, hillStrength, rtgWorld);
+
+            float floNoise = 65f + groundNoise + m;
+
+            return riverized(floNoise, river);
         }
     }
 
-    public static class SurfaceVanillaColdTaigaHills extends SurfaceBase {
+    public static class SurfaceBOPRedwoodForest extends SurfaceBase {
 
         private float min;
 
         private float sCliff = 1.5f;
         private float sHeight = 60f;
         private float sStrength = 65f;
-        private float iCliff = 0.3f;
-        private float iHeight = 100f;
-        private float iStrength = 50f;
         private float cCliff = 1.5f;
 
-        public SurfaceVanillaColdTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
+        public SurfaceBOPRedwoodForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff) {
 
             super(config, top, fill);
             min = minCliff;
         }
 
-        public SurfaceVanillaColdTaigaHills(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff,
-                                            float stoneHeight, float stoneStrength, float snowCliff, float snowHeight, float snowStrength, float clayCliff) {
+        public SurfaceBOPRedwoodForest(BiomeConfig config, IBlockState top, IBlockState fill, float minCliff, float stoneCliff, float stoneHeight, float stoneStrength, float clayCliff) {
 
             this(config, top, fill, minCliff);
 
             sCliff = stoneCliff;
             sHeight = stoneHeight;
             sStrength = stoneStrength;
-            iCliff = snowCliff;
-            iHeight = snowHeight;
-            iStrength = snowStrength;
             cCliff = clayCliff;
         }
 
@@ -133,9 +138,6 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
                         if (c > cCliff) {
                             cliff = 2;
                         }
-                        if (k > 110 + (p * 4) && c < iCliff + ((k - iHeight) / iStrength) + p) {
-                            cliff = 3;
-                        }
 
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
@@ -150,9 +152,6 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
-                        else if (cliff == 3) {
-                            primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
-                        }
                         else if (k < 63) {
                             if (k < 62) {
                                 primer.setBlockState(x, k, z, fillerBlock);
@@ -162,7 +161,7 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
                             }
                         }
                         else {
-                            primer.setBlockState(x, k, z, Blocks.GRASS.getDefaultState());
+                            primer.setBlockState(x, k, z, topBlock);
                         }
                     }
                     else if (depth < 6) {
@@ -172,11 +171,8 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
                         else if (cliff == 2) {
                             primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
-                        else if (cliff == 3) {
-                            primer.setBlockState(x, k, z, Blocks.SNOW.getDefaultState());
-                        }
                         else {
-                            primer.setBlockState(x, k, z, Blocks.DIRT.getDefaultState());
+                            primer.setBlockState(x, k, z, fillerBlock);
                         }
                     }
                 }
@@ -184,3 +180,4 @@ public class RealisticBiomeVanillaColdTaigaHills extends RealisticBiomeBase {
         }
     }
 }
+

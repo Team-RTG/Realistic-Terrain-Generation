@@ -5,6 +5,7 @@ import net.minecraft.world.gen.layer.GenLayerRiverMix;
 
 import rtg.api.util.Logger;
 import rtg.api.world.RTGWorld;
+import rtg.util.ModCompat.Mods;
 
 
 public class BiomeProviderRTG extends BiomeProvider {
@@ -33,6 +34,7 @@ public class BiomeProviderRTG extends BiomeProvider {
          * then leave the layers alone since it will handle rivers, otherwise the layers have been altered by another mod, such as
          * Geographicraft, so we need to remove the river layer.
          */
+    	if (Mods.geographicraft.isLoaded()) return;// Geographicraft has *always* removed vanilla rivers for RTG.
         //if (!(genBiomes instanceof GenLayerRiverRTG)) {
             if (genBiomes instanceof GenLayerRiverMix) {
                 // Overwrite the river layer with the biome layer to kill vanilla rivers.

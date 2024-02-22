@@ -1,79 +1,62 @@
-package rtg.world.biome.realistic.vanilla;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.ChunkPrimer;
-import rtg.api.config.BiomeConfig;
-import rtg.api.world.RTGWorld;
-import rtg.api.world.biome.RealisticBiomeBase;
-import rtg.api.world.deco.collection.DecoCollectionTaiga;
-import rtg.api.world.surface.SurfaceBase;
-import rtg.api.world.terrain.TerrainBase;
+package rtg.world.biome.realistic.biomesoplenty;
 
 import java.util.Random;
 
+import biomesoplenty.api.biome.BOPBiomes;
 
-public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeBase {
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkPrimer;
 
-    public static Biome biome = Biomes.MUTATED_TAIGA_COLD;
-    public static Biome river = Biomes.FROZEN_RIVER;
+import rtg.api.config.BiomeConfig;
+import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.biome.RealisticBiomeBase.BeachType;
+import rtg.api.world.biome.RealisticBiomeBase.RiverType;
+import rtg.api.world.surface.SurfaceBase;
+import rtg.api.world.terrain.TerrainBase;
 
-    public RealisticBiomeVanillaColdTaigaM() {
 
-        super(biome, RiverType.FROZEN, BeachType.COLD);
-    }
+public class RealisticBiomeBOPSnowyTundra extends RealisticBiomeBase {
+
+    public RealisticBiomeBOPSnowyTundra(final Biome biome) { super(biome, RiverType.FROZEN, BeachType.COLD); }
+
+    @Override
+    public void initDecos() {}
 
     @Override
     public void initConfig() {
-        this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().ALLOW_RIVERS.set(false);
-        this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
-        this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
     }
 
     @Override
     public TerrainBase initTerrain() {
 
-        return new TerrainVanillaColdTaigaM();
+        return new TerrainBOPTundra();
     }
 
     @Override
     public SurfaceBase initSurface() {
-
-        return new SurfaceVanillaColdTaigaM(getConfig(), biome.topBlock, biome.fillerBlock);
-    }
-    
-    @Override
-    public boolean allowVanillaTrees() {
-    	return false;
-    }
-    
-    @Override
-    public void initDecos() {
-
-    	// unlike the other cold taigas, *not* smaller than ordinary Taiga, to be different
-        this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
+        return new SurfaceBOPTundra(getConfig(), baseBiome().topBlock, baseBiome().fillerBlock);
     }
 
-    public static class TerrainVanillaColdTaigaM extends TerrainBase {
+    public static class TerrainBOPTundra extends TerrainBase {
 
-        public TerrainVanillaColdTaigaM() {
+        public TerrainBOPTundra() {
 
         }
 
         @Override
         public float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river) {
 
-            return terrainGrasslandMountains(x, y, rtgWorld, river, 4f, 80f, 68f);
+            return terrainPlains(x, y, rtgWorld, river, 160f, 10f, 60f, 100f, 66f);
         }
     }
 
-    public static class SurfaceVanillaColdTaigaM extends SurfaceBase {
+    public static class SurfaceBOPTundra extends SurfaceBase {
 
-        public SurfaceVanillaColdTaigaM(BiomeConfig config, IBlockState top, IBlockState filler) {
+        public SurfaceBOPTundra(BiomeConfig config, IBlockState top, IBlockState filler) {
 
             super(config, top, filler);
         }
@@ -121,3 +104,4 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeBase {
         }
     }
 }
+

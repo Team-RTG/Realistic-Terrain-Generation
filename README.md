@@ -24,6 +24,8 @@ Check out the **[Wiki](https://github.com/Team-RTG/Realistic-Terrain-Generation/
 
 ## Development
 
+The mod is no longer in active development, for 1.12.x releases see [RTG Plus](https://github.com/Zeno410/Realistic-Terrain-Generation-Plus)
+
 Want to contribute? Great! Please read our [contribution guidelines](https://github.com/Team-RTG/Realistic-Terrain-Generation/blob/1.10.2-master/.github/CONTRIBUTING.md) before getting started.
 
 * We currently have 5 mods under our belt, but RTG is the main focus, and the 1.7.10 version specifically is what we are currently need to be concentrating on and then forward-porting features to 1.8.9/1.9 (although we've strayed several times to work on the 1.9 version because it's new and exciting!)

@@ -13,20 +13,25 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
-import rtg.api.world.biome.RealisticBiomeBase.BeachType;
-import rtg.api.world.biome.RealisticBiomeBase.RiverType;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
 
 public class RealisticBiomeBOPSnowyTundra extends RealisticBiomeBase {
 
+=======
     public RealisticBiomeBOPSnowyTundra(final Biome biome) { super(biome, RiverType.FROZEN, BeachType.COLD); }
 
     @Override
     public void initDecos() {}
 
     @Override
+    public Biome preferredBeach() {
+        return BOPBiomes.gravel_beach.orNull();
+    }
+
+    @Override
+=======
     public void initConfig() {
     }
 
